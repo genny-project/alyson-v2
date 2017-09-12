@@ -1,0 +1,11 @@
+@import '../../styles/colors';
+
+
+.home {
+  text-align: center;
+
+  h2 {
+    color: $primary-color;
+    font-size: 3rem;
+  }
+}

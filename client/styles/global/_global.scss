@@ -1,0 +1,58 @@
+@import '../colors';
+@import '../fonts';
+@import '../sizes';
+@import '../screen-sizes';
+@import './text';
+
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: $primary-font, $primary-font-backup, sans-serif;
+  background: $background-color;
+  color: $dark-text-color;
+  height: 100%;
+}
+
+html {
+  display: block;
+  margin: auto;
+}
+
+body {
+  display: block;
+  vertical-align: initial;
+  overflow-x: hidden;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  transition: 300ms ease padding-right, 300ms ease transform;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $secondary-font, $secondary-font-backup, sans-serif;
+}
+
+a {
+  text-decoration: none;
+
+  &:visited,
+  &:active {
+    color: inherit;
+  }
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@-ms-viewport{
+  width: device-width;
+}
