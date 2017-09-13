@@ -1,4 +1,5 @@
 {
+  "backendEnabled": true,
   "genny": {
     "host": "http://localhost",
     "bridge": {

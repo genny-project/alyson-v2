@@ -1,4 +1,5 @@
 import './app.scss';
+import config from 'config/config';
 import React, { Component } from 'react';
 import Routes from './Routes.jsx';
 import { func, object } from 'prop-types';
@@ -13,8 +14,10 @@ class App extends Component {
   };
 
   componentDidMount() {
-    /* Start the app */
-    this.props.appStart();
+    if ( config.backendEnabled ) {
+      /* Start the app */
+      this.props.appStart();
+    }
 
     /* Hide the loading spinner */
     document.getElementById( 'mounting-preview' ).remove();
@@ -29,17 +32,30 @@ class App extends Component {
   }
 
   render() {
-    const { config } = this.props.keycloak;
+    const keycloakConfig = this.props.keycloak.config;
+
+    /* If the backend isn't enabled just render the app */
+    if ( !config.backendEnabled ) {
+      return (
+        <div className='app'>
+          <main>
+            <content>
+              <Routes />
+            </content>
+          </main>
+        </div>
+      );
+    }
 
     /* Render nothing if we haven't yet received the keycloak config */
-    if ( !config ) {
+    if ( !keycloakConfig ) {
       return (
         <div className='app' />
       );
     }
 
     return (
-      <Keycloak config={config} adapter={keycloakAdapter} defaultRedirectUri={'http://localhost:4000/'} onAuthSuccess={this.handleAuthSuccess}>
+      <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={'http://localhost:4000/'} onAuthSuccess={this.handleAuthSuccess}>
         <div className='app'>
           <main>
             <content>
