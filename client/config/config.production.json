@@ -1,3 +1,13 @@
 {
-  "gennyHost": "127.0.0.1"
+  "genny": {
+    "host": "http://127.0.0.1",
+    "bridge": {
+      "port": "8081",
+      "endpoints": {
+        "vertex": "frontend",
+        "service": "api/service",
+        "events": "api/events"
+      }
+    }
+  }
 }

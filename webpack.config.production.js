@@ -77,6 +77,7 @@ module.exports = {
       styles: path.resolve( __dirname, './client/styles' ),
       utils: path.resolve( __dirname, './client/utils' ),
       constants: path.resolve( __dirname, './client/constants' ),
+      reducers: path.resolve( __dirname, './client/reducers' )
     },
     extensions: ['.js', '.jsx'],
   }
