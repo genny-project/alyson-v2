@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "Matt Hayward",
-  "license": "Apache2.0",
+  "license": "Apache-2.0",
   "devDependencies": {
     "autoprefixer": "^6.7.2",
     "babel": "^6.5.2",
@@ -51,6 +51,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "@genny-project/keycloak-react": "^1.0.1",
     "node-sass": "^4.5.3",
     "path": "^0.12.7",
     "query-string": "^4.3.4",

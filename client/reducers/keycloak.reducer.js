@@ -1,10 +1,12 @@
 import {
   AUTH_LOGGED_IN,
-  AUTH_LOGGED_OUT
+  AUTH_LOGGED_OUT,
+  RECEIVE_KEYCLOAK_CONFIG
 } from 'constants';
 
 const initialState = {
     authenticated: false,
+    config: null,
 };
 
 export default function reducer( state = initialState, action ) {
@@ -19,6 +21,12 @@ export default function reducer( state = initialState, action ) {
       return {
         ...state,
         authenticated: false
+      };
+
+    case RECEIVE_KEYCLOAK_CONFIG:
+      return {
+        ...state,
+        config: action.payload,
       };
 
     default:
