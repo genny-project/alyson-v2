@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@genny-project/keycloak-react": "^1.0.1",
+    "keycloak-js": "^3.3.0-cr.2",
     "node-sass": "^4.5.3",
     "path": "^0.12.7",
     "query-string": "^4.3.4",
