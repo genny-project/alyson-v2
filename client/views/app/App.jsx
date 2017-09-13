@@ -8,6 +8,7 @@ import keycloakAdapter from 'keycloak-js';
 class App extends Component {
   static propTypes = {
     appStart: func,
+    authLoggedIn: func,
     keycloak: object,
   };
 
@@ -17,6 +18,14 @@ class App extends Component {
 
     /* Hide the loading spinner */
     document.getElementById( 'mounting-preview' ).remove();
+  }
+
+  handleAuthSuccess = keycloak => {
+    /* Send off the auth logged in action */
+    this.props.authLoggedIn({
+      token: keycloak.getToken(),
+      info: keycloak.getInfo(),
+    });
   }
 
   render() {
@@ -30,7 +39,7 @@ class App extends Component {
     }
 
     return (
-      <Keycloak config={config} adapter={keycloakAdapter} defaultRedirectUri={'http://localhost:4000/'}>
+      <Keycloak config={config} adapter={keycloakAdapter} defaultRedirectUri={'http://localhost:4000/'} onAuthSuccess={this.handleAuthSuccess}>
         <div className='app'>
           <main>
             <content>

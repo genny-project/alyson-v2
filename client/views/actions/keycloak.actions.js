@@ -1,4 +1,4 @@
-import { RECEIVE_KEYCLOAK_CONFIG, ERROR_RECEIVE_KEYCLOAK_CONFIG } from 'constants';
+import { RECEIVE_KEYCLOAK_CONFIG, ERROR_RECEIVE_KEYCLOAK_CONFIG, AUTH_LOGGED_IN } from 'constants';
 
 export const receiveKeycloakConfig = ({ response }) => ({
   type: RECEIVE_KEYCLOAK_CONFIG,
@@ -8,4 +8,9 @@ export const receiveKeycloakConfig = ({ response }) => ({
 export const errorReceiveKeycloakConfig = error => ({
   type: ERROR_RECEIVE_KEYCLOAK_CONFIG,
   payload: error,
+});
+
+export const authLoggedIn = token => ({
+  type: AUTH_LOGGED_IN,
+  payload: token,
 });

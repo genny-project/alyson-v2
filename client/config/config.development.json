@@ -1,6 +1,6 @@
 {
   "genny": {
-    "host": "http://10.1.1.213",
+    "host": "http://localhost",
     "bridge": {
       "port": "8081",
       "endpoints": {

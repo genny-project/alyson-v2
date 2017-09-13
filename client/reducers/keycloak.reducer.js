@@ -7,6 +7,7 @@ import {
 const initialState = {
     authenticated: false,
     config: null,
+    token: null,
 };
 
 export default function reducer( state = initialState, action ) {
@@ -14,13 +15,15 @@ export default function reducer( state = initialState, action ) {
     case AUTH_LOGGED_IN:
       return {
         ...state,
-        authenticated: true
+        authenticated: true,
+        token: action.payload.token,
       };
 
     case AUTH_LOGGED_OUT:
       return {
         ...state,
-        authenticated: false
+        authenticated: false,
+        token: null,
       };
 
     case RECEIVE_KEYCLOAK_CONFIG:
