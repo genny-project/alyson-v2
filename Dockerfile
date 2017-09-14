@@ -1,10 +1,14 @@
-FROM nginx:alpine
-RUN /bin/sh -c "apk add --no-cache bash"
-
-COPY ./dist  /usr/share/nginx/html
-#COPY ./genny.properties.js /usr/share/nginx/html/
+FROM nginx:1.11.3
+RUN apt-get -y update
+RUN apt-get -y install curl
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
+RUN apt-get install -y nodejs
+RUN apt-get install -y git
+RUN update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
+ADD ./package.json ./package.json
+RUN npm install
+ADD ./ ./
+RUN npm run build-prod
+COPY ./build  /usr/share/nginx/html
 COPY ./docker-entrypoint.sh  /var/cache/nginx/
-#CMD ["nginx", "-g", "daemon off;"]
 ENTRYPOINT [ "/var/cache/nginx/docker-entrypoint.sh" ]
-
-#CMD ["-g", "0.0.0.0"]
