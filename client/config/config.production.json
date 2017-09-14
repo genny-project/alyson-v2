@@ -1,7 +1,7 @@
 {
   "backendEnabled": true,
   "genny": {
-    "host": "http://localhost",
+    "host": "http://{{REACT_BRIDGE_HOST}}",
     "bridge": {
       "port": "8081",
       "endpoints": {
