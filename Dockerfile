@@ -9,6 +9,6 @@ ADD ./package.json ./package.json
 RUN npm install
 ADD ./ ./
 RUN npm run build-prod
-COPY ./build  /usr/share/nginx/html
+RUN cp -R ./build/*  /usr/share/nginx/html
 COPY ./docker-entrypoint.sh  /var/cache/nginx/
 ENTRYPOINT [ "/var/cache/nginx/docker-entrypoint.sh" ]
