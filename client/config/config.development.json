@@ -1,7 +1,7 @@
 {
   "backendEnabled": true,
   "genny": {
-    "host": "http://localhost",
+    "host": "http://localhost:8081",
     "bridge": {
       "port": "8081",
       "endpoints": {

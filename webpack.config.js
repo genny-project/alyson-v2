@@ -13,7 +13,7 @@ module.exports = {
   devServer: {
     contentBase: path.resolve( __dirname, './build' ),
     inline: true,
-    port: 4000,
+    port: 3000,
     historyApiFallback: true,
   },
   devtool: 'eval',
