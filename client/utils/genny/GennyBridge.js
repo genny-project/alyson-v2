@@ -9,7 +9,7 @@ class GennyBridge {
       ...settings,
       responseType: 'json',
       timeout: 30000,
-      url: `${config.genny.host}:${config.genny.bridge.port}/${settings.url}`,
+      url: `${config.genny.host}/${settings.url}`,
       headers: {
         'Content-Type': 'application/json',
       },
