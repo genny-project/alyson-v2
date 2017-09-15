@@ -55,7 +55,7 @@ class App extends Component {
     }
 
     return (
-      <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} test onAuthSuccess={this.handleAuthSuccess}>
+      <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>
         <div className='app'>
           <main>
             <content>
