@@ -1,0 +1,48 @@
+@import '../../../styles/colors';
+
+
+.button {
+ 	width: 100%;
+
+ 	> button {
+	    width: inherit;
+	    height: 50px;
+	    border: none;
+	    border-radius: 3px;
+	    color: white;
+	    background: $success;
+	    font-size: 1em;
+	    cursor: pointer;
+	    outline: none;
+
+	    display: flex;
+	 	justify-content: center;
+	 	align-items: center;
+
+	 	> i {
+	 		padding-right: 5px;
+	 	}
+ 	}
+
+ 	&.confirm > button{
+ 		 background: $success;
+    }
+
+
+    &.cancel > button{
+    	background: $error;
+    }
+
+    &.small > button{
+	    height: 30px;
+	    font-size: 0.75em;
+
+	    > i {
+		    font-size: 1.5em;
+	    }
+    }
+
+ 	&:not(:last-child){
+		//margin-bottom: 20px;
+	}
+}
