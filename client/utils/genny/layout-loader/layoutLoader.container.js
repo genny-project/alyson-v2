@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import LayoutLoader from './App.jsx';
+import LayoutLoader from './LayoutLoader.jsx';
 
 const mapStateToProps = state => ({
   layouts: state.layouts,

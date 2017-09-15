@@ -1,1 +1,1 @@
-export { default as LayoutLoader } from './LayoutLoader';
+export { default as LayoutLoader } from './layoutLoader.container';

@@ -4,6 +4,7 @@ import {
 
 const initialState = {
     current: null,
+    loaded: {},
 };
 
 export default function reducer( state = initialState, action ) {
