@@ -21,3 +21,6 @@ export const DATA_MSG = 'DATA_MSG';
 
 /* Layouts */
 export const LAYOUT_CHANGE = 'LAYOUT_CHANGE';
+
+/* Base entities */
+export const BASE_ENTITY = 'BASE_ENTITY';
