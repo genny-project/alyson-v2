@@ -15,7 +15,11 @@ class LayoutLoader extends Component {
     const { current, loaded } = layouts;
 
     /* If the current layout is null or this layout hasn't been loaded display a LayoutNotFound page */
-    if ( !current || loaded[current] == null ) {
+    if ( !current ) {
+      return null;
+    }
+
+    if ( loaded[current] == null ) {
       return <LayoutNotFound layout={current} />;
     }
 
