@@ -1,4 +1,4 @@
-export const authInit = token => ({
+export const AUTH_INIT = token => ({
   evt_type: 'AUTH_INIT',
   msg_type: 'EVT_MSG',
   token,
@@ -6,3 +6,7 @@ export const authInit = token => ({
     code: 'AUTH_INIT',
   },
 });
+
+export default {
+  AUTH_INIT,
+};

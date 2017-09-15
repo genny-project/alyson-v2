@@ -18,12 +18,12 @@ class App extends Component {
       /* Start the app */
       this.props.appStart();
     }
-
-    /* Hide the loading spinner */
-    document.getElementById( 'mounting-preview' ).remove();
   }
 
   handleAuthSuccess = keycloak => {
+    /* Hide the loading spinner */
+    document.getElementById( 'mounting-preview' ).remove();
+
     /* Send off the auth logged in action */
     this.props.authLoggedIn({
       token: keycloak.getToken(),
