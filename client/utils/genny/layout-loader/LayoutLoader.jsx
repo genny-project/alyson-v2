@@ -7,10 +7,11 @@ import { JSONLoader } from '@genny-project/layson';
 class LayoutLoader extends Component {
   static propTypes = {
     layouts: object,
+    baseEntity: object,
   };
 
   render() {
-    const { layouts } = this.props;
+    const { layouts, baseEntity } = this.props;
 
     /* Get the current layout */
     const { current, loaded } = layouts;
@@ -24,7 +25,7 @@ class LayoutLoader extends Component {
       return <LayoutNotFound layout={current} />;
     }
 
-    return <JSONLoader layout={loaded[current]} componentCollection={components} />;
+    return <JSONLoader layout={loaded[current]} componentCollection={components} context={baseEntity.data} />;
   }
 }
 
