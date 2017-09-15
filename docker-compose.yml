@@ -1,0 +1,6 @@
+alyson:
+  image: gennyproject/alyson2
+  ports:
+    - "3000:80"
+  environment:
+    - REACT_BRIDGE_HOST=http://localhost:8081

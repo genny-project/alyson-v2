@@ -13,3 +13,14 @@ export const INIT_VERTX = 'INIT_VERTX';
 
 /* Bridge */
 export const BRIDGE_SENT_AUTH_INIT = 'BRIDGE_SENT_AUTH_INIT';
+
+/* Message types */
+export const CMD_MSG = 'CMD_MSG';
+export const EVT_MSG = 'EVT_MSG';
+export const DATA_MSG = 'DATA_MSG';
+
+/* Layouts */
+export const LAYOUT_CHANGE = 'LAYOUT_CHANGE';
+
+/* Base entities */
+export const BASE_ENTITY = 'BASE_ENTITY';

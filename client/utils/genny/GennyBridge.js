@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import config from 'config/config';
-import { Vertx } from './';
-import { authInit } from './vertx-events/auth.events';
+import { Vertx, MessageHandler } from './vertx';
+import events from './vertx-events';
 
 class GennyBridge {
   ajaxCall( settings ) {
@@ -9,7 +9,7 @@ class GennyBridge {
       ...settings,
       responseType: 'json',
       timeout: 30000,
-      url: `${config.genny.host}:${config.genny.bridge.port}/${settings.url}`,
+      url: `${config.genny.host}/${settings.url}`,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -23,11 +23,18 @@ class GennyBridge {
   }
 
   initVertx( url ) {
+    /* Create a new message handler */
+    this.messageHandler = new MessageHandler();
+
+    /* Set vertx to use the message handler */
+    Vertx.setIncomingHandler( this.messageHandler.onMessage );
+
+    /* Init vertx */
     Vertx.init( url );
   }
 
   sendAuthInit( token ) {
-    Vertx.sendMessage( authInit( token ));
+    Vertx.sendMessage( events.outgoing.AUTH_INIT( token ));
   }
 }
 

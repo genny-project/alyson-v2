@@ -1,0 +1,91 @@
+{
+  "layout": [
+    {
+      "Grid": {
+        "cols": 1,
+        "rows": 2,
+        "children": [
+          {
+            "div": {
+              "position": [0,0],
+              "style": {
+                "background": "#222",
+                "color": "#FFF",
+                "padding": "20px",
+                "fontFamily": "Helvetica",
+                "fontWeight": "400"
+              },
+              "children": [
+                {
+                  "h1": {
+                    "children": "Hi {{5.name}}",
+                    "style": { "margin": 0 }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Grid": {
+              "position": [1,0],
+              "cols": 6,
+              "rows": 1,
+              "children": [
+                {
+                  "div": {
+                    "style": { "minHeight": "100vh", "background": "#FFF", "borderRight": "2px solid red" },
+                    "position": [0, 0]
+                  }
+                },
+                {
+                  "div": {
+                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid #DBDBDB" },
+                    "position": [0, 1],
+                    "children": [
+                      {
+                        "Repeater": {
+                          "count": 3,
+                          "children": [
+                            {
+                              "img": {
+                                "src": "https://outcome.life/wp-content/uploads/2017/09/WeCanDoIT_Poster_V4_Harsh-213x300.jpg"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "div": {
+                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid red" },
+                    "position": [0, 2]
+                  }
+                },
+                {
+                  "div": {
+                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid #DBDBDB" },
+                    "position": [0, 3]
+                  }
+                },
+                {
+                  "div": {
+                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid red" },
+                    "position": [0, 4]
+                  }
+                },
+                {
+                  "div": {
+                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid #DBDBDB" },
+                    "position": [0, 5]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

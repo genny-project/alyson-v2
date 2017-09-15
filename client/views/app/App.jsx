@@ -18,12 +18,12 @@ class App extends Component {
       /* Start the app */
       this.props.appStart();
     }
-
-    /* Hide the loading spinner */
-    document.getElementById( 'mounting-preview' ).remove();
   }
 
   handleAuthSuccess = keycloak => {
+    /* Hide the loading spinner */
+    document.getElementById( 'mounting-preview' ).remove();
+
     /* Send off the auth logged in action */
     this.props.authLoggedIn({
       token: keycloak.getToken(),
@@ -55,7 +55,7 @@ class App extends Component {
     }
 
     return (
-      <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={'http://localhost:4000/'} onAuthSuccess={this.handleAuthSuccess}>
+      <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>
         <div className='app'>
           <main>
             <content>
