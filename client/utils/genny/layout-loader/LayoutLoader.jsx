@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { object } from 'prop-types';
 import LayoutNotFound from './layout-not-found';
-import { JSONLoader, Grid, ComponentCollection } from '@genny-project/layson';
+import components from './components';
+import { JSONLoader } from '@genny-project/layson';
 
 class LayoutLoader extends Component {
   static propTypes = {
@@ -23,9 +24,7 @@ class LayoutLoader extends Component {
       return <LayoutNotFound layout={current} />;
     }
 
-    return (
-      <div>Layout {current} loaded</div>
-    );
+    return <JSONLoader layout={loaded[current]} componentCollection={components} />;
   }
 }
 

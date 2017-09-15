@@ -1,10 +1,11 @@
-import {
-  LAYOUT_CHANGE
-} from 'constants';
+import layoutsIncluded from '../layouts-included';
+import { LAYOUT_CHANGE } from 'constants';
 
 const initialState = {
     current: null,
-    loaded: {},
+    loaded: {
+      ...layoutsIncluded,
+    },
 };
 
 export default function reducer( state = initialState, action ) {
