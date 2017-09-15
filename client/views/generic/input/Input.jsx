@@ -1,7 +1,8 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string } from 'prop-types';
-import { InputText, InputRadio } from '../';
+import { InputText, InputMasked } from '../';
+
 
 class Input extends Component {
   static defaultProps = {
@@ -19,8 +20,8 @@ class Input extends Component {
     console.log(type);
 
     switch(type) {
-        case "radio":
-            return ( <InputRadio {...this.props}/> );
+        case "masked":
+            return ( <InputMasked {...this.props}/> )
         case "text":
             return ( <InputText {...this.props}/> );
         default:

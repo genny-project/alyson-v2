@@ -1,7 +1,7 @@
 @import '../../../styles/colors';
 
 
-.input-text {
+.input-masked {
 
 	> input {
 		height: 50px;
@@ -32,10 +32,6 @@
 	        background-color: white;
 	        color: black;
 	    }
-
-	    &[pattern]:invalid{
-			color:red;
-		}
 	}
 
 
