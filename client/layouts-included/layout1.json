@@ -26,50 +26,22 @@
             }
           },
           {
-            "Grid": {
+            "div": {
               "position": [1,0],
-              "cols": 6,
-              "rows": 1,
               "children": [
                 {
-                  "div": {
-                    "style": { "minHeight": "100vh", "background": "#FFF", "borderRight": "2px solid red" },
-                    "position": [0, 0]
-                  }
-                },
-                {
-                  "div": {
-                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid #DBDBDB" },
-                    "position": [0, 1],
-                    "children": [
-                      {
-                        "BucketView": {}
-                      }
-                    ]
-                  }
-                },
-                {
-                  "div": {
-                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid red" },
-                    "position": [0, 2]
-                  }
-                },
-                {
-                  "div": {
-                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid #DBDBDB" },
-                    "position": [0, 3]
-                  }
-                },
-                {
-                  "div": {
-                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid red" },
-                    "position": [0, 4]
-                  }
-                },
-                {
-                  "div": {
-                    "style": { "height": "100vh", "background": "#FFF", "borderRight": "2px solid #DBDBDB" },
-                    "position": [0, 5]
+                  "BucketView": {
+                    "buckets": [
+                      { "title": "APPLIED" },
+                      { "title": "SHORTLISTED" },
+                      { "title": "INTERVIEWED" },
+                      { "title": "OFFERED" },
+                      { "title": "PLACED" },
+                      { "title": "ACTIVE" }
+                    ],
+                    "style": {
+                      "height": "100vh"
+                    }
                   }
                 }
               ]
