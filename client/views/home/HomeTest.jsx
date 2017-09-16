@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 // import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
 // import emailMask from 'text-mask-addons/dist/emailMask'
 // import createNumberMask from 'text-mask-addons/dist/createNumberMask'
-import { Card } from 'views/generic';
+import { Card } from 'views/components/generic';
 
 class Home extends Component {
   render() {
@@ -13,19 +13,19 @@ class Home extends Component {
         prefix: '$',
         suffix: '.00' // This will put the dollar sign at the end, with a space.
       }) */
-    const text1 = "Byron Beep";
-    const text2 = "Toll";
-    const level = "warning";
+    const text1 = 'Byron Beep';
+    const text2 = 'Toll';
+    const level = 'warning';
     const data = [
-      { "name": "Number", "icon": "smartphone", "value": "0400-000-000" },
-      { "name": "Address", "icon": "place", "value": "121 Cardigan St, Carlton 3053 VIC" },
-      { "name": "Date", "icon": "event_note", "value": "14-09-2017" },
-      { "name": "Email", "icon": "email", "value": "byron@gmail.com" },
+      { 'name': 'Number', 'icon': 'smartphone', 'value': '0400-000-000' },
+      { 'name': 'Address', 'icon': 'place', 'value': '121 Cardigan St, Carlton 3053 VIC' },
+      { 'name': 'Date', 'icon': 'event_note', 'value': '14-09-2017' },
+      { 'name': 'Email', 'icon': 'email', 'value': 'byron@gmail.com' },
     ];
     const buttons = [
-      { "name": "Save", "icon": "check_circle", "value": "SAVE ITEM", "class": "confirm small" },
-      { "name": "Delete", "icon": "cancel", "value": "DELETE ITEM", "class": "cancel small" },
-    ]
+      { 'name': 'Save', 'icon': 'check_circle', 'value': 'SAVE ITEM', 'class': 'confirm small' },
+      { 'name': 'Delete', 'icon': 'cancel', 'value': 'DELETE ITEM', 'class': 'cancel small' },
+    ];
 
     return (
       <div className="home">
