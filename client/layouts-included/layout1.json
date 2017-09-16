@@ -43,16 +43,7 @@
                     "position": [0, 1],
                     "children": [
                       {
-                        "Repeater": {
-                          "count": 3,
-                          "children": [
-                            {
-                              "img": {
-                                "src": "https://outcome.life/wp-content/uploads/2017/09/WeCanDoIT_Poster_V4_Harsh-213x300.jpg"
-                              }
-                            }
-                          ]
-                        }
+                        "BucketView": {}
                       }
                     ]
                   }
