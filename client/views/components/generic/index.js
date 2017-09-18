@@ -6,4 +6,5 @@ export { default as InputText } from './input-text';
 export { default as InputMasked } from './input-masked';
 export { default as Sidebar } from './sidebar/';
 export { default as Card } from './card';
+export { default as ImageView } from './imageview';
 export { default as Button } from './button';

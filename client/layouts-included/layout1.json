@@ -12,10 +12,12 @@
                 "backgroundColor": "rgb(78, 185, 170)",
                 "boxShadow": "5px 0px 5px 0px rgba(0,0,0,0.25)",
                 "zIndex": "1000",
-                "position": "relative"
+                "position": "relative",
+                "color": "white",
+                "text-align": "center"
               },
               "hasImage": true,
-              "imageCaption": "How is it going?",
+              "caption": "{{5.name}}",
               "src": "http://www.cutestpaw.com/wp-content/uploads/2016/02/Yawn..jpeg"
             }
           },
@@ -31,9 +33,8 @@
               },
               "children": [
                 {
-                  "h1": {
-                    "children": "Hi {{5.name}}",
-                    "style": { "margin": 0 }
+                  "h3": {
+                    "children": "INTERMATCH"
                   }
                 }
               ]

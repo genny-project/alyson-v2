@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageView } from './ImageView';
+import ImageView from '../imageview/ImageView';
 
 class Sidebar extends Component {
 
@@ -17,9 +17,11 @@ class Sidebar extends Component {
             "height": "100vh"
         };
 
-        var imageView = null;
+        var imageView;
         if(this.props.hasImage) {
-            imageView = <ImageView src={this.props.src} />
+            imageView = <ImageView
+                src={this.props.src}
+                caption={this.props.caption}/>
         }
 
         return (
@@ -27,7 +29,7 @@ class Sidebar extends Component {
                 className="sidebar"
                 style={style}>
 
-                {/* {imageView} */}
+                { imageView }
 
             </div>
         );

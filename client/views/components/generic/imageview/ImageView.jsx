@@ -1,10 +1,12 @@
+import './ImageView.scss';
 import React, { Component } from 'react';
 
 class ImageView extends Component {
 
     render() {
 
-        var caption = null;
+        console.log(this.props);
+        var caption;
         if(this.props.caption) {
             caption = <p> {this.props.caption} </p>;
         }
