@@ -25,3 +25,6 @@ export const LAYOUT_CHANGE = 'LAYOUT_CHANGE';
 
 /* Base entities */
 export const BASE_ENTITY = 'BASE_ENTITY';
+
+/* Redirect */
+export const REDIRECT = 'REDIRECT';
