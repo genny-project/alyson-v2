@@ -11,9 +11,16 @@ const initialState = {
 export default function reducer( state = initialState, action ) {
   switch ( action.type ) {
     case LAYOUT_CHANGE:
+      const loaded = state.loaded;
+
+      if ( action.payload.data ) {
+        loaded[action.payload.code] = action.payload.data;
+      }
+
       return {
         ...state,
-        current: action.payload,
+        current: action.payload.code,
+        loaded
       };
 
     default:
