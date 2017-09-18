@@ -1,13 +1,15 @@
 import {
   AUTH_LOGGED_IN,
   AUTH_LOGGED_OUT,
-  RECEIVE_KEYCLOAK_CONFIG
+  RECEIVE_KEYCLOAK_CONFIG,
+  LOGOUT,
 } from 'constants';
 
 const initialState = {
     authenticated: false,
     config: null,
     token: null,
+    logout: false,
 };
 
 export default function reducer( state = initialState, action ) {
@@ -30,6 +32,12 @@ export default function reducer( state = initialState, action ) {
       return {
         ...state,
         config: action.payload,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        logout: true
       };
 
     default:

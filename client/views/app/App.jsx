@@ -3,7 +3,7 @@ import config from 'config/config';
 import React, { Component } from 'react';
 import Routes from './Routes.jsx';
 import { func, object } from 'prop-types';
-import { Keycloak, KeycloakLogin } from '@genny-project/keycloak-react';
+import { Keycloak, KeycloakLogin, KeycloakLogout } from '@genny-project/keycloak-react';
 import keycloakAdapter from 'keycloak-js';
 
 class App extends Component {
@@ -32,7 +32,8 @@ class App extends Component {
   }
 
   render() {
-    const keycloakConfig = this.props.keycloak.config;
+    const keycloak = this.props.keycloak;
+    const keycloakConfig = keycloak.config;
 
     /* If the backend isn't enabled just render the app */
     if ( !config.backendEnabled ) {
@@ -57,6 +58,7 @@ class App extends Component {
     return (
       <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>
         <div className='app'>
+          {keycloak.logout && <KeycloakLogout />}
           <main>
             <content>
               <Routes />
