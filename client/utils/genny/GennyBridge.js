@@ -31,6 +31,11 @@ class GennyBridge {
 
     /* Init vertx */
     Vertx.init( url );
+
+    /* Allow incoming messages to be sent from the browser console */
+    window.sendIncomingVertxMessage = ( message ) => {
+      this.messageHandler.onMessage( message );
+    };
   }
 
   sendAuthInit( token ) {
