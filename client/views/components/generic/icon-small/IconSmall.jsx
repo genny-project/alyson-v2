@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { string, number } from 'prop-types';
+
 
 
 class IconSmall extends Component {
@@ -11,6 +13,12 @@ class IconSmall extends Component {
     fontSize: 18,
     name: 'android'
   }
+
+  static propTypes = {
+    name: string,
+    fontSize: number
+  }
+
 
   render(){
     return(
