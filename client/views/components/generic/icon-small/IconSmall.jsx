@@ -20,5 +20,4 @@ class IconSmall extends Component {
   }
 }
 
-
-export defualt IconSmall;
+export default IconSmall;
