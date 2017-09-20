@@ -38,7 +38,7 @@ class Card extends Component {
   }
 
   SlideContent() {
-    const { className, data, buttons} = this.props;
+    const { data, buttons} = this.props;
     return (
 
       <div className="card-collapse">
@@ -47,8 +47,8 @@ class Card extends Component {
             return <div className={`card-data ${d.name}`} key={d.name}>
               <i className="icon material-icons">{d.icon}</i>
               <span>{d.value}</span>
-            </div>
-          })  
+            </div>;
+          })
         }
         <div className="card-buttons">
           {
@@ -56,12 +56,12 @@ class Card extends Component {
               return <Button className={b.class} key={b.name}>
                 <i className="icon material-icons">{b.icon}</i>
                 <span>{b.value}</span>
-              </Button>
-            })  
+              </Button>;
+            })
           }
         </div>
       </div>
-    )
+    );
   }
 
 
