@@ -43,7 +43,34 @@
                     "children": [
                       {
                         "h3": {
-                          "children": "CHANNEL40 - DASHBOARD"
+                          "children": "CHANNEL40 - DASHBOARD",
+                          "style": {
+                            "margin-bottom": "10px"
+                          }
+                        }
+                      },
+                      {
+                        "div": {
+                          "style": {
+                            "display": "flex",
+                            "align-items": "center"
+                          },
+                          "children": [
+                            {
+                              "i": {
+                                "className": "material-icons",
+                                "children": "local_shipping",
+                                "style": {
+                                  "margin-right": "10px"
+                                }
+                              }
+                            },
+                            {
+                              "small": {
+                                "children": "42 LOADS"
+                              }
+                            }
+                          ]
                         }
                       }
                     ]
@@ -59,12 +86,12 @@
                       {
                         "BucketView": {
                           "buckets": [
-                            { "title": "APPLIED" },
-                            { "title": "SHORTLISTED" },
-                            { "title": "INTERVIEWED" },
-                            { "title": "OFFERED" },
-                            { "title": "PLACED" },
-                            { "title": "ACTIVE" }
+                            { "title": "PENDING" },
+                            { "title": "ACCEPTED" },
+                            { "title": "DISPATCHED" },
+                            { "title": "IN TRANSIT" },
+                            { "title": "AT DESTINATION" },
+                            { "title": "DELIVERED" }
                           ],
                           "style": {
                             "height": "100%"
