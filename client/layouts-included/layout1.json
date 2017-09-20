@@ -2,61 +2,76 @@
   "layout": [
     {
       "Grid": {
-        "cols": [1, 4],
+        "cols": 1,
         "rows": 2,
         "children": [
           {
-            "Sidebar": {
-              "position": [0,0],
+            "Grid": {
+              "cols": [1, 4],
+              "rows": 2,
+              "position": [0, 0],
               "style": {
-                "backgroundColor": "rgb(78, 185, 170)",
-                "boxShadow": "5px 0px 5px 0px rgba(0,0,0,0.25)",
-                "zIndex": "1000",
-                "position": "relative",
-                "color": "white",
-                "text-align": "center"
-              },
-              "hasImage": true,
-              "caption": "{{5.name}}",
-              "src": "http://www.cutestpaw.com/wp-content/uploads/2016/02/Yawn..jpeg"
-            }
-          },
-          {
-            "div": {
-              "position": [0,1],
-              "style": {
-                "background": "rgb(58, 134, 122)",
-                "color": "#FFF",
-                "padding": "20px",
-                "fontFamily": "Helvetica",
-                "fontWeight": "400"
+                "height": "calc(100% - 200px)"
               },
               "children": [
                 {
-                  "h3": {
-                    "children": "INTERMATCH"
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "div": {
-              "position": [0,1],
-              "children": [
-                {
-                  "BucketView": {
-                    "buckets": [
-                      { "title": "APPLIED" },
-                      { "title": "SHORTLISTED" },
-                      { "title": "INTERVIEWED" },
-                      { "title": "OFFERED" },
-                      { "title": "PLACED" },
-                      { "title": "ACTIVE" }
-                    ],
+                  "Sidebar": {
+                    "position": [0,0],
                     "style": {
-                      "height": "100vh"
-                    }
+                      "backgroundColor": "#1f1f1f",
+                      "boxShadow": "5px 0px 5px 0px rgba(0,0,0,0.25)",
+                      "zIndex": "1000",
+                      "position": "relative",
+                      "color": "white",
+                      "text-align": "center"
+                    },
+                    "hasImage": true,
+                    "caption": "{{5.name}}",
+                    "src": "http://www.cutestpaw.com/wp-content/uploads/2016/02/Yawn..jpeg"
+                  }
+                },
+                {
+                  "div": {
+                    "position": [0,1],
+                    "style": {
+                      "background": "#ff7000",
+                      "color": "#FFF",
+                      "padding": "20px",
+                      "fontFamily": "Helvetica",
+                      "fontWeight": "400"
+                    },
+                    "children": [
+                      {
+                        "h3": {
+                          "children": "INTERNMATCH"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "div": {
+                    "position": [0,1],
+                    "style": {
+                      "height": "calc(100% - 102px)"
+                    },
+                    "children": [
+                      {
+                        "BucketView": {
+                          "buckets": [
+                            { "title": "APPLIED" },
+                            { "title": "SHORTLISTED" },
+                            { "title": "INTERVIEWED" },
+                            { "title": "OFFERED" },
+                            { "title": "PLACED" },
+                            { "title": "ACTIVE" }
+                          ],
+                          "style": {
+                            "height": "100%"
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               ]
