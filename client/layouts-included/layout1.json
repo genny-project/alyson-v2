@@ -99,7 +99,24 @@
                           "children": [
                             {
                               "Card": {
-                                "index": 1
+                                "index": 0,
+                                "text1": "CAT Digger",
+                                "text2": "Melbourne, Victoria",
+                                "level": "urgent",
+                                "buttons": [
+                                  { "name": "Save", "icon": "check_circle", "value": "QUOTE", "class": "confirm small" }
+                                ]
+                              }
+                            },
+                            {
+                              "Card": {
+                                "index": 0,
+                                "text1": "CAT Digger",
+                                "text2": "Melbourne, Victoria",
+                                "level": "warning",
+                                "buttons": [
+                                  { "name": "Save", "icon": "check_circle", "value": "QUOTE", "class": "confirm small" }
+                                ]
                               }
                             }
                           ]
