@@ -24,12 +24,14 @@ class Sidebar extends Component {
                 caption={this.props.caption}/>
         }
 
+        console.log(this.props.children);
         return (
             <div
                 className="sidebar"
                 style={style}>
 
                 { imageView }
+                {this.props.children}
 
             </div>
         );
