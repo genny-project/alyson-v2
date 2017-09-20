@@ -23,7 +23,7 @@
                           "style": {
                             "marginTop": "50px"
                           },
-                          "items": ["Loads Owners", "Loads"]
+                          "items": ["Loads Owners", "Loads", "Drivers", "Trucks", "Settings"]
                         }
                       }
                     ],
@@ -77,7 +77,7 @@
                             },
                             {
                               "small": {
-                                "children": "42 LOADS"
+                                "children": "6 LOADS"
                               }
                             }
                           ]
