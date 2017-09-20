@@ -95,7 +95,14 @@
                           ],
                           "style": {
                             "height": "100%"
-                          }
+                          },
+                          "children": [
+                            {
+                              "Card": {
+                                "index": 1
+                              }
+                            }
+                          ]
                         }
                       }
                     ]

@@ -33,7 +33,7 @@ class BucketView extends Component {
             <div className="bucket-title">
               {bucket.title}
             </div>
-            <div className="bucket-contents">
+            <div className="bucket-content">
               {this.renderBucket( i )}
             </div>
           </div>
