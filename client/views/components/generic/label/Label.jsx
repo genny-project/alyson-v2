@@ -1,6 +1,6 @@
 import React from 'react';
 import { string } from 'prop-types';
-import './label.css';
+import './label.scss';
 
 
 Label.propTypes = {
@@ -23,5 +23,4 @@ function Label(props) {
 }
 
 export default Label;
-
 
