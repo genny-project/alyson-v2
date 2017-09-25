@@ -5,10 +5,9 @@ import { Button } from '../';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 class Card extends Component {
-
   constructor(props) {
     super(props);
-    this.state = {isVisible: true};
+    this.state = { isVisible: true };
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -38,7 +37,7 @@ class Card extends Component {
   }
 
   SlideContent() {
-    const { data, buttons} = this.props;
+    const { data, buttons } = this.props;
     return (
 
       <div className="card-collapse">
@@ -66,7 +65,7 @@ class Card extends Component {
 
 
   render() {
-    const { className, text1, text2, level} = this.props;
+    const { className, text1, text2, level } = this.props;
     const collapseContent = this.state.isVisible ? this.SlideContent() : '';
     const collapseArrow = this.state.isVisible ? 'expand_less' : 'expand_more';
     return (

@@ -2,7 +2,6 @@ import React from 'react';
 import { string } from 'prop-types';
 import './flashmessage.scss';
 
-
 FlashMessage.propType = {
   messageType: string,
   title: string,
@@ -27,3 +26,4 @@ function FlashMessage() {
 }
 
 export default FlashMessage;
+
