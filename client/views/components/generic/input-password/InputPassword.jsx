@@ -1,8 +1,8 @@
-import './inputText.scss';
+import './inputPassword.scss';
 import React, { Component } from 'react';
 import { string, bool } from 'prop-types';
 
-class InputText extends Component {
+class InputPassword extends Component {
   static defaultProps = {
     className: '',
     name: '',
@@ -28,7 +28,7 @@ class InputText extends Component {
         {name ? <span>{name}</span> : null }
         {optional ? <span className='optional'><i>(optional)</i></span> : null }
         <input
-          type="text"
+          type="password"
           disabled={readOnly}
           defaultValue={defaultValue}
           placeholder={placeholder}
@@ -38,4 +38,4 @@ class InputText extends Component {
   }
 }
 
-export default InputText;
+export default InputPassword;

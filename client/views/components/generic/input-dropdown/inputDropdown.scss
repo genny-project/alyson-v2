@@ -1,9 +1,9 @@
 @import '../../../../styles/colors';
 
 
-.input-masked {
+.input-dropdown {
 
-	> input {
+	> .input-dropdown-selected {
 		height: 50px;
 	    width: 100%;
 	    border-radius: 5px;
@@ -32,10 +32,11 @@
 	        background-color: white;
 	        color: black;
 	    }
+
+	    > i {
+	    	float: right;
+	    }
 	}
-
-
-
 
 	> span {
     	margin-right: 10px;
@@ -53,4 +54,21 @@
     > .optional {
     	font-size: 0.5em;
     }
+}
+
+.dropdown-options {
+	width: 100%;
+	background-color: #DDD;
+	font-size: 1em;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+	text-align: center;
+
+	> .dropdown-option {
+		&:hover {
+			background-color: red;
+		}
+
+	}
 }
