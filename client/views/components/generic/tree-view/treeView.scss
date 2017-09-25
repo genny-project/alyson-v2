@@ -1,0 +1,17 @@
+.treeview {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+  li {
+    list-style: none;
+  }
+
+  >div {
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
+  }
+}

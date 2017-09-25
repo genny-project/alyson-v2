@@ -48,7 +48,7 @@
                       "zIndex": "1000",
                       "position": "relative",
                       "color": "white",
-                      "text-align": "center"
+                      "textAlign": "center"
                     },
                     "hasImage": true,
                     "caption": "Tom Cavanagh",
@@ -73,7 +73,7 @@
                         "h3": {
                           "children": "CHANNEL40 - DASHBOARD",
                           "style": {
-                            "margin-bottom": "10px"
+                            "marginBottom": "10px"
                           }
                         }
                       },
@@ -81,7 +81,7 @@
                         "div": {
                           "style": {
                             "display": "flex",
-                            "align-items": "center"
+                            "alignItems": "center"
                           },
                           "children": [
                             {
@@ -89,7 +89,7 @@
                                 "className": "material-icons",
                                 "children": "local_shipping",
                                 "style": {
-                                  "margin-right": "10px"
+                                  "marginRight": "10px"
                                 }
                               }
                             },

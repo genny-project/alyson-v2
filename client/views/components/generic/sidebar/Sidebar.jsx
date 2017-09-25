@@ -1,38 +1,40 @@
 import React, { Component } from 'react';
 import ImageView from '../imageview/ImageView';
+import { object, bool, string, any } from 'prop-types';
 
 class Sidebar extends Component {
+    static propTypes = {
+      style: object,
+      hasImage: bool,
+      src: string,
+      caption: string,
+      children: any
+    };
 
     constructor() {
-        super()
+        super();
         this.state = {
             'open': true
         };
     }
 
     render() {
+        const { style, hasImage, src, caption, children } = this.props;
 
-        const style = {
-            ...this.props.style,
-            "height": "100vh"
+        const componentStyle = {
+            ...style,
+            'height': '100vh'
         };
 
-        var imageView;
-        if(this.props.hasImage) {
-            imageView = <ImageView
-                src={this.props.src}
-                caption={this.props.caption}/>
+        let imageView;
+        if ( hasImage ) {
+            imageView = <ImageView src={src} caption={caption} />;
         }
 
-        console.log(this.props.children);
         return (
-            <div
-                className="sidebar"
-                style={style}>
-
-                { imageView }
-                {this.props.children}
-
+            <div className="sidebar" style={componentStyle}>
+              { imageView }
+              {children}
             </div>
         );
     }
