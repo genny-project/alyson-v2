@@ -1,0 +1,30 @@
+.flash-message{
+
+  .success{
+    background-color: #72DF6E
+  }
+
+  .warning{
+    background-color: #E4BB4A
+  }
+
+  .danger{
+    background-color: #EC6137    
+  }
+
+  .primary{
+    background-color: #4AA6E4    
+  }
+
+  .title{
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .body{
+    font-size: 18px;
+    text-align: left;
+  }
+
+}
+
