@@ -1,23 +1,23 @@
 import './ImageView.scss';
 import React, { Component } from 'react';
+import { string } from 'prop-types';
 
 class ImageView extends Component {
+  static propTypes = {
+    caption: string,
+    src: string,
+  };
 
-    render() {
+  render() {
+    const { caption, src } = this.props;
 
-        console.log(this.props);
-        var caption;
-        if(this.props.caption) {
-            caption = <p> {this.props.caption} </p>;
-        }
-
-        return (
-            <div className="imageView">
-                <img src={this.props.src} />
-                {caption}
-            </div>
-        );
-    }
+    return (
+      <div className="imageView">
+        <img src={src} />
+        {caption && <p>{caption}</p>}
+      </div>
+    );
+  }
 
 }
 

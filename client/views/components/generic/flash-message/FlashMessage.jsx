@@ -35,10 +35,3 @@ export default FlashMessage;
 // pre defined labels and data formats
 // Treeview
 // Searchable data in the table
-
-
-
-
-
-
-

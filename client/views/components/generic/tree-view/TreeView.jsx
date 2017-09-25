@@ -1,50 +1,37 @@
+import './treeView.scss';
 import React, { Component } from 'react';
+import { object, array } from 'prop-types';
 
 class TreeView extends Component {
+  static propTypes = {
+    style: object,
+    items: array,
+  };
 
-    renderItem(item) {
+  renderItem(item) {
+    return (
+      <li>{item}</li>
+    );
+  }
 
-        return (
-            <li>{item}</li>
-        );
-    }
+  render() {
+    const { style, items } = this.props;
 
-    render() {
-
-        const style = {
-            ... this.props.style,
-            "display": "flex",
-            "flexDirection": "column",
-            "textAlign": "left"
-        };
-
-        const styleli = {
-            "listStyle": "none"
-        };
-
-        const styleDiv = {
-            "paddingBottom": "20px",
-            "display": "flex",
-            "alignItems": "center",
-            "justifyContent": "space-between",
-            "padding-right": "20px"
-        };
-
-        return (
-            <ul style={style}>
-                {this.props.items.map(item => {
-                    return (
-                        <div style={styleDiv}>
-                            <li style={styleli}>
-                                {item}
-                            </li>
-                            <i className="material-icons">chevron_right</i>
-                        </div>
-                    );
-                })}
-            </ul>
-        );
-    }
+    return (
+      <ul style={style} className="treeview">
+        {items.map((item, i) => {
+          return (
+            <div key={i}>
+              <li>
+                {item}
+              </li>
+              <i className="material-icons">chevron_right</i>
+            </div>
+          );
+        })}
+      </ul>
+    );
+  }
 
 }
 
