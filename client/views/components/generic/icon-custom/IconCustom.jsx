@@ -12,5 +12,3 @@ function IconCustom(props) {
   );
 }
 export default IconCustom;
-
-

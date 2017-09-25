@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { string, number } from 'prop-types';
-
-
 
 class IconSmall extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
@@ -19,10 +17,9 @@ class IconSmall extends Component {
     fontSize: number
   }
 
-
-  render(){
-    return(
-      <i className="material-icons" style={{fontSize: this.props.size }}>{this.props.name}</i>
+  render() {
+    return (
+      <i className="material-icons" style={{ fontSize: this.props.size }}>{this.props.name}</i>
 
     );
   }
