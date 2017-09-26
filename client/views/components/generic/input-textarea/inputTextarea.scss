@@ -1,11 +1,12 @@
 @import '../../../../styles/colors';
 
 
-.input-masked {
+.input-textarea {
 
-	> input {
+	> textarea {
 		height: 50px;
 	    width: 100%;
+	    max-width: 100%;
 	    border-radius: 5px;
 	    color: #999;
 	    background-color: #DDD;
@@ -13,7 +14,7 @@
 	    padding: 10px;
 	    box-sizing: border-box;
 	    text-align: center;
-	    transition: 300ms ease;
+	    transition: 300ms ease border, color;
 	    border: 1px solid #DDD;
 
 	    &:not([disabled]):hover {
@@ -33,9 +34,6 @@
 	        color: black;
 	    }
 	}
-
-
-
 
 	> span {
     	margin-right: 10px;
