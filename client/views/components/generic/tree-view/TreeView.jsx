@@ -1,6 +1,6 @@
 import './treeView.scss';
 import React, { Component } from 'react';
-import { object, array } from 'prop-types';
+import { object, array, number } from 'prop-types';
 
 class TreeView extends Component {
   static propTypes = {
@@ -8,14 +8,24 @@ class TreeView extends Component {
     items: array,
   };
 
+
+
   renderItem(item) {
     return (
       <li>{item}</li>
     );
   }
 
+  // renderChildren() {
+  //
+  // }
+  //
+  // [
+  //
+  // ]
+
   render() {
-    const { style, items } = this.props;
+    const { style, items, position } = this.props;
 
     return (
       <ul style={style} className="treeview">
@@ -32,7 +42,6 @@ class TreeView extends Component {
       </ul>
     );
   }
-
 }
 
 export default TreeView;

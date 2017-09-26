@@ -7,11 +7,15 @@ const initialState = {
 export default function reducer( state = initialState, action ) {
   switch ( action.type ) {
     case BASE_ENTITY:
+      const entities = ( action.payload.length ) ? action.payload : [ action.payload ];
       return {
         ...state,
         data: {
           ...state.data,
-          [action.payload.id]: action.payload.params
+          ...entities.reduce(( existing, item ) => ({
+            ...existing,
+            [item.code]: item
+          }), {})
         },
       };
 
