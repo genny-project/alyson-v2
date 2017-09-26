@@ -4,6 +4,11 @@ import { Vertx, MessageHandler } from './vertx';
 import events from './vertx-events';
 
 class GennyBridge {
+
+  sendCode(code) {
+      Vertx.sendMessage( events.outgoing.SEND_CODE( code ));
+  }
+
   ajaxCall( settings ) {
     return Observable.ajax({
       ...settings,

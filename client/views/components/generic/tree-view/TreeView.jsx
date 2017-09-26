@@ -16,14 +16,6 @@ class TreeView extends Component {
     );
   }
 
-  // renderChildren() {
-  //
-  // }
-  //
-  // [
-  //
-  // ]
-
   render() {
     const { style, items, position } = this.props;
 
