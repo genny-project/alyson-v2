@@ -1,16 +1,16 @@
-import './inputMasked.scss';
+import './inputEmail.scss';
 import React, { Component } from 'react';
 import { string, array, bool } from 'prop-types';
 import MaskedInput from 'react-text-mask';
+import emailMask from 'text-mask-addons/dist/emailMask'
 
-class InputMasked extends Component {
+class InputEmail extends Component {
   static defaultProps = {
     className: '',
     type: '',
     name: '',
-    mask: [],
     placeholder: '',
-    guide: true,
+    guide: false,
     pipe: '',
   }
 
@@ -18,14 +18,14 @@ class InputMasked extends Component {
     className: string,
     type: string,
     name: string,
-    mask: array,
     placeholder: string,
     guide: bool,
     pipe: string
   }
 
   render() {
-    const { className, type, name, mask, placeholder, guide, pipe } = this.props;
+    const { className, type, name, placeholder, guide, pipe } = this.props;
+    const mask = emailMask;
     return (
       <div className={`input-masked ${className}`}>
         <span>{name}</span>
@@ -35,4 +35,4 @@ class InputMasked extends Component {
   }
 }
 
-export default InputMasked;
+export default InputEmail;

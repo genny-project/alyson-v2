@@ -1,19 +1,24 @@
 import './home.scss';
 import React, { Component } from 'react';
-// import { Input } from 'views/generic';
+import { Input } from 'views/components/generic';
 // import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
-// import emailMask from 'text-mask-addons/dist/emailMask'
-// import createNumberMask from 'text-mask-addons/dist/createNumberMask'
-import { Card } from 'views/components/generic';
+import { Card, Form } from 'views/components/generic';
 
 class Home extends Component {
+
+
+  componentDidMount() {
+    document.getElementById( 'mounting-preview' ).remove();
+  }
+  
+
   render() {
     	/* const autoCorrectedDatePipe = createAutoCorrectedDatePipe('dd/mm/yyyy')
     	const numberMask = createNumberMask({
         prefix: '$',
         suffix: '.00' // This will put the dollar sign at the end, with a space.
       }) */
-    const text1 = 'Byron Beep';
+    const text1 = 'Byron';
     const text2 = 'Toll';
     const level = 'warning';
     const data = [
@@ -27,24 +32,42 @@ class Home extends Component {
       { 'name': 'Delete', 'icon': 'cancel', 'value': 'DELETE ITEM', 'class': 'cancel small' },
     ];
 
+
+
+    const questions = [
+      { 'id' : '0001', 'type' : 'text', 'name': 'Question 1', 'placeholder': 'Description for question 1', 'validation' : '' },
+      { 'id' : '0002', 'type' : 'textarea', 'name': 'Question 2', 'placeholder': 'Description for question 2', 'validation' : '' },
+      { 'id' : '0003', 'type' : 'email', 'name': 'Question 3', 'placeholder': 'Description for question 3', 'validation' : '' },
+      { 'id' : '0004', 
+        'type' : 'password',
+        'name': 'Question 4',
+        'placeholder': 'Description for question 4',
+        'validation' : '' },
+      { 'id' : '0005', 'type' : 'phone', 'name': 'Question 5', 'placeholder': '(XXX) XXX-XXXX', 'validation' : '' },
+      { 'id' : '0006',
+        'type' : 'dropdown',
+        'name': 'Question 6',
+        'placeholder':'Description for question 6',
+        'validation' : '',
+        'options' : [
+          { 'name' : 'option 1', 'value' : '1' },
+          { 'name' : 'option 2', 'value' : '2' },
+          { 'name' : 'option 3', 'value' : '3' },
+        ],
+      },
+    ];
+
     return (
       <div className="home">
         <p>Home</p>
 
-        {/* <Input type="text" name="Username" pattern=".{1,15}" />
-          <Input type="text"/>
-          <Input type="password" />
-          <Input type="text" name="First Name" optional/>
-          <Input type="text" name="Last Name" readOnly defaultValue="Bryan" />
-         	<Input type="masked" name="Masked Field" mask={[ ]} />
-         	<Input type="masked" name="Masked Field" mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} placeHolder="(XXX) XXX-XXXX" guide={false} />
-         	<Input type="masked" name="No Mask" mask={false} />
-         	<Input type="masked" name="Email Mask" mask={emailMask} placeHolder="email@email.com" guide={false}/>
-         	<Input type="masked" name="Date Pipe" mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} placeHolder="DD-MM-YYYY" guide={false} pipe={autoCorrectedDatePipe} />
-         	<Input type="masked" name="Number" mask={numberMask}/>*/}
+        {/*	<Input type="masked" name="Date Pipe" mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} placeHolder="DD-MM-YYYY" guide={false} pipe={autoCorrectedDatePipe} /> */}
 
-        <div className="column">
+        <div className="column1">
          <Card text1={text1} text2={text2} data={data} buttons={buttons} level={level} />
+        </div>
+        <div className="column2">
+         <Form questions={questions} />
         </div>
       </div>
     );

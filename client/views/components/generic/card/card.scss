@@ -9,6 +9,8 @@
 	box-shadow: 0 3px 5px rgba(0,0,0,0.5);
 	color: #222;
 
+	margin-bottom: 50px;
+
 	p, span, i {
 		//font-size: 0.75em;
 	}
@@ -86,25 +88,25 @@
 }
 
 .example-enter {
-	//max-height : 0;
-  opacity: 0.01;
+	max-height : 0;
+  	opacity: 0.01;
 }
 
 .example-enter.example-enter-active {
-	//max-height : 1000px;
-  opacity: 1;
-  transition: opacity 300ms ease-in;
+	max-height : 1000px;
+  	opacity: 1;
+  	transition: opacity, max-height 100ms ease;
 }
 
 .example-leave {
-	//max-height : 1000px;
-  opacity: 1;
+	max-height : 1000px;
+  	opacity: 1;
 }
 
 .example-leave.example-leave-active {
-  opacity: 0.01;
-   //max-height : 0;
-  transition: opacity 300ms ease-in;
+  	opacity: 0.01;
+   	max-height : 0;
+  	transition: opacity, max-height 100ms ease;
 }
 
 .card-buttons {
