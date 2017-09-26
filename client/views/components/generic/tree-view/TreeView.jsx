@@ -5,33 +5,31 @@ import { object, array, number } from 'prop-types';
 class TreeView extends Component {
   static propTypes = {
     style: object,
-    items: array,
+    items: array
   };
 
+  renderList = (items) => {
+    var layout = [];
+    items.map(item => {
 
-
-  renderItem(item) {
-    return (
-      <li>{item}</li>
-    );
+      if (item.items) {
+        layout.push(<ul className="child">{this.renderList(item.items)} </ul>);
+      }
+      else {
+        layout.push(<li>{item.name}</li>);
+      }
+    });
+    return layout;
   }
 
   render() {
-    const { style, items, position } = this.props;
-
+    const { items } = this.props;
     return (
-      <ul style={style} className="treeview">
-        {items.map((item, i) => {
-          return (
-            <div key={i}>
-              <li>
-                {item}
-              </li>
-              <i className="material-icons">chevron_right</i>
-            </div>
-          );
-        })}
-      </ul>
+      <div className="treeview">
+        <ul className="parent">
+          {this.renderList(items)}
+        </ul>
+      </div>
     );
   }
 }

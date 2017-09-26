@@ -14,7 +14,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    if ( config.backendEnabled ) {
+    if (config.backendEnabled) {
       /* Start the app */
       this.props.appStart();
     }
@@ -22,7 +22,7 @@ class App extends Component {
 
   handleAuthSuccess = keycloak => {
     /* Hide the loading spinner */
-    document.getElementById( 'mounting-preview' ).remove();
+    document.getElementById('mounting-preview').remove();
 
     /* Send off the auth logged in action */
     this.props.authLoggedIn({
@@ -36,7 +36,7 @@ class App extends Component {
     const keycloakConfig = keycloak.config;
 
     /* If the backend isn't enabled just render the app */
-    if ( !config.backendEnabled ) {
+    if (!config.backendEnabled) {
       return (
         <div className='app'>
           <main>
@@ -49,7 +49,7 @@ class App extends Component {
     }
 
     /* Render nothing if we haven't yet received the keycloak config */
-    if ( !keycloakConfig ) {
+    if (!keycloakConfig) {
       return (
         <div className='app' />
       );
