@@ -74,6 +74,7 @@
     "rxjs": "^5.4.0",
     "s3": "^4.4.0",
     "text-mask-addons": "^3.6.0",
+    "uncss": "^0.15.0",
     "vertx3-eventbus-client": "^3.4.2",
     "webpack-dashboard": "^0.4.0"
   }
