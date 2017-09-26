@@ -28,6 +28,7 @@ class GennyBridge {
   }
 
   initVertx( url ) {
+      
     /* Create a new message handler */
     this.messageHandler = new MessageHandler();
 

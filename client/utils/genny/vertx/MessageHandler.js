@@ -3,7 +3,9 @@ import events from '../vertx-events';
 import store from 'views/store';
 
 class MessageHandler {
+
   onMessage( message ) {
+
     /* Check that the message isn't null */
     if ( !message ) {
       console.warn( '[MessageHandler] NULL message sent to message handler. Ignoring.' );

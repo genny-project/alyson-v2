@@ -5,13 +5,14 @@ import { Provider } from 'react-redux';
 import store from 'views/store';
 import { Router } from 'react-router-dom';
 import { App } from 'views';
+import { GennyData } from 'utils/genny';
 import history from './history';
 window.reactRouterHistory = history;
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+        <App />
     </Router>
   </Provider>,
   document.getElementById( 'root' )

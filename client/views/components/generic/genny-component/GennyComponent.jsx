@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { GennyBridge } from 'utils/genny';
 
-class GennyData extends Component {
+class GennyComponent extends Component {
 
     sendCode(code) {
         GennyBridge.sendCode("GRP_CONTACTS");
     }
 }
 
-export default GennyData;
+
+export default GennyComponent;

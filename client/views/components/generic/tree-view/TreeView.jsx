@@ -1,12 +1,18 @@
 import './treeView.scss';
 import React, { Component } from 'react';
+import { GennyComponent } from '../genny-component';
 import { object, array, number } from 'prop-types';
 
-class TreeView extends Component {
+class TreeView extends GennyComponent {
+
   static propTypes = {
     style: object,
     items: array
   };
+
+  handleClick = (clickedItem) => {
+      console.log("send code here!");
+  }
 
   renderList = (items) => {
     var layout = [];
@@ -16,7 +22,7 @@ class TreeView extends Component {
         layout.push(<ul className="child">{this.renderList(item.items)} </ul>);
       }
       else {
-        layout.push(<li>{item.name}</li>);
+        layout.push(<li onClick={this.handleClick}>{item.name}</li>);
       }
     });
     return layout;
