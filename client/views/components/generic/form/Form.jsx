@@ -19,10 +19,9 @@ class Form extends Component {
       <div className="form">
       	<form>
 	        {
-	            questions.map(q => {
-	              return  <Input type={q.type} key={q.name} name={q.name} placeholder={q.placeholder} options={q.options}/>;
-
-	            })
+            questions.map(question => {
+              return  <Input key={question.name} {...question}/>;
+            })
 	        }
 	    </form>
       </div>

@@ -12,6 +12,7 @@ class InputEmail extends Component {
     placeholder: '',
     guide: false,
     pipe: '',
+    label: '',
   }
 
   static propTypes = {
@@ -20,15 +21,16 @@ class InputEmail extends Component {
     name: string,
     placeholder: string,
     guide: bool,
-    pipe: string
+    pipe: string,
+    label: string,
   }
 
   render() {
-    const { className, type, name, placeholder, guide, pipe } = this.props;
+    const { className, type, name, placeholder, guide, pipe, label } = this.props;
     const mask = emailMask;
     return (
       <div className={`input-masked ${className}`}>
-        <span>{name}</span>
+         {label ? <Label>{label}</Label> : null }
         <MaskedInput mask={mask} placeholder={placeholder} guide={guide} pipe={pipe} />
       </div>
     );

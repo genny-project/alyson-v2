@@ -32,8 +32,6 @@ class Input extends Component {
             return ( <InputPhone {...this.props}/> );
         case "dropdown":
             return ( <InputDropdown {...this.props}/> );
-        case "masked":
-            return ( <InputMasked {...this.props}/> );
         default:
             return ( <InputText {...this.props}/> );
     }
