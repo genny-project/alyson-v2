@@ -1,8 +1,9 @@
 import './inputTextarea.scss';
-import React, { Component } from 'react';
+import React from 'react';
+import { GennyComponent } from '../genny-component';
 import { string, bool } from 'prop-types';
 
-class InputTextarea extends Component {
+class InputTextarea extends GennyComponent {
   static defaultProps = {
     className: '',
     name: '',

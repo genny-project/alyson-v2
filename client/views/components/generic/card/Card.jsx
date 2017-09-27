@@ -1,10 +1,11 @@
 import './card.scss';
-import React, { Component } from 'react';
+import React from 'react';
+import { GennyComponent } from '../genny-component';
 import { string, array, } from 'prop-types';
 import { Button } from '../';
 import { CSSTransitionGroup } from 'react-transition-group';
 
-class Card extends Component {
+class Card extends GennyComponent {
   constructor(props) {
     super(props);
     this.state = { isVisible: true };

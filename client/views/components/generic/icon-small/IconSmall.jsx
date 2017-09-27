@@ -20,7 +20,7 @@ class IconSmall extends Component {
 
   render() {
     return (
-      <i className="material-icons" style={{ fontSize: this.props.size }}>{this.props.name}</i>
+      <i className="icon material-icons" style={{ fontSize: this.props.size }}>{this.props.name}</i>
 
     );
   }

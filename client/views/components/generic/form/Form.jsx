@@ -1,9 +1,10 @@
 import './form.scss';
-import React, { Component } from 'react';
+import React from 'react';
+import { GennyComponent } from '../genny-component';
 import { Input } from '../';
 import { string, array, } from 'prop-types';
 
-class Form extends Component {
+class Form extends GennyComponent {
 
   static defaultProps = {
     questions: [],
