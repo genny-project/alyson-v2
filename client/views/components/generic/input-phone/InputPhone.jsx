@@ -10,7 +10,8 @@ class InputPhone extends Component {
     placeholder: '',
     pipe: '',
     validation: '',
-    guide: false
+    guide: false,
+    label: '',
   }
 
   static propTypes = {
@@ -20,13 +21,14 @@ class InputPhone extends Component {
     pipe: string,
     validation: string,
     guide: bool,
+    label: string,
   }
 
   render() {
-    const { className, name, placeholder, pipe, validation, guide } = this.props;
+    const { className, name, placeholder, pipe, validation, guide, label } = this.props;
     return (
       <div className={`input-phone ${className}`}>
-        <span>{name}</span>
+        {label ? <Label>{label}</Label> : null }
         <span>{validation}</span>
         <MaskedInput mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} placeholder={placeholder} pipe={pipe} guide={guide}/>
       </div>

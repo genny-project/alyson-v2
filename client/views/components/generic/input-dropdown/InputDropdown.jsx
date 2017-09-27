@@ -9,11 +9,15 @@ class InputDropdown extends Component {
     super(props);
     this.state = {
       isVisible: false,
-      currentValue: 'blank'
+      currentValue: '',
+      currentSelect: '',
+      highlight: 0
     };
 
     this.handleDropdown = this.handleDropdown.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
   }
 
   handleDropdown() {
@@ -22,12 +26,42 @@ class InputDropdown extends Component {
     }));
   }
 
-  handleSelect = event => {
-    
-    const { value } = event.target;
-    console.log( value );
 
-    this.setState({ currentValue: value });
+  handleSelect(event, index, name, value){
+    console.log(name, value);
+
+    this.setState({ 
+      currentValue: value,
+      currentSelect: name,
+      highlight: index,
+      isVisible: false
+    });
+  }
+
+  handleBlur(){
+    this.setState({ 
+      isVisible: false
+    });
+  }
+
+  handleFocus(){
+    this.setState({ 
+      isVisible: true
+    });
+  }
+
+  handleKeyPress = (event) => {
+      event.preventDefault();
+      console.log(event.key);
+      if (event.key === 'ArrowUp'){
+        this.setState(prevState => ({
+          highlight: prevState.highlight - 1
+        }));
+      } else if (event.key === 'ArrowDown'){
+        this.setState(prevState => ({
+          highlight: prevState.highlight + 1
+        }));
+      }
   }
 
   static defaultProps = {
@@ -37,6 +71,7 @@ class InputDropdown extends Component {
     defaultValue: '',
     placeholder: '',
     options: [],
+    label: '',
   }
 
   static propTypes = {
@@ -46,27 +81,27 @@ class InputDropdown extends Component {
     defaultValue: string,
     placeholder: string,
     options: array,
+    label: string,
   }
 
   render() {
-    const { className, name, readOnly, defaultValue, placeholder, options } = this.props;
+    const { className, name, readOnly, defaultValue, placeholder, options, label } = this.props;
     const collapseContent = this.state.isVisible ? this.DropdownOptions() : '';
     const collapseArrow = this.state.isVisible ? 'expand_less' : 'expand_more';
     const currentValue = this.state.currentValue;
+    const currentSelect = this.state.currentSelect;
     return (
       <div className={`input-dropdown ${className}`}>
-        {name ? <span>{name}</span> : null }
-        <div className="input-dropdown-selected" onClick={this.handleDropdown} >
-          <span>{currentValue}</span>
+        {label ? <Label>{label}</Label> : null }
+        <div className="input-dropdown-main" onClick={this.handleDropdown} >
+          <input type="text" id="one" readOnly value={currentSelect} onFocus={this.handleFocus} onBlur={this.handleBlur} onKeyDown={(event) => this.handleKeyPress(event)}/>
           <i className="icon material-icons">{collapseArrow}</i>
         </div>
         <CSSTransitionGroup
           transitionName="example"
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}>
-
           {collapseContent}
-
         </CSSTransitionGroup>
       </div>
     );
@@ -74,12 +109,12 @@ class InputDropdown extends Component {
 
   DropdownOptions() {
     const { options} = this.props;
+    const highlight = this.state.highlight;
     return (
-
       <div className="dropdown-options">
         {
-          options.map(o => {
-            return <div className={`dropdown-option`} key={o.name} value={o.value} onClick={this.handleSelect}>
+          options.map((o, index) => {
+            return <div className={`dropdown-option ${highlight === index ? 'highlight': ''}`} key={o.name} value={o.value} onMouseDown={ (e) => this.handleSelect(e, index, o.name, o.value) }>
                 <span>{o.name}</span>
             </div>;
           })

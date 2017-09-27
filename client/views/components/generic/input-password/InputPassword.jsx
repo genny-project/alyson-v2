@@ -9,7 +9,8 @@ class InputPassword extends Component {
     readOnly: false,
     defaultValue: '',
     optional: false,
-    placeholder: ''
+    placeholder: '',
+    label: '',
   }
 
   static propTypes = {
@@ -19,13 +20,14 @@ class InputPassword extends Component {
     defaultValue: string,
     optional: bool,
     placeholder: string,
+    label: string,
   }
 
   render() {
-    const { className, name, readOnly, defaultValue, optional, placeholder } = this.props;
+    const { className, name, readOnly, defaultValue, optional, placeholder, label } = this.props;
     return (
       <div className={`input-text ${className}`}>
-        {name ? <span>{name}</span> : null }
+        {label ? <Label>{label}</Label> : null }
         {optional ? <span className='optional'><i>(optional)</i></span> : null }
         <input
           type="password"

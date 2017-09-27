@@ -6,18 +6,20 @@ class InputTextarea extends Component {
   static defaultProps = {
     className: '',
     name: '',
+    label: '',
   }
 
   static propTypes = {
     className: string,
     name: string,
+    label: string,
   }
 
   render() {
-    const { className, name } = this.props;
+    const { className, name, label } = this.props;
     return (
       <div className={`input-textarea ${className}`}>
-        {name ? <span>{name}</span> : null }
+         {label ? <Label>{label}</Label> : null }
         <textarea />
       </div>
     );
