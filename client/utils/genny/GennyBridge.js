@@ -5,11 +5,14 @@ import events from './vertx-events';
 
 class GennyBridge {
 
-  sendCode(code) {
-      Vertx.sendMessage( events.outgoing.SEND_CODE( code ));
+  sendMessage(data) {
+    Vertx.sendMessage(events.outgoing.SEND_CODE(data));
+  }
+  receiveMessage(data) {
+    console.log(data);
   }
 
-  ajaxCall( settings ) {
+  ajaxCall(settings) {
     return Observable.ajax({
       ...settings,
       responseType: 'json',
@@ -27,26 +30,26 @@ class GennyBridge {
     });
   }
 
-  initVertx( url ) {
-      
+  initVertx(url) {
+
     /* Create a new message handler */
     this.messageHandler = new MessageHandler();
 
     /* Set vertx to use the message handler */
-    Vertx.setIncomingHandler( this.messageHandler.onMessage );
+    Vertx.setIncomingHandler(this.messageHandler.onMessage);
 
     /* Init vertx */
-    Vertx.init( url );
+    Vertx.init(url);
 
     /* Allow incoming messages to be sent from the browser console */
-    window.sendIncomingVertxMessage = ( message ) => {
-      this.messageHandler.onMessage( message );
+    window.sendIncomingVertxMessage = (message) => {
+      this.messageHandler.onMessage(message);
     };
   }
 
-  sendAuthInit( token ) {
-    Vertx.sendMessage( events.outgoing.AUTH_INIT( token ));
+  sendAuthInit(token) {
+    Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
   }
 }
 
-export default ( new GennyBridge());
+export default (new GennyBridge());

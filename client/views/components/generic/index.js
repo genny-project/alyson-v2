@@ -13,6 +13,6 @@ export { default as Sidebar } from './sidebar/';
 export { default as Card } from './card';
 export { default as ImageView } from './imageview';
 export { default as Button } from './button';
-export {default as IconSmall} from './icon-small';
-export {default as TreeView} from './tree-view';
+export { default as IconSmall } from './icon-small';
+export { default as TreeView } from './tree-view';
 export { default as Form } from './form';
