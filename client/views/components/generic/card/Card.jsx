@@ -2,7 +2,7 @@ import './card.scss';
 import React from 'react';
 import { GennyComponent } from '../genny-component';
 import { string, array, } from 'prop-types';
-import { Button } from '../';
+import { Button, IconSmall } from '../';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 class Card extends GennyComponent {
@@ -45,7 +45,7 @@ class Card extends GennyComponent {
         {
           data.map(d => {
             return <div className={`card-data ${d.name}`} key={d.name}>
-              <i className="icon material-icons">{d.icon}</i>
+              <IconSmall name={d.icon}/>
               <span>{d.value}</span>
             </div>;
           })
@@ -54,7 +54,7 @@ class Card extends GennyComponent {
           {
             buttons.map(b => {
               return <Button className={b.class} key={b.name}>
-                <i className="icon material-icons">{b.icon}</i>
+                <IconSmall name={b.icon}/>
                 <span>{b.value}</span>
               </Button>;
             })
@@ -80,7 +80,7 @@ class Card extends GennyComponent {
           <div className={`card-light ${level}`} />
         </div>
         <div className="card-toggle" onClick={this.handleClick} >
-          <i className="icon material-icons">{collapseArrow}</i>
+          <IconSmall name={collapseArrow}/>
         </div>
         <CSSTransitionGroup
           transitionName="example"

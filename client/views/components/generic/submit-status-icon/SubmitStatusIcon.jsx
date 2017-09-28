@@ -1,6 +1,7 @@
 import './submitStatusIcon.scss';
 import React from 'react';
 import { GennyComponent } from '../genny-component';
+import { IconSmall } from '../';
 import { string } from 'prop-types';
 
 class SubmitStatusIcon extends GennyComponent {
@@ -18,13 +19,15 @@ class SubmitStatusIcon extends GennyComponent {
     const { status } = this.props;
 	switch(status) {
 	    case "sending":
-	        return ( <span className="ellipsis-anim"><span>.</span><span>.</span><span>.</span></span> );
+	        return ( <div className="ellipsis-anim">
+	        			<IconSmall name="brightness_1" size={4} />
+	        			<IconSmall name="brightness_1" size={4} />
+	        			<IconSmall name="brightness_1" size={4} />
+	        		</div> );
 	    case "success":
-	        return ( <i className="material-icons">check_circle</i> );
+	        return ( <IconSmall className="success" name="check_circle" size={14} /> );
 	    case "error":
-	        return ( <i className="material-icons">cancel</i> );
-	    case "warning":
-	        return ( <i className="material-icons">error</i> );
+	        return ( <IconSmall className="error" name="error" size={14} /> );
 	    default:
 	        return null;
     }

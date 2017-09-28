@@ -9,18 +9,21 @@ class IconSmall extends Component {
   }
 
   static defaultProps = {
+    className: '',
     fontSize: 18,
     name: 'android'
   }
 
   static propTypes = {
+    className: string,
     name: string,
     fontSize: number
   }
 
   render() {
+    const { className, size, name } = this.props;
     return (
-      <i className="icon material-icons" style={{ fontSize: this.props.size }}>{this.props.name}</i>
+      <i className={`icon material-icons ${className} `} style={{ fontSize: size }}>{name}</i>
 
     );
   }

@@ -12,7 +12,7 @@ class InputText extends GennyComponent {
     defaultValue: '',
     optional: false,
     placeholder: '',
-    mask: '',
+    mask: null,
     validation: '',
   }
 
@@ -37,11 +37,12 @@ class InputText extends GennyComponent {
     validationlist: this.props.validationlist,
     validationClass: '',
     isValid: null,
-    submitStatus: null
+    submitStatus: null,
+    date: new Date(),
   }
 
   handleChange = event => {
-    // if ( mask ) {
+    if ( this.state.mask ) {
       console.log(this.state.mask);
       var mask = this.state.mask;
       console.log(mask.test(event.target.value));
@@ -50,11 +51,11 @@ class InputText extends GennyComponent {
           value: event.target.value
         })
      }
-    // } else {
-    //   this.setState({
-    //     value: event.target.value
-    //   })
-    // }
+    } else {
+      this.setState({
+        value: event.target.value
+      })
+    }
   }
 
   handleBlur = event => {
@@ -83,7 +84,8 @@ class InputText extends GennyComponent {
 
   render() {
     const { className, name, readOnly, placeholder, optional} = this.props;
-    const { validationClass, submitStatus } = this.state;
+    const { validationClass, submitStatus, date } = this.state;
+
     return (
       <div className={`input-text ${className} ${validationClass}`}>
         <div className="input-header">

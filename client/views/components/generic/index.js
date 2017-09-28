@@ -18,3 +18,4 @@ export { default as TreeView} from './tree-view';
 export { default as Form } from './form';
 export { default as Label } from './label';
 export { default as SubmitStatusIcon } from './submit-status-icon';
+export { default as ProgressBar } from './progress-bar';
