@@ -9,5 +9,5 @@ export default new ComponentCollection({
   Sidebar,
   ImageView,
   TreeView,
-  Card,
+  Card
 });

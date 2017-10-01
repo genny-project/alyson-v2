@@ -8,11 +8,12 @@ export const AUTH_INIT = token => ({
   },
 });
 
-export const SEND_CODE = code => ({
+export const SEND_CODE = (code, token) => ({
 
     evt_type: code,
     msg_type: "EVT_MSG",
     code,
+    token: token,
     data: {
         code: code
     }
