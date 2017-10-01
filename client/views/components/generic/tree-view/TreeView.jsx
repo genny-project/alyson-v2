@@ -2,6 +2,7 @@ import './treeView.scss';
 import React, { Component } from 'react';
 import { GennyComponent } from '../genny-component';
 import { object, array } from 'prop-types';
+import store from 'views/store';
 
 class TreeView extends GennyComponent {
 
@@ -10,9 +11,16 @@ class TreeView extends GennyComponent {
     items: array
   };
 
+  didReceiveDataFromStore(data) {
+
+      console.log('=========');
+      console.log(data);
+      console.log('=========');
+
+  }
 
   handleClick = (clickedItem) => {
-    console.log('send code here!');
+      this.sendCode();
   }
 
   showList = () => {

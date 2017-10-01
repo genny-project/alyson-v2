@@ -44,13 +44,7 @@
                             },
                             {
                               "id": 3,
-                              "name": "Item 3",
-                              "items": [
-                                {
-                                  "id": 4,
-                                  "name": "Item 3 - 1"
-                                }
-                              ]
+                              "name": "Item 3"
                             },
                             {
                               "id": 3,

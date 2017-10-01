@@ -5,11 +5,8 @@ import events from './vertx-events';
 
 class GennyBridge {
 
-  sendMessage(data) {
-    Vertx.sendMessage(events.outgoing.SEND_CODE(data));
-  }
-  receiveMessage(data) {
-    console.log(data);
+  sendMessage(data, token) {
+    Vertx.sendMessage(events.outgoing.SEND_CODE(data, token));
   }
 
   ajaxCall(settings) {
