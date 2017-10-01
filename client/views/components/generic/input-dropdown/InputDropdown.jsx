@@ -1,9 +1,10 @@
 import './inputDropdown.scss';
-import React, { Component } from 'react';
+import React from 'react';
+import { GennyComponent } from '../genny-component';
 import { string, bool, array } from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group';
 
-class InputDropdown extends Component {
+class InputDropdown extends GennyComponent {
 
   constructor(props) {
     super(props);

@@ -4,6 +4,7 @@
 .input-text {
 
 	> input {
+
 		height: 50px;
 	    width: 100%;
 	    border-radius: 5px;
@@ -50,4 +51,24 @@
     > .optional {
     	font-size: 0.5em;
     }
+
+    &.success input{
+    	color: $success;
+	    border: 1px solid $success;
+    }
+
+    &.error input{
+    	color: $error;
+	    border: 1px solid $error;
+    }
+
+    .input-header {
+    	display: flex;
+    	align-items: center;
+    	justify-content: space-between;
+    	margin-bottom: 3px;
+    }
 }
+
+
+
