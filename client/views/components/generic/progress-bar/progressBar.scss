@@ -9,6 +9,8 @@
     display: flex;
 	align-items: center;
 
+	background-color: #fdd;
+
 	.progress-bar-container {
 		position: absolute;
 		margin-right: 10px;
@@ -21,6 +23,10 @@
 			height: 10px;
 			position: absolute;
 		}
+	}
+
+	&.two {
+		align-items: flex-end;
 	}
 }
 
@@ -37,34 +43,74 @@
 }
 
 .node-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-	position: absolute;
 	width: 100%;
-}
 
-.node {
-	background: #555;
-	border-radius: 10px;
-	height: 20px;
-	width: 20px;
-	z-index: 3;
+	&.one {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
+		> .node {
+			background: #555;
+			border-radius: 10px;
+			height: 20px;
+			width: 20px;
+			z-index: 3;
 
-	&.incomplete {
-		background: #DDD;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 
-		> div {
-			background: white;
-			border-radius: 5px;
-			height: 10px;
-			width: 10px;
+			&.incomplete {
+				background: #DDD;
+
+				> div {
+					background: white;
+					border-radius: 5px;
+					height: 10px;
+					width: 10px;
+				}
+			}
+
+			&.current {
+
+				> div {
+					background: white;
+					border-radius: 5px;
+					height: 10px;
+					width: 10px;
+				}
+			}
+		}
+	}
+
+	&.two {
+
+		> .end-points {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			width: 100%;
+		}
+
+		> .mid-points {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			width: 100%;
+
+			> i {
+
+				&:first-child {
+					margin-left: 10px;
+					visibility: hidden;
+				}
+
+				&:last-child {
+					margin-right: 10px;
+					visibility: hidden;
+				}
+			}
 		}
 	}
 }
-
