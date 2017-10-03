@@ -16,10 +16,10 @@ class GennyComponent extends Component {
         console.log('Method was not implemented.');
     }
 
-    sendCode(data) {
+    sendData(event, data) {
 
         const token = store.getState().keycloak.token;
-        GennyBridge.sendMessage('GRP_CONTACTS', token);
+        GennyBridge.sendMessage(event, data, token);
     }
 }
 
