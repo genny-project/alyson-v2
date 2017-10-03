@@ -7,16 +7,18 @@ import { string, array, object} from 'prop-types';
 class Form extends GennyComponent {
 
   static defaultProps = {
+    className: '',
     questionGroup: {},
   }
 
   static propTypes = {
+    className: string,
     questionGroup: object,
   }
 
   state = {
     itemsPerPage: this.props.questionGroup.itemsPerPage ? this.props.questionGroup.itemsPerPage : 1,
-    showProgress: this.props.questionGroup.showProgress,
+    showProgress: this.props.questionGroup.showProgress ? this.props.questionGroup.showProgress : false,
     asks: this.props.questionGroup.asks,
     askCount: this.props.questionGroup.asks.length,
     pageCount: Math.ceil( this.props.questionGroup.asks.length / this.props.questionGroup.itemsPerPage ),
@@ -25,7 +27,7 @@ class Form extends GennyComponent {
   }
 
   handlePrevPage = () => {
-    if ( this.state.pageCurrent > 1 ) {
+    if ( this.state.pageCurrent > 0 ) {
       this.setState(prevState => ({
           pageCurrent: prevState.pageCurrent--
         }, () => {
@@ -56,28 +58,25 @@ class Form extends GennyComponent {
   }  
 
   render() {
- 	  const { questionGroup } = this.props;
+ 	  const { className, questionGroup } = this.props;
     const { itemsPerPage, showProgress, asks, askCount, askCurrent, pageCurrent, pageCount } = this.state;
     const askPageArray = this.getAskCount(askCount, itemsPerPage);
     
     return (
       <div className="form">
-        { showProgress ? <ProgressBar nodeCount={pageCount} currentNode={pageCurrent} type={2} /> : null }
-        { showProgress ? <ProgressBar nodeCount={pageCount} currentNode={pageCurrent} type={1} /> : null }
-      	<div>
+          { showProgress ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null }
 	        {
             asks.map((ask, index) => {
               return pageCurrent === askPageArray[index].page ? <Input key={index} {...ask} /> : null;
             })
 	        }
-  	    </div>
         <div className="form-nav">
-            <div className={`form-nav-prev ${pageCurrent > 1 ? 'visible' : 'hidden' } `} onClick={this.handlePrevPage} >
+            <Button className={`form-nav-prev ${pageCurrent > 0 ? 'visible' : 'hidden' } cancel`} onClick={this.handlePrevPage} >
               <IconSmall name="chevron_left" />
-            </div>
-            <div className={`form-nav-next ${pageCurrent < askCount / itemsPerPage ? 'visible' : 'hidden' } `} onClick={this.handleNextPage} >
+            </Button>
+            <Button className={`form-nav-next ${pageCurrent < askCount / itemsPerPage ? 'visible' : 'hidden' } confirm`} onClick={this.handleNextPage} >
               <IconSmall name="chevron_right" />
-            </div>
+            </Button>
         </div>
       </div>
     );

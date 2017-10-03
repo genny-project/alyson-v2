@@ -160,94 +160,117 @@
                           "children": [
                             {
                               "Card": {
-                                "index": 0,
-                                "text1": "CAT Digger",
-                                "text2": "Melbourne, Victoria",
-                                "level": "urgent",
-                                "buttons": [
-                                  {
-                                    "name": "Save",
-                                    "icon": "check_circle",
-                                    "value": "QUOTE",
-                                    "class": "confirm small"
-                                  }
-                                ]
+                                "answerGroup" : {
+                                  "index": 0,
+                                  "textOne": "CAT Digger",
+                                  "textTwo": "Melbourne, Victoria",
+                                  "level": "urgent",
+                                  "showProgress" : false,
+                                  "buttons": [
+                                    {
+                                      "name": "Save",
+                                      "icon": "check_circle",
+                                      "value": "QUOTE",
+                                      "class": "confirm small"
+                                    }
+                                  ]
+                                }
                               }
                             },
+
                             {
                               "Card": {
-                                "index": 0,
-                                "text1": "CAT Digger",
-                                "text2": "Melbourne, Victoria",
-                                "level": "warning",
-                                "buttons": [
-                                  {
-                                    "name": "Save",
-                                    "icon": "check_circle",
-                                    "value": "QUOTE",
-                                    "class": "confirm small"
-                                  }
-                                ]
+                                "answerGroup" : {
+                                  "index": 0,
+                                  "textOne": "CAT Digger",
+                                  "textTwo": "Melbourne, Victoria",
+                                  "level": "warning",
+                                  "showProgress" : false,
+                                  "buttons": [
+                                    {
+                                      "name": "Save",
+                                      "icon": "check_circle",
+                                      "value": "QUOTE",
+                                      "class": "confirm small"
+                                    }
+                                  ]
+                                }
                               }
                             },
+
                             {
                               "Card": {
-                                "index": 1,
-                                "text1": "Wooden Beams",
-                                "text2": "Carlton, Victoria",
-                                "buttons": [
-                                  {
-                                    "name": "Cancel",
-                                    "icon": "cancel",
-                                    "value": "CANCEL",
-                                    "class": "cancel small"
-                                  }
-                                ]
+                                "answerGroup" : {
+                                  "index": 1,
+                                  "textOne": "Wooden Beams",
+                                  "textTwo": "Carlton, Victoria",
+                                  "showProgress" : false,
+                                  "buttons": [
+                                    {
+                                      "name": "Cancel",
+                                      "icon": "cancel",
+                                      "value": "CANCEL",
+                                      "class": "cancel small"
+                                    }
+                                  ]
+                                }
                               }
                             },
+
                             {
                               "Card": {
-                                "index": 3,
-                                "text1": "Bulk Beer",
-                                "text2": "Carlton, Victoria",
-                                "buttons": [
-                                  {
-                                    "name": "Cancel",
-                                    "icon": "gps_fixed",
-                                    "value": "TRACK",
-                                    "class": "small"
-                                  }
-                                ]
+                                "answerGroup" : {
+                                  "index": 3,
+                                  "textOne": "Bulk Beer",
+                                  "textTwo": "Carlton, Victoria",
+                                  "showProgress" : true,
+                                  "buttons": [
+                                    {
+                                      "name": "Cancel",
+                                      "icon": "gps_fixed",
+                                      "value": "TRACK",
+                                      "class": "small"
+                                    }
+                                  ]
+                                }
                               }
                             },
+
                             {
                               "Card": {
-                                "index": 3,
-                                "text1": "Bulk Cornflakes",
-                                "text2": "Carlton, Victoria",
-                                "buttons": [
-                                  {
-                                    "name": "Cancel",
-                                    "icon": "gps_fixed",
-                                    "value": "TRACK",
-                                    "class": "small"
-                                  }
-                                ]
+                                "answerGroup" : {
+                                  "index": 3,
+                                  "textOne": "Bulk Cornflakes",
+                                  "textTwo": "Carlton, Victoria",
+                                  "showProgress" : true,
+                                  "buttons": [
+                                    {
+                                      "name": "Cancel",
+                                      "icon": "gps_fixed",
+                                      "value": "TRACK",
+                                      "class": "small"
+                                    }
+                                  ]
+                                }
                               }
                             },
+
                             {
                               "Card": {
-                                "index": 3,
-                                "text1": "Electronic Supplies",
-                                "text2": "Sydney, New South Wales",
-                                "buttons": [
-                                  {
-                                    "name": "Cancel",
-                                    "icon": "gps_fixed",
-                                    "value": "TRACK",
-                                    "class": "small"
-                                  }
-                                ]
+                                "answerGroup" : {
+                                  "index": 3,
+                                  "textOne": "Electronic Supplies",
+                                  "textTwo": "Sydney, New South Wales",
+                                  "showProgress" : true,
+                                  "buttons": [
+                                    {
+                                      "name": "Cancel",
+                                      "icon": "gps_fixed",
+                                      "value": "TRACK",
+                                      "class": "small"
+                                    }
+                                  ]
+                                }
                               }
                             }
                           ]

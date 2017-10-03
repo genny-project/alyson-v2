@@ -12,19 +12,22 @@ class Home extends Component {
   
   render() {
 
-    // const text1 = 'Byron';
-    // const text2 = 'Toll';
-    // const level = 'warning';
-    // const data = [
-    //   { 'name': 'Number', 'icon': 'smartphone', 'value': '0400-000-000' },
-    //   { 'name': 'Address', 'icon': 'place', 'value': '121 Cardigan St, Carlton 3053 VIC' },
-    //   { 'name': 'Date', 'icon': 'event_note', 'value': '14-09-2017' },
-    //   { 'name': 'Email', 'icon': 'email', 'value': 'byron@gmail.com' },
-    // ];
-    // const buttons = [
-    //   { 'name': 'Save', 'icon': 'check_circle', 'value': 'SAVE ITEM', 'class': 'confirm small' },
-    //   { 'name': 'Delete', 'icon': 'cancel', 'value': 'DELETE ITEM', 'class': 'cancel small' },
-    // ];
+    const answerGroup = {
+      'textOne' : 'Byron',
+      'textTwo' : 'Toll',
+      'level' : 'warning',
+      'showProgress' : true,
+      'data' : [
+        { 'name': 'Number', 'icon': 'smartphone', 'value': '0400-000-000' },
+        { 'name': 'Address', 'icon': 'place', 'value': '121 Cardigan St, Carlton 3053 VIC' },
+        { 'name': 'Date', 'icon': 'event_note', 'value': '14-09-2017' },
+        { 'name': 'Email', 'icon': 'email', 'value': 'byron@gmail.com' },
+      ],
+      'buttons' : [
+        { 'name': 'Save', 'icon': 'check_circle', 'value': 'SAVE ITEM', 'class': 'confirm small' },
+        { 'name': 'Delete', 'icon': 'cancel', 'value': 'DELETE ITEM', 'class': 'cancel small' },
+      ],
+    };
 
     const questionGroup = {
       'itemsPerPage' : 2,
@@ -95,6 +98,10 @@ class Home extends Component {
     return (
       <div className="home">
         <p>Home</p>
+
+        <div className="column1">
+         <Card answerGroup={answerGroup} />
+        </div>
 
         <div className="column2">
          <Form questionGroup={questionGroup} />
