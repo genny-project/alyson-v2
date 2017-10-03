@@ -3,7 +3,7 @@ import React from 'react';
 import { GennyComponent } from '../genny-component';
 import { string, array, object } from 'prop-types';
 import { Button, IconSmall, ProgressBar } from '../';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { Transition, TransitionGroup } from 'react-transition-group';
 
 class Card extends GennyComponent {
   
@@ -38,37 +38,53 @@ class Card extends GennyComponent {
   SlideContent() {
     const { answerGroup } = this.props;
     const { data, buttons, level } = this.state;
-    return (
 
-      <div className="card-collapse">
-        {
-          data.map(d => {
-            return <div className={`card-data ${d.name}`} key={d.name}>
-              <IconSmall name={d.icon}/>
-              <span>{d.value}</span>
-            </div>;
-          })
-        }
-        <div className="card-buttons">
-          {
-            buttons.map(b => {
-              return <Button className={b.class} key={b.name}>
-                <IconSmall name={b.icon}/>
-                <span>{b.value}</span>
-              </Button>;
-            })
+    const FadeTransition = (props) => (
+      <Transition {...props} timeout={{ enter: 0, exit: 150 }} />
+    );
+
+    return (
+      <FadeTransition>
+        { 
+          (status) => {
+            console.log(status);
+            if (status === 'exited') {
+              return null
+            }
+            return (
+              <div className={`card-collapse fade fade-${status}`}>
+                {
+                  data.map(d => {
+                    return <div className={`card-data ${d.name}`} key={d.name}>
+                      <IconSmall name={d.icon}/>
+                      <span>{d.value}</span>
+                    </div>;
+                  })
+                }
+                <div className="card-buttons">
+                  {
+                    buttons.map(b => {
+                      return <Button className={b.class} key={b.name}>
+                        <IconSmall name={b.icon}/>
+                        <span>{b.value}</span>
+                      </Button>;
+                    })
+                  }
+                </div>
+              </div>
+            );
           }
-        </div>
-      </div>
+        }
+      </FadeTransition>
     );
   }
 
-
   render() {
     const { className, answerGroup} = this.props;
-    const { textOne, textTwo, level, showProgress, pageCurrent, pageCount, isVisible } = this.state;
+    const { textOne, textTwo, level, showProgress, pageCurrent, pageCount, isVisible, data, buttons } = this.state;
     const collapseContent = isVisible ? this.SlideContent() : '';
     const collapseArrow = isVisible ? 'expand_less' : 'expand_more';
+
     return (
       <div className={`card ${className}`}>
         <div className="card-top">
@@ -82,14 +98,11 @@ class Card extends GennyComponent {
         <div className="card-toggle" onClick={this.handleClick} >
           <IconSmall name={collapseArrow}/>
         </div>
-        <CSSTransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
+        <TransitionGroup>
 
           {collapseContent}
 
-        </CSSTransitionGroup>
+        </TransitionGroup>
          { showProgress ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={2} /> : null }
       </div>
     );

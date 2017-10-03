@@ -71,10 +71,10 @@ class Form extends GennyComponent {
             })
 	        }
         <div className="form-nav">
-            <Button className={`form-nav-prev ${pageCurrent > 0 ? 'visible' : 'hidden' } cancel`} onClick={this.handlePrevPage} >
+            <Button className={`form-nav-prev ${pageCurrent > 0 ? 'visible' : 'hidden' }`} onClick={this.handlePrevPage} >
               <IconSmall name="chevron_left" />
             </Button>
-            <Button className={`form-nav-next ${pageCurrent < askCount / itemsPerPage ? 'visible' : 'hidden' } confirm`} onClick={this.handleNextPage} >
+            <Button className={`form-nav-next ${pageCurrent < askCount / itemsPerPage ? 'visible' : 'hidden' }`} onClick={this.handleNextPage} >
               <IconSmall name="chevron_right" />
             </Button>
         </div>
