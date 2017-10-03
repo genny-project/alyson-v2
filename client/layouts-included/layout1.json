@@ -35,8 +35,8 @@
                           "items": [
                             {
                               "id": 1,
-                              "name": "Item 1",
-                              "code": "GRP_CONTACS"
+                              "name": "This one",
+                              "code": "GRP_LIVE_VIEW"
                             },
                             {
                               "id": 2,

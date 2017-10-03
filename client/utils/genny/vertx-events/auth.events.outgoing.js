@@ -8,15 +8,12 @@ export const AUTH_INIT = token => ({
   },
 });
 
-export const SEND_CODE = (code, token) => ({
+export const SEND_CODE = (event, data, token) => ({
 
-    evt_type: code,
+    event_type: event,
     msg_type: "EVT_MSG",
-    code,
     token: token,
-    data: {
-        code: code
-    }
+    data: data
 });
 
 export default {

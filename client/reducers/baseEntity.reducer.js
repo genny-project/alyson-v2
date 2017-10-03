@@ -5,6 +5,7 @@ const initialState = {
 };
 
 export default function reducer( state = initialState, action ) {
+
   switch ( action.type ) {
     case BASE_ENTITY:
       const entities = ( action.payload.length ) ? action.payload : [ action.payload ];

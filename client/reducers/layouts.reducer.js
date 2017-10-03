@@ -14,7 +14,7 @@ export default function reducer( state = initialState, action ) {
       const loaded = state.loaded;
 
       if ( action.payload.data ) {
-        loaded[action.payload.code] = action.payload.data;
+        // loaded[action.payload.code] = action.payload.data;
       }
 
       return {

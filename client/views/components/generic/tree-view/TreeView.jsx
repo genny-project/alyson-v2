@@ -11,40 +11,39 @@ class TreeView extends GennyComponent {
     items: array
   };
 
-  didReceiveDataFromStore(data) {
+  didReceiveDataFromStore = (data) => {
 
-      console.log('=========');
-      console.log(data);
-      console.log('=========');
-
+     
   }
 
-  handleClick = (clickedItem) => {
-      this.sendCode();
-  }
+  handleClick = (item) => {
 
-  showList = () => {
-    // var elm = document.getElementsByClassName('child')[0].children[0];
-    // console.log('******************************************************element', elm);
-    // elm.style.display = 'block';
-
-
-    var elm = document.getElementsByClassName('child')[0];
-    console.log(elm, '****************************************');
-    elm.style.display = 'inline';
+      this.sendData("TV_EXPAND", {
+          code: "TV1",
+          value: item.code
+      }, item.code);
   }
 
   renderList = (items) => {
+
     var layout = [];
     items.map(item => {
 
-      if (item.items) {
-        layout.push(<li>  <span onClick={this.showList}>{item.name} <i className="material-icons" style={{ fontSize: 16 }} > add</i></span> <ul className="child" style={{ display: 'none', marginLeft: 10 }}>   {this.renderList(item.items)} </ul> </li>);
+        if (item.items) {
+
+            layout.push(
+            <li>
+                <span>{item.name} <i className="material-icons" style={{ fontSize: 16 }} > add</i></span>
+                <ul className="child" style={{ display: 'none', marginLeft: 10 }}>
+                    {this.renderList(item.items)}
+                </ul>
+            </li>);
       }
       else {
-        layout.push(<li onClick={this.handleClick}>{item.name}</li>);
+        layout.push(<li onClick={() => this.handleClick(item)}>{item.name}</li>);
       }
     });
+
     return layout;
   }
 
