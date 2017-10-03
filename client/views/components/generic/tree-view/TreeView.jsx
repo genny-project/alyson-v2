@@ -13,7 +13,10 @@ class TreeView extends GennyComponent {
 
   didReceiveDataFromStore = (data) => {
 
+      console.log('-------');
+      console.log(data);
 
+      console.log("Get the data and display it in the tree view!");
   }
 
   handleClick = (item) => {
