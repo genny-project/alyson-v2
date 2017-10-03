@@ -10,3 +10,17 @@
 	color: #222;
 	margin-bottom: 200px;
 }
+
+.form-nav {
+	display: flex;
+	justify-content: center;
+
+
+	> .visible {
+		visibility: visible;
+	}
+
+	> .hidden {
+		visibility: hidden;
+	}
+}

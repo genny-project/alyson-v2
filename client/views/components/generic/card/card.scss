@@ -61,6 +61,10 @@
 .card-toggle {
 	display: flex;
 	justify-content: center;
+
+	i {
+		cursor: pointer;
+	}
 }
 
 .card-collapse {
@@ -87,32 +91,30 @@
 	}
 }
 
-.example-enter {
-	max-height : 0;
-  	opacity: 0.01;
-}
-
-.example-enter.example-enter-active {
-	max-height : 1000px;
-  	opacity: 1;
-  	transition: opacity, max-height 100ms ease;
-}
-
-.example-leave {
-	max-height : 1000px;
-  	opacity: 1;
-}
-
-.example-leave.example-leave-active {
-  	opacity: 0.01;
-   	max-height : 0;
-  	transition: opacity, max-height 100ms ease;
-}
-
 .card-buttons {
 	display: flex;
 
 	> div:not(:last-child){
 		margin-right: 10px;
 	}
+}
+
+.fade {
+  transition: ease-in 0.15s;
+  transition-property: opacity, transform;
+}
+
+.fade-entering {
+  opacity: 0;
+  transform: translateY(-10%);
+}
+
+.fade-entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exiting {
+  opacity: 0;
+  transform: translateY(-10%);
 }

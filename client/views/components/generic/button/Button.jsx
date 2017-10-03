@@ -1,13 +1,14 @@
 import './button.scss';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { string, any } from 'prop-types';
+import { string, any, func } from 'prop-types';
 
 class Button extends Component {
   static defaultProps = {
     className: '',
     href: '',
     type: '',
+    onClick: () => {},
   }
 
   static propTypes = {
@@ -15,13 +16,14 @@ class Button extends Component {
     className: string,
     href: string,
     type: string,
+    onClick: func,
   }
 
   render() {
-    const { children, type, className, href } = this.props;
+    const { children, type, className, href, onClick } = this.props;
     const btn = (
       <div className={`button ${className}`}>
-        <button className={type} >{children}</button>
+        <button onClick={onClick} className={type} >{children}</button>
       </div>
     );
 
