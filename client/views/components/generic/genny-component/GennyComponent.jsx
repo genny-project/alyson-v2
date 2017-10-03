@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { GennyBridge } from 'utils/genny';
 import store from 'views/store';
@@ -23,4 +24,9 @@ class GennyComponent extends Component {
     }
 }
 
-export default GennyComponent;
+const mapStateToProps = state => ({
+  keycloak: state.keycloak,
+  baseEntity: state.baseEntity
+});
+
+export default connect( mapStateToProps, null )( GennyComponent );
