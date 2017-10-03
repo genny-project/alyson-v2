@@ -12,13 +12,14 @@ class TreeView extends GennyComponent {
   };
 
   didReceiveDataFromStore = (data) => {
-      console.log(data);
+
+
   }
 
   handleClick = (item) => {
 
-      this.sendData('TV_EXPAND', {
-          code: 'TV1',
+      this.sendData("TV_EXPAND", {
+          code: "TV1",
           value: item.code
       }, item.code);
   }
