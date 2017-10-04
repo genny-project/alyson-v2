@@ -9,8 +9,8 @@ class GennyBridge {
     Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
   }
 
-  sendTVExpand(event, data, token) {
-    Vertx.sendMessage(events.outgoing.TV_EXPAND(event, data, token));
+  sendTVEvent(event, data, token) {
+    Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
   }
 
   ajaxCall(settings) {

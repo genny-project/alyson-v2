@@ -1,4 +1,4 @@
-export const TV_EXPAND = (event, data, token) => ({
+export const TV_EVENT = (event, data, token) => ({
 
     event_type: event,
     msg_type: "EVT_MSG",
@@ -7,5 +7,5 @@ export const TV_EXPAND = (event, data, token) => ({
 });
 
 export default {
-  TV_EXPAND
+  TV_EVENT,
 };

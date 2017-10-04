@@ -19,18 +19,18 @@ class TreeView extends Component {
     var layout = [];
     items.map((item, i) => {
 
-      if (item.items) {
+      if (item.children) {
 
         layout.push(
-          <li key={i}>
+          <li key={i} onClick={ ()=>{ this.onClick(item)} }>
             <span>{item.name} <i className="material-icons" style={{ fontSize: 16 }} > add</i></span>
-            <ul className="child" style={{ display: 'none', marginLeft: 10 }}>
-              {this.renderList(item.items)}
+            <ul className="child" style={{ marginLeft: 10 }}>
+              {this.renderList(item.children)}
             </ul>
           </li>);
       }
       else { 
-        layout.push(<li key={i} onClick={ ()=>{ this.onClick(item)} } >{item.name}<IconSmall name="expand_more"/></li>);
+        layout.push(<li key={i} onClick={ ()=>{ this.onClick(item)} } >{item.name}<IconSmall name="expand_more"/> </li>);
       }
     });
 

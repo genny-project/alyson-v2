@@ -1,3 +1,4 @@
+import './sidebar.scss';
 import React, { Component } from 'react';
 import ImageView from '../imageview/ImageView';
 import { object, bool, string, any } from 'prop-types';
