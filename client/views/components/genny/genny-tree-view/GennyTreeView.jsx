@@ -29,10 +29,13 @@ class GennyTreeView extends Component {
   	const { root, baseEntity } = this.props;
   	const relationships = baseEntity.relationships[root];
     console.log(baseEntity);
+
   	const items = relationships ? Object.keys( relationships ).filter( key => relationships[key] ).map( code => baseEntity.data[code].data ) : [];
+    console.log(items);
 
-    console.log(Object.keys( baseEntity.relationships ));
-
+    const children2 = (Object.keys( baseEntity.relationships ).filter( key => relationships[key] ).map( code => baseEntity.relationships[code] ));
+    console.log(children2);
+    
     return (
       <div className="genny-tree-view">
       	<TreeView root={root} {...this.props} items={items} onClick={this.handleClick.bind(this)}/>
