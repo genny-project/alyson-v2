@@ -1,4 +1,3 @@
-
 export const TV_EXPAND = (event, data, token) => ({
 
     event_type: event,
