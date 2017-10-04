@@ -1,0 +1,14 @@
+{
+  "backendEnabled": true,
+  "genny": {
+    "host": "http://192.168.99.100:8088",
+    "bridge": {
+      "port": "8088",
+      "endpoints": {
+        "vertex": "frontend",
+        "service": "api/service",
+        "events": "api/events"
+      }
+    }
+  }
+}

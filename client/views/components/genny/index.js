@@ -1,1 +1,1 @@
-export { default } from './gennytreeview.container';
+export { default as GennyTreeView } from './genny-tree-view';
