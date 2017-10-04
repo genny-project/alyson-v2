@@ -7,17 +7,56 @@ import { GennyBridge } from 'utils/genny';
 
 class GennyTreeView extends Component {
 
+  state = {
+    tree: {}
+  }
+
 	static propTypes = {
 		items: array,
 		baseEntity: object
 	};
 
   handleClick = (item) => {
-        this.sendData("TV_EXPAND", {
+    /* Determine whether we need to open or close, first get the state of the tree */
+    const { tree } = this.state;
+
+    /* Now check whether this item is opened or closed in the tree */
+    if ( !tree[item.code] ) {
+      /* Item is closed */
+      this.openItem( item );
+    } else {
+      /* Item is open */
+      this.closeItem( item );
+    }
+
+        
+   }
+
+  openItem = (item) => {
+    /* Send the Genny event */
+    this.sendData("TV_EXPAND", {
             code: "TV1",
             value: item.code
         }, item.code);
-   }
+
+    /* Set this item to be open in the tree */
+    this.setState({
+      tree: {
+        ...this.state.tree,
+        [item.code]: true,
+      }
+    });
+  }
+
+  closeItem = (item) => {
+    /* Close the item */
+    this.setState({
+      tree: {
+        ...this.state.tree,
+        [item.code]: false,
+      }
+    });
+  }
 
   sendData(event, data) {
       console.log("send", data);
@@ -33,7 +72,8 @@ class GennyTreeView extends Component {
     items = items.map( item => {
       /* Get the children for this item */
       const children = this.getEntityChildren( item.code );
-      item.children = children;
+      item.children = children.length ? children : null;
+      item.open = !!this.state.tree[item.code];
       return item;
     });
 
