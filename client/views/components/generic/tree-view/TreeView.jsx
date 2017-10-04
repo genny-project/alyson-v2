@@ -1,36 +1,21 @@
 import './treeView.scss';
 import React, { Component } from 'react';
-import { GennyComponent } from '../genny-component';
-import { object, array } from 'prop-types';
-import store from 'views/store';
+import { object, array, func } from 'prop-types';
 
-class TreeView extends GennyComponent {
+
+class TreeView extends Component {
 
   static propTypes = {
     style: object,
-    items: array
+    items: array,
+    data: object,
+    onClick: () => {},
   };
 
-  didReceiveDataFromStore = (data) => {
-
-      console.log('-------');
-      console.log(data);
-
-      console.log("Get the data and display it in the tree view!");
-  }
-
-  handleClick = (item) => {
-
-      this.sendData("TV_EXPAND", {
-          code: "TV1",
-          value: item.code
-      }, item.code);
-  }
-
-  renderList = (items) => {
+  renderList = (items) => { 
 
     var layout = [];
-    items.map(item => {
+    items.map(item => { 
 
         if (item.items) {
 
@@ -43,15 +28,16 @@ class TreeView extends GennyComponent {
             </li>);
       }
       else {
-        layout.push(<li onClick={() => this.handleClick(item)}>{item.name}</li>);
+        layout.push(<li onClick={this.props.onClick} >{item.name}</li>);
       }
     });
 
     return layout;
   }
 
+
   render() {
-    const { items } = this.props;
+    const { items, onClick, baseEntity } = this.props;
     return (
       <div className="treeview">
         <ul className="parent">
