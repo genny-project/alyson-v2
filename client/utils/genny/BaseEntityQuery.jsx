@@ -16,9 +16,10 @@ class BaseEntityQuery extends Component {
 
   }
 
-  getChildren = () => {
-
+  getChildren = (parentString) => {
+    return this.entities.baseEntity.relationships;
   }
+
 
   render() {
 

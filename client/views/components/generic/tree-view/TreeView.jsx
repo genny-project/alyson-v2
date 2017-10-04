@@ -1,25 +1,24 @@
 import './treeView.scss';
 import React, { Component } from 'react';
 import { GennyComponent } from '../genny-component';
-import { object, array } from 'prop-types';
 import store from 'views/store';
-import BaseEntity from '../../../utils/genny/BaseEntity';
+// import BaseEntity from '../../../utils/genny/BaseEntity';
+
+import { object, array, func } from 'prop-types';
 
 
-class TreeView extends GennyComponent {
+class TreeView extends Component {
 
   static propTypes = {
     style: object,
-    items: array
+    items: array,
+    data: object,
+    onClick: () => { },
   };
 
   didReceiveDataFromStore = (data) => {
-
-    console.log('-------');
+    log('=================================================');
     console.log('yo', data.baseEntity);
-
-    console.log('Get the data and display it in the tree view!');
-
   }
 
   handleClick = (item) => {
@@ -30,8 +29,8 @@ class TreeView extends GennyComponent {
     }, item.code);
   }
 
-  renderList = (items) => {
 
+  renderList = (items) => {
     var layout = [];
     items.map(item => {
 
@@ -46,23 +45,22 @@ class TreeView extends GennyComponent {
           </li>);
       }
       else {
-        layout.push(<li onClick={() => this.handleClick(item)}>{item.name}</li>);
+        layout.push(<li onClick={this.props.onClick} >{item.name}</li>);
       }
     });
 
     return layout;
   }
 
+
   render() {
-    const { items } = this.props;
+    const { items, onClick, baseEntity } = this.props;
     return (
       <div className="treeview">
         <ul className="parent">
           {this.renderList(items)}
         </ul>
 
-        <BaseEntity>
-        </BaseEntity>
       </div>
     );
   }

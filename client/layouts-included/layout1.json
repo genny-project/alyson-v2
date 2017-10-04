@@ -28,35 +28,11 @@
                     ],
                     "children": [
                       {
-                        "TreeView": {
+                        "GennyTreeView": {
                           "style": {
                             "marginTop": "50px"
                           },
-                          "items": [
-                            {
-                              "id": 1,
-                              "name": "This one",
-                              "code": "GRP_LIVE_VIEW"
-                            },
-                            {
-                              "id": 2,
-                              "name": "Item 2"
-                            },
-                            {
-                              "id": 3,
-                              "name": "Item 3"
-                            },
-                            {
-                              "id": 3,
-                              "name": "Item 3",
-                              "items": [
-                                {
-                                  "id": 4,
-                                  "name": "Item 3 - 1"
-                                }
-                              ]
-                            }
-                          ]
+                          "root": "GRP_ROOT"
                         }
                       }
                     ],
