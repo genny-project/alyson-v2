@@ -1,9 +1,7 @@
 import './treeView.scss';
 import React, { Component } from 'react';
-import { GennyComponent } from '../genny-component';
 import { object, array, func } from 'prop-types';
-import store from 'views/store';
-import { GennyBridge } from 'utils/genny';
+import { IconSmall } from '../';
 
 class TreeView extends Component {
 
@@ -13,18 +11,9 @@ class TreeView extends Component {
     data: object,
   };
 
-  handleClick = (item) => {
-      this.sendData("TV_EXPAND", {
-          code: "TV1",
-          value: item.code
-      }, item.code);
-   }
-
-  sendData(event, data) {
-      console.log("send", data);
-      GennyBridge.sendTVExpand(event, data);
+  onClick = (item) => {
+    this.props.onClick(item);
   }
-
 
   renderList = (items) => {
     var layout = [];
@@ -40,8 +29,8 @@ class TreeView extends Component {
             </ul>
           </li>);
       }
-      else {
-        layout.push(<li key={i} onClick={()=>{this.handleClick(item)}} >{item.name}</li>);
+      else { 
+        layout.push(<li key={i} onClick={ ()=>{ this.onClick(item)} } >{item.name}<IconSmall name="expand_more"/></li>);
       }
     });
 
