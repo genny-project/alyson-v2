@@ -11,26 +11,29 @@ class TreeView extends Component {
     data: object,
   };
 
-  onClick = (item) => {
+  onClick = (item) => (event) => {
+    event.stopPropagation();
+    event.preventDefault();
     this.props.onClick(item);
+    return false;
   }
 
   renderList = (items) => {
     var layout = [];
     items.map((item, i) => {
 
-      if (item.children) {
+      if (item.children && item.open) {
 
         layout.push(
-          <li key={i} onClick={ ()=>{ this.onClick(item)} }>
-            <span>{item.name} <i className="material-icons" style={{ fontSize: 16 }} > add</i></span>
+          <li key={i} onClick={this.onClick(item)}>
+            <span>{item.name}<IconSmall name="expand_more"/></span>
             <ul className="child" style={{ marginLeft: 10 }}>
               {this.renderList(item.children)}
             </ul>
           </li>);
       }
       else { 
-        layout.push(<li key={i} onClick={ ()=>{ this.onClick(item)} } >{item.name}<IconSmall name="expand_more"/> </li>);
+        layout.push(<li key={i} onClick={this.onClick(item)} >{item.name}<IconSmall name="chevron_right"/> </li>);
       }
     });
 
