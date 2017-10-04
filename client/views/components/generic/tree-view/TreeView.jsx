@@ -1,7 +1,7 @@
 import './treeView.scss';
 import React, { Component } from 'react';
 import { object, array, func } from 'prop-types';
-import { IconSmall } from '../';
+import { IconSmall, SubmitStatusIcon } from '../';
 
 class TreeView extends Component {
 
@@ -25,15 +25,15 @@ class TreeView extends Component {
       if (item.children && item.open) {
 
         layout.push(
-          <li key={i} onClick={this.onClick(item)}>
-            <span>{item.name}<IconSmall name="expand_more"/></span>
+          <li key={i}>
+            <span>{item.name}<IconSmall onClick={this.onClick(item)} name="expand_more"/></span>
             <ul className="child" style={{ marginLeft: 10 }}>
-              {this.renderList(item.children)}
+              { item.children.length ? this.renderList(item.children) : <SubmitStatusIcon status="sending" />}
             </ul>
           </li>);
       }
       else { 
-        layout.push(<li key={i} onClick={this.onClick(item)} >{item.name}<IconSmall name="chevron_right"/> </li>);
+        layout.push(<li key={i} > <span>{item.name}<IconSmall onClick={this.onClick(item)} name="chevron_right"/></span></li>);
       }
     });
 
