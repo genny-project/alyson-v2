@@ -21,9 +21,9 @@ class IconSmall extends Component {
   }
 
   render() {
-    const { className, size, name } = this.props;
+    const { className, size, name, onClick } = this.props;
     return (
-      <i className={`icon material-icons ${className} `} style={{ fontSize: size }}>{name}</i>
+      <i className={`icon material-icons ${className} `} onClick={onClick} style={{ fontSize: size }}>{name}</i>
 
     );
   }

@@ -72,7 +72,7 @@ class GennyTreeView extends Component {
     items = items.map( item => {
       /* Get the children for this item */
       const children = this.getEntityChildren( item.code );
-      item.children = children.length ? children : null;
+      item.children = children;
       item.open = !!this.state.tree[item.code];
       return item;
     });
