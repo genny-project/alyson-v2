@@ -1,31 +1,22 @@
 import './treeView.scss';
 import React, { Component } from 'react';
-import { GennyComponent } from '../genny-component';
 import { object, array } from 'prop-types';
 import store from 'views/store';
 
-class TreeView extends GennyComponent {
+class TreeView extends Component {
 
   static propTypes = {
     style: object,
     items: array
   };
 
-  didReceiveDataFromStore = (data) => {
+  // handleClick = (item) => {
 
-      console.log('-------');
-      console.log(data);
-
-      console.log("Get the data and display it in the tree view!");
-  }
-
-  handleClick = (item) => {
-
-      this.sendData("TV_EXPAND", {
-          code: "TV1",
-          value: item.code
-      }, item.code);
-  }
+  //     this.sendData("TV_EXPAND", {
+  //         code: "TV1",
+  //         value: item.code
+  //     }, item.code);
+  // }
 
   renderList = (items) => {
 
@@ -43,7 +34,8 @@ class TreeView extends GennyComponent {
             </li>);
       }
       else {
-        layout.push(<li onClick={() => this.handleClick(item)}>{item.name}</li>);
+        //layout.push(<li onClick={() => this.handleClick(item)}>{item.name}</li>);
+        layout.push(<li>{item.name}</li>);
       }
     });
 
