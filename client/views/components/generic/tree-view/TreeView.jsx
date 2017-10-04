@@ -1,11 +1,9 @@
 import './treeView.scss';
 import React, { Component } from 'react';
 import { GennyComponent } from '../genny-component';
-import store from 'views/store';
-// import BaseEntity from '../../../utils/genny/BaseEntity';
-
 import { object, array, func } from 'prop-types';
-
+import store from 'views/store';
+import { GennyBridge } from 'utils/genny';
 
 class TreeView extends Component {
 
@@ -13,31 +11,29 @@ class TreeView extends Component {
     style: object,
     items: array,
     data: object,
-    onClick: () => { },
   };
 
-  didReceiveDataFromStore = (data) => {
-    log('=================================================');
-    console.log('yo', data.baseEntity);
-  }
-
   handleClick = (item) => {
+      this.sendData("TV_EXPAND", {
+          code: "TV1",
+          value: item.code
+      }, item.code);
+   }
 
-    this.sendData('TV_EXPAND', {
-      code: 'TV1',
-      value: item.code
-    }, item.code);
+  sendData(event, data) {
+      console.log("send", data);
+      GennyBridge.sendTVExpand(event, data);
   }
 
 
   renderList = (items) => {
     var layout = [];
-    items.map(item => {
+    items.map((item, i) => {
 
       if (item.items) {
 
         layout.push(
-          <li>
+          <li key={i}>
             <span>{item.name} <i className="material-icons" style={{ fontSize: 16 }} > add</i></span>
             <ul className="child" style={{ display: 'none', marginLeft: 10 }}>
               {this.renderList(item.items)}
@@ -45,7 +41,7 @@ class TreeView extends Component {
           </li>);
       }
       else {
-        layout.push(<li onClick={this.props.onClick} >{item.name}</li>);
+        layout.push(<li key={i} onClick={()=>{this.handleClick(item)}} >{item.name}</li>);
       }
     });
 
@@ -54,7 +50,7 @@ class TreeView extends Component {
 
 
   render() {
-    const { items, onClick, baseEntity } = this.props;
+    const { items, baseEntity } = this.props;
     return (
       <div className="treeview">
         <ul className="parent">

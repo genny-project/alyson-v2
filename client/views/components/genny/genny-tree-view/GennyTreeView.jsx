@@ -11,25 +11,16 @@ class GennyTreeView extends Component {
 		baseEntity: object
 	};
 
-    handleClick = (item) => {
-
-      this.sendData("TV_EXPAND", {
-          code: "TV1",
-          value: item.code
-      }, item.code);
- 	 }
-
-
   render() {
   	const { root, baseEntity } = this.props;
   	const relationships = baseEntity.relationships[root];
 
+    console.log(baseEntity);
   	const items = relationships ? Object.keys( relationships ).filter( key => relationships[key] ).map( code => baseEntity.data[code].data ) : [];
 
     return (
       <div className="genny-tree-view">
-     	{ /*JSON.stringify( items ) */}
-      	<TreeView root={root} {...this.props} items={items} onClick={this.handleClick} />
+      	<TreeView root={root} {...this.props} items={items} />
       </div>
     );
   }

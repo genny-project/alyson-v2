@@ -1,9 +1,7 @@
-
-export const TV_EXPAND = (event, data, token) => ({
+export const TV_EXPAND = (event, data) => ({
 
     event_type: event,
     msg_type: "EVT_MSG",
-    token: token,
     data: data
 });
 
