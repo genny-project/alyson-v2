@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { GennyComponent } from '../genny-component';
 import { object, array } from 'prop-types';
 import store from 'views/store';
+import BaseEntity from '../../../utils/genny/BaseEntity';
+
 
 class TreeView extends GennyComponent {
 
@@ -13,18 +15,19 @@ class TreeView extends GennyComponent {
 
   didReceiveDataFromStore = (data) => {
 
-      console.log('-------');
-      console.log(data);
+    console.log('-------');
+    console.log('yo', data.baseEntity);
 
-      console.log("Get the data and display it in the tree view!");
+    console.log('Get the data and display it in the tree view!');
+
   }
 
   handleClick = (item) => {
 
-      this.sendData("TV_EXPAND", {
-          code: "TV1",
-          value: item.code
-      }, item.code);
+    this.sendData('TV_EXPAND', {
+      code: 'TV1',
+      value: item.code
+    }, item.code);
   }
 
   renderList = (items) => {
@@ -32,15 +35,15 @@ class TreeView extends GennyComponent {
     var layout = [];
     items.map(item => {
 
-        if (item.items) {
+      if (item.items) {
 
-            layout.push(
-            <li>
-                <span>{item.name} <i className="material-icons" style={{ fontSize: 16 }} > add</i></span>
-                <ul className="child" style={{ display: 'none', marginLeft: 10 }}>
-                    {this.renderList(item.items)}
-                </ul>
-            </li>);
+        layout.push(
+          <li>
+            <span>{item.name} <i className="material-icons" style={{ fontSize: 16 }} > add</i></span>
+            <ul className="child" style={{ display: 'none', marginLeft: 10 }}>
+              {this.renderList(item.items)}
+            </ul>
+          </li>);
       }
       else {
         layout.push(<li onClick={() => this.handleClick(item)}>{item.name}</li>);
@@ -57,6 +60,9 @@ class TreeView extends GennyComponent {
         <ul className="parent">
           {this.renderList(items)}
         </ul>
+
+        <BaseEntity>
+        </BaseEntity>
       </div>
     );
   }

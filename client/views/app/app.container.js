@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
   keycloak: state.keycloak,
 });
 
-function mapDispatchToProps( dispatch ) {
-  return bindActionCreators({ appStart, authLoggedIn }, dispatch );
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ appStart, authLoggedIn }, dispatch);
 }
 
-export default connect( mapStateToProps, mapDispatchToProps, null, { pure: false } )( App );
+export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(App);
