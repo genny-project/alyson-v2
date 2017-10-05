@@ -20,5 +20,3 @@ const mapStateTopProps = (state) => ({
 
 
 export default connect(mapStateTopProps, null)(BaseEntity);
-
-

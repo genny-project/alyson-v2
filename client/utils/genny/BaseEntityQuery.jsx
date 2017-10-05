@@ -8,25 +8,19 @@ class BaseEntityQuery extends Component {
   }
 
 
-  getCode = () => {
-
-  }
-
-  getparent = (child) => {
-
-  }
-
   getChildren = (parentString) => {
-    return this.entities.baseEntity.relationships;
+    const relationshipData = this.entities.baseEntity.relationships;
+    return relationshipData;
   }
-
 
   render() {
-
-    return <h1> Hello there</h1>;
+    console.log(this.getChildren());
+    return (
+      <div>
+        <h1> Base entity query element </h1>
+      </div>
+    );
   }
-
-
 }
 
 export default BaseEntityQuery;
