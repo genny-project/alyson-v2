@@ -19,7 +19,7 @@ class TreeView extends Component {
   }
 
   renderList = (items) => {
-    var layout = [];
+    let layout = [];
     items.map((item, i) => {
 
       if (item.children && item.open) {
