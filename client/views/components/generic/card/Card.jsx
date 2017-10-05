@@ -39,44 +39,67 @@ class Card extends GennyComponent {
     const { answerGroup } = this.props;
     const { data, buttons, level } = this.state;
 
-    const FadeTransition = (props) => (
-      <Transition {...props} timeout={{ enter: 0, exit: 150 }} />
+    return (
+      <div className={`card-collapse fade fade-${status}`}>
+        {
+          data.map(d => {
+            return <div className={`card-data ${d.name}`} key={d.name}>
+              <IconSmall name={d.icon}/>
+              <span>{d.value}</span>
+            </div>;
+          })
+        }
+        <div className="card-buttons">
+          {
+            buttons.map(b => {
+              return <Button className={b.class} key={b.name}>
+                <IconSmall name={b.icon}/>
+                <span>{b.value}</span>
+              </Button>;
+            })
+          }
+        </div>
+      </div>
     );
 
-    return (
-      <FadeTransition>
-        { 
-          (status) => {
-            console.log(status);
-            if (status === 'exited') {
-              return null
-            }
-            return (
-              <div className={`card-collapse fade fade-${status}`}>
-                {
-                  data.map(d => {
-                    return <div className={`card-data ${d.name}`} key={d.name}>
-                      <IconSmall name={d.icon}/>
-                      <span>{d.value}</span>
-                    </div>;
-                  })
-                }
-                <div className="card-buttons">
-                  {
-                    buttons.map(b => {
-                      return <Button className={b.class} key={b.name}>
-                        <IconSmall name={b.icon}/>
-                        <span>{b.value}</span>
-                      </Button>;
-                    })
-                  }
-                </div>
-              </div>
-            );
-          }
-        }
-      </FadeTransition>
-    );
+    // const FadeTransition = (props) => (
+    //   <Transition {...props} timeout={{ enter: 0, exit: 150 }} />
+    // );
+
+    // return (
+    //   <FadeTransition>
+    //     { 
+    //       (status) => {
+    //         console.log(status);
+    //         if (status === 'exited') {
+    //           return null
+    //         }
+    //         return (
+    //           <div className={`card-collapse fade fade-${status}`}>
+    //             {
+    //               data.map(d => {
+    //                 return <div className={`card-data ${d.name}`} key={d.name}>
+    //                   <IconSmall name={d.icon}/>
+    //                   <span>{d.value}</span>
+    //                 </div>;
+    //               })
+    //             }
+    //             <div className="card-buttons">
+    //               {
+    //                 buttons.map(b => {
+    //                   return <Button className={b.class} key={b.name}>
+    //                     <IconSmall name={b.icon}/>
+    //                     <span>{b.value}</span>
+    //                   </Button>;
+    //                 })
+    //               }
+    //             </div>
+    //           </div>
+    //         );
+    //       }
+    //     }
+    //   </FadeTransition>
+    // );
   }
 
   render() {
