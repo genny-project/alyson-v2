@@ -1,10 +1,9 @@
 import './form.scss';
-import React from 'react';
-import { GennyComponent } from '../genny-component';
+import React, { Component } from 'react';
 import { Input, ProgressBar, Button, IconSmall } from '../';
 import { string, array, object} from 'prop-types';
 
-class Form extends GennyComponent {
+class Form extends Component {
 
   static defaultProps = {
     className: '',

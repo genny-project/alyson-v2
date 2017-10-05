@@ -1,11 +1,10 @@
 import './card.scss';
-import React from 'react';
-import { GennyComponent } from '../genny-component';
+import React, { Component } from 'react';
 import { string, array, object } from 'prop-types';
 import { Button, IconSmall, ProgressBar } from '../';
 import { Transition, TransitionGroup } from 'react-transition-group';
 
-class Card extends GennyComponent {
+class Card extends Component {
   
   static defaultProps = {
     className: '',

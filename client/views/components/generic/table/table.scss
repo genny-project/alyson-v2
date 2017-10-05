@@ -1,0 +1,48 @@
+@import '../../../../styles/colors';
+
+
+.table {
+	padding: 10px;
+	background: white;
+	border-radius: 5px;
+	width: 100%;
+	box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+	color: #222;
+	margin-bottom: 200px;
+}
+
+.table-header {
+	padding: 5px;
+	background: #9DD;
+}
+
+.table-header-cell {
+	padding: 5px;
+	background: #D9D;
+
+	&:nth-child(2) {
+		background: #9D9;
+	}
+}
+
+.table-row {
+	padding: 5px;
+	background: #DD9;
+}
+
+.table-row-cell {
+	padding: 5px;
+	background: #99D;
+
+	&:nth-child(2) {
+		background: #D99;
+	}
+}
+
+.table-header, .table-row {
+	display:flex;
+}
+
+.table-header-cell, .table-row-cell {
+	flex-grow: 1;
+}
