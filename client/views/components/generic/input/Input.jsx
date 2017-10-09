@@ -1,11 +1,10 @@
 import './input.scss';
-import React from 'react';
-import { GennyComponent } from '../genny-component';
+import React, { Component } from 'react';
 import { string } from 'prop-types';
 import { InputDropdown, InputEmail, InputPassword, InputPhone, InputText, InputTextarea, InputMasked } from '../';
 
 
-class Input extends GennyComponent {
+class Input extends Component {
   static defaultProps = {
     className: '',
     type: ''

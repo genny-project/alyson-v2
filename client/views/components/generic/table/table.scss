@@ -1,7 +1,7 @@
 @import '../../../../styles/colors';
 
 
-.form {
+.table {
 	padding: 10px;
 	background: white;
 	border-radius: 5px;
@@ -9,18 +9,4 @@
 	box-shadow: 0 3px 5px rgba(0,0,0,0.5);
 	color: #222;
 	margin-bottom: 50px;
-}
-
-.form-nav {
-	display: flex;
-	justify-content: center;
-
-
-	> .visible {
-		visibility: visible;
-	}
-
-	> .hidden {
-		visibility: hidden;
-	}
 }

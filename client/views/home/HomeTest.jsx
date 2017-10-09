@@ -2,7 +2,7 @@ import './home.scss';
 import React, { Component } from 'react';
 import {  } from 'views/components/generic';
 // import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
-import { Card, Form, Label, Input } from 'views/components/generic';
+import { Card, Form, Label, Input, TableNew } from 'views/components/generic';
 
 class Home extends Component {
 
@@ -95,6 +95,38 @@ class Home extends Component {
       ],
     };
 
+
+     const tableData = { 
+      "itemsPerPage" : 2,
+      "data" : [
+        { "firstName" : "1office","lastName": "1photo", "age": 3, "visits": 3, "progress": 2, "status" : "single" },
+        { "firstName" : "2office", "lastName": "2photo", "age": 4, "visits": 4, "progress": 4, "status" : "sdas" },
+        { "firstName" : "3office", "lastName": "3photo", "age": 5, "visits": 5, "progress": 5, "status" : "bana" },
+        { "firstName" : "6office", "lastName": "4photo", "age": 33, "visits": 23, "progress": 10, "status" : "agrab" },
+        { "firstName" : "4office", "lastName": "5photo", "age": 344, "visits": 13, "progress": 23, "status" : "tbool" },
+        { "firstName":  "5office", "lastName": "6photo", "age": 366, "visits": 43, "progress": 44, "status" : "splat" },
+        { "firstName" : "1office","lastName": "1photo", "age": 3, "visits": 3, "progress": 2, "status" : "single" },
+        { "firstName" : "2office", "lastName": "2photo", "age": 4, "visits": 4, "progress": 4, "status" : "sdas" },
+        { "firstName" : "3office", "lastName": "3photo", "age": 5, "visits": 5, "progress": 5, "status" : "bana" },
+        { "firstName" : "6office", "lastName": "4photo", "age": 33, "visits": 23, "progress": 10, "status" : "agrab" },
+        { "firstName" : "4office", "lastName": "5photo", "age": 344, "visits": 13, "progress": 23, "status" : "tbool" },
+        { "firstName":  "5office", "lastName": "6photo", "age": 366, "visits": 43, "progress": 44, "status" : "splat" },
+        { "firstName" : "1office","lastName": "1photo", "age": 3, "visits": 3, "progress": 2, "status" : "single" },
+        { "firstName" : "2office", "lastName": "2photo", "age": 4, "visits": 4, "progress": 4, "status" : "sdas" },
+        { "firstName" : "3office", "lastName": "3photo", "age": 5, "visits": 5, "progress": 5, "status" : "bana" },
+        { "firstName" : "6office", "lastName": "4photo", "age": 33, "visits": 23, "progress": 10, "status" : "agrab" },
+        { "firstName" : "4office", "lastName": "5photo", "age": 344, "visits": 13, "progress": 23, "status" : "tbool" },
+        { "firstName":  "5office", "lastName": "6photo", "age": 366, "visits": 43, "progress": 44, "status" : "splat" },
+      ],
+      "columns" : [
+        { "Header": "First Name", "accessor": "firstName" },
+        { "Header": "Last Name", "accessor": "lastName" },
+        { "Header": "Age", "accessor": "age" },
+        { "Header": "Status", "accessor": "status" },
+        { "Header": "Visits", "accessor": "visits" },
+      ]
+    };
+
     return (
       <div className="home">
         <p>Home</p>
@@ -105,6 +137,10 @@ class Home extends Component {
 
         <div className="column2">
          <Form questionGroup={questionGroup} />
+        </div>
+
+        <div className="column2">
+         <TableNew tableData={tableData} />
         </div>
       </div>
     );

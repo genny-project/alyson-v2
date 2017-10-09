@@ -20,3 +20,4 @@ export { default as Label } from './label';
 export { default as SubmitStatusIcon } from './submit-status-icon';
 export { default as ProgressBar } from './progress-bar';
 export { default as TestComponent } from './test-component';
+export { default as Table } from './table';

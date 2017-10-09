@@ -41,7 +41,7 @@ class TreeView extends Component {
   }
 
   renderList = (items) => {
-    var layout = [];
+    let layout = [];
     items.map((item, i) => {
 
       if (item.children && item.open) {
@@ -74,6 +74,7 @@ class TreeView extends Component {
               return <span>{query.getRelationships(items)}</span>;
             }
           }
+
         </BaseEntity>
         <ul className="parent">
           {this.renderList(items)}
