@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
-import { BaseEntity } from '../../genny/';
-
+import { BaseEntity } from '../../../../utils/genny/';
 class TestComponent extends Component {
-
   constructor(props) {
     super(props);
-    console.log(BaseEntity);
   }
 
   render() {
     return (
       <div>
-
-
+        <h1> Hi from TestComponent</h1>
+        <BaseEntity>
+          {
+            (query) => {
+              return <span>{query.getRelationships('gg')}</span>;
+            }
+          }
+        </BaseEntity>
       </div>
     );
   }
 }
 
-
 export default TestComponent;
+
