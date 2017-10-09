@@ -2,7 +2,7 @@ import './home.scss';
 import React, { Component } from 'react';
 import {  } from 'views/components/generic';
 // import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
-import { Card, Form, Label, Input, TableNew } from 'views/components/generic';
+import { Card, Form, Label, Input, Table } from 'views/components/generic';
 
 class Home extends Component {
 
@@ -140,7 +140,7 @@ class Home extends Component {
         </div>
 
         <div className="column2">
-         <TableNew tableData={tableData} />
+         <Table tableData={tableData} />
         </div>
       </div>
     );

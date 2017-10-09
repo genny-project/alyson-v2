@@ -57,7 +57,6 @@ class TreeView extends Component {
         layout.push(< li key={i} onClick={this.sendSelectMsg}> <span>{item && item.name}  {console.log(item, 'item.sendSelectMsg from chevron right')}   {<IconSmall onClick={this.onClick(item)} name="chevron_right" />} </span></li >);
       }
     });
-
     return layout;
   }
 
