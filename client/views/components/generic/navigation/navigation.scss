@@ -1,0 +1,14 @@
+@import '../../../../styles/colors';
+
+
+.navigation {
+	display: flex;
+	align-items: center;
+	background: white;
+	margin-bottom: 50px;
+	padding: 10px;
+
+	.help > i {
+		font-size: 28px;
+	}
+}

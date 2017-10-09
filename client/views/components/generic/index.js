@@ -22,3 +22,5 @@ export { default as ProgressBar } from './progress-bar';
 export { default as TestComponent } from './test-component';
 export { default as Table } from './table';
 export { default as Profile } from './profile';
+export { default as Navigation } from './navigation';
+export { default as Notifications } from './notifications';

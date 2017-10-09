@@ -13,6 +13,10 @@ class GennyBridge {
     Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
   }
 
+  sendLogout(event, data, token) {
+    Vertx.sendMessage(events.outgoing.LOG_OUT(event, data, token));
+  }
+
   ajaxCall(settings) {
     return Observable.ajax({
       ...settings,

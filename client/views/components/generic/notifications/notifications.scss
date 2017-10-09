@@ -1,0 +1,39 @@
+@import '../../../../styles/colors';
+
+
+.notifications-main {
+
+	display: flex;
+	align-items: center;
+
+	i {
+		font-size: 28px;
+		padding: 5px;
+	}
+
+	.notifications, .alerts, .alarms {
+		position: relative;
+	}
+
+	.number {
+		position: absolute;
+		z-index: 2;
+
+		top: 0;
+		right: 0;
+
+		width: 16px;
+		height: 16px;
+		border-radius: 8px;
+		background-color: $error;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		span {
+			color: white;
+			font-size: 12px;
+		}
+	}
+}
