@@ -1,7 +1,7 @@
 {
   "backendEnabled": true,
   "genny": {
-    "host": "http://192.168.99.100:8088",
+    "host": "http://localhost:8088",
     "bridge": {
       "port": "8088",
       "endpoints": {
