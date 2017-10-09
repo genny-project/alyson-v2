@@ -29,7 +29,6 @@ class GennyTreeView extends Component {
       this.closeItem(item);
     }
 
-
   }
 
   openItem = (item) => {
