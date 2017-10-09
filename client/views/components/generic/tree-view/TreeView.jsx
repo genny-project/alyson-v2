@@ -28,15 +28,14 @@ class TreeView extends Component {
           <li key={i}>
             <span>{item.name}<IconSmall onClick={this.onClick(item)} name="expand_more"/></span>
             <ul className="child" style={{ marginLeft: 10 }}>
-              { item.children.length ? this.renderList(item.children) : <SubmitStatusIcon status="sending" />}
+              { item.children.length > 0 ? this.renderList(item.children) : <SubmitStatusIcon status="sending" />}
             </ul>
           </li>);
       }
       else { 
-        layout.push(<li key={i} > <span>{item.name}<IconSmall onClick={this.onClick(item)} name="chevron_right"/></span></li>);
+        layout.push(<li key={i} > <span>{item.name} <IconSmall onClick={this.onClick(item)} name="chevron_right"/> </span></li>);
       }
     });
-
     return layout;
   }
 
