@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { string } from 'prop-types';
 import { InputDropdown, InputEmail, InputPassword, InputPhone, InputText, InputTextarea, InputMasked } from '../';
 
-
 class Input extends Component {
   static defaultProps = {
     className: '',
@@ -20,7 +19,7 @@ class Input extends Component {
     switch(type) {
         case "text":
             return ( <InputText {...this.props}/> );
-        case "textarea":
+        {/* case "textarea":
             return ( <InputTextarea {...this.props}/> );
         case "email":
             return ( <InputEmail {...this.props}/> );
@@ -29,7 +28,7 @@ class Input extends Component {
         case "phone":
             return ( <InputPhone {...this.props}/> );
         case "dropdown":
-            return ( <InputDropdown {...this.props}/> );
+            return ( <InputDropdown {...this.props}/> ); */}
         default:
             return ( <InputText {...this.props}/> );
     }
