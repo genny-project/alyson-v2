@@ -34,6 +34,7 @@ class TreeView extends Component {
     console.log(item.code, 'Log item form sendSlectMsg function');
   }
 
+
   sendData = (event, data) => {
     console.log('send', data);
     const token = store.getState().keycloak.token;
