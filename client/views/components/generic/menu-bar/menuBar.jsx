@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { string } from 'prop-types';
 import { IconSmall, Profile, Notifications, Label, ImageView } from '../';
 
+import store from 'views/store';
+import { GennyBridge } from 'utils/genny';
+
 class MenuBar extends Component {
   static defaultProps = {
     className: '',
@@ -12,8 +15,40 @@ class MenuBar extends Component {
     className: string,
   }
 
+  state = {
+    isVisible: false
+  } 
+
+  handleProfileEnter = () => {
+    this.setState({
+        isVisible: true,
+    });
+  }
+
+  handleProfileLeave = () => {
+    this.setState({
+        isVisible: false,
+    });
+  }
+
+  handleLogout = () => {
+    this.sendData('LOGOUT', {
+      code: 'LOGOUT',
+    });
+  }
+
+  sendData(event, data) {
+    console.log('send', data);
+    const token = store.getState().keycloak.token;
+    GennyBridge.sendLogout(event, data, token);
+  }
+
+
   render() {
     const { className } = this.props;
+    const { isVisible } = this.state;
+
+
     return (
       <div className="menu-bar">
         <div className="menu-bar-left">
@@ -22,10 +57,18 @@ class MenuBar extends Component {
         </div>
         <div className="menu-bar-right">
           <Notifications />
-          <Profile />
-          <div className="help">
-            <IconSmall name="help" />
+          <div className="profile" onMouseEnter={this.handleProfileEnter} onMouseLeave={this.handleProfileLeave}>
+            <Label text="Welcome, Name" />
+            <ImageView src="http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg" />
+            { isVisible ? 
+              <ul className="navigation-dropdown">
+                <li><IconSmall name="person" /><span>Profile</span></li>
+                <li><IconSmall name="settings" /><span>Account</span></li>
+                <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
+              </ul> 
+            : null } 
           </div>
+          <IconSmall className="help" name="help" />
         </div>
       </div>
     );
