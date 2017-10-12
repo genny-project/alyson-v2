@@ -1,6 +1,5 @@
-import './table.scss';
-import React, { Component }  from 'react';
-import { } from '../';
+// import './table.scss';
+import React, { Component } from 'react';
 import { string, array, object } from 'prop-types';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
@@ -23,17 +22,17 @@ class Table extends Component {
   }
 
   render() {
- 	  const { className, tableData  } = this.props;
+    const { className, tableData } = this.props;
     const data = tableData.data;
     const columns = tableData.columns;
     const itemsPerPage = tableData.itemsPerPage;
 
     return (
       <ReactTable
-          data={data}
-          columns={columns}
-          defaultPageSize={itemsPerPage}
-          className="-striped -highlight table"
+        data={data}
+        columns={columns}
+        defaultPageSize={itemsPerPage}
+        className="-striped -highlight table"
       />
     );
   }

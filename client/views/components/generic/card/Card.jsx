@@ -5,7 +5,7 @@ import { Button, IconSmall, ProgressBar } from '../';
 import { Transition, TransitionGroup } from 'react-transition-group';
 
 class Card extends Component {
-  
+
   static defaultProps = {
     className: '',
     answerGroup: {},
@@ -43,7 +43,7 @@ class Card extends Component {
         {
           data.map(d => {
             return <div className={`card-data ${d.name}`} key={d.name}>
-              <IconSmall name={d.icon}/>
+              <IconSmall name={d.icon} />
               <span>{d.value}</span>
             </div>;
           })
@@ -52,7 +52,7 @@ class Card extends Component {
           {
             buttons.map(b => {
               return <Button className={b.class} key={b.name}>
-                <IconSmall name={b.icon}/>
+                <IconSmall name={b.icon} />
                 <span>{b.value}</span>
               </Button>;
             })
@@ -102,7 +102,7 @@ class Card extends Component {
   }
 
   render() {
-    const { className, answerGroup} = this.props;
+    const { className, answerGroup } = this.props;
     const { textOne, textTwo, level, showProgress, pageCurrent, pageCount, isVisible, data, buttons } = this.state;
     const collapseContent = isVisible ? this.SlideContent() : '';
     const collapseArrow = isVisible ? 'expand_less' : 'expand_more';
@@ -118,14 +118,14 @@ class Card extends Component {
           <div className={`card-light ${level}`} />
         </div>
         <div className="card-toggle" onClick={this.handleClick} >
-          <IconSmall name={collapseArrow}/>
+          <IconSmall name={collapseArrow} />
         </div>
         <TransitionGroup>
 
           {collapseContent}
 
         </TransitionGroup>
-         { showProgress ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={2} /> : null }
+        {showProgress ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={2} /> : null}
       </div>
     );
   }

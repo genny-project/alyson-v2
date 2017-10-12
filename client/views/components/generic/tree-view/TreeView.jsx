@@ -26,12 +26,11 @@ class TreeView extends Component {
   }
 
   sendSelectMsg = () => {
-    this.sendData('TV_EXPAND', {
+    this.sendData('TV_SELECT', {
       code: 'TV1',
-      value: 'GRP_LIVE_VIEW'
-    }, 'TV1');
+      value: 'GRP_DASHBOARD'
+    }, 'GRP_DASHBOARD');
   }
-
 
 
   sendData = (event, data) => {
