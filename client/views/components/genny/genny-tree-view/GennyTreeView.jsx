@@ -88,17 +88,6 @@ class GennyTreeView extends Component {
 
     console.log(items, 'items console log from genny tree view');
 
-    // items = items.map( item => {
-    //    Get the children for this item 
-    //   const children = this.getEntityChildren( item.code );
-    // });
-
-    // const items = relationships ? Object.keys( relationships ).filter( key => relationships[key] ).map( code => baseEntity.data[code].data ) : [];
-    // console.log(items);
-
-    // const children2 = (Object.keys( baseEntity.relationships ).filter( key => relationships[key] ).map( code => baseEntity.relationships[code] ));
-    // console.log(children2);
-
     return (
       <div className="genny-tree-view">
         <TreeView root={root} {...this.props} items={items} onClick={this.handleClick.bind(this)} />

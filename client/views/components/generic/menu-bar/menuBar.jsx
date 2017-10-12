@@ -24,11 +24,11 @@ class MenuBar extends Component {
           <Notifications />
           <Profile />
           <div className="help">
-            <IconSmall name="help"/>
+            <IconSmall name="help" />
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

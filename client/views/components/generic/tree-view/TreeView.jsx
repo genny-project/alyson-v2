@@ -7,8 +7,6 @@ import { BaseEntity } from '../../../../utils/genny/';
 import store from 'views/store';
 
 import { GennyBridge } from 'utils/genny';
-
-
 class TreeView extends Component {
 
   static propTypes = {
@@ -25,13 +23,14 @@ class TreeView extends Component {
     return false;
   }
 
-  sendSelectMsg = () => {
+  sendSelectMsg = (item) => (event) => {
     this.sendData('TV_SELECT', {
       code: 'TV1',
-      value: 'GRP_DASHBOARD'
-    }, 'GRP_DASHBOARD');
-  }
+      value: item.code
+    }, item.code);
 
+    console.log(item.code, 'Log item form sendSlectMsg function');
+  }
 
   sendData = (event, data) => {
     console.log('send', data);
@@ -42,9 +41,7 @@ class TreeView extends Component {
   renderList = (items) => {
     let layout = [];
     items.map((item, i) => {
-
       if (item.children && item.open) {
-
         layout.push(
           <li key={i}>
             <span>  {item.name}     <IconSmall onClick={this.onClick(item)} name="expand_more" />  </span>
@@ -54,7 +51,7 @@ class TreeView extends Component {
           </li>);
       }
       else {
-        layout.push(< li key={i} onClick={this.sendSelectMsg}> <span>{item && item.name}  {console.log(item, 'item.sendSelectMsg from chevron right')}   {<IconSmall onClick={this.onClick(item)} name="chevron_right" />} </span></li >);
+        layout.push(< li key={i} onClick={(item) => { this.sendSelectMsg(item); }}> <span>{item && item.name}  {console.log(item, 'item.sendSelectMsg from chevron right')}   {<IconSmall onClick={this.onClick(item)} name="chevron_right" />} </span></li >);
       }
     });
     return layout;
@@ -72,7 +69,6 @@ class TreeView extends Component {
               return <span>{query.getRelationships(items)}</span>;
             }
           }
-
         </BaseEntity>
         <ul className="parent">
           {this.renderList(items)}
