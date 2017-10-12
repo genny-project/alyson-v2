@@ -24,6 +24,7 @@ class TreeView extends Component {
   }
 
   sendSelectMsg = (item) => (event) => {
+    console.log(item, 'sendselect message fired for TV Select function');
     this.sendData('TV_SELECT', {
       code: 'TV1',
       value: item.code
