@@ -1,21 +1,20 @@
 // import './table.scss';
 import React, { Component } from 'react';
-import { } from '../';
-import { string, array } from 'prop-types';
-// import ReactTable from 'react-table';
-// import 'react-table/react-table.css';
+import { string, array, object } from 'prop-types';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 class Table extends Component {
 
   static defaultProps = {
     className: '',
-    tableData: [],
+    tableData: {},
 
   }
 
   static propTypes = {
     className: string,
-    tableData: array,
+    tableData: object,
   }
 
   state = {

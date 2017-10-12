@@ -2,7 +2,7 @@ import './home.scss';
 import React, { Component } from 'react';
 import {  } from 'views/components/generic';
 // import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
-import { Card, Form, Label, Input, Table } from 'views/components/generic';
+import { Card, Form, Label, Input, Table, Navigation } from 'views/components/generic';
 
 class Home extends Component {
 
@@ -130,6 +130,9 @@ class Home extends Component {
     return (
       <div className="home">
         <p>Home</p>
+
+
+        <Navigation />
 
         <div className="column1">
          <Card answerGroup={answerGroup} />

@@ -50,6 +50,14 @@
                   }
                 },
                 {
+                  "MenuBar": {
+                    "position": [
+                      0,
+                      1
+                    ]
+                  }
+                },
+                {
                   "div": {
                     "position": [
                       0,

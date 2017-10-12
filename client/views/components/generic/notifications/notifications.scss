@@ -1,0 +1,36 @@
+@import '../../../../styles/colors';
+
+
+.notifications {
+
+	display: flex;
+	align-items: center;
+	position: relative;
+
+	i {
+		font-size: 28px;
+		padding: 5px;
+	}
+	
+	.number {
+		position: absolute;
+		z-index: 2;
+
+		top: 0;
+		right: 0;
+
+		width: 16px;
+		height: 16px;
+		border-radius: 8px;
+		background-color: $error;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		span {
+			color: white;
+			font-size: 12px;
+		}
+	}
+}
