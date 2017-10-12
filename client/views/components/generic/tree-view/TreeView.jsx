@@ -23,7 +23,8 @@ class TreeView extends Component {
     return false;
   }
 
-  sendSelectMsg = (item) => (event) => {
+  sendSelectMsg = (item) => {
+    console.log('###################*************++++============================>>>>>>>>>>>>>>>>');
     console.log(item, 'sendselect message fired for TV Select function');
     this.sendData('TV_SELECT', {
       code: 'TV1',
@@ -52,7 +53,7 @@ class TreeView extends Component {
           </li>);
       }
       else {
-        layout.push(< li key={i} onClick={(item) => { this.sendSelectMsg(item); }}> <span>{item && item.name}  {console.log(item, 'item.sendSelectMsg from chevron right')}   {<IconSmall onClick={this.onClick(item)} name="chevron_right" />} </span></li >);
+        layout.push(< li key={i} onClick={() => { this.sendSelectMsg(item); }}> <span>{item && item.name}  {console.log(item, 'item.sendSelectMsg from chevron right')}   {<IconSmall onClick={this.onClick(item)} name="chevron_right" />} </span></li >);
       }
     });
     return layout;
