@@ -13,7 +13,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       {/* <Home /> */}
-      <Home />
+      <App />
     </Router>
   </Provider>,
   document.getElementById('root')

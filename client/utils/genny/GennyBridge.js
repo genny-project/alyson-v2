@@ -14,7 +14,7 @@ class GennyBridge {
   }
 
   sendLogout(event, data, token) {
-    Vertx.sendMessage(events.outgoing.LOG_OUT(event, data, token));
+    Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
   ajaxCall(settings) {

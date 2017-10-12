@@ -1,20 +1,17 @@
 @import '../../../../styles/colors';
 
 
-.notifications-main {
+.notifications {
 
 	display: flex;
 	align-items: center;
+	position: relative;
 
 	i {
 		font-size: 28px;
 		padding: 5px;
 	}
-
-	.notifications, .alerts, .alarms {
-		position: relative;
-	}
-
+	
 	.number {
 		position: absolute;
 		z-index: 2;

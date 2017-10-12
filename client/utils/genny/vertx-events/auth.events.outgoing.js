@@ -16,7 +16,7 @@ export const SEND_CODE = (event, data, token) => ({
     data: data
 });
 
-export const LOG_OUT = (event, data, token) => ({
+export const LOGOUT = (event, data, token) => ({
 
     event_type: event,
     msg_type: "EVT_MSG",
@@ -27,5 +27,5 @@ export const LOG_OUT = (event, data, token) => ({
 export default {
   AUTH_INIT,
   SEND_CODE,
-  LOG_OUT
+  LOGOUT
 };

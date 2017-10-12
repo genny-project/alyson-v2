@@ -16,9 +16,8 @@ class ImageView extends Component {
         <img src={src} />
         {caption && <p>{caption}</p>}
       </div>
-    );
+    )
   }
-
 }
 
 export default ImageView;

@@ -20,10 +20,16 @@ class Profile extends Component {
     isVisible: false
   } 
 
-  handleSelect = () => {
-    this.setState(prevState => ({
-      isVisible: !prevState.isVisible
-    }));
+  handleProfileEnter = () => {
+    this.setState({
+        isVisible: true,
+    });
+  }
+
+  handleProfileLeave = () => {
+    this.setState({
+        isVisible: false,
+    });
   }
 
   handleLogout = () => {
@@ -44,20 +50,19 @@ class Profile extends Component {
     
     return (
       <div className="profile">
-        <div className="profile-main" onClick={this.handleSelect}>
+        <div className="profile-main" onMouseEnter={this.handleProfileEnter} onMouseLeave={this.handleProfileLeave}>
           <span>Welcome, FirstName</span>
           {/* const src = if profileimage is true then profileimage, else default image. 
           <Imageview src={src} /> */}
           <IconSmall className="profile-image" name="person"/>
-        </div>
-
-        { isVisible ? 
-          <ul className="dropdown">
-            <li><IconSmall name="person" /><span>Profile</span></li>
-            <li><IconSmall name="settings" /><span>Settings</span></li>
-            <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
-          </ul> 
-        : null }      
+          { isVisible ? 
+            <ul className="dropdown">
+              <li><IconSmall name="person" /><span>Profile</span></li>
+              <li><IconSmall name="settings" /><span>Settings</span></li>
+              <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
+            </ul> 
+          : null } 
+        </div>     
       </div>
     );
   }

@@ -15,19 +15,9 @@ class Notifications extends Component {
   render() {
     const { className } = this.props;
     return (
-      <div className="notifications-main">
-        <div className="notifications" >
-          <IconSmall name="forum"/>
-          <div className="number" ><span>2</span></div>
-        </div>
-        <div className="alerts" >
-          <IconSmall name="chat"/>
-          <div className="number" ><span>2</span></div>
-        </div>
-        <div className="alarms" >
-          <IconSmall name="notifications"/>
-          <div className="number" ><span>2</span></div>
-        </div>
+      <div className="notifications" >
+        <IconSmall name="forum"/>
+        <div className="number" ><span>2</span></div>
       </div>
     )
   }
