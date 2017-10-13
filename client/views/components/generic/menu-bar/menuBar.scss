@@ -1,13 +1,11 @@
 @import '../../../../styles/colors';
 
-
 .menu-bar {
 	background: rgb(31, 31, 31);
 	padding: 10px 50px 10px 20px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
 
 	.menu-bar-left, .menu-bar-right {
 		display: flex;
@@ -25,10 +23,13 @@
 		}
 	}
 
-	.profile-main {
+	.profile {
 		display: flex;
 		align-items: center;
-		position: relative;
+
+		img {
+			border-radius: 5px;
+		}
 	}
 
 
