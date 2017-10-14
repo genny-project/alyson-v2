@@ -23,3 +23,4 @@ export { default as TestComponent } from './test-component';
 export { default as Table } from './table';
 export { default as MenuBar } from './menu-bar';
 export { default as Notifications } from './notifications';
+export { default as Footer } from './footer';
