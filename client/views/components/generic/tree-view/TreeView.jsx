@@ -31,7 +31,7 @@ class TreeView extends Component {
       value: item.code
     }, item.code);
 
-    console.log(item.code, 'Log item form sendSlectMsg function');
+    console.log(item.code, 'Log item form sendSelectMsg function');
   }
 
 
