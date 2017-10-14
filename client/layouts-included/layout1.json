@@ -16,9 +16,6 @@
                 0,
                 0
               ],
-              "style": {
-                "height": "calc(100% - 200px)"
-              },
               "children": [
                 {
                   "Sidebar": {
@@ -38,9 +35,6 @@
                     ],
                     "style": {
                       "backgroundColor": "#1f1f1f",
-                      "boxShadow": "5px 0px 5px 0px rgba(0,0,0,0.25)",
-                      "zIndex": "1000",
-                      "position": "relative",
                       "color": "white",
                       "textAlign": "center"
                     },
@@ -49,6 +43,7 @@
                     "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300"
                   }
                 },
+
                 {
                   "MenuBar": {
                     "position": [
@@ -57,6 +52,7 @@
                     ]
                   }
                 },
+
                 {
                   "div": {
                     "position": [
@@ -64,197 +60,249 @@
                       1
                     ],
                     "style": {
-                      "background": "#ff7000",
-                      "color": "#FFF",
-                      "padding": "20px",
-                      "fontFamily": "Helvetica",
-                      "fontWeight": "400"
+                      "height" : "calc(100vh - 84px)"
                     },
-                    "children": [
+                    "children": [  
+
                       {
-                        "h3": {
-                          "children": "CHANNEL40 - DASHBOARD",
+                        "div": {
                           "style": {
-                            "marginBottom": "10px"
-                          }
+                            "background": "#ff7000",
+                            "color": "#FFF",
+                            "padding": "20px",
+                            "fontFamily": "Helvetica",
+                            "fontWeight": "400"
+                          },
+                          "children": [
+                            {
+                              "h3": {
+                                "children": "CHANNEL40 - DASHBOARD",
+                                "style": {
+                                  "marginBottom": "10px",
+                                  "marginTop": "10px"
+                                }
+                              }
+                            },
+                            {
+                              "div": {
+                                "style": {
+                                  "display": "flex",
+                                  "alignItems": "center"
+                                },
+                                "children": [
+                                  {
+                                    "i": {
+                                      "className": "material-icons",
+                                      "children": "local_shipping",
+                                      "style": {
+                                        "marginRight": "10px"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "small": {
+                                      "children": "6 LOADS"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
                         }
                       },
                       {
                         "div": {
-                          "style": {
-                            "display": "flex",
-                            "alignItems": "center"
-                          },
-                          "children": [
-                            {
-                              "i": {
-                                "className": "material-icons",
-                                "children": "local_shipping",
-                                "style": {
-                                  "marginRight": "10px"
-                                }
-                              }
-                            },
-                            {
-                              "small": {
-                                "children": "6 LOADS"
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "div": {
-                    "position": [
-                      0,
-                      1
-                    ],
-                    "style": {
-                      "height": "calc(100% - 102px)"
-                    },
-                    "children": [
-                      {
-                        "BucketView": {
-                          "buckets": [
-                            {
-                              "title": "PENDING"
-                            },
-                            {
-                              "title": "ACCEPTED"
-                            },
-                            {
-                              "title": "DISPATCHED"
-                            },
-                            {
-                              "title": "IN TRANSIT"
-                            },
-                            {
-                              "title": "AT DESTINATION"
-                            },
-                            {
-                              "title": "DELIVERED"
-                            }
+                          "position": [
+                            0,
+                            1
                           ],
                           "style": {
-                            "height": "100%"
+                            "height": "calc(100vh - 190px)",
+                            "overflow": "auto"
                           },
                           "children": [
                             {
-                              "Card": {
-                                "answerGroup" : {
-                                  "index": 0,
-                                  "textOne": "CAT Digger",
-                                  "textTwo": "Melbourne, Victoria",
-                                  "level": "urgent",
-                                  "showProgress" : false,
-                                  "buttons": [
-                                    {
-                                      "name": "Save",
-                                      "icon": "check_circle",
-                                      "value": "QUOTE",
-                                      "class": "confirm small"
+                              "BucketView": {
+                                "buckets": [
+                                  {
+                                    "title": "PENDING"
+                                  },
+                                  {
+                                    "title": "ACCEPTED"
+                                  },
+                                  {
+                                    "title": "DISPATCHED"
+                                  },
+                                  {
+                                    "title": "IN TRANSIT"
+                                  },
+                                  {
+                                    "title": "AT DESTINATION"
+                                  },
+                                  {
+                                    "title": "DELIVERED"
+                                  }
+                                ],
+                                "style": {
+                                  
+                                },
+                                "children": [
+                                  {
+                                    "Card": {
+                                      "answerGroup" : {
+                                        "index": 0,
+                                        "textOne": "CAT Digger",
+                                        "textTwo": "Melbourne, Victoria",
+                                        "level": "urgent",
+                                        "showProgress" : false,
+                                        "buttons": [
+                                          {
+                                            "name": "Save",
+                                            "icon": "check_circle",
+                                            "value": "QUOTE",
+                                            "class": "confirm small"
+                                          }
+                                        ]
+                                      }
                                     }
-                                  ]
-                                }
-                              }
-                            },
+                                  },
 
-                            {
-                              "Card": {
-                                "answerGroup" : {
-                                  "index": 0,
-                                  "textOne": "CAT Digger",
-                                  "textTwo": "Melbourne, Victoria",
-                                  "level": "warning",
-                                  "showProgress" : false,
-                                  "buttons": [
-                                    {
-                                      "name": "Save",
-                                      "icon": "check_circle",
-                                      "value": "QUOTE",
-                                      "class": "confirm small"
+                                  {
+                                    "Card": {
+                                      "answerGroup" : {
+                                        "index": 0,
+                                        "textOne": "CAT Digger",
+                                        "textTwo": "Melbourne, Victoria",
+                                        "level": "warning",
+                                        "showProgress" : false,
+                                        "buttons": [
+                                          {
+                                            "name": "Save",
+                                            "icon": "check_circle",
+                                            "value": "QUOTE",
+                                            "class": "confirm small"
+                                          }
+                                        ]
+                                      }
                                     }
-                                  ]
-                                }
-                              }
-                            },
+                                  },
 
-                            {
-                              "Card": {
-                                "answerGroup" : {
-                                  "index": 1,
-                                  "textOne": "Wooden Beams",
-                                  "textTwo": "Carlton, Victoria",
-                                  "showProgress" : false,
-                                  "buttons": [
-                                    {
-                                      "name": "Cancel",
-                                      "icon": "cancel",
-                                      "value": "CANCEL",
-                                      "class": "cancel small"
+                                  {
+                                    "Card": {
+                                      "answerGroup" : {
+                                        "index": 1,
+                                        "textOne": "Wooden Beams",
+                                        "textTwo": "Carlton, Victoria",
+                                        "showProgress" : false,
+                                        "buttons": [
+                                          {
+                                            "name": "Cancel",
+                                            "icon": "cancel",
+                                            "value": "CANCEL",
+                                            "class": "cancel small"
+                                          }
+                                        ]
+                                      }
                                     }
-                                  ]
-                                }
-                              }
-                            },
+                                  },
 
-                            {
-                              "Card": {
-                                "answerGroup" : {
-                                  "index": 3,
-                                  "textOne": "Bulk Beer",
-                                  "textTwo": "Carlton, Victoria",
-                                  "showProgress" : true,
-                                  "buttons": [
-                                    {
-                                      "name": "Cancel",
-                                      "icon": "gps_fixed",
-                                      "value": "TRACK",
-                                      "class": "small"
+                                  {
+                                    "Card": {
+                                      "answerGroup" : {
+                                        "index": 3,
+                                        "textOne": "Bulk Beer",
+                                        "textTwo": "Carlton, Victoria",
+                                        "showProgress" : true,
+                                        "buttons": [
+                                          {
+                                            "name": "Cancel",
+                                            "icon": "gps_fixed",
+                                            "value": "TRACK",
+                                            "class": "small"
+                                          }
+                                        ]
+                                      }
                                     }
-                                  ]
-                                }
-                              }
-                            },
+                                  },
 
-                            {
-                              "Card": {
-                                "answerGroup" : {
-                                  "index": 3,
-                                  "textOne": "Bulk Cornflakes",
-                                  "textTwo": "Carlton, Victoria",
-                                  "showProgress" : true,
-                                  "buttons": [
-                                    {
-                                      "name": "Cancel",
-                                      "icon": "gps_fixed",
-                                      "value": "TRACK",
-                                      "class": "small"
+                                  {
+                                    "Card": {
+                                      "answerGroup" : {
+                                        "index": 3,
+                                        "textOne": "Bulk Cornflakes",
+                                        "textTwo": "Carlton, Victoria",
+                                        "showProgress" : true,
+                                        "buttons": [
+                                          {
+                                            "name": "Cancel",
+                                            "icon": "gps_fixed",
+                                            "value": "TRACK",
+                                            "class": "small"
+                                          }
+                                        ]
+                                      }
                                     }
-                                  ]
-                                }
-                              }
-                            },
+                                  },
 
-                            {
-                              "Card": {
-                                "answerGroup" : {
-                                  "index": 3,
-                                  "textOne": "Electronic Supplies",
-                                  "textTwo": "Sydney, New South Wales",
-                                  "showProgress" : true,
-                                  "buttons": [
-                                    {
-                                      "name": "Cancel",
-                                      "icon": "gps_fixed",
-                                      "value": "TRACK",
-                                      "class": "small"
+                                  {
+                                    "Card": {
+                                      "answerGroup" : {
+                                        "index": 3,
+                                        "textOne": "Electronic Supplies",
+                                        "textTwo": "Sydney, New South Wales",
+                                        "showProgress" : true,
+                                        "buttons": [
+                                          {
+                                            "name": "Cancel",
+                                            "icon": "gps_fixed",
+                                            "value": "TRACK",
+                                            "class": "small"
+                                          }
+                                        ]
+                                      }
                                     }
-                                  ]
-                                }
+                                  },
+
+                                  {
+                                    "Card": {
+                                      "answerGroup" : {
+                                        "index": 3,
+                                        "textOne": "Electronic Supplies",
+                                        "textTwo": "Sydney, New South Wales",
+                                        "showProgress" : true,
+                                        "buttons": [
+                                          {
+                                            "name": "Cancel",
+                                            "icon": "gps_fixed",
+                                            "value": "TRACK",
+                                            "class": "small"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+
+                                  {
+                                    "Card": {
+                                      "answerGroup" : {
+                                        "index": 3,
+                                        "textOne": "Electronic Supplies",
+                                        "textTwo": "Sydney, New South Wales",
+                                        "showProgress" : true,
+                                        "buttons": [
+                                          {
+                                            "name": "Cancel",
+                                            "icon": "gps_fixed",
+                                            "value": "TRACK",
+                                            "class": "small"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+
+
+                                ]
                               }
                             }
                           ]
@@ -263,21 +311,27 @@
                     ]
                   }
                 },
+
                 {
                   "Footer": {
                     "position": [
                       0,
                       1
                     ],
+                    "style": {
+                      "height": "30px"
+                    },
                     "children": [
                       {
-                        "h3": {
+                        "span": {
                           "children": "powered by Outcome.life"
                         }
                       }
                     ]
                   }
                 }
+
+
               ]
             }
           }

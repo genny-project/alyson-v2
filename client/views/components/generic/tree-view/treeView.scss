@@ -5,6 +5,9 @@
   flex-direction: column;
   text-align: left;
 
+  overflow: auto;
+  height: calc(100vh - 211px);
+
   li {
     list-style: none;
   }
@@ -19,7 +22,6 @@
 
   ul{
     list-style-type: none;
-    margin: 0 -20px 10px;
     padding-top: 10px;
   }
   li{

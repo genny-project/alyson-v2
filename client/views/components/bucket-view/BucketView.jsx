@@ -13,7 +13,7 @@ class BucketView extends Component {
     const { children } = this.props;
     let childs = React.Children.toArray(children);
     const bucketChildren = childs.filter(child => {
-      return child.props.index != undefined && child.props.index == i;
+      return child.props.answerGroup.index != undefined && child.props.answerGroup.index == i;
     });
 
     return (

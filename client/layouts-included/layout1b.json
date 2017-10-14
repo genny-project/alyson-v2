@@ -1,0 +1,289 @@
+{
+  "layout": [
+    {
+      "Grid": {
+        "cols": 1,
+        "rows": 2,
+        "children": [
+          {
+            "Grid": {
+              "cols": [
+                1,
+                4
+              ],
+              "rows": 2,
+              "position": [
+                0,
+                0
+              ],
+              "style": {
+                "height": "calc(100% - 200px)"
+              },
+              "children": [
+                {
+                  "Sidebar": {
+                    "position": [
+                      0,
+                      0
+                    ],
+                    "children": [
+                      {
+                        "GennyTreeView": {
+                          "style": {
+                            "marginTop": "50px"
+                          },
+                          "root": "GRP_ROOT"
+                        }
+                      }
+                    ],
+                    "style": {
+                      "backgroundColor": "#1f1f1f",
+                      "boxShadow": "5px 0px 5px 0px rgba(0,0,0,0.25)",
+                      "zIndex": "1000",
+                      "position": "relative",
+                      "color": "white",
+                      "textAlign": "center"
+                    },
+                    "hasImage": true,
+                    "caption": "Tom Cavanagh",
+                    "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300"
+                  }
+                },
+                {
+                  "MenuBar": {
+                    "position": [
+                      0,
+                      1
+                    ]
+                  }
+                },
+                {
+                  "div": {
+                    "position": [
+                      0,
+                      1
+                    ],
+                    "style": {
+                      "background": "#ff7000",
+                      "color": "#FFF",
+                      "padding": "20px",
+                      "fontFamily": "Helvetica",
+                      "fontWeight": "400"
+                    },
+                    "children": [
+                      {
+                        "h3": {
+                          "children": "CHANNEL40 - DASHBOARD",
+                          "style": {
+                            "marginBottom": "10px"
+                          }
+                        }
+                      },
+                      {
+                        "div": {
+                          "style": {
+                            "display": "flex",
+                            "alignItems": "center"
+                          },
+                          "children": [
+                            {
+                              "i": {
+                                "className": "material-icons",
+                                "children": "local_shipping",
+                                "style": {
+                                  "marginRight": "10px"
+                                }
+                              }
+                            },
+                            {
+                              "small": {
+                                "children": "6 LOADS"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "div": {
+                    "position": [
+                      0,
+                      1
+                    ],
+                    "style": {
+                      "height": "calc(100% - 102px)",
+                      "overflow": "auto"
+                    },
+                    "children": [
+                      {
+                        "BucketView": {
+                          "buckets": [
+                            {
+                              "title": "PENDING"
+                            },
+                            {
+                              "title": "ACCEPTED"
+                            },
+                            {
+                              "title": "DISPATCHED"
+                            },
+                            {
+                              "title": "IN TRANSIT"
+                            },
+                            {
+                              "title": "AT DESTINATION"
+                            },
+                            {
+                              "title": "DELIVERED"
+                            }
+                          ],
+                          "style": {
+                            "height": "100%"
+                          },
+                          "children": [
+                            {
+                              "Card": {
+                                "answerGroup" : {
+                                  "index": 0,
+                                  "textOne": "CAT Digger",
+                                  "textTwo": "Melbourne, Victoria",
+                                  "level": "urgent",
+                                  "showProgress" : false,
+                                  "buttons": [
+                                    {
+                                      "name": "Save",
+                                      "icon": "check_circle",
+                                      "value": "QUOTE",
+                                      "class": "confirm small"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+
+                            {
+                              "Card": {
+                                "answerGroup" : {
+                                  "index": 0,
+                                  "textOne": "CAT Digger",
+                                  "textTwo": "Melbourne, Victoria",
+                                  "level": "warning",
+                                  "showProgress" : false,
+                                  "buttons": [
+                                    {
+                                      "name": "Save",
+                                      "icon": "check_circle",
+                                      "value": "QUOTE",
+                                      "class": "confirm small"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+
+                            {
+                              "Card": {
+                                "answerGroup" : {
+                                  "index": 1,
+                                  "textOne": "Wooden Beams",
+                                  "textTwo": "Carlton, Victoria",
+                                  "showProgress" : false,
+                                  "buttons": [
+                                    {
+                                      "name": "Cancel",
+                                      "icon": "cancel",
+                                      "value": "CANCEL",
+                                      "class": "cancel small"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+
+                            {
+                              "Card": {
+                                "answerGroup" : {
+                                  "index": 3,
+                                  "textOne": "Bulk Beer",
+                                  "textTwo": "Carlton, Victoria",
+                                  "showProgress" : true,
+                                  "buttons": [
+                                    {
+                                      "name": "Cancel",
+                                      "icon": "gps_fixed",
+                                      "value": "TRACK",
+                                      "class": "small"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+
+                            {
+                              "Card": {
+                                "answerGroup" : {
+                                  "index": 3,
+                                  "textOne": "Bulk Cornflakes",
+                                  "textTwo": "Carlton, Victoria",
+                                  "showProgress" : true,
+                                  "buttons": [
+                                    {
+                                      "name": "Cancel",
+                                      "icon": "gps_fixed",
+                                      "value": "TRACK",
+                                      "class": "small"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+
+                            {
+                              "Card": {
+                                "answerGroup" : {
+                                  "index": 3,
+                                  "textOne": "Electronic Supplies",
+                                  "textTwo": "Sydney, New South Wales",
+                                  "showProgress" : true,
+                                  "buttons": [
+                                    {
+                                      "name": "Cancel",
+                                      "icon": "gps_fixed",
+                                      "value": "TRACK",
+                                      "class": "small"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Footer": {
+                    "position": [
+                      0,
+                      1
+                    ],
+                    "children": [
+                      {
+                        "h3": {
+                          "children": "powered by Outcome.life"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

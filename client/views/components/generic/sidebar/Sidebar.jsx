@@ -24,7 +24,6 @@ class Sidebar extends Component {
 
         const componentStyle = {
             ...style,
-            'height': '100vh'
         };
 
         let imageView;

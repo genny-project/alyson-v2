@@ -5,11 +5,9 @@
   .bucket {
     flex: 1;
     flex-shrink: 0;
-    height: 100%;
     text-align: center;
     background: #a3a3a3;
     color: #FFF;
-    min-height: 100%;
 
     &:nth-child(odd) {
       background: #989998;
