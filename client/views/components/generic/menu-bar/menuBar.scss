@@ -1,13 +1,11 @@
 @import '../../../../styles/colors';
 
-
 .menu-bar {
 	background: rgb(31, 31, 31);
-	padding: 10px 50px 10px 20px;
+	padding: 0 50px 0 20px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
 
 	.menu-bar-left, .menu-bar-right {
 		display: flex;
@@ -17,7 +15,6 @@
 			width: 30px;
 			height: 30px;
 			margin-left: 10px;
-			margin-right: 10px;
 		}
 
 		span, i {
@@ -25,17 +22,25 @@
 		}
 	}
 
-	.profile-main {
+	.profile {
 		display: flex;
 		align-items: center;
 		position: relative;
+		height: 100%;
+		cursor: pointer;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		
+		&:not(:last-child){
+			margin-right: 10px;
+		}
 	}
 
 
 	.navigation-dropdown {
-		list-style-type: none;
 		position: absolute;
 		top: 50px;
+		list-style-type: none;
 		background: #DDD;
 		border-radius: 5px;
 		padding: 10px 0 20px;
@@ -45,7 +50,7 @@
 		> li {
 			display: flex;
 			align-items: center;
-			padding: 0 10px;
+			padding: 5px 10px;
 
 			> i {
 				padding-right: 5px;

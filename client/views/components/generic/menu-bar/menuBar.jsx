@@ -37,17 +37,23 @@ class MenuBar extends Component {
     });
   }
 
+  handleAccount = () => {
+    
+  }
+
+  handleProfileImage = () => {
+    //console.log("clicked profile image");
+  }
+
   sendData(event, data) {
     console.log('send', data);
     const token = store.getState().keycloak.token;
     GennyBridge.sendLogout(event, data, token);
   }
 
-
   render() {
     const { className } = this.props;
     const { isVisible } = this.state;
-
 
     return (
       <div className="menu-bar">
@@ -59,13 +65,13 @@ class MenuBar extends Component {
           <Notifications />
           <div className="profile" onMouseEnter={this.handleProfileEnter} onMouseLeave={this.handleProfileLeave}>
             <Label text="Welcome, Name" />
-            <ImageView src="http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg" />
-            { isVisible ? 
-              <ul className="navigation-dropdown">
-                <li><IconSmall name="person" /><span>Profile</span></li>
-                <li><IconSmall name="settings" /><span>Account</span></li>
-                <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
-              </ul> 
+            <ImageView src="http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg" onClick={this.handleProfileImage} />
+            { isVisible ?
+                <ul className="navigation-dropdown">
+                  <li><IconSmall name="person" /><span>Profile</span></li>
+                  <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
+                  <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
+                </ul>
             : null } 
           </div>
           <IconSmall className="help" name="help" />
