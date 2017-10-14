@@ -9,11 +9,11 @@ class ImageView extends Component {
   };
 
   render() {
-    const { caption, src } = this.props;
+    const { caption, src, onClick } = this.props;
 
     return (
       <div className="imageView">
-        <img src={src} />
+        <img src={src} onClick={onClick} />
         {caption && <p>{caption}</p>}
       </div>
     );

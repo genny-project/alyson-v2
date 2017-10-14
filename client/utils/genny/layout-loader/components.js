@@ -11,5 +11,5 @@ export default new ComponentCollection({
   TreeView,
   Card,
   GennyTreeView,
-  MenuBar
+  MenuBar,
 });

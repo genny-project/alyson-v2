@@ -11,6 +11,10 @@
 		font-size: 28px;
 		padding: 5px;
 	}
+
+	&:not(:last-child){
+		margin-right: 10px;
+	}
 	
 	.number {
 		position: absolute;
