@@ -1,6 +1,7 @@
 import './footer.scss';
 import React, { Component }  from 'react';
 import { string, any } from 'prop-types';
+import { ImageView } from '../';
 
 class Footer extends Component {
   static defaultProps = {
@@ -8,16 +9,22 @@ class Footer extends Component {
   }
 
   static propTypes = {
-    children: any.isRequired,
     className: string,
   }
 
   render() {
-    const { className, children } = this.props;
+    const { className, version, poweredBy } = this.props;
 
     return (
       	<div className="footer">
-      		{children}
+          { version ? <span className="version">{version}</span> : null }
+      		{ poweredBy ? 
+            <div className="powered-by">
+              <span>powered by: </span>
+              { poweredBy.img ? <ImageView src={poweredBy.img} /> : null }
+              { poweredBy.caption ? <span>{poweredBy.caption}</span> : null }
+            </div>
+          : null }
     	</div>
     );
   }

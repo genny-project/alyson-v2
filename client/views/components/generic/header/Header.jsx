@@ -1,4 +1,4 @@
-import './menuBar.scss';
+import './header.scss';
 import React, { Component } from 'react';
 import { string } from 'prop-types';
 import { IconSmall, Profile, Notifications, Label, ImageView } from '../';
@@ -6,7 +6,7 @@ import { IconSmall, Profile, Notifications, Label, ImageView } from '../';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
 
-class MenuBar extends Component {
+class Header extends Component {
   static defaultProps = {
     className: '',
   }
@@ -56,12 +56,11 @@ class MenuBar extends Component {
     const { isVisible } = this.state;
 
     return (
-      <div className="menu-bar">
-        <div className="menu-bar-left">
+      <div className="header">
+        <div className="header-left">
           <Label text="Project Title" />
-          <ImageView src="https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300" />
         </div>
-        <div className="menu-bar-right">
+        <div className="header-right">
           <Notifications />
           <div className="profile" onMouseEnter={this.handleProfileEnter} onMouseLeave={this.handleProfileLeave}>
             <Label text="Welcome, Name" />
@@ -81,4 +80,4 @@ class MenuBar extends Component {
   }
 }
 
-export default MenuBar;
+export default Header;

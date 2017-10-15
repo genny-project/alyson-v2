@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: row;
 
+  position: relative;
+
   .bucket {
     flex: 1;
     flex-shrink: 0;
@@ -11,11 +13,17 @@
 
     &:nth-child(odd) {
       background: #989998;
+
+      .bucket-title {
+        background: #898989;
+      
+      }
     }
 
     .bucket-title {
       padding: 20px;
-      background: rgba(0,0,0,0.1);
+      background: #929292;
+
     }
 
     .bucket-content {

@@ -30,7 +30,7 @@ class BucketView extends Component {
       <div className="bucket-view" style={style}>
         {buckets.map(( bucket, i ) => (
           <div className="bucket" key={bucket.title}>
-            <div className="bucket-title">
+            <div className="bucket-title sticky">
               {bucket.title}
             </div>
             <div className="bucket-content">
