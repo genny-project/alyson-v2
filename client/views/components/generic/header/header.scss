@@ -1,13 +1,13 @@
 @import '../../../../styles/colors';
 
-.menu-bar {
+.header {
 	background: rgb(31, 31, 31);
-	padding: 0 50px 0 20px;
+	padding: 0 20px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
-	.menu-bar-left, .menu-bar-right {
+    
+	.header-left, .header-right {
 		display: flex;
 		align-items: center;
 

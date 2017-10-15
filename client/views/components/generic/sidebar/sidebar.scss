@@ -1,5 +1,12 @@
 .sidebar {
-	position: fixed!important;
-	overflow-y:auto;
-	overflow-x:hidden;
+
+	height: inherit;
+
+	.imageView {
+		max-width: 50%;
+		margin-left: auto;
+		margin-right: auto;
+		//margin-bottom: 20px;
+		padding-top: 40px;
+	}
 }

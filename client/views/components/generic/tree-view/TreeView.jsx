@@ -47,14 +47,29 @@ class TreeView extends Component {
       if (item.children && item.open) {
         layout.push(
           <li key={i}>
-            <span>  {item.name}     <IconSmall onClick={this.onClick(item)} name="expand_more" />  </span>
+            <div>
+              <span onClick={() => { this.sendSelectMsg(item); }}>
+                {/* <IconSmall name="settings" /> */}
+                {item.name}
+              </span>
+              <IconSmall onClick={this.onClick(item)} name="expand_more" />
+            </div>
             <ul className="child" style={{ marginLeft: 10 }}>
               {item.children.length ? this.renderList(item.children) : <SubmitStatusIcon status="sending" />}
             </ul>
           </li>);
       }
       else {
-        layout.push(< li key={i} onClick={() => { this.sendSelectMsg(item); }}> <span>{item && item.name}  {console.log(item, 'item.sendSelectMsg from chevron right')}   {<IconSmall onClick={this.onClick(item)} name="chevron_right" />} </span></li >);
+        layout.push(
+          <li key={i}>
+            <div>
+              <span onClick={() => { this.sendSelectMsg(item); }}>
+                {/* <IconSmall name="settings" /> */}
+                {item && item.name}{console.log(item, 'item.sendSelectMsg from chevron right')}
+              </span>
+              <IconSmall onClick={this.onClick(item)} name="chevron_right" />
+            </div>
+          </li>);
       }
     });
     return layout;

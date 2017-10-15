@@ -13,7 +13,7 @@ class BucketView extends Component {
     const { children } = this.props;
     let childs = React.Children.toArray(children);
     const bucketChildren = childs.filter(child => {
-      return child.props.index != undefined && child.props.index == i;
+      return child.props.answerGroup.index != undefined && child.props.answerGroup.index == i;
     });
 
     return (
@@ -30,7 +30,7 @@ class BucketView extends Component {
       <div className="bucket-view" style={style}>
         {buckets.map(( bucket, i ) => (
           <div className="bucket" key={bucket.title}>
-            <div className="bucket-title">
+            <div className="bucket-title sticky">
               {bucket.title}
             </div>
             <div className="bucket-content">

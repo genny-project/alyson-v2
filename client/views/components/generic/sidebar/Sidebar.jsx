@@ -23,8 +23,7 @@ class Sidebar extends Component {
         const { style, hasImage, src, caption, children } = this.props;
 
         const componentStyle = {
-            ...style,
-            'height': '100vh'
+          ...style,
         };
 
         let imageView;
