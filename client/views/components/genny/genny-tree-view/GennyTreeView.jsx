@@ -82,11 +82,7 @@ class GennyTreeView extends Component {
   render() {
     const { root, baseEntity } = this.props;
     const relationships = baseEntity.relationships[root];
-    console.log(baseEntity);
-
     const items = this.getEntityChildren(root);
-
-    console.log(items, 'items console log from genny tree view');
 
     return (
       <div className="genny-tree-view">

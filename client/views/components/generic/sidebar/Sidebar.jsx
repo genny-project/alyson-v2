@@ -1,14 +1,15 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
-import ImageView from '../imageview/ImageView';
+import {GennyImageView} from '../../../components'
 import { object, bool, string, any } from 'prop-types';
 
 class Sidebar extends Component {
+
     static propTypes = {
       style: object,
       hasImage: bool,
       src: string,
-      caption: string,
+      caption: any,
       children: any
     };
 
@@ -20,20 +21,21 @@ class Sidebar extends Component {
     }
 
     render() {
+
         const { style, hasImage, src, caption, children } = this.props;
 
         const componentStyle = {
           ...style,
         };
 
-        let imageView;
+        let imageView = null;
         if ( hasImage ) {
-            imageView = <ImageView src={src} caption={caption} />;
+            imageView = <GennyImageView src={src} caption={caption} />;
         }
 
         return (
             <div className="sidebar" style={componentStyle}>
-              { imageView }
+              {imageView}
               {children}
             </div>
         );

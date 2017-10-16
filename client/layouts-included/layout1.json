@@ -11,7 +11,11 @@
             "textAlign": "center"
           },
           "hasImage": true,
-          "caption": "Tom Cavanagh",
+          "caption": {
+              "PER_USER1": [
+                  "PRI_FIRSTNAME"
+              ]
+          },
           "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300"
         },
         "header": true,
@@ -37,7 +41,7 @@
           {
             "div": {
 
-              "children": [  
+              "children": [
 
 
 
@@ -124,7 +128,7 @@
                             }
                           ],
                           "style": {
-                            
+
                           },
                           "children": [
 
@@ -296,7 +300,7 @@
                     ]
                   }
                 }
-              
+
 
 
               ]
