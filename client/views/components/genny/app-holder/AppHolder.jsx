@@ -25,14 +25,15 @@ class AppHolder extends Component {
     render() {
         const { children, sidebar, header, footer } = this.props;
         const { sidebarShrink } = this.state;
-
+        const sidebarChildren = children[0];
+        const contentChildren = children.slice(1);
 
         let renderSidebar;
         if ( sidebar ) {
             const sidebarWidth = sidebarShrink ? "50px" : "300px";
             renderSidebar = <div className="app-sidebar" style={{ width: sidebarWidth }} >
                 <IconSmall className="app-sidebar-toggle" name="menu" onClick={this.handleSidebarSize}/>
-                <Sidebar {...sidebar} >{children[0]}</Sidebar>
+                <Sidebar {...sidebar} >{sidebarChildren}</Sidebar>
             </div>;
         }
 
@@ -51,7 +52,8 @@ class AppHolder extends Component {
             {renderSidebar}
             <div className="app-main">
               {renderHeader}
-              <div className="app-content">{children[1]}</div>
+              <div className="app-content">{contentChildren}</div>
+        
               {renderFooter}
             </div>
           </div>

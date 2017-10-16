@@ -38,7 +38,9 @@
 		.app-content {
 
 			overflow-y: scroll;
-			height: calc(100% - 84px);
+			height: calc(100vh - 84px);
+			display: flex;
+			flex-direction: column;
 
 		}
 
