@@ -90,6 +90,7 @@ class GennyTreeView extends Component {
     return items;
   }
 
+
   render() {
     const { root, baseEntity } = this.props;
     const relationships = baseEntity.relationships[root];
@@ -107,7 +108,7 @@ class GennyTreeView extends Component {
         <BaseEntity>
           {
             (query) => {
-              return <span>{query.getRootChildren('GRP_ROOT')}</span>;
+              return <span>{query.getRootChildren()}</span>;
             }
           }
         </BaseEntity>

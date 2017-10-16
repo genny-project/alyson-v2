@@ -13,23 +13,43 @@ class BaseEntityQuery extends Component {
     console.log('Testing hello world from base entity query');
   }
 
-  getChildren = (parentString) => {
-    const relationshipData = this.entities.baseEntity.relationships;
-    return relationshipData;
-  }
-
-  getRelationships = (code) => {
-    console.log('Get relationships reached');
-    console.log(code);
+  getChildrens = () => {
+    const entities = this.props.data.data;
+    const entitiesArr = Object.keys(entities).map(key => entities[key]);
+    console.log(entitiesArr, 'entitites array in getChildrens');
+    // return entitiesArr;
   }
 
 
-  getRootChildren(code) {
-    console.log(this.props.data.relationships, 'Loggin props from get entity children');
+  // Get the Roots Children 
+  getRootChildren() {
     let items = this.props.data.relationships ? Object.keys(this.props.data.relationships).map(key => this.props.data.relationships[key]) : [];
-    console.log(items, 'Get entity children function from base entity query');
+    console.log(this.props.data.relationships, 'Loggin props from get root of children');
+  }
+
+  // Get children of a specific code 
+
+  getChildrenOf(entity_code) {
+    let items = this.props.data.data;
+    const itemsArr = Object.keys(items).map(key => items[key]);
+    console.log(itemsArr, 'Log items array from getChildrenOf');
+    itemsArr.map(item => {
+      if (item.data.code === entity_code) {
+        console.log(item.data.children, 'Log from getChildrenOf');
+        // return item.data.children;
+      }
+      else {
+        console.log([]);
+        // return [];
+      }
+    });
+  }
+
+
+  getRelationships(entity_code) {
 
   }
+
 
 
   // getEntityChildren(code) {

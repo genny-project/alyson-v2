@@ -81,7 +81,7 @@ class TreeView extends Component {
         <BaseEntity>
           {
             (query) => {
-              return <span>{query.getRelationships(items)}</span>;
+              return <span>{query.getChildrenOf('GRP_DASHBOARD')}</span>;
             }
           }
         </BaseEntity>
