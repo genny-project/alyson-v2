@@ -1,11 +1,11 @@
 import './ImageView.scss';
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+import { string, any } from 'prop-types';
 
 class ImageView extends Component {
 
   static propTypes = {
-    caption: string,
+    caption: any,
     src: string,
   };
 

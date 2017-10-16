@@ -13,7 +13,7 @@ class BaseEntityQuery extends Component {
   }
 
   getChildrens = () => {
-    const entities = this.props.data.data;
+    const entities = this.props.baseEntities.data;
     const entitiesArr = Object.keys(entities).map(key => entities[key]);
     console.log(entitiesArr, 'entitites array in getChildrens');
     // return entitiesArr;
@@ -22,17 +22,19 @@ class BaseEntityQuery extends Component {
 
   // Get the Roots Children
   getRootChildren() {
-    let items = this.props.data.relationships ? Object.keys(this.props.data.relationships).map(key => this.props.data.relationships[key]) : [];
-    console.log(this.props.data.relationships, 'Loggin props from get root of children');
+
+    let items = this.props.baseEntities.relationships ? Object.keys(this.props.baseEntities.relationships).map(key => this.props.baseEntities.relationships[key]) : [];
+    console.log(this.props.baseEntities.relationships, 'Loggin props from get root of children');
   }
 
   getChildrenOf(entity_code) {
-    let items = this.props.data.data;
+    let items = this.props.baseEntities.data;
     const itemsArr = Object.keys(items).map(key => items[key]);
     console.log(itemsArr, 'Log items array from getChildrenOf');
     itemsArr.map(item => {
-      if (item.data.code === entity_code) {
-        console.log(item.data.children, 'Log from getChildrenOf');
+
+      if (item.code === entity_code) {
+        console.log(item.children, 'Log from getChildrenOf');
         // return item.data.children;
       }
       else {
