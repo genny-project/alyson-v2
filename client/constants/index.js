@@ -4,6 +4,7 @@ export const APP_START = 'APP_START';
 export const AUTH_LOGGED_IN = 'AUTH_LOGGED_IN';
 export const AUTH_LOGGED_OUT = 'AUTH_LOGGED_OUT';
 export const LOGOUT = 'LOGOUT';
+export const ACCOUNTS = 'ACCOUNTS';
 
 /* Keycloak */
 export const RECEIVE_KEYCLOAK_CONFIG = 'RECEIVE_KEYCLOAK_CONFIG';
