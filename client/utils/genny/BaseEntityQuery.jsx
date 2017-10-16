@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 
 class BaseEntityQuery extends Component {
 
-  constructor(entities) {
-    super(entities);
-    this.entities = entities;
+  constructor(props) {
+    super(props);
   }
 
 
@@ -50,7 +49,7 @@ class BaseEntityQuery extends Component {
       // check aliases if any for passed entities
       for (let entity_code_key in code) {
 
-          let baseEntities = this.entities.baseEntities.data;
+          let baseEntities = this.props.baseEntities.data;
           for(let key in baseEntities) {
 
               // if we find the base entity we are looking for
@@ -59,7 +58,7 @@ class BaseEntityQuery extends Component {
                   // we loop through all the attributes to find the ones we want
                   code[entity_code_key].forEach(attribute => {
 
-                      let be = this.entities.baseEntities.data[key];
+                      let be = this.props.baseEntities.data[key];
 
                       // we loop through attributes
                       be.attributes.forEach(be_attribute => {
