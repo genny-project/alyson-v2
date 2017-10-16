@@ -23,17 +23,14 @@ class TreeView extends Component {
     return false;
   }
 
+
   sendSelectMsg = (item) => {
-    console.log('###################*************++++============================>>>>>>>>>>>>>>>>');
-    console.log(item, 'sendselect message fired for TV Select function');
     this.sendData('TV_SELECT', {
       code: 'TV1',
       value: item.code
     }, item.code);
-
     console.log(item.code, 'Log item form sendSelectMsg function');
   }
-
 
   sendData = (event, data) => {
     console.log('send', data);
