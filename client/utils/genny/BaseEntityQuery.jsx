@@ -34,6 +34,7 @@ class BaseEntityQuery extends Component {
     const itemsArr = Object.keys(items).map(key => items[key]);
     console.log(itemsArr, 'Log items array from getChildrenOf');
     itemsArr.map(item => {
+      console.log('asdasdd');
       if (item.data.code === entity_code) {
         console.log(item.data.children, 'Log from getChildrenOf');
         // return item.data.children;
