@@ -62,20 +62,24 @@ class Form extends Component {
     const askPageArray = this.getAskCount(askCount, itemsPerPage);
     
     return (
-      <div className="form">
+      <div className="form-container">
+        <div className="form-main">
           { showProgress ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null }
-	        {
-            asks.map((ask, index) => {
-              return pageCurrent === askPageArray[index].page ? <Input key={index} {...ask} /> : null;
-            })
-	        }
-        <div className="form-nav">
-            <Button className={`form-nav-prev ${pageCurrent > 0 ? 'visible' : 'hidden' }`} onClick={this.handlePrevPage} >
-              <IconSmall name="chevron_left" />
-            </Button>
-            <Button className={`form-nav-next ${pageCurrent < askCount / itemsPerPage ? 'visible' : 'hidden' }`} onClick={this.handleNextPage} >
-              <IconSmall name="chevron_right" />
-            </Button>
+          <div className="form-fields">
+  	        {
+              asks.map((ask, index) => {
+                return pageCurrent === askPageArray[index].page ? <Input key={index} {...ask} /> : null;
+              })
+  	        }
+          </div>
+          <div className="form-nav">
+              <Button className={`form-nav-prev ${pageCurrent > 0 ? 'visible' : 'hidden' }`} onClick={this.handlePrevPage} >
+                <IconSmall name="chevron_left" />
+              </Button>
+              <Button className={`form-nav-next ${pageCurrent < askCount / itemsPerPage ? 'visible' : 'hidden' }`} onClick={this.handleNextPage} >
+                <IconSmall name="chevron_right" />
+              </Button>
+          </div>
         </div>
       </div>
     );

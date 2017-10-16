@@ -1,26 +1,37 @@
 @import '../../../../styles/colors';
 
-
-.form {
-	padding: 10px;
+.form-container {
 	background: white;
-	border-radius: 5px;
-	width: 100%;
-	box-shadow: 0 3px 5px rgba(0,0,0,0.5);
-	color: #222;
-	margin-bottom: 50px;
-}
-
-.form-nav {
 	display: flex;
 	justify-content: center;
 
+	flex-grow: 1;
 
-	> .visible {
-		visibility: visible;
-	}
+	.form-main {
+		
+		color: #222;
 
-	> .hidden {
-		visibility: hidden;
+		width: 600px;
+		margin-top: 50px;
+		margin-bottom: 50px;
+
+		.form-fields {
+
+			padding-bottom: 10px;
+		}
+
+		.form-nav {
+
+			display: flex;
+			justify-content: center;
+
+			> .visible {
+				visibility: visible;
+			}
+
+			> .hidden {
+				visibility: hidden;
+			}
+		}
 	}
 }
