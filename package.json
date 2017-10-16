@@ -53,7 +53,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
-    "@genny-project/keycloak-react": "^1.0.3",
+    "@genny-project/keycloak-react": "^1.0.4",
     "@genny-project/layson": "^1.0.3",
     "babel-preset-stage-0": "^6.24.1",
     "downshift": "^1.12.0",
