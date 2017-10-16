@@ -3,7 +3,7 @@ import config from 'config/config';
 import React, { Component } from 'react';
 import Routes from './Routes.jsx';
 import { func, object } from 'prop-types';
-import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn } from '@genny-project/keycloak-react';
+import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn, KeycloakAccount } from '@genny-project/keycloak-react';
 import keycloakAdapter from 'keycloak-js';
 
 class App extends Component {
@@ -59,6 +59,7 @@ class App extends Component {
       <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>
         <div className='app'>
           {keycloak.logout && <KeycloakLogout />}
+          {keycloak.accounts && <KeycloakAccount force />}
           <KeycloakLoggedIn>
             <main>
               <content>

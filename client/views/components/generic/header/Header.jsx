@@ -38,7 +38,9 @@ class Header extends Component {
   }
 
   handleAccount = () => {
-    
+    this.sendData('ACCOUNTS', {
+      code: 'ACCOUNTS',
+    });
   }
 
   handleProfileImage = () => {

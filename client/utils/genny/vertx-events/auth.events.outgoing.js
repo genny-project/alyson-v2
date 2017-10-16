@@ -24,8 +24,17 @@ export const LOGOUT = (event, data, token) => ({
     data: data
 });
 
+export const ACCOUNTS = (event, data, token) => ({
+
+    event_type: event,
+    msg_type: "EVT_MSG",
+    token: token,
+    data: data
+});
+
 export default {
   AUTH_INIT,
   SEND_CODE,
-  LOGOUT
+  LOGOUT,
+  ACCOUNTS
 };
