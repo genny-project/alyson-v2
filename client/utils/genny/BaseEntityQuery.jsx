@@ -9,6 +9,7 @@ class BaseEntityQuery extends Component {
     // console.log('baeentity data log from base entity query ', this.entities);
   }
 
+
   helloWorld = (code) => {
     console.log('Testing hello world from base entity query');
   }
@@ -34,7 +35,6 @@ class BaseEntityQuery extends Component {
     const itemsArr = Object.keys(items).map(key => items[key]);
     console.log(itemsArr, 'Log items array from getChildrenOf');
     itemsArr.map(item => {
-      console.log('asdasdd');
       if (item.data.code === entity_code) {
         console.log(item.data.children, 'Log from getChildrenOf');
         // return item.data.children;
@@ -45,6 +45,11 @@ class BaseEntityQuery extends Component {
       }
     });
   }
+
+
+
+
+
 
 
   getRelationships(entity_code) {
@@ -75,7 +80,6 @@ class BaseEntityQuery extends Component {
   //   return items;
 
   // }
-
 
 
 

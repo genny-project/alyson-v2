@@ -91,6 +91,7 @@ class GennyTreeView extends Component {
   }
 
 
+
   render() {
     const { root, baseEntity } = this.props;
     const relationships = baseEntity.relationships[root];

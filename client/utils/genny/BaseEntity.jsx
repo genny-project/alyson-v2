@@ -6,6 +6,7 @@ class BaseEntity extends Component {
     super(props);
   }
 
+
   render() {
     // return this.props.children({
     //   test: true,
@@ -17,6 +18,7 @@ class BaseEntity extends Component {
     // return <h2> sfdsfsfs </h2>;
   }
 }
+
 
 
 const mapStateTopProps = (state) => ({
