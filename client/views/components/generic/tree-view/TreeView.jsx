@@ -75,9 +75,9 @@ class TreeView extends Component {
 
   render() {
     const { items, baseEntity } = this.props;
-    console.log(this.props, 'Logging props from treeview');
     return (
       <div className="treeview">
+
         <BaseEntity>
           {
             (query) => {
@@ -85,6 +85,7 @@ class TreeView extends Component {
             }
           }
         </BaseEntity>
+
         <ul className="parent">
           {this.renderList(items)}
         </ul>
