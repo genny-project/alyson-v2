@@ -3,6 +3,7 @@ import {
   AUTH_LOGGED_OUT,
   RECEIVE_KEYCLOAK_CONFIG,
   LOGOUT,
+  ACCOUNTS
 } from 'constants';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
     config: null,
     token: null,
     logout: false,
+    accounts: false,
 };
 
 export default function reducer( state = initialState, action ) {
@@ -38,6 +40,12 @@ export default function reducer( state = initialState, action ) {
       return {
         ...state,
         logout: true
+      };
+
+      case ACCOUNTS:
+      return {
+        ...state,
+        accounts: true
       };
 
     default:
