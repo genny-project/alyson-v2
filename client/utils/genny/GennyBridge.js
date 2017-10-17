@@ -2,23 +2,33 @@ import { Observable } from 'rxjs/Observable';
 import config from 'config/config';
 import { Vertx, MessageHandler } from './vertx';
 import events from './vertx-events';
+import store from 'views/store';
 
 class GennyBridge {
 
-  sendMessage(event, data, token) {
+  getToken() {
+    const token = store.getState().keycloak.token;
+    return token;
+  }
+  
+  sendMessage(event, data) {
+    let token = this.getToken();
     Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
   }
 
-  sendTVEvent(event, data, token) {
+  sendTVEvent(event, data) {
+    let token = this.getToken();
     Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
   }
 
-  sendLogout(event, data, token) {
+  sendLogout(event, data) {
+    let token = this.getToken();
     Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
-  sendLogout(event, data, token) {
-    Vertx.sendMessage(events.outgoing.ACCOUNTS(event, data, token));
+  sendAnswer(event, data) {
+    let token = this.getToken();
+    Vertx.sendMessage(events.outgoing.ANSWER(event, data, token));
   }
 
   ajaxCall(settings) {

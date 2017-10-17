@@ -67,8 +67,7 @@ class GennyTreeView extends Component {
 
   sendData(event, data) {
     console.log('send', data);
-    const token = store.getState().keycloak.token;
-    GennyBridge.sendTVEvent(event, data, token);
+    GennyBridge.sendTVEvent(event, data);
   }
 
   getEntityChildren(code) {

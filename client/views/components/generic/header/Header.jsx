@@ -1,14 +1,13 @@
 import './header.scss';
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+import { string, object } from 'prop-types';
 import { IconSmall, Profile, Notifications, Label, ImageView } from '../';
-
-import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
 
 class Header extends Component {
   static defaultProps = {
     className: '',
+    style: object,
   }
 
   static propTypes = {
@@ -17,7 +16,7 @@ class Header extends Component {
 
   state = {
     isVisible: false
-  } 
+  }
 
   handleClickProfile = () => {
     this.setState(prevState => ({
@@ -43,16 +42,19 @@ class Header extends Component {
 
   sendData(event, data) {
     console.log('send', data);
-    const token = store.getState().keycloak.token;
-    GennyBridge.sendLogout(event, data, token);
+    GennyBridge.sendLogout(event, data);
   }
 
   render() {
-    const { className, projectTitle, userName, userImage } = this.props;
+    const { className, projectTitle, userName, userImage, style } = this.props;
     const { isVisible } = this.state;
 
+    const componentStyle = {
+      ...style,
+    };
+
     return (
-      <div className="header">
+      <div className="header" style={componentStyle}>
         <div className="header-left">
           <Label text={projectTitle} />
         </div>
