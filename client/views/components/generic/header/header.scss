@@ -15,6 +15,7 @@
 			width: 30px;
 			height: 30px;
 			margin-left: 10px;
+			border-radius: 5px;
 		}
 
 		span, i {
@@ -37,9 +38,10 @@
 	}
 
 
-	.navigation-dropdown {
+	.profile-dropdown {
 		position: absolute;
-		top: 50px;
+		top: 60px;
+		right: 0;
 		list-style-type: none;
 		background: #DDD;
 		border-radius: 5px;
@@ -69,5 +71,17 @@
 				}
 			}
 		}
+		
+		&:before {
+			content: "";
+			position: absolute;
+			top: -5px;
+			left: 50%;
+			transform: rotate(45deg);
+
+			background: #DDD;
+			width: 10px;
+			height: 10px;
+		 }
 	}
 }

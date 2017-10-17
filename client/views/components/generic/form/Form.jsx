@@ -26,7 +26,7 @@ class Form extends Component {
   }
 
   handlePrevPage = () => {
-    if ( this.state.pageCurrent > 0 ) {
+    if ( this.state.pageCurrent > 1 ) {
       this.setState(prevState => ({
           pageCurrent: prevState.pageCurrent--
         }, () => {
@@ -64,7 +64,7 @@ class Form extends Component {
     return (
       <div className="form-container">
         <div className="form-main">
-          { showProgress ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null }
+          { showProgress && itemsPerPage <= askCount ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null }
           <div className="form-fields">
   	        {
               asks.map((ask, index) => {
@@ -73,7 +73,7 @@ class Form extends Component {
   	        }
           </div>
           <div className="form-nav">
-              <Button className={`form-nav-prev ${pageCurrent > 0 ? 'visible' : 'hidden' }`} onClick={this.handlePrevPage} >
+              <Button className={`form-nav-prev ${pageCurrent > 1 ? 'visible' : 'hidden' }`} onClick={this.handlePrevPage} >
                 <IconSmall name="chevron_left" />
               </Button>
               <Button className={`form-nav-next ${pageCurrent < askCount / itemsPerPage ? 'visible' : 'hidden' }`} onClick={this.handleNextPage} >

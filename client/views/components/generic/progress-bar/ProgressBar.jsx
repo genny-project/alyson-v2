@@ -1,10 +1,9 @@
 import './progressBar.scss';
-import React from 'react';
-import { GennyComponent } from '../genny-component';
+import React, { Component } from 'react';
 import { string, array, number } from 'prop-types';
 import { IconSmall } from '../';
 
-class ProgressBar extends GennyComponent {
+class ProgressBar extends Component {
   
   static defaultProps = {
     className: '',

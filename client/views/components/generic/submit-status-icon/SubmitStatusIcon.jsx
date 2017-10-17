@@ -1,10 +1,9 @@
 import './submitStatusIcon.scss';
-import React from 'react';
-import { GennyComponent } from '../genny-component';
+import React, { Component } from 'react';
 import { IconSmall } from '../';
 import { string } from 'prop-types';
 
-class SubmitStatusIcon extends GennyComponent {
+class SubmitStatusIcon extends Component {
   static defaultProps = {
     className: '',
     status: ''
