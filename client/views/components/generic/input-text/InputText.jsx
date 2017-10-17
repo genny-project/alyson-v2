@@ -16,6 +16,7 @@ class InputText extends GennyComponent {
     validation: '',
   }
 
+
   static propTypes = {
     className: string,
     srcCode: string,
