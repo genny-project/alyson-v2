@@ -9,6 +9,7 @@ class InputText extends Component {
     className: ''
   }
 
+
   static propTypes = {
     className: string,
     ask: object
