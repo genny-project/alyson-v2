@@ -19,7 +19,6 @@ class BaseEntityQuery extends Component {
     // return entitiesArr;
   }
 
-
   // Get the Roots Children
   getRootChildren() {
 
@@ -46,37 +45,37 @@ class BaseEntityQuery extends Component {
 
   getAlias = (code) => {
 
-      let layout = [];
+    let layout = [];
 
-      // check aliases if any for passed entities
-      for (let entity_code_key in code) {
+    // check aliases if any for passed entities
+    for (let entity_code_key in code) {
 
-          let baseEntities = this.props.baseEntities.data;
-          for(let key in baseEntities) {
+      let baseEntities = this.props.baseEntities.data;
+      for (let key in baseEntities) {
 
-              // if we find the base entity we are looking for
-              if(key === entity_code_key) {
+        // if we find the base entity we are looking for
+        if (key === entity_code_key) {
 
-                  // we loop through all the attributes to find the ones we want
-                  code[entity_code_key].forEach(attribute => {
+          // we loop through all the attributes to find the ones we want
+          code[entity_code_key].forEach(attribute => {
 
-                      let be = this.props.baseEntities.data[key];
+            let be = this.props.baseEntities.data[key];
 
-                      // we loop through attributes
-                      be.attributes.forEach(be_attribute => {
+            // we loop through attributes
+            be.attributes.forEach(be_attribute => {
 
-                          if(be_attribute.code === attribute) {
-                              layout.push(
-                                  <p>{be_attribute.value}</p>
-                              );
-                          }
-                      });
-                  });
+              if (be_attribute.code === attribute) {
+                layout.push(
+                  <p>{be_attribute.value}</p>
+                );
               }
-          }
+            });
+          });
+        }
       }
+    }
 
-      return layout;
+    return layout;
   }
 
   render() {

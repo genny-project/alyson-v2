@@ -6,9 +6,7 @@ class DisplayValue extends Component {
 
   constructor(props) {
     super(props);
-    console.log('Hey from display value component');
   }
-
 
   static defaultProps = {
     text: 'example text',

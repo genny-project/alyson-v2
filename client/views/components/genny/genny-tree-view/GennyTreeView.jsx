@@ -5,13 +5,9 @@ import { object, array } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
 import { BaseEntity } from '../../../../utils/genny/';
-
-
 class GennyTreeView extends Component {
   constructor(props) {
     super(props);
-    console.log(BaseEntity, 'base entity log from genny treeview');
-
   }
 
   static propTypes = {
@@ -19,15 +15,13 @@ class GennyTreeView extends Component {
     baseEntity: object
   };
 
+
   state = {
     tree: {}
   }
 
-  handleClick = (item) => {
-
-    /* Determine whether we need to open or close, first get the state of the tree */
+  handleClick = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
     const { tree } = this.state;
-
     /* Now check whether this item is opened or closed in the tree */
     if (!tree[item.code]) {
       /* Item is closed */
@@ -86,10 +80,7 @@ class GennyTreeView extends Component {
     return items;
   }
 
-  getEntityChildren(code) {
-
-  }
-
+  getEntityChildren
   render() {
     const { root, baseEntity } = this.props;
     const relationships = baseEntity.relationships[root];

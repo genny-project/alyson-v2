@@ -8,7 +8,6 @@ class BaseEntity extends Component {
     super(props);
   }
 
-
   render() {
     return this.props.children(new BaseEntityQuery(this.props));
   }
