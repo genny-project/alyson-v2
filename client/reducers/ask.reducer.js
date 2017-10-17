@@ -19,17 +19,14 @@ export default function reducer(state = initialState, action) {
 
                     existing[code] = {
                       ...state.data[code],
-                      data: {
-                        ...(state.data[code] ? state.data[code].data : {}),
-                        ...ask,
-                        question: {
-                            ...ask.question,
-                            validations: [
-                                ...(ask.question.attribute.dataType.validationList ? ask.question.attribute.dataType.validationList : [])
-                            ],
-                            type: ask.question.attribute.dataType.className
-                        }
-                      },
+                      ...ask,
+                      question: {
+                          ...ask.question,
+                          validations: [
+                              ...(ask.question.attribute.dataType.validationList ? ask.question.attribute.dataType.validationList : [])
+                          ],
+                          type: ask.question.attribute.dataType.className
+                      }
                     };
 
                   return existing;
