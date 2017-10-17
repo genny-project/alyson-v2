@@ -83,11 +83,12 @@ class GennyTreeView extends Component {
       item.open = !!this.state.tree[item.code];
       return item;
     });
-
     return items;
   }
 
+  getEntityChildren(code) {
 
+  }
 
   render() {
     const { root, baseEntity } = this.props;

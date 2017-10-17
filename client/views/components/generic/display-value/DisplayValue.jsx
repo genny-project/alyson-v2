@@ -11,13 +11,13 @@ class DisplayValue extends Component {
 
 
   static defaultProps = {
-    label: 'abc',
-    value: 'def'
+    text: 'abc',
+    placeholder: 'def'
   }
 
   static propTypes = {
-    label: string,
-    value: string
+    text: string,
+    placeholder: string
   }
 
   render() {
