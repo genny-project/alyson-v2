@@ -30,5 +30,8 @@ export const BASE_ENTITY = 'BaseEntity';
 /* Base entities + attributes */
 export const BASE_ENTITY_DATA = 'Data';
 
+/* Asks */
+export const ASK = 'Ask';
+
 /* Redirect */
 export const REDIRECT = 'REDIRECT';

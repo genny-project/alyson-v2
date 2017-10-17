@@ -3,12 +3,14 @@ import authOutgoing from './auth.events.outgoing.js';
 import authIncoming from './auth.events.incoming.js';
 import redirectIncoming from './redirect.events.incoming.js';
 import baseEntity from './baseEntity.events.incoming.js';
+import ask from './ask.events.incoming.js';
 import treeView from './treeView.events.outgoing.js';
 
 export default {
   incoming: {
     ...layoutIncoming,
     ...baseEntity,
+    ...ask,
     ...authIncoming,
     ...redirectIncoming
   },
@@ -17,4 +19,3 @@ export default {
     ...treeView,
   }
 };
-
