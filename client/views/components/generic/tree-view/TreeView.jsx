@@ -4,7 +4,6 @@ import { object, array, func } from 'prop-types';
 import { IconSmall, SubmitStatusIcon } from '../';
 import { BaseEntity } from '../../../../utils/genny/';
 
-import store from 'views/store';
 
 import { GennyBridge } from 'utils/genny';
 class TreeView extends Component {
@@ -34,8 +33,7 @@ class TreeView extends Component {
 
   sendData = (event, data) => {
     console.log('send', data);
-    const token = store.getState().keycloak.token;
-    GennyBridge.sendTVEvent(event, data, token);
+    GennyBridge.sendTVEvent(event, data);
   }
 
   renderList = (items) => {
@@ -46,7 +44,7 @@ class TreeView extends Component {
           <li key={i}>
             <div>
               <span onClick={() => { this.sendSelectMsg(item); }}>
-                {/* <IconSmall name="settings" /> */}
+                { item.icon ? <IconSmall name={item.icon} /> : null }
                 {item.name}
               </span>
               <IconSmall onClick={this.onClick(item)} name="expand_more" />
@@ -61,7 +59,7 @@ class TreeView extends Component {
           <li key={i}>
             <div>
               <span onClick={() => { this.sendSelectMsg(item); }}>
-                {/* <IconSmall name="settings" /> */}
+                { item.icon ? <IconSmall name={item.icon} /> : null }
                 {item && item.name}{console.log(item, 'item.sendSelectMsg from chevron right')}
               </span>
               <IconSmall onClick={this.onClick(item)} name="chevron_right" />

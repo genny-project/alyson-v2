@@ -1,11 +1,12 @@
 import './footer.scss';
 import React, { Component }  from 'react';
-import { string, any } from 'prop-types';
+import { string, any, object } from 'prop-types';
 import { ImageView } from '../';
 
 class Footer extends Component {
   static defaultProps = {
     className: '',
+    style: object,
   }
 
   static propTypes = {
@@ -13,10 +14,14 @@ class Footer extends Component {
   }
 
   render() {
-    const { className, version, poweredBy } = this.props;
+    const { className, version, poweredBy, style } = this.props;
+
+    const componentStyle = {
+      ...style,
+    };
 
     return (
-      	<div className="footer">
+      	<div className="footer" style={componentStyle}>
           { version ? <span className="version">{version}</span> : null }
       		{ poweredBy ? 
             <div className="powered-by">

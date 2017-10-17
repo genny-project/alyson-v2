@@ -1,6 +1,6 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
-import {GennyImageView} from '../../../components'
+import { GennyImageView } from '../../../components'
 import { object, bool, string, any } from 'prop-types';
 
 class Sidebar extends Component {
@@ -12,13 +12,6 @@ class Sidebar extends Component {
       caption: any,
       children: any
     };
-
-    constructor() {
-        super();
-        this.state = {
-            'open': true
-        };
-    }
 
     render() {
 

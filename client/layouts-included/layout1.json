@@ -15,11 +15,19 @@
           "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300"
         },
         "header": {
+          "style": {
+            "backgroundColor": "#1f1f1f",
+            "color": "white"
+          },
           "projectTitle" : "Channel40",
           "userName" : "Tom",
           "userImage" : "http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg"
         },
         "footer" : {
+          "style": {
+            "backgroundColor": "#1f1f1f",
+            "color": "white"
+          },
           "version" : "0.0.0.1",
           "poweredBy" : {
             "caption" : "Outcome.life"
