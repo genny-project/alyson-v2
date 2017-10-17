@@ -1,39 +1,23 @@
 import './inputText.scss';
 import React, { Component } from 'react';
-import { string, bool, array } from 'prop-types';
+import { string, bool, array, object} from 'prop-types';
 import { Label, SubmitStatusIcon } from '../';
 
 class InputText extends Component {
   static defaultProps = {
-    className: '',
-    name: '',
-    readOnly: false,
-    defaultValue: '',
-    optional: false,
-    placeholder: '',
-    mask: null,
-    validation: '',
+    ask: {},
+    className: ''
   }
 
   static propTypes = {
     className: string,
-    srcCode: string,
-    targetCode: string,
-    attributeCode: string,
-    dataType: string,
-    name: string,
-    mask: string,
-    validationlist: array,
-    readOnly: bool,
-    optional: bool,
-    expiry: string,
-    placeholder: string,
+    ask: object
   }
 
   state = {
     value: '',
     mask: this.props.mask,
-    validationlist: this.props.validationlist,
+    validationList: this.props.ask.question.validationList,
     validationClass: '',
     isValid: null,
     submitStatus: null,
@@ -58,9 +42,11 @@ class InputText extends Component {
   }
 
   handleBlur = event => {
-    var valList = this.state.validationlist;
+
+    var valList = this.state.validationList;
     valList.forEach((element) => {
-      const valItem = element.validation;
+
+      const valItem = new RegExp(element.regex);
       if ( valItem.test(event.target.value) ){
         this.setState({
           isValid: true,
@@ -82,7 +68,7 @@ class InputText extends Component {
 
 
   render() {
-    const { className, name, readOnly, placeholder, optional} = this.props;
+    const { className, name, readOnly, placeholder, optional} = this.props.ask;
     const { validationClass, submitStatus, date } = this.state;
 
     return (

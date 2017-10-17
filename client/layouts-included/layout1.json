@@ -64,46 +64,13 @@
           },
           {
             "GennyForm": {
-              "questionGroup": {
-
-                "itemsPerPage" : 10,
-                "showProgress" : true,
-                "style" : "default",
-                "asks" : [
-
-                  { "id" : "0002",
-                    "type" : "text",
-                    "name": "LastName2",
-                    "placeholder": "Enter Last Name Here2"
-                  },
-                  { "id" : "0003",
-                    "type" : "text",
-                    "name": "LastName3",
-                    "placeholder": "Enter Last Name Here3"
-                  },
-                  { "id" : "0004",
-                    "type" : "text",
-                    "name": "LastName4",
-                    "placeholder": "Enter Last Name Here4"
-                  },
-                  { "id" : "0005",
-                    "type" : "text",
-                    "name": "LastName5",
-                    "placeholder": "Enter Last Name Here5"
-                  },
-                  { "id" : "0006",
-                    "type" : "text",
-                    "name": "LastName6",
-                    "placeholder": "Enter Last Name Here6"
-                  }
-
-                ]
-
-              }
+              "itemsPerPage" : 10,
+              "showProgress" : true,
+              "style" : "default",
+              "asks" : [
+              ]
             }
           }
-
-
         ]
       }
     }

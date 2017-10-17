@@ -7,20 +7,20 @@ class Form extends Component {
 
   static defaultProps = {
     className: '',
-    questionGroup: {},
+    asks: {}
   }
 
   static propTypes = {
     className: string,
-    questionGroup: object,
+    asks: object,
   }
 
   state = {
-    itemsPerPage: this.props.questionGroup.itemsPerPage ? this.props.questionGroup.itemsPerPage : 1,
-    showProgress: this.props.questionGroup.showProgress ? this.props.questionGroup.showProgress : false,
-    asks: this.props.questionGroup.asks,
-    askCount: this.props.questionGroup.asks.length,
-    pageCount: Math.ceil( this.props.questionGroup.asks.length / this.props.questionGroup.itemsPerPage ),
+    itemsPerPage: this.props.itemsPerPage ? this.props.itemsPerPage : 1,
+    showProgress: this.props.showProgress ? this.props.showProgress : false,
+    asks: this.props.asks,
+
+    pageCount: Math.ceil( Object.keys(this.props.asks).length / this.props.itemsPerPage ),
     askCurrent: 1,
     pageCurrent: 1,
   }
@@ -57,8 +57,9 @@ class Form extends Component {
   }  
 
   render() {
- 	  const { className, questionGroup } = this.props;
-    const { itemsPerPage, showProgress, asks, askCount, askCurrent, pageCurrent, pageCount } = this.state;
+ 	  const { className, questionGroup, asks } = this.props;
+    const { itemsPerPage, showProgress, askCurrent, pageCurrent, pageCount } = this.state;
+    let askCount = Object.keys(this.props.asks).length;
     const askPageArray = this.getAskCount(askCount, itemsPerPage);
     
     return (
@@ -67,8 +68,10 @@ class Form extends Component {
           { showProgress && itemsPerPage <= askCount ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null }
           <div className="form-fields">
   	        {
-              asks.map((ask, index) => {
-                return pageCurrent === askPageArray[index].page ? <Input key={index} {...ask} /> : null;
+              Object.keys(asks).map((ask_code, index) => {
+                console.log(asks[ask_code]);
+                console.log(ask_code);
+                return pageCurrent === askPageArray[index].page ? <Input key={index} ask={asks[ask_code]} /> : null;
               })
   	        }
           </div>

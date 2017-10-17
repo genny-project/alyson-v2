@@ -15,13 +15,12 @@ class GennyForm extends Component {
 
   render() {
 
-    console.log(this.props);
-    console.log("================");
-    const {  } = this.props;
+    const { ask } = this.props;
+    console.log(ask);
 
     return (
       <div className="genny-form">
-        <Form  {...this.props} />
+        <Form {...this.props} asks={ask.data} />
       </div>
     );
   }
