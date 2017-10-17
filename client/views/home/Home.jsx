@@ -6,9 +6,10 @@ import { LayoutLoader } from 'utils/genny/layout-loader';
 class Home extends Component {
   componentDidMount() {
 
+    // document.getElementById('mounting-preview').remove();
+
   }
   render() {
-    console.log('Log Displayvalue component', DisplayValue);
     return (
       <div className="home">
         < LayoutLoader />
@@ -16,6 +17,5 @@ class Home extends Component {
     );
   }
 }
-
 
 export default Home;

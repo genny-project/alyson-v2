@@ -11,8 +11,8 @@ class DisplayValue extends Component {
 
 
   static defaultProps = {
-    label: string,
-    value: string
+    label: 'abc',
+    value: 'def'
   }
 
   static propTypes = {
@@ -20,9 +20,10 @@ class DisplayValue extends Component {
     value: string
   }
 
-
   render() {
-    return (< div >  < Label text={this.props.label} />  < InputText placeholder={this.props.value} />  </div >
+    return (<div>
+      < Label text={this.props.text} />  < InputText palceholder={this.props.placeholder} />
+    </div >
     );
   }
 }
