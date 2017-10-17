@@ -11,8 +11,8 @@ class DisplayValue extends Component {
 
 
   static defaultProps = {
-    text: 'abc',
-    placeholder: 'def'
+    text: 'example text',
+    placeholder: ' example placeholder'
   }
 
   static propTypes = {
