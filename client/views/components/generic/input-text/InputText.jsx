@@ -1,10 +1,9 @@
 import './inputText.scss';
-import React from 'react';
-import { GennyComponent } from '../genny-component';
+import React, { Component } from 'react';
 import { string, bool, array } from 'prop-types';
 import { Label, SubmitStatusIcon } from '../';
 
-class InputText extends GennyComponent {
+class InputText extends Component {
   static defaultProps = {
     className: '',
     name: '',

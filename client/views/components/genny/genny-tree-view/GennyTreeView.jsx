@@ -14,17 +14,14 @@ class GennyTreeView extends Component {
 
   }
 
-  state = {
-    tree: {}
-  }
-
   static propTypes = {
     items: array,
     baseEntity: object
   };
 
-
-
+  state = {
+    tree: {}
+  }
 
   handleClick = (item) => {
 

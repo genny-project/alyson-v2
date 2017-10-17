@@ -19,16 +19,10 @@ class Header extends Component {
     isVisible: false
   } 
 
-  handleProfileEnter = () => {
-    this.setState({
-        isVisible: true,
-    });
-  }
-
-  handleProfileLeave = () => {
-    this.setState({
-        isVisible: false,
-    });
+  handleClickProfile = () => {
+    this.setState(prevState => ({
+      isVisible: !prevState.isVisible
+    }));
   }
 
   handleLogout = () => {
@@ -43,7 +37,7 @@ class Header extends Component {
     });
   }
 
-  handleProfileImage = () => {
+  handleClickImage = () => {
     //console.log("clicked profile image");
   }
 
@@ -54,26 +48,28 @@ class Header extends Component {
   }
 
   render() {
-    const { className } = this.props;
+    const { className, projectTitle, userName, userImage } = this.props;
     const { isVisible } = this.state;
 
     return (
       <div className="header">
         <div className="header-left">
-          <Label text="Project Title" />
+          <Label text={projectTitle} />
         </div>
         <div className="header-right">
           <Notifications />
-          <div className="profile" onMouseEnter={this.handleProfileEnter} onMouseLeave={this.handleProfileLeave}>
-            <Label text="Welcome, Name" />
-            <ImageView src="http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg" onClick={this.handleProfileImage} />
+          <div className="profile">
+            <Label text={`Welcome, ${userName}`} onClick={this.handleClickProfile} />
+            <ImageView src={userImage} onClick={this.handleClickImage} />
+            
             { isVisible ?
-                <ul className="navigation-dropdown">
+                <ul className="profile-dropdown">
                   <li><IconSmall name="person" /><span>Profile</span></li>
                   <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
                   <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
                 </ul>
-            : null } 
+            : null }
+
           </div>
           <IconSmall className="help" name="help" />
         </div>
