@@ -1,16 +1,16 @@
 import './gennyNotification.scss';
 import React, { Component } from 'react';
 import { Notifications } from '../../../components';
-import { string, any, array } from 'prop-types';
+import { string, any, object } from 'prop-types';
 
 class GennyNotification extends Component {
 
     static defaultProps = {
-      notifications: []
+      notifications: {}
     };
 
     static propTypes = {
-      notifications: array
+      notifications: object
     };
 
   state = {
@@ -21,7 +21,7 @@ class GennyNotification extends Component {
     const { notifications } = this.props;
 
     return (
-      <Notifications notificationCount={notifications.length}>
+      <Notifications notifications={notifications}>
       </Notifications>
     );
   }

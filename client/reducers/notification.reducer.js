@@ -12,10 +12,12 @@ export default function reducer(state = initialState, action) {
 
         return {
             ...state,
-            data: [
+            data: {
                 ...state.data,
-                action.payload
-            ]
+                [action.payload.code]: {
+                    ...action.payload
+                }
+            }
         };
 
         default:
