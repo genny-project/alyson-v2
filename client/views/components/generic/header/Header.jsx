@@ -1,7 +1,8 @@
 import './header.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall, Profile, Notifications, Label, ImageView, Dropdown } from '../';
+import { IconSmall, Profile, Label, ImageView, Dropdown } from '../';
+import { GennyNotification } from '../../genny';
 import { GennyBridge } from 'utils/genny';
 
 class Header extends Component {
@@ -60,11 +61,11 @@ class Header extends Component {
           <Label text={projectTitle} />
         </div>
         <div className="header-right">
-          <Notifications />
+          <GennyNotification />
           <div className="profile">
             <Label text={`Welcome, ${userName}`} onClick={this.handleClickProfile} />
             <ImageView src={userImage} onClick={this.handleClickImage} />
-            
+
             <Dropdown visible={isVisible}>
                 <ul className="profile-dropdown">
                   <li><IconSmall name="person" /><span>Profile</span></li>
