@@ -1,9 +1,9 @@
-export const ANSWER = (event, data, token) => ({
+export const ANSWER = (data, items, token) => ({
 
-    event_type: event,
-    msg_type: "EVT_MSG",
+    data_type: data,
+    msg_type: "DATA_MSG",
     token: token,
-    data: data
+    items: items,
 });
 
 export default {

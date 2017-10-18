@@ -87,4 +87,11 @@ export {
   default as Table
 }
 from './table';
-export {default as DisplayValue}from './display-value';
+export {
+  default as DisplayValue
+}
+from './display-value';
+export {
+  default as Dropdown
+}
+from './dropdown';
