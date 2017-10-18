@@ -1,7 +1,7 @@
 import './notifications.scss';
 import React, { Component } from 'react';
 import { string } from 'prop-types';
-import { IconSmall } from '../';
+import { IconSmall, Dropdown } from '../';
 
 class Notifications extends Component {
   static defaultProps = {
@@ -30,13 +30,13 @@ class Notifications extends Component {
       <div className="notifications" onClick={this.handleClickNotifs}>
         <IconSmall name="forum"/>
         <div className="number" ><span>2</span></div>
-        { isVisible ?
+        <Dropdown visible={isVisible}>
           <ul className="notifications-dropdown">
             <li></li>
             <li></li>
             <li></li>
           </ul>
-      : null }
+        </Dropdown>
       </div>
     )
   }

@@ -26,9 +26,9 @@ class GennyBridge {
     Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
-  sendAnswer(event, data) {
+  sendAnswer(data, items) {
     let token = this.getToken();
-    Vertx.sendMessage(events.outgoing.ANSWER(event, data, token));
+    Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
   }
 
   ajaxCall(settings) {

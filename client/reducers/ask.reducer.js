@@ -25,7 +25,8 @@ export default function reducer(state = initialState, action) {
                           validationList: [
                               ...(ask.question.attribute.dataType.validationList ? ask.question.attribute.dataType.validationList : [])
                           ],
-                          type: ask.question.attribute.dataType.className
+                          type: ask.question.attribute.dataType.className,
+                          attributeCode: ask.question.attribute.code
                       }
                     };
 
