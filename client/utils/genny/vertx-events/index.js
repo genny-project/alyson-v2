@@ -6,12 +6,14 @@ import baseEntity from './baseEntity.events.incoming.js';
 import askIncoming from './ask.events.incoming.js';
 import askOutgoing from './ask.events.outgoing.js';
 import treeView from './treeView.events.outgoing.js';
+import notificationIncoming from './notification.events.incoming.js';
 
 export default {
   incoming: {
     ...layoutIncoming,
     ...baseEntity,
     ...askIncoming,
+    ...notificationIncoming,
     ...authIncoming,
     ...redirectIncoming
   },
