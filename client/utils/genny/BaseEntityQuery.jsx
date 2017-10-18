@@ -7,11 +7,6 @@ class BaseEntityQuery extends Component {
     super(props);
   }
 
-
-  helloWorld = (code) => {
-    console.log('Testing hello world from base entity query');
-  }
-
   getChildrens = () => {
     const entities = this.props.baseEntities.data;
     const entitiesArr = Object.keys(entities).map(key => entities[key]);
@@ -43,6 +38,25 @@ class BaseEntityQuery extends Component {
     });
   }
 
+  hasChildren(entity_code) {
+    let items = this.props.baseEntities.data;
+    const itemsArr = Object.keys(items).map(key => items[key]);
+    itemsArr.map(item => {
+      if (item.code === entity_code) {
+        if (item.children) {
+          console.log('Has childen true');
+          return true;
+        }
+        else {
+          console.log('Has Children false');
+          return false;
+        }
+      }
+    });
+
+
+
+  }
   getAlias = (code) => {
 
     let layout = [];
