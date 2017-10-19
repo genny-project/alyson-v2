@@ -99,3 +99,6 @@ export {
   default as NotificationItem
 }
 from './notification-item';
+
+export {default as TestRn} from './test-rn';
+
