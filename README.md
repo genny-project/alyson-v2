@@ -17,3 +17,7 @@
 4. Run
 
 ```npm start```
+
+5. To Run on iOS
+
+``` npm run native  ```

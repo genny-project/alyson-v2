@@ -4,6 +4,7 @@
   "description": "Alyson V2",
   "main": "index.js",
   "scripts": {
+    "native": "cd ./nativeCode && react-native run-ios",
     "build": "webpack",
     "build-prod": "webpack --config webpack.config.production.js",
     "start": "webpack-dashboard -- webpack-dev-server",
