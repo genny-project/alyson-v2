@@ -33,5 +33,8 @@ export const BASE_ENTITY_DATA = 'Data';
 /* Asks */
 export const ASK = 'Asks';
 
+/* Notifications */
+export const NOTIFICATION = 'Notification';
+
 /* Redirect */
 export const REDIRECT = 'REDIRECT';

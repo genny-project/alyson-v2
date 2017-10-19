@@ -20,11 +20,10 @@ class DisplayValue extends Component {
 
   render() {
     return (<div>
-      < Label text={this.props.text} />  < InputText palceholder={this.props.placeholder} />
+      < Label text={this.props.text} />  < InputText placeholder={this.props.placeholder} />
     </div >
     );
   }
 }
-
 
 export default DisplayValue; 

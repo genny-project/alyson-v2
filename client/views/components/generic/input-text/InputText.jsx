@@ -10,7 +10,6 @@ class InputText extends Component {
     className: ''
   }
 
-
   static propTypes = {
     className: string,
     ask: object
@@ -45,9 +44,11 @@ class InputText extends Component {
 
   handleBlur = event => {
 
+    const { ask } = this.props;
+
     var valList = this.state.validationList;
 
-    console.log(valList);
+    //console.log(valList);
 
     if ( valList.length > 0 ) {
       valList.forEach((element) => {
@@ -73,21 +74,29 @@ class InputText extends Component {
         }
       });
     } else if ( valList.length === 0 ) {
-      this.sendData('ANSWER', {
-        code: '',
-        value: '',
-      });
+      this.sendData('Answer', [
+        {
+          sourceCode: ask.sourceCode,
+          targetCode: ask.targetCode,
+          attributeCode: ask.question.attributeCode,
+          value: event.target.value,
+          askId: ask.id
+        }
+      ]);
     }
   }
 
-  sendData(event, data) {
-    console.log('send', data);
-    GennyBridge.sendAnswer(event, data);
+  sendData(data, items) {
+    console.log('send', items);
+    GennyBridge.sendAnswer(data, items);
   }
 
   render() {
     const { className, name, readOnly, placeholder, optional} = this.props.ask;
+    
     const { validationClass, submitStatus, date } = this.state;
+
+    //console.log(ask)
 
     return (
       <div className={`input-text ${className} ${validationClass}`}>

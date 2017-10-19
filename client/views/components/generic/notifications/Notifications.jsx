@@ -1,15 +1,18 @@
 import './notifications.scss';
 import React, { Component } from 'react';
-import { string } from 'prop-types';
-import { IconSmall } from '../';
+import { string, int, object } from 'prop-types';
+import { IconSmall, Dropdown, NotificationItem } from '../';
 
 class Notifications extends Component {
+
   static defaultProps = {
     className: '',
+    notifications:{}
   }
 
   static propTypes = {
     className: string,
+    notifications: object
   }
 
   state = {
@@ -23,20 +26,24 @@ class Notifications extends Component {
   }
 
   render() {
-    const { className } = this.props;
+
+    const { className, notifications } = this.props;
     const { isVisible } = this.state;
 
+    console.log(notifications);
     return (
       <div className="notifications" onClick={this.handleClickNotifs}>
         <IconSmall name="forum"/>
-        <div className="number" ><span>2</span></div>
-        { isVisible ?
+        <div className="number" ><span>{Object.keys(notifications).length}</span></div>
+        <Dropdown visible={isVisible}>
           <ul className="notifications-dropdown">
-            <li></li>
-            <li></li>
-            <li></li>
+      	        {
+                    Object.keys(notifications).map((notification_key, index) => {
+                        return <NotificationItem notification={notifications[notification_key]} />
+                    })
+      	        }
           </ul>
-      : null }
+        </Dropdown>
       </div>
     )
   }

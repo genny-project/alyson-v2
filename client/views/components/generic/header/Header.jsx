@@ -1,17 +1,19 @@
 import './header.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall, Profile, Notifications, Label, ImageView } from '../';
+import { IconSmall, Profile, Label, ImageView, Dropdown } from '../';
+import { GennyNotification } from '../../genny';
 import { GennyBridge } from 'utils/genny';
 
 class Header extends Component {
   static defaultProps = {
     className: '',
-    style: object,
+    style: {},
   }
 
   static propTypes = {
     className: string,
+    style: object,
   }
 
   state = {
@@ -59,18 +61,18 @@ class Header extends Component {
           <Label text={projectTitle} />
         </div>
         <div className="header-right">
-          <Notifications />
+          <GennyNotification />
           <div className="profile">
             <Label text={`Welcome, ${userName}`} onClick={this.handleClickProfile} />
             <ImageView src={userImage} onClick={this.handleClickImage} />
-            
-            { isVisible ?
+
+            <Dropdown visible={isVisible}>
                 <ul className="profile-dropdown">
                   <li><IconSmall name="person" /><span>Profile</span></li>
                   <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
                   <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
                 </ul>
-            : null }
+            </Dropdown>
 
           </div>
           <IconSmall className="help" name="help" />
