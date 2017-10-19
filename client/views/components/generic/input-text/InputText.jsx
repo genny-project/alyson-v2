@@ -19,9 +19,8 @@ class InputText extends Component {
     value: '',
     mask: this.props.mask,
     validationList: this.props.ask.question.validationList,
-    validationClass: '',
+    validationStatus: null,
     isValid: null,
-    submitStatus: null,
     date: new Date(),
   }
 
@@ -45,46 +44,53 @@ class InputText extends Component {
   handleBlur = event => {
 
     const { ask } = this.props;
+    const valList = this.state.validationList;
+    const value = event.target.value;
 
-    var valList = this.state.validationList;
-
-    //console.log(valList);
+    console.log(valList);
 
     if ( valList.length > 0 ) {
-      valList.forEach((element) => {
-
-        const valItem = new RegExp(element.regex);
-        if ( valItem.test(event.target.value) ){
-          this.setState({
-            isValid: true,
-            validationClass: 'success',
-            submitStatus: 'sending',
-          });
-
-          setTimeout(function(){ this.setState({ submitStatus: 'success' }); }.bind(this), 3000);
-
-        } else {
-          this.setState({
-            isValid: false,
-            validationClass: 'error',
-            submitStatus: 'sending',
-          });
-          
-          setTimeout(function(){ this.setState({ submitStatus: 'error' }); }.bind(this), 3000);
-        }
-      });
-    } else if ( valList.length === 0 ) {
-      this.sendData('Answer', [
-        {
-          sourceCode: ask.sourceCode,
-          targetCode: ask.targetCode,
-          attributeCode: ask.question.attributeCode,
-          value: event.target.value,
-          askId: ask.id
-        }
-      ]);
+      const valResult = valList.every( validation => new RegExp(validation.regex).test( value ));
+      console.log(valResult)
+      this.validateValue(valResult);
+    } else {
+      //window.alert("No regex supplied");
+      //this.sendAnswer(event.target.value, ask);
+      const valResult = new RegExp(/.*/).test( value );
+      console.log(valResult);
+      this.validateValue(valResult);
     }
   }
+
+  validateValue = ( valResult ) => {
+    if ( valResult ){
+      this.validationStyle(true, 'success');
+      this.sendAnswer(event.target.value, ask);
+      //setTimeout(function(){ this.setState({ submitStatus: 'success' }); }.bind(this), 3000);
+    } else {
+      this.validationResult(false, 'error');
+      //setTimeout(function(){ this.setState({ submitStatus: 'error' }); }.bind(this), 3000);
+    }
+  }
+
+  validationResult = (resultBool, resultString) => {
+    this.setState({
+      isValid: resultBool,
+      validationStatus: resultString,
+    });
+  }
+
+  sendAnswer = (value, ask) => {
+    this.sendData('Answer', [
+      {
+        sourceCode: ask.sourceCode,
+        targetCode: ask.targetCode,
+        attributeCode: ask.question.attributeCode,
+        value: value,
+        askId: ask.id
+      }
+    ])
+  };
 
   sendData(data, items) {
     console.log('send', items);
@@ -94,16 +100,16 @@ class InputText extends Component {
   render() {
     const { className, name, readOnly, placeholder, optional} = this.props.ask;
     
-    const { validationClass, submitStatus, date } = this.state;
+    const { validationStatus, date } = this.state;
 
     //console.log(ask)
 
     return (
-      <div className={`input-text ${className} ${validationClass}`}>
+      <div className={`input-text ${className} ${validationStatus}`}>
         <div className="input-header">
           {name ? <Label text={name} /> : null }
           {optional ? <Label text="(optional)" /> : null}
-          <SubmitStatusIcon status={submitStatus} />
+          <SubmitStatusIcon status={validationStatus} />
         </div>
         <input
           type="text"
