@@ -52,28 +52,28 @@ class InputText extends Component {
     if ( valList.length > 0 ) {
       const valResult = valList.every( validation => new RegExp(validation.regex).test( value ));
       console.log(valResult)
-      this.validateValue(valResult);
+      this.validateValue(valResult, value, ask);
     } else {
       //window.alert("No regex supplied");
       //this.sendAnswer(event.target.value, ask);
       const valResult = new RegExp(/.*/).test( value );
       console.log(valResult);
-      this.validateValue(valResult);
+      this.validateValue(valResult, value, ask);
     }
   }
 
-  validateValue = ( valResult ) => {
+  validateValue = ( valResult, value, ask ) => {
     if ( valResult ){
       this.validationStyle(true, 'success');
-      this.sendAnswer(event.target.value, ask);
+      this.sendAnswer(value, ask);
       //setTimeout(function(){ this.setState({ submitStatus: 'success' }); }.bind(this), 3000);
     } else {
-      this.validationResult(false, 'error');
+      this.validationStyle(false, 'error');
       //setTimeout(function(){ this.setState({ submitStatus: 'error' }); }.bind(this), 3000);
     }
   }
 
-  validationResult = (resultBool, resultString) => {
+  validationStyle = (resultBool, resultString) => {
     this.setState({
       isValid: resultBool,
       validationStatus: resultString,
