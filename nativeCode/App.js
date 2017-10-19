@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
 import React, { Component } from 'react';
 import {
@@ -12,6 +7,8 @@ import {
   View
 } from 'react-native';
 
+import Test from './app/components/test/Test.js';
+// import { Button } from '../client/views/components/generic';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -20,12 +17,14 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>
+        <Test/>
         <Text style={styles.instructions}>
           To get started, edit App.js
         </Text>
