@@ -16,7 +16,7 @@ class GennyTable extends Component {
 
     return (
       <div className="genny-table">
-        <Table />
+        <Table {...this.props}/>
       </div>
     );
   }

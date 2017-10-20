@@ -15,7 +15,11 @@ export default function reducer( state = initialState, action ) {
       const loaded = state.loaded;
 
       if ( !config.backendLayouts ) {
-        return state;
+        console.log(action.payload.code);
+        return {
+         ...state,
+         current: action.payload.code
+        };
       }
 
       if ( action.payload.data ) {
