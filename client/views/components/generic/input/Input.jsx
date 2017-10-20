@@ -15,11 +15,13 @@ class Input extends Component {
   }
 
   render() {
-    const { type } = this.props;
+
+    const { type } = this.props.ask.question;
+
     switch(type) {
-        case "text":
+        case "java.lang.String":
             return ( <InputText {...this.props}/> );
-        {/* case "textarea":
+        case "textarea":
             return ( <InputTextarea {...this.props}/> );
         case "email":
             return ( <InputEmail {...this.props}/> );
@@ -28,7 +30,7 @@ class Input extends Component {
         case "phone":
             return ( <InputPhone {...this.props}/> );
         case "dropdown":
-            return ( <InputDropdown {...this.props}/> ); */}
+            return ( <InputDropdown {...this.props}/> );
         default:
             return ( <InputText {...this.props}/> );
     }
