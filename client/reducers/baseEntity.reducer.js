@@ -1,4 +1,5 @@
 import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE } from 'constants';
+import { grabValue } from './utils.reducer';
 
 const initialState = {
   data: {},
@@ -47,45 +48,14 @@ export default function reducer(state = initialState, action) {
 
                 let be = items[0].pk.baseEntity;
                 let code = be.code;
-
-                // to optimize
-                let value = null;
-                /*
-
-                  "valueDouble":null,
-                  "valueInteger":null,
-                  "valueLong":null,
-                  "valueDateTime":null,
-                  "valueString":"22/01/1980",
-
-                */
-
-
                 existing[code] = {
                     ...existing[code],
                     ...be,
                     attributes: [
                         ...items.map(item => {
-
-                            if (item.valueDouble) {
-                                value = item.valueDouble
-                            }
-                            else if (item.valueInteger) {
-                                value = item.valueInteger
-                            }
-                            else if (item.valueLong) {
-                                value = item.valueLong
-                            }
-                            else if (item.valueDateTime) {
-                                value = item.valueDateTime
-                            }
-                            else if (item.valueString) {
-                                value = item.valueString
-                            }
-
                             return {
                                 ...item.attribute,
-                                value: value
+                                value: grabValue(item)
                             }
                         })
                     ]
