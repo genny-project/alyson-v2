@@ -5,6 +5,7 @@ import redirectIncoming from './redirect.events.incoming.js';
 import baseEntity from './baseEntity.events.incoming.js';
 import askIncoming from './ask.events.incoming.js';
 import askOutgoing from './ask.events.outgoing.js';
+import aliasIncoming from './alias.events.incoming.js';
 import treeView from './treeView.events.outgoing.js';
 import notificationIncoming from './notification.events.incoming.js';
 
@@ -15,6 +16,7 @@ export default {
     ...askIncoming,
     ...notificationIncoming,
     ...authIncoming,
+    ...aliasIncoming,
     ...redirectIncoming
   },
   outgoing: {
