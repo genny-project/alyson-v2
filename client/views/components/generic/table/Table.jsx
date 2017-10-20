@@ -8,13 +8,15 @@ class Table extends Component {
 
   static defaultProps = {
     className: '',
-    tableData: {},
+    columns: {},
+    data: {},
 
   }
 
   static propTypes = {
     className: string,
-    tableData: object,
+    columns: object,
+    data: object,
   }
 
   state = {
@@ -22,11 +24,8 @@ class Table extends Component {
   }
 
   render() {
-    const { className, tableData } = this.props;
-    const data = tableData.data;
-    const columns = tableData.columns;
-    const itemsPerPage = tableData.itemsPerPage;
-
+    const { className, columns, data, itemsPerPage } = this.props;
+    
     return (
       <ReactTable
         data={data}

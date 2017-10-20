@@ -71,17 +71,22 @@
             }
           },
 
-
           {
-            "GennyForm": {
+            "GennyTable": {
               "itemsPerPage" : 10,
-              "showProgress" : true,
-              "style" : "default",
-              "asks" : [
+              "columns" : [
+                { "Header": "First Name", "accessor": "firstName" },
+                { "Header": "Last Name", "accessor": "lastName" }
+              ],
+              "data" : [
+                { "firstName" : "1office","lastName": "1photo", "age": 3, "visits": 3, "progress": 2, "status" : "single" },
+                { "firstName" : "2office", "lastName": "2photo", "age": 4, "visits": 4, "progress": 4, "status" : "sdas" },
+                { "firstName" : "3office", "lastName": "3photo", "age": 5, "visits": 5, "progress": 5, "status" : "bana" },
+                { "firstName" : "6office", "lastName": "4photo", "age": 33, "visits": 23, "progress": 10, "status" : "agrab" },
+                { "firstName" : "4office", "lastName": "5photo", "age": 344, "visits": 13, "progress": 23, "status" : "tbool" }
               ]
             }
           }
-
           
         ]
       }

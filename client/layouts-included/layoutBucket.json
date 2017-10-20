@@ -1,0 +1,284 @@
+{
+  "layout": [
+
+
+    {
+      "AppHolder": {
+        "sidebar": {
+          "style": {
+            "backgroundColor": "#1f1f1f",
+            "color": "white",
+            "textAlign": "center"
+          },
+          "hasImage": true,
+          "caption": "Tom Cavanagh",
+          "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300"
+        },
+        "header": {
+          "style": {
+            "backgroundColor": "#1f1f1f",
+            "color": "white"
+          },
+          "projectTitle" : "Channel40",
+          "userName" : "Tom",
+          "userImage" : "http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg"
+        },
+        "footer" : {
+          "style": {
+            "backgroundColor": "#1f1f1f",
+            "color": "white"
+          },
+          "version" : "0.0.0.1",
+          "poweredBy" : {
+            "caption" : "Outcome.life"
+          }
+        },
+        "children": [
+
+          {
+            "GennyTreeView": {
+              "style": {
+                "marginTop": "50px"
+              },
+              "root": "GRP_ROOT"
+            }
+          },
+
+
+          {
+            "div": {
+              "style": {
+                "background": "#ff7000",
+                "color": "#FFF",
+                "padding": "20px",
+                "fontFamily": "Helvetica",
+                "fontWeight": "400"
+              },
+              "className" : "sticky",
+              "children": [
+
+                {
+                  "h3": {
+                    "children": "CHANNEL40 - QUESTIONS ",
+                    "style": {
+                      "marginBottom": "10px",
+                      "marginTop": "10px"
+                    }
+                  }
+                }
+
+              ]
+            }
+          },
+
+
+          {
+            "div": {
+              "style": {
+              },
+              "children": [
+                
+                {
+                  "BucketView": {
+                    "buckets": [
+                      {
+                        "title": "PENDING"
+                      },
+                      {
+                        "title": "ACCEPTED"
+                      },
+                      {
+                        "title": "DISPATCHED"
+                      },
+                      {
+                        "title": "IN TRANSIT"
+                      },
+                      {
+                        "title": "AT DESTINATION"
+                      },
+                      {
+                        "title": "DELIVERED"
+                      }
+                    ],
+                    "style": {
+
+                    },
+                    "children": [
+
+                      {
+                        "Card": {
+                          "answerGroup" : {
+                            "index": 0,
+                            "textOne": "CAT Digger",
+                            "textTwo": "Melbourne, Victoria",
+                            "level": "urgent",
+                            "showProgress" : false,
+                            "buttons": [
+                              {
+                                "name": "Save",
+                                "icon": "check_circle",
+                                "value": "QUOTE",
+                                "class": "confirm small"
+                              }
+                            ]
+                          }
+                        }
+                      },
+
+
+                      {
+                        "Card": {
+                          "answerGroup" : {
+                            "index": 0,
+                            "textOne": "CAT Digger",
+                            "textTwo": "Melbourne, Victoria",
+                            "level": "warning",
+                            "showProgress" : false,
+                            "buttons": [
+                              {
+                                "name": "Save",
+                                "icon": "check_circle",
+                                "value": "QUOTE",
+                                "class": "confirm small"
+                              }
+                            ]
+                          }
+                        }
+                      },
+
+
+                      {
+                        "Card": {
+                          "answerGroup" : {
+                            "index": 1,
+                            "textOne": "Wooden Beams",
+                            "textTwo": "Carlton, Victoria",
+                            "showProgress" : false,
+                            "buttons": [
+                              {
+                                "name": "Cancel",
+                                "icon": "cancel",
+                                "value": "CANCEL",
+                                "class": "cancel small"
+                              }
+                            ]
+                          }
+                        }
+                      },
+
+
+                      {
+                        "Card": {
+                          "answerGroup" : {
+                            "index": 3,
+                            "textOne": "Bulk Beer",
+                            "textTwo": "Carlton, Victoria",
+                            "showProgress" : true,
+                            "buttons": [
+                              {
+                                "name": "Cancel",
+                                "icon": "gps_fixed",
+                                "value": "TRACK",
+                                "class": "small"
+                              }
+                            ]
+                          }
+                        }
+                      },
+
+
+                      {
+                        "Card": {
+                          "answerGroup" : {
+                            "index": 3,
+                            "textOne": "Bulk Cornflakes",
+                            "textTwo": "Carlton, Victoria",
+                            "showProgress" : true,
+                            "buttons": [
+                              {
+                                "name": "Cancel",
+                                "icon": "gps_fixed",
+                                "value": "TRACK",
+                                "class": "small"
+                              }
+                            ]
+                          }
+                        }
+                      },
+
+
+                      {
+                        "Card": {
+                          "answerGroup" : {
+                            "index": 3,
+                            "textOne": "Electronic Supplies",
+                            "textTwo": "Sydney, New South Wales",
+                            "showProgress" : true,
+                            "buttons": [
+                              {
+                                "name": "Cancel",
+                                "icon": "gps_fixed",
+                                "value": "TRACK",
+                                "class": "small"
+                              }
+                            ]
+                          }
+                        }
+                      },
+
+
+                      {
+                        "Card": {
+                          "answerGroup" : {
+                            "index": 3,
+                            "textOne": "Electronic Supplies",
+                            "textTwo": "Sydney, New South Wales",
+                            "showProgress" : true,
+                            "buttons": [
+                              {
+                                "name": "Cancel",
+                                "icon": "gps_fixed",
+                                "value": "TRACK",
+                                "class": "small"
+                              }
+                            ]
+                          }
+                        }
+                      },
+
+
+                      {
+                        "Card": {
+                          "answerGroup" : {
+                            "index": 3,
+                            "textOne": "Electronic Supplies",
+                            "textTwo": "Sydney, New South Wales",
+                            "showProgress" : true,
+                            "buttons": [
+                              {
+                                "name": "Cancel",
+                                "icon": "gps_fixed",
+                                "value": "TRACK",
+                                "class": "small"
+                              }
+                            ]
+                          }
+                        }
+                      }
+
+
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+          
+
+          
+        ]
+      }
+    }
+
+  ]
+}

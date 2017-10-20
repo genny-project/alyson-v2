@@ -70,17 +70,7 @@
               ]
             }
           },
-
-
-          {
-            "GennyForm": {
-              "itemsPerPage" : 10,
-              "showProgress" : true,
-              "style" : "default",
-              "asks" : [
-              ]
-            }
-          }
+          
 
           
         ]
