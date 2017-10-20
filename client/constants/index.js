@@ -36,6 +36,9 @@ export const ASK = 'Asks';
 /* Alias */
 export const ALIAS = 'Alias';
 
+/* Attribute */
+export const ATTRIBUTE = 'Attribute';
+
 /* Notifications */
 export const NOTIFICATION = 'Notification';
 

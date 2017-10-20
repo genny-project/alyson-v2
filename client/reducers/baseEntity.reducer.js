@@ -1,4 +1,4 @@
-import { BASE_ENTITY, BASE_ENTITY_DATA } from 'constants';
+import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE } from 'constants';
 
 const initialState = {
   data: {},
@@ -18,10 +18,7 @@ export default function reducer(state = initialState, action) {
 
             existing[item.code] = {
               ...state.data[item.code],
-              data: {
-                ...(state.data[item.code] ? state.data[item.code].data : {}),
-                ...item
-              },
+              ...item
             };
 
             return existing;
@@ -99,6 +96,48 @@ export default function reducer(state = initialState, action) {
             }, {})
         }
     }
+
+    case ATTRIBUTE:
+    return {
+        ...state,
+        data: {
+            ...state.data,
+            ...action.payload.items.forEach((attribute) => {
+
+                let be_code = attribute.targetCode;
+                let attributeCode = attribute.attributeCode;
+                let newValue = attribute.value;
+
+                if(!state.data[be_code]) state.data[be_code] = {
+                    attributes: []
+                };
+
+                let found = false;
+                if(state.data[be_code].attributes.length > 0) {
+                    state.data[be_code].attributes.forEach(attribute => {
+                        if(attribute.code == attributeCode) {
+                            attribute.value = newValue;
+                            found = true;
+                        }
+                    });
+                }
+
+                if(!found) {
+
+                    state.data[be_code] = {
+                        ...state.data[be_code],
+                        attributes: [
+                            ...(state.data[be_code] ? state.data[be_code].attributes : []),
+                            {
+                                code: attributeCode,
+                                value: newValue
+                            }
+                        ]
+                    };
+                }
+            }),
+        }
+    };
 
     default:
       return state;

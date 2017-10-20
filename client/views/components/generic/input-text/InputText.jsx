@@ -15,8 +15,10 @@ class InputText extends Component {
     ask: object
   }
 
+  //TODO: valueString is not necessary what we are looking for. it could be valueDate etc....
+
   state = {
-    value: '',
+    value: this.props.ask.answerList.answerList[0].valueString,
     mask: this.props.mask,
     validationList: this.props.ask.question.validationList,
     validationStatus: null,
@@ -98,8 +100,8 @@ class InputText extends Component {
   }
 
   render() {
+
     const { className, name, readOnly, placeholder, optional} = this.props.ask;
-    
     const { validationStatus, date } = this.state;
 
     //console.log(ask)
