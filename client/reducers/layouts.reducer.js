@@ -23,7 +23,7 @@ export default function reducer( state = initialState, action ) {
       }
 
       if ( action.payload.data ) {
-        // loaded[action.payload.code] = action.payload.data;
+        loaded[action.payload.code] = action.payload.data;
       }
 
       return {

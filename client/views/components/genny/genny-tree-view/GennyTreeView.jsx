@@ -60,14 +60,13 @@ class GennyTreeView extends Component {
   }
 
   sendData(event, data) {
-    console.log('send', data);
     GennyBridge.sendTVEvent(event, data);
   }
 
   getEntityChildren(code) {
     const { baseEntity } = this.props;
     const relationships = baseEntity.relationships[code];
-    let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code].data) : [];
+    let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code]) : [];
 
     items = items.map(item => {
       /* Get the children for this item */
@@ -79,7 +78,6 @@ class GennyTreeView extends Component {
     return items;
   }
 
-  getEntityChildren
   render() {
     const { root, baseEntity } = this.props;
     const relationships = baseEntity.relationships[root];
@@ -97,7 +95,7 @@ class GennyTreeView extends Component {
           }
         </BaseEntity>
 
-        < TreeView root={root} {...this.props} items={items} onClick={this.handleClick.bind(this)} />
+        <TreeView root={root} {...this.props} items={items} onClick={this.handleClick.bind(this)} />
       </div>
     );
   }
