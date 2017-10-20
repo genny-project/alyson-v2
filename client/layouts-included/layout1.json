@@ -68,27 +68,63 @@
                   }
                 },
                 {
-                  "div": {
-                    "style": {
-                    },
+                  "Grid": {
+                    "cols": [1,1],
+                    "rows": 2,
                     "children": [
                       {
-                        "BucketView": {
-                          "buckets": [
-                            {
-                              "title": "QUESTIONS"
-                            },
-                            {
-                              "title": "ATTRIBUTES"
-                            },
-                            {
-                              "title": "LOANS"
-                            }
-                          ],
-                          "style": {
-                          },
+                        "div": {
+                          "position": [0, 0],
                           "children": [
-                            
+                            {
+                              "h1": {
+                                "children": "Questions"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "div": {
+                          "position": [0, 1],
+                          "children": [
+                            {
+                              "h1": {
+                                "children": "Attributes"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "div": {
+                          "position": [1,0],
+                          "children": [
+                            {
+                              "GennyForm": {
+                                "itemsPerPage" : 10,
+                                "showProgress" : true,
+                                "style" : "default",
+                                "asks" : [
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "div": {
+                          "position": [1, 1],
+                          "children": [
+                            {
+                              "GennyTable": {
+                                "itemsPerPage" : 10,
+                                "columns" : [
+                                ],
+                                "data" : [
+                                ]
+                              }
+                            }
                           ]
                         }
                       }
@@ -98,8 +134,6 @@
               ]
             }
           }
-
-          
         ]
       }
     }
