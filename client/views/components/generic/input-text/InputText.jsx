@@ -1,6 +1,6 @@
 import './inputText.scss';
 import React, { Component } from 'react';
-import { string, bool, array, object} from 'prop-types';
+import { string, bool, array, object } from 'prop-types';
 import { Label, SubmitStatusIcon } from '../';
 import { GennyBridge } from 'utils/genny';
 
@@ -24,6 +24,7 @@ class InputText extends Component {
     validationStatus: null,
     isValid: null,
     date: new Date(),
+    hasChanges: false
   }
 
   handleChange = event => {
@@ -33,12 +34,14 @@ class InputText extends Component {
       console.log(mask.test(event.target.value));
       if ( mask.test(event.target.value) ) {
         this.setState({
-          value: event.target.value
+          value: event.target.value,
+          hasChanges: true
         })
      }
     } else {
       this.setState({
-        value: event.target.value
+        value: event.target.value,
+        hasChanges: true
       })
     }
   }
@@ -67,7 +70,8 @@ class InputText extends Component {
   validateValue = ( valResult, value, ask ) => {
     if ( valResult ){
       this.validationStyle(true, 'success');
-      this.sendAnswer(value, ask);
+
+      if(this.state.hasChanges) this.sendAnswer(value, ask);
       //setTimeout(function(){ this.setState({ submitStatus: 'success' }); }.bind(this), 3000);
     } else {
       this.validationStyle(false, 'error');
@@ -91,7 +95,11 @@ class InputText extends Component {
         value: value,
         askId: ask.id
       }
-    ])
+    ]);
+
+    this.setState({
+        hasChanges: false
+    });
   };
 
   sendData(data, items) {
