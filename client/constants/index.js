@@ -33,6 +33,9 @@ export const BASE_ENTITY_DATA = 'Data';
 /* Asks */
 export const ASK = 'Asks';
 
+/* Alias */
+export const ALIAS = 'Alias';
+
 /* Notifications */
 export const NOTIFICATION = 'Notification';
 

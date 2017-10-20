@@ -5,6 +5,7 @@ import components from './components';
 import { JSONLoader } from '@genny-project/layson';
 
 class LayoutLoader extends Component {
+
   static propTypes = {
     layouts: object,
     baseEntity: object,
