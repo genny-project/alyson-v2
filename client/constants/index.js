@@ -24,6 +24,9 @@ export const DATA_MSG = 'DATA_MSG';
 /* Layouts */
 export const LAYOUT_CHANGE = 'LAYOUT_CHANGE';
 
+/* Command View */
+export const CMD_VIEW = 'CMD_VIEW';
+
 /* Base entities */
 export const BASE_ENTITY = 'BaseEntity';
 
@@ -32,6 +35,12 @@ export const BASE_ENTITY_DATA = 'Data';
 
 /* Asks */
 export const ASK = 'Asks';
+
+/* Alias */
+export const ALIAS = 'Alias';
+
+/* Attribute */
+export const ATTRIBUTE = 'Attribute';
 
 /* Notifications */
 export const NOTIFICATION = 'Notification';

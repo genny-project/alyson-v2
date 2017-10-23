@@ -14,7 +14,7 @@ class BaseEntity extends Component {
 }
 
 const mapStateTopProps = (state) => ({
-  baseEntities: state.baseEntity
+  baseEntity: state.baseEntity
 });
 
 

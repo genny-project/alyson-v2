@@ -1,5 +1,5 @@
 import layoutsIncluded from '../layouts-included';
-import { LAYOUT_CHANGE } from 'constants';
+import { LAYOUT_CHANGE, CMD_VIEW } from 'constants';
 import config from 'config/config';
 
 const initialState = {
@@ -11,11 +11,15 @@ const initialState = {
 
 export default function reducer( state = initialState, action ) {
   switch ( action.type ) {
+
     case LAYOUT_CHANGE:
       const loaded = state.loaded;
 
       if ( !config.backendLayouts ) {
-        return state;
+        return {
+         ...state,
+         current: action.payload.code
+        };
       }
 
       if ( action.payload.data ) {
@@ -27,6 +31,19 @@ export default function reducer( state = initialState, action ) {
         current: action.payload.code,
         loaded
       };
+
+    case CMD_VIEW:
+
+        const newLayoutCode = action.payload.code;
+        if(newLayoutCode) {
+            return {
+                ...state,
+                currentView: {
+                    code: newLayoutCode,
+                    dataCode: action.payload.root
+                }
+            };
+        }
 
     default:
       return state;

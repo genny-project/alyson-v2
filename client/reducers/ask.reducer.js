@@ -1,4 +1,5 @@
 import { ASK } from 'constants';
+import { grabValue } from './utils.reducer';
 
 const initialState = {
     data: {},
@@ -27,6 +28,18 @@ export default function reducer(state = initialState, action) {
                           ],
                           type: ask.question.attribute.dataType.className,
                           attributeCode: ask.question.attribute.code
+                      },
+                      answerList: {
+                          ...(state.data[code] ? state.data[code].answerList : {}),
+                          ...ask.answerList,
+                          answerList: [
+                              ...(state.data[code] ? (state.data[code].answerList ? state.data[code].answerList : {}).answerList : []),
+                              ...ask.answerList.answerList.map((existing, newAnswer) => {
+
+                                 existing.value = grabValue(existing);
+                                 return existing;
+                              })
+                          ]
                       }
                     };
 

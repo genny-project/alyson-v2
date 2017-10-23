@@ -16,30 +16,13 @@ class GennyImageView extends Component {
     caption: any,
     src: string
   };
-
-  getCaption(caption) {
-
-      if(caption instanceof String) {
-         return <p>{caption}</p>
-      }
-      else if(caption instanceof Object) {
-         return <BaseEntity>
-            {
-              (query) => {
-                return <span>{query.getAlias(caption)}</span>;
-              }
-            }
-          </BaseEntity>
-      }
-  }
-
   render() {
 
     const { root, baseEntity, src, caption } = this.props;
 
     return (
       <div className="genny-image-view">
-        <ImageView root={root} src={src} caption={this.getCaption(caption)} />
+        <ImageView root={root} src={src} caption={caption} />
       </div>
     );
   }

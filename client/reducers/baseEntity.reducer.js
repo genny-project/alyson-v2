@@ -1,4 +1,5 @@
-import { BASE_ENTITY, BASE_ENTITY_DATA } from 'constants';
+import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE } from 'constants';
+import { grabValue } from './utils.reducer';
 
 const initialState = {
   data: {},
@@ -18,10 +19,7 @@ export default function reducer(state = initialState, action) {
 
             existing[item.code] = {
               ...state.data[item.code],
-              data: {
-                ...(state.data[item.code] ? state.data[item.code].data : {}),
-                ...item
-              },
+              ...item
             };
 
             return existing;
@@ -48,47 +46,14 @@ export default function reducer(state = initialState, action) {
             ...state.data,
             ...action.payload.items.reduce((existing, items) => {
 
-                let be = items[0].pk.baseEntity;
-                let code = be.code;
-
-                // to optimize
-                let value = null;
-                /*
-
-                  "valueDouble":null,
-                  "valueInteger":null,
-                  "valueLong":null,
-                  "valueDateTime":null,
-                  "valueString":"22/01/1980",
-
-                */
-
-
+                let code = items[0].baseEntityCode;
                 existing[code] = {
                     ...existing[code],
-                    ...be,
                     attributes: [
                         ...items.map(item => {
-
-                            if (item.valueDouble) {
-                                value = item.valueDouble
-                            }
-                            else if (item.valueInteger) {
-                                value = item.valueInteger
-                            }
-                            else if (item.valueLong) {
-                                value = item.valueLong
-                            }
-                            else if (item.valueDateTime) {
-                                value = item.valueDateTime
-                            }
-                            else if (item.valueString) {
-                                value = item.valueString
-                            }
-
                             return {
                                 ...item.attribute,
-                                value: value
+                                value: grabValue(item)
                             }
                         })
                     ]
@@ -97,8 +62,64 @@ export default function reducer(state = initialState, action) {
                 return existing;
 
             }, {})
+        },
+        relationships: {
+          ...state.relationships,
+          [action.payload.parentCode]: {
+            ...state.relationships[action.payload.parentCode],
+            ...action.payload.items.reduce((existingItem, newItems) => {
+
+                let itemCode = newItems[0].baseEntityCode;
+                existingItem[itemCode] = {
+                    delete: !action.payload.delete ? { type: BASE_ENTITY } : false
+                }
+                return existingItem;
+            }, {})
+          }
         }
     }
+
+    case ATTRIBUTE:
+    return {
+        ...state,
+        data: {
+            ...state.data,
+            ...action.payload.items.forEach((attribute) => {
+
+                let be_code = attribute.targetCode;
+                let attributeCode = attribute.attributeCode;
+                let newValue = attribute.value;
+
+                if(!state.data[be_code]) state.data[be_code] = {
+                    attributes: []
+                };
+
+                let found = false;
+                if(state.data[be_code].attributes.length > 0) {
+                    state.data[be_code].attributes.forEach(attribute => {
+                        if(attribute.code == attributeCode) {
+                            attribute.value = newValue;
+                            found = true;
+                        }
+                    });
+                }
+
+                if(!found) {
+
+                    state.data[be_code] = {
+                        ...state.data[be_code],
+                        attributes: [
+                            ...(state.data[be_code] ? state.data[be_code].attributes : []),
+                            {
+                                code: attributeCode,
+                                value: newValue
+                            }
+                        ]
+                    };
+                }
+            }),
+        }
+    };
 
     default:
       return state;

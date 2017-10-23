@@ -19,7 +19,6 @@ class Form extends Component {
     itemsPerPage: this.props.itemsPerPage ? this.props.itemsPerPage : 1,
     showProgress: this.props.showProgress ? this.props.showProgress : false,
     asks: this.props.asks,
-
     pageCount: Math.ceil( Object.keys(this.props.asks).length / this.props.itemsPerPage ),
     askCurrent: 1,
     pageCurrent: 1,
@@ -54,14 +53,15 @@ class Form extends Component {
       arrPage.push({ ask: ask, page: Math.ceil(ask/itemsPerPage) });
     })
     return arrPage;
-  }  
+  }
 
   render() {
- 	  const { className, questionGroup, asks } = this.props;
+
+    const { className, questionGroup, asks } = this.props;
     const { itemsPerPage, showProgress, askCurrent, pageCurrent, pageCount } = this.state;
     let askCount = Object.keys(this.props.asks).length;
     const askPageArray = this.getAskCount(askCount, itemsPerPage);
-    
+
     return (
       <div className="form-container">
         <div className="form-main">
@@ -69,8 +69,6 @@ class Form extends Component {
           <div className="form-fields">
   	        {
               Object.keys(asks).map((ask_code, index) => {
-                console.log(asks[ask_code]);
-                console.log(ask_code);
                 return pageCurrent === askPageArray[index].page ? <Input key={index} ask={asks[ask_code]} /> : null;
               })
   	        }
