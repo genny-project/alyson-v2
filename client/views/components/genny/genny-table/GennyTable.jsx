@@ -73,7 +73,22 @@ class GennyTable extends Component {
               contentEditable
               suppressContentEditableWarning
               onBlur={e => {
-                  console.log(e.target);
+
+                  let newValue = e.target.innerHTML;
+                  if(newValue) {
+
+                      console.log(newValue);
+                      console.log(cellInfo);
+
+                    //   this.sendData('Answer', [
+                    //     {
+                    //       sourceCode: ask.sourceCode,
+                    //       targetCode: ask.targetCode,
+                    //       attributeCode: ask.question.attributeCode,
+                    //       value: newValue,
+                    //     }
+                    //   ]);
+                  }
               }}
               dangerouslySetInnerHTML={{
                   __html: this.state.data[cellInfo.index][cellInfo.column.id]
