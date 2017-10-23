@@ -76,14 +76,6 @@ class TreeView extends Component {
     return (
       <div className="treeview">
 
-        <BaseEntity>
-          {
-            (query) => {
-              return <span>{query.getChildrenOf('GRP_DASHBOARD')}</span>;
-            }
-          }
-        </BaseEntity>
-
         <ul className="parent">
           {this.renderList(items)}
         </ul>

@@ -46,11 +46,9 @@ export default function reducer(state = initialState, action) {
             ...state.data,
             ...action.payload.items.reduce((existing, items) => {
 
-                let be = items[0].pk.baseEntity;
-                let code = be.code;
+                let code = items[0].baseEntityCode;
                 existing[code] = {
                     ...existing[code],
-                    ...be,
                     attributes: [
                         ...items.map(item => {
                             return {
@@ -64,6 +62,20 @@ export default function reducer(state = initialState, action) {
                 return existing;
 
             }, {})
+        },
+        relationships: {
+          ...state.relationships,
+          [action.payload.parentCode]: {
+            ...state.relationships[action.payload.parentCode],
+            ...action.payload.items.reduce((existingItem, newItems) => {
+
+                let itemCode = newItems[0].baseEntityCode;
+                existingItem[itemCode] = {
+                    delete: !action.payload.delete ? { type: BASE_ENTITY } : false
+                }
+                return existingItem;
+            }, {})
+          }
         }
     }
 

@@ -6,26 +6,27 @@
       "AppHolder": {
         "sidebar": {
           "style": {
-            "backgroundColor": "#00a352",
+            "backgroundColor": "#1f1f1f",
             "color": "white",
             "textAlign": "center"
           },
           "hasImage": true,
-          "caption": "PER_USER1.PRI_FIRSTNAME",
+          "caption": "Tom Cavanagh",
           "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300"
         },
         "header": {
           "style": {
-            "backgroundColor": "#00a352",
+            "backgroundColor": "#1f1f1f",
             "color": "white"
           },
-          "projectTitle" : "Internmatch",
+          "projectTitle" : "Channel40",
           "userName" : "USER.PRI_FIRSTNAME",
           "userImage" : "http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg"
         },
         "footer" : {
           "style": {
-            "backgroundColor": "#00a352"
+            "backgroundColor": "#1f1f1f",
+            "color": "white"
           },
           "version" : "0.0.0.1",
           "poweredBy" : {
@@ -33,6 +34,7 @@
           }
         },
         "children": [
+
           {
             "GennyTreeView": {
               "style": {
@@ -43,44 +45,41 @@
           },
           {
             "div": {
+              "style": {
+                "background": "#ff7000",
+                "color": "#FFF",
+                "padding": "20px",
+                "fontFamily": "Helvetica",
+                "fontWeight": "400"
+              },
+              "className" : "sticky",
               "children": [
+
                 {
-                  "Grid": {
-                    "cols": [1],
-                    "rows": 1,
-                    "children": [
-                      {
-                        "div": {
-                          "position": [0, 0],
-                          "style": {
-                            "textAlign": "center"
-                          },
-                          "children": [
-                            {
-                              "h1": {
-                                "children": "PROFILE"
-                              }
-                            },
-                            {
-                              "GennyForm": {
-                                "itemsPerPage" : 10,
-                                "showProgress" : true,
-                                "style" : "default",
-                                "asks" : [
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
+                  "h3": {
+                    "children": "CHANNEL40 - QUESTIONS ",
+                    "style": {
+                      "marginBottom": "10px",
+                      "marginTop": "10px"
+                    }
                   }
                 }
+
+              ]
+            }
+          },
+          {
+            "GennyForm": {
+              "itemsPerPage" : 10,
+              "showProgress" : true,
+              "style" : "default",
+              "asks" : [
               ]
             }
           }
         ]
       }
     }
+
   ]
 }

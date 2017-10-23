@@ -1,5 +1,6 @@
 import { RECEIVE_KEYCLOAK_CONFIG, INIT_VERTX } from 'constants/';
 import { GennyBridge } from 'utils/genny';
+import 'rxjs/add/operator/map';
 
 const receiveKeycloakConfig = action$ => {
   return action$

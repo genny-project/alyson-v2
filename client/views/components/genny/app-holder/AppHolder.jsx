@@ -1,6 +1,6 @@
 import './appHolder.scss';
 import React, { Component } from 'react';
-import { Sidebar, Header, Footer, IconSmall } from '../../';
+import { Sidebar, Header, Footer, IconSmall, GennyTable } from '../../';
 import { bool, any } from 'prop-types';
 
 class AppHolder extends Component {
@@ -14,7 +14,7 @@ class AppHolder extends Component {
 
     state = {
         sidebarShrink: false
-      } 
+      }
 
     handleSidebarSize = () => {
         this.setState(prevState => ({
@@ -23,7 +23,8 @@ class AppHolder extends Component {
     }
 
     render() {
-        const { children, sidebar, header, footer } = this.props;
+
+        const { children, sidebar, header, footer, layout } = this.props;
         const { sidebarShrink } = this.state;
         const sidebarChildren = children[0];
         const contentChildren = children.slice(1);
@@ -47,13 +48,28 @@ class AppHolder extends Component {
             renderFooter = <div className="app-footer"><Footer {...footer} /></div>;
         }
 
+        let layoutContent = null;
+
+        if(layout.currentView) {
+
+            // we need to show the table view
+            if(layout.currentView.code == "TABLE_VIEW") {
+                layoutContent = <GennyTable root={layout.dataCode ? layout.dataCode : "GRP_CONTACTS"}/>
+            }
+            // we need to show the bucket view
+            else if (layout.currentView.code == "BUCKET_VIEW") {
+
+            }
+        }
+
+        if(layoutContent == null)  layoutContent = contentChildren;
+
         return (
           <div className="app-holder">
             {renderSidebar}
             <div className="app-main">
               {renderHeader}
-              <div className="app-content">{contentChildren}</div>
-        
+              <div className="app-content">{layoutContent}</div>
               {renderFooter}
             </div>
           </div>

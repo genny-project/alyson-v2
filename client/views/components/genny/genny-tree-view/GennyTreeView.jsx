@@ -87,14 +87,6 @@ class GennyTreeView extends Component {
 
 
       <div className="genny-tree-view">
-        <BaseEntity>
-          {
-            (query) => {
-              return <span>{query.getRootChildren()}</span>;
-            }
-          }
-        </BaseEntity>
-
         <TreeView root={root} {...this.props} items={items} onClick={this.handleClick.bind(this)} />
       </div>
     );

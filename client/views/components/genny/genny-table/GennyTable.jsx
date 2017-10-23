@@ -2,6 +2,7 @@ import './gennyTable.scss';
 import React, { Component } from 'react';
 import { Table } from '../../';
 import { object, array } from 'prop-types';
+import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
 
 class GennyTable extends Component {
 
@@ -9,42 +10,92 @@ class GennyTable extends Component {
   };
 
   state = {
+      columns: [],
+      data: []
+  }
+
+  generateHeadersFor(baseEntities) {
+
+    let columns = [];
+
+    baseEntities.forEach(baseEntity => {
+
+        let attributes = baseEntity.attributes;
+        if(attributes) {
+
+            attributes.forEach(attribute => {
+
+                // we loop through the headers. If the header already exists we skip, otherwise we add it
+                let headers = columns.map(column => {
+                    return column.Header;
+                });
+
+                if(!headers.includes(attribute.name)) {
+                    columns.push({
+                        "Header": attribute.name,
+                        "accessor": attribute.name,
+                        "Cell": this.renderEditable
+                    });
+                }
+            });
+        }
+    });
+
+    this.state.columns = columns;
+    return columns;
+  }
+
+  generateDataFor(baseEntities) {
+
+      let data = [];
+      let columns = this.state.columns;
+      baseEntities.forEach(baseEntity => {
+
+          if(baseEntity.attributes) {
+
+              let newData = {}
+              baseEntity.attributes.forEach(attribute => {
+                  newData[attribute.name] = attribute.value;
+              });
+
+              data.push(newData);
+          }
+      });
+
+      this.state.data = data;
+      return data;
+  }
+
+  renderEditable = (cellInfo) => {
+
+      return (
+          <div
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={e => {
+                  console.log(e.target);
+              }}
+              dangerouslySetInnerHTML={{
+                  __html: this.state.data[cellInfo.index][cellInfo.column.id]
+              }}
+          />
+      );
   }
 
   render() {
 
-    const { baseEntity, asks } = this.props;
+    const { root } = this.props;
 
-    // data
-    // columns
-
-    // name of the ask = name of column
-    // question.attributeCode = value to display
-    // { "firstName" : "4office", "lastName": "5photo", "age": 344, "visits": 13, "progress": 23, "status" : "tbool" }
-    // { "Header": "Last Name", "accessor": "lastName" }
-
-    let columns = [
-
-        {
-            "Header": "Attribute Code",
-            "accessor": "code"
-        },
-        {
-            "Header": "Attribute Value",
-            "accessor": "value"
-        }
-    ];
-
+    let query = new BaseEntityQuery(this.props);
+    let columns = [];
     let data = [];
-    let be = baseEntity.data["PER_USER1"] || {}; 
-    let be_attributes = be.attributes || [];
-    be_attributes.forEach(attribute => {
 
-        data.push({
-            "code": attribute.code,
-            "value": attribute.value
-        });
-    });
+    let children = query.getEntityChildren(root);
+    if(children) {
+
+        columns = this.generateHeadersFor(children);
+        data = this.generateDataFor(children);
+    }
 
     return (
       <div className="genny-table">
