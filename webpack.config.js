@@ -51,7 +51,8 @@ module.exports = {
       styles: path.resolve( __dirname, './client/styles' ),
       utils: path.resolve( __dirname, './client/utils' ),
       constants: path.resolve( __dirname, './client/constants' ),
-      reducers: path.resolve( __dirname, './client/reducers' )
+      reducers: path.resolve( __dirname, './client/reducers' ),
+      containers: path.resolve( __dirname, './nativeCode/app/containers'),
     },
     extensions: ['.js', '.jsx'],
   },
