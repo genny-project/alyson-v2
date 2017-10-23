@@ -56,7 +56,7 @@
     "@genny-project/keycloak-react": "^1.0.4",
     "@genny-project/layson": "^1.0.3",
     "babel-preset-stage-0": "^6.24.1",
-    "downshift": "^1.12.0",
+    "downshift": "^1.15.0",
     "halogen": "^0.2.0",
     "keycloak-js": "^3.3.0-cr.2",
     "node-sass": "^4.5.3",

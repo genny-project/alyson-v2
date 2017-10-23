@@ -18,7 +18,7 @@ class InputText extends Component {
   //TODO: valueString is not necessary what we are looking for. it could be valueDate etc....
 
   state = {
-    value: this.props.ask.answerList.answerList[0].value,
+    value: (this.props.ask.answerList.length > 0 ? this.props.ask.answerList.answerList[0].value : ""),
     mask: this.props.mask,
     validationList: this.props.ask.question.validationList,
     validationStatus: null,
