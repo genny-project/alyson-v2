@@ -3,16 +3,17 @@ import { string } from 'prop-types';
 import './label.scss';
 
 Label.propTypes = {
+  className: string,
   text: string
 };
 
 Label.defaultProps = {
-  text: 'Label Example'
+  text: ''
 };
 
 function Label(props) {
   return (
-    <div className="label">
+    <div className={`label ${props.className}`}>
       <span className="label-text" onClick={props.onClick}>
         {props.text}
       </span>

@@ -17,6 +17,7 @@ class Input extends Component {
   render() {
 
     const { type } = this.props.ask.question;
+    let items = ['Bananas', 'Oranges', 'Apples', 'Other']
 
     switch(type) {
         case "java.lang.String":
@@ -26,11 +27,10 @@ class Input extends Component {
         case "checkbox":
             return ( <InputCheckbox {...this.props}/> );
         case "date":
-            return ( <InputDate {...this.props}/> );
+            return ( <InputDate items={items} {...this.props}/> );
         case "dropdown":
             return ( <InputDropdown {...this.props}/> );
         case "dropdown2":
-            const items = ['Bananas', 'Oranges', 'Apples', 'Other'];
             return ( <InputDropdown2 items={items} {...this.props}/> );
         case "slider":
             return ( <InputSlider {...this.props}/> );

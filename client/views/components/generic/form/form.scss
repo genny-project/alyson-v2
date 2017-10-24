@@ -19,6 +19,11 @@
 		.form-fields {
 
 			padding-bottom: 10px;
+
+
+			> div:not(:last-child) {
+				margin-bottom: 10px;
+			}
 		}
 
 		.form-nav {
