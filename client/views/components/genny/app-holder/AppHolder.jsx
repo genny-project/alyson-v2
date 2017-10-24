@@ -54,7 +54,7 @@ class AppHolder extends Component {
 
             // we need to show the table view
             if(layout.currentView.code == "TABLE_VIEW") {
-                layoutContent = <GennyTable root={layout.dataCode ? layout.dataCode : "GRP_CONTACTS"}/>
+                layoutContent = <GennyTable root={layout.dataCode ? layout.dataCode : "GRP_USERS"}/>
             }
             // we need to show the bucket view
             else if (layout.currentView.code == "BUCKET_VIEW") {

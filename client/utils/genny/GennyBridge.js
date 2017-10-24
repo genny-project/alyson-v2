@@ -31,17 +31,6 @@ class GennyBridge {
   sendAnswer(data, items) {
     let token = this.getToken();
     Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
-
-    //TODO: remove this. Temporary only.
-    // send response to front with the updated attribute
-
-    let message = {
-      msg_type : "DATA_MSG",
-      data_type : ATTRIBUTE,
-      items: items
-  };
-
-    this.messageHandler.onMessage(message);
   }
 
   ajaxCall(settings) {
