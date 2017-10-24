@@ -1,5 +1,23 @@
 
-import React, { Component } from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { StackNavigator } from 'react-navigation';
+import Main from 'containers/Main';
+import store from 'views/store';
+
+const Stack = StackNavigator({
+  Main: { screen: Main }
+});
+
+const StackWithStore = () => (
+  <Provider store={store}>
+    <Stack />
+  </Provider>
+);
+
+export default StackWithStore;
+
+/*import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -54,4 +72,4 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
+});*/
