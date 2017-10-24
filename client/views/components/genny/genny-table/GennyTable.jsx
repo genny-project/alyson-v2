@@ -30,10 +30,10 @@ class GennyTable extends Component {
 
                     // we loop through the headers. If the header already exists we skip, otherwise we add it
                     let headers = columns.map(column => {
-                        return column.Header;
+                        return column.attributeCode;
                     });
 
-                    if(!headers.includes(attribute.attribute.name)) {
+                    if(!headers.includes(attribute.attributeCode)) {
                         columns.push({
                             "Header": () => <div><span className='table-header'>{attribute.attribute.name}</span>  <span><IconSmall name="sort" /></span></div>,
                             "accessor": attribute.attribute.name,
