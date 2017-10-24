@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Table } from '../../';
 import { object, array } from 'prop-types';
 import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
+import { IconSmall } from '../../';
 
 class GennyTable extends Component {
 
@@ -18,7 +19,6 @@ class GennyTable extends Component {
 
         let columns = [];
 
-        console.log(baseEntities);
         baseEntities.forEach(baseEntity => {
 
             let attributes = baseEntity.attributes;
@@ -35,7 +35,7 @@ class GennyTable extends Component {
 
                     if(!headers.includes(attribute.attribute.name)) {
                         columns.push({
-                            "Header": attribute.attribute.name,
+                            "Header": () => <div><span className='table-header'>{attribute.attribute.name}</span>  <span><IconSmall name="sort" /></span></div>,
                             "accessor": attribute.attribute.name,
                             "Cell": this.renderEditable,
                             "attributeCode": attribute.attributeCode
