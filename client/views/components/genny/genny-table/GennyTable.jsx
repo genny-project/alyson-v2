@@ -4,6 +4,7 @@ import { Table } from '../../';
 import { object, array } from 'prop-types';
 import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
 import { IconSmall } from '../../';
+import { GennyBridge } from 'utils/genny';
 
 class GennyTable extends Component {
 
@@ -119,7 +120,7 @@ class GennyTable extends Component {
                             if (valResult) {
 
                                 console.log("Uncomment to send answer...");
-                                // this.sendData('Answer', answer);
+                                GennyBridge.sendAnswer('Answer', answer);
 
                             } else {
 
