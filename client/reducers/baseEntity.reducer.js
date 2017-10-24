@@ -11,17 +11,38 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
 
     case BASE_ENTITY:
+    case BASE_ENTITY_DATA:
+
       return {
         ...state,
         data: {
           ...state.data,
-          ...action.payload.items.reduce((existing, item) => {
+          ...action.payload.items.reduce((existing, newItem) => {
 
-            existing[item.code] = {
-              ...state.data[item.code],
-              ...item
+            let baseEntityCode = newItem.code;
+            let newAttributes = newItem.baseEntityAttributes || [];
+
+            let existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
+            newAttributes.forEach(newAttribute => {
+
+                existingAttributes[newAttribute.attributeCode] = {
+                    ...existingAttributes[newAttribute.attributeCode],
+                    ...newAttribute,
+                    ... {
+                        value: grabValue(newAttribute),
+                        baseEntityCode: baseEntityCode
+                    }
+                };
+            });
+
+            existing[baseEntityCode] = {
+                ...state.data[baseEntityCode],
+                ...existing[baseEntityCode],
+                ...newItem,
+                attributes: existingAttributes
             };
 
+            delete existing[baseEntityCode].baseEntityAttributes;
             return existing;
 
           }, {}),
@@ -31,53 +52,14 @@ export default function reducer(state = initialState, action) {
           [action.payload.parentCode]: {
             ...state.relationships[action.payload.parentCode],
             ...action.payload.items.reduce((existingItem, newItem) => {
+
               existingItem[newItem.code] = !action.payload.delete ? { type: BASE_ENTITY } : false;
+
               return existingItem;
             }, {})
           }
         }
       };
-
-    case BASE_ENTITY_DATA:
-
-    return {
-        ...state,
-        data: {
-            ...state.data,
-            ...action.payload.items.reduce((existing, items) => {
-
-                let code = items[0].baseEntityCode;
-                existing[code] = {
-                    ...existing[code],
-                    attributes: [
-                        ...items.map(item => {
-                            return {
-                                ...item.attribute,
-                                value: grabValue(item)
-                            }
-                        })
-                    ]
-                };
-
-                return existing;
-
-            }, {})
-        },
-        relationships: {
-          ...state.relationships,
-          [action.payload.parentCode]: {
-            ...state.relationships[action.payload.parentCode],
-            ...action.payload.items.reduce((existingItem, newItems) => {
-
-                let itemCode = newItems[0].baseEntityCode;
-                existingItem[itemCode] = {
-                    delete: !action.payload.delete ? { type: BASE_ENTITY } : false
-                }
-                return existingItem;
-            }, {})
-          }
-        }
-    }
 
     case ATTRIBUTE:
     return {
