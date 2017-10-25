@@ -88,6 +88,27 @@ class GennyBridge {
     window.sendIncomingVertxMessage = (message) => {
       this.messageHandler.onMessage(message);
     };
+
+    // TODO: to be removed
+    this.messageHandler.onMessage({
+        data_type: "BaseEntity",
+        delete: false,
+        aliasCode: "PROJECT",
+        items: [
+            {
+                code: "PROJECT",
+                name: "PROJECT",
+                baseEntityAttributes: [
+                    {
+                        baseEntityCode: "PROJECT",
+                        attributeCode: "PRIMARY_COLOR",
+                        valueString: "#000"
+                    }
+                ]
+            }
+        ],
+        msg_type: "DATA_MSG"
+    });
   }
 
   sendAuthInit(token) {
