@@ -1,9 +1,10 @@
 import './header.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall, Profile, Label, ImageView, Dropdown } from '../';
+import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton } from '../';
 import { GennyNotification } from '../../genny';
 import { GennyBridge } from 'utils/genny';
+import { GithubPicker as ColorPicker } from 'react-color';
 
 class Header extends Component {
   static defaultProps = {
@@ -43,8 +44,29 @@ class Header extends Component {
   }
 
   sendData(event, data) {
-    console.log('send', data);
     GennyBridge.sendLogout(event, data);
+  }
+
+  handleChangeComplete = (color) => {
+
+      let answer = [
+          {
+              sourceCode: "PER_USER1",
+              targetCode: "PROJECT",
+              attributeCode: "PRIMARY_COLOR",
+              value: color.hex
+          }
+      ];
+
+      GennyBridge.sendAnswer('ANSWER', answer);
+      this.toggleColorPicker();
+  };
+
+  toggleColorPicker = () => {
+
+      this.setState({
+          displayColorPicker: !this.state.displayColorPicker
+      });
   }
 
   render() {
@@ -55,6 +77,19 @@ class Header extends Component {
       ...style,
     };
 
+    const popover = {
+        position: 'absolute',
+        zIndex: '2',
+        top: "50px",
+        right: "10px"
+    };
+    const cover = {
+        position: 'fixed',
+        top: '0px',
+        right: '0px',
+        bottom: '0px',
+        left: '0px',
+    };
     return (
       <div className="header" style={componentStyle}>
         <div className="header-left">
@@ -76,6 +111,14 @@ class Header extends Component {
 
           </div>
           <IconSmall className="help" name="help" />
+          <CircleButton primaryColor={componentStyle.backgroundColor} onClick={ this.toggleColorPicker } />
+          { this.state.displayColorPicker ? <div style={ popover }>
+            <div style={ cover } onClick={ this.toggleColorPicker }/>
+            <ColorPicker
+                color={componentStyle.backgroundColor}
+                onChangeComplete={ this.handleChangeComplete }
+            />
+          </div> : null }
         </div>
       </div>
     );

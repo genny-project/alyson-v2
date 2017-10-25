@@ -1,12 +1,8 @@
 @import '../../../../styles/colors';
 
-
-.table {
-	padding: 10px;
-	background: white;
-	border-radius: 5px;
-	width: 100%;
-	box-shadow: 0 3px 5px rgba(0,0,0,0.5);
-	color: #222;
-	margin-bottom: 50px;
+.rt-td {
+    border: 0.5px solid rgba(75, 75, 75, 0.3);
+    margin: 1px;
+    background: #c9a584;
+				color: rgb(69, 69, 69);
 }
