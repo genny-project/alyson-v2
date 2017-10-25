@@ -6,13 +6,14 @@ const initialState = {
     current: config.backendLayouts ? null : "layout1",
     loaded: {
       ...layoutsIncluded,
-    },
+    }
 };
 
 export default function reducer( state = initialState, action ) {
   switch ( action.type ) {
 
     case LAYOUT_CHANGE:
+
       const loaded = state.loaded;
 
       if ( !config.backendLayouts ) {
@@ -22,7 +23,7 @@ export default function reducer( state = initialState, action ) {
         };
       }
 
-      if ( action.payload.data ) {
+      if (action.payload.data) {
         loaded[action.payload.code] = action.payload.data;
       }
 

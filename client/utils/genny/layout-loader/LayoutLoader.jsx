@@ -57,24 +57,31 @@ class LayoutLoader extends Component {
          let split = alias.split(".");
          if(split.length == 2) {
 
-            // step 2 is to check if split[0] is matching a base entity code within the store
-            let be_code = split[0];
-            let attribute_code = split[1];
+            // step 2 is to check if split[0] is matching an alias within the store
+            let alias_code = split[0];
+            let aliases = this.props.baseEntity.aliases;
+            let matchingAliases = Object.keys(aliases).filter(x => x == alias_code);
+            if(matchingAliases.length > 0) {
 
-            let baseEntities = this.props.baseEntity.data;
-            let matchingEntities = Object.keys(baseEntities).filter(x => x == be_code);
-            if(matchingEntities.length > 0) {
+                // step 3 is to check if split[0] is matching a base entity code within the store
+                let be_code = aliases[matchingAliases[0]];
+                let attribute_code = split[1];
 
-                let be = baseEntities[matchingEntities[0]];
+                let baseEntities = this.props.baseEntity.data;
+                let matchingEntities = Object.keys(baseEntities).filter(x => x == be_code);
+                if(matchingEntities.length > 0) {
 
-                // step 3 is to do the same for attributes
-                let attributes = be.attributes;
-                let matchingAttributes = Object.keys(attributes).filter(x => x == attribute_code);
-                if(matchingAttributes.length > 0) {
+                    let be = baseEntities[matchingEntities[0]];
 
-                    let attribute = attributes[matchingAttributes[0]];
-                    if(attribute.value) {
-                        layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
+                    // step 4 is to do the same for attributes
+                    let attributes = be.attributes;
+                    let matchingAttributes = Object.keys(attributes).filter(x => x == attribute_code);
+                    if(matchingAttributes.length > 0) {
+
+                        let attribute = attributes[matchingAttributes[0]];
+                        if(attribute.value) {
+                            layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
+                        }
                     }
                 }
             }
@@ -100,9 +107,6 @@ class LayoutLoader extends Component {
     }
 
     let layout = this.replaceAliasesIn(loaded[current]);
-    console.log("loading layout: ");
-    console.log(layout);
-
     return <JSONLoader layout={layout} componentCollection={components} context={baseEntity.data} />;
   }
 }
