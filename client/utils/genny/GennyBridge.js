@@ -31,6 +31,26 @@ class GennyBridge {
   sendAnswer(data, items) {
     let token = this.getToken();
     Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
+
+    // sending back the data to the front end as the backend is not doing it for now.
+    this.messageHandler.onMessage({
+        data_type: "BaseEntity",
+        delete: false,
+        items: [
+            {
+                code: items[0].targetCode || "PER_USER1",
+                name: "PROJECT",
+                baseEntityAttributes: [
+                    {
+                        baseEntityCode: items[0].targetCode,
+                        attributeCode: "PRIMARY_COLOR",
+                        valueString: items[0].value
+                    }
+                ]
+            }
+        ],
+        msg_type: "DATA_MSG"
+    });
   }
 
   ajaxCall(settings) {

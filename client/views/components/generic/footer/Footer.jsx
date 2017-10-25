@@ -23,7 +23,7 @@ class Footer extends Component {
     return (
       	<div className="footer" style={componentStyle}>
           { version ? <span className="version">{version}</span> : null }
-      		{ poweredBy ? 
+      		{ poweredBy ?
             <div className="powered-by">
               <span>powered by: </span>
               { poweredBy.img ? <ImageView src={poweredBy.img} /> : null }

@@ -6,7 +6,7 @@
       "AppHolder": {
         "sidebar": {
           "style": {
-            "backgroundColor": "#1f1f1f",
+            "backgroundColor": "PROJECT.PRIMARY_COLOR",
             "color": "white",
             "textAlign": "center"
           },
@@ -16,7 +16,7 @@
         },
         "header": {
           "style": {
-            "backgroundColor": "#1f1f1f",
+            "backgroundColor": "PROJECT.PRIMARY_COLOR",
             "color": "white"
           },
           "projectTitle" : "Channel40",
@@ -25,7 +25,7 @@
         },
         "footer" : {
           "style": {
-            "backgroundColor": "#1f1f1f",
+            "backgroundColor": "PROJECT.PRIMARY_COLOR",
             "color": "white"
           },
           "version" : "0.0.0.1",
@@ -46,7 +46,7 @@
           {
             "div": {
               "style": {
-                "background": "#ff7000",
+                "backgroundColor": "PROJECT.PRIMARY_COLOR",
                 "color": "#FFF",
                 "padding": "20px",
                 "fontFamily": "Helvetica",
@@ -54,7 +54,6 @@
               },
               "className" : "sticky",
               "children": [
-
                 {
                   "h3": {
                     "children": "CHANNEL40 - QUESTIONS ",
@@ -64,7 +63,6 @@
                     }
                   }
                 }
-
               ]
             }
           },

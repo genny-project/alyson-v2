@@ -1,8 +1,8 @@
-// import './table.scss';
+import 'react-table/react-table.css';
+import './table.scss';
 import React, { Component } from 'react';
 import { string, array, object } from 'prop-types';
 import ReactTable from 'react-table';
-import 'react-table/react-table.css';
 
 class Table extends Component {
 
@@ -25,7 +25,7 @@ class Table extends Component {
 
   render() {
     const { className, columns, data, itemsPerPage } = this.props;
-    
+
     return (
       <ReactTable
         data={data}

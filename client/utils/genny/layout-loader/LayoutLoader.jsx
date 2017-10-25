@@ -100,9 +100,6 @@ class LayoutLoader extends Component {
     }
 
     let layout = this.replaceAliasesIn(loaded[current]);
-    console.log("loading layout: ");
-    console.log(layout);
-
     return <JSONLoader layout={layout} componentCollection={components} context={baseEntity.data} />;
   }
 }
