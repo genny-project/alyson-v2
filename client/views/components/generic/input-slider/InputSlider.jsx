@@ -1,6 +1,8 @@
 import './inputSlider.scss';
+import 'rc-slider/assets/index.css';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
+import Slider, { Range } from 'rc-slider';
 import {  } from '../';
 
 class InputSlider extends Component {
@@ -25,7 +27,7 @@ class InputSlider extends Component {
 
     return (
       <div className={`input-slider ${className}`}>
-        {children}
+        <Slider min={0} max={100} defaultValue={3} />
       </div>
     );
   }
