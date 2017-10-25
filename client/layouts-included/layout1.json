@@ -11,7 +11,7 @@
             "textAlign": "center"
           },
           "hasImage": true,
-          "caption": "PER_USER1.PRI_FIRSTNAME",
+          "caption": "ALIAS_USER.PRI_FIRSTNAME",
           "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300"
         },
         "header": {
@@ -20,7 +20,7 @@
             "color": "white"
           },
           "projectTitle" : "Channel40",
-          "userName" : "PER_USER1.PRI_FIRSTNAME",
+          "userName" : "ALIAS_USER.PRI_FIRSTNAME",
           "userImage" : "http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg"
         },
         "footer" : {

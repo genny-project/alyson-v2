@@ -33,9 +33,11 @@ class GennyBridge {
     Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
 
     // sending back the data to the front end as the backend is not doing it for now.
+    // test was made for color picker.
     this.messageHandler.onMessage({
         data_type: "BaseEntity",
         delete: false,
+        aliasCode: "PROJECT",
         items: [
             {
                 code: items[0].targetCode || "PER_USER1",
