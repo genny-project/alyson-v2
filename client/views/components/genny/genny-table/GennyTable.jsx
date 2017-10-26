@@ -20,7 +20,6 @@ class GennyTable extends Component {
 
         let columns = [];
 
-        console.log("+++++++++=");
         baseEntities.forEach(baseEntity => {
 
             console.log(baseEntity);
