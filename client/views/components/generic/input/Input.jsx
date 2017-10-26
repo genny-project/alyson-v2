@@ -1,7 +1,7 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string } from 'prop-types';
-import { InputDate, InputSlider, InputDropdown, InputDropdown2, InputText, InputTextarea, InputCheckbox } from '../';
+import { InputDate, InputSlider, InputDropdown, InputDropdown2, InputText, InputTextarea, InputCheckbox, InputAddress } from '../';
 
 class Input extends Component {
   static defaultProps = {
@@ -36,6 +36,8 @@ class Input extends Component {
             return ( <InputSlider {...this.props}/> );
         case "password":
             return ( <InputText {...this.props}/> );
+        case "address":
+            return ( <InputAddress {...this.props} /> );
         default:
             return ( <InputText {...this.props}/> );
     }

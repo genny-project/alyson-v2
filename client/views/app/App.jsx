@@ -31,6 +31,21 @@ class App extends Component {
     });
   }
 
+  setupGoogleAPI() {
+
+      let googleScript = document.getElementById("google-api");
+      if(!googleScript) {
+
+          // load google api
+          //TODO: move the API key to config file
+          const script = document.createElement("script");
+          script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6Te7CSJZvfTITavnAijxdkqN-Viugpg&libraries=places";
+          script.async = true;
+          script.id = "google-api";
+          document.body.appendChild(script);
+      }
+  }
+
   render() {
     const keycloak = this.props.keycloak;
     const keycloakConfig = keycloak.config;
@@ -54,6 +69,8 @@ class App extends Component {
         <div className='app' />
       );
     }
+
+    this.setupGoogleAPI();
 
     return (
       <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>

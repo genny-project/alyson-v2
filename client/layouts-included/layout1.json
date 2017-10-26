@@ -67,14 +67,16 @@
             }
           },
           {
-            "GennyTable": {
-              "root" : "PER_USER1",
-              "showBaseEntity": true
+            "GennyForm": {
+
+              "itemsPerPage" : "10",
+              "asks": [
+
+              ]
             }
           }
         ]
       }
     }
-
   ]
 }
