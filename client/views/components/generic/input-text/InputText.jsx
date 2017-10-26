@@ -1,118 +1,120 @@
 import './inputText.scss';
 import React, { Component } from 'react';
-import { string, bool, array, object } from 'prop-types';
+import { string, bool, array, object, int, any, func } from 'prop-types';
 import { Label, SubmitStatusIcon } from '../';
-import { GennyBridge } from 'utils/genny';
 
 class InputText extends Component {
+  
   static defaultProps = {
-    ask: {},
-    className: ''
+    className: '',
+    validationList: [],
+    mask: '',
+    name: '',
+    placeholder: '',
+    defaultValue: '',
+    readOnly: false,
+    optional: false,
+    identifier: null
   }
 
   static propTypes = {
     className: string,
-    ask: object
+    validationList: array,
+    mask: string,
+    name: string,
+    placeholder: string,
+    defaultValue: string,
+    readOnly: bool,
+    optional: bool,
+    onValidation: func,
+    identifier: any
   }
 
-  //TODO: valueString is not necessary what we are looking for. it could be valueDate etc....
-
   state = {
-    value: (this.props.ask.answerList.length > 0 ? this.props.ask.answerList.answerList[0].value : ""),
-    mask: this.props.mask,
-    validationList: this.props.ask.question.validationList,
     validationStatus: null,
-    isValid: null,
     date: new Date(),
-    hasChanges: false
+    hasChanges: false,
+    value: this.props.defaultValue,
+    focused: false,
   }
 
   handleChange = event => {
-    if ( this.state.mask ) {
-      console.log(this.state.mask);
-      var mask = this.state.mask;
+    if ( this.props.mask ) {
+      console.log(this.props.mask);
+      var mask = this.props.mask;
       console.log(mask.test(event.target.value));
       if ( mask.test(event.target.value) ) {
         this.setState({
           value: event.target.value,
           hasChanges: true
-        })
+        });
      }
     } else {
       this.setState({
         value: event.target.value,
         hasChanges: true
-      })
+      });
     }
+  }
+
+  handleFocus = event => {
+    this.setState({
+      focused: true
+    });
   }
 
   handleBlur = event => {
 
-    const { ask } = this.props;
-    const valList = this.state.validationList;
+    const { validationList } = this.props;
     const value = event.target.value;
 
-    console.log(valList);
+    this.setState({
+      focused: false
+    });
 
-    if ( valList.length > 0 ) {
-      const valResult = valList.every( validation => new RegExp(validation.regex).test( value ));
+    console.log(validationList);
+
+    if ( validationList.length > 0 ) {
+      const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
       console.log(valResult)
-      this.validateValue(valResult, value, ask);
+      this.validateValue(valResult, value);
     } else {
       //window.alert("No regex supplied");
-      //this.sendAnswer(event.target.value, ask);
+      //this.sendAnswer(event.target.value);
       const valResult = new RegExp(/.*/).test( value );
       console.log(valResult);
-      this.validateValue(valResult, value, ask);
+      this.validateValue(valResult, value);
     }
   }
 
-  validateValue = ( valResult, value, ask ) => {
+  validateValue = ( valResult, value ) => {
+    
     if ( valResult ){
-      this.validationStyle(true, 'success');
+      this.validationStyle('success');
 
-      if(this.state.hasChanges) this.sendAnswer(value, ask);
-      //setTimeout(function(){ this.setState({ submitStatus: 'success' }); }.bind(this), 3000);
+      if(this.state.hasChanges) {
+
+        if(this.props.onValidation) this.props.onValidation(value, this.props.identifier);
+        this.setState({
+            hasChanges: false
+        });
+      }
     } else {
-      this.validationStyle(false, 'error');
-      //setTimeout(function(){ this.setState({ submitStatus: 'error' }); }.bind(this), 3000);
+      this.validationStyle('error');
     }
   }
 
-  validationStyle = (resultBool, resultString) => {
+  validationStyle = (resultString) => {
     this.setState({
-      isValid: resultBool,
       validationStatus: resultString,
     });
   }
 
-  sendAnswer = (value, ask) => {
-    this.sendData('Answer', [
-      {
-        sourceCode: ask.sourceCode,
-        targetCode: ask.targetCode,
-        attributeCode: ask.question.attributeCode,
-        value: value,
-        askId: ask.id
-      }
-    ]);
-
-    this.setState({
-        hasChanges: false
-    });
-  };
-
-  sendData(data, items) {
-    console.log('send', items);
-    GennyBridge.sendAnswer(data, items);
-  }
-
   render() {
 
-    const { className, name, readOnly, placeholder, optional} = this.props.ask;
-    const { validationStatus, date } = this.state;
-
-    //console.log(ask)
+    const { className, style, name, optional, readOnly, placeholder } = this.props;
+    const componentStyle = { ...style, };
+    const { validationStatus, date, focused } = this.state;
 
     return (
       <div className={`input-text ${className} ${validationStatus}`}>
@@ -128,6 +130,8 @@ class InputText extends Component {
           value={this.state.value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
+          style={ focused ? {borderColor: componentStyle.color} : null }
         />
       </div>
     );

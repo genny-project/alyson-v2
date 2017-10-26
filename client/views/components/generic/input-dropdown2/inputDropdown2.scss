@@ -4,14 +4,24 @@
     display: flex;
     align-items: center;
 
+    &.success > .dropdown-container > .input-dropdown-button{
+    	color: $success;
+	    border: 1px solid $success;
+    }
+
+    &.error > .dropdown-container > .input-dropdown-buttont{
+    	color: $error;
+	    border: 1px solid $error;
+    }
+
     .dropdown-label {
-        margin-right: 20px;
+        margin-right: 30px;
     }
     .dropdown-container {
         position: relative;
         flex-grow: 1;
         
-        #my-select {
+        .input-dropdown-button {
             height: 50px;
             width: 100%;
             border-radius: 5px;

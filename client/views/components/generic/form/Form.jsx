@@ -1,26 +1,23 @@
 import './form.scss';
 import React, { Component } from 'react';
-import { Input, ProgressBar, Button, IconSmall } from '../';
+import { ProgressBar, Button, IconSmall } from '../';
 import { string, array, object} from 'prop-types';
 
 class Form extends Component {
 
   static defaultProps = {
     className: '',
-    asks: {}
   }
 
   static propTypes = {
     className: string,
-    asks: object,
   }
 
   state = {
     itemsPerPage: this.props.itemsPerPage ? this.props.itemsPerPage : 1,
     showProgress: this.props.showProgress ? this.props.showProgress : false,
-    asks: this.props.asks,
-    pageCount: Math.ceil( Object.keys(this.props.asks).length / this.props.itemsPerPage ),
-    askCurrent: 1,
+    pageCount: Math.ceil( Object.keys(this.props.children).length / this.props.itemsPerPage ),
+    childrenCurrent: 1,
     pageCurrent: 1,
   }
 
@@ -36,7 +33,7 @@ class Form extends Component {
   }
 
   handleNextPage = () => {
-    if ( this.state.pageCurrent < this.state.askCount / this.state.itemsPerPage ) {
+    if ( this.state.pageCurrent < this.state.childrenCount / this.state.itemsPerPage ) {
       this.setState(prevState => ({
           pageCurrent: prevState.pageCurrent++
         }, () => {
@@ -46,40 +43,41 @@ class Form extends Component {
     }
   }
 
-  getAskCount = (askCount, itemsPerPage) => {
-    const arrAsk = [...Array(askCount).keys()].map(x => ++x);
+  getChildrenCount = (childrenCount, itemsPerPage) => {
+    const arrChildren = [...Array(childrenCount).keys()].map(x => ++x);
     const arrPage = [];
-    let arrPageConvert = arrAsk.map(ask => {
-      arrPage.push({ ask: ask, page: Math.ceil(ask/itemsPerPage) });
+    let arrPageConvert = arrChildren.map(child => {
+      arrPage.push({ child: child, page: Math.ceil(child/itemsPerPage) });
     })
     return arrPage;
   }
 
+  getChildrenForCurrentPage = (itemsPerPage) => {
+    return [this.props.children]; //TODO: return only children supposed to be displayed
+  }
+
   render() {
 
-    const { className, questionGroup, asks } = this.props;
-    const { itemsPerPage, showProgress, askCurrent, pageCurrent, pageCount } = this.state;
-    let askCount = Object.keys(this.props.asks).length;
-    const askPageArray = this.getAskCount(askCount, itemsPerPage);
+    const { className, children, questionGroup, style } = this.props;
+    const { itemsPerPage, showProgress, childrenCurrent, pageCurrent, pageCount } = this.state;
+    const componentStyle = { ...style, };
+    let childrenCount = Object.keys(this.props.children).length;
+    const childrenPageArray = this.getChildrenForCurrentPage(itemsPerPage);
 
     return (
       <div className="form-container">
         <div className="form-main">
-          { showProgress && itemsPerPage <= askCount ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null }
+          { showProgress && itemsPerPage <= childrenCount ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null }
           <div className="form-fields">
-  	        {
-              Object.keys(asks).map((ask_code, index) => {
-                return pageCurrent === askPageArray[index].page ? <Input key={index} ask={asks[ask_code]} /> : null;
-              })
-  	        }
+  	        {childrenPageArray}
           </div>
           <div className="form-nav">
-              <Button className={`form-nav-prev ${pageCurrent > 1 ? 'visible' : 'hidden' }`} onClick={this.handlePrevPage} >
-                <IconSmall name="chevron_left" />
-              </Button>
-              <Button className={`form-nav-next ${pageCurrent < askCount / itemsPerPage ? 'visible' : 'hidden' }`} onClick={this.handleNextPage} >
-                <IconSmall name="chevron_right" />
-              </Button>
+            <Button className={`form-nav-prev ${pageCurrent > 1 ? 'visible' : 'hidden' }`} onClick={this.handlePrevPage} >
+              <IconSmall name="chevron_left" />
+            </Button>
+            <Button className={`form-nav-next ${pageCurrent < childrenCount / itemsPerPage ? 'visible' : 'hidden' }`} onClick={this.handleNextPage} >
+              <IconSmall name="chevron_right" />
+            </Button>
           </div>
         </div>
       </div>
