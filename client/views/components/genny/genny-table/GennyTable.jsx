@@ -22,6 +22,7 @@ class GennyTable extends Component {
 
         baseEntities.forEach(baseEntity => {
 
+            console.log(baseEntity);
             let attributes = baseEntity.attributes;
             if(attributes) {
 
@@ -34,6 +35,7 @@ class GennyTable extends Component {
                         return column.attributeCode;
                     });
 
+                    console.log(attribute);
                     if(!headers.includes(attribute.attributeCode)) {
                         columns.push({
                             "Header": () => <div><span className='table-header'>{attribute.attribute.name}</span>  <span><IconSmall name="sort" /></span></div>,
@@ -138,7 +140,7 @@ class GennyTable extends Component {
 
     render() {
 
-        const { root } = this.props;
+        const { root, showBaseEntity } = this.props;
 
         let query = new BaseEntityQuery(this.props);
         let columns = [];
@@ -146,6 +148,14 @@ class GennyTable extends Component {
 
         let children = query.getEntityChildren(root);
         if(children) {
+
+            if(children.length == 0 && showBaseEntity) {
+
+                let be = query.getBaseEntity(root);
+                if(be) {
+                    children = [be];
+                }
+            }
 
             columns = this.generateHeadersFor(children);
             data = this.generateDataFor(children);

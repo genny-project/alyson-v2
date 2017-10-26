@@ -7,25 +7,27 @@ class InputCheckbox extends Component {
 
   static defaultProps = {
     className: '',
+    checked: '',
   }
 
   static propTypes = {
     className: string,
     style: string,
     children: any,
+    checked: string,
   }
 
   state = {
   }
 
   render() {
- 	  const { className, children, style } = this.props;
+ 	  const { className, children, style, checked } = this.props;
     const {  } = this.state;
     const componentStyle = { ...style, };
 
     return (
       <div className={`input-checkbox ${className}`}>
-        {children}
+        <input type="checkbox"/>
       </div>
     );
   }

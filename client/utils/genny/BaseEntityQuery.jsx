@@ -36,6 +36,10 @@ class BaseEntityQuery extends Component {
         return items;
     }
 
+    getBaseEntity(code) {
+        return this.props.baseEntity.data[code];
+    }
+
     getAlias = (code) => {
 
         let layout = [];
