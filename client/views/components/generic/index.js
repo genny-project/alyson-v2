@@ -11,7 +11,6 @@ export { default as ImageView } from './imageview';
 export { default as Input } from './input';
 export { default as InputCheckbox } from './input-checkbox';
 export { default as InputDate } from './input-date';
-export { default as InputDropdown } from './input-dropdown';
 export { default as InputDropdown2 } from './input-dropdown2';
 export { default as InputSlider } from './input-slider';
 export { default as InputText } from './input-text';
