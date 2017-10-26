@@ -12,22 +12,63 @@ class InputDropdown2 extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
+    style: object,
     children: any,
   }
 
   state = {
     ask: this.props.ask ? this.props.ask : false,
+    validationStatus: this.props.validationStatus ? this.props.validationStatus : null,
+  }
+
+  handleClick = selectedItem => {
+
+    const { validationList } = this.props;
+    const value = selectedItem;
+
+    console.log(validationList);
+
+    if ( validationList.length > 0 ) {
+      const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
+      console.log(valResult)
+      this.validateValue(valResult, value);
+    } else {
+      //window.alert("No regex supplied");
+      //this.sendAnswer(event.target.value);
+      const valResult = new RegExp(/.*/).test( value );
+      console.log(valResult);
+      this.validateValue(valResult, value);
+    }
+  }
+
+  validateValue = ( valResult, value ) => {
+    
+    if ( valResult ){
+      this.props.noValidation ? null : this.validationStyle('success');
+      
+      if(this.props.onValidation) {
+        this.props.onValidation(value, this.props.identifier);
+      }
+
+    } else {
+      this.props.noValidation ? null : this.validationStyle('error');
+    }
+  }
+
+  validationStyle = (resultString) => {
+    this.setState({
+      validationStatus: resultString,
+    });
   }
 
   render() {
- 	  const { className, style, items, ...rest } = this.props;
-    const { ask,  } = this.state;
+ 	  const { className, style, items, name, ...rest } = this.props;
+    const { ask, validationStatus } = this.state;
     const componentStyle = { ...style, };
     return (
-      <div className={`input-dropdown2 ${className}`}>
-        {ask.name ? <Label className="dropdown-label" text={ask.name} /> : null }
-        <Downshift {...rest}>
+      <div className={`input-dropdown2 ${className} ${validationStatus}` }>
+        {name ? <Label className="dropdown-label" text={name} /> : null }
+        <Downshift {...rest} onChange={this.handleClick}>
           {({
             getLabelProps,
             getInputProps,
@@ -42,9 +83,8 @@ class InputDropdown2 extends Component {
           }) => (
             <div className="dropdown-container">
               <div
-                id="my-select"
                 type="button"
-                className={`${isOpen ? "selected" : ""}`}
+                className={`input-dropdown-button ${isOpen ? "selected" : ""}`}
                 onClick={toggleMenu}
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -60,7 +100,7 @@ class InputDropdown2 extends Component {
                       {...getItemProps({item})}
                       key={item}
                       className="dropdown-item"
-                      style={{cursor: 'pointer'}}
+                      style={{cursor: 'pointer'}}    
                     >
                       <span>{item}</span>
                     </li>

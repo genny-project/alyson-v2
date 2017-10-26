@@ -16,7 +16,7 @@ class Input extends Component {
 
   render() {
 
-    const { type } = this.props.ask.question;
+    const { type } = this.props;
     let items = ['Bananas', 'Oranges', 'Apples', 'Other']
 
     switch(type) {
