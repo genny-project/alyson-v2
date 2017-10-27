@@ -36,7 +36,7 @@ class Sidebar extends Component {
             imageView = <GennyImageView src={src} caption={caption} />;
         }
 
-        let loginButtons = this.renderSocialButtons(socialLogins);
+        let loginButtons = socialLogins ? this.renderSocialButtons(socialLogins) : null;
 
         return (
             <div className="sidebar" style={componentStyle}>
