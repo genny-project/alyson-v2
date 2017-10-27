@@ -32,7 +32,7 @@ class AppHolder extends Component {
         let renderSidebar;
         if ( sidebar ) {
             const sidebarWidth = sidebarShrink ? "50px" : "300px";
-            renderSidebar = <div className="app-sidebar" style={{ width: sidebarWidth }} >
+            renderSidebar = <div className="app-sidebar" style={{ minWidth: sidebarWidth }} >
                 <IconSmall className="app-sidebar-toggle" name="menu" onClick={this.handleSidebarSize}/>
                 <Sidebar {...sidebar} >{sidebarChildren}</Sidebar>
             </div>;
@@ -65,7 +65,7 @@ class AppHolder extends Component {
         if(layoutContent == null)  layoutContent = contentChildren;
 
         return (
-          <div className="app-holder">
+          <div className="app-holder" style={{backgroundColor: "white"}}>
             {renderSidebar}
             <div className="app-main">
               {renderHeader}

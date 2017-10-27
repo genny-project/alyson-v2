@@ -129,55 +129,19 @@
                       {
                        "h4": {
                         "position": [0, 0],
-                        "children": [
-                         {
-                          "IconSmall": {
-                           "name": "location_on"
-                          }
-                         },
-
-                         {
-                          "span": {
-                           "children": "Pickup Suburb"
-                          }
-                         }
-                        ]
+                        "children": "Pickup Suburb"
                        }
                       },
                       {
                        "h4": {
                         "position": [0, 1],
-                        "children": [
-                         {
-                          "IconSmall": {
-                           "name": "location_on"
-                          }
-                         },
-
-                         {
-                          "span": {
-                           "children": "Drop off Suburb"
-                          }
-                         }
-                        ]
+                        "children": "Drop off suburb"
                        }
                       },
                       {
                        "h4": {
                         "position": [0, 2],
-                        "children": [
-                         {
-                          "IconSmall": {
-                           "name": "attach_money"
-                          }
-                         },
-
-                         {
-                          "span": {
-                           "children": "Price"
-                          }
-                         }
-                        ]
+                        "children": "Price"
                        }
                       },
                       {
