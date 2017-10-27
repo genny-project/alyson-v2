@@ -1,8 +1,8 @@
 import './socialButton.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-// import FacebookButton from './facebook-button';
-import { FacebookLoginButton, TwitterLoginButton, GithubLoginButton, AmazonLoginButton, MicrosoftLoginButton, InstagramLoginButton, LinkedInLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
+import FacebookButton from './facebook-button';
+import { TwitterLoginButton, GithubLoginButton, AmazonLoginButton, MicrosoftLoginButton, InstagramLoginButton, LinkedInLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
 
 class SocialButton extends Component {
 
@@ -18,11 +18,17 @@ class SocialButton extends Component {
   state = {
   }
 
+  callback = (event) => {
+     console.log(event);
+  }
+
   renderSocialButton = (type) => {
 
       switch (type) {
           case "facebook":
-          return <FacebookLoginButton
+          return <FacebookButton
+              callback={this.callback}
+              appId="123"
               text="Login with Facebook"
               onClick={this.onClickHandler}
           />
