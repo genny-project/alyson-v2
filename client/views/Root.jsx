@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from 'views/store';
 import { Router } from 'react-router-dom';
-import { Home, App } from 'views';
-import { GennyData } from 'utils/genny';
+import { App } from 'views';
 import history from './history';
 window.reactRouterHistory = history;
 
