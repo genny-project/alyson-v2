@@ -1,7 +1,7 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string } from 'prop-types';
-import { InputDate, InputSlider, InputDropdown, InputDropdown2, InputText, InputTextarea, InputCheckbox } from '../';
+import { InputDate, InputSlider, InputDropdown, InputDropdown2, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
 
 class Input extends Component {
   static defaultProps = {
@@ -26,7 +26,7 @@ class Input extends Component {
             return ( <InputTextarea {...this.props}/> );
         case "checkbox":
             return ( <InputCheckbox {...this.props}/> );
-        case "date":
+        case "java.time.Date":
             return ( <InputDate items={items} {...this.props}/> );
         case "dropdown":
             return ( <InputDropdown {...this.props}/> );
@@ -34,8 +34,12 @@ class Input extends Component {
             return ( <InputDropdown2 items={items} {...this.props}/> );
         case "slider":
             return ( <InputSlider {...this.props}/> );
+        case "upload-photo":
+            return ( <InputUploadPhoto {...this.props}  /> );
         case "password":
             return ( <InputText {...this.props}/> );
+        case "address":
+            return ( <InputAddress {...this.props} /> );
         default:
             return ( <InputText {...this.props}/> );
     }

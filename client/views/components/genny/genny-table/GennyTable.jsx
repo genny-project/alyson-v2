@@ -22,7 +22,6 @@ class GennyTable extends Component {
 
         baseEntities.forEach(baseEntity => {
 
-            console.log(baseEntity);
             let attributes = baseEntity.attributes;
             if(attributes) {
 
@@ -35,7 +34,6 @@ class GennyTable extends Component {
                         return column.attributeCode;
                     });
 
-                    console.log(attribute);
                     if(!headers.includes(attribute.attributeCode)) {
                         columns.push({
                             "Header": () => <div><span className='table-header'>{attribute.attribute.name}</span>  <span><IconSmall name="sort" /></span></div>,
