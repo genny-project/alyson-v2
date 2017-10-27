@@ -30,3 +30,4 @@ export { default as NotificationItem } from './notification-item';
 export { default as CircleButton } from './circle-button';
 export { default as InputAddress } from './input-address';
 export { default as InputUploadPhoto } from './input-upload-photo';
+export { default as SocialButton } from './social-button';
