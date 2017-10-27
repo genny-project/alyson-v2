@@ -4,7 +4,7 @@
       "AppHolder": {
         "sidebar": {
           "style": {
-            "backgroundColor": "PROJECT.PRI_COLOR",
+            "backgroundColor": "PROJECT.PRIMARY_COLOR",
             "color": "white",
             "textAlign": "center"
           },
@@ -14,7 +14,7 @@
         },
         "header": {
           "style": {
-            "backgroundColor": "PROJECT.PRI_COLOR",
+            "backgroundColor": "PROJECT.PRIMARY_COLOR",
             "color": "white"
           },
           "projectTitle" : "PROJECT.PRI_NAME",
@@ -23,7 +23,7 @@
         },
         "footer" : {
           "style": {
-            "backgroundColor": "PROJECT.PRI_COLOR",
+            "backgroundColor": "PROJECT.PRIMARY_COLOR",
             "color": "white"
           },
           "version" : "0.0.0.1",
@@ -44,7 +44,7 @@
           {
             "div": {
               "style": {
-                "backgroundColor": "PROJECT.PRI_COLOR",
+                "backgroundColor": "PROJECT.PRIMARY_COLOR",
                 "color": "#FFF",
                 "padding": "20px",
                 "fontFamily": "Helvetica",
@@ -67,8 +67,7 @@
           {
            "h1": {
             "style": {
-             "text-align": "center",
-             "background-color": "#FFF"
+             "text-align": "center"
             },
             "children": "PROFILE DETAILS"
            }

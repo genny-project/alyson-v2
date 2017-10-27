@@ -46,19 +46,18 @@ class GennyForm extends Component {
         <Form {...this.props}>
           {
             Object.keys(asks).map((ask_code, index) => {
-              
+
               let ask = asks[ask_code];
               let inputType = ask.question.type || "java.lang.String";
-              console.log(ask);
               return <Input 
-                key={index} 
-                identifier={ask_code} 
-                type={inputType} 
-                style={componentStyle} 
-                name={ask.name} 
-                placeholder={ask.placeholder} 
-                readOnly={ask.readOnly} 
-                optional={ask.optional} 
+                key={index}
+                identifier={ask_code}
+                type={inputType}
+                style={componentStyle}
+                name={ask.name}
+                placeholder={ask.placeholder}
+                readOnly={ask.readOnly}
+                optional={ask.optional}
                 validationList={ask.question.validationList}
                 mask={ask.question.mask}
                 onValidation={this.onInputValidation}

@@ -65,7 +65,7 @@ class AppHolder extends Component {
         if(layoutContent == null)  layoutContent = contentChildren;
 
         return (
-          <div className="app-holder">
+          <div className="app-holder" style={{backgroundColor: "white"}}>
             {renderSidebar}
             <div className="app-main">
               {renderHeader}

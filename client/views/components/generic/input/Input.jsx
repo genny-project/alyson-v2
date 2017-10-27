@@ -26,7 +26,7 @@ class Input extends Component {
             return ( <InputTextarea {...this.props}/> );
         case "checkbox":
             return ( <InputCheckbox {...this.props}/> );
-        case "date":
+        case "java.time.Date":
             return ( <InputDate items={items} {...this.props}/> );
         case "dropdown":
             return ( <InputDropdown {...this.props}/> );

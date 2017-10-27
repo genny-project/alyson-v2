@@ -49,11 +49,12 @@ class Header extends Component {
 
   handleChangeComplete = (color) => {
 
+      console.error("Changing color answer has to be changed");
       let answer = [
           {
               sourceCode: "PER_USER1",
-              targetCode: "PROJECT",
-              attributeCode: "PRIMARY_COLOR",
+              targetCode: "PRJ_GENNY",
+              attributeCode: "PRI_COLOR",
               value: color.hex
           }
       ];
