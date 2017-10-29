@@ -183,13 +183,37 @@
                       {
                        "h4": {
                         "position": [1, 0],
-                        "children": "Pickup Date/Time"
+                        "children": [
+                         {
+                          "IconSmall": {
+                           "name": "access_time"
+                          }
+                         },
+
+                         {
+                          "span": {
+                           "children": "Pickup Date/Time"
+                          }
+                         }
+                        ]
                        }
                       },
                       {
                        "h4": {
                         "position": [2, 0],
-                        "children": "Drop off Date/Time"
+                        "children": [
+                         {
+                          "IconSmall": {
+                           "name": "access_time"
+                          }
+                         },
+
+                         {
+                          "span": {
+                           "children": "Drop off Date/Time"
+                          }
+                         }
+                        ]
                        }
                       }
                      ]
