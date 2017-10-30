@@ -1,10 +1,10 @@
-import './inputDropdown2.scss';
+import './inputDropdown.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
 import Downshift from 'downshift'
 import { Label, IconSmall } from '../';
 
-class InputDropdown2 extends Component {
+class InputDropdown extends Component {
 
   static defaultProps = {
     className: '',
@@ -66,7 +66,7 @@ class InputDropdown2 extends Component {
     const { ask, validationStatus } = this.state;
     const componentStyle = { ...style, };
     return (
-      <div className={`input-dropdown2 ${className} ${validationStatus}` }>
+      <div className={`input-dropdown ${className} ${validationStatus}` }>
         {name ? <Label className="dropdown-label" text={name} /> : null }
         <Downshift {...rest} onChange={this.handleClick}>
           {({
@@ -91,7 +91,7 @@ class InputDropdown2 extends Component {
                 aria-expanded={isOpen}
               >
                 <span className="">{selectedItem ? selectedItem : 'Select a fruit'}</span>
-                <IconSmall name={ isOpen ? 'expand_more' : 'expand_less'} />
+                <IconSmall name={ isOpen ? 'expand_more' : 'chevron_right'} />
               </div>
               {isOpen ? (
                 <ul style={{display: 'block'}} className="dropdown-menu">
@@ -115,4 +115,4 @@ class InputDropdown2 extends Component {
   }
 }
 
-export default InputDropdown2;
+export default InputDropdown;
