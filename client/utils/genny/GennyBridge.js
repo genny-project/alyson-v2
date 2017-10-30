@@ -91,7 +91,9 @@ class GennyBridge {
   }
 
   sendAuthInit(token) {
-    Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+
+      Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+
   }
 }
 

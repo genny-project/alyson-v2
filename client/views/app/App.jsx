@@ -25,10 +25,15 @@ class App extends Component {
     document.getElementById('mounting-preview').remove();
 
     /* Send off the auth logged in action */
-    this.props.authLoggedIn({
-      token: keycloak.getToken(),
-      info: keycloak.getInfo(),
-    });
+    if(!keycloack.getToken()) {
+        window.location.reload(true);
+    }
+    else {
+        this.props.authLoggedIn({
+          token: keycloak.getToken(),
+          info: keycloak.getInfo(),
+        });
+    }
   }
 
   setupGoogleAPI() {
