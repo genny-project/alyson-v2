@@ -1,6 +1,6 @@
 {
   "backendEnabled": true,
-  "backendLayouts": true,
+  "backendLayouts": false,
   "genny": {
     "host": "http://192.168.99.100:8088",
     "bridge": {

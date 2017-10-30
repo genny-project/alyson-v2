@@ -39,7 +39,11 @@ module.exports = {
           'sass-loader',
           'postcss-loader',
         ],
-      }
+    },
+    {
+        test: /.(png|jpg)$/,
+        loader: 'url-loader'
+    }
     ],
 
   },

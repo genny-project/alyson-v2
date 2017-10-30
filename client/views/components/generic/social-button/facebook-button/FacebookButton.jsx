@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FacebookLoginButton } from 'react-social-login-buttons';
+// import { FacebookLoginButton } from 'react-social-login-buttons';
 import { PropTypes } from 'prop-types';
 
 const objectToParams = (paramsObj) => {
@@ -179,7 +179,7 @@ class FacebookButton extends Component {
     };
 
     click = (e) => {
-        
+
         if (!this.state.isSdkLoaded || this.state.isProcessing || this.props.isDisabled) {
             return;
         }
@@ -231,7 +231,8 @@ class FacebookButton extends Component {
 
     render() {
         return (
-            <FacebookLoginButton text={this.props.text} onClick={this.click} />
+
+            <div text={this.props.text} onClick={this.click} />
         );
     }
 }
