@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(sass|scss)$/,
@@ -38,8 +38,11 @@ module.exports = {
           'style-loader',
           'css-loader',
           'sass-loader',
-          'postcss-loader',
         ],
+      },
+      {
+          test: /.(png|jpg)$/,
+          loader: 'url-loader'
       }
     ],
 
