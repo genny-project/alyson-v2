@@ -1,8 +1,6 @@
 alyson:
-  image: gennyproject/alyson:latest
+  image: gennyproject/alyson2
   ports:
     - "3000:80"
   environment:
     - REACT_BRIDGE_HOST=localhost:8088
-  env_file:
-    - ${ENV_FILE}

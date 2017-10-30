@@ -1,6 +1,5 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
-const Dashboard = require( 'webpack-dashboard/plugin' );
 
 
 module.exports = {
@@ -13,10 +12,10 @@ module.exports = {
   devServer: {
     contentBase: path.resolve( __dirname, './build' ),
     inline: true,
-    port: 3000,
+    port: 4000,
     historyApiFallback: true,
   },
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {
@@ -30,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(sass|scss)$/,
@@ -45,8 +44,35 @@ module.exports = {
           loader: 'url-loader'
       }
     ],
-
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify( 'production' ),
+      },
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: false,
+      compress: {
+        sequences: true,
+        dead_code: true,
+        conditionals: true,
+        booleans: true,
+        unused: true,
+        if_return: true,
+        join_vars: true,
+        drop_console: true,
+      },
+      mangle: {
+        except: ['$super', '$', 'exports', 'require'],
+      },
+      output: {
+        comments: false,
+      },
+    }),
+  ],
   resolve: {
     alias: {
       views: path.resolve( __dirname, './client/views' ),
@@ -57,8 +83,5 @@ module.exports = {
       reducers: path.resolve( __dirname, './client/reducers' )
     },
     extensions: ['.js', '.jsx'],
-  },
-  plugins: [
-    new Dashboard()
-  ],
+  }
 };

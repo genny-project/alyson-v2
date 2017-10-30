@@ -2,7 +2,7 @@ import './socialButton.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
 import FacebookButton from './facebook-button';
-import { TwitterLoginButton, GithubLoginButton, AmazonLoginButton, MicrosoftLoginButton, InstagramLoginButton, LinkedInLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
+// import { TwitterLoginButton, GithubLoginButton, AmazonLoginButton, MicrosoftLoginButton, InstagramLoginButton, LinkedInLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
 
 class SocialButton extends Component {
 
@@ -29,42 +29,7 @@ class SocialButton extends Component {
           return <FacebookButton
               callback={this.callback}
               appId="123"
-              text="Login with Facebook"
-              onClick={this.onClickHandler}
-          />
-          case "twitter":
-          return <TwitterLoginButton
-              text="Login with Twitter"
-              onClick={this.onClickHandler}
-          />
-          case "linkedin":
-          return <LinkedInLoginButton
-              text="Login with Linkedin"
-              onClick={this.onClickHandler}
-          />
-          case "amazon":
-          return <AmazonLoginButton
-              text="Login with Amazon"
-              onClick={this.onClickHandler}
-          />
-          case "instagram":
-          return <InstagramLoginButton
-              text="Login with Instagram"
-              onClick={this.onClickHandler}
-          />
-          case "microsoft":
-          return <MicrosoftLoginButton
-              text="Login with Microsoft"
-              onClick={this.onClickHandler}
-          />
-          case "github":
-          return <GithubLoginButton
-              text="Login with Github"
-              onClick={this.onClickHandler}
-          />
-          case "google":
-          return <GoogleLoginButton
-              text="Login with Google"
+              text="Log in with Facebook"
               onClick={this.onClickHandler}
           />
           default:
