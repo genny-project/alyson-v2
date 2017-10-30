@@ -1,5 +1,10 @@
 @import '../../../../styles/colors';
 
 .input-checkbox {
+    display: flex;
+    align-items: center;
 
+    .checkbox-label {
+        margin-left: 10px;
+    }
 }

@@ -54,7 +54,7 @@ class GennyForm extends Component {
                 identifier={ask_code}
                 type={inputType}
                 style={componentStyle}
-                name={ask.name}
+                name={ask.question.name}
                 placeholder={ask.placeholder}
                 readOnly={ask.readOnly}
                 optional={ask.optional}

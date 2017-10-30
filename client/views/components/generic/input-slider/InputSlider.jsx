@@ -27,7 +27,7 @@ class InputSlider extends Component {
     validationStatus: null,
   }
 
-  onChange = value => {
+  handleChange = value => {
 
     // console.log("value: ", value);
     const { validationList } = this.props;
@@ -53,13 +53,15 @@ class InputSlider extends Component {
   validateValue = ( valResult, value ) => {
     
     if ( valResult ){
-      this.validationStyle('success');
-
+      
       clearTimeout(this.state.timer);
       this.state.timer = setTimeout(function(){ 
-
+        
         if(this.props.onValidation) {
+          this.validationStyle('success');
           this.props.onValidation(value, this.props.identifier);
+        } else {
+          this.validationStyle('error');
         }
 
         this.setState({
@@ -95,7 +97,7 @@ class InputSlider extends Component {
           defaultValue={50}
           handleStyle={[ active ? {borderColor: componentStyle.color} : !validationStatus ? {borderColor: componentStyle.color} : {borderColor: null} ]}
           trackStyle={[ active ? {backgroundColor: componentStyle.color} : !validationStatus ? {backgroundColor: componentStyle.color} : {backgroundColor: null} ]}
-          onChange={this.onChange}
+          onChange={this.handleChange}
         />
       </div>
     );

@@ -1,7 +1,7 @@
 import './inputDate.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import { Label, InputDropdown2 } from '../';
+import { Label, InputDropdown } from '../';
 
 class InputDate extends Component {
 
@@ -90,12 +90,14 @@ class InputDate extends Component {
  	  const { className, style, items, name, } = this.props;
     const { day, month, year, validationStatus } = this.state;
     const componentStyle = { ...style, };
+    
+
     return (
       <div className={`input-date ${className} ${validationStatus}`}>
         {name ? <Label className="input-date-label" text={name} /> : null }
-        <InputDropdown2 {...this.props} items={items}  className="input-date-dropdown day" name={null} onValidation={this.onDropdownChange} identifier={'day'} noValidation/>
-        <InputDropdown2 {...this.props} items={items} className="input-date-dropdown month" name={null} onValidation={this.onDropdownChange} identifier={'month'} noValidation/>
-        <InputDropdown2 {...this.props} items={items} className="input-date-dropdown year" name={null} onValidation={this.onDropdownChange} identifier={'year'} noValidation/>
+        <InputDropdown {...this.props} items={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]}  className="input-date-dropdown day" name={null} onValidation={this.onDropdownChange} identifier={'day'} noValidation/>
+        <InputDropdown {...this.props} items={['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']} className="input-date-dropdown month" name={null} onValidation={this.onDropdownChange} identifier={'month'} noValidation/>
+        <InputDropdown {...this.props} items={[1980,1990,2000,2010]} className="input-date-dropdown year" name={null} onValidation={this.onDropdownChange} identifier={'year'} noValidation/>
       </div>
     );
   }
