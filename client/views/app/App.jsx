@@ -7,10 +7,11 @@ import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn, KeycloakAcco
 import keycloakAdapter from 'keycloak-js';
 
 class App extends Component {
+
   static propTypes = {
     appStart: func,
     authLoggedIn: func,
-    keycloak: object,
+    keycloak: object
   };
 
   componentDidMount() {
@@ -25,10 +26,13 @@ class App extends Component {
     document.getElementById('mounting-preview').remove();
 
     /* Send off the auth logged in action */
-    this.props.authLoggedIn({
-      token: keycloak.getToken(),
-      info: keycloak.getInfo(),
-    });
+    if(keycloak.getToken()) {
+
+        this.props.authLoggedIn({
+          token: keycloak.getToken(),
+          info: keycloak.getInfo(),
+        });
+    }
   }
 
   setupGoogleAPI() {
@@ -47,6 +51,7 @@ class App extends Component {
   }
 
   render() {
+
     const keycloak = this.props.keycloak;
     const keycloakConfig = keycloak.config;
 
