@@ -75,6 +75,7 @@ export default function reducer(state = initialState, action) {
         };
 
         case ATTRIBUTE:
+
         return {
             ...state,
             data: {
@@ -88,6 +89,8 @@ export default function reducer(state = initialState, action) {
                     if(!state.data[be_code]) state.data[be_code] = {
                         attributes: {}
                     };
+
+                    if(!state.data[be_code].attributes) state.data[be_code].attributes = {};
 
                     let found = false;
                     if(Object.keys(state.data[be_code].attributes).length > 0) {
@@ -104,7 +107,7 @@ export default function reducer(state = initialState, action) {
 
                         state.data[be_code] = {
                             ...state.data[be_code],
-                            ...attributes[attributeCode] = {
+                            ...state.data[be_code].attributes[attributeCode] = {
                                 ...(state.data[be_code] ? state.data[be_code].attributes : {}),
                                 ...{
                                     code: attributeCode,
