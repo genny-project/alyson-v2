@@ -7,6 +7,7 @@ import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn, KeycloakAcco
 import keycloakAdapter from 'keycloak-js';
 
 class App extends Component {
+
   static propTypes = {
     appStart: func,
     authLoggedIn: func,
@@ -31,13 +32,6 @@ class App extends Component {
           token: keycloak.getToken(),
           info: keycloak.getInfo(),
         });
-    }
-    else if(!this.state.hardRefresh) {
-
-        this.setState({
-            hardRefresh: true
-        });
-        window.location.reload(true);
     }
   }
 
