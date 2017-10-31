@@ -20,20 +20,14 @@ class InputDatePicker extends Component {
 
   state = {
     startDate: '',
-    endDate: '',
   }
 
-  handleChangeStart = (date) => {
+  handleChange = (date) => {
     this.setState({
       startDate: date
     });
   }
 
-  handleChangeEnd = (date) => {
-    this.setState({
-      endDate: date
-    });
-  }
 
   render() {
  	  const { className, children, style } = this.props;
@@ -45,18 +39,11 @@ class InputDatePicker extends Component {
         <DatePicker
           className="start-date"
           selected={this.state.startDate}
-          selectsStart
-          startDate={this.state.startDate}
-          endDate={this.state.endDate}
-          onChange={this.handleChangeStart}
-        />
-        <DatePicker
-            className="end-date"
-            selected={this.state.endDate}
-            selectsEnd
-            startDate={this.state.startDate}
-            endDate={this.state.endDate}
-            onChange={this.handleChangeEnd}
+          onChange={this.handleChange}
+          peekNextMonth
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
         />
       </div>
     );

@@ -248,7 +248,7 @@
                 {
                  "div": {
                   "style": {
-                   "text-align": "center"
+                   "textAlign": "center"
                   },
                   "position": [0, 1],
                   "children": [
