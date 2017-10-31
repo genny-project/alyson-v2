@@ -65,9 +65,6 @@ export default function reducer(state = initialState, action) {
                 ...action.payload.items.reduce((existing, newItem) => {
 
                     if(action.payload.aliasCode) {
-                        console.log("==============");
-                        console.log(newItem);
-                        console.log(action.payload);
                         existing[action.payload.aliasCode] = newItem.code;
                     }
 
@@ -78,6 +75,7 @@ export default function reducer(state = initialState, action) {
         };
 
         case ATTRIBUTE:
+
         return {
             ...state,
             data: {
@@ -89,14 +87,17 @@ export default function reducer(state = initialState, action) {
                     let newValue = attribute.value;
 
                     if(!state.data[be_code]) state.data[be_code] = {
-                        attributes: []
+                        attributes: {}
                     };
 
+                    if(!state.data[be_code].attributes) state.data[be_code].attributes = {};
+
                     let found = false;
-                    if(state.data[be_code].attributes.length > 0) {
-                        state.data[be_code].attributes.forEach(attribute => {
-                            if(attribute.code == attributeCode) {
-                                attribute.value = newValue;
+                    if(Object.keys(state.data[be_code].attributes).length > 0) {
+                        Object.keys(state.data[be_code].attributes).forEach(attribute_key => {
+
+                            if(attribute_key == attributeCode) {
+                                state.data[be_code].attributes[attribute_key].value = newValue;
                                 found = true;
                             }
                         });
@@ -106,13 +107,13 @@ export default function reducer(state = initialState, action) {
 
                         state.data[be_code] = {
                             ...state.data[be_code],
-                            attributes: [
-                                ...(state.data[be_code] ? state.data[be_code].attributes : []),
-                                {
+                            ...state.data[be_code].attributes[attributeCode] = {
+                                ...(state.data[be_code] ? state.data[be_code].attributes : {}),
+                                ...{
                                     code: attributeCode,
                                     value: newValue
                                 }
-                            ]
+                            }
                         };
                     }
                 }),
