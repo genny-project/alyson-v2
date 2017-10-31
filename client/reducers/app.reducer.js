@@ -3,8 +3,7 @@ import history from 'views/history.js';
 
 const initialState = {
     lastRedirect: null,
-    openedDropdown: null,
-    componentState: [],
+    openedDropdown: null
 };
 
 export default function reducer( state = initialState, action ) {
