@@ -21,9 +21,21 @@ export default function reducer(state = initialState, action) {
                 ...action.payload.items.reduce((existing, newItem) => {
 
                     let baseEntityCode = newItem.code;
-                    let newAttributes = newItem.baseEntityAttributes || [];
 
+                    if(!newItem.baseEntityAttributes) {
+
+                        existing[baseEntityCode] = {
+                            ...state.data[baseEntityCode],
+                            ...existing[baseEntityCode],
+                            ...newItem
+                        };
+
+                        return existing;
+                    }
+
+                    let newAttributes = newItem.baseEntityAttributes;
                     let existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
+
                     newAttributes.forEach(newAttribute => {
 
                         existingAttributes[newAttribute.attributeCode] = {
@@ -86,11 +98,16 @@ export default function reducer(state = initialState, action) {
                     let attributeCode = attribute.attributeCode;
                     let newValue = attribute.value;
 
-                    if(!state.data[be_code]) state.data[be_code] = {
-                        attributes: {}
-                    };
+                    if(!state.data[be_code])  {
 
-                    if(!state.data[be_code].attributes) state.data[be_code].attributes = {};
+                        state.data[be_code] = {
+                            attributes: {}
+                        };
+                    }
+
+                    if(!state.data[be_code].attributes) {
+                        state.data[be_code].attributes = {};
+                    }
 
                     let found = false;
                     if(Object.keys(state.data[be_code].attributes).length > 0) {
@@ -108,7 +125,7 @@ export default function reducer(state = initialState, action) {
                         state.data[be_code] = {
                             ...state.data[be_code],
                             ...state.data[be_code].attributes[attributeCode] = {
-                                ...(state.data[be_code] ? state.data[be_code].attributes : {}),
+                                ...(state.data[be_code] ? state.data[be_code].attributes[attributeCode] : {}),
                                 ...{
                                     code: attributeCode,
                                     value: newValue
