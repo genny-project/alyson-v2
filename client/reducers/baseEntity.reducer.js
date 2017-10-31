@@ -86,14 +86,15 @@ export default function reducer(state = initialState, action) {
                     let newValue = attribute.value;
 
                     if(!state.data[be_code]) state.data[be_code] = {
-                        attributes: []
+                        attributes: {}
                     };
 
                     let found = false;
-                    if(state.data[be_code].attributes.length > 0) {
-                        state.data[be_code].attributes.forEach(attribute => {
-                            if(attribute.code == attributeCode) {
-                                attribute.value = newValue;
+                    if(Object.keys(state.data[be_code].attributes).length > 0) {
+                        Object.keys(state.data[be_code].attributes).forEach(attribute_key => {
+
+                            if(attribute_key == attributeCode) {
+                                state.data[be_code].attributes[attribute_key].value = newValue;
                                 found = true;
                             }
                         });
@@ -103,13 +104,13 @@ export default function reducer(state = initialState, action) {
 
                         state.data[be_code] = {
                             ...state.data[be_code],
-                            attributes: [
-                                ...(state.data[be_code] ? state.data[be_code].attributes : []),
-                                {
+                            ...attributes[attributeCode] = {
+                                ...(state.data[be_code] ? state.data[be_code].attributes : {}),
+                                ...{
                                     code: attributeCode,
                                     value: newValue
                                 }
-                            ]
+                            }
                         };
                     }
                 }),
