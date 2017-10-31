@@ -79,7 +79,7 @@
               "children": [
                 
                 {
-                  "BucketView": {
+                  "GennyBucketView": {
                     "buckets": [
                       {
                         "title": "PENDING"
