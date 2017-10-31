@@ -10,7 +10,7 @@ class App extends Component {
   static propTypes = {
     appStart: func,
     authLoggedIn: func,
-    keycloak: object,
+    keycloak: object
   };
 
   componentDidMount() {
@@ -25,14 +25,19 @@ class App extends Component {
     document.getElementById('mounting-preview').remove();
 
     /* Send off the auth logged in action */
-    if(!keycloak.getToken()) {
-        window.location.reload(true);
-    }
-    else {
+    if(keycloak.getToken()) {
+
         this.props.authLoggedIn({
           token: keycloak.getToken(),
           info: keycloak.getInfo(),
         });
+    }
+    else if(!this.state.hardRefresh) {
+
+        this.setState({
+            hardRefresh: true
+        });
+        window.location.reload(true);
     }
   }
 
@@ -52,6 +57,7 @@ class App extends Component {
   }
 
   render() {
+
     const keycloak = this.props.keycloak;
     const keycloakConfig = keycloak.config;
 
