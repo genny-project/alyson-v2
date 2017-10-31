@@ -65,9 +65,6 @@ export default function reducer(state = initialState, action) {
                 ...action.payload.items.reduce((existing, newItem) => {
 
                     if(action.payload.aliasCode) {
-                        console.log("==============");
-                        console.log(newItem);
-                        console.log(action.payload);
                         existing[action.payload.aliasCode] = newItem.code;
                     }
 

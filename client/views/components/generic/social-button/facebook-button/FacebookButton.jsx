@@ -195,7 +195,7 @@ class FacebookButton extends Component {
         const params = {
             client_id: appId,
             redirect_uri: redirectUri,
-            state: 'facebookdirect',
+            state: 'secret98053',
             scope,
         };
 
@@ -231,8 +231,7 @@ class FacebookButton extends Component {
 
     render() {
         return (
-
-            <div text={this.props.text} onClick={this.click} />
+            <button text={this.props.text} onClick={this.click}>{this.props.text}</button>
         );
     }
 }

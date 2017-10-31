@@ -15,21 +15,25 @@ class GennyBridge {
 
   sendMessage(event, data) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
   }
 
   sendTVEvent(event, data) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
   }
 
   sendLogout(event, data) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
   sendAnswer(data, items) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
 
     // sending back the data to the front end as the backend is not doing it for now.

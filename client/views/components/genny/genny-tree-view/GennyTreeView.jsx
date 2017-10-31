@@ -26,20 +26,44 @@ class GennyTreeView extends Component {
       store.storeState(identifier, this.state);
   }
 
-  componentWillMount() {
+  componentDidMount() {
 
       let identifier = this.props.key || this.props.root;
       if(identifier && this.props.componentState) {
 
         if(this.props.componentState[identifier]) {
+
+            // ask for all the bes
+            this.getNeededDataFor(this.props.componentState[identifier]);
+
+            // update state
             this.setState(this.props.componentState[identifier]);
         }
+      }
+  }
+
+  getNeededDataFor(state) {
+
+      Object.keys(state.tree).forEach(be_key => {
+          this.getNeededItems(state, be_key);
+      });
+  }
+
+  getNeededItems(state, itemCode) {
+
+      // get be
+      this.handleClick({code: itemCode});
+
+      // get children codes if exist
+      if(state[itemCode] instanceof Object) {
+          this.getNeededDataFor(state[itemCode]);
       }
   }
 
   handleClick = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
 
     const { tree } = this.state;
+
     /* Now check whether this item is opened or closed in the tree */
     if (!tree[item.code]) {
       /* Item is closed */
