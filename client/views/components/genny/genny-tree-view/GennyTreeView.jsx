@@ -5,7 +5,9 @@ import { object, array } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
 import { BaseEntity } from '../../../../utils/genny/';
+
 class GennyTreeView extends Component {
+
   constructor(props) {
     super(props);
   }
@@ -18,6 +20,12 @@ class GennyTreeView extends Component {
 
   state = {
     tree: {}
+  }
+
+  componentWillMount() {
+
+      console.log("we should load state from store...");
+      console.log(this.props.componentState);
   }
 
   handleClick = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
