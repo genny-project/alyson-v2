@@ -25,7 +25,7 @@ class App extends Component {
     document.getElementById('mounting-preview').remove();
 
     /* Send off the auth logged in action */
-    if(!keycloack.getToken()) {
+    if(!keycloak.getToken()) {
         window.location.reload(true);
     }
     else {

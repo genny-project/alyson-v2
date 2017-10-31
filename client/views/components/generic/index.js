@@ -16,6 +16,7 @@ export { default as InputDropdown } from './input-dropdown';
 export { default as InputSlider } from './input-slider';
 export { default as InputText } from './input-text';
 export { default as InputTextarea } from './input-textarea';
+export { default as InputTime } from './input-time';
 export { default as Label } from './label';
 export { default as Notifications } from './notifications';
 export { default as ProgressBar } from './progress-bar';

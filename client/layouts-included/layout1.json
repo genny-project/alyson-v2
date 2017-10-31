@@ -123,7 +123,7 @@
                      "cols": 3,
                      "rows": 2,
                      "style": {
-                      "margin-top": "50px"
+                      "marginTop": "50px"
                      },
                      "children": [
                       {
@@ -230,7 +230,7 @@
                     "div": {
                      "style": {
                       "height": "50px",
-                      "background-color": "lightgray"
+                      "backgroundColor": "lightgray"
                      },
                      "children": [
                       {
@@ -248,21 +248,21 @@
                 {
                  "div": {
                   "style": {
-                   "text-align": "center"
+                   "textAlign": "center"
                   },
                   "position": [0, 1],
                   "children": [
                    {
                     "button": {
                      "style": {
-                      "margin-top": "50px",
+                      "marginTop": "50px",
                       "border": "1px solid",
-                      "border-color": "PROJECT.PRI_COLOR",
+                      "borderColor": "PROJECT.PRI_COLOR",
                       "height": "50px",
-                      "min-width": "200px",
+                      "minWidth": "200px",
                       "color": "PROJECT.PRI_COLOR",
-                      "background-color": "white",
-                      "border-radius": "5px"
+                      "backgroundColor": "white",
+                      "borderRadius": "5px"
                      },
                      "children": "Edit Load"
                     }
@@ -277,14 +277,14 @@
                    {
                     "button": {
                      "style": {
-                      "margin-top": "25px",
+                      "marginTop": "25px",
                       "border": "1px solid",
-                      "border-color": "PROJECT.PRI_COLOR",
+                      "borderColor": "PROJECT.PRI_COLOR",
                       "height": "50px",
-                      "min-width": "200px",
+                      "minWidth": "200px",
                       "color": "PROJECT.PRI_COLOR",
-                      "background-color": "white",
-                      "border-radius": "5px"
+                      "backgroundColor": "white",
+                      "borderRadius": "5px"
                      },
                      "children": "View on Map"
                     }

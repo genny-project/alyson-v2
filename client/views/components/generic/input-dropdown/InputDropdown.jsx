@@ -1,6 +1,6 @@
 import './inputDropdown.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, } from 'prop-types';
 import Downshift from 'downshift'
 import { Label, IconSmall } from '../';
 
@@ -8,12 +8,13 @@ class InputDropdown extends Component {
 
   static defaultProps = {
     className: '',
+    hint: ''
   }
 
   static propTypes = {
     className: string,
     style: object,
-    children: any,
+    hint: string,
   }
 
   state = {
@@ -62,7 +63,7 @@ class InputDropdown extends Component {
   }
 
   render() {
- 	  const { className, style, items, name, ...rest } = this.props;
+ 	  const { className, style, items, name, hint, ...rest } = this.props;
     const { ask, validationStatus } = this.state;
     const componentStyle = { ...style, };
     return (
@@ -70,9 +71,7 @@ class InputDropdown extends Component {
         {name ? <Label className="dropdown-label" text={name} /> : null }
         <Downshift {...rest} onChange={this.handleClick}>
           {({
-            getLabelProps,
-            getInputProps,
-            getButtonProps,
+
             getItemProps,
             isOpen,
             toggleMenu,
@@ -90,7 +89,7 @@ class InputDropdown extends Component {
                 aria-haspopup="true"
                 aria-expanded={isOpen}
               >
-                <span className="">{selectedItem ? selectedItem : 'Select a fruit'}</span>
+                <span className="">{selectedItem ? selectedItem : hint }</span>
                 <IconSmall name={ isOpen ? 'expand_more' : 'chevron_right'} />
               </div>
               {isOpen ? (
