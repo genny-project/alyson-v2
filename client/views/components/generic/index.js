@@ -22,6 +22,7 @@ export { default as Notifications } from './notifications';
 export { default as ProgressBar } from './progress-bar';
 export { default as Sidebar } from './sidebar/';
 //export { default as Spinner } from './spinner';
+export { default as Status } from './status/';
 export { default as SubmitStatusIcon } from './submit-status-icon';
 export { default as TestComponent } from './test-component';
 export { default as TreeView } from './tree-view';
