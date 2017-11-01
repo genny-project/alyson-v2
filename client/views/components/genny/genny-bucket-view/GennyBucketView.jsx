@@ -14,41 +14,39 @@ class GennyBucketView extends Component {
 
     generateBucket(query, group) {
 
-        // group = {code: GRP_NO_QUOTES, name: "No quotes"}
         let groupCode = group.code;
-        return [(
-            <div>{groupCode}</div>
-        )]
-    }
+        let children = [];
 
-    generateBuckets(query, groups) {
+        let bes = query.getEntityChildren(groupCode);
+        bes.forEach(be => {
 
-        // groups = [{code: GRP_NO_QUOTES, name: "No quotes"}, ....]
-        return groups.map(group => {
-
-            console.log("=========");
-            console.log(group);
-            return {
-                title: group.name
-            }
+            children.push(
+                <div>{be.code}</div>
+            );
         });
+
+        return children;
     }
 
-    generateBucketView = (root) => {
+    generateBuckets(root) {
 
+        let buckets = [];
         let query = new BaseEntityQuery(this.props);
         let rootGroups = query.getEntityChildren(root);
-        let buckets = rootGroups.map(groups => this.generateBucket(query, groups));
+        rootGroups.forEach(group => {
 
-        console.log(rootGroups);
-        console.log(buckets);
+            buckets.push({
+                title: group.name,
+                children: this.generateBucket(query, group)
+            });
+        });
+
         return buckets;
     }
-
     render() {
 
         const { root } = this.props;
-        let buckets = this.generateBucketView(root);
+        let buckets = this.generateBuckets(root);
 
         return (
             <div className="genny-bucket-view">
