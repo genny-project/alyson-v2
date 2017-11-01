@@ -1,7 +1,7 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string } from 'prop-types';
-import { InputDate, InputSlider, InputDatePicker, InputDropdown, InputDropdown2, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
+import { InputDate, InputSlider, InputDatePicker, InputDropdown, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
 
 class Input extends Component {
   static defaultProps = {
@@ -32,8 +32,6 @@ class Input extends Component {
             return ( <InputDatePicker items={items} {...this.props}/> );
         case "dropdown":
             return ( <InputDropdown {...this.props}/> );
-        case "dropdown2":
-            return ( <InputDropdown2 items={items} {...this.props}/> );
         case "slider":
             return ( <InputSlider {...this.props}/> );
         case "upload-photo":
