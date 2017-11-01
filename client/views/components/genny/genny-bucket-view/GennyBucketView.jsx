@@ -1,9 +1,7 @@
 import './gennyBucketView.scss';
 import React, { Component } from 'react';
-import { object, array } from 'prop-types';
 import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
-import { IconSmall, BucketView } from '../../';
-import { GennyBridge } from 'utils/genny';
+import { IconSmall, BucketView, Card } from '../../';
 
 class GennyBucketView extends Component {
 
@@ -11,18 +9,48 @@ class GennyBucketView extends Component {
     };
 
     state = {
+
     }
 
+    generateBucket(query, group) {
+
+        let groupCode = group.code;
+        let children = [];
+
+        let bes = query.getEntityChildren(groupCode);
+        bes.forEach(be => {
+
+            children.push(
+                <div>{be.code}</div>
+            );
+        });
+
+        return children;
+    }
+
+    generateBuckets(root) {
+
+        let buckets = [];
+        let query = new BaseEntityQuery(this.props);
+        let rootGroups = query.getEntityChildren(root);
+        rootGroups.forEach(group => {
+
+            buckets.push({
+                title: group.name,
+                children: this.generateBucket(query, group)
+            });
+        });
+
+        return buckets;
+    }
     render() {
 
-        const { root, showBaseEntity } = this.props;
-
-        let query = new BaseEntityQuery(this.props);
-        //let children = query.getEntityChildren(root);
+        const { root } = this.props;
+        let buckets = this.generateBuckets(root);
 
         return (
             <div className="genny-bucket-view">
-                <BucketView {...this.props} />
+                <BucketView buckets={buckets} />
             </div>
         );
     }

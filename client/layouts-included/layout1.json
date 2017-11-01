@@ -73,33 +73,8 @@
           },
           {
 
-           "BucketView": {
-            "buckets": [
-              {
-                "title": "NO QUOTES",
-                "root": "GRP_NO_QUOTES"
-              },
-              {
-                "title": "QUOTES",
-                "root": "GRP_QUOTES"
-              },
-              {
-                "title": "DRIVER APPROVED",
-                "root": "GRP_APPROVED"
-              },
-              {
-                "title": "IN TRANSIT",
-                "root": "GRP_IN_TRANSIT"
-              },
-              {
-                "title": "COMPLETED",
-                "root": "GRP_COMPLETED"
-              },
-              {
-                "title": "PAID",
-                "root": "GRP_PAID"
-              }
-            ],
+           "GennyBucketView": {
+            "root": "GRP_DRIVER_VIEW",
             "style": {
 
             }
