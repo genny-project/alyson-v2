@@ -12,13 +12,12 @@
 	margin-bottom: 50px;
 
 	p, span, i {
-		//font-size: 0.75em;
 	}
 
 	.card-top {
 		display: flex;
 		justify-content: space-between;
-	
+
 		.card-image {
 			border-radius: 5px;
 			height: 40px;
@@ -27,7 +26,7 @@
 			flex-shrink: 0;
 			margin-right: 10px;
 		}
-	
+
 		.card-center {
 			flex-grow: 1;
 			width: 100%;
@@ -35,15 +34,15 @@
 			flex-direction: column;
 			justify-content: space-around;
 			margin-right: 10px;
-		
+
 			> span {
 				font-size: 0.75em;
 			}
-	
+
 			.card-toggle {
 				display: flex;
 				justify-content: center;
-			
+
 				i {
 					cursor: pointer;
 					font-size: 1em;
@@ -58,37 +57,11 @@
 		&:empty {
 			margin-top: 0;
 		}
-		
+
 		.card-collapse {
 			padding: 10px;
 			background: #F2F2F2;
 			border-radius: 5px;
-
-			// .card-data {
-			// 	display: flex;
-			// 	align-items: center;
-			
-			// 	&:not(:last-child){
-			// 		margin-bottom: 10px;
-			// 	}
-			
-			// 	i {
-			// 		font-size: 1em;
-			// 		margin-right: 5px;
-			// 	}
-			
-			// 	span {
-			// 		font-size: 0.75em;
-			// 	}
-			// }
-			
-			// .card-buttons {
-			// 	display: flex;
-			
-			// 	> div:not(:last-child){
-			// 		margin-right: 10px;
-			// 	}
-			// }
 		}
 	}
 }

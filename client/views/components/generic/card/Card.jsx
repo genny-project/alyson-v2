@@ -1,6 +1,6 @@
 import './card.scss';
 import React, { Component } from 'react';
-import { string, bool, array, object } from 'prop-types';
+import { string, bool, array, number } from 'prop-types';
 import { Button, IconSmall, ProgressBar, Status } from '../';
 import { TransitionGroup, Transition } from 'react-transition-group';
 
@@ -32,6 +32,7 @@ class Card extends Component {
   }
 
   handleClick = () => {
+
     this.setState(prevState => ({
       isVisible: !prevState.isVisible
     }));
@@ -46,7 +47,7 @@ class Card extends Component {
 
     return (
       <FadeTransition>
-        { 
+        {
           (status) => {
             console.log(status);
             if (status === 'exited') {
@@ -65,7 +66,7 @@ class Card extends Component {
   }
 
   render() {
-    const { className, text, description, isVisible, level,  } = this.props;
+    const { className, title, description, isVisible, level, style } = this.props;
     const componentStyle = { ...style, };
     const collapseContent = isVisible ? this.SlideContent() : '';
     const collapseArrow = isVisible ? 'expand_more' : 'expand_less';

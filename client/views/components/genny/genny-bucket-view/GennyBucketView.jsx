@@ -21,7 +21,9 @@ class GennyBucketView extends Component {
         bes.forEach(be => {
 
             children.push(
-                <div>{be.code}</div>
+                <Card title={be.name} description={be.code}>
+                     <p>Ho hello Adam</p>
+                </Card>
             );
         });
 
