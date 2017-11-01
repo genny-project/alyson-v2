@@ -1,32 +1,34 @@
 import './card.scss';
 import React, { Component } from 'react';
-import { string, array, object } from 'prop-types';
-import { Button, IconSmall, ProgressBar } from '../';
+import { string, bool, array, object } from 'prop-types';
+import { Button, IconSmall, ProgressBar, Status } from '../';
 import { TransitionGroup, Transition } from 'react-transition-group';
 
 class Card extends Component {
 
   static defaultProps = {
     className: '',
-    answerGroup: {},
+    title: '',
+    description: '',
+    isVisible: false,
+    level: '',
+    showProgress: false,
+    progressTotal: null,
+    progressCurrent: null,
   }
 
   static propTypes = {
     className: string,
-    answerGroup: object,
+    title: string,
+    description: string,
+    isVisible: bool,
+    level: string,
+    showProgress: bool,
+    progressTotal: number,
+    progressCurrent: number,
   }
 
   state = {
-    isVisible: false,
-    showProgress: this.props.answerGroup.showProgress ? this.props.answerGroup.showProgress : false,
-    pageCount: this.props.answerGroup.pageCount ? this.props.answerGroup.pageCount : 1,
-    pageCurrent: this.props.answerGroup.pageCurrent ? this.props.answerGroup.pageCurrent : 1,
-    data: this.props.answerGroup.data ? this.props.answerGroup.data : [],
-    textOne: this.props.answerGroup.textOne ? this.props.answerGroup.textOne : '',
-    textTwo: this.props.answerGroup.textTwo ? this.props.answerGroup.textTwo : '',
-    buttons: this.props.answerGroup.buttons ? this.props.answerGroup.buttons : [],
-    level: this.props.answerGroup.level ? this.props.answerGroup.level : '',
-    displayType: this.props.answerGroup.index ? this.props.answerGroup.index + 1 : 1,
   }
 
   handleClick = () => {
@@ -36,7 +38,7 @@ class Card extends Component {
   }
 
   SlideContent() {
-    const { showProgress, pageCurrent, pageCount, data, buttons, level } = this.state;
+    const { showProgress, progressCurrent, progressTotal, children } = this.props;
 
     const FadeTransition = (props) => (
       <Transition {...props} timeout={{ enter: 0, exit: 150 }} />
@@ -51,30 +53,10 @@ class Card extends Component {
               return null
             }
             return (
-
               <div className={`card-collapse fade fade-${status}`}>
-                {
-                  data.map(d => {
-                    return <div className={`card-data ${d.name}`} key={d.name}>
-                      <IconSmall name={d.icon}/>
-                      <span>{d.value}</span>
-                    </div>;
-                  })
-                }
-                <div className="card-buttons">
-                  {
-                    buttons.map(b => {
-                      return <Button className={b.class} key={b.name}>
-                        <IconSmall name={b.icon}/>
-                        <span>{b.value}</span>
-                      </Button>;
-                    })
-                  }
-                </div>
-
-                {showProgress ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={2} /> : null}
+                {children}
+                {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
               </div>
-
             );
           }
         }
@@ -83,42 +65,26 @@ class Card extends Component {
   }
 
   render() {
-    const { className, answerGroup } = this.props;
-    const { textOne, textTwo, level, isVisible, data, buttons, displayType } = this.state;
-    console.log(isVisible);
+    const { className, text, description, isVisible, level,  } = this.props;
+    const componentStyle = { ...style, };
     const collapseContent = isVisible ? this.SlideContent() : '';
     const collapseArrow = isVisible ? 'expand_more' : 'expand_less';
 
     return (
       <div className={`card ${className}`}>
         <div className="card-top">
-
-          { displayType === 2 || displayType === 3 ? <div className="card-image" /> : null }
-
+          <div className="card-image" />
           <div className="card-center">
-
-            <div className="card-info">
-              <span>{textOne}</span>
-              { displayType === 2 || displayType === 3 ? <span>{textTwo}</span> : null }
-            </div>
-
+            <span>{title}</span>
+            <span>{description}</span>
             <div className="card-toggle" onClick={this.handleClick} >
               <IconSmall name={collapseArrow} />
             </div>
-
           </div>
-
-          <div className={`card-light ${level}`} style={ displayType === 1 ? {height: 'initial'} : null }/>
-
+          <Status className="card-status" color="ff0000"/>
         </div>
-
-
-
-
-        <TransitionGroup>
-
+        <TransitionGroup className="card-transition">
           {collapseContent}
-
         </TransitionGroup>
       </div>
     );
