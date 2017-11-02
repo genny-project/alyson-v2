@@ -7,7 +7,7 @@
   .bucket {
     flex: 1;
     flex-shrink: 0;
-    text-align: center;
+    
     background: #a3a3a3;
     color: #FFF;
 
@@ -16,6 +16,7 @@
 
       .bucket-title {
         background: #898989;
+        
       
       }
     }
@@ -23,7 +24,7 @@
     .bucket-title {
       padding: 20px;
       background: #929292;
-
+      text-align: center;
     }
 
     .bucket-content {

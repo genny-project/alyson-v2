@@ -1,46 +1,27 @@
 import './form.scss';
 import React, { Component } from 'react';
-import { ProgressBar, Button, IconSmall } from '../';
-import { string, array, object} from 'prop-types';
+import { ProgressBar, Button, IconSmall, Pagination } from '../';
+import { string, array, object, number} from 'prop-types';
 
 class Form extends Component {
 
   static defaultProps = {
     className: '',
+    itemsPerPage: 3
   }
 
   static propTypes = {
     className: string,
+    itemsPerPage: number,
+    showProgress: false
   }
 
   state = {
-    itemsPerPage: this.props.itemsPerPage ? this.props.itemsPerPage : 1,
     showProgress: this.props.showProgress ? this.props.showProgress : false,
     pageCount: Math.ceil( Object.keys(this.props.children).length / this.props.itemsPerPage ),
     childrenCurrent: 1,
     pageCurrent: 1,
-  }
-
-  handlePrevPage = () => {
-    if ( this.state.pageCurrent > 1 ) {
-      this.setState(prevState => ({
-          pageCurrent: prevState.pageCurrent--
-        }, () => {
-          console.log(this.state.pageCurrent)
-        }),
-      );
-    }
-  }
-
-  handleNextPage = () => {
-    if ( this.state.pageCurrent < this.state.childrenCount / this.state.itemsPerPage ) {
-      this.setState(prevState => ({
-          pageCurrent: prevState.pageCurrent++
-        }, () => {
-          console.log(this.state.pageCurrent)
-        }),
-      );
-    }
+    offset: 0
   }
 
   getChildrenCount = (childrenCount, itemsPerPage) => {
@@ -52,17 +33,26 @@ class Form extends Component {
     return arrPage;
   }
 
-  getChildrenForCurrentPage = (itemsPerPage) => {
-    return [this.props.children]; //TODO: return only children supposed to be displayed
+  getChildrenForCurrentPage = (itemsPerPage, offset, children) => {
+    let displayedItems = children.slice(offset, offset + itemsPerPage);
+    return displayedItems;
+  }
+
+  pageChange = (selectedPage) => {
+    const { itemsPerPage } = this.props; 
+    let offset = Math.ceil(selectedPage * itemsPerPage);
+    this.setState({offset: offset}, () => {
+    });
   }
 
   render() {
 
-    const { className, children, questionGroup, style } = this.props;
-    const { itemsPerPage, showProgress, childrenCurrent, pageCurrent, pageCount } = this.state;
+    const { className, children, style, itemsPerPage, showProgress, } = this.props;
+    const { childrenCurrent, pageCurrent, pageCount, offset } = this.state;
     const componentStyle = { ...style, };
+    
     let childrenCount = Object.keys(this.props.children).length;
-    const childrenPageArray = this.getChildrenForCurrentPage(itemsPerPage);
+    const childrenPageArray = this.getChildrenForCurrentPage(itemsPerPage, offset, children);
 
     return (
       <div className="form-container">
@@ -72,12 +62,7 @@ class Form extends Component {
   	        {childrenPageArray}
           </div>
           <div className="form-nav">
-            <Button className={`form-nav-prev ${pageCurrent > 1 ? 'visible' : 'hidden' }`} onClick={this.handlePrevPage} >
-              <IconSmall name="chevron_left" />
-            </Button>
-            <Button className={`form-nav-next ${pageCurrent < childrenCount / itemsPerPage ? 'visible' : 'hidden' }`} onClick={this.handleNextPage} >
-              <IconSmall name="chevron_right" />
-            </Button>
+            <Pagination hidePageNumbers perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}/>
           </div>
         </div>
       </div>

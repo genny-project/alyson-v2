@@ -3,44 +3,44 @@ import React, { Component } from 'react';
 import { array, object, any } from 'prop-types';
 
 class BucketView extends Component {
-  static propTypes = {
-    buckets: array,
-    style: object,
-    children: any,
-  };
 
-  renderBucket( i ) {
-    const { children } = this.props;
-    let childs = React.Children.toArray(children);
-    const bucketChildren = childs.filter(child => {
-      return child.props.answerGroup.index != undefined && child.props.answerGroup.index == i;
-    });
+    static propTypes = {
+        buckets: array,
+        style: object,
+        children: any,
+    };
 
-    return (
-      <div key={i} className="bucket-contents">
-        {bucketChildren}
-      </div>
-    );
-  }
+    renderBucket(bucket) {
 
-  render() {
-    const { buckets, style } = this.props;
-
-    return (
-      <div className="bucket-view" style={style}>
-        {buckets.map(( bucket, i ) => (
-          <div className="bucket" key={bucket.title}>
-            <div className="bucket-title sticky">
-              {bucket.title}
+        return (
+            <div key={bucket.title} className="bucket-contents">
+                {bucket.children}
             </div>
-            <div className="bucket-content">
-              {this.renderBucket( i )}
+        );
+    }
+
+    render() {
+
+        const { buckets, style } = this.props;
+
+        return (
+            <div className="bucket-view" style={style}>
+                {
+                    buckets.map(( bucket, i ) => (
+
+                        <div className="bucket" key={bucket.title}>
+                            <div className="bucket-title sticky">
+                                {bucket.title}
+                            </div>
+                            <div className="bucket-content">
+                                {this.renderBucket(bucket)}
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default BucketView;

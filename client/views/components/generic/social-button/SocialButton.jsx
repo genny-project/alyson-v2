@@ -27,9 +27,10 @@ class SocialButton extends Component {
       switch (type) {
           case "facebook":
           return <FacebookButton
+              redirectUri="http://acrow.outcome-hub.com:8083/social/oauth_callback/&state=secret98053"
               callback={this.callback}
-              appId="123"
-              text="Log in with Facebook"
+              appId="423902461306952"
+              text="My Facebook data"
               onClick={this.onClickHandler}
           />
           default:
