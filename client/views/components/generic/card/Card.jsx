@@ -10,7 +10,7 @@ class Card extends Component {
     className: '',
     title: '',
     description: '',
-    isVisible: false,
+    isVisible: true,
     level: '',
     showProgress: false,
     progressTotal: null,
