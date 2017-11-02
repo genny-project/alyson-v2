@@ -4,7 +4,7 @@ import { string, bool, array, object, int, any, func } from 'prop-types';
 import { Label, SubmitStatusIcon } from '../';
 
 class InputText extends Component {
-  
+
   static defaultProps = {
     className: '',
     validationList: [],

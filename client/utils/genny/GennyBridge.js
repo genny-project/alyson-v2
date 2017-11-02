@@ -19,6 +19,13 @@ class GennyBridge {
     Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
   }
 
+  sendBtnClick(btn_code) {
+      let token = this.getToken();
+      if(token) {
+          Vertx.sendMessage(events.outgoing.BTN({ code: btn_code }, token));
+      }
+  }
+
   sendTVEvent(event, data) {
     let token = this.getToken();
     if(token)

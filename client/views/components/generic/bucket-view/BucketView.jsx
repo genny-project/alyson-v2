@@ -1,22 +1,25 @@
 import './bucketView.scss';
 import React, { Component } from 'react';
-import { array, object, any } from 'prop-types';
+import ReactDOM from 'react-dom';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { BucketColumn } from './bucket-column';
 
 class BucketView extends Component {
 
-    static propTypes = {
-        buckets: array,
-        style: object,
-        children: any,
-    };
+    constructor(props) {
+        super(props);
+    }
 
-    renderBucket(bucket) {
+    onDragEnd = (result) => {
 
-        return (
-            <div key={bucket.title} className="bucket-contents">
-                {bucket.children}
-            </div>
-        );
+        // dropped outside the list
+        if (!result.destination) {
+            return;
+        }
+
+        if(this.props.didMoveItem) {
+            this.props.didMoveItem(result, result.source, result.destination);
+        }
     }
 
     render() {
@@ -24,21 +27,15 @@ class BucketView extends Component {
         const { buckets, style } = this.props;
 
         return (
-            <div className="bucket-view" style={style}>
-                {
-                    buckets.map(( bucket, i ) => (
 
-                        <div className="bucket" key={bucket.title}>
-                            <div className="bucket-title sticky">
-                                {bucket.title}
-                            </div>
-                            <div className="bucket-content">
-                                {this.renderBucket(bucket)}
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <div className="bucket-view" style={style}>
+                    {
+                        buckets.map((bucket) => <BucketColumn title={bucket.title} groupId={bucket.id} children={bucket.children} />)
+                    }
+                </div>
+            </DragDropContext>
+
         );
     }
 }

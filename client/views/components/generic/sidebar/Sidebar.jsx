@@ -1,6 +1,6 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
-import { GennyImageView, SocialButton } from '../../../components'
+import { GennyImageView, GennySocialButton } from '../../../components'
 import { object, bool, string, any } from 'prop-types';
 
 class Sidebar extends Component {
@@ -14,13 +14,7 @@ class Sidebar extends Component {
     };
 
     renderSocialButtons = (socialLogins) => {
-
-        let buttonLayout = [];
-        socialLogins.forEach(social => {
-            buttonLayout.push(<SocialButton buttonType={social} />);
-        });
-
-        return buttonLayout;
+        return socialLogins.map(social => <GennySocialButton buttonType={social} />)
     }
 
     render() {

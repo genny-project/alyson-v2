@@ -9,6 +9,7 @@ import attributeIncoming from './attribute.events.incoming.js';
 import aliasIncoming from './alias.events.incoming.js';
 import treeView from './treeView.events.outgoing.js';
 import notificationIncoming from './notification.events.incoming.js';
+import btnOutgoing from './btn.events.outgoing.js';
 
 export default {
   incoming: {
@@ -19,11 +20,12 @@ export default {
     ...notificationIncoming,
     ...authIncoming,
     ...aliasIncoming,
-    ...redirectIncoming
+    ...redirectIncoming,
   },
   outgoing: {
     ...authOutgoing,
     ...askOutgoing,
     ...treeView,
+    ...btnOutgoing
   }
 };
