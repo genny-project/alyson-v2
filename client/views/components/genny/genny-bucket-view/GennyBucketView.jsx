@@ -2,6 +2,7 @@ import './gennyBucketView.scss';
 import React, { Component } from 'react';
 import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
 import { IconSmall, BucketView, Card } from '../../';
+import { Draggable } from 'react-beautiful-dnd';
 
 class GennyBucketView extends Component {
 
@@ -23,9 +24,11 @@ class GennyBucketView extends Component {
 
             children.push(
                 {
-                content: <Card title={be.name} description={be.code}>
-                    <p>Ho hello Adam</p>
-                </Card>,
+                content: (
+                    <Card title={be.name} description={be.code}>
+                        <p>Ho hello Adam</p>
+                    </Card>
+                ),
                 id: be.id
                 }
             );

@@ -2,6 +2,7 @@ import './bucketView.scss';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { BucketColumn } from './bucket-column';
 
 const grid = 5;
 const getItemStyle = (draggableStyle, isDragging) => ({
@@ -43,51 +44,13 @@ class BucketView extends Component {
 
                 <div className="bucket-view" style={style}>
                     {
-                        buckets.map((bucket) => (
-                            <Droppable droppableId={bucket.title}>
+                        buckets.map((bucket) => {
 
-                                {
-                                    (provided, snapshot) => (
-                                    <div ref={provided.innerRef}
-                                        style={getListStyle(snapshot.isDraggingOver)}
-                                        className="bucket"
-                                        key={bucket.title} >
-
-                                        <div className="bucket-title sticky">
-                                            {bucket.title}
-                                        </div>
-                                        <div className="bucket-content">
-                                            {(bucket ? bucket.children : []).map(item => (
-
-                                                <Draggable key={item.id} draggableId={item.id}>
-                                                    {(provided, snapshot) => (
-                                                        <div>
-                                                            <div
-                                                                ref={provided.innerRef}
-                                                                style={getItemStyle(
-                                                                    provided.draggableStyle,
-                                                                    snapshot.isDragging
-                                                                )}
-                                                                {...provided.dragHandleProps}
-                                                                className="bucket-contents"
-                                                                >
-                                                                    {item.content}
-                                                                </div>
-                                                                {provided.placeholder}
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                ))}
-                                            </div>
-
-                                            {provided.placeholder}
-
-                                        </div>
-                                    )
-                                }
-
-                            </Droppable>
-                        ))
+                            console.log(BucketColumn);
+                            return (
+                                <BucketColumn title={bucket.title} children={bucket.children} />
+                            )
+                        })
                     }
                 </div>
             </DragDropContext>
