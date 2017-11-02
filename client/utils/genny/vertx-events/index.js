@@ -20,7 +20,7 @@ export default {
     ...notificationIncoming,
     ...authIncoming,
     ...aliasIncoming,
-    ...redirectIncoming
+    ...redirectIncoming,
   },
   outgoing: {
     ...authOutgoing,
