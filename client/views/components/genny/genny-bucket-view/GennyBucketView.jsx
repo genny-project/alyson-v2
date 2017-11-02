@@ -14,6 +14,13 @@ class GennyBucketView extends Component {
 
     }
 
+    didMoveItem = (item, source, destination) => {
+
+        console.log(source);
+        console.log(item);
+        console.log(destination);
+    }
+
     generateBucket(query, group) {
 
         let groupCode = group.code;
@@ -29,7 +36,7 @@ class GennyBucketView extends Component {
                         <p>Ho hello Adam</p>
                     </Card>
                 ),
-                id: be.id
+                id: be.code
                 }
             );
         });
@@ -46,6 +53,7 @@ class GennyBucketView extends Component {
 
             buckets.push({
                 title: group.name,
+                id: group.code,
                 children: this.generateBucket(query, group)
             });
         });
@@ -60,7 +68,7 @@ class GennyBucketView extends Component {
 
         return (
             <div className="genny-bucket-view">
-                <BucketView buckets={buckets} />
+                <BucketView buckets={buckets} didMoveItem={this.didMoveItem} />
             </div>
         );
     }

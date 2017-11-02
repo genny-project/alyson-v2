@@ -1,21 +1,29 @@
 import './BucketColumn.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import {  } from '../';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { BucketElement } from './bucket-element';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+
+const gridPadding = 5;
+const getListStyle = isDraggingOver => ({
+    // background: isDraggingOver ? 'lightblue' : "#a3a3a3",
+    padding: gridPadding,
+});
 
 class BucketColumn extends Component {
 
     static defaultProps = {
         className: '',
-        title: 'Bucket'
+        title: 'Bucket',
+        groupId: '',
     }
 
     static propTypes = {
         className: string,
         style: string,
         children: object,
-        title: string
+        title: string,
+        groupId: string,
     }
 
     state = {
@@ -23,15 +31,16 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, children } = this.props;
+        const { className, style, title, children, groupId } = this.props;
         const {  } = this.state;
         const componentStyle = { ...style, };
 
         return (
-            <Droppable droppableId={title}>
 
+            <Droppable droppableId={groupId}>
                 {
                     (provided, snapshot) => (
+
                         <div ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}
                             className="bucket"
@@ -42,27 +51,7 @@ class BucketColumn extends Component {
                             </div>
                             <div className="bucket-content">
                                 {
-                                    children.map(child => (
-
-                                        <Draggable key={child.id} draggableId={child.id}>
-                                            {(provided, snapshot) => (
-                                                <div>
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        style={getItemStyle(
-                                                            provided.draggableStyle,
-                                                            snapshot.isDragging
-                                                        )}
-                                                        {...provided.dragHandleProps}
-                                                        className="bucket-contents"
-                                                        >
-                                                            {child.content}
-                                                        </div>
-                                                        {provided.placeholder}
-                                                    </div>
-                                            )}
-                                        </Draggable>
-                                    ))
+                                    children.map(child => (<BucketElement item={child} />))
                                 }
                                 </div>
 

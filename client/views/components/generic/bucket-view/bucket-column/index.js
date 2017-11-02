@@ -1,1 +1,1 @@
-export { default } from './BucketColumn.jsx';
+export { default as BucketColumn } from './BucketColumn.jsx';
