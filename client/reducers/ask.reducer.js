@@ -16,32 +16,35 @@ export default function reducer(state = initialState, action) {
                 ...state.data,
                 ...action.payload.items.reduce((existing, ask) => {
 
-                    let code = ask.question.code;
+                    if(ask.question) {
 
-                    existing[code] = {
-                      ...state.data[code],
-                      ...ask,
-                      question: {
-                          ...ask.question,
-                          validationList: [
-                              ...(ask.question.attribute.dataType.validationList ? ask.question.attribute.dataType.validationList : [])
-                          ],
-                          type: ask.question.attribute.dataType.className,
-                          attributeCode: ask.question.attribute.code
-                      },
-                      answerList: {
-                          ...(state.data[code] ? state.data[code].answerList : {}),
-                          ...ask.answerList,
-                          answerList: [
-                              ...(state.data[code] ? (state.data[code].answerList ? state.data[code].answerList : {}).answerList : []),
-                              ...ask.answerList.answerList.map((existing, newAnswer) => {
+                        let code = ask.question.code;
 
-                                 existing.value = grabValue(existing);
-                                 return existing;
-                              })
-                          ]
-                      }
-                    };
+                        existing[code] = {
+                          ...state.data[code],
+                          ...ask,
+                          question: {
+                              ...ask.question,
+                              validationList: [
+                                  ...(ask.question.attribute.dataType.validationList ? ask.question.attribute.dataType.validationList : [])
+                              ],
+                              type: ask.question.attribute.dataType.className,
+                              attributeCode: ask.question.attribute.code
+                          },
+                          answerList: {
+                              ...(state.data[code] ? state.data[code].answerList : {}),
+                              ...ask.answerList,
+                              answerList: [
+                                  ...(state.data[code] ? (state.data[code].answerList ? state.data[code].answerList : {}).answerList : []),
+                                  ...ask.answerList.answerList.map((existing, newAnswer) => {
+
+                                     existing.value = grabValue(existing);
+                                     return existing;
+                                  })
+                              ]
+                          }
+                        };
+                    }
 
                   return existing;
 
