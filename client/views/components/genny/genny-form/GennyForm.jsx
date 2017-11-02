@@ -20,6 +20,7 @@ class GennyForm extends Component {
   }
 
   sendAnswer = (value, ask) => {
+    console.log("send");
     this.sendData('Answer', [
       {
         sourceCode: ask.sourceCode,

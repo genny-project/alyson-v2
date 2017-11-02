@@ -1,0 +1,31 @@
+@import '../../../../styles/colors';
+
+.pagination {
+    width: 100%;
+
+    .pagination-main {
+        display: flex;
+        list-style: none;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+
+        .pagination-prev {
+            margin-right: auto;
+        }
+
+        .pagination-next {
+            margin-left: auto;
+        }
+        
+        .pagination-current {
+            color: red;
+        }
+    }
+
+    &.hide-pages {
+        .pagination-number, .pagination-break {
+            display: none;
+        }
+    }
+}

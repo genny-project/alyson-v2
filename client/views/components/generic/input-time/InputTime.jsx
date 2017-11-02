@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { string, object, bool, number } from 'prop-types';
 import { InputDropdown, Label } from '../';
 import moment from 'moment';
-import Moment from 'react-moment';
 
 class InputTime extends Component {
 
