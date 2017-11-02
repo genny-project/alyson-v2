@@ -6,6 +6,7 @@ import { IconSmall, BucketView, Card } from '../../';
 class GennyBucketView extends Component {
 
     static propTypes = {
+
     };
 
     state = {
@@ -21,9 +22,12 @@ class GennyBucketView extends Component {
         bes.forEach(be => {
 
             children.push(
-                <Card title={be.name} description={be.code}>
+                {
+                content: <Card title={be.name} description={be.code}>
                     <p>Ho hello Adam</p>
-                </Card>
+                </Card>,
+                id: be.id
+                }
             );
         });
 
@@ -45,6 +49,7 @@ class GennyBucketView extends Component {
 
         return buckets;
     }
+
     render() {
 
         const { root } = this.props;
