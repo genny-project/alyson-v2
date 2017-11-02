@@ -2,14 +2,23 @@ import './gennyBucketView.scss';
 import React, { Component } from 'react';
 import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
 import { IconSmall, BucketView, Card } from '../../';
+import { Draggable } from 'react-beautiful-dnd';
 
 class GennyBucketView extends Component {
 
     static propTypes = {
+
     };
 
     state = {
 
+    }
+
+    didMoveItem = (item, source, destination) => {
+
+        console.log(source);
+        console.log(item);
+        console.log(destination);
     }
 
     generateBucket(query, group) {
@@ -21,9 +30,14 @@ class GennyBucketView extends Component {
         bes.forEach(be => {
 
             children.push(
-                <Card title={be.name} description={be.code}>
-                     <p>Ho hello Adam</p>
-                </Card>
+                {
+                content: (
+                    <Card title={be.name} description={be.code}>
+                        <p>Ho hello Adam</p>
+                    </Card>
+                ),
+                id: be.code
+                }
             );
         });
 
@@ -39,12 +53,14 @@ class GennyBucketView extends Component {
 
             buckets.push({
                 title: group.name,
+                id: group.code,
                 children: this.generateBucket(query, group)
             });
         });
 
         return buckets;
     }
+
     render() {
 
         const { root } = this.props;
@@ -52,7 +68,7 @@ class GennyBucketView extends Component {
 
         return (
             <div className="genny-bucket-view">
-                <BucketView buckets={buckets} />
+                <BucketView buckets={buckets} didMoveItem={this.didMoveItem} />
             </div>
         );
     }
