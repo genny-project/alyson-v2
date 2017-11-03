@@ -46,26 +46,33 @@ class Card extends Component {
     );
 
     return (
-      <FadeTransition>
-        {
-          (status) => {
-            console.log(status);
-            if (status === 'exited') {
-              return null
-            }
-            return (
-              <div className={`card-collapse fade fade-${status}`}>
-                {children}
-                {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
-              </div>
-            );
-          }
-        }
-      </FadeTransition>
+      <div className={`card-collapse fade fade-${status}`}>
+        {children}
+        {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
+      </div>
     );
+    //
+    // return (
+    //   <FadeTransition>
+    //     {
+    //       (status) => {
+    //         if (status === 'exited') {
+    //           return null
+    //         }
+    //         return (
+    //           <div className={`card-collapse fade fade-${status}`}>
+    //             {children}
+    //             {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
+    //           </div>
+    //         );
+    //       }
+    //     }
+    //   </FadeTransition>
+    // );
   }
 
   render() {
+
     const { className, title, description, isVisible, level, style } = this.props;
     const componentStyle = { ...style, };
     const collapseContent = isVisible ? this.SlideContent() : '';

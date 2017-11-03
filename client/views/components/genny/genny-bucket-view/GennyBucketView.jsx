@@ -35,22 +35,14 @@ class GennyBucketView extends Component {
 
             // we get the sublayout code from the BE
             let layout_code = "SUBLAY_1";
-            let sublayout = this.props.sublayout[layout_code] ? this.props.sublayout[layout_code].value : null;
-
-            if(sublayout) {
-                console.log("PUSHING SUBLAYOUT");
-                console.log(sublayout);
-            }
-            else {
-                console.log(this.props.sublayout);
-            }
+            let sublayout = this.props.sublayout[layout_code];
 
             children.push(
                 {
                 content: (
                     <Card title={be.name} description={be.code}>
                         {
-                            // sublayout ? <LayoutLoader layout={sublayout} /> : null
+                            sublayout ? <LayoutLoader layout={sublayout} /> : null
                         }
                     </Card>
                 ),
