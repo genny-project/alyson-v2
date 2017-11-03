@@ -16,36 +16,15 @@ class GennyBucketView extends Component {
     };
 
     state = {
-        buckets:[],
     }
 
     constructor(props) {
         super(props);
-        this.generateBuckets(props.root);
-    }
-
-    reorderItem = (itemCode, bucketCode, originalIndex, destinationIndex) => {
-
-        this.state.buckets.forEach(bucket => {
-            if(bucket.id == bucketCode) {
-
-                // invert items.
-                bucket.children.swap(originalIndex, destinationIndex);
-                return;
-            }
-        });
     }
 
     didMoveItem = (item, source, destination) => {
 
-        if(source.droppableId == destination.droppableId) {
-            console.log("dropped in same bucket.");
-            console.log(source);
-            console.log(destination);
-            console.log(item);
-            this.reorderItem(item.draggableId, source.droppableId, source.index, destination.index);
-        }
-
+        console.log("Send answer...");
     }
 
     generateBucket(query, group) {
@@ -92,13 +71,13 @@ class GennyBucketView extends Component {
             });
         });
 
-        this.state.buckets = buckets;
+        return buckets;
     }
 
     render() {
 
-        let buckets = this.state.buckets;
-        console.log(buckets);
+        const { root } = this.props;
+        let buckets = this.generateBuckets(root);
 
         return (
             <div className="genny-bucket-view">
