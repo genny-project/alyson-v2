@@ -1,22 +1,23 @@
 import 'react-table/react-table.css';
 import './table.scss';
 import React, { Component } from 'react';
-import { string, array, object } from 'prop-types';
+import { string, array, object, number, } from 'prop-types';
 import ReactTable from 'react-table';
 
 class Table extends Component {
 
   static defaultProps = {
     className: '',
-    columns: {},
-    data: {},
+    columns: [],
+    data: [],
 
   }
 
   static propTypes = {
     className: string,
-    columns: object,
-    data: object,
+    columns: array,
+    data: array,
+    itemsPerPage: number,
   }
 
   state = {
@@ -25,13 +26,13 @@ class Table extends Component {
 
   render() {
     const { className, columns, data, itemsPerPage } = this.props;
-
     return (
       <ReactTable
         data={data}
         columns={columns}
         defaultPageSize={itemsPerPage}
         className="-striped -highlight table"
+        style={{ height: "400px" }}
       />
     );
   }

@@ -41,7 +41,7 @@ class Form extends Component {
   pageChange = (selectedPage) => {
     const { itemsPerPage } = this.props; 
     let offset = Math.ceil(selectedPage * itemsPerPage);
-    this.setState({offset: offset}, () => {
+    this.setState({offset: offset, pageCurrent: selectedPage + 1}, () => {
     });
   }
 
