@@ -8,20 +8,44 @@ import { LayoutLoader } from 'utils/genny/layout-loader';
 class GennyBucketView extends Component {
 
     static defaultProps = {
+
     }
 
     static propTypes = {
+
     };
 
     state = {
+        buckets:[],
+    }
 
+    constructor(props) {
+        super(props);
+        this.generateBuckets(props.root);
+    }
+
+    reorderItem = (itemCode, bucketCode, originalIndex, destinationIndex) => {
+
+        this.state.buckets.forEach(bucket => {
+            if(bucket.id == bucketCode) {
+
+                // invert items.
+                bucket.children.swap(originalIndex, destinationIndex);
+                return;
+            }
+        });
     }
 
     didMoveItem = (item, source, destination) => {
 
-        console.log(source);
-        console.log(item);
-        console.log(destination);
+        if(source.droppableId == destination.droppableId) {
+            console.log("dropped in same bucket.");
+            console.log(source);
+            console.log(destination);
+            console.log(item);
+            this.reorderItem(item.draggableId, source.droppableId, source.index, destination.index);
+        }
+
     }
 
     generateBucket(query, group) {
@@ -68,13 +92,13 @@ class GennyBucketView extends Component {
             });
         });
 
-        return buckets;
+        this.state.buckets = buckets;
     }
 
     render() {
 
-        const { root } = this.props;
-        let buckets = this.generateBuckets(root);
+        let buckets = this.state.buckets;
+        console.log(buckets);
 
         return (
             <div className="genny-bucket-view">
