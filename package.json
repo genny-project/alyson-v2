@@ -41,7 +41,6 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.0.0",
     "json-loader": "^0.5.4",
-    "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
     "postcss-loader": "^1.1.0",
     "postcss-smart-import": "^0.5.1",
