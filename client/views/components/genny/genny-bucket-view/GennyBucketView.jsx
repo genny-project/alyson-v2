@@ -8,20 +8,23 @@ import { LayoutLoader } from 'utils/genny/layout-loader';
 class GennyBucketView extends Component {
 
     static defaultProps = {
+
     }
 
     static propTypes = {
+
     };
 
     state = {
+    }
 
+    constructor(props) {
+        super(props);
     }
 
     didMoveItem = (item, source, destination) => {
 
-        console.log(source);
-        console.log(item);
-        console.log(destination);
+        console.log("Send answer...");
     }
 
     generateBucket(query, group) {
@@ -35,22 +38,14 @@ class GennyBucketView extends Component {
 
             // we get the sublayout code from the BE
             let layout_code = "SUBLAY_1";
-            let sublayout = this.props.sublayout[layout_code] ? this.props.sublayout[layout_code].value : null;
-
-            if(sublayout) {
-                console.log("PUSHING SUBLAYOUT");
-                console.log(sublayout);
-            }
-            else {
-                console.log(this.props.sublayout);
-            }
+            let sublayout = this.props.sublayout[layout_code];
 
             children.push(
                 {
                 content: (
                     <Card title={be.name} description={be.code}>
                         {
-                            // sublayout ? <LayoutLoader layout={sublayout} /> : null
+                            sublayout ? <LayoutLoader layout={sublayout} /> : null
                         }
                     </Card>
                 ),

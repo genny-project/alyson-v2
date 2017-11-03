@@ -1,6 +1,6 @@
 import './BucketColumn.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, any, bool } from 'prop-types';
 import { BucketElement } from './bucket-element';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
@@ -51,9 +51,9 @@ class BucketColumn extends Component {
                             </div>
                             <div className="bucket-content">
                                 {
-                                    children.map(child => (<BucketElement item={child} />))
+                                    children.map(child => (<BucketElement key={child.id} item={child} />))
                                 }
-                                </div>
+                            </div>
 
                             {provided.placeholder}
 
