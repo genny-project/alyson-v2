@@ -1,6 +1,6 @@
 import './breadcrumbs.scss';
 import React, { Component } from 'react';
-import { string, object, array } from 'prop-types';
+import { string, object } from 'prop-types';
 import { IconSmall } from '../';
 
 class Breadcrumbs extends Component {
@@ -12,32 +12,32 @@ class Breadcrumbs extends Component {
   static propTypes = {
     className: string,
     style: string,
-    path: array,
+    path: string,
   }
 
   state = {
   }
 
   createBreadcrumbs = () => {
-    let filepath = this.props.pathItems;
-    filepath.map((group, index) => {
-      return ( <li 
-          key={index}>
-          <IconSmall name='chevron-right' />
-          <span>{group.name}</span>
+    let filepath = this.props.path.split('/');
+    return filepath.map((group, index) => (
+        <li
+            key={index}>
+            <IconSmall name='chevron_right' />
+            <span>{group}</span>
         </li>
-      );
-    })
+    ))
   }
 
   render() {
- 	  const { className, style, pathItems, home } = this.props;
+
+    const { className, style, path, home } = this.props;
     const {  } = this.state;
     const componentStyle = { ...style, };
     const breadcrumbs = this.createBreadcrumbs();
 
     return (
-      <div className={`breadcrumbs ${className}`}>
+      <div className={`breadcrumbs ${className}`} style={componentStyle}>
         <ul className='breadcrumbs-main'>
           <li className='breadcrumbs-home'>
             <IconSmall name='home' />

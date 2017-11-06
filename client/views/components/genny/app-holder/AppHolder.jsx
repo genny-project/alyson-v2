@@ -60,12 +60,11 @@ class AppHolder extends Component {
             else if (layout.currentView.code == "BUCKET_VIEW") {
                 layoutContent = <GennyBucketView root={layout.dataCode ? layout.dataCode : "GRP_DRIVER_VIEW"} />
             }
-
             else if (layout.currentView.code == "LIST_VIEW") {
                 layoutContent = <GennyList root={layout.dataCode ? layout.dataCode : "GRP_QUOTES"} />
             }
         }
-
+        
         if(layoutContent == null)  layoutContent = contentChildren;
 
         return (

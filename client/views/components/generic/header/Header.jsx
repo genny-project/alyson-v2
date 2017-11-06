@@ -1,7 +1,7 @@
 import './header.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton } from '../';
+import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton, Breadcrumbs } from '../';
 import { GennyNotification } from '../../genny';
 import { GennyBridge } from 'utils/genny';
 import { GithubPicker as ColorPicker } from 'react-color';
@@ -92,35 +92,42 @@ class Header extends Component {
         left: '0px',
     };
     return (
+
       <div className="header" style={componentStyle}>
-        <div className="header-left">
-          <Label text={projectTitle} />
-        </div>
-        <div className="header-right">
-          <GennyNotification />
-          <div className="profile">
-            <Label text={`Welcome, ${userName}`} onClick={this.handleClickProfile} />
-            <ImageView src={userImage} onClick={this.handleClickImage} />
+        <div className="header-container">
+            <div className="header-left">
+              <Label text={projectTitle} />
+            </div>
+            <div className="header-right">
+              <GennyNotification />
+              <div className="profile">
+                <Label text={`Welcome, ${userName}`} onClick={this.handleClickProfile} />
+                <ImageView src={userImage} onClick={this.handleClickImage} />
 
-            <Dropdown visible={isVisible}>
-                <ul className="profile-dropdown">
-                  <li><IconSmall name="person" /><span>Profile</span></li>
-                  <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
-                  <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
-                </ul>
-            </Dropdown>
+                <Dropdown visible={isVisible}>
+                    <ul className="profile-dropdown">
+                      <li><IconSmall name="person" /><span>Profile</span></li>
+                      <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
+                      <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
+                    </ul>
+                </Dropdown>
 
-          </div>
-          <IconSmall className="help" name="help" />
-          <CircleButton primaryColor={componentStyle.backgroundColor} onClick={ this.toggleColorPicker } />
-          { this.state.displayColorPicker ? <div style={ popover }>
-            <div style={ cover } onClick={ this.toggleColorPicker }/>
-            <ColorPicker
-                color={componentStyle.backgroundColor}
-                onChangeComplete={ this.handleChangeComplete }
-            />
-          </div> : null }
+              </div>
+              <IconSmall className="help" name="help" />
+              <CircleButton primaryColor={componentStyle.backgroundColor} onClick={ this.toggleColorPicker } />
+              {
+                  this.state.displayColorPicker ?
+                  <div style={ popover } >
+                      <div style={ cover } onClick={ this.toggleColorPicker }> </div>
+                      <ColorPicker
+                          color={componentStyle.backgroundColor}
+                          onChangeComplete={ this.handleChangeComplete } />
+                  </div>
+                  : null
+              }
+            </div>
         </div>
+        <Breadcrumbs path={"test/test"} style={{ backgroundColor: componentStyle.backgroundColor }}/>
       </div>
     );
   }

@@ -37,3 +37,4 @@ export { default as SubmitStatusIcon } from './submit-status-icon';
 export { default as Table } from './table';
 export { default as TestComponent } from './test-component';
 export { default as TreeView } from './tree-view';
+export { default as Breadcrumbs } from './breadcrumbs';
