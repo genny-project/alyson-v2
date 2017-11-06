@@ -1,0 +1,7 @@
+pipeline:
+  build-docker:
+    image: matthayward1997/docker-aws
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - ./build-docker.sh 
