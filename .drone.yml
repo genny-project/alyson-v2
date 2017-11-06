@@ -7,8 +7,8 @@ pipeline:
       - cat build-docker.sh | /bin/sh
 
   push-docker:
-    image: matthayward1997/docker-aws
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    commands:
-      - cat push.sh | /bin/sh
+    image: plugins/docker
+    username: gadadockerbot
+    password: WelcomeToTheHub121!
+    repo: gennyproject/alyson
+    taps: [ latest ]
