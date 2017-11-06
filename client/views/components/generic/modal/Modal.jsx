@@ -1,7 +1,7 @@
 import './modal.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import {  } from '../';
+import { IconSmall } from '../';
 
 class Modal extends Component {
 
@@ -24,7 +24,7 @@ class Modal extends Component {
     const componentStyle = { ...style, };
 
     return (
-      <div className={`modal ${className}`} onClick={}>
+      <div className={`modal ${className}`}>
         <div className='modal-content'>
           <IconSmall className='modal-close' onClick={this.onClick(item)} name='clear' />
           {children}
