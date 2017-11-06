@@ -4,5 +4,11 @@ pipeline:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
-      - ls
-      - cat build-docker.sh | /bin/sh 
+      - cat build-docker.sh | /bin/sh
+
+  push-docker:
+    image: matthayward1997/docker-aws
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - cat push.sh | /bin/sh
