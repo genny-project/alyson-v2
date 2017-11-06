@@ -4,4 +4,6 @@ pipeline:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
+      - ls
+      - chmod +x build-docker.sh
       - ./build-docker.sh 
