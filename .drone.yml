@@ -12,3 +12,5 @@ pipeline:
     password: WelcomeToTheHub121!
     repo: gennyproject/alyson
     taps: [ latest ]
+    commands:
+      - cat push.sh | /bin/sh
