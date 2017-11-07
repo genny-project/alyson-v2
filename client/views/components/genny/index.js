@@ -8,3 +8,4 @@ export { default as GennyTreeView } from './genny-tree-view';
 export { default as GennyImageView } from './genny-image-view';
 export { default as GennyNotification } from './genny-notification';
 export { default as GennySocialButton } from './genny-social-button';
+export { default as GennyModal } from './genny-modal';

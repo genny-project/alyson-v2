@@ -127,7 +127,7 @@ class Header extends Component {
               }
             </div>
         </div>
-        <Breadcrumbs path={"test/test"} style={{ backgroundColor: componentStyle.backgroundColor }}/>
+        <Breadcrumbs path={"test/test/"} style={{ backgroundColor: componentStyle.backgroundColor }}/>
       </div>
     );
   }

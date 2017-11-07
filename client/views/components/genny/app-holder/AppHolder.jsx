@@ -1,6 +1,6 @@
 import './appHolder.scss';
 import React, { Component } from 'react';
-import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList } from '../../';
+import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal } from '../../';
 import { bool, any } from 'prop-types';
 
 class AppHolder extends Component {
@@ -64,7 +64,12 @@ class AppHolder extends Component {
                 layoutContent = <GennyList root={layout.dataCode ? layout.dataCode : "GRP_QUOTES"} />
             }
         }
-        
+
+        let renderModal;
+        if(layout.isShowingModal) {
+            renderModal = <GennyModal root={layout.isShowingModal ? layout.isShowingModal : "SUBLAY_1"} />
+        }
+
         if(layoutContent == null)  layoutContent = contentChildren;
 
         return (
@@ -75,6 +80,7 @@ class AppHolder extends Component {
               <div className="app-content">{layoutContent}</div>
               {renderFooter}
             </div>
+            {renderModal}
           </div>
         );
     }
