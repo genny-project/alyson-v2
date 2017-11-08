@@ -1,5 +1,10 @@
 @import '../../../../styles/colors';
 
 .list {
-
+    display: flex;
+    justify-content: center;
+    
+    .table {
+        width: 800px;
+    }
 }
