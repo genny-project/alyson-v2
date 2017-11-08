@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { List } from '../../';
 import { object, array } from 'prop-types';
 import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
-import { IconSmall } from '../../';
+import { IconSmall, ListItem } from '../../';
 import { GennyBridge } from 'utils/genny';
 
 class GennyList extends Component {
@@ -21,40 +21,32 @@ class GennyList extends Component {
         console.log('baseEntities', baseEntities);
 
         let columns = [{
-                "Header": () => <div><span className='table-header'>{baseEntities.length} Items found</span></div>,
-                "accessor": "baseEntity",
-                "Cell": row => {
-                    console.log('row',row);
+            "Header": () => <div><span className='table-header'>{baseEntities.length} Items found</span></div>,
+            "accessor": "baseEntity",
+            "Cell": row => {
+                console.log('row',row);
 
-                    let be = row.value;
-                    let beAttributes = []
+                let be = row.value;
+                let beAttributes = []
 
-                    if(be.attributes) {
-                        Object.keys(be.attributes).forEach(attribute_key => {
+                if(be.attributes) {
+                    Object.keys(be.attributes).forEach(attribute_key => {
 
-                           let attribute = be.attributes[attribute_key].value;
-                           beAttributes.push(attribute);
-                           
-                        })
-                    };
+                        let attribute = be.attributes[attribute_key].value;
+                        beAttributes.push(attribute);
 
-                    console.log(beAttributes);
+                    })
+                };
 
-                    return (
-                      <div
-                        style={{
-                          width: '100%',
-                          height: '50px',
-                          backgroundColor: '#dadada',
-                          borderRadius: '5px'
-                        }}
-                      >
-                      <ul>
-                        { beAttributes.map((value, i) => { return (<li key={i}>{value}</li>) })}
-                      </ul>
-                      </div>
-                    )
-                }
+                console.log(beAttributes);
+
+                return (
+                    <div>
+                        <ListItem>hello</ListItem>
+                        {beAttributes.map((value, i) => { return (<ListItem key={i}>{value}</ListItem>) })}
+                    </div>
+                )
+            }
         }];
 
         this.state.columns = columns;

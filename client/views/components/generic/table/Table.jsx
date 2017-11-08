@@ -31,7 +31,7 @@ class Table extends Component {
         data={data}
         columns={columns}
         defaultPageSize={itemsPerPage}
-        className="-striped -highlight table"
+        className="table -striped -highlight table"
         style={{ height: "400px" }}
       />
     );
