@@ -5,6 +5,7 @@ import { object, array } from 'prop-types';
 import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
 import { IconSmall, ListItem } from '../../';
 import { GennyBridge } from 'utils/genny';
+import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class GennyList extends Component {
 
@@ -18,13 +19,10 @@ class GennyList extends Component {
 
     generateHeadersFor(baseEntities) {
 
-        // console.log('baseEntities', baseEntities);
-
         let columns = [{
             "Header": () => <div><span className='table-header'>{baseEntities.length} Items found</span></div>,
             "accessor": "baseEntity",
             "Cell": row => {
-                // console.log('row',row);
 
                 let be = row.value;
                 let beAttributes = []
@@ -38,19 +36,23 @@ class GennyList extends Component {
                     })
                 };
 
-                // console.log(beAttributes);
+                       let layout_code = "SUBLAY_1";
+                let sublayout = this.props.sublayout[layout_code];
 
                 return (
-                    <div>
-                        <ListItem>hello</ListItem>
-                        {beAttributes.map((value, i) => { return (<ListItem key={i}>{value}</ListItem>) })}
-                    </div>
+                    <ListItem>
+                        {
+                             sublayout ? <LayoutLoader layout={sublayout} /> : null
+                            /*<ul>
+                        <li>hello</li>
+                        {beAttributes.map((value, i) => { return (<span key={i}>{value}</span>) })}*/
+                        }
+                    </ListItem>
                 )
             }
         }];
 
         this.state.columns = columns;
-        // console.log('columns', columns);
         return columns;
     }
 
@@ -97,7 +99,6 @@ class GennyList extends Component {
         let data = [];
 
         let children = query.getEntityChildren(root);
-        // console.log('children', children);
         if(children) {
 
             if(children.length == 0 && showBaseEntity) {
@@ -112,11 +113,13 @@ class GennyList extends Component {
             data = this.generateDataFor(children);
         }
 
-        // console.log(columns);
-        // console.log(data);
         return (
             <div className="genny-list">
-                <List {...this.props} data={data} columns={columns} />
+                <List
+                    {...this.props}
+                    thStyle={ {display: 'none', color: 'red'} }
+                    data={data}
+                    columns={columns} />
             </div>
         );
     }
