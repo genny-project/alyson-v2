@@ -27,7 +27,8 @@ class AppHolder extends Component {
         const { children, sidebar, header, footer, layout } = this.props;
         const { sidebarShrink } = this.state;
         const sidebarChildren = children[0];
-        const contentChildren = children.slice(1);
+        children.shift();
+        const contentChildren = children;
 
         let renderSidebar;
         if ( sidebar ) {

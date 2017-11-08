@@ -1,6 +1,6 @@
 {
   "backendEnabled": true,
-  "backendLayouts": false,
+  "backendLayouts": true,
   "genny": {
     "host": "http://localhost:8088",
     "bridge": {
