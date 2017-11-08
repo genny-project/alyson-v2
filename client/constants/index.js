@@ -36,6 +36,9 @@ export const BASE_ENTITY_DATA = 'Data';
 /* Asks */
 export const ASK = 'Ask';
 
+/* Answers */
+export const ANSWER = 'Answer';
+
 /* Sublayout */
 export const SUBLAYOUT = 'SUBLAYOUT';
 

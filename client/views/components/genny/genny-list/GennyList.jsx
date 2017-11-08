@@ -18,13 +18,13 @@ class GennyList extends Component {
 
     generateHeadersFor(baseEntities) {
 
-        console.log('baseEntities', baseEntities);
+        // console.log('baseEntities', baseEntities);
 
         let columns = [{
             "Header": () => <div><span className='table-header'>{baseEntities.length} Items found</span></div>,
             "accessor": "baseEntity",
             "Cell": row => {
-                console.log('row',row);
+                // console.log('row',row);
 
                 let be = row.value;
                 let beAttributes = []
@@ -38,7 +38,7 @@ class GennyList extends Component {
                     })
                 };
 
-                console.log(beAttributes);
+                // console.log(beAttributes);
 
                 return (
                     <div>
@@ -50,7 +50,7 @@ class GennyList extends Component {
         }];
 
         this.state.columns = columns;
-        console.log('columns', columns);
+        // console.log('columns', columns);
         return columns;
     }
 
@@ -97,7 +97,7 @@ class GennyList extends Component {
         let data = [];
 
         let children = query.getEntityChildren(root);
-        console.log('children', children);
+        // console.log('children', children);
         if(children) {
 
             if(children.length == 0 && showBaseEntity) {
@@ -106,14 +106,14 @@ class GennyList extends Component {
                 if(be) {
                     children = [be];
                 }
-            } 
+            }
 
             columns = this.generateHeadersFor(children);
             data = this.generateDataFor(children);
         }
 
-        console.log(columns);
-        console.log(data);
+        // console.log(columns);
+        // console.log(data);
         return (
             <div className="genny-list">
                 <List {...this.props} data={data} columns={columns} />
