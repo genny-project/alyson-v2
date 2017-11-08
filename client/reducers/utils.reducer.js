@@ -2,6 +2,8 @@
 export function grabValue(item) {
 
     let value = null;
+    if(item.value != null) return item.value;
+    
     if (item.valueDouble) {
         value = item.valueDouble
     }

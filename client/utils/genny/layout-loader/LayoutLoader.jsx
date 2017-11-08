@@ -7,7 +7,7 @@ import { JSONLoader } from '@genny-project/layson';
 class LayoutLoader extends Component {
 
   static propTypes = {
-    layouts: object,
+    layout: object,
     baseEntity: object,
   };
 
@@ -92,22 +92,10 @@ class LayoutLoader extends Component {
   }
 
   render() {
-    const { layouts, baseEntity } = this.props;
 
-    /* Get the current layout */
-    const { current, loaded } = layouts;
-
-    /* If the current layout is null or this layout hasn't been loaded display a LayoutNotFound page */
-    if ( !current ) {
-      return null;
-    }
-
-    if ( loaded[current] == null ) {
-      return <LayoutNotFound layout={current} />;
-    }
-
-    let layout = this.replaceAliasesIn(loaded[current]);
-    return <JSONLoader layout={layout} componentCollection={components} context={baseEntity.data} />;
+    const { layout, baseEntity } = this.props;
+    let finalLayout = this.replaceAliasesIn(layout);
+    return <JSONLoader layout={finalLayout} componentCollection={components} context={baseEntity.data} />;
   }
 }
 

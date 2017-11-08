@@ -2,25 +2,34 @@
 
 .header {
 	background: rgb(31, 31, 31);
-	padding: 0 20px;
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-    
-	.header-left, .header-right {
+
+	.header-container {
+		flex-direction: row;
 		display: flex;
+		width: 100%;
+		justify-content: space-between;
 		align-items: center;
+		padding: 0 20px;
 
-		img {
-			width: 30px;
-			height: 30px;
-			margin-left: 10px;
-			border-radius: 5px;
-		}
+		.header-left, .header-right {
+			display: flex;
+			align-items: center;
 
-		span, i {
-			color: white;
-		}
+			img {
+				width: 30px;
+				height: 30px;
+				margin-left: 10px;
+				border-radius: 5px;
+			}
+
+			span, i {
+				color: white;
+			}
+	}
 	}
 
 	.profile {
@@ -31,7 +40,7 @@
 		cursor: pointer;
 		padding-top: 10px;
 		padding-bottom: 10px;
-		
+
 		&:not(:last-child){
 			margin-right: 10px;
 		}
@@ -71,7 +80,7 @@
 				}
 			}
 		}
-		
+
 		&:before {
 			content: "";
 			position: absolute;

@@ -17,5 +17,18 @@ const middleware = applyMiddleware(
 );
 const store = createStore( reducers, middleware );
 
+// grabbing component state from local storage
+store.getState().app.componentState = JSON.parse(localStorage.getItem("componentState")) || {};
+
+// storing method
+store.storeState = (identifier, newState) => {
+
+    // updating the store
+    store.getState().app.componentState[identifier] = newState;
+
+    // stringifying the componentstate and storing it.
+    let updatedState = JSON.stringify(store.getState().app.componentState);
+    localStorage.setItem("componentState", updatedState);
+};
 
 export default store;

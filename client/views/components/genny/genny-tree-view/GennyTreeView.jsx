@@ -5,7 +5,9 @@ import { object, array } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
 import { BaseEntity } from '../../../../utils/genny/';
+
 class GennyTreeView extends Component {
+
   constructor(props) {
     super(props);
   }
@@ -15,13 +17,53 @@ class GennyTreeView extends Component {
     baseEntity: object
   };
 
-
   state = {
     tree: {}
   }
 
+  componentDidUpdate() {
+      let identifier = this.props.key || this.props.root;
+      store.storeState(identifier, this.state);
+  }
+
+  componentDidMount() {
+
+      let identifier = this.props.key || this.props.root;
+      if(identifier && this.props.componentState) {
+
+        if(this.props.componentState[identifier]) {
+
+            // ask for all the bes
+            this.getNeededDataFor(this.props.componentState[identifier]);
+
+            // update state
+            this.setState(this.props.componentState[identifier]);
+        }
+      }
+  }
+
+  getNeededDataFor(state) {
+
+      Object.keys(state.tree).forEach(be_key => {
+          this.getNeededItems(state, be_key);
+      });
+  }
+
+  getNeededItems(state, itemCode) {
+
+      // get be
+      this.handleClick({code: itemCode});
+
+      // get children codes if exist
+      if(state[itemCode] instanceof Object) {
+          this.getNeededDataFor(state[itemCode]);
+      }
+  }
+
   handleClick = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
+
     const { tree } = this.state;
+
     /* Now check whether this item is opened or closed in the tree */
     if (!tree[item.code]) {
       /* Item is closed */
@@ -30,7 +72,6 @@ class GennyTreeView extends Component {
       /* Item is open */
       this.closeItem(item);
     }
-
   }
 
   openItem = (item) => {
@@ -64,6 +105,7 @@ class GennyTreeView extends Component {
   }
 
   getEntityChildren(code) {
+
     const { baseEntity } = this.props;
     const relationships = baseEntity.relationships[code];
     let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code]) : [];
@@ -75,17 +117,17 @@ class GennyTreeView extends Component {
       item.open = !!this.state.tree[item.code];
       return item;
     });
+
     return items;
   }
 
   render() {
+
     const { root, baseEntity } = this.props;
     const relationships = baseEntity.relationships[root];
     const items = this.getEntityChildren(root);
 
     return (
-
-
       <div className="genny-tree-view">
         <TreeView root={root} {...this.props} items={items} onClick={this.handleClick.bind(this)} />
       </div>

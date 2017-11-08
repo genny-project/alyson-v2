@@ -27,7 +27,6 @@ class App extends Component {
 
     /* Send off the auth logged in action */
     if(keycloak.getToken()) {
-
         this.props.authLoggedIn({
           token: keycloak.getToken(),
           info: keycloak.getInfo(),
