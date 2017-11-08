@@ -1,6 +1,6 @@
 import './appHolder.scss';
 import React, { Component } from 'react';
-import { Sidebar, Header, Footer, IconSmall, GennyTable } from '../../';
+import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList } from '../../';
 import { bool, any } from 'prop-types';
 
 class AppHolder extends Component {
@@ -58,10 +58,13 @@ class AppHolder extends Component {
             }
             // we need to show the bucket view
             else if (layout.currentView.code == "BUCKET_VIEW") {
-
+                layoutContent = <GennyBucketView root={layout.dataCode ? layout.dataCode : "GRP_DRIVER_VIEW"} />
+            }
+            else if (layout.currentView.code == "LIST_VIEW") {
+                layoutContent = <GennyList root={layout.dataCode ? layout.dataCode : "GRP_QUOTES"} />
             }
         }
-
+        
         if(layoutContent == null)  layoutContent = contentChildren;
 
         return (

@@ -157,6 +157,7 @@ class GennyTable extends Component {
 
             columns = this.generateHeadersFor(children);
             data = this.generateDataFor(children);
+            console.log(data);
         }
 
         return (

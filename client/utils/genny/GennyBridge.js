@@ -15,44 +15,51 @@ class GennyBridge {
 
   sendMessage(event, data) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
+  }
+
+  sendBtnClick(btn_code) {
+      let token = this.getToken();
+      if(token) {
+          Vertx.sendMessage(events.outgoing.BTN({ code: btn_code }, token));
+      }
   }
 
   sendTVEvent(event, data) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
   }
 
   sendLogout(event, data) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
   sendAnswer(data, items) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
 
-    // sending back the data to the front end as the backend is not doing it for now.
-    // test was made for color picker.
-    // this.messageHandler.onMessage({
-    //     data_type: "BaseEntity",
-    //     delete: false,
-    //     aliasCode: "PROJECT",
-    //     items: [
-    //         {
-    //             code: items[0].targetCode || "PER_USER1",
-    //             name: "PROJECT",
-    //             baseEntityAttributes: [
-    //                 {
-    //                     baseEntityCode: items[0].targetCode,
-    //                     attributeCode: "PRIMARY_COLOR",
-    //                     valueString: items[0].value
-    //                 }
-    //             ]
-    //         }
-    //     ],
-    //     msg_type: "DATA_MSG"
-    // });
+    let payload = {
+
+        data_type: "Attribute",
+        delete: false,
+        items: [
+            {
+                baseEntityCode: items[0].targetCode,
+                targetCode: items[0].targetCode,
+                value: items[0].value,
+                attributeCode: items[0].attributeCode
+            }
+        ],
+        msg_type: "DATA_MSG"
+    };
+
+    // locally updating the attribute so we dont have to wait for the backend to send us an answer. this is called optimistic results.
+    this.messageHandler.onMessage(payload);
   }
 
   ajaxCall(settings) {

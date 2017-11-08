@@ -8,8 +8,8 @@ import notification from 'reducers/notification.reducer';
 import app from 'reducers/app.reducer';
 
 export default combineReducers({
-  keycloak,
   layouts,
+  keycloak,
   baseEntity,
   ask,
   alias,
