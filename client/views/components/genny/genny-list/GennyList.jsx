@@ -118,6 +118,11 @@ class GennyList extends Component {
                 <List
                     {...this.props}
                     thStyle={ {display: 'none', color: 'red'} }
+                    tdStyle={ {height: 'initial', padding: 0, margin: 0, flexGrow: 0, background: 'none'} } 
+                    trStyle={ {height: 'initial', padding: 0, margin: 0, flexGrow: 0}} 
+                    trGroupStyle={ {height: 'initial', padding: 0, margin: 0, flexGrow: 0, marginBottom: '10px', border: 'none'} }
+                    tBodyStyle={ { flexGrow: 0} } 
+                    tableStyle={ { flex: 'initial'} } 
                     data={data}
                     columns={columns} />
             </div>
