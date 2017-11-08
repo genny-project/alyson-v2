@@ -45,7 +45,7 @@ class AppHolder extends Component {
 
         let renderFooter;
         if ( footer ) {
-            renderFooter = <div className="app-footer"><Footer {...footer} /></div>;
+            renderFooter = <div className="app-footer"><Footer {...footer} /></div>
         }
 
         let layoutContent = null;

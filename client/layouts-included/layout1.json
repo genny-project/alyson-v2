@@ -8,16 +8,9 @@
             "color": "white",
             "textAlign": "center"
           },
+          "hasImage": true,
           "caption": "USER.PRI_FIRSTNAME",
-          "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300",
-          "socialLogins": [
-           "facebook",
-           "linkedin",
-           "github",
-           "instagram",
-           "amazon",
-           "microsoft"
-          ]
+          "src": "PROJECT.PRI_LOGO"
         },
         "header": {
           "style": {
@@ -26,7 +19,7 @@
           },
           "projectTitle" : "PROJECT.PRI_NAME",
           "userName" : "USER.PRI_FIRSTNAME",
-          "userImage" : "http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg"
+          "userImage" : "USER.PRI_IMAGE_URL"
         },
         "footer" : {
           "style": {
@@ -35,11 +28,10 @@
           },
           "version" : "0.0.0.1",
           "poweredBy" : {
-            "caption" : "Outcome.life"
+            "caption" : "PROJECT.PRI_POWERED_BY"
           }
         },
         "children": [
-
           {
             "GennyTreeView": {
               "style": {
@@ -61,7 +53,7 @@
               "children": [
                 {
                   "h3": {
-                    "children": "CHANNEL40 - QUESTIONS ",
+                    "children": "Project Title",
                     "style": {
                       "marginBottom": "10px",
                       "marginTop": "10px"
@@ -72,13 +64,28 @@
             }
           },
           {
-
-           "GennyBucketView": {
-            "root": "GRP_DRIVER_VIEW",
-            "style": {
-
+            "GennyForm": {
+              "itemsPerPage" : 10,
+              "showProgress" : true,
+              "style": {
+                "color": "PROJECT.PRIMARY_COLOR"
+              }
             }
-           }
+          },
+          {
+            "GennyBucketView": {
+              "root": "GRP_DRIVER_VIEW"
+            }
+          },
+          {
+            "GennyList": {
+              "root": "GRP_QUOTES"
+            }
+          },
+          {
+            "GennyTable": {
+              "root": "GRP_USERS"
+            }
           }
         ]
       }

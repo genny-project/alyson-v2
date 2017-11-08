@@ -27,7 +27,7 @@ class Sidebar extends Component {
 
         let imageView = null;
         if ( src ) {
-            imageView = <GennyImageView src={src} caption={caption} />;
+            imageView = <GennyImageView src={src} caption={caption} style={{ maxWidth: "200px" }} />;
         }
 
         let loginButtons = socialLogins ? this.renderSocialButtons(socialLogins) : null;
