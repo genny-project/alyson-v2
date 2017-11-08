@@ -59,7 +59,7 @@ class Header extends Component {
           }
       ];
 
-      GennyBridge.sendAnswer('ANSWER', answer);
+      GennyBridge.sendAnswer('Answer', answer);
       this.toggleColorPicker();
   };
 

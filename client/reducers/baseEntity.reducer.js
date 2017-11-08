@@ -1,4 +1,4 @@
-import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE } from 'constants';
+import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE, ANSWER } from 'constants';
 import { grabValue } from './utils.reducer';
 
 const initialState = {
@@ -136,6 +136,50 @@ export default function reducer(state = initialState, action) {
                 }),
             }
         };
+
+        case ANSWER:
+
+        let newAnswer = action.payload.items;
+        let be_code = newAnswer.targetCode;
+        let attributeCode = newAnswer.attributeCode;
+        if(be_code && attributeCode) {
+
+            let newAtt = {
+                code: attributeCode,
+                value: newAnswer.value,
+                baseEntityCode: be_code,
+                created: newAnswer.created,
+                updated: newAnswer.updated,
+                weight: newAnswer.weight,
+            };
+
+            if(newAnswer.name) {
+                newAtt.name = newAnswer.name;
+            }
+
+            if(!state.data[be_code])  {
+                state.data[be_code] = {
+                    attributes: {}
+                };
+            }
+
+            if(!state.data[be_code].attributes) {
+                state.data[be_code].attributes = {};
+            }
+
+            state.data[be_code].attributes[attributeCode] = {
+                ...state.data[be_code].attributes[attributeCode],
+                value: newAtt.value,
+                attribute: {
+                    ...state.data[be_code].attributes[attributeCode].attribute,
+                    ...newAtt,
+                }
+            };
+
+            return {
+                ...state
+            };
+        }
 
         default:
         return state;

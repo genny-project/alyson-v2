@@ -4,6 +4,7 @@ import authIncoming from './auth.events.incoming.js';
 import redirectIncoming from './redirect.events.incoming.js';
 import baseEntity from './baseEntity.events.incoming.js';
 import askIncoming from './ask.events.incoming.js';
+import answerIncoming from './answer.events.incoming.js';
 import askOutgoing from './ask.events.outgoing.js';
 import attributeIncoming from './attribute.events.incoming.js';
 import aliasIncoming from './alias.events.incoming.js';
@@ -21,6 +22,7 @@ export default {
     ...authIncoming,
     ...aliasIncoming,
     ...redirectIncoming,
+    ...answerIncoming,
   },
   outgoing: {
     ...authOutgoing,

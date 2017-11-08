@@ -36,9 +36,8 @@ class GennyList extends Component {
                     })
                 };
 
-                let layout_code = "SUBLAY_1";
+                       let layout_code = "SUBLAY_1";
                 let sublayout = this.props.sublayout[layout_code];
-
 
                 return (
                     <ListItem>
@@ -108,7 +107,7 @@ class GennyList extends Component {
                 if(be) {
                     children = [be];
                 }
-            } 
+            }
 
             columns = this.generateHeadersFor(children);
             data = this.generateDataFor(children);
