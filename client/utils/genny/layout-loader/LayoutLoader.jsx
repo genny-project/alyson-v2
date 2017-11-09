@@ -7,37 +7,37 @@ import { JSONLoader } from '@genny-project/layson';
 class LayoutLoader extends Component {
 
   static propTypes = {
-    layouts: object,
+    layout: object,
     baseEntity: object,
   };
 
-  findAliasesIn(layout) {
+  getLayoutValues(layout) {
 
-      let aliases = [];
+      let layoutValues = [];
       if(layout instanceof Object) {
           Object.keys(layout).forEach(key => {
 
-              let results = this.findAliasesIn(layout[key]);
+              let results = this.getLayoutValues(layout[key]);
               if(results instanceof Array) {
                   results.forEach(result => {
-                     aliases.push(result);
+                     layoutValues.push(result);
                   });
               }
               else {
-                  aliases.push(results);
+                  layoutValues.push(results);
               }
           });
       }
       else if (layout instanceof Array) {
           layout.forEach(value => {
-              let results = this.findAliasesIn(value);
+              let results = this.getLayoutValues(value);
               if(results instanceof Array) {
                   results.forEach(result => {
-                     aliases.push(result);
+                     layoutValues.push(result);
                   });
               }
               else {
-                  aliases.push(results);
+                  layoutValues.push(results);
               }
           });
       }
@@ -45,12 +45,12 @@ class LayoutLoader extends Component {
           return [layout];
       }
 
-      return aliases;
+      return layoutValues;
   }
 
   replaceAliasesIn(layout) {
 
-      let aliases = this.findAliasesIn(layout);
+      let aliases = this.getLayoutValues(layout);
       aliases.forEach(alias => {
 
          // step1: check if string has format: "ALIAS.ATTRIBUTE"
@@ -92,22 +92,10 @@ class LayoutLoader extends Component {
   }
 
   render() {
-    const { layouts, baseEntity } = this.props;
 
-    /* Get the current layout */
-    const { current, loaded } = layouts;
-
-    /* If the current layout is null or this layout hasn't been loaded display a LayoutNotFound page */
-    if ( !current ) {
-      return null;
-    }
-
-    if ( loaded[current] == null ) {
-      return <LayoutNotFound layout={current} />;
-    }
-
-    let layout = this.replaceAliasesIn(loaded[current]);
-    return <JSONLoader layout={layout} componentCollection={components} context={baseEntity.data} />;
+    const { layout, baseEntity } = this.props;
+    let finalLayout = this.replaceAliasesIn(layout);
+    return <JSONLoader layout={finalLayout} componentCollection={components} context={baseEntity.data} />;
   }
 }
 

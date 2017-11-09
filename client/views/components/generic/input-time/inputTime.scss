@@ -1,0 +1,27 @@
+@import '../../../../styles/colors';
+
+.input-time {
+    display: flex;
+    align-items: center;
+
+    .input-time-label {
+        margin-right: 10px;
+    }
+    .input-time-dropdown {
+        flex-grow: 1;
+
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+
+    &.success > .input-time-dropdown > .dropdown-container > .input-dropdown-button{
+    	color: $success;
+	    border: 1px solid $success;
+    }
+
+    &.error > .input-time-dropdown > .dropdown-container > .input-dropdown-button{
+    	color: $error;
+	    border: 1px solid $error;
+    }
+}

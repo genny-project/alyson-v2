@@ -1,10 +1,10 @@
 import { ASK as ASK_DATA } from 'constants';
 
-export const Asks = message => ({
+export const Ask = message => ({
   type: ASK_DATA,
   payload: message,
 });
 
 export default {
-  Asks,
+  Ask,
 };
