@@ -47,23 +47,25 @@ class Form extends Component {
 
   render() {
 
-    const { className, children, style, itemsPerPage, showProgress, } = this.props;
+    const { className, children, style, itemsPerPage, showProgress, isHorizontal } = this.props;
     const { childrenCurrent, pageCurrent, pageCount, offset } = this.state;
     const componentStyle = { ...style, };
-    
+
     let childrenCount = Object.keys(this.props.children).length;
     const childrenPageArray = this.getChildrenForCurrentPage(itemsPerPage, offset, children);
 
     return (
-      <div className="form-container">
+      <div className={`form-container ${isHorizontal ? 'horizontal' : null }`}>
         <div className="form-main">
           { showProgress && itemsPerPage <= childrenCount ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null }
           <div className="form-fields">
   	        {childrenPageArray}
           </div>
-          <div className="form-nav">
-            <Pagination hidePageNumbers perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}/>
-          </div>
+          { !isHorizontal ?
+            <div className="form-nav">
+              <Pagination hidePageNumbers perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}/>
+            </div>
+          : null }
         </div>
       </div>
     );
