@@ -1,18 +1,20 @@
 import './socialButton.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, func, any } from 'prop-types';
 import FacebookButton from './facebook-button';
 // import { TwitterLoginButton, GithubLoginButton, AmazonLoginButton, MicrosoftLoginButton, InstagramLoginButton, LinkedInLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
 
 class SocialButton extends Component {
 
   static defaultProps = {
-      buttonType: ''
+      buttonType: '',
+      onClick: () => {}
   }
 
   static propTypes = {
     style: object,
-    buttonType: string
+    buttonType: string,
+    onClick: func
   }
 
   state = {
@@ -26,19 +28,10 @@ class SocialButton extends Component {
 
       switch (type) {
           case "facebook":
-          return <FacebookButton
-              callback={this.callback}
-              appId="123"
-              text="Log in with Facebook"
-              onClick={this.onClickHandler}
-          />
+          return <FacebookButton onClick={this.props.onClick} />
           default:
           return <p>Unknown button</p>
       }
-  }
-
-  onClickHandler = () => {
-      console.log(this.props.buttonType);
   }
 
   render() {

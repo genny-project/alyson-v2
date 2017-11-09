@@ -28,11 +28,9 @@ class TreeView extends Component {
       code: 'TV1',
       value: item.code
     }, item.code);
-    console.log(item.code, 'Log item form sendSelectMsg function');
   }
 
   sendData = (event, data) => {
-    console.log('send', data);
     GennyBridge.sendTVEvent(event, data);
   }
 
@@ -60,7 +58,7 @@ class TreeView extends Component {
             <div>
               <span onClick={() => { this.sendSelectMsg(item); }}>
                 { item.icon ? <IconSmall name={item.icon} /> : null }
-                {item && item.name}{console.log(item, 'item.sendSelectMsg from chevron right')}
+                {item && item.name}
               </span>
               <IconSmall onClick={this.onClick(item)} name="chevron_right" />
             </div>

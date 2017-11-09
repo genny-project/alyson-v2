@@ -1,7 +1,8 @@
 import './appHolder.scss';
 import React, { Component } from 'react';
-import { Sidebar, Header, Footer, IconSmall, GennyTable } from '../../';
+import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal } from '../../';
 import { bool, any } from 'prop-types';
+import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class AppHolder extends Component {
 
@@ -27,7 +28,8 @@ class AppHolder extends Component {
         const { children, sidebar, header, footer, layout } = this.props;
         const { sidebarShrink } = this.state;
         const sidebarChildren = children[0];
-        const contentChildren = children.slice(1);
+        children.shift();
+        const contentChildren = children;
 
         let renderSidebar;
         if ( sidebar ) {
@@ -45,7 +47,7 @@ class AppHolder extends Component {
 
         let renderFooter;
         if ( footer ) {
-            renderFooter = <div className="app-footer"><Footer {...footer} /></div>;
+            renderFooter = <div className="app-footer"><Footer {...footer} /></div>
         }
 
         let layoutContent = null;
@@ -58,8 +60,20 @@ class AppHolder extends Component {
             }
             // we need to show the bucket view
             else if (layout.currentView.code == "BUCKET_VIEW") {
-
+                layoutContent = <GennyBucketView root={layout.dataCode ? layout.dataCode : "GRP_DRIVER_VIEW"} />
             }
+            else if (layout.currentView.code == "LIST_VIEW") {
+                layoutContent = <GennyList root={layout.dataCode ? layout.dataCode : "GRP_QUOTES"} />
+            }
+        }
+        else if (layout.currentSublayout) {
+            console.log(layout.currentSublayout);
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} />
+        }
+
+        let renderModal;
+        if(layout.isShowingModal) {
+            renderModal = <GennyModal root={layout.isShowingModal ? layout.isShowingModal : "SUBLAY_1"} />
         }
 
         if(layoutContent == null)  layoutContent = contentChildren;
@@ -72,6 +86,7 @@ class AppHolder extends Component {
               <div className="app-content">{layoutContent}</div>
               {renderFooter}
             </div>
+            {renderModal}
           </div>
         );
     }

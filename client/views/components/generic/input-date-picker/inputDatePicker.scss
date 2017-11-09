@@ -17,8 +17,14 @@
 	    transition: 300ms ease;
         border: 1px solid #DDD;
 
-        &.start-date {
-            color: green;
+        &.success{
+            color: $success;
+            border: 1px solid $success;
+        }
+    
+        &.error{
+            color: $error;
+            border: 1px solid $error;
         }
     }
 }

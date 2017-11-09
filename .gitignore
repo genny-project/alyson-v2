@@ -9,3 +9,4 @@ build/*.svg
 build/*.ttf
 build/*.eot
 build/*.woff
+package-lock.json

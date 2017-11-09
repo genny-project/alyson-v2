@@ -4,7 +4,7 @@ import { string, bool, array, object, int, any, func } from 'prop-types';
 import { Label, SubmitStatusIcon } from '../';
 
 class InputText extends Component {
-  
+
   static defaultProps = {
     className: '',
     validationList: [],
@@ -14,7 +14,8 @@ class InputText extends Component {
     defaultValue: '',
     readOnly: false,
     optional: false,
-    identifier: null
+    identifier: null,
+    validationStatus: null
   }
 
   static propTypes = {
@@ -26,12 +27,12 @@ class InputText extends Component {
     defaultValue: string,
     readOnly: bool,
     optional: bool,
-    onValidation: func,
-    identifier: any
+    validation: func,
+    identifier: any,
+    validationStatus: string
   }
 
   state = {
-    validationStatus: null,
     date: new Date(),
     hasChanges: false,
     value: this.props.defaultValue,
@@ -63,58 +64,18 @@ class InputText extends Component {
     });
   }
 
-  handleBlur = event => {
-
-    const { validationList } = this.props;
+  handleBlur = (event) => {
+    const { validationList, validation, identifier } = this.props;
     const value = event.target.value;
-
-    this.setState({
-      focused: false
-    });
-
-    console.log(validationList);
-
-    if ( validationList.length > 0 ) {
-      const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-      console.log(valResult)
-      this.validateValue(valResult, value);
-    } else {
-      //window.alert("No regex supplied");
-      //this.sendAnswer(event.target.value);
-      const valResult = new RegExp(/.*/).test( value );
-      console.log(valResult);
-      this.validateValue(valResult, value);
-    }
-  }
-
-  validateValue = ( valResult, value ) => {
-    
-    if ( valResult ){
-      this.validationStyle('success');
-
-      if(this.state.hasChanges) {
-
-        if(this.props.onValidation) this.props.onValidation(value, this.props.identifier);
-        this.setState({
-            hasChanges: false
-        });
-      }
-    } else {
-      this.validationStyle('error');
-    }
-  }
-
-  validationStyle = (resultString) => {
-    this.setState({
-      validationStatus: resultString,
-    });
+    this.setState({ focused: false });
+    if(validation) validation(value, identifier, validationList);
   }
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder } = this.props;
+    const { className, style, name, optional, readOnly, placeholder, validationStatus } = this.props;
     const componentStyle = { ...style, };
-    const { validationStatus, date, focused } = this.state;
+    const { date, focused } = this.state;
 
     return (
       <div className={`input-text ${className} ${validationStatus}`}>
