@@ -11,33 +11,33 @@ class LayoutLoader extends Component {
     baseEntity: object,
   };
 
-  findAliasesIn(layout) {
+  getLayoutValues(layout) {
 
-      let aliases = [];
+      let layoutValues = [];
       if(layout instanceof Object) {
           Object.keys(layout).forEach(key => {
 
-              let results = this.findAliasesIn(layout[key]);
+              let results = this.getLayoutValues(layout[key]);
               if(results instanceof Array) {
                   results.forEach(result => {
-                     aliases.push(result);
+                     layoutValues.push(result);
                   });
               }
               else {
-                  aliases.push(results);
+                  layoutValues.push(results);
               }
           });
       }
       else if (layout instanceof Array) {
           layout.forEach(value => {
-              let results = this.findAliasesIn(value);
+              let results = this.getLayoutValues(value);
               if(results instanceof Array) {
                   results.forEach(result => {
-                     aliases.push(result);
+                     layoutValues.push(result);
                   });
               }
               else {
-                  aliases.push(results);
+                  layoutValues.push(results);
               }
           });
       }
@@ -45,12 +45,12 @@ class LayoutLoader extends Component {
           return [layout];
       }
 
-      return aliases;
+      return layoutValues;
   }
 
   replaceAliasesIn(layout) {
 
-      let aliases = this.findAliasesIn(layout);
+      let aliases = this.getLayoutValues(layout);
       aliases.forEach(alias => {
 
          // step1: check if string has format: "ALIAS.ATTRIBUTE"

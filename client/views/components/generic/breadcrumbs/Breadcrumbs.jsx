@@ -19,14 +19,26 @@ class Breadcrumbs extends Component {
   }
 
   createBreadcrumbs = () => {
-    let filepath = this.props.path.split('/');
-    return filepath.map((group, index) => (
-        <li
-            key={index}>
-            <IconSmall name='chevron_right' />
-            <span>{group}</span>
-        </li>
-    ))
+
+    let stringPath = this.props.path;
+    if(stringPath) {
+
+        if(stringPath[stringPath.length - 1] == "/") {
+            stringPath = stringPath.slice(0, -1);
+        }
+
+        let filepath = stringPath.split('/');
+        return filepath.map((path, index) => (
+
+            <li
+                key={index}>
+                <IconSmall name='chevron_right' />
+                <span>{path}</span>
+            </li>
+        ))
+    }
+
+    return null;
   }
 
   render() {

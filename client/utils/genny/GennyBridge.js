@@ -30,6 +30,8 @@ class GennyBridge {
     let token = this.getToken();
     if(token)
     Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
+
+    // store the current path
   }
 
   sendLogout(event, data) {

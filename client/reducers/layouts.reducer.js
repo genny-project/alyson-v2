@@ -1,13 +1,15 @@
 import layoutsIncluded from '../layouts-included';
-import { LAYOUT_CHANGE, CMD_VIEW, SUBLAYOUT } from 'constants';
+import { LAYOUT_CHANGE, CMD_VIEW, SUBLAYOUT, SUBLAYOUT_CHANGE } from 'constants';
 import config from 'config/config';
 
 const initialState = {
     current: config.backendLayouts ? null : "layout1",
     loaded: {
       ...layoutsIncluded,
-  },
-  sublayout: {}
+    },
+    sublayout: {},
+    currentView: null,
+    currentSublayout: null
 };
 
 export default function reducer( state = initialState, action ) {
@@ -43,8 +45,24 @@ export default function reducer( state = initialState, action ) {
                 currentView: {
                     code: newLayoutCode,
                     dataCode: action.payload.root
-                }
+                },
+                currentSublayout: null
             };
+        }
+
+    case SUBLAYOUT_CHANGE:
+
+        const newSublayoutCode = action.payload.code;
+        const newSublayout = action.payload.layout;
+        if(newSublayoutCode) {
+            return {
+                ...state,
+                currentView: null,
+                currentSublayout: {
+                    code: newSublayoutCode,
+                    layout: newSublayout
+                }
+            }
         }
 
     case SUBLAYOUT:

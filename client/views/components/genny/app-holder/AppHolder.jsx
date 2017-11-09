@@ -2,6 +2,7 @@ import './appHolder.scss';
 import React, { Component } from 'react';
 import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal } from '../../';
 import { bool, any } from 'prop-types';
+import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class AppHolder extends Component {
 
@@ -64,6 +65,10 @@ class AppHolder extends Component {
             else if (layout.currentView.code == "LIST_VIEW") {
                 layoutContent = <GennyList root={layout.dataCode ? layout.dataCode : "GRP_QUOTES"} />
             }
+        }
+        else if (layout.currentSublayout) {
+            console.log(layout.currentSublayout);
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} />
         }
 
         let renderModal;
