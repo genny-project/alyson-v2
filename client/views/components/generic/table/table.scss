@@ -6,3 +6,35 @@
 	color: rgb(69, 69, 69);
 }
 
+.list-item-total {
+    text-align: left;
+    color: #222;
+}
+
+.table-prev, .table-next {
+    cursor: pointer;
+}
+
+.list-pagination {
+    background: #ddd;
+    border-radius: 5px;
+    padding: 5px !important;
+    border: none !important;
+    
+    justify-content: center !important;
+
+    .-previous, .-next {
+        display: flex;
+        align-items: center;
+        flex: 0 !important;
+
+    }
+
+    .-center {
+        flex: 0 !important;
+    }
+
+    i {
+        color: #222;
+    }
+}

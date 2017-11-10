@@ -19,7 +19,7 @@ class GennyList extends Component {
     generateHeadersFor(baseEntities) {
 
         let columns = [{
-            "Header": () => <div className='table-header'><span>{baseEntities.length} Items found</span></div>,
+            "Header": () => <div className='list-item-total'><span>{baseEntities.length} Items found</span></div>,
             "accessor": "baseEntity",
             "sortable" : "false",
             "filterable" : "false",
@@ -56,6 +56,24 @@ class GennyList extends Component {
 
             data.push({
                 "baseEntity": baseEntity
+            });
+            data.push({
+                "baseEntity": '1'
+            });
+            data.push({
+                "baseEntity": '2'
+            });
+            data.push({
+                "baseEntity": '3'
+            });
+            data.push({
+                "baseEntity": '4'
+            });
+            data.push({
+                "baseEntity": '5'
+            });
+            data.push({
+                "baseEntity": '6'
             });
         });
         this.state.data = data;
