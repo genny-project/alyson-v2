@@ -1,9 +1,8 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
-import { List } from '../../';
 import { object, array } from 'prop-types';
 import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
-import { IconSmall, ListItem } from '../../';
+import { IconSmall, ListItem, List, GennyForm } from '../../';
 import { GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
@@ -20,8 +19,10 @@ class GennyList extends Component {
     generateHeadersFor(baseEntities) {
 
         let columns = [{
-            "Header": () => <div><span className='table-header'>{baseEntities.length} Items found</span></div>,
+            "Header": () => <div className='list-item-total'><span>{baseEntities.length} Items found</span></div>,
             "accessor": "baseEntity",
+            "sortable" : "false",
+            "filterable" : "false",
             "Cell": row => {
 
                 let be = row.value;
@@ -29,24 +30,15 @@ class GennyList extends Component {
 
                 if(be.attributes) {
                     Object.keys(be.attributes).forEach(attribute_key => {
-
                         let attribute = be.attributes[attribute_key].value;
                         beAttributes.push(attribute);
-
                     })
                 };
-
-                       let layout_code = "SUBLAY_1";
+                let layout_code = "SUBLAY_1";
                 let sublayout = this.props.sublayout[layout_code];
-
                 return (
                     <ListItem>
-                        {
-                             sublayout ? <LayoutLoader layout={sublayout} /> : null
-                            /*<ul>
-                        <li>hello</li>
-                        {beAttributes.map((value, i) => { return (<span key={i}>{value}</span>) })}*/
-                        }
+                        { sublayout ? <LayoutLoader layout={sublayout} /> : null }
                     </ListItem>
                 )
             }
@@ -65,27 +57,25 @@ class GennyList extends Component {
             data.push({
                 "baseEntity": baseEntity
             });
+            data.push({
+                "baseEntity": '1'
+            });
+            data.push({
+                "baseEntity": '2'
+            });
+            data.push({
+                "baseEntity": '3'
+            });
+            data.push({
+                "baseEntity": '4'
+            });
+            data.push({
+                "baseEntity": '5'
+            });
+            data.push({
+                "baseEntity": '6'
+            });
         });
-
-        // TODO: to be removed
-        data.push({
-            "baseEntity": {
-                code: "test1"
-            }
-        });
-
-        data.push({
-            "baseEntity": {
-                code: "test2"
-            }
-        });
-
-        data.push({
-            "baseEntity": {
-                code: "test3"
-            }
-        });
-
         this.state.data = data;
         return data;
     }
@@ -113,16 +103,13 @@ class GennyList extends Component {
             data = this.generateDataFor(children);
         }
 
+        let headerContent = <GennyForm isHorizontal />
+
         return (
             <div className="genny-list">
                 <List
                     {...this.props}
-                    thStyle={ {display: 'none', color: 'red'} }
-                    tdStyle={ {height: 'initial', padding: 0, margin: 0, flexGrow: 0, background: 'none'} } 
-                    trStyle={ {height: 'initial', padding: 0, margin: 0, flexGrow: 0}} 
-                    trGroupStyle={ {height: 'initial', padding: 0, margin: 0, flexGrow: 0, marginBottom: '10px', border: 'none'} }
-                    tBodyStyle={ { flexGrow: 0} } 
-                    tableStyle={ { flex: 'initial'} } 
+                    header={ headerContent }
                     data={data}
                     columns={columns} />
             </div>

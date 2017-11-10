@@ -1,8 +1,9 @@
 import 'react-table/react-table.css';
 import './table.scss';
 import React, { Component } from 'react';
-import { string, array, object, number, func, } from 'prop-types';
+import { string, array, number, bool, } from 'prop-types';
 import ReactTable from 'react-table';
+import { IconSmall, } from '../../';
 
 class Table extends Component {
 
@@ -10,12 +11,7 @@ class Table extends Component {
     className: '',
     columns: [],
     data: [],
-    thStyle: {},
-    tdStyle: {}, 
-    trStyle: {}, 
-    trGroupStyle: {},
-    tBodyStyle: {}, 
-    tableStyle: {},
+    list: false
   }
 
   static propTypes = {
@@ -23,33 +19,51 @@ class Table extends Component {
     columns: array,
     data: array,
     itemsPerPage: number,
-    thStyle: object,
-    tdStyle: object, 
-    trStyle: object, 
-    trGroupStyle: object,
-    tBodyStyle: object, 
-    tableStyle: object,
+    isList: bool,
   }
 
-  state = {
+  createProps = key => (state, rowInfo, column) => {
+    if ( !this.props.isList )
+      return {};
 
+    const props = {
+      tHeadStyle: { style: { display: 'none' }},
+      tdStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0, background: 'none' }},
+      trStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0 }},
+      trGroupStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0, marginBottom: '10px', border: 'none', }},
+      tBodyStyle: { style: { flexGrow: 0 }},
+      tHeadStyle: { style : { textAlign: 'left' }},
+      tableStyle: { style: { flex: 'initial' }},
+      paginateStyle: { className: 'list-pagination' },
+      tHeadFilterStyle: { style : { display: "none" }},
+    }
+    return props[key];
   }
 
   render() {
-    const { className, columns, data, itemsPerPage, thStyle, tdStyle, trStyle, trGroupStyle, tBodyStyle, tableStyle, } = this.props;
+    const { className, columns, data, itemsPerPage, isList, } = this.props;
+    
     return (
       <ReactTable
-        
-        getTheadProps={(state, rowInfo, column) => { return { style: thStyle } }}
-        getTdProps={(state, rowInfo, column) => { return { style: tdStyle } }}
-        getTrProps={(state, rowInfo, column) => { return { style: trStyle } }}
-        getTrGroupProps={(state, rowInfo, column) => { return { style: trGroupStyle } }}
-        getTbodyProps={(state, rowInfo, column) => { return { style: tBodyStyle } }}
-        getTableProps={(state, rowInfo, column) => { return { style: tableStyle } }}
+        getTdProps={this.createProps( 'tdStyle' )}
+        getTrProps={this.createProps( 'trStyle' )}
+        getTrGroupProps={this.createProps( 'trGroupStyle' )}
+        getTbodyProps={this.createProps( 'tBodyStyle' )}
+        getTableProps={this.createProps( 'tableStyle' )}
+        getPaginationProps={this.createProps( 'paginateStyle' )}
+        getTheadFilterProps={this.createProps( 'tHeadFilterStyle' )}
+        getTheadProps={this.createProps( 'tHeadStyle' )}
+        showPageSizeOptions={false}
+        PreviousComponent={(props) => (
+          <IconSmall {...props} className='table-prev' name='chevron_left' />
+        )}
+        NextComponent={(props) => (
+          <IconSmall {...props} className='table-next' name='chevron_right' />
+        )}
         data={data}
         columns={columns}
         defaultPageSize={itemsPerPage}
-        className="table -striped -highlight"
+        className={`table -striped -highlight ${isList ? 'table-list' : null } `}
       />
     );
   }
