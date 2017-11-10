@@ -32,7 +32,7 @@ class Table extends Component {
       trStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0 }},
       trGroupStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0, marginBottom: '10px', border: 'none', }},
       tBodyStyle: { style: { flexGrow: 0 }},
-      tHeadStyle: { style : { textAlign: 'left' }},
+      tHeadStyle: { style : { textAlign: 'left', marginBottom: '10px' }},
       tableStyle: { style: { flex: 'initial' }},
       paginateStyle: { className: 'list-pagination' },
       tHeadFilterStyle: { style : { display: "none" }},
