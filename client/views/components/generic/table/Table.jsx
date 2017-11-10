@@ -3,6 +3,7 @@ import './table.scss';
 import React, { Component } from 'react';
 import { string, array, number, bool, } from 'prop-types';
 import ReactTable from 'react-table';
+import { IconSmall, } from '../../';
 
 class Table extends Component {
 
@@ -32,8 +33,8 @@ class Table extends Component {
       trGroupStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0, marginBottom: '10px', border: 'none', }},
       tBodyStyle: { style: { flexGrow: 0 }},
       tHeadStyle: { style : { textAlign: 'left' }},
-      tableStyle: { className: 'hello', style: { flex: 'initial' }},
-      paginateStyle: { style: { background: 'red' }},
+      tableStyle: { style: { flex: 'initial' }},
+      paginateStyle: { className: 'list-pagination' },
       tHeadFilterStyle: { style : { display: "none" }},
     }
     return props[key];
@@ -53,6 +54,12 @@ class Table extends Component {
         getTheadFilterProps={this.createProps( 'tHeadFilterStyle' )}
         getTheadProps={this.createProps( 'tHeadStyle' )}
         showPageSizeOptions={false}
+        PreviousComponent={(props) => (
+          <IconSmall {...props} className='table-prev' name='chevron_left' />
+        )}
+        NextComponent={(props) => (
+          <IconSmall {...props} className='table-next' name='chevron_right' />
+        )}
         data={data}
         columns={columns}
         defaultPageSize={itemsPerPage}
