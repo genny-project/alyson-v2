@@ -69,7 +69,7 @@ class Input extends Component {
 
 
         return (
-            <GennySocialButton type="facebook" buttonCode={type}/>
+            <GennySocialButton type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}/>
         );
     }
     else {

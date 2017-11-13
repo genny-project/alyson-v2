@@ -23,8 +23,21 @@ class AppHolder extends Component {
     componentDidMount() {
 
         let social_code = window.getQueryString('code');
+        let data_string = window.getQueryString("data_state");
+
         if(social_code) {
 
+            console.log("got code.");
+            if(data_string) {
+
+                console.log("sending answer.");
+                let data = JSON.parse(data_string);
+                if(data) {
+
+                    data.value = social_code;
+                    // send answer using data;
+                }
+            }
             // sending code as an Answer
             // sourceCode:
             // targetCode:

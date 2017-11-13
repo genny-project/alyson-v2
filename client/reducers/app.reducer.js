@@ -26,9 +26,6 @@ export default function reducer( state = initialState, action ) {
      if(action.payload.items && action.payload.items.redirectUrl) {
 
          let redirectUrl = action.payload.items.redirectUrl;
-        //&client_id=423902461306952
-        //&redirect_uri=http%3A%2F%2Fanishmaharjan.outcome-hub.com%3A8085%2Fsocial%2Foauth_callback%2F
-        //&state=secret717635";
 
         if(action.payload.items.clientId) {
             redirectUrl += "&client_id=" + action.payload.items.clientId;
@@ -36,6 +33,17 @@ export default function reducer( state = initialState, action ) {
 
         if(action.payload.items.redirectUrl) {
             redirectUrl += "&redirect_uri=" + window.location.href;
+        }
+
+        // we also pass some more info so that when we come back we can use this data to post as an answer.
+        let json = JSON.stringify({
+            sourceCode: social_type,
+            targetCode: action.payload.items.targetCode,
+            attributeCode: action.payload.items.attributeCode,
+        });
+
+        if(json) {
+            redirectUrl += "&data_state=" + json;
         }
 
         window.location.href = redirectUrl;
