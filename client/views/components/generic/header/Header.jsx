@@ -54,7 +54,7 @@ class Header extends Component {
       let answer = [
           {
               sourceCode: "PER_USER1",
-              targetCode: "PRJ_GENNY",
+              targetCode: "PRJ_CHANNEL40",
               attributeCode: "PRI_COLOR",
               value: color.hex
           }
