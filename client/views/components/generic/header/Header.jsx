@@ -15,6 +15,7 @@ class Header extends Component {
   static propTypes = {
     className: string,
     style: object,
+    height: string,
   }
 
   state = {
@@ -71,12 +72,14 @@ class Header extends Component {
   }
 
   render() {
-    const { className, projectTitle, userName, userImage, style } = this.props;
+    const { className, projectTitle, userName, userImage, style, height } = this.props;
     const { isVisible } = this.state;
 
     const componentStyle = {
-      ...style,
+      ...style, height: height
     };
+
+    console.log(componentStyle);
 
     const popover = {
         position: 'absolute',
