@@ -7,7 +7,9 @@ import {
 
 
 class Routes extends Component {
+
 	render() {
+
 		return (
 			<Switch>
 				<Route path="/" exact component={Home} />

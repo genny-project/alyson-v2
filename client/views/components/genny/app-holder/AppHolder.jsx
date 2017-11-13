@@ -17,6 +17,20 @@ class AppHolder extends Component {
         sidebarShrink: false
       }
 
+    componentDidMount() {
+
+        let social_code = window.getQueryString('code');
+        if(social_code) {
+
+            // sending code as an Answer
+            // sourceCode:
+            // targetCode:
+            // attributeCode:
+            // askId:
+            // value: social_code
+        }
+    }
+
     handleSidebarSize = () => {
         this.setState(prevState => ({
           sidebarShrink: !prevState.sidebarShrink
@@ -28,8 +42,8 @@ class AppHolder extends Component {
         const { children, sidebar, header, footer, layout } = this.props;
         const { sidebarShrink } = this.state;
         const sidebarChildren = children[0];
-        children.shift();
-        const contentChildren = children;
+        const ctn = children.slice(1);
+        const contentChildren = ctn;
 
         let renderSidebar;
         if ( sidebar ) {

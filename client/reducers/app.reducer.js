@@ -23,9 +23,27 @@ export default function reducer( state = initialState, action ) {
 
      case FB_REDIRECT:
 
-     if(action.payload.items) {
-         console.log(action.payload.items)
-         console.log(action.payload.items.clientId);
+     if(action.payload.items && action.payload.items.redirectUrl) {
+
+         let redirectUrl = action.payload.items.redirectUrl;
+        //&client_id=423902461306952
+        //&redirect_uri=http%3A%2F%2Fanishmaharjan.outcome-hub.com%3A8085%2Fsocial%2Foauth_callback%2F
+        //&state=secret717635";
+
+        if(action.payload.items.clientId) {
+            redirectUrl += "&client_id=" + action.payload.items.clientId;
+        }
+
+        if(action.payload.items.redirectUrl) {
+            redirectUrl += "&redirect_uri=" + window.location.href;
+        }
+
+        window.location.href = redirectUrl;
+
+        return {
+            ...state,
+        }
+
      }
      return state;
 

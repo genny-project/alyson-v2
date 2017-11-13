@@ -62,8 +62,14 @@ class Input extends Component {
     //TODO: remove this.
     // testing facebook
     if(identifier == "QUE_FB_BASIC") {
+
+        console.log("===============");
+        console.log(type);
+        console.log(this.props);
+
+
         return (
-            <GennySocialButton type="facebook" />
+            <GennySocialButton type="facebook" buttonCode={type}/>
         );
     }
     else {

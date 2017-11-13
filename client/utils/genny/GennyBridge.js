@@ -20,9 +20,10 @@ class GennyBridge {
   }
 
   sendBtnClick(btn_code) {
+
       let token = this.getToken();
       if(token) {
-          Vertx.sendMessage(events.outgoing.BTN({ code: "SOC_FB_BASIC_GENNY" }, token)); //to be changed.
+          Vertx.sendMessage(events.outgoing.BTN({ code: btn_code }, token));
       }
   }
 
