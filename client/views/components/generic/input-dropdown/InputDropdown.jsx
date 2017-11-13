@@ -22,44 +22,11 @@ class InputDropdown extends Component {
     validationStatus: this.props.validationStatus ? this.props.validationStatus : null,
   }
 
-  handleClick = selectedItem => {
-
-    const { validationList } = this.props;
+  handleClick = (selectedItem) => {
+    const { validationList, validation, identifier } = this.props;
     const value = selectedItem;
-
-    console.log(validationList);
-
-    if ( validationList.length > 0 ) {
-      const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-      console.log(valResult)
-      this.validateValue(valResult, value);
-    } else {
-      //window.alert("No regex supplied");
-      //this.sendAnswer(event.target.value);
-      const valResult = new RegExp(/.*/).test( value );
-      console.log(valResult);
-      this.validateValue(valResult, value);
-    }
-  }
-
-  validateValue = ( valResult, value ) => {
-    
-    if ( valResult ){
-      this.props.noValidation ? null : this.validationStyle('success');
-      
-      if(this.props.onValidation) {
-        this.props.onValidation(value, this.props.identifier);
-      }
-
-    } else {
-      this.props.noValidation ? null : this.validationStyle('error');
-    }
-  }
-
-  validationStyle = (resultString) => {
-    this.setState({
-      validationStatus: resultString,
-    });
+    this.setState({ focused: false });
+    if(validation) validation(value, identifier, validationList);
   }
 
   render() {

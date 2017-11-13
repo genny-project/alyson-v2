@@ -6,15 +6,16 @@ import { ImageView } from '../';
 class Footer extends Component {
   static defaultProps = {
     className: '',
-    style: object,
+    
   }
 
   static propTypes = {
     className: string,
+    style: object,
   }
 
   render() {
-    const { className, version, poweredBy, style } = this.props;
+    const { className, version, poweredBy, style, } = this.props;
 
     const componentStyle = {
       ...style,

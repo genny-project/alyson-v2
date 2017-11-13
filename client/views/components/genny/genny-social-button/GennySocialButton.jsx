@@ -9,17 +9,19 @@ class GennySocialButton extends Component {
   }
 
   static defaultProps = {
-      buttonType: '',
+      type: '',
+      buttonCode: '',
   }
 
   static propTypes = {
-      buttonType: string,
+      type: string,
+      buttonCode: string,
   };
 
   onClick = () => {
 
-      GennyBridge.sendBtnClick(this.props.buttonType);
-    //   switch(this.props.buttonType) {
+      GennyBridge.sendBtnClick(this.props.buttonCode);
+    //   switch(this.props.type) {
     //       case "facebook":
     //       break;
     //       default: console.log("button not recognized");

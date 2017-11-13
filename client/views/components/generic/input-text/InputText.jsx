@@ -41,9 +41,7 @@ class InputText extends Component {
 
   handleChange = event => {
     if ( this.props.mask ) {
-      console.log(this.props.mask);
       var mask = this.props.mask;
-      console.log(mask.test(event.target.value));
       if ( mask.test(event.target.value) ) {
         this.setState({
           value: event.target.value,
@@ -73,16 +71,16 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus } = this.props;
+    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal } = this.props;
     const componentStyle = { ...style, };
     const { date, focused } = this.state;
 
     return (
       <div className={`input-text ${className} ${validationStatus}`}>
         <div className="input-header">
-          {name ? <Label text={name} /> : null }
-          {optional ? <Label text="(optional)" /> : null}
-          <SubmitStatusIcon status={validationStatus} />
+          {name && !isHorizontal ? <Label text={name} /> : null }
+          {optional && !isHorizontal ? <Label text="(optional)" /> : null}
+          {!isHorizontal ? <SubmitStatusIcon status={validationStatus} /> : null}
         </div>
         <input
           type="text"

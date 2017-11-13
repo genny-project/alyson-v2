@@ -63,6 +63,7 @@ class GennyForm extends Component {
               }
 
               return <Input
+                isHorizontal={this.props.isHorizontal}
                 key={index}
                 identifier={ask_code}
                 type={inputType}

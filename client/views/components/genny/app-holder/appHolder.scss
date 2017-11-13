@@ -31,23 +31,17 @@
 		height: 100vh;
 
 		.app-header {
-
-
 		}
 
 		.app-content {
 
 			overflow-y: scroll;
-			height: calc(100vh - 134px);
 			display: flex;
 			flex-direction: column;
 
 		}
 
 		.app-footer {
-
-
-
 		}
 	}
 }
