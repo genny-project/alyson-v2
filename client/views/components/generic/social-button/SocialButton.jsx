@@ -7,13 +7,13 @@ import FacebookButton from './facebook-button';
 class SocialButton extends Component {
 
   static defaultProps = {
-      buttonType: '',
+      type: '',
       onClick: () => {}
   }
 
   static propTypes = {
     style: object,
-    buttonType: string,
+    type: string,
     onClick: func
   }
 
@@ -36,11 +36,11 @@ class SocialButton extends Component {
 
   render() {
 
-    const { style, buttonType } = this.props;
+    const { style, type } = this.props;
 
     return (
       <div className="social-button">
-          {this.renderSocialButton(buttonType)}
+          {this.renderSocialButton(type)}
       </div>
     );
   }

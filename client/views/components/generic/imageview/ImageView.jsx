@@ -16,7 +16,7 @@ class ImageView extends Component {
     return (
       <div className="imageView">
         <img src={src} onClick={onClick} />
-        {caption}
+        <span>{caption}</span>
       </div>
     );
   }

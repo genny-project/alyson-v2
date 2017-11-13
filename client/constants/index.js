@@ -56,3 +56,6 @@ export const NOTIFICATION = 'Notification';
 
 /* Redirect */
 export const REDIRECT = 'REDIRECT';
+
+/* Redirect - Social */
+export const FB_REDIRECT = 'FB_REDIRECT';

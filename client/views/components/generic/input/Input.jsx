@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { string, func } from 'prop-types';
 import { InputDate, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
 
+//TODO: to remove
+import { GennySocialButton } from './../../';
+
 class Input extends Component {
   static defaultProps = {
     className: '',
@@ -35,7 +38,7 @@ class Input extends Component {
   }
 
   validateValue = ( valResult, value ) => {
-    
+
     if ( valResult ){
       this.validationStyle('success');
         if(this.props.onValidation) this.props.onValidation(value, this.props.identifier);
@@ -52,44 +55,61 @@ class Input extends Component {
 
   render() {
 
-    const { type } = this.props;
+    const { type, identifier } = this.props;
     const {validationStatus } = this.state;
     let items = ['Bananas', 'Oranges', 'Apples', 'Other']
 
-    switch(type) {
-        case "textarea":
-            return ( <InputTextarea {...this.props}/> );
-        case "checkbox":
-            return ( <InputCheckbox {...this.props}/> );
-        case "java.time.Date":
-            return ( <InputDate items={items}
-                {...this.props}/> );
-        case "datepicker":
-            return ( <InputDatePicker
-                {...this.props}
-                validation={this.validateInput}
-                validationStatus={validationStatus}
-            /> );
-        case "dropdown":
-            return ( <InputDropdown items={items} {...this.props}/> );
-        // case "time":
-        //     return ( <InputTime {...this.props}/> );
-        case "slider":
-            return ( <InputSlider {...this.props}/> );
-        case "upload-photo":
-            return ( <InputUploadPhoto {...this.props} /> );
-        case "password":
-            return ( <InputText {...this.props}/> );
-        case "address":
-            return ( <InputAddress {...this.props} /> );
-        case "java.lang.String":
-        default:
-            return ( <InputText
-                {...this.props}
-                validation={this.validateInput}
-                validationStatus={validationStatus}
-            /> );
+    //TODO: remove this.
+    // testing facebook
+    if(identifier == "QUE_FB_BASIC") {
+
+        console.log("===============");
+        console.log(type);
+        console.log(this.props);
+
+
+        return (
+            <GennySocialButton type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}/>
+        );
     }
+    else {
+
+        switch(type) {
+            case "textarea":
+                return ( <InputTextarea {...this.props}/> );
+            case "checkbox":
+                return ( <InputCheckbox {...this.props}/> );
+            case "java.time.Date":
+                return ( <InputDate items={items}
+                    {...this.props}/> );
+            case "datepicker":
+                return ( <InputDatePicker
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                /> );
+            case "dropdown":
+                return ( <InputDropdown items={items} {...this.props}/> );
+            // case "time":
+            //     return ( <InputTime {...this.props}/> );
+            case "slider":
+                return ( <InputSlider {...this.props}/> );
+            case "upload-photo":
+                return ( <InputUploadPhoto {...this.props} /> );
+            case "password":
+                return ( <InputText {...this.props}/> );
+            case "address":
+                return ( <InputAddress {...this.props} /> );
+            case "java.lang.String":
+            default:
+                return ( <InputText
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                /> );
+        }
+    }
+
   }
 }
 
