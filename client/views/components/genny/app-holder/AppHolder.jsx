@@ -14,7 +14,10 @@ class AppHolder extends Component {
     };
 
     state = {
-        sidebarShrink: false
+        sidebarShrink: false,
+        sidebarHeight: this.props.sidebar.style.height ? this.props.sidebar.style.height : '200px',
+        headerHeight: this.props.header.style.height ? this.props.header.style.height : '90px',
+        footerHeight: this.props.footer.style.height ? this.props.footer.style.height : '30px',
       }
 
     componentDidMount() {
@@ -37,26 +40,37 @@ class AppHolder extends Component {
         }));
     }
 
+    getContentHeight = () => {
+        const { headerHeight, footerHeight } = this.state;
+
+        let h = Number(headerHeight.substr(0,headerHeight.length-2));
+        let f = Number(footerHeight.substr(0,footerHeight.length-2));
+
+        const otherHeight = h + f;
+        return {height: `calc(100vh - ${otherHeight}px)`}
+    }
+
     render() {
 
         const { children, sidebar, header, footer, layout } = this.props;
-        const { sidebarShrink } = this.state;
+        const { sidebarShrink, sidebarHeight, headerHeight, footerHeight } = this.state;
         const sidebarChildren = children[0];
         const ctn = children.slice(1);
         const contentChildren = ctn;
+        const contentHeight = this.getContentHeight();
 
         let renderSidebar;
         if ( sidebar ) {
             const sidebarWidth = sidebarShrink ? "50px" : "300px";
             renderSidebar = <div className="app-sidebar" style={{ minWidth: sidebarWidth }} >
                 <IconSmall className="app-sidebar-toggle" name="menu" onClick={this.handleSidebarSize}/>
-                <Sidebar {...sidebar} >{sidebarChildren}</Sidebar>
+                <Sidebar {...sidebar} height={sidebarHeight} >{sidebarChildren}</Sidebar>
             </div>;
         }
 
         let renderHeader;
         if ( header ) {
-            renderHeader = <div className="app-header"><Header {...header} /></div>;
+            renderHeader = <div className="app-header"><Header {...header} height={headerHeight} /></div>;
         }
 
         let renderFooter;
@@ -97,7 +111,7 @@ class AppHolder extends Component {
             {renderSidebar}
             <div className="app-main">
               {renderHeader}
-              <div className="app-content">{layoutContent}</div>
+              <div className="app-content" style={contentHeight}>{layoutContent}</div>
               {renderFooter}
             </div>
             {renderModal}

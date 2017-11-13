@@ -1,11 +1,19 @@
 .imageView {
 
-  height: auto;
+  display: flex;
+  flex-direction: column;
 
+  img {
 
-}
+    background-color: #fff;
+    border-radius: 10px;
 
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
 
-.imageView p {
-  margin: 0px;
+  p {
+    margin: 0px;
+  }
 }

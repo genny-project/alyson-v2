@@ -2,11 +2,15 @@
 
 	height: inherit;
 
-	.imageView {
-		max-width: 50%;
-		margin-left: auto;
-		margin-right: auto;
-		//margin-bottom: 20px;
-		padding-top: 40px;
+	.sidebar-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.sidebar-content {
+		overflow-y: scroll;
+		
 	}
 }
