@@ -107,7 +107,7 @@ class AppHolder extends Component {
                 layoutContent = <GennyList root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_QUOTES"} />
             }
             else if (layout.currentView.code == "FORM_VIEW") {
-                layoutContent = <GennyForm root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_QUESTIONS"} />
+                layoutContent = <GennyForm showProgress="true"/>
             }
         }
         else if (layout.currentSublayout) {

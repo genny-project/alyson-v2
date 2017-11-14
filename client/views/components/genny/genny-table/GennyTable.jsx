@@ -53,7 +53,6 @@ class GennyTable extends Component {
     generateDataFor(baseEntities) {
 
         let data = [];
-        let columns = this.state.columns;
         baseEntities.forEach(baseEntity => {
 
             if(baseEntity.attributes) {
@@ -95,7 +94,7 @@ class GennyTable extends Component {
                             let baseEntity = this.state.data[cellInfo.index];
                             let validationList = baseEntity.validationList[attributeCode];
                             let targetCode = baseEntity.baseEntityCode;
-                            let sourceCode = "";
+                            let sourceCode = ""; //TODO: current user
                             let answer = [
                                 {
                                     sourceCode: sourceCode,
