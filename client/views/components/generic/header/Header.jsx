@@ -72,14 +72,13 @@ class Header extends Component {
   }
 
   render() {
+
     const { className, projectTitle, userName, userImage, style, height } = this.props;
     const { isVisible } = this.state;
 
     const componentStyle = {
       ...style, height: height
     };
-
-    console.log(componentStyle);
 
     const popover = {
         position: 'absolute',

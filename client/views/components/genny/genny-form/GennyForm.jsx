@@ -20,8 +20,27 @@ class GennyForm extends Component {
     this.sendAnswer(newValue, ask);
   }
 
+  onClick = (clickedButton) => {
+
+    console.log("Button was clicked");
+    // clickedButton is a react component. info is stored in clickedButton.props.
+
+    if(clickedButton && clickedButton.props) {
+
+        let data = clickedButton.props.data;
+        let buttonCode = clickedButton.props.buttonCode;
+
+        let answer = {
+            code: buttonCode,
+            ...data
+        }
+
+        this.sendData('Answer', [answer]);
+    }
+  }
+
   sendAnswer = (value, ask) => {
-    console.log("send");
+
     this.sendData('Answer', [
       {
         sourceCode: ask.sourceCode,
@@ -42,8 +61,6 @@ class GennyForm extends Component {
     const { asks, style } = this.props;
     const componentStyle = { ...style, };
     let query = new BaseEntityQuery(this.props);
-
-    console.log(asks);
 
     return (
       <div className="genny-form">
@@ -68,6 +85,9 @@ class GennyForm extends Component {
                 isHorizontal={this.props.isHorizontal}
                 key={index}
                 identifier={ask_code}
+                data={{
+                    askId: ask.id
+                }}
                 type={inputType}
                 style={componentStyle}
                 name={ask.question.name}
@@ -77,6 +97,7 @@ class GennyForm extends Component {
                 validationList={ask.question.validationList}
                 mask={ask.question.mask}
                 onValidation={this.onInputValidation}
+                onClick={this.onClick}
               />;
             })
           }
