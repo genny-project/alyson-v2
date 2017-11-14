@@ -19,20 +19,22 @@ class GennyBridge {
     Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
   }
 
-  sendBtnClick(btn_code) {
+  sendBtnClick(data) {
 
       let token = this.getToken();
       if(token) {
-          Vertx.sendMessage(events.outgoing.BTN({ code: btn_code }, token));
+          Vertx.sendMessage(events.outgoing.BTN(data, token));
       }
   }
 
   sendTVEvent(event, data) {
+
     let token = this.getToken();
     if(token)
-    Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
+        Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
 
     // store the current path
+    console.log(data);
   }
 
   sendLogout(event, data) {

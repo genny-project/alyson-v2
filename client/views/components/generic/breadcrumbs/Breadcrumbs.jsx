@@ -21,7 +21,7 @@ class Breadcrumbs extends Component {
   createBreadcrumbs = () => {
 
     let stringPath = this.props.path;
-    if(stringPath) {
+    if(stringPath && stringPath.length > 0) {
 
         if(stringPath[stringPath.length - 1] == "/") {
             stringPath = stringPath.slice(0, -1);

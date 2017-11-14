@@ -52,7 +52,7 @@ class GennyTreeView extends Component {
   getNeededItems(state, itemCode) {
 
       // get be
-      this.handleClick({code: itemCode});
+      this.onExpand({code: itemCode});
 
       // get children codes if exist
       if(state[itemCode] instanceof Object) {
@@ -60,7 +60,7 @@ class GennyTreeView extends Component {
       }
   }
 
-  handleClick = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
+  onExpand = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
 
     const { tree } = this.state;
 
@@ -100,6 +100,14 @@ class GennyTreeView extends Component {
     });
   }
 
+  clickEvent = (item) => {
+
+      this.sendData('TV_SELECT', {
+          code: 'TV1',
+          value: item.code
+      }, item.code);
+  }
+
   sendData(event, data) {
     GennyBridge.sendTVEvent(event, data);
   }
@@ -129,7 +137,7 @@ class GennyTreeView extends Component {
 
     return (
       <div className="genny-tree-view">
-        <TreeView root={root} {...this.props} items={items} onClick={this.handleClick.bind(this)} />
+        <TreeView root={root} {...this.props} items={items} onExpand={this.onExpand} onClick={this.clickEvent} />
       </div>
     );
   }

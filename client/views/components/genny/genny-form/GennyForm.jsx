@@ -30,12 +30,12 @@ class GennyForm extends Component {
         let data = clickedButton.props.data;
         let buttonCode = clickedButton.props.buttonCode;
 
-        let answer = {
+        let btnEventData = {
             code: buttonCode,
             ...data
         }
 
-        this.sendData('Answer', [answer]);
+        GennyBridge.sendBtnClick(btnEventData);
     }
   }
 
@@ -86,7 +86,7 @@ class GennyForm extends Component {
                 key={index}
                 identifier={ask_code}
                 data={{
-                    askId: ask.id
+                    value: ask.id
                 }}
                 type={inputType}
                 style={componentStyle}

@@ -1,7 +1,7 @@
 import './header.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton, Breadcrumbs } from '../';
+import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton, GennyBreadcrumbs } from '../../';
 import { GennyNotification } from '../../genny';
 import { GennyBridge } from 'utils/genny';
 import { GithubPicker as ColorPicker } from 'react-color';
@@ -129,7 +129,7 @@ class Header extends Component {
               }
             </div>
         </div>
-        <Breadcrumbs path={"test/test/"} style={{ backgroundColor: componentStyle.backgroundColor }}/>
+        <GennyBreadcrumbs path={""} style={{ backgroundColor: componentStyle.backgroundColor }}/>
       </div>
     );
   }

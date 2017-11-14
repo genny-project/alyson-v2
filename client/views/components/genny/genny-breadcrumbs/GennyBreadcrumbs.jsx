@@ -14,15 +14,18 @@ class GennyBreadcrumbs extends Component {
         pathItems: [],
     }
 
+    onClick = (item) => {
+        console.log(item);
+    }
+
     render() {
+
         const { root, showBaseEntity } = this.props;
         const { pathItems } = this.state;
         let query = new BaseEntityQuery(this.props);
 
         return (
-            <div className="genny-list">
-                <Breadcrumbs {...this.props} pathItems={pathItems} />
-            </div>
+            <Breadcrumbs {...this.props} pathItems={pathItems} />
         );
     }
 }
