@@ -1,6 +1,6 @@
 import './appHolder.scss';
 import React, { Component } from 'react';
-import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal } from '../../';
+import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal, GennyForm } from '../../';
 import { bool, any } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
@@ -105,6 +105,9 @@ class AppHolder extends Component {
             }
             else if (layout.currentView.code == "LIST_VIEW") {
                 layoutContent = <GennyList root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_QUOTES"} />
+            }
+            else if (layout.currentView.code == "FORM_VIEW") {
+                layoutContent = <GennyForm showProgress="true"/>
             }
         }
         else if (layout.currentSublayout) {

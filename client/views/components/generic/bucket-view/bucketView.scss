@@ -1,13 +1,13 @@
 .bucket-view {
   display: flex;
   flex-direction: row;
-
+  flex-grow: 1;
   position: relative;
 
   .bucket {
     flex: 1;
     flex-shrink: 0;
-    
+
     background: #a3a3a3;
     color: #FFF;
 
@@ -16,8 +16,8 @@
 
       .bucket-title {
         background: #898989;
-        
-      
+
+
       }
     }
 

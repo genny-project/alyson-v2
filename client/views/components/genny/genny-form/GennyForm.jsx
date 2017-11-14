@@ -43,6 +43,8 @@ class GennyForm extends Component {
     const componentStyle = { ...style, };
     let query = new BaseEntityQuery(this.props);
 
+    console.log(asks);
+
     return (
       <div className="genny-form">
         <Form {...this.props}>
