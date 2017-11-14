@@ -75,6 +75,7 @@ class GennyTreeView extends Component {
   }
 
   openItem = (item) => {
+
     /* Send the Genny event */
     this.sendData('TV_EXPAND', {
       code: 'TV1',
@@ -102,6 +103,32 @@ class GennyTreeView extends Component {
 
   clickEvent = (item) => {
 
+      // update the current path within the store.
+      let parentCode = item.parentCode;
+      let bes = store.getState().baseEntity.data;
+
+      let path = "/" + item.name;
+      let currentPath = item.name;
+
+      // we lookup for the Be corresponding to the parentCode and check if it has a parent.
+      // for each parent we find we keep looping through the parent codes.
+      // effectively, we are building the current path starting from the end.
+      while(parentCode != null) {
+
+          if(bes[parentCode]) {
+
+              path = "/" + bes[parentCode].name + path;
+              parentCode = bes[parentCode].parentCode;
+          }
+          else {
+
+              parentCode = null; // force exit as parent was not found.
+          }
+      }
+
+      // update the current path
+      store.getState().app.currentPath = path;
+
       this.sendData('TV_SELECT', {
           code: 'TV1',
           value: item.code
@@ -123,6 +150,7 @@ class GennyTreeView extends Component {
       const children = this.getEntityChildren(item.code);
       item.children = children;
       item.open = !!this.state.tree[item.code];
+      item.parentCode = code;
       return item;
     });
 

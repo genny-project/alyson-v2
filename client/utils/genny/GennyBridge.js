@@ -33,8 +33,15 @@ class GennyBridge {
     if(token)
         Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
 
-    // store the current path
-    console.log(data);
+    if(event == 'TV_SELECT') {
+
+        // store the current path
+        let root_code = data.value;
+
+        let state_tree = store.getState().app.componentState["tree"];
+        console.log(store.getState().app.componentState);
+        console.log("---------------");
+    }
   }
 
   sendLogout(event, data) {

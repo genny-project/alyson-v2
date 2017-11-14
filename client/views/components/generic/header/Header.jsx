@@ -129,7 +129,7 @@ class Header extends Component {
               }
             </div>
         </div>
-        <GennyBreadcrumbs path={""} style={{ backgroundColor: componentStyle.backgroundColor }}/>
+        <GennyBreadcrumbs path={this.state.currentPath} style={{ backgroundColor: componentStyle.backgroundColor }}/>
       </div>
     );
   }
