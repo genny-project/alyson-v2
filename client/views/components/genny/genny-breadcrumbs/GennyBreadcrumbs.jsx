@@ -23,7 +23,7 @@ class GennyBreadcrumbs extends Component {
         let query = new BaseEntityQuery(this.props);
 
         return (
-            <Breadcrumbs {...this.props} currentPath={ currentPath } />
+            <Breadcrumbs {...this.props} currentPath={ currentPath } onClick={this.onClick} />
         );
     }
 }

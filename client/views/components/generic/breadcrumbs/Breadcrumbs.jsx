@@ -34,8 +34,7 @@ class Breadcrumbs extends Component {
 
                 return (
 
-                    <li
-                        key={index}>
+                    <li key={index} onClick={this.props.onClick(filePath)}>
                         <IconSmall name='chevron_right' />
                         <span>{path}</span>
                     </li>
