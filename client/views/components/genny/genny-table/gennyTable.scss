@@ -2,8 +2,70 @@
 
 .genny-table {
     flex-grow: 1;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .table-header {
  padding-left: 20px;
+}
+
+.table-mobile-cell {
+
+    position: relative;
+
+
+    .table-mobile-cell-header, .table-mobile-cell-row {
+        display: table-row;
+        
+        span {
+
+            overflow: hidden;
+
+            &:not(:last-child) {
+                margin-right: 40px;
+            }
+        }
+    }
+
+    .table-mobile-cell-header {
+
+        
+    }
+
+    .table-mobile-cell-row {
+        background-color: #FFF;
+
+        &:nth-child(2) {
+            border-radius: 5px 5px 0 0;
+        }
+
+        &:last-child {
+            border-radius: 0 0 5px 5px;
+        }
+
+        &:not(:first-child) span:first-child {
+            padding-left: 10px;
+        }
+    }
+
+    .table-mobile-cell-cell {
+        display: table-cell;
+        padding-top:5px;
+        padding-bottom: 5px;
+
+        &:not(:last-child) {
+            padding-right: 20px;
+        }
+
+        &:not(:first-child) {
+            width:100%;
+        }
+    }
+
+    .table-mobile-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 }
