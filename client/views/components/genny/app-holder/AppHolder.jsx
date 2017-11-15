@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal, GennyForm } from '../../';
 import { bool, any } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import { GennyBridge } from 'utils/genny';
 
 class AppHolder extends Component {
 
@@ -27,23 +28,15 @@ class AppHolder extends Component {
 
         if(social_code) {
 
-            console.log("got code.");
             if(data_string) {
 
-                console.log("sending answer.");
-                let data = JSON.parse(data_string);
+                let data = JSON.parse(decodeURIComponent(data_string));
                 if(data) {
 
                     data.value = social_code;
-                    // send answer using data;
+                    GennyBridge.sendAnswer('Answer', [data]);
                 }
             }
-            // sending code as an Answer
-            // sourceCode:
-            // targetCode:
-            // attributeCode:
-            // askId:
-            // value: social_code
         }
     }
 

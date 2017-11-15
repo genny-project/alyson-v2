@@ -39,21 +39,19 @@ class GennyBridge {
         let root_code = data.value;
 
         let state_tree = store.getState().app.componentState["tree"];
-        console.log(store.getState().app.componentState);
-        console.log("---------------");
     }
   }
 
   sendLogout(event, data) {
     let token = this.getToken();
     if(token)
-    Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
+        Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
   sendAnswer(data, items) {
     let token = this.getToken();
     if(token)
-    Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
+        Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
 
     let payload = {
 

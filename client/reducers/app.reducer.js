@@ -32,18 +32,22 @@ export default function reducer( state = initialState, action ) {
         }
 
         if(action.payload.items.redirectUrl) {
-            redirectUrl += "&redirect_uri=" + window.location.href;
-        }
 
-        // we also pass some more info so that when we come back we can use this data to post as an answer.
-        let json = JSON.stringify({
-            sourceCode: action.payload.items.social_type,
-            targetCode: action.payload.items.targetCode,
-            attributeCode: action.payload.items.attributeCode,
-        });
+            let url = window.location.origin;
 
-        if(json) {
-            redirectUrl += "&data_state=" + json;
+            // we also pass some more info so that when we come back we can use this data to post as an answer.
+            let json = JSON.stringify({
+                sourceCode: action.payload.items.social_type,
+                targetCode: action.payload.items.targetCode,
+                attributeCode: action.payload.items.attributeCode,
+                askId: action.payload.items.askId
+            });
+
+            if(json) {
+                url += "?data_state=" + json;
+            }
+
+            redirectUrl += "&redirect_uri=" + url;
         }
 
         window.location.href = redirectUrl;
@@ -51,7 +55,6 @@ export default function reducer( state = initialState, action ) {
         return {
             ...state,
         }
-
      }
      return state;
 
