@@ -10,6 +10,7 @@
 
     background: #a3a3a3;
     color: #FFF;
+    min-width: 190px;
 
     &:nth-child(odd) {
       background: #989998;
@@ -28,10 +29,10 @@
     }
 
     .bucket-content {
-      padding: 10px;
+      padding-top: 5px;
 
       .card {
-        margin-bottom: 10px;
+        
       }
     }
   }
