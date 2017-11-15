@@ -15,6 +15,16 @@
     cursor: pointer;
 }
 
+.pagination-bottom {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+
+    .-pageJump > input {
+        background-color: #ddd;
+    }
+}
+
 .list-pagination {
     background: #ddd;
     border-radius: 5px;

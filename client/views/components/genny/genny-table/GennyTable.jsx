@@ -16,10 +16,11 @@ class GennyTable extends Component {
         data: [],
         columns2: [],
         data2: [],
-        accessor: 'firstname',
         
-        width: '0',
-        height: '0',
+        width: null,
+        height: null,
+
+        isOpen: {}
     }
   
     componentDidMount() {
@@ -74,78 +75,60 @@ class GennyTable extends Component {
     generateHeadersForMobile(baseEntities) {
         
         let columns = [];
-        let attributes = [];
+        let accessors = [];
 
-        {/*
-        console.log(baseEntities);
-        //loop through each base entity
         baseEntities.forEach(baseEntity => {
+            
+            let attributes = baseEntity.attributes;
+            if(attributes) {
 
-            let be = baseEntity;
-            let beCode = be.code
+                Object.keys(attributes).forEach(attribute_key => {
 
-            if(be.attributes) {
-                
-                console.log('be.attributes', be.attributes);
-                Object.keys(be.attributes).forEach(attribute_key => {
+                    let attribute = attributes[attribute_key];
 
-                    let attribute = be.attributes[attribute_key];
+                    // we loop through the headers. If the header already exists we skip, otherwise we add it
+                    let headers = accessors.map(column => {
+                        return column.attributeCode;
+                    });
 
-                    console.log('attribute', attribute);
-
-                    if(!attributes.includes(attribute.attributeCode)) {
-                        attributes.push(
-                            <div>
-                                <span>{attribute.code}</span><span>{attribute.name}</span>
-                            </div>
-                        );
+                    if(!headers.includes(attribute.attributeCode)) {
+                        accessors.push({
+                            "attributeCode": attribute.attributeCode,
+                            "name": attribute.attribute.name,
+                        });
                     }
-                })
+                });
             }
         });
 
-        console.log('===============', 'attributes', attributes);
-
         columns.push({
-            "Header": () => { return <div><span>Mobile List</span></div>},
-            "accessor": baseEntities,
-            "Cell": () => {
-                return
-                    <div>
-                        baseEntityCode
-                    </div>
-            },
-            "attributeCode": ''
-        });
-        */}
-
-
-        columns.push({
-            "Header": () => { return (
-                <div>
-                    <span style={ this.state.accessor === 'firstname' ? {color: 'red'} : null} onClick={() => this.changeHeader('firstname') }>firstname</span>
-                    <span style={ this.state.accessor === 'middlename' ? {color: 'red'} : null} onClick={() => this.changeHeader('middlename') }>middlename</span>
-                    <span style={ this.state.accessor === 'lastname' ? {color: 'red'} : null} onClick={() => this.changeHeader('lastname') }>lastname</span>
-                </div>
-            )},
-            "accessor": () => { return ( this.state.accessor )},
-            "Cell": row => {
-
-                console.log(this.state.accessor);
+            "Header": () => { return <div><span>{accessors[0].attributeCode}</span></div> },
+            "accessor": accessors[0].attributeCode,
+            "Cell": ({row, original}) => {
 
                 Object.prototype.getKey = function(value) {
                     let object = this;
                     return Object.keys(object).find(key => object[key] === value);
                 };
 
-                let fnKey = row.original.getKey(row.original.firstname);
-                let mnKey = row.original.getKey(row.original.middlename);
-                let lnKey = row.original.getKey(row.original.lastname);
                 return (
-                    <div>
-                        <div><span>{fnKey}:</span><span>{row.original.firstname}</span></div>
-                        <div><span>{mnKey}:</span><span>{row.original.middlename}</span></div>
-                        <div><span>{lnKey}:</span><span>{row.original.lastname}</span></div>
+                    <div className='table-mobile-cell'>
+                            <IconSmall
+                                className='table-mobile-icon clickable'
+                                onClick={() => this.onClick(original.baseEntityCode)}
+                                name={this.state.isOpen[original.baseEntityCode] ? 'expand_more' : 'chevron_right'}
+                            />
+                        { 
+                            accessors.map((attribute, i ) => {
+                                if ( i ===  0 || i > 0 && this.state.isOpen[original.baseEntityCode] === true ) 
+                                    return ( 
+                                        <div key={i} className={`${ i === 0 ? 'table-mobile-cell-header' : 'table-mobile-cell-row'} ${ this.state.isOpen[original.baseEntityCode] ? 'header-divider' : null }`}>
+                                            <span className='table-mobile-cell-cell'>{original.getKey(original[attribute.name])}:</span>
+                                            <span className='table-mobile-cell-cell'>{original[attribute.name]}</span>
+                                        </div>
+                                    );
+                            })
+                        }
                     </div>
                 )
             }
@@ -155,38 +138,15 @@ class GennyTable extends Component {
         return columns;
     }
 
-    changeHeader = (event) => {
-
-        this.setState({
-            accessor: event 
-        })
-    }
-
-    generateDataForMobile(baseEntities) {
-        
-        let data = [
-            {
-                "firstname": "aaaa",
-                "middlename": "nnnn",
-                "lastname": "zzzz"
-            },
-            {
-                "firstname": "bbbb",
-                "middlename": "mmmm",
-                "lastname": "yyyy"
-            },
-            {
-                "firstname": "cccc",
-                "middlename": "llll",
-                "lastname": "xxxx"
+    onClick = (code) => {
+        this.setState(prevState => ({
+            isOpen: {
+                ...this.state.isOpen,
+                [code]: !prevState.isOpen[code],
             }
+        }));
 
-        ];
-
-        this.state.data2 = data;
-        return data;
     }
-
 
     generateDataFor(baseEntities) {
 
@@ -303,24 +263,15 @@ class GennyTable extends Component {
                 }
             }
 
-            columns = this.generateHeadersFor(children);
+            columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
             data = this.generateDataFor(children);
-            columns2 = this.generateHeadersForMobile(children);
-            data2 = this.generateDataForMobile(children);
-            console.log('=================================');
-            console.log(columns);
-            console.log(data);
-            console.log('=================================');
-            console.log(columns2);
-            console.log(data2);
-            console.log('=================================');
+            console.log('=============');
+            console.log('isOpen', this.state.isOpen);
         }
 
         return (
             <div className="genny-table">
                 <Table {...this.props} data={data} columns={columns} />
-                <div style={{ paddingTop: '50px' }} />
-                <Table {...this.props} data={data2} columns={columns2} />
             </div>
         );
     }
