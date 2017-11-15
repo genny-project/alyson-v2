@@ -41,6 +41,15 @@ class GennyBridge {
         Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
+  sendBucketDropEvent(data) {
+
+      let token = this.getToken();
+      if(token) {
+          console.log("sending");console.log(data);
+          Vertx.sendMessage(events.outgoing.BUCKET_DROP_EVENT(data, token));
+      }
+  }
+
   sendAnswer(items) {
     let token = this.getToken();
     if(token) {

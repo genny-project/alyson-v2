@@ -4,6 +4,7 @@ import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
 import { IconSmall, BucketView, Card } from '../../';
 import { Draggable } from 'react-beautiful-dnd';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import { GennyBridge } from 'utils/genny';
 
 class GennyBucketView extends Component {
 
@@ -24,7 +25,33 @@ class GennyBucketView extends Component {
 
     didMoveItem = (item, source, destination) => {
 
-        console.log("Send answer...");
+        if(item.draggableId) {
+
+            let query = new BaseEntityQuery(this.props);
+            let begs = query.getEntityChildren(source.droppableId);
+            if(begs.length > 0) {
+
+                let movedBeg = begs.filter(x => x.code == item.draggableId)[0];
+                let loads = movedBeg.children;
+                if(loads && loads.length > 0) {
+
+                    let movedLoad = loads[0];
+                    let loadCode = movedLoad.code;
+                    let linkCode = movedBeg.linkCode;
+                    let data_event = {
+                        sourceGrp: source.droppableId,
+                        targetGrp: destination.droppableId,
+                        linkCode: linkCode,
+                        data: {
+                            code: item.draggableId,
+                            value: loadCode,
+                        }
+                    };
+
+                    GennyBridge.sendBucketDropEvent(data_event);
+                }
+            }
+        }
     }
 
     generateBucket(query, group) {
