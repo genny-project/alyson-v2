@@ -1,4 +1,4 @@
-import { REDIRECT, FB_REDIRECT } from 'constants';
+import { REDIRECT, SOCIAL_REDIRECT } from 'constants';
 import history from 'views/history.js';
 
 const initialState = {
@@ -21,11 +21,11 @@ export default function reducer( state = initialState, action ) {
         lastRedirect: action.payload
       };
 
-     case FB_REDIRECT:
+     case SOCIAL_REDIRECT:
 
      if(action.payload.items && action.payload.items.redirectUrl) {
 
-         let redirectUrl = action.payload.items.redirectUrl;
+        let redirectUrl = action.payload.items.redirectUrl;
 
         if(action.payload.items.clientId) {
             redirectUrl += "&client_id=" + action.payload.items.clientId;
@@ -37,7 +37,7 @@ export default function reducer( state = initialState, action ) {
 
         // we also pass some more info so that when we come back we can use this data to post as an answer.
         let json = JSON.stringify({
-            sourceCode: social_type,
+            sourceCode: action.payload.items.social_type,
             targetCode: action.payload.items.targetCode,
             attributeCode: action.payload.items.attributeCode,
         });
