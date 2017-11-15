@@ -28,18 +28,18 @@ class GennyTreeView extends Component {
 
   componentDidMount() {
 
-      let identifier = this.props.key || this.props.root;
-      if(identifier && this.props.componentState) {
-
-        if(this.props.componentState[identifier]) {
-
-            // ask for all the bes
-            this.getNeededDataFor(this.props.componentState[identifier]);
-
-            // update state
-            this.setState(this.props.componentState[identifier]);
-        }
-      }
+    //   let identifier = this.props.key || this.props.root;
+    //   if(identifier && this.props.componentState) {
+      //
+    //     if(this.props.componentState[identifier]) {
+      //
+    //         // ask for all the bes
+    //         this.getNeededDataFor(this.props.componentState[identifier]);
+      //
+    //         // update state
+    //         this.setState(this.props.componentState[identifier]);
+    //     }
+    //   }
   }
 
   getNeededDataFor(state) {
@@ -107,7 +107,7 @@ class GennyTreeView extends Component {
       let parentCode = item.parentCode;
       let bes = store.getState().baseEntity.data;
 
-      let path = "/" + item.name;
+      let path = "/" + item.code;
       let currentPath = item.name;
 
       // we lookup for the Be corresponding to the parentCode and check if it has a parent.
@@ -117,7 +117,7 @@ class GennyTreeView extends Component {
 
           if(bes[parentCode]) {
 
-              path = "/" + bes[parentCode].name + path;
+              path = "/" + bes[parentCode].code + path;
               parentCode = bes[parentCode].parentCode;
           }
           else {

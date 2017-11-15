@@ -34,13 +34,13 @@ class Breadcrumbs extends Component {
 
                 return (
 
-                    <li key={index} onClick={this.props.onClick(filePath)}>
+                    <li key={index} onClick={() => this.props.onClick(path)}>
                         <IconSmall name='chevron_right' />
                         <span>{path}</span>
                     </li>
                 )
             }
-        })
+        });
     }
 
     return null;
