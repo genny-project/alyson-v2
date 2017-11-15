@@ -30,18 +30,18 @@ class GennyTreeView extends Component {
 
   componentDidMount() {
 
-    //   let identifier = this.props.key || this.props.root;
-    //   if(identifier && this.props.componentState) {
-      //
-    //     if(this.props.componentState[identifier]) {
-      //
-    //         // ask for all the bes
-    //         this.getNeededDataFor(this.props.componentState[identifier]);
-      //
-    //         // update state
-    //         this.setState(this.props.componentState[identifier]);
-    //     }
-    //   }
+      let identifier = this.props.key || this.props.root;
+      if(identifier && this.props.componentState) {
+
+        if(this.props.componentState[identifier]) {
+      
+            // ask for all the bes
+            this.getNeededDataFor(this.props.componentState[identifier]);
+
+            // update state
+            this.setState(this.props.componentState[identifier]);
+        }
+      }
   }
 
   getNeededDataFor(state) {
