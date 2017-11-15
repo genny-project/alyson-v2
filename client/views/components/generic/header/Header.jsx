@@ -1,7 +1,7 @@
 import './header.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton, GennyBreadcrumbs } from '../../';
+import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton, GennyTreeView } from '../../';
 import { GennyNotification } from '../../genny';
 import { GennyBridge } from 'utils/genny';
 import { GithubPicker as ColorPicker } from 'react-color';
@@ -93,6 +93,7 @@ class Header extends Component {
         bottom: '0px',
         left: '0px',
     };
+
     return (
 
       <div className="header" style={componentStyle}>
@@ -129,7 +130,7 @@ class Header extends Component {
               }
             </div>
         </div>
-        <GennyBreadcrumbs path={this.state.currentPath} style={{ backgroundColor: componentStyle.backgroundColor }}/>
+        <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }}/>
       </div>
     );
   }

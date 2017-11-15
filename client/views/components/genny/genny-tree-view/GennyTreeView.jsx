@@ -1,7 +1,7 @@
 import './gennyTreeView.scss';
 import React, { Component } from 'react';
-import { TreeView } from '../../';
-import { object, array } from 'prop-types';
+import { TreeView, Breadcrumbs } from '../../';
+import { object, array, bool } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
 import { BaseEntity } from '../../../../utils/genny/';
@@ -14,11 +14,13 @@ class GennyTreeView extends Component {
 
   static propTypes = {
     items: array,
-    baseEntity: object
+    baseEntity: object,
+    isHorizontal: bool
   };
 
   state = {
-    tree: {}
+    tree: {},
+    horizontalItems: {}
   }
 
   componentDidUpdate() {
@@ -101,7 +103,15 @@ class GennyTreeView extends Component {
     });
   }
 
-  clickEvent = (item) => {
+  onClick = (clickedItem) => {
+
+      let item = null;
+      if(this.props.isHorizontal) {
+          item = this.state.horizontalItems[clickedItem];
+      }
+      else {
+          item = clickedItem;
+      }
 
       // update the current path within the store.
       let parentCode = item.parentCode;
@@ -157,17 +167,47 @@ class GennyTreeView extends Component {
     return items;
   }
 
+  generatePath = (baseEntityPath) => {
+
+      if(!baseEntityPath) return "";
+
+      let finalPath = "";
+      let besCode = baseEntityPath.split('/');
+      besCode.forEach((be_code) => {
+
+          if(be_code && be_code.length > 0) {
+
+              let be = this.props.baseEntity.data[be_code];
+              finalPath += "/" + be.name;
+              this.state.horizontalItems[be.name] = be;
+          }
+      });
+
+      return finalPath;
+  }
+
   render() {
 
-    const { root, baseEntity } = this.props;
+    const { root, baseEntity, isHorizontal } = this.props;
     const relationships = baseEntity.relationships[root];
     const items = this.getEntityChildren(root);
 
-    return (
-      <div className="genny-tree-view">
-        <TreeView root={root} {...this.props} items={items} onExpand={this.onExpand} onClick={this.clickEvent} />
-      </div>
-    );
+    if(isHorizontal) {
+
+        let bePath = this.generatePath(this.props.currentPath);
+
+        return (
+            <Breadcrumbs {...this.props} currentPath={ bePath } onClick={ this.onClick } />
+        );
+    }
+    else {
+
+        return (
+          <div className="genny-tree-view">
+            <TreeView root={root} {...this.props} items={items} onExpand={this.onExpand} onClick={this.onClick} />
+          </div>
+        );
+    }
   }
 }
 
