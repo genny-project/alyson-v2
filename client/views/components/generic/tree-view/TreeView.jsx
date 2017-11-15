@@ -44,7 +44,7 @@ class TreeView extends Component {
                 { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
                 {item.name}
               </span>
-              <IconSmall onClick={this.onExpand(item)} name="expand_more" />
+              <IconSmall className='clickable' onClick={this.onExpand(item)} name="expand_more" />
             </div>
             <ul className="child" style={{ marginLeft: 10 }}>
               {item.children.length ? this.renderList(item.children) : <SubmitStatusIcon status="sending" />}
@@ -55,11 +55,11 @@ class TreeView extends Component {
         layout.push(
           <li key={i}>
             <div>
-              <span onClick={this.onClick(item)}>
+              <span className='clickable' onClick={this.onClick(item)}>
                 { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
                 {item && item.name}
               </span>
-              <IconSmall onClick={this.onExpand(item)} name="chevron_right" />
+              <IconSmall className='clickable' onClick={this.onExpand(item)} name="chevron_right" />
             </div>
           </li>);
       }
