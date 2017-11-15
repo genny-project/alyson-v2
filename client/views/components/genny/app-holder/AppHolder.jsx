@@ -1,8 +1,9 @@
 import './appHolder.scss';
 import React, { Component } from 'react';
-import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal } from '../../';
+import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal, GennyForm } from '../../';
 import { bool, any } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import { GennyBridge } from 'utils/genny';
 
 class AppHolder extends Component {
 
@@ -27,23 +28,15 @@ class AppHolder extends Component {
 
         if(social_code) {
 
-            console.log("got code.");
             if(data_string) {
 
-                console.log("sending answer.");
-                let data = JSON.parse(data_string);
+                let data = JSON.parse(decodeURIComponent(data_string));
                 if(data) {
 
                     data.value = social_code;
-                    // send answer using data;
+                    GennyBridge.sendAnswer([data]);
                 }
             }
-            // sending code as an Answer
-            // sourceCode:
-            // targetCode:
-            // attributeCode:
-            // askId:
-            // value: social_code
         }
     }
 
@@ -105,6 +98,9 @@ class AppHolder extends Component {
             }
             else if (layout.currentView.code == "LIST_VIEW") {
                 layoutContent = <GennyList root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_QUOTES"} />
+            }
+            else if (layout.currentView.code == "FORM_VIEW") {
+                layoutContent = <GennyForm showProgress="true"/>
             }
         }
         else if (layout.currentSublayout) {

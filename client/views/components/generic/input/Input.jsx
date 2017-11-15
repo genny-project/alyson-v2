@@ -1,7 +1,7 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
-import { InputDate, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
+import { InputDate, InputSocial, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
 
 //TODO: to remove
 import { GennySocialButton } from './../../';
@@ -64,12 +64,12 @@ class Input extends Component {
     if(identifier == "QUE_FB_BASIC") {
 
         console.log("===============");
-        console.log(type);
         console.log(this.props);
 
 
         return (
-            <GennySocialButton type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}/>
+            // <GennySocialButton type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}/>
+            <InputSocial {...this.props} type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}  />
         );
     }
     else {

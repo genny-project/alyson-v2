@@ -30,6 +30,7 @@
     > div, > div > span {
       display: flex;
       align-items: center;
+      cursor: pointer;
     }
 
     > div > span > i {
@@ -37,4 +38,3 @@
     }
   }
 }
-

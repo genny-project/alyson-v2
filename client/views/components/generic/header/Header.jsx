@@ -1,7 +1,7 @@
 import './header.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton, Breadcrumbs } from '../';
+import { IconSmall, Profile, Label, ImageView, Dropdown, CircleButton, GennyTreeView } from '../../';
 import { GennyNotification } from '../../genny';
 import { GennyBridge } from 'utils/genny';
 import { GithubPicker as ColorPicker } from 'react-color';
@@ -50,17 +50,15 @@ class Header extends Component {
 
   handleChangeComplete = (color) => {
 
-      console.error("Changing color answer has to be changed");
       let answer = [
           {
-              sourceCode: "PER_USER1",
               targetCode: "PRJ_CHANNEL40",
               attributeCode: "PRI_COLOR",
               value: color.hex
           }
       ];
 
-      GennyBridge.sendAnswer('Answer', answer);
+      GennyBridge.sendAnswer(answer);
       this.toggleColorPicker();
   };
 
@@ -72,14 +70,13 @@ class Header extends Component {
   }
 
   render() {
+
     const { className, projectTitle, userName, userImage, style, height } = this.props;
     const { isVisible } = this.state;
 
     const componentStyle = {
       ...style, height: height
     };
-
-    console.log(componentStyle);
 
     const popover = {
         position: 'absolute',
@@ -94,6 +91,7 @@ class Header extends Component {
         bottom: '0px',
         left: '0px',
     };
+
     return (
 
       <div className="header" style={componentStyle}>
@@ -130,7 +128,7 @@ class Header extends Component {
               }
             </div>
         </div>
-        <Breadcrumbs path={"test/test/"} style={{ backgroundColor: componentStyle.backgroundColor }}/>
+        <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }}/>
       </div>
     );
   }

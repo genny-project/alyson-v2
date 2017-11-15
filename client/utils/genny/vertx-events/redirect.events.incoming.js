@@ -1,16 +1,16 @@
-import { REDIRECT, FB_REDIRECT as FACEBOOK } from 'constants';
+import { REDIRECT, SOCIAL_REDIRECT as SOCIAL } from 'constants';
 
 export const CMD_REDIRECT = message => ({
   type: REDIRECT,
   payload: message.redirect_url
 });
 
-export const FB_REDIRECT = message => ({
-  type: FACEBOOK,
+export const SOCIAL_REDIRECT = message => ({
+  type: SOCIAL,
   payload: message
 });
 
 export default {
   CMD_REDIRECT,
-  FB_REDIRECT
+  SOCIAL_REDIRECT
 };

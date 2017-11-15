@@ -30,7 +30,6 @@ class Notifications extends Component {
     const { className, notifications } = this.props;
     const { isVisible } = this.state;
 
-    console.log(notifications);
     return (
       <div className="notifications" onClick={this.handleClickNotifs}>
         <IconSmall name="forum"/>

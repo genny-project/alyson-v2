@@ -62,6 +62,12 @@ class InputText extends Component {
     });
   }
 
+  onKeyDown = event => {
+    if(event.key == 'Enter') {
+        this.handleBlur(event);
+    }
+  }
+
   handleBlur = (event) => {
     const { validationList, validation, identifier } = this.props;
     const value = event.target.value;
@@ -90,6 +96,7 @@ class InputText extends Component {
           onChange={this.handleChange}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
+          onKeyDown={this.onKeyDown}
           style={ focused ? {borderColor: componentStyle.color} : null }
         />
       </div>
