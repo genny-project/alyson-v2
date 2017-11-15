@@ -50,17 +50,15 @@ class Header extends Component {
 
   handleChangeComplete = (color) => {
 
-      console.error("Changing color answer has to be changed");
       let answer = [
           {
-              sourceCode: "PER_USER1",
               targetCode: "PRJ_CHANNEL40",
               attributeCode: "PRI_COLOR",
               value: color.hex
           }
       ];
 
-      GennyBridge.sendAnswer('Answer', answer);
+      GennyBridge.sendAnswer(answer);
       this.toggleColorPicker();
   };
 

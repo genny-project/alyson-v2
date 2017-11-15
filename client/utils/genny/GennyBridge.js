@@ -33,13 +33,6 @@ class GennyBridge {
     if(token)
         Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
 
-    if(event == 'TV_SELECT') {
-
-        // store the current path
-        let root_code = data.value;
-
-        let state_tree = store.getState().app.componentState["tree"];
-    }
   }
 
   sendLogout(event, data) {
@@ -48,10 +41,22 @@ class GennyBridge {
         Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
-  sendAnswer(data, items) {
+  sendAnswer(items) {
     let token = this.getToken();
-    if(token)
-        Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
+    if(token) {
+
+        let answers = items.map(item => {
+
+            if(!item.sourceCode) {
+                item.sourceCode = store.getState().baseEntity.aliases["USER"];
+            }
+
+            return item;
+        });
+
+        Vertx.sendMessage(events.outgoing.ANSWER('Answer', answers, token));
+
+    }
 
     let payload = {
 

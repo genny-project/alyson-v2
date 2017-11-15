@@ -41,7 +41,7 @@ class GennyForm extends Component {
 
   sendAnswer = (value, ask) => {
 
-    this.sendData('Answer', [
+    this.sendData([
       {
         sourceCode: ask.sourceCode,
         targetCode: ask.targetCode,
@@ -52,8 +52,8 @@ class GennyForm extends Component {
     ]);
   };
 
-  sendData(data, items) {
-    GennyBridge.sendAnswer(data, items);
+  sendData(items) {
+    GennyBridge.sendAnswer(items);
   }
 
   render() {

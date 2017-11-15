@@ -94,10 +94,8 @@ class GennyTable extends Component {
                             let baseEntity = this.state.data[cellInfo.index];
                             let validationList = baseEntity.validationList[attributeCode];
                             let targetCode = baseEntity.baseEntityCode;
-                            let sourceCode = ""; //TODO: current user
                             let answer = [
                                 {
-                                    sourceCode: sourceCode,
                                     targetCode: targetCode,
                                     attributeCode: attributeCode,
                                     value: newValue
@@ -117,9 +115,7 @@ class GennyTable extends Component {
                             }
 
                             if (valResult) {
-
-                                console.log("Uncomment to send answer...");
-                                GennyBridge.sendAnswer('Answer', answer);
+                                GennyBridge.sendAnswer(answer);
 
                             } else {
 

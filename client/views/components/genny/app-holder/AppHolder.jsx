@@ -34,7 +34,7 @@ class AppHolder extends Component {
                 if(data) {
 
                     data.value = social_code;
-                    GennyBridge.sendAnswer('Answer', [data]);
+                    GennyBridge.sendAnswer([data]);
                 }
             }
         }
