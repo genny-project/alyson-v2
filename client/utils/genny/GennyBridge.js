@@ -45,12 +45,23 @@ class GennyBridge {
 
       let token = this.getToken();
       if(token) {
-          console.log("sending");console.log(data);
           Vertx.sendMessage(events.outgoing.BUCKET_DROP_EVENT(data, token));
       }
   }
 
+  sendGPSData(data) {
+
+      let token = this.getToken();
+      if(token) {
+
+          data.targetCode = store.getState().baseEntity.aliases["USER"];
+          data.sourceCode = store.getState().baseEntity.aliases["USER"];
+          Vertx.sendMessage(events.outgoing.ANSWER('GPS', data, token));
+      }
+  }
+
   sendAnswer(items) {
+
     let token = this.getToken();
     if(token) {
 
@@ -64,7 +75,6 @@ class GennyBridge {
         });
 
         Vertx.sendMessage(events.outgoing.ANSWER('Answer', answers, token));
-
     }
 
     let payload = {

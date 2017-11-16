@@ -6,6 +6,9 @@ import { func, object } from 'prop-types';
 import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn, KeycloakAccount } from '@genny-project/keycloak-react';
 import keycloakAdapter from 'keycloak-js';
 
+// TODO: to remove
+import { GennyBridge } from 'utils/genny';
+
 class App extends Component {
 
   static propTypes = {
@@ -22,8 +25,28 @@ class App extends Component {
   }
 
   handleAuthSuccess = keycloak => {
+
     /* Hide the loading spinner */
     document.getElementById('mounting-preview').remove();
+
+    document.addEventListener('native-message', (message) => {
+
+        if(message.detail) {
+
+            let detail = message.detail;
+            if(detail.lastPosition) {
+
+                let coords = detail.lastPosition.coords;
+
+                //TODO: remove this and simply store it within the store.
+                let item = [{
+                    ...coords,
+                }];
+
+                GennyBridge.sendGPSData(item);
+            }
+        }
+    })
 
     /* Send off the auth logged in action */
     if(keycloak.getToken()) {
