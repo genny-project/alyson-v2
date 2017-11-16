@@ -11,6 +11,7 @@ class Sidebar extends Component {
       caption: any,
       children: any,
       height: string,
+      screenSize: string,
     };
 
     getContentHeight = () => {
@@ -23,7 +24,7 @@ class Sidebar extends Component {
 
     render() {
 
-        const { style, src, caption, children, height } = this.props;
+        const { style, src, caption, children, height, screenSize } = this.props;
 
         const componentStyle = {
           ...style,
@@ -31,13 +32,15 @@ class Sidebar extends Component {
 
         const contentHeight = this.getContentHeight();
 
+        console.log(screenSize === 'xs' || screenSize === 'sm' ? 'small' : screenSize === 'md' ? 'medium' : 'large');
+
         let imageView = null;
         if ( src ) {
             imageView = <ImageView src={src} caption={caption} style={{ maxWidth: "200px" }} />;
         }
 
         return (
-            <div className="sidebar" style={componentStyle}>
+            <div className={`sidebar ${screenSize}`} style={componentStyle}>
               <div className="sidebar-header" style={{height: height}}>
                 {imageView}
               </div>
