@@ -39,8 +39,8 @@ class GennyBucketView extends Component {
                     let loadCode = movedLoad.code;
                     let linkCode = movedBeg.linkCode;
                     let data_event = {
-                        sourceGrp: source.droppableId,
-                        targetGrp: destination.droppableId,
+                        sourceBaseEntityCode: source.droppableId,
+                        targetBaseEntityCode: destination.droppableId,
                         linkCode: linkCode,
                         data: {
                             code: item.draggableId,
