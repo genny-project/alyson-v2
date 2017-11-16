@@ -19,9 +19,15 @@ class AppHolder extends Component {
         sidebarHeight: this.props.sidebar.style.height ? this.props.sidebar.style.height : '200px',
         headerHeight: this.props.header.style.height ? this.props.header.style.height : '90px',
         footerHeight: this.props.footer.style.height ? this.props.footer.style.height : '30px',
+        width: null,
+        height: null,
+        screenSize: null,
       }
 
     componentDidMount() {
+
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
 
         let social_code = window.getQueryString('code');
         let data_string = window.getQueryString("data_state");
@@ -39,6 +45,38 @@ class AppHolder extends Component {
             }
         }
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+    
+    updateWindowDimensions = () => {
+        let screenSize = '';
+        if (window.innerWidth < 576) {
+            screenSize = 'xs';
+        }
+        else if (window.innerWidth >= 576 && window.innerWidth < 768) {
+            screenSize = 'sm';
+        }
+        else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+            screenSize = 'md';
+        }
+        else if (window.innerWidth >= 992) {
+            screenSize = 'lg';
+        }
+
+        if (screenSize != this.state.screenSize){
+            console.log('=============')
+            console.log(screenSize);
+            console.log('=============')
+        } 
+
+        this.setState({
+            width: window.innerWidth,
+            height: window.innerHeight,
+            screenSize: screenSize,
+        });
+    }  
 
     handleSidebarSize = () => {
         this.setState(prevState => ({
@@ -59,7 +97,7 @@ class AppHolder extends Component {
     render() {
 
         const { children, sidebar, header, footer, layout } = this.props;
-        const { sidebarShrink, sidebarHeight, headerHeight, footerHeight } = this.state;
+        const { sidebarShrink, sidebarHeight, headerHeight, footerHeight, screenSize } = this.state;
         const sidebarChildren = children[0];
         const ctn = children.slice(1);
         const contentChildren = ctn;
@@ -70,7 +108,7 @@ class AppHolder extends Component {
             const sidebarWidth = sidebarShrink ? "50px" : "300px";
             renderSidebar = <div className="app-sidebar" style={{ minWidth: sidebarWidth }} >
                 <IconSmall className="app-sidebar-toggle" name="menu" onClick={this.handleSidebarSize}/>
-                <Sidebar {...sidebar} height={sidebarHeight} >{sidebarChildren}</Sidebar>
+                <Sidebar {...sidebar} height={sidebarHeight} screenSize={screenSize}>{sidebarChildren}</Sidebar>
             </div>;
         }
 
@@ -105,7 +143,7 @@ class AppHolder extends Component {
         }
         else if (layout.currentSublayout) {
             console.log(layout.currentSublayout);
-            layoutContent = <LayoutLoader layout={layout.currentSublayout} />
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} screenSize={screenSize} />
         }
 
         let renderModal;
