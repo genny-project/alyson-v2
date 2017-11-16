@@ -128,17 +128,17 @@ class AppHolder extends Component {
 
             // we need to show the table view
             if(layout.currentView.code == "TABLE_VIEW") {
-                layoutContent = <GennyTable root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_USERS"}/>
+                layoutContent = <GennyTable screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_USERS"}/>
             }
             // we need to show the bucket view
             else if (layout.currentView.code == "BUCKET_VIEW") {
-                layoutContent = <GennyBucketView root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_DRIVER_VIEW"} />
+                layoutContent = <GennyBucketView screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_DRIVER_VIEW"} />
             }
             else if (layout.currentView.code == "LIST_VIEW") {
-                layoutContent = <GennyList root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_QUOTES"} />
+                layoutContent = <GennyList screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_QUOTES"} />
             }
             else if (layout.currentView.code == "FORM_VIEW") {
-                layoutContent = <GennyForm showProgress="true"/>
+                layoutContent = <GennyForm screenSize={screenSize} showProgress="true"/>
             }
         }
         else if (layout.currentSublayout) {
