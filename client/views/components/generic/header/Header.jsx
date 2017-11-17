@@ -71,7 +71,7 @@ class Header extends Component {
 
   render() {
 
-    const { className, projectTitle, userName, userImage, style, height } = this.props;
+    const { className, projectTitle, userName, userImage, style, height, screenSize, } = this.props;
     const { isVisible } = this.state;
 
     const componentStyle = {
@@ -94,7 +94,7 @@ class Header extends Component {
 
     return (
 
-      <div className="header" style={componentStyle}>
+      <div className={`header ${screenSize}`} style={componentStyle}>
         <div className="header-container">
             <div className="header-left">
               <Label text={projectTitle} />
