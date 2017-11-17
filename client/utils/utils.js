@@ -14,3 +14,23 @@ window.getQueryString = function ( field, url ) {
     var string = reg.exec(href);
     return string ? string[1] : null;
 };
+
+window.getScreenSize = function() {
+
+    let screenSize = '';
+    if (window.innerWidth < 576) {
+        screenSize = 'xs';
+    }
+    else if (window.innerWidth >= 576 && window.innerWidth < 768) {
+        screenSize = 'sm';
+    }
+    else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+        screenSize = 'md';
+    }
+    else if (window.innerWidth >= 992) {
+        screenSize = 'lg';
+    }
+
+    return screenSize;
+}
+
