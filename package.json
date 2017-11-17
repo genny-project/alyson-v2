@@ -7,14 +7,14 @@
     "build": "webpack",
     "build-prod": "webpack --config webpack.config.production.js --env=production",
     "start-conor": "webpack-dashboard -- webpack-dev-server --env=conor",
-    "start": "webpack-dashboard -- webpack-dev-server",
+    "start": "webpack-dashboard -- webpack-dev-server --host 0.0.0.0",
     "start-no-dashboard": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy-dev": "webpack --config webpack.config.production.js; node aws-deploy-dev.js",
     "deploy-prod": "webpack --config webpack.config.production.js; node aws-deploy-prod.js"
   },
   "keywords": [],
-  "author": "Matt Hayward",
+  "author": "Outcome.life",
   "license": "Apache-2.0",
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@genny-project/keycloak-react": "^1.0.4",
-    "@genny-project/layson": "^1.0.4",
+    "@genny-project/layson": "^1.0.5",
     "babel-preset-stage-0": "^6.24.1",
     "downshift": "^1.12.0",
     "halogen": "^0.2.0",

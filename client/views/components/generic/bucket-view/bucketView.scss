@@ -1,39 +1,10 @@
 .bucket-view {
+
   display: flex;
   flex-direction: row;
   flex-grow: 1;
   position: relative;
-
-  .bucket {
-    flex: 1;
-    flex-shrink: 0;
-
-    background: #a3a3a3;
-    color: #FFF;
-    min-width: 190px;
-
-    &:nth-child(odd) {
-      background: #989998;
-
-      .bucket-title {
-        background: #898989;
-
-
-      }
-    }
-
-    .bucket-title {
-      padding: 20px;
-      background: #929292;
-      text-align: center;
-    }
-
-    .bucket-content {
-      padding-top: 5px;
-
-      .card {
-        
-      }
-    }
-  }
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  overflow-x: scroll;
 }

@@ -8,6 +8,7 @@ class BucketView extends Component {
 
     state = {
         buckets: [],
+        touch: {}
     }
 
     constructor(props) {
@@ -69,6 +70,43 @@ class BucketView extends Component {
         }
     }
 
+    onTouchStart = (e) => {
+
+        this.state.touch = {};
+        var t = e.touches[0];
+        this.state.touch.sX = t.screenX;
+        this.state.touch.sY = t.screenY;
+    }
+
+    onTouchMove = (e) => {
+
+        var t = e.touches[0];
+        this.state.touch.eX = t.screenX;
+        this.state.touch.eY = t.screenY;
+    }
+
+    onTouchEnd = (e) => {
+
+        let bucket = ReactDOM.findDOMNode(this);
+        let bucketWidth = bucket.getBoundingClientRect().width;
+        let min_x = bucketWidth / 2.0;
+        var t = e.changedTouches[0];
+        let deltaX = Math.abs(this.state.touch.sX - this.state.touch.eX);
+        if(deltaX >= min_x) {
+
+            if(this.state.touch.sX - this.state.touch.eX < 0) {
+                bucket.scrollLeft = this.state.touch.eX - bucketWidth;
+            }
+            else {
+                bucket.scrollLeft = this.state.touch.eX + bucketWidth;
+            }
+        }
+        else {
+
+            bucket.scrollLeft = this.state.touch.eX;
+        }
+    }
+
     render() {
 
         const { style } = this.props;
@@ -77,9 +115,19 @@ class BucketView extends Component {
         return (
 
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <div className="bucket-view" style={style}>
+                <div
+                    className="bucket-view"
+                    style={style}
+                    onTouchMove={this.onTouchMove}
+                    onTouchStart={this.onTouchStart}
+                    onTouchEnd={this.onTouchEnd}>
                     {
-                        buckets.map((bucket) => <BucketColumn title={bucket.title} key={bucket.id} groupId={bucket.id} children={bucket.children} />)
+                        buckets.map((bucket) => <BucketColumn
+                                                    screenSize={this.props.screenSize}
+                                                    title={bucket.title}
+                                                    key={bucket.id}
+                                                    groupId={bucket.id}
+                                                    children={bucket.children} />)
                     }
                 </div>
             </DragDropContext>

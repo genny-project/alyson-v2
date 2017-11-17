@@ -15,7 +15,7 @@ class AppHolder extends Component {
     };
 
     state = {
-        sidebarShrink: false,
+        sidebarShrink: true,
         sidebarHeight: this.props.sidebar.style.height ? this.props.sidebar.style.height : '200px',
         headerHeight: this.props.header.style.height ? this.props.header.style.height : '90px',
         footerHeight: this.props.footer.style.height ? this.props.footer.style.height : '30px',
@@ -49,7 +49,7 @@ class AppHolder extends Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
-    
+
     updateWindowDimensions = () => {
         let screenSize = '';
         if (window.innerWidth < 576) {
@@ -65,18 +65,12 @@ class AppHolder extends Component {
             screenSize = 'lg';
         }
 
-        if (screenSize != this.state.screenSize){
-            console.log('=============')
-            console.log(screenSize);
-            console.log('=============')
-        } 
-
         this.setState({
             width: window.innerWidth,
             height: window.innerHeight,
             screenSize: screenSize,
         });
-    }  
+    }
 
     handleSidebarSize = () => {
         this.setState(prevState => ({
@@ -104,7 +98,7 @@ class AppHolder extends Component {
         const contentHeight = this.getContentHeight();
 
         let renderSidebar;
-        if ( sidebar ) {
+        if ( sidebar && false) {
             const sidebarWidth = sidebarShrink ? "50px" : "300px";
             renderSidebar = <div className="app-sidebar" style={{ minWidth: sidebarWidth }} >
                 <IconSmall className="app-sidebar-toggle" name="menu" onClick={this.handleSidebarSize}/>

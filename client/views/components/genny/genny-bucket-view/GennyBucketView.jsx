@@ -108,7 +108,7 @@ class GennyBucketView extends Component {
 
         return (
             <div className="genny-bucket-view">
-                <BucketView buckets={buckets} didMoveItem={this.didMoveItem} />
+                <BucketView screenSize={this.props.screenSize} buckets={buckets} didMoveItem={this.didMoveItem} />
             </div>
         );
     }

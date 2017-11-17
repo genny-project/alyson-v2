@@ -4,10 +4,8 @@ import { string, object, any, bool } from 'prop-types';
 import { BucketElement } from './bucket-element';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-const gridPadding = 5;
 const getListStyle = isDraggingOver => ({
     // background: isDraggingOver ? 'lightblue' : "#a3a3a3",
-    padding: gridPadding,
 });
 
 class BucketColumn extends Component {
@@ -31,8 +29,7 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, children, groupId } = this.props;
-        const {  } = this.state;
+        const { className, style, title, children, groupId, screenSize } = this.props;
         const componentStyle = { ...style, };
 
         return (
@@ -43,13 +40,13 @@ class BucketColumn extends Component {
 
                         <div ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}
-                            className="bucket"
+                            className={`bucket size-${screenSize}`}
                             key={title} >
 
                             <div className="bucket-title sticky">
                                 {title}
                             </div>
-                            <div className="bucket-content">
+                            <div className="bucket-content no-select">
                                 {
                                     children.map(child => (<BucketElement key={child.id} item={child} />))
                                 }

@@ -1,5 +1,26 @@
 @import '../../../../../styles/colors';
 
-.bucketColumn {
+.bucket {
 
+  flex: 1;
+  flex-shrink: 0;
+
+  background: #a3a3a3;
+  color: #FFF;
+  min-width: 190px;
+
+  .bucket-title {
+    padding: 20px;
+    background: #929292;
+    text-align: center;
+  }
+
+  .bucket-content {
+    padding-top: 5px;
+  }
+}
+
+.bucket.size-xs {
+  min-width: 100vw;
+  padding: 10px;
 }
