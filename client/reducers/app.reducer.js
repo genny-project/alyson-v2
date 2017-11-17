@@ -37,7 +37,7 @@ export default function reducer( state = initialState, action ) {
 
             // we also pass some more info so that when we come back we can use this data to post as an answer.
             let json = JSON.stringify({
-                sourceCode: action.payload.items.social_type,
+                sourceCode: action.payload.items.sourceCode,
                 targetCode: action.payload.items.targetCode,
                 attributeCode: action.payload.items.attributeCode,
                 askId: action.payload.items.askId
