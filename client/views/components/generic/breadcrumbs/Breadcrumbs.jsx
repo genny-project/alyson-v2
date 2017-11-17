@@ -57,7 +57,7 @@ class Breadcrumbs extends Component {
         <ul className='breadcrumbs-main'>
           <li className='breadcrumbs-home'>
             <IconSmall name='home' />
-            <span>{home}</span>
+            <span>Home</span>
           </li>
           {breadcrumbs}
         </ul>

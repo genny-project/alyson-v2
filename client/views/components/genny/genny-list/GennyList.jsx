@@ -57,24 +57,6 @@ class GennyList extends Component {
             data.push({
                 "baseEntity": baseEntity
             });
-            data.push({
-                "baseEntity": '1'
-            });
-            data.push({
-                "baseEntity": '2'
-            });
-            data.push({
-                "baseEntity": '3'
-            });
-            data.push({
-                "baseEntity": '4'
-            });
-            data.push({
-                "baseEntity": '5'
-            });
-            data.push({
-                "baseEntity": '6'
-            });
         });
         this.state.data = data;
         return data;
@@ -82,7 +64,9 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showBaseEntity } = this.props;
+        const { root, showBaseEntity, screenSize } = this.props;
+
+        console.log(this.props);
 
         let query = new BaseEntityQuery(this.props);
         let columns = [];

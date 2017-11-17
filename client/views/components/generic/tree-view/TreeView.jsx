@@ -46,7 +46,7 @@ class TreeView extends Component {
               </span>
               <IconSmall className='clickable' onClick={this.onExpand(item)} name="expand_more" />
             </div>
-            <ul className="child" style={{ marginLeft: 10 }}>
+            <ul className="child">
               {item.children.length ? this.renderList(item.children) : <SubmitStatusIcon status="sending" />}
             </ul>
           </li>);

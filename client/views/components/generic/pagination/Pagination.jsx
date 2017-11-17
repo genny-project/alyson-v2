@@ -2,7 +2,7 @@ import './pagination.scss';
 import React, { Component } from 'react';
 import { string, object, number, bool, func } from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import {  } from '../';
+import { IconSmall } from '../';
 
 class Pagination extends Component {
 
@@ -48,7 +48,9 @@ class Pagination extends Component {
                        nextClassName="pagination-next"
                        activeClassName="pagination-current"
                        breakClassName="pagination-break"
-                        />
+                       previousLabel={<IconSmall name='chevron_left' />}
+                       nextLabel={<IconSmall name='chevron_right' />}
+                       />
       </div>
     );
   }

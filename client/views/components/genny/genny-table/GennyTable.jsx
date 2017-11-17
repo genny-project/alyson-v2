@@ -260,8 +260,6 @@ class GennyTable extends Component {
 
             columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
             data = this.generateDataFor(children);
-            console.log('=============');
-            console.log('isOpen', this.state.isOpen);
         }
 
         return (

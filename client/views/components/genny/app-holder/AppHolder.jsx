@@ -19,9 +19,7 @@ class AppHolder extends Component {
         sidebarHeight: this.props.sidebar.style.height ? this.props.sidebar.style.height : '200px',
         headerHeight: this.props.header.style.height ? this.props.header.style.height : '90px',
         footerHeight: this.props.footer.style.height ? this.props.footer.style.height : '30px',
-        width: null,
-        height: null,
-        screenSize: null,
+        screenSize: window.getScreenSize(),
       }
 
     componentDidMount() {
@@ -51,30 +49,8 @@ class AppHolder extends Component {
     }
     
     updateWindowDimensions = () => {
-        let screenSize = '';
-        if (window.innerWidth < 576) {
-            screenSize = 'xs';
-        }
-        else if (window.innerWidth >= 576 && window.innerWidth < 768) {
-            screenSize = 'sm';
-        }
-        else if (window.innerWidth >= 768 && window.innerWidth < 992) {
-            screenSize = 'md';
-        }
-        else if (window.innerWidth >= 992) {
-            screenSize = 'lg';
-        }
-
-        if (screenSize != this.state.screenSize){
-            console.log('=============')
-            console.log(screenSize);
-            console.log('=============')
-        } 
-
         this.setState({
-            width: window.innerWidth,
-            height: window.innerHeight,
-            screenSize: screenSize,
+            screenSize: window.getScreenSize(),
         });
     }  
 
@@ -134,8 +110,8 @@ class AppHolder extends Component {
         if ( sidebar ) {
             const sidebarStyle = this.getSidebarStyle();
 
-            renderSidebar = <div className={`app-sidebar ${screenSize}`} style={ sidebarStyle } >
-                <IconSmall className={`app-sidebar-toggle ${sidebarDefault ? 'hide' : null} `} name="menu" onClick={this.handleSidebarToggle}/>
+            renderSidebar = <div className={`app-sidebar ${screenSize} ${sidebarDefault ? 'hide' : null}`} style={ sidebarStyle } >
+                <IconSmall className={`app-sidebar-toggle`} name="menu" onClick={this.handleSidebarToggle}/>
                 <Sidebar {...sidebar} height={sidebarHeight} screenSize={screenSize}>{sidebarChildren}</Sidebar>
             </div>;
         }
@@ -148,6 +124,13 @@ class AppHolder extends Component {
         let renderFooter;
         if ( footer ) {
             renderFooter = <div className="app-footer"><Footer {...footer} /></div>
+        }
+
+        let renderShade;
+        if (screenSize === 'xs' || screenSize === 'sm' || screenSize === 'md') {
+            if (!sidebarDefault) {
+                renderShade = <div className='app-shade' onClick={this.handleSidebarToggle} />
+            }
         }
 
         let layoutContent = null;
@@ -182,15 +165,16 @@ class AppHolder extends Component {
         if(layoutContent == null)  layoutContent = contentChildren;
 
         return (
-          <div className="app-holder" style={{backgroundColor: "white"}}>
-            {renderSidebar}
-            <div className="app-main">
-              {renderHeader}
-              <div className="app-content" style={contentStyle}>{layoutContent}</div>
-              {renderFooter}
+            <div className="app-holder" style={{backgroundColor: "white"}}>
+                {renderSidebar}
+                <div className="app-main">
+                    {renderShade}
+                    {renderHeader}
+                <div className="app-content" style={contentStyle}>{layoutContent}</div>
+                    {renderFooter}
+                </div>
+                {renderModal}
             </div>
-            {renderModal}
-          </div>
         );
     }
 }

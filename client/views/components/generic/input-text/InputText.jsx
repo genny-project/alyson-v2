@@ -83,11 +83,13 @@ class InputText extends Component {
 
     return (
       <div className={`input-text ${className} ${validationStatus}`}>
-        <div className="input-header">
-          {name && !isHorizontal ? <Label text={name} /> : null }
-          {optional && !isHorizontal ? <Label text="(optional)" /> : null}
-          {!isHorizontal ? <SubmitStatusIcon status={validationStatus} /> : null}
-        </div>
+        {!isHorizontal ?
+          <div className="input-header">
+            {name ? <Label text={name} /> : null }
+            {optional ? <Label text="(optional)" /> : null}
+            <SubmitStatusIcon status={validationStatus} />
+          </div>
+        : null }
         <input
           type="text"
           disabled={readOnly}

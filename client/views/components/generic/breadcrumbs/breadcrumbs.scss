@@ -19,11 +19,17 @@
         li {
             display: flex;
             align-items: center;
-            padding-right: 20px;
+            padding-right: 10px;
             cursor: pointer;
 
+            span {
+                padding-left: 10px;
+                font-size: 0.8em;
+            }
+
             i {
-                padding-right: 20px;
+                padding: 0;
+                color: white;
             }
         }
     }
