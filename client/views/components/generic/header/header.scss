@@ -31,7 +31,15 @@
 			span, i {
 				color: white;
 			}
+		}
+
 	}
+
+	&.xs, &.sm, &.md {
+		
+		.header-container {
+			margin-left: 70px;
+		}
 	}
 
 	.profile {
