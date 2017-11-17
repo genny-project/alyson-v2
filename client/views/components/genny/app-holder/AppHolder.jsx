@@ -106,13 +106,13 @@ class AppHolder extends Component {
     }
 
     getContentHeight = () => {
-        const { headerHeight, footerHeight, sidebarDefault } = this.state;
+        const { headerHeight, footerHeight, sidebarDefault, screenSize } = this.state;
 
         let h = Number(headerHeight.substr(0,headerHeight.length-2));
         let f = Number(footerHeight.substr(0,footerHeight.length-2));
 
         const otherHeight = h + f;
-        const otherWidth = screenSize === 'md' ? sidebarDefault ? 300 : 50 : 0;
+        const otherWidth = screenSize === 'lg' ? sidebarDefault ? 300 : 50 : 0;
         return {
             height: `calc(100vh - ${otherHeight}px)`,
             width: `calc(100vw - ${otherWidth}px)`,
