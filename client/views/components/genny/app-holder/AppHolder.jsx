@@ -15,7 +15,7 @@ class AppHolder extends Component {
     };
 
     state = {
-        sidebarShrink: true,
+        sidebarDefault: true,
         sidebarHeight: this.props.sidebar.style.height ? this.props.sidebar.style.height : '200px',
         headerHeight: this.props.header.style.height ? this.props.header.style.height : '90px',
         footerHeight: this.props.footer.style.height ? this.props.footer.style.height : '30px',
@@ -72,43 +72,71 @@ class AppHolder extends Component {
         });
     }
 
-    handleSidebarSize = () => {
+    getSidebarStyle = () => {
+        const { sidebarDefault, screenSize } = this.state;
+        if ( screenSize === 'xs' || screenSize === 'sm' || screenSize === 'md' ) {
+            if (sidebarDefault) {
+                return { left: '-300px', minWidth: '300px' }
+            }
+            else {
+                return { left: '0px', minWidth: '300px' }
+            }
+        }
+        else if ( screenSize === 'lg' ) {
+            if (sidebarDefault) {
+                return { minWidth: '300px' }
+            }
+            else {
+                return { minWidth: '50px' }
+            }
+        }
+
+    }
+
+    handleSidebarToggle = () => {
         this.setState(prevState => ({
-          sidebarShrink: !prevState.sidebarShrink
+          sidebarDefault: !prevState.sidebarDefault
         }));
     }
 
     getContentHeight = () => {
-        const { headerHeight, footerHeight } = this.state;
+        const { headerHeight, footerHeight, sidebarDefault, screenSize } = this.state;
 
         let h = Number(headerHeight.substr(0,headerHeight.length-2));
         let f = Number(footerHeight.substr(0,footerHeight.length-2));
 
         const otherHeight = h + f;
-        return {height: `calc(100vh - ${otherHeight}px)`}
+        const otherWidth = screenSize === 'lg' ? sidebarDefault ? 300 : 50 : 0;
+        return {
+            height: `calc(100vh - ${otherHeight}px)`,
+            width: `calc(100vw - ${otherWidth}px)`,
+        }
+
+
     }
 
     render() {
 
         const { children, sidebar, header, footer, layout } = this.props;
-        const { sidebarShrink, sidebarHeight, headerHeight, footerHeight, screenSize } = this.state;
+        const { sidebarDefault, sidebarHeight, headerHeight, footerHeight, screenSize } = this.state;
         const sidebarChildren = children[0];
         const ctn = children.slice(1);
         const contentChildren = ctn;
-        const contentHeight = this.getContentHeight();
+        const contentStyle = this.getContentHeight();
 
         let renderSidebar;
-        if ( sidebar && false) {
-            const sidebarWidth = sidebarShrink ? "50px" : "300px";
-            renderSidebar = <div className="app-sidebar" style={{ minWidth: sidebarWidth }} >
-                <IconSmall className="app-sidebar-toggle" name="menu" onClick={this.handleSidebarSize}/>
+        if ( sidebar ) {
+            const sidebarStyle = this.getSidebarStyle();
+
+            renderSidebar = <div className={`app-sidebar ${screenSize}`} style={ sidebarStyle } >
+                <IconSmall className={`app-sidebar-toggle ${sidebarDefault ? 'hide' : null} `} name="menu" onClick={this.handleSidebarToggle}/>
                 <Sidebar {...sidebar} height={sidebarHeight} screenSize={screenSize}>{sidebarChildren}</Sidebar>
             </div>;
         }
 
         let renderHeader;
         if ( header ) {
-            renderHeader = <div className="app-header"><Header {...header} height={headerHeight} /></div>;
+            renderHeader = <div className="app-header"><Header {...header} height={headerHeight} screenSize={screenSize}/></div>;
         }
 
         let renderFooter;
@@ -152,7 +180,7 @@ class AppHolder extends Component {
             {renderSidebar}
             <div className="app-main">
               {renderHeader}
-              <div className="app-content" style={contentHeight}>{layoutContent}</div>
+              <div className="app-content" style={contentStyle}>{layoutContent}</div>
               {renderFooter}
             </div>
             {renderModal}
