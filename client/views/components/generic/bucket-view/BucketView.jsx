@@ -1,8 +1,10 @@
-import './bucketView.scss';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import './bucketView.scss';
 
 class BucketView extends Component {
 
@@ -112,27 +114,39 @@ class BucketView extends Component {
         const { style } = this.props;
         const { buckets } = this.state;
 
+        let columns = buckets.map((bucket) => <BucketColumn
+                                    screenSize={this.props.screenSize}
+                                    title={bucket.title}
+                                    key={bucket.id}
+                                    groupId={bucket.id}
+                                    children={bucket.children} />)
+
+        let columnWrapper = null;
+        if(this.props.screenSize == "xs") {
+            columnWrapper = <Carousel width={'100vw'}>{columns}</Carousel>;
+        }
+        else {
+            columnWrapper = columns
+        }
+
+        console.log(columnWrapper);
+        
         return (
 
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <div
                     className="bucket-view"
-                    style={style}
+                    style={{width: '100vw'}}
                     onTouchMove={this.onTouchMove}
                     onTouchStart={this.onTouchStart}
                     onTouchEnd={this.onTouchEnd}>
-                    {
-                        buckets.map((bucket) => <BucketColumn
-                                                    screenSize={this.props.screenSize}
-                                                    title={bucket.title}
-                                                    key={bucket.id}
-                                                    groupId={bucket.id}
-                                                    children={bucket.children} />)
-                    }
+
+                    {columnWrapper}
+
                 </div>
             </DragDropContext>
 
-        );
+        )
     }
 }
 

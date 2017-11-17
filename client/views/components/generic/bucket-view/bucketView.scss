@@ -8,3 +8,21 @@
   -webkit-touch-callout: none;
   overflow-x: scroll;
 }
+
+.carousel {
+  width: 100vw;
+  height: 100%;
+
+  .slider-wrapper {
+   height: 100%;
+
+   .slider {
+    height: 100%;
+
+    .slide {
+     height: 100%;
+     background-color: transparent;
+    }
+   }
+  }
+}
