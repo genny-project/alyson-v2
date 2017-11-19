@@ -29,7 +29,7 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, children, groupId, screenSize } = this.props;
+        const { className, style, title, items, groupId, screenSize } = this.props;
         const componentStyle = { ...style, };
 
         return (
@@ -48,7 +48,7 @@ class BucketColumn extends Component {
                             </div>
                             <div className="bucket-content no-select">
                                 {
-                                    children.map(child => (<BucketElement key={child.id} item={child} />))
+                                    items.map(child => (<BucketElement key={child.id} item={child} />))
                                 }
                             </div>
 

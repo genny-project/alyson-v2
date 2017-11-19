@@ -119,7 +119,7 @@ class BucketView extends Component {
                                     title={bucket.title}
                                     key={bucket.id}
                                     groupId={bucket.id}
-                                    children={bucket.children} />)
+                                    items={bucket.children} />)
 
         let columnWrapper = null;
         if(this.props.screenSize == "xs") {
@@ -129,13 +129,11 @@ class BucketView extends Component {
             columnWrapper = columns
         }
 
-        console.log(columnWrapper);
-        
         return (
 
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <div
-                    className="bucket-view"
+                    className={`bucket-view size-${this.props.screenSize}`}
                     style={{width: '100vw'}}
                     onTouchMove={this.onTouchMove}
                     onTouchStart={this.onTouchStart}
