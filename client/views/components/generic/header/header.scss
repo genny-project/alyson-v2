@@ -6,7 +6,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	height: 90px;
+	height: 50px;
 
 	.header-container {
 		flex-direction: row;
@@ -33,6 +33,11 @@
 			}
 		}
 
+		.header-center {
+			display: flex;
+			flex-grow: 1;
+		}
+
 	}
 
 	&.xs, &.sm, &.md {
@@ -42,31 +47,11 @@
 		}
 	}
 
-	.profile {
-		display: flex;
-		align-items: center;
-		position: relative;
-		height: 100%;
-		cursor: pointer;
-		
-		&:not(:last-child){
-			margin-right: 10px;
-		}
-	}
-
-
 	.profile-dropdown {
-		position: absolute;
-		top: 60px;
-		right: 0;
 		list-style-type: none;
-		background: #DDD;
-		border-radius: 5px;
-		padding: 10px 0 20px;
+		padding : 0;
 		margin: 0;
-		width: 150px;
-		z-index: 100;
-
+		
 		> li {
 			display: flex;
 			align-items: center;
@@ -77,28 +62,19 @@
 			}
 
 			> i, span {
-				color: rgb(31, 31, 31);
+				color: rgb(31, 31, 31) !important;
 			}
 
 			&:hover {
+				
 				background: rgb(31, 31, 31);
 
 				> i, span {
-					color: white;
+					color: white !important;
 				}
 			}
 		}
 
-		&:before {
-			content: "";
-			position: absolute;
-			top: -5px;
-			left: 50%;
-			transform: rotate(45deg);
-
-			background: #DDD;
-			width: 10px;
-			height: 10px;
-		 }
+		
 	}
 }
