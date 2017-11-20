@@ -1,6 +1,6 @@
 import './appHolder.scss';
 import React, { Component } from 'react';
-import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyModal, GennyForm } from '../../';
+import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyForm, GennyHeader } from '../../';
 import { bool, any } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { GennyBridge } from 'utils/genny';
@@ -119,7 +119,8 @@ class AppHolder extends Component {
 
         let renderHeader;
         if ( header ) {
-            renderHeader = <div className="app-header"><Header {...header} height={headerHeight} screenSize={screenSize}/></div>;
+            //renderHeader = <div className="app-header"><Header {...header} height={headerHeight} screenSize={screenSize}/></div>;
+            renderHeader = <div className="app-header"><GennyHeader {...header} height={headerHeight} screenSize={screenSize}/></div>;
         }
 
         let renderFooter;
@@ -158,11 +159,6 @@ class AppHolder extends Component {
             layoutContent = <LayoutLoader layout={layout.currentSublayout} screenSize={screenSize} />
         }
 
-        let renderModal;
-        if(layout.isShowingModal) {
-            renderModal = <GennyModal root={layout.isShowingModal ? layout.isShowingModal : "SUBLAY_1"} />
-        }
-
         if(layoutContent == null)  layoutContent = contentChildren;
 
         return (
@@ -174,7 +170,6 @@ class AppHolder extends Component {
                 <div className="app-content" style={contentStyle}>{layoutContent}</div>
                     {renderFooter}
                 </div>
-                {renderModal}
             </div>
         );
     }
