@@ -13,6 +13,7 @@ class BucketView extends Component {
         buckets: [],
         touch: {},
         touchTimer: null,
+        showMovingOptions: false,
     }
 
     constructor(props) {
@@ -116,7 +117,7 @@ class BucketView extends Component {
     toggleMovingOptions = (item) => {
 
         this.setState({
-            showMovingOptions: this.state.showMovingOptions
+            showMovingOptions: !this.state.showMovingOptions
         })
     }
 
@@ -140,28 +141,37 @@ class BucketView extends Component {
         })
 
         let dropdownStyle = {
-            position: "absolute",
-            left: "0px",
-            background: "red"
+            position: "fixed",
+            width: "70%",
+            height: "80%",
+            top: "10%",
+            left: "50%",
+            marginTop: "-5%",
+            marginLeft: "-35%",
+            zIndex: "100",
+        };
+
+        let dropdownContentStyle = {
+            width: "100%",
+            height: "100%",
+            top: "0px",
         };
 
         return (
-            <span>
-                {
-                    showMovingOptions ?
-                    <Dropdown style={dropdownStyle}>
-                        <ul className="bucket-options">
-                          <li>Move</li>
-                          <li>Cancel</li>
-                        </ul>
-                    </Dropdown> : null
-                }
-                <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                    <div className={`bucket-view size-${this.props.screenSize}`}>
-                        {columns}
-                    </div>
-                </DragDropContext>
-            </span>
+            <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+                <div className={`bucket-view size-${this.props.screenSize}`}>
+                    {
+                        showMovingOptions ?
+                        <Dropdown showTag={false} style={dropdownStyle} open={true} contentStyle={dropdownContentStyle}>
+                            <ul className="bucket-options">
+                              <li>Move</li>
+                              <li>Cancel</li>
+                            </ul>
+                        </Dropdown> : null
+                    }
+                    {columns}
+                </div>
+            </DragDropContext>
         )
     }
 }

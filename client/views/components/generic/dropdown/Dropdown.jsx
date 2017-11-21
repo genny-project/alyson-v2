@@ -8,6 +8,7 @@ class Dropdown extends Component {
   static defaultProps = {
     className: '',
     opened: null,
+    showTag: true,
   }
 
   static propTypes = {
@@ -16,6 +17,7 @@ class Dropdown extends Component {
     children: any,
     open: bool,
     header: element,
+    showTag: bool,
   }
 
   state = {
@@ -35,11 +37,11 @@ class Dropdown extends Component {
   }
 
   render() {
-    const { className, children, style, contentStyle, tagStyle, header, open, noDropdownStyle } = this.props;
+    const { className, children, style, contentStyle, tagStyle, header, open, noDropdownStyle, showTag } = this.props;
     let { isOpen, } = this.state;
 
     if(open != undefined) isOpen = open; // open props overrides
-        
+
     return (
       <div className={`dropdown ${className}`} onBlur={this.handleBlur} onFocus={this.handleFocus} tabIndex='-1' style={style} >
         <div className='dropdown-header'>
@@ -47,7 +49,7 @@ class Dropdown extends Component {
         </div>
         { isOpen ?
           <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : null}`} style={contentStyle} >
-            <div className='dropdown-tag' style={tagStyle}></div>
+            { showTag ? <div className='dropdown-tag' style={tagStyle}></div> : null }
             {children}
           </div>
         : null }
