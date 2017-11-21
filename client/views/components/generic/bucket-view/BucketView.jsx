@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
+import { Dropdown } from 'views/components';
+
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './bucketView.scss';
 
@@ -107,84 +109,60 @@ class BucketView extends Component {
         this.scrollToBucket("previous");
     }
 
-    // onTouchStart = (e) => {
-    //
-    //     this.state.touch = {};
-    //     this.state.touch.currentPosition = {x: 0, y: 0};
-    //
-    //     var t = e.touches[0];
-    //     this.state.touch.sX = t.screenX;
-    //     this.state.touch.sY = t.screenY;
-    //     console.log("started at: " + t.screenX);
-    // }
-    //
-    // onTouchMove = (e) => {
-    //
-    //     var t = e.touches[0];
-    //     this.state.touch.eX = t.screenX;
-    //     this.state.touch.eY = t.screenY;
-    //
-    //     let bucket = ReactDOM.findDOMNode(this);
-    //     let bucketPageWidth = bucket.getBoundingClientRect().width;
-    //
-    //     if(t.screenX >= this.state.touch.sX + bucketPageWidth || t.screenX <= this.state.touch.sX - bucketPageWidth) {
-    //         console.log("too far");
-    //     }
-    // }
-    //
-    // onTouchEnd = (e) => {
-    //
-    //     let bucket = ReactDOM.findDOMNode(this);
-    //     let bucketTotalWidth = bucket.scrollWidth;
-    //     let bucketPageWidth = bucket.getBoundingClientRect().width;
-    //     let currentScrollPosition = bucket.scrollLeft;
-    //
-    //     // get closest page
-    //     let closestPage = 0;
-    //     let diff = Math.abs(currentScrollPosition - closestPage);
-    //     let counterPage = bucketTotalWidth;
-    //     while(counterPage > 0) {
-    //
-    //         let newDiff = Math.abs(currentScrollPosition - counterPage);
-    //         if(newDiff < (diff + 0.20 * diff) || (diff - 0.20 * diff)) {
-    //             diff = newDiff;
-    //             closestPage = counterPage;
-    //         }
-    //
-    //         counterPage -= bucketPageWidth;
-    //     }
-    //
-    //     // bucket.scrollTo({
-    //     //     "behavior": "smooth",
-    //     //     "left": closestPage
-    //     // });
-    //
-    //     bucket.scrollLeft = closestPage;
-    // }
-
     onDragStart(e) {
         console.log(e);
+    }
+
+    toggleMovingOptions = (item) => {
+
+        this.setState({
+            showMovingOptions: this.state.showMovingOptions
+        })
     }
 
     render() {
 
         const { style } = this.props;
-        const { buckets } = this.state;
+        const { buckets, showMovingOptions } = this.state;
 
-        let columns = buckets.map((bucket) => <BucketColumn
-                                    screenSize={this.props.screenSize}
-                                    title={bucket.title}
-                                    key={bucket.id}
-                                    groupId={bucket.id}
-                                    items={bucket.children}
-                                    goToNextBucket={this.goToNextBucket}
-                                    goToPreviousBucket={this.goToPreviousBucket} />)
+        let columns = buckets.map((bucket) => {
 
-        return <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-            <div className={`bucket-view size-${this.props.screenSize}`}>
-                {columns}
-            </div>
-        </DragDropContext>
+            return <BucketColumn
+                        screenSize={this.props.screenSize}
+                        title={bucket.title}
+                        key={bucket.id}
+                        groupId={bucket.id}
+                        items={bucket.children}
+                        goToNextBucket={this.goToNextBucket}
+                        goToPreviousBucket={this.goToPreviousBucket}
+                        showMovingOptions={this.toggleMovingOptions}
+                        />
+        })
+
+        let dropdownStyle = {
+            position: "absolute",
+            left: "0px",
+            background: "red"
+        };
+
+        return (
+            <span>
+                {
+                    showMovingOptions ?
+                    <Dropdown style={dropdownStyle}>
+                        <ul className="bucket-options">
+                          <li>Move</li>
+                          <li>Cancel</li>
+                        </ul>
+                    </Dropdown> : null
+                }
+                <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+                    <div className={`bucket-view size-${this.props.screenSize}`}>
+                        {columns}
+                    </div>
+                </DragDropContext>
+            </span>
+        )
     }
 }
 

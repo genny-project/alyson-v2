@@ -67,7 +67,14 @@ class BucketColumn extends Component {
                             </div>
                             <div className={`bucket-content size-${screenSize} no-select`}>
                                 {
-                                    items.map(child => (<BucketElement key={child.id} item={child} moveBucket={this.moveBucket} screenSize={screenSize}/>))
+                                    items.map(child => (
+                                        <BucketElement
+                                        key={child.id}
+                                        item={child}
+                                        moveBucket={this.moveBucket}
+                                        screenSize={screenSize}
+                                        showMovingOptions={this.props.showMovingOptions} />
+                                    ))
                                 }
                             </div>
 

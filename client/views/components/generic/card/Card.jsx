@@ -84,6 +84,8 @@ class Card extends Component {
       // hide option menu
       this.toggleOptions();
 
+      console.log(this.props);
+      
       // show options
       if(this.props.showMovingOptions) {
           this.props.showMovingOptions(this);

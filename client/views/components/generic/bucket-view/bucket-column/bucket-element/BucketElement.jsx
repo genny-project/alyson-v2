@@ -113,7 +113,7 @@ class BucketElement extends Component {
                                     {...provided.dragHandleProps}
                                     className="bucket-contents"
                                     >
-                                        {item.content}
+                                        {React.cloneElement(item.content, {...item.content.props, showMovingOptions: this.props.showMovingOptions})}
                                     </div>
                                     {provided.placeholder}
                                 </div>
