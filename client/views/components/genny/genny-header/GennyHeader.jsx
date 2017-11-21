@@ -1,10 +1,9 @@
 import './gennyHeader.scss';
 import React, { Component } from 'react';
-import { Header, GennyTreeView, GennyNotification, CircleButton, Dropdown } from '../../';
+import { Header, GennyTreeView, GennyNotification, ColorPicker, } from '../../';
 import { string,object  } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
-import { TwitterPicker as ColorPicker } from 'react-color';
 
 class GennyHeader extends Component {
 
@@ -44,20 +43,20 @@ class GennyHeader extends Component {
   }
 
   handleChangeComplete = (color) => {
+    console.log('hello')
     let answer = [
       {
         targetCode: this.props.currentProject,
         attributeCode: "PRI_COLOR",
-        value: color.hex
+        value: color
       }
     ];
-
     GennyBridge.sendAnswer(answer);
   };
 
   handleMouseOver = (color) => {
     this.setState({
-      hoverColor: color.hex,
+      hoverColor: color,
     });
   }
 
@@ -84,15 +83,13 @@ class GennyHeader extends Component {
           handleLogout={this.handleLogout}
         >
           <GennyNotification />
-          <Dropdown noDropdownStyle header={
-            <CircleButton primaryColor={hoverColor ? hoverColor : componentStyle.backgroundColor} />}
-          >
-            <ColorPicker
-                color={componentStyle.backgroundColor}
-                onChangeComplete={ this.handleChangeComplete }
-                onSwatchHover={ this.handleMouseOver}
-                onMouseOut={this.handleMouseOut}/>
-          </Dropdown>
+
+          <ColorPicker {...this.props}
+            hoverColor={hoverColor}
+            handleChangeComplete={ this.handleChangeComplete }
+            handleMouseOver={ this.handleMouseOver}
+            handleMouseOut={this.handleMouseOut}/>
+
         </Header>
         <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }}/>
       </div>
