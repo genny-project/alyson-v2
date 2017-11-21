@@ -1,4 +1,5 @@
 .app {
+
   display: flex;
   width: 100%;
   height: 100%;
@@ -23,4 +24,24 @@
                                  supported by Chrome and Opera */
 
    }
+}
+
+body {
+ background-color: black;
+}
+body.modal-active {
+ overflow: hidden;
+}
+
+body.modal-active {
+
+ .app {
+  animation: scaleBack .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+ }
+}
+
+body.modal-closing {
+ .app {
+  animation: scaleForward .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+ }
 }

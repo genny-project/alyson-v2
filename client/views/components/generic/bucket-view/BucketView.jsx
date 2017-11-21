@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
-import { Dropdown } from 'views/components';
+import { Modal } from 'views/components';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './bucketView.scss';
@@ -118,7 +118,7 @@ class BucketView extends Component {
 
         this.setState({
             showMovingOptions: !this.state.showMovingOptions
-        })
+        });
     }
 
     render() {
@@ -139,36 +139,13 @@ class BucketView extends Component {
                         showMovingOptions={this.toggleMovingOptions}
                         />
         })
-
-        let dropdownStyle = {
-            position: "fixed",
-            width: "70%",
-            height: "80%",
-            top: "10%",
-            left: "50%",
-            marginTop: "-5%",
-            marginLeft: "-35%",
-            zIndex: "100",
-        };
-
-        let dropdownContentStyle = {
-            width: "100%",
-            height: "100%",
-            top: "0px",
-        };
-
+        //className={ ? "animate" : "out"}>
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                 <div className={`bucket-view size-${this.props.screenSize}`}>
-                    {
-                        showMovingOptions ?
-                        <Dropdown showTag={false} style={dropdownStyle} open={true} contentStyle={dropdownContentStyle}>
-                            <ul className="bucket-options">
-                              <li>Move</li>
-                              <li>Cancel</li>
-                            </ul>
-                        </Dropdown> : null
-                    }
+                    <Modal onClose={this.toggleMovingOptions} show={showMovingOptions}>
+                        <p>This is the content.</p>
+                    </Modal>
                     {columns}
                 </div>
             </DragDropContext>
