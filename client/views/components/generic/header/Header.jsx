@@ -14,7 +14,7 @@ class Header extends Component {
     className: string,
     style: object,
     children: any,
-    
+
   }
 
   state = {
@@ -26,7 +26,7 @@ class Header extends Component {
 
   handleLogout = () => {
   this.props.handleLogout();
-  } 
+  }
 
   render() {
 
@@ -44,29 +44,29 @@ class Header extends Component {
             <div className="header-left">
               <Label text={projectTitle} />
             </div>
-            
+
             { children ?
               <div className="header-center">
                 {children}
               </div>
             : null }
 
-            <div className="header-right">   
+            <div className="header-right">
               <Dropdown header={
                 <Label text={`Welcome, ${userName}`} />}
               >
-                <ul className="profile-dropdown" >
+                <ul className="dropdown" >
                   <li><IconSmall name="person" /><span>Profile</span></li>
                   <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
                   <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
                 </ul>
-              </Dropdown>  
+              </Dropdown>
               <ImageView src={userImage} onClick={this.handleClickImage} />
 
               <IconSmall className="help" name="help" />
             </div>
         </div>
-       
+
       </div>
     );
   }

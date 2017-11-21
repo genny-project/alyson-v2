@@ -41,40 +41,9 @@
 	}
 
 	&.xs, &.sm, &.md {
-		
+
 		.header-container {
 			padding-left: 50px;
 		}
-	}
-
-	.profile-dropdown {
-		list-style-type: none;
-		padding : 0;
-		margin: 0;
-		
-		> li {
-			display: flex;
-			align-items: center;
-			padding: 5px 10px;
-
-			> i {
-				padding-right: 5px;
-			}
-
-			> i, span {
-				color: rgb(31, 31, 31) !important;
-			}
-
-			&:hover {
-				
-				background: rgb(31, 31, 31);
-
-				> i, span {
-					color: white !important;
-				}
-			}
-		}
-
-		
 	}
 }

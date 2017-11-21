@@ -70,7 +70,7 @@ class GennyBucketView extends Component {
             children.push(
                 {
                 content: (
-                    <Card title={be.name} description={be.code}>
+                    <Card title={be.name} description={be.code} screenSize={this.props.screenSize}>
                         {
                             sublayout ? <LayoutLoader layout={sublayout} /> : null
                         }

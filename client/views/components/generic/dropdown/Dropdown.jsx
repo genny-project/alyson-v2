@@ -8,7 +8,6 @@ class Dropdown extends Component {
   static defaultProps = {
     className: '',
     opened: null,
-    closed: null,
   }
 
   static propTypes = {
@@ -16,7 +15,6 @@ class Dropdown extends Component {
     style: string,
     children: any,
     open: bool,
-    closed: bool,
     header: element,
   }
 
@@ -28,7 +26,7 @@ class Dropdown extends Component {
     this.setState({
       isOpen: false
     });
-  }  
+  }
 
   handleFocus = () => {
     this.setState({
@@ -37,19 +35,19 @@ class Dropdown extends Component {
   }
 
   render() {
-    const { className, children, style, header, open, noDropdownStyle } = this.props;
-    const { isOpen, } = this.state; 
-    const componentStyle = { ...style, };
+    const { className, children, style, contentStyle, tagStyle, header, open, noDropdownStyle } = this.props;
+    let { isOpen, } = this.state;
 
-    
+    if(open != undefined) isOpen = open; // open props overrides
+        
     return (
-      <div className={`dropdown ${className}`} onBlur={this.handleBlur} onFocus={this.handleFocus} tabIndex='-1' >
+      <div className={`dropdown ${className}`} onBlur={this.handleBlur} onFocus={this.handleFocus} tabIndex='-1' style={style} >
         <div className='dropdown-header'>
           {header}
         </div>
-        { isOpen || open && !closed ?
-          <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : null}`} >
-            <div className='dropdown-tag'></div>
+        { isOpen ?
+          <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : null}`} style={contentStyle} >
+            <div className='dropdown-tag' style={tagStyle}></div>
             {children}
           </div>
         : null }

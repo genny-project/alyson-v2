@@ -11,20 +11,33 @@ class IconSmall extends Component {
   static defaultProps = {
     className: '',
     fontSize: 18,
-    name: 'android'
+    name: 'android',
+    text: null,
   }
 
   static propTypes = {
     className: string,
     name: string,
-    fontSize: number
+    fontSize: number,
+    text: string,
   }
 
   render() {
-    const { className, size, name, onClick } = this.props;
-    return (
-      <i className={`icon material-icons ${className} `} onClick={onClick} style={{ fontSize: size }}>{name}</i>
+    const { className, size, name, onClick, text } = this.props;
 
+    let iconStyle = {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+    };
+
+    return (
+        <span style={text ? iconStyle : null}>
+            <i className={`icon material-icons ${className} `} onClick={onClick} style={{ fontSize: size, paddingRight: "10px", }}>{name}</i>
+            {
+                text ? <span style={{ fontSize: size, }}>{text}</span> : null
+            }
+        </span>
     );
   }
 }

@@ -65,6 +65,22 @@
 	}
 }
 
+.card-options {
+	list-style: none;
+	padding: 10px;
+	color: #6c6c6c;
+	margin: 0px;
+
+	li {
+		padding-bottom: 10px;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+	}
+
+	li:last-child {
+		border-bottom: none;
+	}
+}
+
 .fade {
   transition: ease-in 0.15s;
   transition-property: opacity, transform;

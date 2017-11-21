@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
-import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './bucketView.scss';
 
@@ -10,7 +9,8 @@ class BucketView extends Component {
 
     state = {
         buckets: [],
-        touch: {}
+        touch: {},
+        touchTimer: null,
     }
 
     constructor(props) {
@@ -72,41 +72,98 @@ class BucketView extends Component {
         }
     }
 
-    onTouchStart = (e) => {
-
-        this.state.touch = {};
-        var t = e.touches[0];
-        this.state.touch.sX = t.screenX;
-        this.state.touch.sY = t.screenY;
-    }
-
-    onTouchMove = (e) => {
-
-        var t = e.touches[0];
-        this.state.touch.eX = t.screenX;
-        this.state.touch.eY = t.screenY;
-    }
-
-    onTouchEnd = (e) => {
+    scrollToBucket = (positionBucket) => {
 
         let bucket = ReactDOM.findDOMNode(this);
-        let bucketWidth = bucket.getBoundingClientRect().width;
-        let min_x = bucketWidth / 2.0;
-        var t = e.changedTouches[0];
-        let deltaX = Math.abs(this.state.touch.sX - this.state.touch.eX);
-        if(deltaX >= min_x) {
+        let bucketTotalWidth = bucket.scrollWidth;
+        let bucketPageWidth = bucket.getBoundingClientRect().width;
+        let currentScrollPosition = bucket.scrollLeft;
+        let new_position = currentScrollPosition;
 
-            if(this.state.touch.sX - this.state.touch.eX < 0) {
-                bucket.scrollLeft = this.state.touch.eX - bucketWidth;
-            }
-            else {
-                bucket.scrollLeft = this.state.touch.eX + bucketWidth;
+        if(positionBucket == "next") {
+
+            if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
+                new_position = currentScrollPosition + bucketPageWidth;
             }
         }
-        else {
+        else if(positionBucket == "previous") {
 
-            bucket.scrollLeft = this.state.touch.eX;
+            if(currentScrollPosition - bucketPageWidth >= 0) {
+                new_position = currentScrollPosition - bucketPageWidth;
+            }
         }
+
+        bucket.scrollTo({
+            "behavior": "smooth",
+            "left": new_position
+        });
+    }
+
+    goToNextBucket = () => {
+        this.scrollToBucket("next");
+    }
+
+    goToPreviousBucket = () => {
+        this.scrollToBucket("previous");
+    }
+
+    // onTouchStart = (e) => {
+    //
+    //     this.state.touch = {};
+    //     this.state.touch.currentPosition = {x: 0, y: 0};
+    //
+    //     var t = e.touches[0];
+    //     this.state.touch.sX = t.screenX;
+    //     this.state.touch.sY = t.screenY;
+    //     console.log("started at: " + t.screenX);
+    // }
+    //
+    // onTouchMove = (e) => {
+    //
+    //     var t = e.touches[0];
+    //     this.state.touch.eX = t.screenX;
+    //     this.state.touch.eY = t.screenY;
+    //
+    //     let bucket = ReactDOM.findDOMNode(this);
+    //     let bucketPageWidth = bucket.getBoundingClientRect().width;
+    //
+    //     if(t.screenX >= this.state.touch.sX + bucketPageWidth || t.screenX <= this.state.touch.sX - bucketPageWidth) {
+    //         console.log("too far");
+    //     }
+    // }
+    //
+    // onTouchEnd = (e) => {
+    //
+    //     let bucket = ReactDOM.findDOMNode(this);
+    //     let bucketTotalWidth = bucket.scrollWidth;
+    //     let bucketPageWidth = bucket.getBoundingClientRect().width;
+    //     let currentScrollPosition = bucket.scrollLeft;
+    //
+    //     // get closest page
+    //     let closestPage = 0;
+    //     let diff = Math.abs(currentScrollPosition - closestPage);
+    //     let counterPage = bucketTotalWidth;
+    //     while(counterPage > 0) {
+    //
+    //         let newDiff = Math.abs(currentScrollPosition - counterPage);
+    //         if(newDiff < (diff + 0.20 * diff) || (diff - 0.20 * diff)) {
+    //             diff = newDiff;
+    //             closestPage = counterPage;
+    //         }
+    //
+    //         counterPage -= bucketPageWidth;
+    //     }
+    //
+    //     // bucket.scrollTo({
+    //     //     "behavior": "smooth",
+    //     //     "left": closestPage
+    //     // });
+    //
+    //     bucket.scrollLeft = closestPage;
+    // }
+
+    onDragStart(e) {
+        console.log(e);
     }
 
     render() {
@@ -119,32 +176,15 @@ class BucketView extends Component {
                                     title={bucket.title}
                                     key={bucket.id}
                                     groupId={bucket.id}
-                                    items={bucket.children} />)
+                                    items={bucket.children}
+                                    goToNextBucket={this.goToNextBucket}
+                                    goToPreviousBucket={this.goToPreviousBucket} />)
 
-        let columnWrapper = null;
-        if(this.props.screenSize == "xs") {
-            columnWrapper = <Carousel width={'100vw'}>{columns}</Carousel>;
-        }
-        else {
-            columnWrapper = columns
-        }
-
-        return (
-
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <div
-                    className={`bucket-view size-${this.props.screenSize}`}
-                    style={{width: '100vw'}}
-                    onTouchMove={this.onTouchMove}
-                    onTouchStart={this.onTouchStart}
-                    onTouchEnd={this.onTouchEnd}>
-
-                    {columnWrapper}
-
-                </div>
-            </DragDropContext>
-
-        )
+        return <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+            <div className={`bucket-view size-${this.props.screenSize}`}>
+                {columns}
+            </div>
+        </DragDropContext>
     }
 }
 

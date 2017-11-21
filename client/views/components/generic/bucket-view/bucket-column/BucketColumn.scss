@@ -18,10 +18,35 @@
   .bucket-content {
     padding-top: 5px;
   }
+
+  .bucket-content.size-xs {
+   padding-left: 10px;
+   padding-right: 10px;
+  }
+}
+
+.bucket.size-xs {
+  min-width: 100vw;
+  touch-action: none;
+
+  .bucket_action_previous .bucket_action_next {
+   visibility:hidden;
+  }
 }
 
 .carousel .bucket {
   min-width: 100vw;
   padding: 10px;
   height: 100%;
+}
+
+
+.bucket_action_previous {
+ float: left;
+ cursor: pointer;
+}
+
+.bucket_action_next {
+ float: right;
+ cursor: pointer;
 }
