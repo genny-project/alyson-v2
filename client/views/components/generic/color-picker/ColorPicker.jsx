@@ -1,32 +1,28 @@
 import './colorPicker.scss';
 import React, { Component } from 'react';
-import { } from 'prop-types';
+import { string } from 'prop-types';
 import { CircleButton, } from '../';
 import { TwitterPicker as ReactColor } from 'react-color';
 
 class ColorPicker extends Component {
 
   static propTypes = {
+      primaryColor: string,
   };
 
   state = {
       showColorPicker: false,
   }
 
-  handleChangeComplete = (color) => {
-    console.log('handle', color);
-    this.props.handleChangeComplete(color.hex);
-  }
+  onColorChange = (color) => {
 
-  handleMouseOver = (color) => {
-    this.props.handleMouseOver(color.hex);
-  }
-
-  handleMouseOut = () => {
-    this.props.handleMouseOut(null);
+    if(this.props.onColorChange) {
+        this.props.onColorChange(color.hex);
+    }
   }
 
   toggleColorPicker = () => {
+
       this.setState({
           showColorPicker: !this.state.showColorPicker
       })
@@ -39,14 +35,14 @@ class ColorPicker extends Component {
 
     return (
       <div className='color-picker'>
-        <CircleButton onClick={this.toggleColorPicker}>
+        <CircleButton onClick={this.toggleColorPicker} primaryColor={primaryColor}>
           {
               showColorPicker ?
-              <ReactColor
-                color={componentStyle.backgroundColor}
-                onChangeComplete={ this.handleChangeComplete }
-                onSwatchHover={ this.handleMouseOver}
-                onMouseOut={this.handleMouseOut}/> : null
+              <div className="color-picker-selector">
+                  <ReactColor
+                    color={style.backgroundColor}
+                    onChangeComplete={ this.onColorChange }/>
+              </div> : null
           }
         </CircleButton>
       </div>

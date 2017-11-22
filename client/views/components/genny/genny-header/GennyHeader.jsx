@@ -42,8 +42,8 @@ class GennyHeader extends Component {
     GennyBridge.sendLogout(event, data);
   }
 
-  handleChangeComplete = (color) => {
-    console.log('hello')
+  onColorChange = (color) => {
+
     let answer = [
       {
         targetCode: this.props.currentProject,
@@ -54,25 +54,14 @@ class GennyHeader extends Component {
     GennyBridge.sendAnswer(answer);
   };
 
-  handleMouseOver = (color) => {
-    this.setState({
-      hoverColor: color,
-    });
-  }
-
-  handleMouseOut = () => {
-    this.setState({
-      hoverColor: null,
-    });
-  }
-
   render() {
 
     const { style, height, screenSize } = this.props;
     const { hoverColor } = this.state;
 
     const componentStyle = {
-      ...style, height: height
+      ...style,
+      height: height
     };
 
     return (
@@ -86,10 +75,8 @@ class GennyHeader extends Component {
           <GennyNotification />
 
           <ColorPicker {...this.props}
-            hoverColor={hoverColor}
-            handleChangeComplete={ this.handleChangeComplete }
-            handleMouseOver={ this.handleMouseOver}
-            handleMouseOut={this.handleMouseOut}/>
+            primaryColor={hoverColor}
+            onColorChange={ this.onColorChange }/>
 
         </Header>
         <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }}/>
