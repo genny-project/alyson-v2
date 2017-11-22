@@ -58,12 +58,12 @@ class GennyForm extends Component {
 
   render() {
 
-    const { asks, style } = this.props;
+    const { asks, style, className } = this.props;
     const componentStyle = { ...style, };
     let query = new BaseEntityQuery(this.props);
 
     return (
-      <div className="genny-form">
+      <div className={`genny-form ${className}`}>
         <Form {...this.props}>
           {
             Object.keys(asks).map((ask_code, index) => {
