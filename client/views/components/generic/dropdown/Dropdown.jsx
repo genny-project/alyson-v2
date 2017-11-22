@@ -25,10 +25,11 @@ class Dropdown extends Component {
   }
 
   handleBlur = () => {
+
     this.setState({
       isOpen: false
     });
-  }  
+  }
 
   handleFocus = () => {
     this.setState({
@@ -38,10 +39,10 @@ class Dropdown extends Component {
 
   render() {
     const { className, children, style, header, open, noDropdownStyle } = this.props;
-    const { isOpen, } = this.state; 
+    const { isOpen, } = this.state;
     const componentStyle = { ...style, };
 
-    
+
     return (
       <div className={`dropdown ${className}`} onBlur={this.handleBlur} onFocus={this.handleFocus} tabIndex='-1' >
         <div className='dropdown-header'>

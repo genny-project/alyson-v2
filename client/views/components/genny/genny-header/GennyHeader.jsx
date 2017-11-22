@@ -70,18 +70,19 @@ class GennyHeader extends Component {
 
     const { style, height, screenSize } = this.props;
     const { hoverColor } = this.state;
-    
+
     const componentStyle = {
       ...style, height: height
     };
 
     return (
       <div className={`genny-header ${screenSize}`} style={componentStyle}>
+
         <Header
           {...this.props}
           handleAccount={this.handleAccount}
-          handleLogout={this.handleLogout}
-        >
+          handleLogout={this.handleLogout}>
+
           <GennyNotification />
 
           <ColorPicker {...this.props}
