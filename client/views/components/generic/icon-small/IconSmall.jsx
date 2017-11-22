@@ -32,8 +32,8 @@ class IconSmall extends Component {
     };
 
     return (
-        <span style={text ? iconStyle : null}>
-            <i className={`icon material-icons ${className} `} onClick={onClick} style={{ fontSize: size, paddingRight: "10px", }}>{name}</i>
+        <span style={text ? iconStyle : null} className={className}>
+            <i className={`icon material-icons `} onClick={onClick} style={{ fontSize: size, paddingRight: "10px", }}>{name}</i>
             {
                 text ? <span style={{ fontSize: size, }}>{text}</span> : null
             }

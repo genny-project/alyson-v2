@@ -54,13 +54,16 @@ class Modal extends Component {
 
   render() {
 
-    const { className, children, style, show } = this.props;
+    const { className, children, style, show, header } = this.props;
 
     return (
       <div className={`modal-container ${className} ${show ? 'animate' : 'out' }`}>
         <div className='modal-background'>
           <div className="modal">
-            <IconSmall className='modal-close' onClick={this.close} name='clear' />
+            <div className="modal-header">
+                {header}
+                <IconSmall className='modal-close' onClick={this.close} name='clear' />
+            </div>
             {children}
             <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
 				<rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>

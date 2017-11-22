@@ -15,7 +15,7 @@
 
     transform:scale(1);
     .modal-background {
-      background:rgba(0,0,0,.0);
+      background: rgba(0,0,0,.0);
       position: fixed;
       top: 0;
       left: -25%;
@@ -40,6 +40,11 @@
     }
   }
 
+  .modal-header {
+   height: 10px;
+   border-bottom: 0.5px solid rgba(0,0,0,0.5);
+   margin-bottom: 10px;
+  }
   .modal-background {
 
     display:table-cell;

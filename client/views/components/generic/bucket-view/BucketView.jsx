@@ -121,6 +121,17 @@ class BucketView extends Component {
         });
     }
 
+    bucketSelectionLayout = () => {
+
+        return (
+            <ul>
+                {
+                    this.state.buckets.map(bucket => <li>{bucket.title}</li>)
+                }
+            </ul>
+        );
+    }
+
     render() {
 
         const { style } = this.props;
@@ -139,12 +150,12 @@ class BucketView extends Component {
                         showMovingOptions={this.toggleMovingOptions}
                         />
         })
-        //className={ ? "animate" : "out"}>
+
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                 <div className={`bucket-view size-${this.props.screenSize}`}>
                     <Modal onClose={this.toggleMovingOptions} show={showMovingOptions}>
-                        <p>This is the content.</p>
+                        <div>{this.bucketSelectionLayout()}</div>
                     </Modal>
                     {columns}
                 </div>
