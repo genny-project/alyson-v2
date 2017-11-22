@@ -1,15 +1,30 @@
 @import '../../../../styles/colors';
 
 .list {
-    display: flex;
+
+	display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 
-    padding: 40px 20px 0 20px;
-    
-    .list-header, .list-content {
-        width: 100%;
+	padding: 40px 20px 0 20px;
+	
+	.list-main, .list-nav, .list-header {
+		width: 100%;
         max-width: 800px;
-    }
+
+	} 
+
+	.list-nav {			
+		display: flex;
+		justify-content: center;
+
+		> .visible {
+			visibility: visible;
+		}
+
+		> .hidden {
+			visibility: hidden;
+		}
+	}
 }

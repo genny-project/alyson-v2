@@ -26,6 +26,7 @@ export { default as InputUploadPhoto } from './input-upload-photo';
 export { default as Label } from './label';
 export { default as List } from './list';
 export { default as ListItem } from './list-item';
+export { default as ListNew } from './list-new';
 export { default as Modal } from './modal';
 export { default as NotificationItem } from './notification-item';
 export { default as Notifications } from './notifications';
