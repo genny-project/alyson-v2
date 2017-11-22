@@ -46,7 +46,7 @@ class List extends Component {
 
   render() {
 
-    const { className, children, style, itemsPerPage, header } = this.props;
+    const { className, children, style, itemsPerPage, header, hidenav } = this.props;
     const { childrenCurrent, pageCurrent, pageCount, offset } = this.state;
     const componentStyle = { ...style, };
 
@@ -61,9 +61,11 @@ class List extends Component {
         <div className="list-main">
           {childrenPageArray}
         </div>
+        { hidenav ?
         <div className="list-nav">
           <Pagination perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}/>
         </div>
+        : null }
       </div>
     );
   }
