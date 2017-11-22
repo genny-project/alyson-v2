@@ -82,10 +82,8 @@ class Card extends Component {
   moveItem = () => {
 
       // hide option menu
-      this.toggleOptions();
+      this.toggleOptions()
 
-      console.log(this.props);
-      
       // show options
       if(this.props.showMovingOptions) {
           this.props.showMovingOptions(this);
@@ -101,7 +99,12 @@ class Card extends Component {
     const collapseArrow = isVisible ? 'expand_more' : 'expand_less';
 
     let dropDownStyle = {
+        width: "100px",
+        position: "absolute",
         left: "0px",
+    };
+
+    let dropDownContentStyle = {
         background: "white",
         boxShadow: "0px 0px 5px 1px rgba(0,0,0,0.4)",
         padding: "0px",
@@ -126,9 +129,9 @@ class Card extends Component {
             {
                 isShowingOptions ?
                 <Dropdown
+                    style={dropDownStyle}
                     tagStyle={dropDownTagStyle}
-                    style={{position: "abolute", left: "0px"}}
-                    contentStyle={dropDownStyle}
+                    contentStyle={dropDownContentStyle}
                     open={true}
                     >
                     <ul className="card-options">

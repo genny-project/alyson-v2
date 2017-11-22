@@ -36,12 +36,12 @@ body.modal-active {
 body.modal-active {
 
  .app {
-  animation: scaleBack .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  animation: scaleBack .25s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
  }
 }
 
 body.modal-closing {
  .app {
-  animation: scaleForward .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  animation: scaleForward .25s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
  }
 }

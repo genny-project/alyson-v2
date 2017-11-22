@@ -1,6 +1,7 @@
 export { default as BucketView } from './bucket-view';
 export { default as Button } from './button';
 export { default as Card } from './card';
+export { default as ColorPicker } from './color-picker';
 export { default as CircleButton } from './circle-button';
 export { default as Container } from './container';
 export { default as Device } from './device';

@@ -15,7 +15,7 @@ class GennyTreeView extends Component {
   static propTypes = {
     items: array,
     baseEntity: object,
-    isHorizontal: bool
+    isHorizontal: bool,
   };
 
   state = {

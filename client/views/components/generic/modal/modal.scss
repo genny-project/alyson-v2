@@ -28,9 +28,7 @@
         animation: scaleUp .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
       }
     }
-    .app {
-      animation: scaleBack .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-    }
+
     &.out {
       animation: quickScaleDown 0s .5s linear forwards;
       .modal-background {
@@ -38,9 +36,6 @@
         .modal {
            animation: scaleDown .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
         }
-      }
-      .app {
-        animation: scaleForward .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
       }
     }
   }
