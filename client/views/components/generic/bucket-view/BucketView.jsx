@@ -13,7 +13,7 @@ class BucketView extends Component {
         buckets: [],
         touch: {},
         touchTimer: null,
-        showMovingOptions: false,
+        currentlySelectedItem: false,
     }
 
     constructor(props) {
@@ -67,6 +67,10 @@ class BucketView extends Component {
 
     didMoveItem = (item, source, destination) => {
 
+        console.log(item);
+        console.log(source);
+        console.log(destination);
+
         if(source.droppableId == destination.droppableId) {
             this.moveItemInBucket(item.draggableId, source.droppableId, source.index, destination.index);
         }
@@ -110,23 +114,67 @@ class BucketView extends Component {
         this.scrollToBucket("previous");
     }
 
-    onDragStart(e) {
-        console.log(e);
-    }
-
     toggleMovingOptions = (item) => {
 
         this.setState({
-            showMovingOptions: !this.state.showMovingOptions
+            currentlySelectedItem: item
         });
     }
 
-    bucketSelectionLayout = () => {
+    mobileMoveItem = (item, bucketDestination) => {
+
+        // we find the original bucket
+        let itemCode = item.props.description;
+        let draggedItem = {
+            draggableId: itemCode,
+        };
+
+        let destinationBucket = {
+            droppableId: bucketDestination.id,
+            index: -1,
+        }
+
+        let sourceBucket = {
+            droppableId: null,
+            index: -1,
+        };
+
+        for (var i = 0; i < this.state.buckets.length; i++) {
+
+            let bucket = this.state.buckets[i];
+
+            if(bucket.id == bucketDestination.id) {
+                destinationBucket.index = bucket.children.length;
+            }
+
+            for (var j = 0; j < bucket.children.length; j++) {
+
+                let children = bucket.children[j];
+                if(children.id == itemCode) {
+
+                    console.log(bucket);
+                    sourceBucket.droppableId = bucket.id;
+                    sourceBucket.index = j;
+                    break;
+                }
+            }
+
+            if(sourceBucket.index > -1 && destinationBucket.index > -1) {
+                break; // sourceBucket and destinationBucket were found, not need to loop anymore.
+            }
+        }
+
+        // simulate dragging
+        this.didMoveItem(draggedItem, sourceBucket, destinationBucket);
+        this.toggleMovingOptions();
+    }
+
+    bucketSelectionLayout = (item) => {
 
         return (
             <ul>
                 {
-                    this.state.buckets.map(bucket => <li>{bucket.title}</li>)
+                    this.state.buckets.map(bucket => <li onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</li>)
                 }
             </ul>
         );
@@ -135,7 +183,7 @@ class BucketView extends Component {
     render() {
 
         const { style } = this.props;
-        const { buckets, showMovingOptions } = this.state;
+        const { buckets, currentlySelectedItem } = this.state;
 
         let columns = buckets.map((bucket) => {
 
@@ -154,8 +202,8 @@ class BucketView extends Component {
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                 <div className={`bucket-view size-${this.props.screenSize}`}>
-                    <Modal onClose={this.toggleMovingOptions} show={showMovingOptions}>
-                        <div>{this.bucketSelectionLayout()}</div>
+                    <Modal onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                        <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
                     </Modal>
                     {columns}
                 </div>
