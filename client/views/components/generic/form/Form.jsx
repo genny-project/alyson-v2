@@ -39,7 +39,7 @@ class Form extends Component {
   }
 
   pageChange = (selectedPage) => {
-    const { itemsPerPage } = this.props; 
+    const { itemsPerPage } = this.props;
     let offset = Math.ceil(selectedPage * itemsPerPage);
     this.setState({offset: offset, pageCurrent: selectedPage + 1}, () => {
     });
@@ -63,7 +63,7 @@ class Form extends Component {
           </div>
           { !isHorizontal ?
             <div className="form-nav">
-              <Pagination hidePageNumbers perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}/>
+              <Pagination hidePageNumbers={itemsPerPage >= childrenCount} perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}/>
             </div>
           : null }
         </div>
