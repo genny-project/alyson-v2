@@ -6,9 +6,16 @@
   position: relative;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-touch-callout: none;
-  // touch-action: none;
 }
 
 .bucket-view.size-xs {
-  overflow-x: scroll;
+  overflow-x: hidden;
+  touch-action: none;
+}
+
+.bucket-option-item.size-xs {
+ margin-bottom: 15px;
+ padding-bottom: 15px;
+ border-bottom: 0.5px solid lightgray;
+ cursor: pointer;
 }

@@ -18,9 +18,25 @@ class App extends Component {
   };
 
   componentDidMount() {
+
     if (config.backendEnabled) {
       /* Start the app */
       this.props.appStart();
+
+      document.removeEventListener('native-message', null);
+      document.addEventListener('native-message', (message) => {
+
+          if(message.detail) {
+
+              let event = message.detail;
+              switch (event.id) {
+                  case "GEOFENCE":
+                  GennyBridge.sendGeofenceData(event.data.event_id, event.data);
+                  break;
+                  default: console.log("received unknown event [" + event.id + "]");
+              }
+          }
+      })
     }
   }
 
@@ -28,25 +44,6 @@ class App extends Component {
 
     /* Hide the loading spinner */
     document.getElementById('mounting-preview').remove();
-
-    document.addEventListener('native-message', (message) => {
-
-        if(message.detail) {
-
-            let detail = message.detail;
-            if(detail.lastPosition) {
-
-                let coords = detail.lastPosition.coords;
-
-                //TODO: remove this and simply store it within the store.
-                let item = [{
-                    ...coords,
-                }];
-
-                GennyBridge.sendGPSData(item);
-            }
-        }
-    })
 
     /* Send off the auth logged in action */
     if(keycloak.getToken()) {

@@ -16,7 +16,7 @@ class List extends Component {
     className: string,
     itemsPerPage: number,
   }
- 
+
   state = {
     showProgress: this.props.showProgress ? this.props.showProgress : false,
     pageCount: Math.ceil( Object.keys(this.props.children).length / this.props.itemsPerPage ),
@@ -40,7 +40,7 @@ class List extends Component {
   }
 
   pageChange = (selectedPage) => {
-    const { itemsPerPage } = this.props; 
+    const { itemsPerPage } = this.props;
     let offset = Math.ceil(selectedPage * itemsPerPage);
     this.setState({offset: offset, pageCurrent: selectedPage + 1}, () => {
     });
@@ -67,7 +67,7 @@ class List extends Component {
         </div>
         { hideNav ? null :
           <div className="list-nav">
-            <Pagination perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}/>
+            <Pagination perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}  hidePageNumbers={itemsPerPage <= childrenCount}/>
           </div>
         }
       </div>

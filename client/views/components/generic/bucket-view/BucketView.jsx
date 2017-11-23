@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
-import { Modal } from 'views/components';
+import { Modal, List } from 'views/components';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './bucketView.scss';
@@ -66,10 +66,6 @@ class BucketView extends Component {
     }
 
     didMoveItem = (item, source, destination) => {
-
-        console.log(item);
-        console.log(source);
-        console.log(destination);
 
         if(source.droppableId == destination.droppableId) {
             this.moveItemInBucket(item.draggableId, source.droppableId, source.index, destination.index);
@@ -165,6 +161,9 @@ class BucketView extends Component {
         }
 
         // simulate dragging
+        if(this.props.didMoveItem) {
+            this.props.didMoveItem(draggedItem, sourceBucket, destinationBucket);
+        }
         this.didMoveItem(draggedItem, sourceBucket, destinationBucket);
         this.toggleMovingOptions();
     }
@@ -172,11 +171,11 @@ class BucketView extends Component {
     bucketSelectionLayout = (item) => {
 
         return (
-            <ul>
+            <List itemsPerPage={this.state.buckets.length}>
                 {
-                    this.state.buckets.map(bucket => <li onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</li>)
+                    this.state.buckets.map(bucket => <div className={`bucket-option-item size-${this.props.screenSize}`} onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</div>)
                 }
-            </ul>
+            </List>
         );
     }
 
@@ -202,7 +201,7 @@ class BucketView extends Component {
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                 <div className={`bucket-view size-${this.props.screenSize}`}>
-                    <Modal onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                    <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
                         <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
                     </Modal>
                     {columns}

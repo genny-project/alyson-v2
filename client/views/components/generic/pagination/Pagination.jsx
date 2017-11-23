@@ -33,7 +33,8 @@ class Pagination extends Component {
   };
 
   render() {
- 	  const { className, hidePageNumbers, children, style } = this.props;
+
+    const { className, hidePageNumbers, children, style } = this.props;
     const componentStyle = { ...style };
 
     return (

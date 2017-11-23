@@ -20,7 +20,7 @@
             cursor: pointer;
             outline: none;
         }
-        
+
         .pagination-current {
             color: red;
         }
@@ -29,6 +29,8 @@
     }
 
     &.hide-pages {
+
+      display: none;
         .pagination-number, .pagination-break {
             display: none;
         }
