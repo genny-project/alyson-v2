@@ -1,4 +1,4 @@
-import { REDIRECT, FB_REDIRECT } from 'constants';
+import { REDIRECT, SOCIAL_REDIRECT } from 'constants';
 import history from 'views/history.js';
 
 const initialState = {
@@ -21,29 +21,33 @@ export default function reducer( state = initialState, action ) {
         lastRedirect: action.payload
       };
 
-     case FB_REDIRECT:
+     case SOCIAL_REDIRECT:
 
      if(action.payload.items && action.payload.items.redirectUrl) {
 
-         let redirectUrl = action.payload.items.redirectUrl;
+        let redirectUrl = action.payload.items.redirectUrl;
 
         if(action.payload.items.clientId) {
             redirectUrl += "&client_id=" + action.payload.items.clientId;
         }
 
         if(action.payload.items.redirectUrl) {
-            redirectUrl += "&redirect_uri=" + window.location.href;
-        }
 
-        // we also pass some more info so that when we come back we can use this data to post as an answer.
-        let json = JSON.stringify({
-            sourceCode: social_type,
-            targetCode: action.payload.items.targetCode,
-            attributeCode: action.payload.items.attributeCode,
-        });
+            let url = window.location.origin;
 
-        if(json) {
-            redirectUrl += "&data_state=" + json;
+            // we also pass some more info so that when we come back we can use this data to post as an answer.
+            let json = JSON.stringify({
+                sourceCode: action.payload.items.sourceCode,
+                targetCode: action.payload.items.targetCode,
+                attributeCode: action.payload.items.attributeCode,
+                askId: action.payload.items.askId
+            });
+
+            if(json) {
+                url += "?data_state=" + json;
+            }
+
+            redirectUrl += "&redirect_uri=" + url;
         }
 
         window.location.href = redirectUrl;
@@ -51,7 +55,6 @@ export default function reducer( state = initialState, action ) {
         return {
             ...state,
         }
-
      }
      return state;
 

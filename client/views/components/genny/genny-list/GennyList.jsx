@@ -1,117 +1,46 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
 import { object, array } from 'prop-types';
-import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
-import { IconSmall, ListItem, List, GennyForm } from '../../';
-import { GennyBridge } from 'utils/genny';
-import { LayoutLoader } from 'utils/genny/layout-loader';
+import { List, GennyForm, } from '../../';
 
 class GennyList extends Component {
 
+    static defaultProps = {
+        items: [
+            <div>one</div>,
+            <div>two</div>,
+            <div>three</div>,
+            <div>four</div>,
+            <div>five</div>,
+            <div>six</div>,
+            <div>seven</div>,
+            <div>eight</div>,
+            <div>nine</div>,
+            <div>ten</div>,
+            <div>eleven</div>,
+            <div>twelve</div>,
+        ],
+    }
+
+      
     static propTypes = {
+        items: array
     };
 
     state = {
-        columns: [],
-        data: []
-    }
-
-    generateHeadersFor(baseEntities) {
-
-        let columns = [{
-            "Header": () => <div className='list-item-total'><span>{baseEntities.length} Items found</span></div>,
-            "accessor": "baseEntity",
-            "sortable" : "false",
-            "filterable" : "false",
-            "Cell": row => {
-
-                let be = row.value;
-                let beAttributes = []
-
-                if(be.attributes) {
-                    Object.keys(be.attributes).forEach(attribute_key => {
-                        let attribute = be.attributes[attribute_key].value;
-                        beAttributes.push(attribute);
-                    })
-                };
-                let layout_code = "SUBLAY_1";
-                let sublayout = this.props.sublayout[layout_code];
-                return (
-                    <ListItem>
-                        { sublayout ? <LayoutLoader layout={sublayout} /> : null }
-                    </ListItem>
-                )
-            }
-        }];
-
-        this.state.columns = columns;
-        return columns;
-    }
-
-    generateDataFor(baseEntities) {
-
-        let data = [];
-        let columns = this.state.columns;
-        baseEntities.forEach(baseEntity => {
-
-            data.push({
-                "baseEntity": baseEntity
-            });
-            data.push({
-                "baseEntity": '1'
-            });
-            data.push({
-                "baseEntity": '2'
-            });
-            data.push({
-                "baseEntity": '3'
-            });
-            data.push({
-                "baseEntity": '4'
-            });
-            data.push({
-                "baseEntity": '5'
-            });
-            data.push({
-                "baseEntity": '6'
-            });
-        });
-        this.state.data = data;
-        return data;
     }
 
     render() {
 
-        const { root, showBaseEntity } = this.props;
-
-        let query = new BaseEntityQuery(this.props);
-        let columns = [];
-        let data = [];
-
-        let children = query.getEntityChildren(root);
-        if(children) {
-
-            if(children.length == 0 && showBaseEntity) {
-
-                let be = query.getBaseEntity(root);
-                if(be) {
-                    children = [be];
-                }
-            }
-
-            columns = this.generateHeadersFor(children);
-            data = this.generateDataFor(children);
-        }
-
-        let headerContent = <GennyForm isHorizontal />
+        const { root, items } = this.props;
 
         return (
             <div className="genny-list">
-                <List
-                    {...this.props}
-                    header={ headerContent }
-                    data={data}
-                    columns={columns} />
+                <List header={
+                    <GennyForm isHorizontal />
+                }>
+                    {items}
+                </List>
             </div>
         );
     }

@@ -1,38 +1,14 @@
 .bucket-view {
+
   display: flex;
   flex-direction: row;
   flex-grow: 1;
   position: relative;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  // touch-action: none;
+}
 
-  .bucket {
-    flex: 1;
-    flex-shrink: 0;
-
-    background: #a3a3a3;
-    color: #FFF;
-
-    &:nth-child(odd) {
-      background: #989998;
-
-      .bucket-title {
-        background: #898989;
-
-
-      }
-    }
-
-    .bucket-title {
-      padding: 20px;
-      background: #929292;
-      text-align: center;
-    }
-
-    .bucket-content {
-      padding: 10px;
-
-      .card {
-        margin-bottom: 10px;
-      }
-    }
-  }
+.bucket-view.size-xs {
+  overflow-x: scroll;
 }

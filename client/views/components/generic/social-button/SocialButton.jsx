@@ -18,17 +18,21 @@ class SocialButton extends Component {
   }
 
   state = {
+
   }
 
-  callback = (event) => {
-     console.log(event);
+  onClick = () => {
+
+      if(this.props.onClick) {
+          this.props.onClick(this);
+      }
   }
 
   renderSocialButton = (type) => {
 
       switch (type) {
           case "facebook":
-          return <FacebookButton onClick={this.props.onClick} />
+          return <FacebookButton onClick={this.onClick} />
           default:
           return <p>Unknown button</p>
       }

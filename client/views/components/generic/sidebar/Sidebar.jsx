@@ -11,6 +11,7 @@ class Sidebar extends Component {
       caption: any,
       children: any,
       height: string,
+      screenSize: string,
     };
 
     getContentHeight = () => {
@@ -37,7 +38,7 @@ class Sidebar extends Component {
         }
 
         return (
-            <div className="sidebar" style={componentStyle}>
+            <div className={`sidebar ${window.screenSize}`} style={componentStyle}>
               <div className="sidebar-header" style={{height: height}}>
                 {imageView}
               </div>

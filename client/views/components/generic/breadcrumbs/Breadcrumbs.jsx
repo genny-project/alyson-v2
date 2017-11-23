@@ -12,7 +12,7 @@ class Breadcrumbs extends Component {
   static propTypes = {
     className: string,
     style: string,
-    path: string,
+    currentPath: string,
   }
 
   state = {
@@ -20,22 +20,27 @@ class Breadcrumbs extends Component {
 
   createBreadcrumbs = () => {
 
-    let stringPath = this.props.path;
-    if(stringPath) {
+    let stringPath = this.props.currentPath;
+    if(stringPath && stringPath.length > 0) {
 
         if(stringPath[stringPath.length - 1] == "/") {
             stringPath = stringPath.slice(0, -1);
         }
 
         let filepath = stringPath.split('/');
-        return filepath.map((path, index) => (
+        return filepath.map((path, index) => {
 
-            <li
-                key={index}>
-                <IconSmall name='chevron_right' />
-                <span>{path}</span>
-            </li>
-        ))
+            if(path && path.length > 0) {
+
+                return (
+
+                    <li key={index} onClick={() => this.props.onClick(path)}>
+                        <IconSmall name='chevron_right' />
+                        <span>{path}</span>
+                    </li>
+                )
+            }
+        });
     }
 
     return null;
@@ -43,8 +48,7 @@ class Breadcrumbs extends Component {
 
   render() {
 
-    const { className, style, path, home } = this.props;
-    const {  } = this.state;
+    const { className, style, home } = this.props;
     const componentStyle = { ...style, };
     const breadcrumbs = this.createBreadcrumbs();
 
@@ -53,7 +57,7 @@ class Breadcrumbs extends Component {
         <ul className='breadcrumbs-main'>
           <li className='breadcrumbs-home'>
             <IconSmall name='home' />
-            <span>{home}</span>
+            <span>Home</span>
           </li>
           {breadcrumbs}
         </ul>

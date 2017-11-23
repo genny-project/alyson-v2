@@ -1,7 +1,9 @@
 export { default as BucketView } from './bucket-view';
 export { default as Button } from './button';
 export { default as Card } from './card';
+export { default as ColorPicker } from './color-picker';
 export { default as CircleButton } from './circle-button';
+export { default as CompactList } from './compact-list';
 export { default as Container } from './container';
 export { default as Device } from './device';
 export { default as DisplayValue } from './display-value';
@@ -32,7 +34,7 @@ export { default as Pagination } from './pagination';
 export { default as ProgressBar } from './progress-bar';
 export { default as Sidebar } from './sidebar/';
 export { default as SocialButton } from './social-button';
-//export { default as Spinner } from './spinner';
+export { default as InputSocial } from './input-social';
 export { default as Status } from './status/';
 export { default as SubmitStatusIcon } from './submit-status-icon';
 export { default as Table } from './table';

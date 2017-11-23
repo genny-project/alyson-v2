@@ -16,34 +16,35 @@ class Notifications extends Component {
   }
 
   state = {
-    isVisible: false
   }
 
-  handleClickNotifs = () => {
-    this.setState(prevState => ({
-      isVisible: !prevState.isVisible
-    }));
+  getDropdownHeader = () => {
+    const {notifications} = this.props;
+    return (
+      <div>
+        <IconSmall name="forum"/>
+        <div className="number" ><span>{Object.keys(notifications).length}</span></div>
+      </div>
+    )
   }
 
   render() {
 
     const { className, notifications } = this.props;
-    const { isVisible } = this.state;
 
-    console.log(notifications);
+    const dropdownHeader = this.getDropdownHeader();
     return (
       <div className="notifications" onClick={this.handleClickNotifs}>
-        <IconSmall name="forum"/>
-        <div className="number" ><span>{Object.keys(notifications).length}</span></div>
-        <Dropdown visible={isVisible}>
+
+        <Dropdown header={dropdownHeader}>
           <ul className="notifications-dropdown">
-      	        {
-                    Object.keys(notifications).map((notification_key, index) => {
-                        return <NotificationItem notification={notifications[notification_key]} />
-                    })
-      	        }
+            {
+              Object.keys(notifications).map((notification_key, index) => {
+                  return <NotificationItem notification={notifications[notification_key]} />
+              })
+            }
           </ul>
-        </Dropdown>
+        </Dropdown> 
       </div>
     )
   }

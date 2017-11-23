@@ -20,9 +20,28 @@ class GennyForm extends Component {
     this.sendAnswer(newValue, ask);
   }
 
+  onClick = (clickedButton) => {
+
+    console.log("Button was clicked");
+    // clickedButton is a react component. info is stored in clickedButton.props.
+
+    if(clickedButton && clickedButton.props) {
+
+        let data = clickedButton.props.data;
+        let buttonCode = clickedButton.props.buttonCode;
+
+        let btnEventData = {
+            code: buttonCode,
+            ...data
+        }
+
+        GennyBridge.sendBtnClick(btnEventData);
+    }
+  }
+
   sendAnswer = (value, ask) => {
-    console.log("send");
-    this.sendData('Answer', [
+
+    this.sendData([
       {
         sourceCode: ask.sourceCode,
         targetCode: ask.targetCode,
@@ -33,20 +52,18 @@ class GennyForm extends Component {
     ]);
   };
 
-  sendData(data, items) {
-    GennyBridge.sendAnswer(data, items);
+  sendData(items) {
+    GennyBridge.sendAnswer(items);
   }
 
   render() {
 
-    const { asks, style } = this.props;
+    const { asks, style, className } = this.props;
     const componentStyle = { ...style, };
     let query = new BaseEntityQuery(this.props);
 
-    console.log(asks);
-
     return (
-      <div className="genny-form">
+      <div className={`genny-form ${className}`}>
         <Form {...this.props}>
           {
             Object.keys(asks).map((ask_code, index) => {
@@ -68,6 +85,9 @@ class GennyForm extends Component {
                 isHorizontal={this.props.isHorizontal}
                 key={index}
                 identifier={ask_code}
+                data={{
+                    value: ask.id
+                }}
                 type={inputType}
                 style={componentStyle}
                 name={ask.question.name}
@@ -77,6 +97,7 @@ class GennyForm extends Component {
                 validationList={ask.question.validationList}
                 mask={ask.question.mask}
                 onValidation={this.onInputValidation}
+                onClick={this.onClick}
               />;
             })
           }

@@ -27,7 +27,8 @@ export default function reducer(state = initialState, action) {
                         existing[baseEntityCode] = {
                             ...state.data[baseEntityCode],
                             ...existing[baseEntityCode],
-                            ...newItem
+                            ...newItem,
+                            linkCode: action.payload.linkCode,
                         };
 
                         return existing;
@@ -52,6 +53,7 @@ export default function reducer(state = initialState, action) {
                         ...state.data[baseEntityCode],
                         ...existing[baseEntityCode],
                         ...newItem,
+                        linkCode: action.payload.linkCode,
                         attributes: existingAttributes
                     };
 

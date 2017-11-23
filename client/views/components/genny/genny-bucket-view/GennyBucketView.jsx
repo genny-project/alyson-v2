@@ -4,6 +4,7 @@ import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
 import { IconSmall, BucketView, Card } from '../../';
 import { Draggable } from 'react-beautiful-dnd';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import { GennyBridge } from 'utils/genny';
 
 class GennyBucketView extends Component {
 
@@ -24,7 +25,33 @@ class GennyBucketView extends Component {
 
     didMoveItem = (item, source, destination) => {
 
-        console.log("Send answer...");
+        if(item.draggableId) {
+
+            let query = new BaseEntityQuery(this.props);
+            let begs = query.getEntityChildren(source.droppableId);
+            if(begs.length > 0) {
+
+                let movedBeg = begs.filter(x => x.code == item.draggableId)[0];
+                let loads = movedBeg.children;
+                if(loads && loads.length > 0) {
+
+                    let movedLoad = loads[0];
+                    let loadCode = movedLoad.code;
+                    let linkCode = movedBeg.linkCode;
+                    let data_event = {
+                        sourceBaseEntityCode: source.droppableId,
+                        targetBaseEntityCode: destination.droppableId,
+                        linkCode: linkCode,
+                        data: {
+                            code: item.draggableId,
+                            value: loadCode,
+                        }
+                    };
+
+                    GennyBridge.sendBucketDropEvent(data_event);
+                }
+            }
+        }
     }
 
     generateBucket(query, group) {
@@ -43,7 +70,7 @@ class GennyBucketView extends Component {
             children.push(
                 {
                 content: (
-                    <Card title={be.name} description={be.code}>
+                    <Card title={be.name} description={be.code} screenSize={this.props.screenSize}>
                         {
                             sublayout ? <LayoutLoader layout={sublayout} /> : null
                         }
@@ -81,7 +108,7 @@ class GennyBucketView extends Component {
 
         return (
             <div className="genny-bucket-view">
-                <BucketView buckets={buckets} didMoveItem={this.didMoveItem} />
+                <BucketView screenSize={this.props.screenSize} buckets={buckets} didMoveItem={this.didMoveItem} />
             </div>
         );
     }

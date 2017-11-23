@@ -11,6 +11,7 @@ import aliasIncoming from './alias.events.incoming.js';
 import treeView from './treeView.events.outgoing.js';
 import notificationIncoming from './notification.events.incoming.js';
 import btnOutgoing from './btn.events.outgoing.js';
+import bucketDropOutgoing from './bucket.events.outgoing';
 
 export default {
   incoming: {
@@ -28,6 +29,7 @@ export default {
     ...authOutgoing,
     ...askOutgoing,
     ...treeView,
-    ...btnOutgoing
+    ...btnOutgoing,
+    ...bucketDropOutgoing
   }
 };

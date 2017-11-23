@@ -9,7 +9,6 @@
 	box-shadow: 0 3px 5px rgba(0,0,0,0.5);
 	color: #222;
 
-	margin-bottom: 50px;
 
 	p, span, i {
 	}
@@ -63,6 +62,22 @@
 			background: #F2F2F2;
 			border-radius: 5px;
 		}
+	}
+}
+
+.card-options {
+	list-style: none;
+	padding: 10px;
+	color: #6c6c6c;
+	margin: 0px;
+
+	li {
+		padding-bottom: 10px;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+	}
+
+	li:last-child {
+		border-bottom: none;
 	}
 }
 
