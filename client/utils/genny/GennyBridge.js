@@ -60,6 +60,14 @@ class GennyBridge {
       }
   }
 
+  sendGeofenceData(event_id, data) {
+
+      let token = this.getToken();
+      if(token) {
+          Vertx.sendMessage(events.outgoing.GEOFENCE_NOTIFICATION(event_id, data, token));
+      }
+  }
+
   sendAnswer(items) {
 
     let token = this.getToken();

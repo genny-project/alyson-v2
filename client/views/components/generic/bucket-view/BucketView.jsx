@@ -67,10 +67,6 @@ class BucketView extends Component {
 
     didMoveItem = (item, source, destination) => {
 
-        console.log(item);
-        console.log(source);
-        console.log(destination);
-
         if(source.droppableId == destination.droppableId) {
             this.moveItemInBucket(item.draggableId, source.droppableId, source.index, destination.index);
         }
@@ -165,6 +161,9 @@ class BucketView extends Component {
         }
 
         // simulate dragging
+        if(this.props.didMoveItem) {
+            this.props.didMoveItem(draggedItem, sourceBucket, destinationBucket);
+        }
         this.didMoveItem(draggedItem, sourceBucket, destinationBucket);
         this.toggleMovingOptions();
     }

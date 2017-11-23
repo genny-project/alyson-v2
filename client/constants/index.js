@@ -42,6 +42,9 @@ export const ASK = 'Ask';
 /* Answers */
 export const ANSWER = 'Answer';
 
+/* GPS CMD */
+export const GPS_CMD = 'CMD_GPS';
+
 /* Sublayout */
 export const SUBLAYOUT = 'SUBLAYOUT';
 
@@ -49,7 +52,7 @@ export const SUBLAYOUT = 'SUBLAYOUT';
 export const ALIAS = 'Alias';
 
 /* Attribute */
-export const ATTRIBUTE = 'Attribute';
+export const ATTRIBUTE = 'Attributschmide';
 
 /* Notifications */
 export const NOTIFICATION = 'Notification';

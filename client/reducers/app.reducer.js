@@ -1,4 +1,4 @@
-import { REDIRECT, SOCIAL_REDIRECT } from 'constants';
+import { REDIRECT, SOCIAL_REDIRECT, GPS_CMD } from 'constants';
 import history from 'views/history.js';
 
 const initialState = {
@@ -56,6 +56,24 @@ export default function reducer( state = initialState, action ) {
             ...state,
         }
      }
+
+     case GPS_CMD:
+
+     if(action.payload.gpsLocation) {
+
+         let data = {
+            latitude: action.payload.gpsLocation.latitude,
+            longitude: action.payload.gpsLocation.longitude,
+            radius: action.payload.radius,
+            enterCode: action.payload.enterCode,
+            exitCode: action.payload.exitCode,
+         };
+         window.postMessage(JSON.stringify({
+             "id": action.payload.code,
+             "data": data
+         }), "*"); // for the react native app to pick up
+     }
+
      return state;
 
     default:
