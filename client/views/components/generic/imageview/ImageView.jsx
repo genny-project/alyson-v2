@@ -11,10 +11,14 @@ class ImageView extends Component {
 
   render() {
 
-    const { caption, src, onClick } = this.props;
+    const { caption, src, onClick, style } = this.props;
+
+    const componentStyle = {
+      ...style,
+    };
 
     return (
-      <div className="imageView">
+      <div className="imageView" style={componentStyle}>
         <img src={src} onClick={onClick} />
         { caption ? <span>{caption}</span> : null }
       </div>

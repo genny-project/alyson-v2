@@ -46,20 +46,26 @@ class CompactList extends Component {
 
     return (
       <div className={`compact-list ${className} ${isOpen ? 'open': null}`} style={componentStyle} onClick={this.onClick}>
-        <List hideNav>
-          {items.map((item, index) => {
-            if ( isOpen || !isOpen && index === 0) {
+        <List hideNav style={{ display: 'flex', flexDirection: 'column-reverse'}}>
+          {
+            items.map((item, index) => {
+            
+              if ( isOpen || !isOpen && index === 0) {
               let array = [];
               console.log(item);
               Object.keys(item).map((attribute, index) => {
                 console.log(attribute);
                 array.push(<span>{item[attribute]}</span>)
               })
-              return <div className='compact-list-item'>{array}</div>
+              return (
+                <div className='compact-list-item'>
+                  {array}
+                  {index === 0 ? <IconSmall size={'1em'}name={ isOpen ? 'expand_less' : 'chevron_right' }/> : null}
+                </div>
+              );
             }
           })}
         </List>
-        {/*<IconSmall className='clickable' onClick={this.onClick} name={ isOpen ? 'expand_less' : 'chevron_right' } />*/}
       </div>
     );
   }

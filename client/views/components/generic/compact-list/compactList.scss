@@ -4,7 +4,6 @@
 
     display: flex;
     align-items: flex-end;
-    padding-bottom: 10px;
     
     span {
         color: #000 !important;
@@ -17,18 +16,21 @@
         height: 100%;
         border-radius: 5px;
         background-color: #f2f2f2;
+
+        .list-main {
+            display: flex;
+            flex-direction: column-reverse;
+        }
     }
 
     .compact-list-item {
-
+        
+        display: flex;
+        align-items: center;
         padding: 2px 10px;
 
-        &:not(:last-child) {
-            margin-bottom: 10px;
-        }
-
-        span:not(:last-child) {
-            margin-right:10px;
+        .icon-small {
+            margin-left: auto;
         }
     }
 }
