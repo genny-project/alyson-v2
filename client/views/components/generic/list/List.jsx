@@ -1,16 +1,18 @@
 import './list.scss';
 import React, { Component } from 'react';
 import { Pagination } from '../';
-import { string, array, object, number} from 'prop-types';
+import { string, bool, number} from 'prop-types';
 
 class List extends Component {
 
   static defaultProps = {
     className: '',
-    itemsPerPage: 3
+    itemsPerPage: 3,
+    hideNav: false,
   }
 
   static propTypes = {
+    hideNav: bool,
     className: string,
     itemsPerPage: number,
   }
@@ -46,7 +48,7 @@ class List extends Component {
 
   render() {
 
-    const { className, children, style, itemsPerPage, header } = this.props;
+    const { className, children, style, itemsPerPage, header, hideNav } = this.props;
     const { childrenCurrent, pageCurrent, pageCount, offset } = this.state;
     const componentStyle = { ...style, };
 
@@ -55,15 +57,19 @@ class List extends Component {
 
     return (
       <div className={`list ${className}`}>
-        <div className='list-header'>
-          {header}
-        </div>
+        { header ?
+          <div className='list-header'>
+            {header}
+          </div>
+        : null }
         <div className="list-main">
           {childrenPageArray}
         </div>
-        <div className="list-nav">
-          <Pagination perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange} hidePageNumbers={itemsPerPage <= childrenCount}/>
-        </div>
+        { hideNav ? null :
+          <div className="list-nav">
+            <Pagination perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}  hidePageNumbers={itemsPerPage <= childrenCount}/>
+          </div>
+        }
       </div>
     );
   }
