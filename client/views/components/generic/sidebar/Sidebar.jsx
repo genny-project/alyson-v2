@@ -34,7 +34,7 @@ class Sidebar extends Component {
 
         let imageView = null;
         if ( src ) {
-            imageView = <ImageView src={src} caption={caption} style={{ maxWidth: "200px" }} />;
+            imageView = <ImageView src={src} caption={caption} style={{ maxWidth: "100px" }} />;
         }
 
         return (

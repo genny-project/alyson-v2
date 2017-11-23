@@ -56,7 +56,7 @@ class List extends Component {
     const childrenPageArray = this.getChildrenForCurrentPage(itemsPerPage, offset, children);
 
     return (
-      <div className={`list ${className}`}>
+      <div className={`list ${className}`} style={componentStyle}>
         { header ?
           <div className='list-header'>
             {header}
