@@ -47,7 +47,7 @@ class List extends Component {
   }
 
   render() {
-
+  
     const { className, children, style, itemsPerPage, header, hideNav } = this.props;
     const { childrenCurrent, pageCurrent, pageCount, offset } = this.state;
     const componentStyle = { ...style, };
