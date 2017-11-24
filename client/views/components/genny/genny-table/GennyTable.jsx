@@ -2,7 +2,7 @@ import './gennyTable.scss';
 import React, { Component } from 'react';
 import { Table } from '../../';
 import { object, array } from 'prop-types';
-import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
+import { BaseEntityQuery } from 'utils/genny';
 import { IconSmall } from '../../';
 import { GennyBridge } from 'utils/genny';
 
@@ -16,28 +16,28 @@ class GennyTable extends Component {
         data: [],
         columns2: [],
         data2: [],
-        
+
         width: null,
         height: null,
 
         isOpen: {}
     }
-  
+
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
-    
+
     updateWindowDimensions = () => {
         this.setState({
             width: window.innerWidth,
             height: window.innerHeight
         });
-    }  
+    }
 
     generateHeadersFor(baseEntities) {
 
@@ -73,12 +73,12 @@ class GennyTable extends Component {
     }
 
     generateHeadersForMobile(baseEntities) {
-        
+
         let columns = [];
         let accessors = [];
 
         baseEntities.forEach(baseEntity => {
-            
+
             let attributes = baseEntity.attributes;
             if(attributes) {
 
@@ -118,10 +118,10 @@ class GennyTable extends Component {
                                 onClick={() => this.onClick(original.baseEntityCode)}
                                 name={this.state.isOpen[original.baseEntityCode] ? 'expand_more' : 'chevron_right'}
                             />
-                        { 
+                        {
                             accessors.map((attribute, i ) => {
-                                if ( i ===  0 || i > 0 && this.state.isOpen[original.baseEntityCode] === true ) 
-                                    return ( 
+                                if ( i ===  0 || i > 0 && this.state.isOpen[original.baseEntityCode] === true )
+                                    return (
                                         <div key={i} className={`${ i === 0 ? 'table-mobile-cell-header' : 'table-mobile-cell-row'} ${ this.state.isOpen[original.baseEntityCode] ? 'header-divider' : null }`}>
                                             <span className='table-mobile-cell-cell'>{original.getKey(original[attribute.name])}:</span>
                                             <span className='table-mobile-cell-cell'>{original[attribute.name]}</span>
@@ -179,7 +179,7 @@ class GennyTable extends Component {
         return <div>
             <span className='table-header'>{name}</span>
             <span><IconSmall name="sort" /></span>
-        </div> 
+        </div>
     }
 
     renderEditable = (cellInfo) => {
@@ -241,18 +241,17 @@ class GennyTable extends Component {
 
         const { root, showBaseEntity } = this.props;
 
-        let query = new BaseEntityQuery(this.props);
         let columns = [];
         let data = [];
         let columns2 = [];
         let data2= [];
 
-        let children = query.getEntityChildren(root);
+        let children = BaseEntityQuery.getEntityChildren(root);
         if(children) {
 
             if(children.length == 0 && showBaseEntity) {
 
-                let be = query.getBaseEntity(root);
+                let be = BaseEntityQuery.getBaseEntity(root);
                 if(be) {
                     children = [be];
                 }
