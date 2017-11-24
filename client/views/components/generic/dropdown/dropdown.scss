@@ -7,6 +7,8 @@
     height: 100%;
     flex-direction: column;
     cursor: pointer;
+    position: relative;
+    
 
     &:focus {
         outline: none;
@@ -25,6 +27,7 @@
         transform: translate(-50%);
         padding: 10px 0 20px;
         margin: 0;
+        width: 100%;
 
         &:not(.no-style) {
 
@@ -32,8 +35,7 @@
             border-radius: 5px;
             padding: 10px 0 20px;
             margin: 0;
-            width: 100%;
-
+            
             .dropdown-tag {
 
                 height: 0px;

@@ -59,18 +59,18 @@ class AppHolder extends Component {
         const { sidebarDefault, screenSize } = this.state;
         if ( screenSize === 'xs' || screenSize === 'sm' || screenSize === 'md' ) {
             if (sidebarDefault) {
-                return { left: '-300px', minWidth: '300px' }
+                return { left: '-300px' }
             }
             else {
-                return { left: '0px', minWidth: '300px' }
+                return { left: '0px' }
             }
         }
         else if ( screenSize === 'lg' ) {
             if (sidebarDefault) {
-                return { minWidth: '300px' }
+                return { marginLeft: '0px' }
             }
             else {
-                return { minWidth: '50px' }
+                return { marginLeft: '-300px' }
             }
         }
 
@@ -89,7 +89,7 @@ class AppHolder extends Component {
         let f = Number(footerHeight.substr(0,footerHeight.length-2));
 
         const otherHeight = h + f;
-        const otherWidth = screenSize === 'lg' ? sidebarDefault ? 300 : 50 : 0;
+        const otherWidth = screenSize === 'lg' ? sidebarDefault ? 300 : 0 : 0;
         return {
             height: `calc(100vh - ${otherHeight}px)`,
             width: `calc(100vw - ${otherWidth}px)`,
@@ -111,10 +111,12 @@ class AppHolder extends Component {
         if ( sidebar ) {
             const sidebarStyle = this.getSidebarStyle();
 
-            renderSidebar = <div className={`app-sidebar ${screenSize} ${sidebarDefault ? 'hide' : null}`} style={ sidebarStyle } >
-                <IconSmall className={`app-sidebar-toggle`} name="menu" onClick={this.handleSidebarToggle}/>
-                <Sidebar {...sidebar} height={sidebarHeight} screenSize={screenSize}>{sidebarChildren}</Sidebar>
-            </div>;
+            renderSidebar = (
+                <div className={`app-sidebar ${screenSize} ${sidebarDefault ? screenSize === 'lg' ? null : 'hide' : screenSize === 'lg' ? 'hide' : null}`} style={ sidebarStyle } >
+                    <IconSmall className={`app-sidebar-toggle`} name="menu" onClick={this.handleSidebarToggle}/>
+                    <Sidebar {...sidebar} height={sidebarHeight} screenSize={screenSize}>{sidebarChildren}</Sidebar>
+                </div>
+            );
         }
 
         let renderHeader;
