@@ -1,31 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import store from 'views/store';
 
-class BaseEntityQuery extends Component {
+class BaseEntityQuery {
 
-    constructor(props) {
-        super(props);
-    }
+    static getEntityChildren(code) {
 
-
-    helloWorld = (code) => {
-    }
-
-    getChildrens = () => {
-        const entities = this.props.baseEntity.data;
-        const entitiesArr = Object.keys(entities).map(key => entities[key]);
-        // return entitiesArr;
-    }
-
-    // Get the Roots Children
-    getRootChildren() {
-        let items = this.props.baseEntity.relationships ? Object.keys(this.props.baseEntity.relationships).map(key => this.props.baseEntity.relationships[key]) : [];
-    }
-
-    getEntityChildren(code) {
-
-        const relationships = this.props.baseEntity.relationships[code];
-        let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => this.props.baseEntity.data[code]) : [];
+        const relationships = store.getState().baseEntity.relationships[code];
+        let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => store.getState().baseEntity.data[code]) : [];
 
         items = items.map(item => {
             const children = this.getEntityChildren(item.code);
@@ -36,67 +17,45 @@ class BaseEntityQuery extends Component {
         return items;
     }
 
-    getBaseEntity = (code) => {
-        return this.props.baseEntity.data[code];
-    }
+    static getAlias = (alias_code) => {
 
-    getBaseEntityAttribute = (baseEntityCode, attributeCode) => {
+        let aliases = store.getState().baseEntity.aliases;
+        let matchingAliases = Object.keys(aliases).filter(x => x == alias_code);
+        if(matchingAliases.length > 0) {
 
-        let be = this.getBaseEntity(baseEntityCode);
-        if(be) {
-            return be.attributes[attributeCode];
+            let be_code = aliases[matchingAliases[0]];
+            let baseEntities = store.getState().baseEntity.data;
+            let matchingEntities = Object.keys(baseEntities).filter(x => x == be_code);
+            if(matchingEntities.length > 0) {
+                return baseEntities[matchingEntities[0]];
+            }
         }
 
         return null;
     }
 
-    getAlias = (code) => {
+    static getBaseEntity = (code) => {
+        return store.getState().baseEntity.data[code];
+    }
 
-        let layout = [];
+    static getAliasAttribute = (alias_code, attribute_code) => {
 
-        // check aliases if any for passed entities
-        for (let entity_code_key in code) {
-
-            let baseEntity = this.props.baseEntity.data;
-            for (let key in baseEntity) {
-
-                // if we find the base entity we are looking for
-                if (key === entity_code_key) {
-
-                    // we loop through all the attributes to find the ones we want
-                    code[entity_code_key].forEach(attribute => {
-
-                        let be = this.props.baseEntity.data[key];
-
-                        // we loop through attributes
-                        be.attributes.forEach(be_attribute => {
-
-                            if (be_attribute.code === attribute) {
-                                layout.push(
-                                    <p>{be_attribute.value}</p>
-                                );
-                            }
-                        });
-                    });
-                }
-            }
+        let be = BaseEntityQuery.getAlias(alias_code);
+        if(be) {
+            return be.attributes[attribute_code];
         }
 
-        return layout;
+        return null;
     }
+    static getBaseEntityAttribute = (baseEntityCode, attribute_code) => {
 
-    render() {
-        // console.log(this.getChildren());
-        return (
-            <div>
-                <h1> Base entity query element </h1>
-            </div>
-        );
+        let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        if(be) {
+            return be.attributes[attribute_code];
+        }
+
+        return null;
     }
 }
-
-const mapStateTopProps = (state) => ({
-    data: state.baseEntity
-});
 
 export default BaseEntityQuery;

@@ -7,7 +7,7 @@
     "build": "webpack",
     "build-prod": "webpack --config webpack.config.production.js --env=production",
     "start-conor": "webpack-dashboard -- webpack-dev-server --env=conor",
-    "start": "webpack-dashboard -- webpack-dev-server",
+    "start": "webpack-dashboard -- webpack-dev-server --host 0.0.0.0",
     "start-no-dashboard": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy-dev": "webpack --config webpack.config.production.js; node aws-deploy-dev.js",

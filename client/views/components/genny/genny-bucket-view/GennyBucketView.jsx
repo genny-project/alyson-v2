@@ -1,6 +1,6 @@
 import './gennyBucketView.scss';
 import React, { Component } from 'react';
-import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
+import { BaseEntityQuery } from 'utils/genny';
 import { IconSmall, BucketView, Card } from '../../';
 import { Draggable } from 'react-beautiful-dnd';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -27,8 +27,7 @@ class GennyBucketView extends Component {
 
         if(item.draggableId) {
 
-            let query = new BaseEntityQuery(this.props);
-            let begs = query.getEntityChildren(source.droppableId);
+            let begs = BaseEntityQuery.getEntityChildren(source.droppableId);
             if(begs.length > 0) {
 
                 let movedBeg = begs.filter(x => x.code == item.draggableId)[0];
@@ -54,12 +53,12 @@ class GennyBucketView extends Component {
         }
     }
 
-    generateBucket(query, group) {
+    generateBucket(group) {
 
         let groupCode = group.code;
         let children = [];
 
-        let bes = query.getEntityChildren(groupCode);
+        let bes = BaseEntityQuery.getEntityChildren(groupCode);
 
         bes.forEach(be => {
 
@@ -87,14 +86,13 @@ class GennyBucketView extends Component {
     generateBuckets(root) {
 
         let buckets = [];
-        let query = new BaseEntityQuery(this.props);
-        let rootGroups = query.getEntityChildren(root);
+        let rootGroups = BaseEntityQuery.getEntityChildren(root);
         rootGroups.forEach(group => {
 
             buckets.push({
                 title: group.name,
                 id: group.code,
-                children: this.generateBucket(query, group)
+                children: this.generateBucket(group)
             });
         });
 

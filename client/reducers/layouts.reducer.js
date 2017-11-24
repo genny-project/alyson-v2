@@ -1,5 +1,5 @@
 import layoutsIncluded from '../layouts-included';
-import { LAYOUT_CHANGE, CMD_VIEW, SUBLAYOUT, SUBLAYOUT_CHANGE } from 'constants';
+import { LAYOUT_CHANGE, CMD_VIEW, SUB_LAYOUT, SUBLAYOUT_CHANGE } from 'constants';
 import config from 'config/config';
 
 const initialState = {
@@ -65,7 +65,7 @@ export default function reducer( state = initialState, action ) {
             }
         }
 
-    case SUBLAYOUT:
+    case SUB_LAYOUT:
 
         return {
             ...state,

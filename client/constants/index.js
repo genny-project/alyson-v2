@@ -46,7 +46,7 @@ export const ANSWER = 'Answer';
 export const GPS_CMD = 'CMD_GPS';
 
 /* Sublayout */
-export const SUBLAYOUT = 'SUBLAYOUT';
+export const SUB_LAYOUT = 'SUB_LAYOUT';
 
 /* Alias */
 export const ALIAS = 'Alias';
