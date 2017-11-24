@@ -60,7 +60,7 @@ class LayoutLoader extends Component {
 
             let alias_code = split[0];
             let attribute_code = split[1];
-            let attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code);
+            let attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
             if(attribute && attribute.value) {
                 layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
             }

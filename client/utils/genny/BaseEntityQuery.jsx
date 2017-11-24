@@ -47,6 +47,7 @@ class BaseEntityQuery {
 
         return null;
     }
+    
     static getBaseEntityAttribute = (baseEntityCode, attribute_code) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);

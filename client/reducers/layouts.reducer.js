@@ -67,24 +67,19 @@ export default function reducer( state = initialState, action ) {
 
     case SUB_LAYOUT:
 
-        return {
-            ...state,
-            sublayout: {
-                ...state.sublayout,
-                ...action.payload.items.reduce((existing, newSublayout) => {
-
-                    let sublayoutCode = newSublayout.code;
-
-                    existing[sublayoutCode] = {
-                        ...state.sublayout[sublayoutCode],
-                        ...newSublayout
-                    };
-
-                    return existing;
-
-                }, {}),
-            }
-        };
+        let sublayout_code = action.payload.code;
+        let layout = action.payload.items;
+        if(sublayout_code && layout) {
+            return {
+                ...state,
+                sublayout: {
+                    ...state.sublayout,
+                    [sublayout_code]: {
+                        layout: [layout]
+                    }
+                }
+            };
+        }
 
     default:
       return state;

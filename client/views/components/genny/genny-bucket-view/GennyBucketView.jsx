@@ -63,7 +63,7 @@ class GennyBucketView extends Component {
         bes.forEach(be => {
 
             // we get the sublayout code from the BE
-            let layout_code = "SUBLAY_1";
+            let layout_code = (be.attributes["PRI_LAYOUT"] ? be.attributes["PRI_LAYOUT"].value : null);
             let sublayout = this.props.sublayout[layout_code];
 
             children.push(
