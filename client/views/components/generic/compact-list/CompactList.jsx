@@ -27,7 +27,7 @@ class CompactList extends Component {
     className: string,
     items: array,
   }
- 
+
   state = {
     isOpen: false,
   }
@@ -49,12 +49,10 @@ class CompactList extends Component {
         <List hideNav style={{ display: 'flex', flexDirection: 'column-reverse'}}>
           {
             items.map((item, index) => {
-            
+
               if ( isOpen || !isOpen && index === 0) {
               let array = [];
-              console.log(item);
               Object.keys(item).map((attribute, index) => {
-                console.log(attribute);
                 array.push(<span>{item[attribute]}</span>)
               })
               return (
