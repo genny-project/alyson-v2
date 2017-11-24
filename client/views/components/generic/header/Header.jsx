@@ -55,7 +55,7 @@ class Header extends Component {
               <Dropdown header={
                 <Label text={`Welcome, ${userName}`} />}
               >
-                <ul className="dropdown" >
+                <ul className="dropdown-profile" >
                   <li><IconSmall name="person" /><span>Profile</span></li>
                   <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
                   <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
