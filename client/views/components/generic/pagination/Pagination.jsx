@@ -39,19 +39,20 @@ class Pagination extends Component {
 
     return (
       <div className={`pagination ${className} ${hidePageNumbers ? 'hide-pages' : ''}`}>
-        <ReactPaginate pageCount={this.state.pageCount}
-                       marginPagesDisplayed={1}
-                       pageRangeDisplayed={2}
-                       onPageChange={this.handlePageClick}
-                       containerClassName="pagination-main"
-                       pageClassName="pagination-number"
-                       previousClassName="pagination-prev"
-                       nextClassName="pagination-next"
-                       activeClassName="pagination-current"
-                       breakClassName="pagination-break"
-                       previousLabel={<IconSmall name='chevron_left' />}
-                       nextLabel={<IconSmall name='chevron_right' />}
-                       />
+        <ReactPaginate 
+          pageCount={this.state.pageCount}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={2}
+          onPageChange={this.handlePageClick}
+          containerClassName="pagination-main"
+          pageClassName="pagination-number"
+          previousClassName="pagination-prev"
+          nextClassName="pagination-next"
+          activeClassName="pagination-current"
+          breakClassName="pagination-break"
+          previousLabel={<IconSmall name='chevron_left' />}
+          nextLabel={<IconSmall name='chevron_right' />}
+        />
       </div>
     );
   }

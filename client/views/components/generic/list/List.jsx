@@ -55,6 +55,8 @@ class List extends Component {
     let childrenCount = Object.keys(this.props.children).length;
     const childrenPageArray = this.getChildrenForCurrentPage(itemsPerPage, offset, children);
 
+    console.log( itemsPerPage, this.props.children.length);
+
     return (
       <div className={`list ${className}`} style={componentStyle}>
         { header ?
@@ -67,7 +69,7 @@ class List extends Component {
         </div>
         { hideNav ? null :
           <div className="list-nav">
-            <Pagination perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange}  hidePageNumbers={itemsPerPage <= childrenCount}/>
+            <Pagination perPage={itemsPerPage} totalItems={childrenCount} pageChange={this.pageChange} />
           </div>
         }
       </div>

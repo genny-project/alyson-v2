@@ -46,7 +46,7 @@ class CompactList extends Component {
 
     return (
       <div className={`compact-list ${className} ${isOpen ? 'open': null}`} style={componentStyle} onClick={this.onClick}>
-        <List hideNav style={{ display: 'flex', flexDirection: 'column-reverse'}}>
+        <List hideNav >
           {
             items.map((item, index) => {
 

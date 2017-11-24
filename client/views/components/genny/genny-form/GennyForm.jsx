@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Form, Input } from '../../';
 import { object, array } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
-import BaseEntityQuery from 'utils/genny/BaseEntityQuery';
+import { BaseEntityQuery } from 'utils/genny';
 
 class GennyForm extends Component {
 
@@ -41,6 +41,8 @@ class GennyForm extends Component {
 
   sendAnswer = (value, ask) => {
 
+    //let color = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_COLOR');
+
     this.sendData([
       {
         sourceCode: ask.sourceCode,
@@ -60,7 +62,8 @@ class GennyForm extends Component {
 
     const { asks, style, className } = this.props;
     const componentStyle = { ...style, };
-    let query = new BaseEntityQuery(this.props);
+    
+    //console.log('form style', this.props.alias);
 
     return (
       <div className={`genny-form ${className}`}>
@@ -75,7 +78,7 @@ class GennyForm extends Component {
               let be_code = ask.targetCode;
               let attributeCode = ask.attributeCode;
               if(be_code && attributeCode) {
-                  let att = query.getBaseEntityAttribute(be_code, attributeCode);
+                  let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
                   if(att) {
                       default_value = att.value;
                   }
