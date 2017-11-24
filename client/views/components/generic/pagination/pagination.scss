@@ -49,14 +49,11 @@
         .pagination-current > a {
             color: #000;
         }
-
-
     }
 
-    &.hide-pages {
+    &.hide-nav {
 
-      display: none;
-        .pagination-number, .pagination-break {
+        .pagination-main {
             display: none;
         }
     }

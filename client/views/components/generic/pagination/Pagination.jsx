@@ -1,6 +1,6 @@
 import './pagination.scss';
 import React, { Component } from 'react';
-import { string, object, number, bool, func } from 'prop-types';
+import { string, object, number, bool } from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import { IconSmall } from '../';
 
@@ -19,30 +19,48 @@ class Pagination extends Component {
     marginPagesDisplayed: number,
     pageRangeDisplayed: number,
     hidePageNumbers: bool,
-    pageChange: func,
   }
 
   state = {
-    pageCount: Math.ceil(this.props.totalItems / this.props.perPage),
+    pageCount: Math.ceil( Object.keys(this.props.children).length / this.props.perPage ),
+    childrenCurrent: 1,
+    pageCurrent: 1,
+    offset: 0
+  }
+
+  getChildrenForCurrentPage = (perPage, offset, children) => {
+    let displayedItems = children.slice(offset, offset + perPage);
+    return displayedItems;
   }
 
   handlePageClick = (data) => {
-    const { pageChange } = this.props;
-    let selected = data.selected;
-    if(pageChange) pageChange(selected);
-  };
+    let selectedPage = data.selected;
+    const { perPage } = this.props;
+    let offset = Math.ceil(selectedPage * perPage);
+    this.setState({offset: offset, pageCurrent: selectedPage + 1}, () => {
+    });
+  }
 
   render() {
 
-    const { className, hidePageNumbers, children, style } = this.props;
+    const { className, hideNav, children, style, perPage } = this.props;
+    const { childrenCurrent, pageCurrent, pageCount, offset } = this.state;
     const componentStyle = { ...style };
 
+    let childrenCount = Object.keys(this.props.children).length;
+    const childrenPageArray = this.getChildrenForCurrentPage(perPage, offset, children);
+
+    
+
     return (
-      <div className={`pagination ${className} ${hidePageNumbers ? 'hide-pages' : ''}`}>
+      <div className={`pagination ${className} ${ hideNav || children <= perPage ? 'hide-nav' : '' } `}>
+        <div className='pagination-content'>
+          {childrenPageArray}
+        </div>
         <ReactPaginate 
           pageCount={this.state.pageCount}
-          marginPagesDisplayed={1}
-          pageRangeDisplayed={2}
+          marginPagesDisplayed={0}
+          pageRangeDisplayed={3}
           onPageChange={this.handlePageClick}
           containerClassName="pagination-main"
           pageClassName="pagination-number"
