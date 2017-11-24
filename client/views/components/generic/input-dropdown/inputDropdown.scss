@@ -3,6 +3,7 @@
 .input-dropdown {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     &.success > .dropdown-container > .input-dropdown-button{
     	color: $success;
@@ -19,11 +20,12 @@
     }
     .dropdown-container {
         position: relative;
-        flex-grow: 1;
+        max-width: 400px;
+        width: 100%;
         
         .input-dropdown-button {
             height: 50px;
-            width: 100%;
+            
             border-radius: 5px;
             color: #999;
             background-color: #DDD;

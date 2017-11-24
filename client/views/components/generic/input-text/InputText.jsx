@@ -79,7 +79,7 @@ class InputText extends Component {
 
     const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal } = this.props;
     const componentStyle = { ...style, };
-    const { date, focused } = this.state;
+    const { date, focused, value } = this.state;
 
     return (
       <div className={`input-text ${className} ${validationStatus}`}>
@@ -94,7 +94,7 @@ class InputText extends Component {
           type="text"
           disabled={readOnly}
           placeholder={placeholder}
-          value={this.state.value}
+          value={value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}

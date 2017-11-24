@@ -20,23 +20,8 @@
 
 			padding-bottom: 10px;
 
-
-			> div:not(:last-child) {
+			> .pagination > .pagination-content > div:not(:last-child) {
 				margin-bottom: 10px;
-			}
-		}
-
-		.form-nav {
-
-			display: flex;
-			justify-content: center;
-
-			> .visible {
-				visibility: visible;
-			}
-
-			> .hidden {
-				visibility: hidden;
 			}
 		}
 	}

@@ -63,10 +63,6 @@ class Input extends Component {
     // testing facebook
     if(identifier == "QUE_FB_BASIC") {
 
-        console.log("===============");
-        console.log(this.props);
-
-
         return (
             // <GennySocialButton type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}/>
             <InputSocial {...this.props} type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}  />
@@ -76,12 +72,20 @@ class Input extends Component {
 
         switch(type) {
             case "textarea":
-                return ( <InputTextarea {...this.props}/> );
+                return ( <InputTextarea
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                /> );
             case "checkbox":
-                return ( <InputCheckbox {...this.props}/> );
-            case "java.time.Date":
-                return ( <InputDate items={items}
-                    {...this.props}/> );
+                return ( <InputCheckbox
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                /> );
+            // case "java.time.Date":
+            //     return ( <InputDate items={items}
+            //         {...this.props}/> );
             case "datepicker":
                 return ( <InputDatePicker
                     {...this.props}
@@ -89,15 +93,24 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 /> );
             case "dropdown":
-                return ( <InputDropdown items={items} {...this.props}/> );
+                return ( <InputDropdown
+                    items={items}
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                /> );
             // case "time":
             //     return ( <InputTime {...this.props}/> );
             case "slider":
-                return ( <InputSlider {...this.props}/> );
+                return ( <InputSlider
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}    
+                /> );
             case "upload-photo":
                 return ( <InputUploadPhoto {...this.props} /> );
-            case "password":
-                return ( <InputText {...this.props}/> );
+            // case "password":
+            //     return ( <InputText {...this.props}/> );
             case "address":
                 return ( <InputAddress {...this.props} /> );
             case "java.lang.String":

@@ -1,6 +1,6 @@
 import './inputDropdown.scss';
 import React, { Component } from 'react';
-import { string, object, } from 'prop-types';
+import { string, object, func, any } from 'prop-types';
 import Downshift from 'downshift'
 import { Label, IconSmall } from '../';
 
@@ -8,31 +8,39 @@ class InputDropdown extends Component {
 
   static defaultProps = {
     className: '',
-    hint: ''
+    hint: '',
+    identifier: null,
+    validationStatus: null
   }
 
   static propTypes = {
     className: string,
     style: object,
     hint: string,
+    validation: func,
+    identifier: any,
+    validationStatus: string
   }
 
   state = {
     ask: this.props.ask ? this.props.ask : false,
-    validationStatus: this.props.validationStatus ? this.props.validationStatus : null,
+    value: this.props.placeholder,
   }
 
   handleClick = (selectedItem) => {
-    const { validationList, validation, identifier } = this.props;
+    const { validationList, validation, identifier,  } = this.props;
     const value = selectedItem;
     this.setState({ focused: false });
     if(validation) validation(value, identifier, validationList);
   }
 
   render() {
- 	  const { className, style, items, name, hint, ...rest } = this.props;
-    const { ask, validationStatus } = this.state;
+ 	  const { className, style, items, name, hint, validationStatus, ...rest } = this.props;
+    const { value } = this.state;
     const componentStyle = { ...style, };
+
+    console.log(this.props);
+
     return (
       <div className={`input-dropdown ${className} ${validationStatus}` }>
         {name ? <Label className="dropdown-label" text={name} /> : null }
@@ -56,7 +64,7 @@ class InputDropdown extends Component {
                 aria-haspopup="true"
                 aria-expanded={isOpen}
               >
-                <span className="">{selectedItem ? selectedItem : hint }</span>
+                <span className="">{selectedItem ? selectedItem : value }</span>
                 <IconSmall name={ isOpen ? 'expand_more' : 'chevron_right'} />
               </div>
               {isOpen ? (

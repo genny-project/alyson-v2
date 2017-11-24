@@ -14,7 +14,7 @@
 	    padding: 10px;
 	    box-sizing: border-box;
 	    text-align: center;
-	    transition: 300ms ease border, color;
+	    transition: 300ms ease;
 	    border: 1px solid #DDD;
 
 	    &:not([disabled]):hover {
@@ -42,6 +42,16 @@
     	&:nth-child(2) {
     		margin-right: 20px;
     	}
+	}
+	
+	&.success textarea{
+    	color: $success;
+	    border: 1px solid $success;
+    }
+
+    &.error textarea{
+    	color: $error;
+	    border: 1px solid $error;
     }
 
     &:not(:last-child) {
