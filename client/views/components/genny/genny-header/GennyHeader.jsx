@@ -34,6 +34,12 @@ class GennyHeader extends Component {
     });
   }
 
+  handleProfile = () => {
+    this.sendData('PROFILE', {
+      code: 'PROFILE',
+    });
+  }
+
   handleClickImage = () => {
     //console.log("clicked profile image");
   }
@@ -69,6 +75,7 @@ class GennyHeader extends Component {
 
         <Header
           {...this.props}
+          handleProfile={this.handleProfile}
           handleAccount={this.handleAccount}
           handleLogout={this.handleLogout}>
 
