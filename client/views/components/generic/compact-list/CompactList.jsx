@@ -58,7 +58,7 @@ class CompactList extends Component {
               return (
                 <div className='compact-list-item'>
                   {array}
-                  {index === 0 ? <IconSmall size={'1em'}name={ isOpen ? 'expand_less' : 'chevron_right' }/> : null}
+                  {index === 0 ? <IconSmall className="clickable" size={'1em'}name={ isOpen ? 'expand_less' : 'chevron_right' }/> : null}
                 </div>
               );
             }

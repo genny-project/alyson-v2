@@ -82,7 +82,6 @@
     "react-router-redux": "^4.0.8",
     "react-table": "^6.6.0",
     "react-text-mask": "^5.0.2",
-    "react-transition-group": "^2.2.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-observable": "^0.14.1",
