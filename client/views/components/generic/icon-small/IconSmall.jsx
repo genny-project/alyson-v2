@@ -35,7 +35,7 @@ class IconSmall extends Component {
         <span style={text ? iconStyle : null} className={`icon-small ${className}`}>
             <i className={`icon material-icons `} onClick={onClick} style={{ fontSize: size, }}>{name}</i>
             {
-                text ? <span style={{ fontSize: size, paddingLeft: "10px", }}>{text}</span> : null
+                text ? <span style={{ fontSize: size, paddingLeft: "5px", }}>{text}</span> : null
             }
         </span>
     );
