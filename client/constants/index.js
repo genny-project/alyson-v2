@@ -24,26 +24,42 @@ export const DATA_MSG = 'DATA_MSG';
 /* Layouts */
 export const LAYOUT_CHANGE = 'LAYOUT_CHANGE';
 
+/* Sublayout change */
+export const SUBLAYOUT_CHANGE = 'SUBLAYOUT_CHANGE';
+
 /* Command View */
 export const CMD_VIEW = 'CMD_VIEW';
 
 /* Base entities */
 export const BASE_ENTITY = 'BaseEntity';
+export const LINK_CHANGE = 'LINK_CHANGE';
 
 /* Base entities + attributes */
 export const BASE_ENTITY_DATA = 'Data';
 
 /* Asks */
-export const ASK = 'Asks';
+export const ASK = 'Ask';
+
+/* Answers */
+export const ANSWER = 'Answer';
+
+/* GPS CMD */
+export const GPS_CMD = 'CMD_GPS';
+
+/* Sublayout */
+export const SUB_LAYOUT = 'SUB_LAYOUT';
 
 /* Alias */
 export const ALIAS = 'Alias';
 
 /* Attribute */
-export const ATTRIBUTE = 'Attribute';
+export const ATTRIBUTE = 'Attributschmide';
 
 /* Notifications */
 export const NOTIFICATION = 'Notification';
 
 /* Redirect */
 export const REDIRECT = 'REDIRECT';
+
+/* Redirect - Social */
+export const SOCIAL_REDIRECT = 'SOCIAL_REDIRECT';

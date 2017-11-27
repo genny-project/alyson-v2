@@ -20,23 +20,44 @@
 
 			padding-bottom: 10px;
 
-
-			> div:not(:last-child) {
+			> .pagination > .pagination-content > div:not(:last-child) {
 				margin-bottom: 10px;
 			}
 		}
+	}
 
-		.form-nav {
+	&.horizontal {
 
+		background: #999;
+		border-radius: 5px;
+		margin-bottom: 10px;
+
+		.form-main {
+			width: 100%;
+			margin-top: 0px;
+			margin-bottom: 0px;
+			padding: 5px;
+		}
+
+		.form-fields {
 			display: flex;
-			justify-content: center;
+			justify-content: space-between;
+			padding-bottom: 0;
 
-			> .visible {
-				visibility: visible;
-			}
+			flex-wrap: wrap;
 
-			> .hidden {
-				visibility: hidden;
+			.input-text {
+				margin-bottom: 0 !important;
+				flex-grow: 1;
+
+				padding: 5px;
+
+				> input {
+					padding-top: 3px;
+					padding-bottom: 3px;
+					height: 40px;
+					border-radius: 10px;
+				}
 			}
 		}
 	}

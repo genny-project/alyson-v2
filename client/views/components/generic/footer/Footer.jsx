@@ -1,20 +1,21 @@
 import './footer.scss';
 import React, { Component }  from 'react';
 import { string, any, object } from 'prop-types';
-import { ImageView } from '../';
+import { ImageView, CompactList } from '../';
 
 class Footer extends Component {
   static defaultProps = {
     className: '',
-    style: object,
+    
   }
 
   static propTypes = {
     className: string,
+    style: object,
   }
 
   render() {
-    const { className, version, poweredBy, style } = this.props;
+    const { className, version, poweredBy, style, } = this.props;
 
     const componentStyle = {
       ...style,
@@ -22,6 +23,7 @@ class Footer extends Component {
 
     return (
       	<div className="footer" style={componentStyle}>
+          <CompactList/>
           { version ? <span className="version">{version}</span> : null }
       		{ poweredBy ?
             <div className="powered-by">

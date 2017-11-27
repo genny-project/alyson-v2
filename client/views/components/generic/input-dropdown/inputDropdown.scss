@@ -3,6 +3,7 @@
 .input-dropdown {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     &.success > .dropdown-container > .input-dropdown-button{
     	color: $success;
@@ -19,22 +20,22 @@
     }
     .dropdown-container {
         position: relative;
-        flex-grow: 1;
+        max-width: 400px;
+        width: 100%;
         
         .input-dropdown-button {
             height: 50px;
-            width: 100%;
+            
             border-radius: 5px;
             color: #999;
             background-color: #DDD;
             font-size: 1em;
-            padding: 10px 20px;
+            padding: 10px 10px;
             box-sizing: border-box;
             transition: 300ms ease;
             border: 1px solid #DDD;
             outline: none;
             
-
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -69,8 +70,6 @@
         > li {
             display: flex;
             align-items: center;
-            padding: 5px 20px;
-            height: 40px;
             
             &:hover {
 				background: rgb(31, 31, 31);

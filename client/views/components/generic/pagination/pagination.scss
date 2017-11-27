@@ -1,0 +1,60 @@
+@import '../../../../styles/colors';
+
+.pagination {
+    width: 100%;
+
+    .pagination-main {
+        display: flex;
+        list-style: none;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: #ddd;
+
+        .pagination-prev, .pagination-next, .pagination-number {
+            
+            i, a {
+                color:  #BBB;
+                outline: none;
+                cursor: pointer;
+            }
+            
+            &:hover {
+                i, a {
+                    color: #555;
+                }
+            }
+        }
+
+        .pagination-prev, .pagination-next {
+
+            > a {
+                width: inherit;
+                height: 50px;
+                border: none;
+                font-size: 1em;
+                
+            }
+            &.disabled > i {
+                color: red;
+            }
+
+        }
+
+        .pagination-number > a {
+            padding: 0 5px;
+        }
+
+        .pagination-current > a {
+            color: #000;
+        }
+    }
+
+    &.hide-nav {
+
+        .pagination-main {
+            display: none;
+        }
+    }
+}

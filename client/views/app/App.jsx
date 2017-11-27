@@ -6,6 +6,9 @@ import { func, object } from 'prop-types';
 import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn, KeycloakAccount } from '@genny-project/keycloak-react';
 import keycloakAdapter from 'keycloak-js';
 
+// TODO: to remove
+import { GennyBridge } from 'utils/genny';
+
 class App extends Component {
 
   static propTypes = {
@@ -15,19 +18,35 @@ class App extends Component {
   };
 
   componentDidMount() {
+
     if (config.backendEnabled) {
       /* Start the app */
       this.props.appStart();
+
+      document.removeEventListener('native-message', null);
+      document.addEventListener('native-message', (message) => {
+
+          if(message.detail) {
+
+              let event = message.detail;
+              switch (event.id) {
+                  case "GEOFENCE":
+                  GennyBridge.sendGeofenceData(event.data.event_id, event.data);
+                  break;
+                  default: console.log("received unknown event [" + event.id + "]");
+              }
+          }
+      })
     }
   }
 
   handleAuthSuccess = keycloak => {
+
     /* Hide the loading spinner */
     document.getElementById('mounting-preview').remove();
 
     /* Send off the auth logged in action */
     if(keycloak.getToken()) {
-
         this.props.authLoggedIn({
           token: keycloak.getToken(),
           info: keycloak.getInfo(),

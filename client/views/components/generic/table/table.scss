@@ -1,8 +1,54 @@
 @import '../../../../styles/colors';
 
 .rt-td {
-    border: 0.5px solid rgba(75, 75, 75, 0.3);
     margin: 1px;
-    background: #c9a584;
-				color: rgb(69, 69, 69);
+    background: #ddd;
+	color: rgb(69, 69, 69);
+}
+
+.list-item-total {
+    text-align: left;
+    color: #222;
+}
+
+.table-prev, .table-next {
+    cursor: pointer;
+}
+
+.pagination-bottom {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+
+    .-pagination {
+      border-top-color: rgba(0, 0, 0, 0.25);
+    }
+
+    .-pageJump > input {
+        background-color: #ddd;
+    }
+}
+
+.list-pagination {
+    background: #ddd;
+    border-radius: 5px;
+    padding: 5px !important;
+    border: none !important;
+    
+    justify-content: center !important;
+
+    .-previous, .-next {
+        display: flex ;
+        align-items: center;
+        flex: 0 !important;
+
+    }
+
+    .-center {
+        flex: 0 !important;
+    }
+
+    i {
+        color: #222;
+    }
 }

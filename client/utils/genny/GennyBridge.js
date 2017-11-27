@@ -15,44 +15,93 @@ class GennyBridge {
 
   sendMessage(event, data) {
     let token = this.getToken();
+    if(token)
     Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
   }
 
+  sendBtnClick(data) {
+
+      let token = this.getToken();
+      if(token) {
+          Vertx.sendMessage(events.outgoing.BTN(data, token));
+      }
+  }
+
   sendTVEvent(event, data) {
+
     let token = this.getToken();
-    Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
+    if(token)
+        Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
+
   }
 
   sendLogout(event, data) {
     let token = this.getToken();
-    Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
+    if(token)
+        Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
-  sendAnswer(data, items) {
-    let token = this.getToken();
-    Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
+  sendBucketDropEvent(data) {
 
-    // sending back the data to the front end as the backend is not doing it for now.
-    // test was made for color picker.
-    // this.messageHandler.onMessage({
-    //     data_type: "BaseEntity",
-    //     delete: false,
-    //     aliasCode: "PROJECT",
-    //     items: [
-    //         {
-    //             code: items[0].targetCode || "PER_USER1",
-    //             name: "PROJECT",
-    //             baseEntityAttributes: [
-    //                 {
-    //                     baseEntityCode: items[0].targetCode,
-    //                     attributeCode: "PRIMARY_COLOR",
-    //                     valueString: items[0].value
-    //                 }
-    //             ]
-    //         }
-    //     ],
-    //     msg_type: "DATA_MSG"
-    // });
+      let token = this.getToken();
+      if(token) {
+          Vertx.sendMessage(events.outgoing.BUCKET_DROP_EVENT(data, token));
+      }
+  }
+
+  sendGPSData(data) {
+
+      let token = this.getToken();
+      if(token) {
+
+          data.targetCode = store.getState().baseEntity.aliases["USER"];
+          data.sourceCode = store.getState().baseEntity.aliases["USER"];
+          Vertx.sendMessage(events.outgoing.ANSWER('GPS', data, token));
+      }
+  }
+
+  sendGeofenceData(event_id, data) {
+
+      let token = this.getToken();
+      if(token) {
+          Vertx.sendMessage(events.outgoing.GEOFENCE_NOTIFICATION(event_id, data, token));
+      }
+  }
+
+  sendAnswer(items) {
+
+    let token = this.getToken();
+    if(token) {
+
+        let answers = items.map(item => {
+
+            if(!item.sourceCode) {
+                item.sourceCode = store.getState().baseEntity.aliases["USER"];
+            }
+
+            return item;
+        });
+
+        Vertx.sendMessage(events.outgoing.ANSWER('Answer', answers, token));
+    }
+
+    let payload = {
+
+        data_type: "Attribute",
+        delete: false,
+        items: [
+            {
+                baseEntityCode: items[0].targetCode,
+                targetCode: items[0].targetCode,
+                value: items[0].value,
+                attributeCode: items[0].attributeCode
+            }
+        ],
+        msg_type: "DATA_MSG"
+    };
+
+    // locally updating the attribute so we dont have to wait for the backend to send us an answer. this is called optimistic results.
+    // this.messageHandler.onMessage(payload);
   }
 
   ajaxCall(settings) {

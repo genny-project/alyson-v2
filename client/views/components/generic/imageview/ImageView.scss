@@ -1,15 +1,22 @@
 .imageView {
 
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
   
+  img {
 
-}
+    background-color: #fff;
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
 
-.imageView img {
-  max-width: 100%;
-  max-height: 100%;
-}
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
 
-.imageView p {
-  margin: 0px;
+  p {
+    margin: 0px;
+  }
 }

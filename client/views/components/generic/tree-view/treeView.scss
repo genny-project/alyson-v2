@@ -19,7 +19,9 @@
 
   ul{
     list-style-type: none;
-    padding-top: 10px;
+    padding-top: 0;
+    padding-left: 20px;
+    margin-left: 0;
   }
   li{
     list-style-type: none;
@@ -29,6 +31,7 @@
     > div, > div > span {
       display: flex;
       align-items: center;
+      cursor: pointer;
     }
 
     > div > span > i {
@@ -36,4 +39,3 @@
     }
   }
 }
-

@@ -1,131 +1,133 @@
 import './card.scss';
 import React, { Component } from 'react';
-import { string, array, object } from 'prop-types';
-import { Button, IconSmall, ProgressBar } from '../';
-import { TransitionGroup } from 'react-transition-group';
+import { string, bool, array, number } from 'prop-types';
+import { Button, IconSmall, ProgressBar, Status, Dropdown } from '../';
 
 class Card extends Component {
 
   static defaultProps = {
     className: '',
-    answerGroup: {},
+    title: '',
+    description: '',
+    isVisible: false,
+    level: '',
+    showProgress: false,
+    progressTotal: null,
+    progressCurrent: null,
   }
 
   static propTypes = {
     className: string,
-    answerGroup: object,
+    title: string,
+    description: string,
+    isVisible: bool,
+    level: string,
+    showProgress: bool,
+    progressTotal: number,
+    progressCurrent: number,
   }
 
   state = {
-    isVisible: true,
-    showProgress: this.props.answerGroup.showProgress ? this.props.answerGroup.showProgress : false,
-    pageCount: this.props.answerGroup.pageCount ? this.props.answerGroup.pageCount : 1,
-    pageCurrent: this.props.answerGroup.pageCurrent ? this.props.answerGroup.pageCurrent : 1,
-    data: this.props.answerGroup.data ? this.props.answerGroup.data : [],
-    textOne: this.props.answerGroup.textOne ? this.props.answerGroup.textOne : '',
-    textTwo: this.props.answerGroup.textTwo ? this.props.answerGroup.textTwo : '',
-    buttons: this.props.answerGroup.buttons ? this.props.answerGroup.buttons : [],
-    level: this.props.answerGroup.level ? this.props.answerGroup.level : '',
+      isShowingOptions: false,
+      isOpen: this.props.isVisible ? this.props.isVisible : false
   }
 
   handleClick = () => {
-    this.setState(prevState => ({
-      isVisible: !prevState.isVisible
-    }));
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
   }
 
-  SlideContent() {
-    const { answerGroup } = this.props;
-    const { data, buttons, level } = this.state;
+  getCardContent() {
+    const { showProgress, progressCurrent, progressTotal, children } = this.props;
 
     return (
       <div className={`card-collapse fade fade-${status}`}>
-        {
-          data.map(d => {
-            return <div className={`card-data ${d.name}`} key={d.name}>
-              <IconSmall name={d.icon} />
-              <span>{d.value}</span>
-            </div>;
-          })
-        }
-        <div className="card-buttons">
-          {
-            buttons.map(b => {
-              return <Button className={b.class} key={b.name}>
-                <IconSmall name={b.icon} />
-                <span>{b.value}</span>
-              </Button>;
-            })
-          }
-        </div>
+        {children}
+        {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
       </div>
     );
+  }
 
-    // const FadeTransition = (props) => (
-    //   <Transition {...props} timeout={{ enter: 0, exit: 150 }} />
-    // );
+  toggleOptions = () => {
 
-    // return (
-    //   <FadeTransition>
-    //     { 
-    //       (status) => {
-    //         console.log(status);
-    //         if (status === 'exited') {
-    //           return null
-    //         }
-    //         return (
-    //           <div className={`card-collapse fade fade-${status}`}>
-    //             {
-    //               data.map(d => {
-    //                 return <div className={`card-data ${d.name}`} key={d.name}>
-    //                   <IconSmall name={d.icon}/>
-    //                   <span>{d.value}</span>
-    //                 </div>;
-    //               })
-    //             }
-    //             <div className="card-buttons">
-    //               {
-    //                 buttons.map(b => {
-    //                   return <Button className={b.class} key={b.name}>
-    //                     <IconSmall name={b.icon}/>
-    //                     <span>{b.value}</span>
-    //                   </Button>;
-    //                 })
-    //               }
-    //             </div>
-    //           </div>
-    //         );
-    //       }
-    //     }
-    //   </FadeTransition>
-    // );
+      this.setState({
+          isShowingOptions: !this.state.isShowingOptions
+      });
+  }
+
+  moveItem = () => {
+
+      // hide option menu
+      this.toggleOptions()
+
+      // show options
+      if(this.props.showMovingOptions) {
+          this.props.showMovingOptions(this);
+      }
   }
 
   render() {
-    const { className, answerGroup } = this.props;
-    const { textOne, textTwo, level, showProgress, pageCurrent, pageCount, isVisible, data, buttons } = this.state;
-    const collapseContent = isVisible ? this.SlideContent() : '';
-    const collapseArrow = isVisible ? 'expand_less' : 'expand_more';
+
+    const { className, title, description, level, style, screenSize } = this.props;
+    const { isShowingOptions, isOpen } = this.state;
+    const componentStyle = { ...style, };
+    const cardContent = isOpen ? this.getCardContent() : '';
+    const collapseArrow = isOpen ? 'expand_more' : 'expand_less';
+
+    let dropDownStyle = {
+        width: "100px",
+        position: "absolute",
+        left: "0px",
+    };
+
+    let dropDownContentStyle = {
+        background: "white",
+        boxShadow: "0px 0px 5px 1px rgba(0,0,0,0.4)",
+        padding: "0px",
+    };
+
+    let dropDownTagStyle = {
+        left: "10%",
+        transform: `translate(10%)`,
+        WebkitTransform: `translate(10%)`,
+        msTransform: `translate(10%)`,
+        WebKitFilter: "drop-shadow(0px -3px 2px rgba(0,0,0, 0.3))",
+        filter: "drop-shadow(0px -3px 2px rgba(0,0,0, 0.3))",
+        borderColor: "transparent transparent white",
+    };
 
     return (
-      <div className={`card ${className}`}>
+      <div className={`card ${className} ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle}>
         <div className="card-top">
+            {
+                screenSize == "xs" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
+            }
+            {
+                isShowingOptions ?
+                <Dropdown
+                    style={dropDownStyle}
+                    tagStyle={dropDownTagStyle}
+                    contentStyle={dropDownContentStyle}
+                    open={true}
+                    >
+                    <ul className="card-options">
+                      <li onClick={this.moveItem}>Move</li>
+                      <li onClick={this.toggleOptions}>Cancel</li>
+                    </ul>
+                </Dropdown> : null
+            }
           <div className="card-image" />
-          <div className="card-info">
-            <span>{textOne}</span>
-            <span>{textTwo}</span>
+          <div className="card-center">
+            <span>{title}</span>
+            <span>{description}</span>
+            <div className="card-toggle" >
+              <IconSmall name={collapseArrow} onClick={this.handleClick}/>
+            </div>
           </div>
-          <div className={`card-light ${level}`} />
+          <Status className="card-status" color="ff0000"/>
         </div>
-        <div className="card-toggle" onClick={this.handleClick} >
-          <IconSmall name={collapseArrow} />
-        </div>
-        <TransitionGroup>
-
-          {collapseContent}
-
-        </TransitionGroup>
-        {showProgress ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={2} /> : null}
+          {cardContent}
       </div>
     );
   }

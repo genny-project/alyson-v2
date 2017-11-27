@@ -13,7 +13,7 @@ class CircleButton extends Component {
     const { primaryColor } = this.props;
 
     const style = {
-        backgroundColor: "pink",
+        backgroundColor: primaryColor,
         border: "3px solid #fff",
         width: "35px",
         height: "35px",

@@ -15,6 +15,8 @@ class TreeView extends Component {
   };
 
   onClick = (item) => (event) => {
+
+    console.log(this.props);
     event.stopPropagation();
     event.preventDefault();
 
@@ -22,18 +24,13 @@ class TreeView extends Component {
     return false;
   }
 
+  onExpand = (item) => (event) => {
 
-  sendSelectMsg = (item) => {
-    this.sendData('TV_SELECT', {
-      code: 'TV1',
-      value: item.code
-    }, item.code);
-    console.log(item.code, 'Log item form sendSelectMsg function');
-  }
+      event.stopPropagation();
+      event.preventDefault();
 
-  sendData = (event, data) => {
-    console.log('send', data);
-    GennyBridge.sendTVEvent(event, data);
+      this.props.onExpand(item);
+      return false;
   }
 
   renderList = (items) => {
@@ -43,13 +40,13 @@ class TreeView extends Component {
         layout.push(
           <li key={i}>
             <div>
-              <span onClick={() => { this.sendSelectMsg(item); }}>
-                { item.icon ? <IconSmall name={item.icon} /> : null }
+              <span onClick={this.onClick(item)}>
+                { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
                 {item.name}
               </span>
-              <IconSmall onClick={this.onClick(item)} name="expand_more" />
+              <IconSmall className='clickable' onClick={this.onExpand(item)} name="expand_more" />
             </div>
-            <ul className="child" style={{ marginLeft: 10 }}>
+            <ul className="child">
               {item.children.length ? this.renderList(item.children) : <SubmitStatusIcon status="sending" />}
             </ul>
           </li>);
@@ -58,11 +55,11 @@ class TreeView extends Component {
         layout.push(
           <li key={i}>
             <div>
-              <span onClick={() => { this.sendSelectMsg(item); }}>
-                { item.icon ? <IconSmall name={item.icon} /> : null }
-                {item && item.name}{console.log(item, 'item.sendSelectMsg from chevron right')}
+              <span className='clickable' onClick={this.onClick(item)}>
+                { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
+                {item && item.name}
               </span>
-              <IconSmall onClick={this.onClick(item)} name="chevron_right" />
+              <IconSmall className='clickable' onClick={this.onExpand(item)} name="chevron_right" />
             </div>
           </li>);
       }

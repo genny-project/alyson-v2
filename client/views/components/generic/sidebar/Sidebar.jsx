@@ -1,48 +1,50 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
-import { GennyImageView, SocialButton } from '../../../components'
+import { ImageView, } from '../../../components'
 import { object, bool, string, any } from 'prop-types';
 
 class Sidebar extends Component {
 
     static propTypes = {
       style: object,
-      hasImage: bool,
       src: string,
       caption: any,
-      children: any
+      children: any,
+      height: string,
+      screenSize: string,
     };
 
-    renderSocialButtons = (socialLogins) => {
+    getContentHeight = () => {
+        const { height } = this.props;
 
-        let buttonLayout = [];
-        socialLogins.forEach(social => {
-            buttonLayout.push(<SocialButton buttonType={social} />);
-        });
-
-        return buttonLayout;
+        let s = Number(height.substr(0,height.length-2))+30;
+        
+        return {height: `calc(100vh - ${s}px)`}
     }
 
     render() {
 
-        const { style, src, caption, children, socialLogins } = this.props;
+        const { style, src, caption, children, height } = this.props;
 
         const componentStyle = {
           ...style,
         };
 
+        const contentHeight = this.getContentHeight();
+
         let imageView = null;
         if ( src ) {
-            imageView = <GennyImageView src={src} caption={caption} />;
+            imageView = <ImageView src={src} caption={caption} style={{ maxWidth: "100px" }} />;
         }
 
-        let loginButtons = socialLogins ? this.renderSocialButtons(socialLogins) : null;
-
         return (
-            <div className="sidebar" style={componentStyle}>
-              {imageView}
-              {children}
-              {loginButtons}
+            <div className={`sidebar ${window.screenSize}`} style={componentStyle}>
+              <div className="sidebar-header" style={{height: height}}>
+                {imageView}
+              </div>
+              <div className="sidebar-content" style={contentHeight}>
+                {children}
+              </div>
             </div>
         );
     }

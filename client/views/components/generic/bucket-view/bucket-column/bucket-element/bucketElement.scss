@@ -1,0 +1,10 @@
+@import '../../../../../../styles/colors';
+
+.card {
+ -webkit-transition:  all 450ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition:         all 450ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.card.showOptions {
+ transform: scale(1.05, 1.05);
+}

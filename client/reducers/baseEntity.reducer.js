@@ -1,4 +1,4 @@
-import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE } from 'constants';
+import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE, ANSWER, LINK_CHANGE } from 'constants';
 import { grabValue } from './utils.reducer';
 
 const initialState = {
@@ -21,9 +21,22 @@ export default function reducer(state = initialState, action) {
                 ...action.payload.items.reduce((existing, newItem) => {
 
                     let baseEntityCode = newItem.code;
-                    let newAttributes = newItem.baseEntityAttributes || [];
 
+                    if(!newItem.baseEntityAttributes) {
+
+                        existing[baseEntityCode] = {
+                            ...state.data[baseEntityCode],
+                            ...existing[baseEntityCode],
+                            ...newItem,
+                            linkCode: action.payload.linkCode,
+                        };
+
+                        return existing;
+                    }
+
+                    let newAttributes = newItem.baseEntityAttributes;
                     let existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
+
                     newAttributes.forEach(newAttribute => {
 
                         existingAttributes[newAttribute.attributeCode] = {
@@ -40,6 +53,7 @@ export default function reducer(state = initialState, action) {
                         ...state.data[baseEntityCode],
                         ...existing[baseEntityCode],
                         ...newItem,
+                        linkCode: action.payload.linkCode,
                         attributes: existingAttributes
                     };
 
@@ -65,9 +79,6 @@ export default function reducer(state = initialState, action) {
                 ...action.payload.items.reduce((existing, newItem) => {
 
                     if(action.payload.aliasCode) {
-                        console.log("==============");
-                        console.log(newItem);
-                        console.log(action.payload);
                         existing[action.payload.aliasCode] = newItem.code;
                     }
 
@@ -78,6 +89,7 @@ export default function reducer(state = initialState, action) {
         };
 
         case ATTRIBUTE:
+
         return {
             ...state,
             data: {
@@ -88,15 +100,23 @@ export default function reducer(state = initialState, action) {
                     let attributeCode = attribute.attributeCode;
                     let newValue = attribute.value;
 
-                    if(!state.data[be_code]) state.data[be_code] = {
-                        attributes: []
-                    };
+                    if(!state.data[be_code])  {
+
+                        state.data[be_code] = {
+                            attributes: {}
+                        };
+                    }
+
+                    if(!state.data[be_code].attributes) {
+                        state.data[be_code].attributes = {};
+                    }
 
                     let found = false;
-                    if(state.data[be_code].attributes.length > 0) {
-                        state.data[be_code].attributes.forEach(attribute => {
-                            if(attribute.code == attributeCode) {
-                                attribute.value = newValue;
+                    if(Object.keys(state.data[be_code].attributes).length > 0) {
+                        Object.keys(state.data[be_code].attributes).forEach(attribute_key => {
+
+                            if(attribute_key == attributeCode) {
+                                state.data[be_code].attributes[attribute_key].value = newValue;
                                 found = true;
                             }
                         });
@@ -106,18 +126,126 @@ export default function reducer(state = initialState, action) {
 
                         state.data[be_code] = {
                             ...state.data[be_code],
-                            attributes: [
-                                ...(state.data[be_code] ? state.data[be_code].attributes : []),
-                                {
+                            ...state.data[be_code].attributes[attributeCode] = {
+                                ...(state.data[be_code] ? state.data[be_code].attributes[attributeCode] : {}),
+                                ...{
                                     code: attributeCode,
                                     value: newValue
                                 }
-                            ]
+                            }
                         };
                     }
                 }),
             }
         };
+
+        case ANSWER:
+
+        let newAnswer = action.payload.items;
+        let be_code = newAnswer.targetCode;
+        let attributeCode = newAnswer.attributeCode;
+        if(be_code && attributeCode) {
+
+            let newAtt = {
+                code: attributeCode,
+                value: newAnswer.value,
+                baseEntityCode: be_code,
+                created: newAnswer.created,
+                updated: newAnswer.updated,
+                weight: newAnswer.weight,
+            };
+
+            if(newAnswer.name) {
+                newAtt.name = newAnswer.name;
+            }
+
+            if(!state.data[be_code])  {
+                state.data[be_code] = {
+                    attributes: {}
+                };
+            }
+
+            if(!state.data[be_code].attributes) {
+                state.data[be_code].attributes = {};
+            }
+
+            state.data[be_code].attributes[attributeCode] = {
+                ...state.data[be_code].attributes[attributeCode],
+                value: newAtt.value,
+                attribute: {
+                    ...(state.data[be_code].attributes[attributeCode] ? state.data[be_code].attributes[attributeCode].attribute : {}),
+                    ...newAtt,
+                }
+            };
+
+            return {
+                ...state
+            };
+        }
+
+        case LINK_CHANGE:
+
+
+        /*
+
+        {
+           "msg_type":"DATA_MSG",
+           "data_type":"LINK_CHANGE",
+           "items":[
+              {
+                 "attributeCode":"LNK_CORE",
+                 "targetCode":"BEG_0000003",
+                 "sourceCode":"GRP_APPROVED"
+              }
+           ]
+        }
+
+        */
+
+        action.payload.items.forEach(item => {
+
+            let be_code = item.targetCode;
+            let oldParentCode = state.data[be_code].parentCode;
+            let newParentCode = item.sourceCode;
+
+            let relationshipObject = {
+                ...state.relationships[oldParentCode]
+            };
+
+            delete relationshipObject[be_code];
+
+            state.relationships[oldParentCode] = relationshipObject; // delete the old relationship
+            state.relationships[newParentCode] = {  // create the new relationship
+                ...state.relationships[newParentCode],
+                [be_code]: { type: BASE_ENTITY }
+            };
+
+            if(state.data[be_code]) {
+                state.data[be_code].parentCode = newParentCode; // set new parent
+            }
+
+            if(state.data[oldParentCode] && state.data[oldParentCode].children.length > 0) {
+                state.data[oldParentCode].children = state.data[oldParentCode].children.filter(child => { // remove be from old parent's children
+                    return child.code != be_code;
+                });
+            }
+
+            if(!state.data[newParentCode]) {
+                state.data[newParentCode] = {
+                    children: []
+                };
+            }
+
+            state.data[newParentCode] = {
+                ...state.data[newParentCode],
+                children: [
+                    ...state.data[newParentCode].children,
+                    state.data[be_code] // add be as new children of target code
+                ]
+            };
+
+            return state;
+        });
 
         default:
         return state;
