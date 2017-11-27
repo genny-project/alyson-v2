@@ -92,7 +92,8 @@ class GennyBucketView extends Component {
             buckets.push({
                 title: group.name,
                 id: group.code,
-                children: this.generateBucket(group)
+                children: this.generateBucket(group),
+                weight: group.weight
             });
         });
 
@@ -102,7 +103,7 @@ class GennyBucketView extends Component {
     render() {
 
         const { root } = this.props;
-        let buckets = this.generateBuckets(root);
+        let buckets = this.generateBuckets(root).sort((x, y) => x.weight > y.weight);
 
         return (
             <div className="genny-bucket-view">

@@ -8,13 +8,28 @@ class BaseEntityQuery {
         const relationships = store.getState().baseEntity.relationships[code];
         let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => store.getState().baseEntity.data[code]) : [];
 
+        let rootEntity = BaseEntityQuery.getBaseEntity(code);
+
         items = items.map(item => {
+
+            // order by weight if found in links
+            let weight = 0;
+            if(rootEntity && rootEntity.links) {
+
+                let currentLinks = rootEntity.links.filter(x => {
+                    return x.link.targetCode == item.code
+                });
+
+                weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
+            }
+
             const children = this.getEntityChildren(item.code);
             item.children = children;
+            item.weight = weight;
             return item;
         });
 
-        return items;
+        return items.sort((x, y) => x.weight > y.weight);
     }
 
     static getAlias = (alias_code) => {
@@ -47,7 +62,7 @@ class BaseEntityQuery {
 
         return null;
     }
-    
+
     static getBaseEntityAttribute = (baseEntityCode, attribute_code) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);

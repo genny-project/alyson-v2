@@ -32,6 +32,7 @@ export const CMD_VIEW = 'CMD_VIEW';
 
 /* Base entities */
 export const BASE_ENTITY = 'BaseEntity';
+export const LINK_CHANGE = 'LINK_CHANGE';
 
 /* Base entities + attributes */
 export const BASE_ENTITY_DATA = 'Data';
