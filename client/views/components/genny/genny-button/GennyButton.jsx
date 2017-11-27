@@ -17,6 +17,12 @@ class GennyButton extends Component {
     }
 
     handleClick = () => {
+        /* Send the Genny event */
+        
+        // this.sendData('BTN_CLICK', {
+        //     code: 'TV1',
+        //     value: item.code
+        // }, item.code);
 
         console.log('click');
     }
