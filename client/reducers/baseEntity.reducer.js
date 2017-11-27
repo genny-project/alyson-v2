@@ -1,4 +1,4 @@
-import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE, ANSWER } from 'constants';
+import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE, ANSWER, LINK_CHANGE } from 'constants';
 import { grabValue } from './utils.reducer';
 
 const initialState = {
@@ -182,6 +182,70 @@ export default function reducer(state = initialState, action) {
                 ...state
             };
         }
+
+        case LINK_CHANGE:
+
+
+        /*
+
+        {
+           "msg_type":"DATA_MSG",
+           "data_type":"LINK_CHANGE",
+           "items":[
+              {
+                 "attributeCode":"LNK_CORE",
+                 "targetCode":"BEG_0000003",
+                 "sourceCode":"GRP_APPROVED"
+              }
+           ]
+        }
+
+        */
+
+        action.payload.items.forEach(item => {
+
+            let be_code = item.targetCode;
+            let oldParentCode = state.data[be_code].parentCode;
+            let newParentCode = item.sourceCode;
+
+            let relationshipObject = {
+                ...state.relationships[oldParentCode]
+            };
+
+            delete relationshipObject[be_code];
+
+            state.relationships[oldParentCode] = relationshipObject; // delete the old relationship
+            state.relationships[newParentCode] = {  // create the new relationship
+                ...state.relationships[newParentCode],
+                [be_code]: { type: BASE_ENTITY }
+            };
+
+            if(state.data[be_code]) {
+                state.data[be_code].parentCode = newParentCode; // set new parent
+            }
+
+            if(state.data[oldParentCode] && state.data[oldParentCode].children.length > 0) {
+                state.data[oldParentCode].children = state.data[oldParentCode].children.filter(child => { // remove be from old parent's children
+                    return child.code != be_code;
+                });
+            }
+
+            if(!state.data[newParentCode]) {
+                state.data[newParentCode] = {
+                    children: []
+                };
+            }
+
+            state.data[newParentCode] = {
+                ...state.data[newParentCode],
+                children: [
+                    ...state.data[newParentCode].children,
+                    state.data[be_code] // add be as new children of target code
+                ]
+            };
+
+            return state;
+        });
 
         default:
         return state;

@@ -18,6 +18,9 @@ class BucketView extends Component {
 
     constructor(props) {
         super(props);
+    }
+
+    componentWillUpdate(props) {
         this.state.buckets = props.buckets;
     }
 
@@ -50,7 +53,14 @@ class BucketView extends Component {
 
         for (var i = 0; i < buckets.length; i++) {
             if(buckets[i].id == destinationBucketCode) {
-                buckets[i].children.splice(destinationIndex, 0, item);
+
+                if(buckets[i].children.length == 0) {
+                    buckets[i].children.push(item);
+                }
+                else {
+                    buckets[i].children.splice(destinationIndex, 0, item);
+                }
+
                 break;
             }
         }
