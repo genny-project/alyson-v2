@@ -24,6 +24,11 @@ class AppHolder extends Component {
 
     componentDidMount() {
 
+        if ( document.getElementById('mounting-preview') ) {
+            /* Hide the loading spinner */
+            document.getElementById('mounting-preview').remove();
+        }
+        
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
 

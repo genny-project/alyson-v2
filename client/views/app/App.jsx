@@ -42,9 +42,6 @@ class App extends Component {
 
   handleAuthSuccess = keycloak => {
 
-    /* Hide the loading spinner */
-    document.getElementById('mounting-preview').remove();
-
     /* Send off the auth logged in action */
     if(keycloak.getToken()) {
         this.props.authLoggedIn({
