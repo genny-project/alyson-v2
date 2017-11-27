@@ -20,10 +20,12 @@ class Button extends Component {
   }
 
   render() {
-    const { children, type, className, href, onClick } = this.props;
+    const { children, type, className, href, onClick, style } = this.props;
+    const componentStyle = { ...style, };
+
     const btn = (
-      <div className={`button ${className}`}>
-        <button onClick={onClick} className={type} >{children}</button>
+      <div className={`button ${className} ${type}`} style={componentStyle}>
+        <button onClick={onClick} >{children}</button>
       </div>
     );
 

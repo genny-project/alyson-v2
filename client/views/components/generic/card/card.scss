@@ -50,18 +50,12 @@
 		}
 	}
 
-	.card-transition {
+	.card-collapse {
+		padding: 10px;
+		background: #F2F2F2;
+		border-radius: 5px;
 		margin-top: 10px;
-
-		&:empty {
-			margin-top: 0;
-		}
-
-		.card-collapse {
-			padding: 10px;
-			background: #F2F2F2;
-			border-radius: 5px;
-		}
+		
 	}
 }
 
@@ -79,24 +73,4 @@
 	li:last-child {
 		border-bottom: none;
 	}
-}
-
-.fade {
-  transition: ease-in 0.15s;
-  transition-property: opacity, transform;
-}
-
-.fade-entering {
-  opacity: 0;
-  transform: translateY(-10%);
-}
-
-.fade-entered {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.fade-exiting {
-  opacity: 0;
-  transform: translateY(-10%);
 }

@@ -2,7 +2,6 @@ import './card.scss';
 import React, { Component } from 'react';
 import { string, bool, array, number } from 'prop-types';
 import { Button, IconSmall, ProgressBar, Status, Dropdown } from '../';
-import { TransitionGroup, Transition } from 'react-transition-group';
 
 class Card extends Component {
 
@@ -10,7 +9,7 @@ class Card extends Component {
     className: '',
     title: '',
     description: '',
-    isVisible: true,
+    isVisible: false,
     level: '',
     showProgress: false,
     progressTotal: null,
@@ -30,21 +29,17 @@ class Card extends Component {
 
   state = {
       isShowingOptions: false,
+      isOpen: this.props.isVisible ? this.props.isVisible : false
   }
 
   handleClick = () => {
-
-    this.setState(prevState => ({
-      isVisible: !prevState.isVisible
-    }));
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
   }
 
-  SlideContent() {
+  getCardContent() {
     const { showProgress, progressCurrent, progressTotal, children } = this.props;
-
-    const FadeTransition = (props) => (
-      <Transition {...props} timeout={{ enter: 0, exit: 150 }} />
-    );
 
     return (
       <div className={`card-collapse fade fade-${status}`}>
@@ -52,24 +47,6 @@ class Card extends Component {
         {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
       </div>
     );
-    //
-    // return (
-    //   <FadeTransition>
-    //     {
-    //       (status) => {
-    //         if (status === 'exited') {
-    //           return null
-    //         }
-    //         return (
-    //           <div className={`card-collapse fade fade-${status}`}>
-    //             {children}
-    //             {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
-    //           </div>
-    //         );
-    //       }
-    //     }
-    //   </FadeTransition>
-    // );
   }
 
   toggleOptions = () => {
@@ -92,11 +69,11 @@ class Card extends Component {
 
   render() {
 
-    const { className, title, description, isVisible, level, style, screenSize } = this.props;
-    const { isShowingOptions } = this.state;
+    const { className, title, description, level, style, screenSize } = this.props;
+    const { isShowingOptions, isOpen } = this.state;
     const componentStyle = { ...style, };
-    const collapseContent = isVisible ? this.SlideContent() : '';
-    const collapseArrow = isVisible ? 'expand_more' : 'expand_less';
+    const cardContent = isOpen ? this.getCardContent() : '';
+    const collapseArrow = isOpen ? 'expand_more' : 'expand_less';
 
     let dropDownStyle = {
         width: "100px",
@@ -121,7 +98,7 @@ class Card extends Component {
     };
 
     return (
-      <div className={`card ${className} ${isShowingOptions ? 'showOptions' : ''}`}>
+      <div className={`card ${className} ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle}>
         <div className="card-top">
             {
                 screenSize == "xs" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
@@ -144,15 +121,13 @@ class Card extends Component {
           <div className="card-center">
             <span>{title}</span>
             <span>{description}</span>
-            <div className="card-toggle" onClick={this.handleClick} >
-              <IconSmall name={collapseArrow} />
+            <div className="card-toggle" >
+              <IconSmall name={collapseArrow} onClick={this.handleClick}/>
             </div>
           </div>
           <Status className="card-status" color="ff0000"/>
         </div>
-        <TransitionGroup className="card-transition">
-          {collapseContent}
-        </TransitionGroup>
+          {cardContent}
       </div>
     );
   }
