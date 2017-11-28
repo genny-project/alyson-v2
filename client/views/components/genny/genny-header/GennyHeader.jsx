@@ -1,6 +1,7 @@
 import './gennyHeader.scss';
 import React, { Component } from 'react';
-import { Header, GennyTreeView, GennyNotification, ColorPicker, } from '../../';
+import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyNotification, ColorPicker, } from '../../';
+import { Grid } from '@genny-project/layson';
 import { string,object  } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
@@ -62,8 +63,9 @@ class GennyHeader extends Component {
 
   render() {
 
-    const { style, height, screenSize } = this.props;
+    const { style, height, screenSize, className, projectTitle, projectGreeting, userName, userImage } = this.props;
     const { hoverColor } = this.state;
+    console.log('props', this.props);
 
     const componentStyle = {
       ...style,
@@ -73,7 +75,30 @@ class GennyHeader extends Component {
     return (
       <div className={`genny-header ${screenSize}`} style={componentStyle}>
 
-        <Header
+        <Grid className='main-header' cols={[20,1,1,4,1,1]} rows={1}>
+          <Label text={projectTitle} position={[0,0]} />
+          <ColorPicker {...this.props}
+            primaryColor={hoverColor}
+            onColorChange={ this.onColorChange }
+            position={[0,1]}/>
+          <GennyNotification position={[0,2]} />
+          <Dropdown position={[0,3]} header={
+            <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${projectGreeting}, ${userName}`} /><IconSmall name="expand_more" /></span>}
+          >
+            <ul className="dropdown-profile" >
+              <li onClick={this.props.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
+              <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
+              <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Log Out</span></li>
+            </ul>
+          </Dropdown>
+          <ImageView src={userImage} onClick={this.handleClickImage} position={[0,4]} style={{ width: '40px'}}/>
+          <IconSmall className="help" name="help" position={[0,5]}/>
+        </Grid>
+        <Grid className='sub-header' cols={[1]} rows={1}>
+          <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }} position={[0,0]}/>
+        </Grid>
+
+        {/*<Header
           {...this.props}
           handleProfile={this.handleProfile}
           handleAccount={this.handleAccount}
@@ -86,7 +111,8 @@ class GennyHeader extends Component {
             onColorChange={ this.onColorChange }/>
 
         </Header>
-        <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }}/>
+        <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }}/> */}
+      
       </div>
     );
   }
