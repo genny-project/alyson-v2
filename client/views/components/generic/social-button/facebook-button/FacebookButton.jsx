@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { func, string } from 'prop-types';
-import { Button } from '../../../';
+import { Button, IconSmall } from '../../../';
 
 class FacebookButton extends Component {
 
@@ -23,7 +23,10 @@ class FacebookButton extends Component {
 
     render() {
         return (
-            <Button text="Fetch Facebook Data" onClick={this.clickHandler}>Fetch Facebook Data</Button>
+            <Button text="Fetch Facebook Data" onClick={this.clickHandler} color='#3B5998'>
+                Facebook
+                <IconSmall fa name="facebook-f"/>
+            </Button>
         );
     }
 }
