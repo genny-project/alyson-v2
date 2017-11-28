@@ -11,7 +11,7 @@ class Breadcrumbs extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
+    style: object,
     currentPath: string,
   }
 

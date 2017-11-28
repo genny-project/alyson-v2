@@ -22,9 +22,7 @@ class CircleButton extends Component {
     }
 
     return (
-      <div className={`circleButton`} style={style} {...this.props}>
-
-      </div>
+      <div className={`circleButton`} style={style}/>
     );
   }
 }

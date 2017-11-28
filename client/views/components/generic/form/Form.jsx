@@ -1,7 +1,7 @@
 import './form.scss';
 import React, { Component } from 'react';
 import { ProgressBar, Button, IconSmall, Pagination } from '../';
-import { string, array, object, number} from 'prop-types';
+import { string, bool, number} from 'prop-types';
 
 class Form extends Component {
 
@@ -13,7 +13,7 @@ class Form extends Component {
   static propTypes = {
     className: string,
     itemsPerPage: number,
-    showProgress: false
+    showProgress: bool,
   }
 
   state = {

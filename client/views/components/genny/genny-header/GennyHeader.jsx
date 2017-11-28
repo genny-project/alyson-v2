@@ -20,7 +20,6 @@ class GennyHeader extends Component {
   };
 
   state = {
-    hoverColor: null,
   }
 
   handleLogout = () => {
@@ -64,9 +63,7 @@ class GennyHeader extends Component {
   render() {
 
     const { style, height, screenSize, className, projectTitle, projectGreeting, userName, userImage } = this.props;
-    const { hoverColor } = this.state;
-    console.log('props', this.props);
-
+    const {  } = this.state;
     const componentStyle = {
       ...style,
       height: height
@@ -78,7 +75,6 @@ class GennyHeader extends Component {
         <Grid className='main-header' cols={[20,1,1,4,1,1]} rows={1}>
           <Label text={projectTitle} position={[0,0]} />
           <ColorPicker {...this.props}
-            primaryColor={hoverColor}
             onColorChange={ this.onColorChange }
             position={[0,1]}/>
           <GennyNotification position={[0,2]} />

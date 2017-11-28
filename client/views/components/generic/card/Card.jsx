@@ -25,6 +25,7 @@ class Card extends Component {
     showProgress: bool,
     progressTotal: number,
     progressCurrent: number,
+    screenSize: string
   }
 
   state = {
