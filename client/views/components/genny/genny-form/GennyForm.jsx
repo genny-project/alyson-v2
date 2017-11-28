@@ -62,7 +62,7 @@ class GennyForm extends Component {
 
     const { asks, style, className } = this.props;
     const componentStyle = { ...style, };
-    
+
     //console.log('form style', this.props.alias);
 
     return (

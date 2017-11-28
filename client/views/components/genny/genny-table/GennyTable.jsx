@@ -16,10 +16,8 @@ class GennyTable extends Component {
         data: [],
         columns2: [],
         data2: [],
-
         width: null,
         height: null,
-
         isOpen: {}
     }
 
@@ -80,6 +78,7 @@ class GennyTable extends Component {
         baseEntities.forEach(baseEntity => {
 
             let attributes = baseEntity.attributes;
+
             if(attributes) {
 
                 Object.keys(attributes).forEach(attribute_key => {
@@ -101,38 +100,45 @@ class GennyTable extends Component {
             }
         });
 
-        columns.push({
-            "Header": () => { return <div><span>{accessors[0].attributeCode}</span></div> },
-            "accessor": accessors[0].attributeCode,
-            "Cell": ({row, original}) => {
+        if(accessors.length > 0) {
 
-                Object.prototype.getKey = function(value) {
-                    let object = this;
-                    return Object.keys(object).find(key => object[key] === value);
-                };
+            columns.push({
+                "Header": () => {
 
-                return (
-                    <div className='table-mobile-cell'>
-                            <IconSmall
-                                className='table-mobile-icon clickable'
-                                onClick={() => this.onClick(original.baseEntityCode)}
-                                name={this.state.isOpen[original.baseEntityCode] ? 'expand_more' : 'chevron_right'}
-                            />
-                        {
-                            accessors.map((attribute, i ) => {
-                                if ( i ===  0 || i > 0 && this.state.isOpen[original.baseEntityCode] === true )
-                                    return (
-                                        <div key={i} className={`${ i === 0 ? 'table-mobile-cell-header' : 'table-mobile-cell-row'} ${ this.state.isOpen[original.baseEntityCode] ? 'header-divider' : null }`}>
-                                            <span className='table-mobile-cell-cell'>{original.getKey(original[attribute.name])}:</span>
-                                            <span className='table-mobile-cell-cell'>{original[attribute.name]}</span>
-                                        </div>
-                                    );
-                            })
-                        }
-                    </div>
-                )
-            }
-        });
+                    console.log(accessors);
+                    return <div><span>{accessors[0].attributeCode}</span></div>
+                },
+                "accessor": accessors[0].attributeCode,
+                "Cell": ({row, original}) => {
+
+                    Object.prototype.getKey = function(value) {
+                        let object = this;
+                        return Object.keys(object).find(key => object[key] === value);
+                    };
+
+                    return (
+                        <div className='table-mobile-cell'>
+                                <IconSmall
+                                    className='table-mobile-icon clickable'
+                                    onClick={() => this.onClick(original.baseEntityCode)}
+                                    name={this.state.isOpen[original.baseEntityCode] ? 'expand_more' : 'chevron_right'}
+                                />
+                            {
+                                accessors.map((attribute, i ) => {
+                                    if ( i ===  0 || i > 0 && this.state.isOpen[original.baseEntityCode] === true )
+                                        return (
+                                            <div key={i} className={`${ i === 0 ? 'table-mobile-cell-header' : 'table-mobile-cell-row'} ${ this.state.isOpen[original.baseEntityCode] ? 'header-divider' : null }`}>
+                                                <span className='table-mobile-cell-cell'>{original.getKey(original[attribute.name])}:</span>
+                                                <span className='table-mobile-cell-cell'>{original[attribute.name]}</span>
+                                            </div>
+                                        );
+                                })
+                            }
+                        </div>
+                    )
+                }
+            });
+        }
 
         this.state.columns2 = columns;
         return columns;

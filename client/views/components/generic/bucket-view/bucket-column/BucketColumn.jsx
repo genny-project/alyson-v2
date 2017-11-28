@@ -33,6 +33,13 @@ class BucketColumn extends Component {
         if(notification == "next") this.props.goToNextBucket()
     }
 
+    addNewItem = () => {
+
+        if(this.props.addNewItem) {
+            this.props.addNewItem(this);
+        }
+    }
+
     render() {
 
         const { className, style, title, items, groupId, screenSize } = this.props;
@@ -42,13 +49,16 @@ class BucketColumn extends Component {
         if(screenSize == "xs") {
             titleDiv =
             <div>
-                <IconSmall className="bucket_action_previous" name='chevron_left' onClick={this.props.goToPreviousBucket}/>
-                    <span>{title}</span>
-                <IconSmall className="bucket_action_next" name='chevron_right' onClick={this.props.goToNextBucket}/>
+                <IconSmall className="clickable bucket_action_previous" name='chevron_left' onClick={this.props.goToPreviousBucket}/>
+                <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} />
+                <IconSmall className="clickable bucket_action_next" name='chevron_right' onClick={this.props.goToNextBucket}/>
             </div>
         }
         else {
-            titleDiv = title;
+            titleDiv =
+            <div>
+                <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} />
+            </div>;
         }
 
         return (

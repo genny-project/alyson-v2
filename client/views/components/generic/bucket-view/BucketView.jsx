@@ -127,6 +127,13 @@ class BucketView extends Component {
         });
     }
 
+    addNewItem = (selectedColumn) => {
+
+        let groupId = selectedColumn.props.groupId;
+        console.log(groupId);
+        console.log(selectedColumn.props);
+    }
+
     mobileMoveItem = (item, bucketDestination) => {
 
         // we find the original bucket
@@ -157,8 +164,6 @@ class BucketView extends Component {
 
                 let children = bucket.children[j];
                 if(children.id == itemCode) {
-
-                    console.log(bucket);
                     sourceBucket.droppableId = bucket.id;
                     sourceBucket.index = j;
                     break;
@@ -205,6 +210,7 @@ class BucketView extends Component {
                         goToNextBucket={this.goToNextBucket}
                         goToPreviousBucket={this.goToPreviousBucket}
                         showMovingOptions={this.toggleMovingOptions}
+                        addNewItem={this.addNewItem}
                         />
         })
 

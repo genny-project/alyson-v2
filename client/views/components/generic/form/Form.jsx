@@ -32,13 +32,12 @@ class Form extends Component {
     return (
       <div className={`form-container ${isHorizontal ? 'horizontal' : null }`}>
         <div className="form-main">
-          {/* showProgress && itemsPerPage <= childrenCount ? <ProgressBar progressTotal={pageCount} progressCurrent={pageCurrent} type={1} /> : null */}
           <div className="form-fields">
             { !isHorizontal ?
               <Pagination perPage={itemsPerPage} hideNav={hideNav} >
                 {children}
               </Pagination>
-            : {children} }
+            : `${children}` }
           </div>
         </div>
       </div>
