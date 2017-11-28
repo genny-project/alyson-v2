@@ -67,38 +67,41 @@ class BucketColumn extends Component {
 
         return (
 
-            <Droppable droppableId={groupId}>
-                {
-                    (provided, snapshot) => (
+            <div>
+                <div className="bucket-title">
+                    {titleDiv}
+                </div>
 
-                        <div ref={provided.innerRef}
-                            style={getListStyle(snapshot.isDraggingOver)}
-                            className={`bucket size-${screenSize}`}
-                            key={title} >
+                <Droppable droppableId={groupId}>
+                    {
+                        (provided, snapshot) => (
 
-                            <div className="bucket-title sticky">
-                                {titleDiv}
+                            <div ref={provided.innerRef}
+                                style={getListStyle(snapshot.isDraggingOver)}
+                                className={`bucket size-${screenSize}`}
+                                key={title} >
+
+                                <div className={`bucket-content size-${screenSize} no-select`}>
+                                    {
+                                        items.map(child => (
+                                            <BucketElement
+                                            key={child.id}
+                                            item={child}
+                                            moveBucket={this.moveBucket}
+                                            screenSize={screenSize}
+                                            showMovingOptions={this.props.showMovingOptions} />
+                                        ))
+                                    }
+                                </div>
+
+                                {provided.placeholder}
+
                             </div>
-                            <div className={`bucket-content size-${screenSize} no-select`}>
-                                {
-                                    items.map(child => (
-                                        <BucketElement
-                                        key={child.id}
-                                        item={child}
-                                        moveBucket={this.moveBucket}
-                                        screenSize={screenSize}
-                                        showMovingOptions={this.props.showMovingOptions} />
-                                    ))
-                                }
-                            </div>
+                        )
+                    }
 
-                            {provided.placeholder}
-
-                        </div>
-                    )
-                }
-
-            </Droppable>
+                </Droppable>
+            </div>
         );
     }
 }
