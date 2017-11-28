@@ -130,8 +130,9 @@ class BucketView extends Component {
     addNewItem = (selectedColumn) => {
 
         let groupId = selectedColumn.props.groupId;
-        console.log(groupId);
-        console.log(selectedColumn.props);
+        if(this.props.addNewItem) {
+            this.props.addNewItem(groupId);
+        }
     }
 
     mobileMoveItem = (item, bucketDestination) => {
@@ -199,20 +200,21 @@ class BucketView extends Component {
         const { style } = this.props;
         const { buckets, currentlySelectedItem } = this.state;
 
-        let columns = buckets.map((bucket) => {
+        let columns = buckets.map((bucket) =>
 
-            return <BucketColumn
-                        screenSize={this.props.screenSize}
-                        title={bucket.title}
-                        key={bucket.id}
-                        groupId={bucket.id}
-                        items={bucket.children}
-                        goToNextBucket={this.goToNextBucket}
-                        goToPreviousBucket={this.goToPreviousBucket}
-                        showMovingOptions={this.toggleMovingOptions}
-                        addNewItem={this.addNewItem}
-                        />
-        })
+                <BucketColumn
+                    screenSize={this.props.screenSize}
+                    title={bucket.title}
+                    key={bucket.id}
+                    groupId={bucket.id}
+                    items={bucket.children}
+                    goToNextBucket={this.goToNextBucket}
+                    goToPreviousBucket={this.goToPreviousBucket}
+                    showMovingOptions={this.toggleMovingOptions}
+                    addNewItem={this.addNewItem}
+                    canAddItem={bucket.canAddItem}
+                    />
+                )
 
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>

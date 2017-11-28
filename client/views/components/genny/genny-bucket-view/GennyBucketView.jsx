@@ -83,17 +83,42 @@ class GennyBucketView extends Component {
         return children;
     }
 
+    addNewItem = (selectedColumn) => {
+
+        let { root } = this.props;
+        let rootGroups = BaseEntityQuery.getEntityChildren(root);
+        for (var i = 0; i < rootGroups.length; i++) {
+            let group = rootGroups[i];
+            if(group.code == selectedColumn) {
+
+                let itemValue = group.attributes["ADD_ITEM"].value;
+                let data = {
+                    code: group.code,
+                    value: itemValue,
+                }
+                GennyBridge.sendBtnClick(data);
+                break;
+            }
+        }
+    }
+
     generateBuckets(root) {
 
         let buckets = [];
         let rootGroups = BaseEntityQuery.getEntityChildren(root);
         rootGroups.forEach(group => {
 
+            let canAddItem = false;
+            if(group.attributes) {
+                canAddItem = Object.keys(group.attributes).filter(x => x == "ADD_ITEM").length > 0;
+            }
+
             buckets.push({
                 title: group.name,
                 id: group.code,
                 children: this.generateBucket(group),
-                weight: group.weight
+                weight: group.weight,
+                canAddItem: canAddItem
             });
         });
 
@@ -103,11 +128,15 @@ class GennyBucketView extends Component {
     render() {
 
         const { root } = this.props;
-        let buckets = this.generateBuckets(root).sort((x, y) => x.weight > y.weight);
+        let buckets = this.generateBuckets(root);
 
         return (
             <div className="genny-bucket-view">
-                <BucketView screenSize={this.props.screenSize} buckets={buckets} didMoveItem={this.didMoveItem} />
+                <BucketView
+                    screenSize={this.props.screenSize}
+                    buckets={buckets}
+                    didMoveItem={this.didMoveItem}
+                    addNewItem={this.addNewItem} />
             </div>
         );
     }

@@ -42,7 +42,7 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, items, groupId, screenSize } = this.props;
+        const { className, style, title, items, groupId, screenSize, canAddItem } = this.props;
         const componentStyle = { ...style, };
 
         let titleDiv = null;
@@ -50,14 +50,18 @@ class BucketColumn extends Component {
             titleDiv =
             <div>
                 <IconSmall className="clickable bucket_action_previous" name='chevron_left' onClick={this.props.goToPreviousBucket}/>
-                <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} />
+                {
+                    canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} /> : `${title}`
+                }
                 <IconSmall className="clickable bucket_action_next" name='chevron_right' onClick={this.props.goToNextBucket}/>
             </div>
         }
         else {
             titleDiv =
             <div>
-                <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} />
+                {
+                    canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} /> : `${title}`
+                }
             </div>;
         }
 
