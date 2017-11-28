@@ -37,6 +37,12 @@ class Dropdown extends Component {
     });
   }
 
+  handleFocus = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
   render() {
     const { className, children, style, contentStyle, tagStyle, header, open, noDropdownStyle, showTag } = this.props;
     let { isOpen, } = this.state;
@@ -44,7 +50,7 @@ class Dropdown extends Component {
     if(open != undefined) isOpen = open; // open props overrides
 
     return (
-      <div className={`dropdown ${className}`} onBlur={this.handleBlur} onFocus={this.handleFocus} tabIndex='-1' style={style} >
+      <div className={`dropdown ${className}`} onClick={this.handleClick} onBlur={this.handleBlur} onFocus={this.handleFocus} tabIndex='-1' style={style} >
         <div className='dropdown-header'>
           {header}
         </div>

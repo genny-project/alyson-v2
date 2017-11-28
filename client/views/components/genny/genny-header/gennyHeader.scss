@@ -1,4 +1,61 @@
 @import '../../../../styles/colors';
 
 .genny-header {
+
+    .grid {
+
+        &.main-header {
+            height: 50px;
+
+            span, i {
+				color: white;
+			}
+        }
+        &.sub-header {
+            box-shadow: 0px -4px 3px rgba(50,50,50,0.50);
+            
+            height: 40px;
+        }
+        .row {
+            padding-left: 50px;
+            height: 100%;
+
+            .col {
+                display: flex;
+                align-items: center;
+                padding-left: 5px;
+                padding-right: 5px;
+
+                .dropdown-profile {
+                    list-style-type: none;
+                    background: #DDD;
+                    border-radius: 5px;
+                    margin: 0;
+                    padding: 0;
+            
+                    > li {
+                        display: flex;
+                        align-items: center;
+                        padding: 5px 10px;
+            
+                        i {
+                            padding-right: 5px;
+                        }
+            
+                        i, span {
+                            color: rgb(31, 31, 31);
+                        }
+            
+                        &:hover {
+                            background: rgb(31, 31, 31);
+            
+                            i, span {
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
