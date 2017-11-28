@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import { string, number } from 'prop-types';
+import { string, number, bool } from 'prop-types';
 import './iconsmall.scss';
 
 class IconSmall extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   static defaultProps = {
     className: '',
     fontSize: 18,
     name: 'android',
     text: null,
+    fa: false,
   }
 
   static propTypes = {
@@ -20,10 +17,11 @@ class IconSmall extends Component {
     name: string,
     fontSize: number,
     text: string,
+    fa: bool,
   }
 
   render() {
-    const { className, size, name, onClick, text } = this.props;
+    const { className, size, name, onClick, text, fa } = this.props;
 
     let iconStyle = {
         display: "flex",
@@ -33,7 +31,7 @@ class IconSmall extends Component {
 
     return (
         <span style={text ? iconStyle : null} className={`icon-small ${className}`}>
-            <i className={`icon material-icons `} onClick={onClick} style={{ fontSize: size, }}>{name}</i>
+            <i className={`icon ${fa ? 'fa fa-' + name : 'material-icons'}`} onClick={onClick} style={{ fontSize: size, }}>{fa ? null : name}</i>
             {
                 text ? <span style={{ fontSize: size, paddingLeft: "5px", }}>{text}</span> : null
             }

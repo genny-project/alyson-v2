@@ -86,7 +86,7 @@ class GennyHeader extends Component {
             <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${projectGreeting}, ${userName}`} /><IconSmall name="expand_more" /></span>}
           >
             <ul className="dropdown-profile" >
-              <li onClick={this.props.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
+              <li onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
               <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
               <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Log Out</span></li>
             </ul>
