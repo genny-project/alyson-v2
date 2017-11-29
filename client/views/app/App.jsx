@@ -70,7 +70,7 @@ class App extends Component {
 
     const keycloak = this.props.keycloak;
     const keycloakConfig = keycloak.config;
-
+    
     /* If the backend isn't enabled just render the app */
     if (!config.backendEnabled) {
       return (

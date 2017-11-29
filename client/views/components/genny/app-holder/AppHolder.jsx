@@ -81,11 +81,12 @@ class AppHolder extends Component {
 
     }
 
-    handleSidebarToggle = () => {
+    handleSidebarToggle = (event) => {
+        event.preventDefault();
         this.setState(prevState => ({
           sidebarDefault: !prevState.sidebarDefault
         }));
-    }
+    }       
 
     getContentHeight = () => {
         const { headerHeight, footerHeight, sidebarDefault, screenSize } = this.state;

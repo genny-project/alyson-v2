@@ -1,0 +1,24 @@
+@import '../../../../styles/colors';
+
+
+.input-button {
+
+        .button {
+            margin-left: 0;
+        }
+    &.facebook {
+
+        button {
+            background-color: #3B5998;
+        }
+
+        .button-text:after {
+            content: "\f09a";
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+        }
+    }
+}
