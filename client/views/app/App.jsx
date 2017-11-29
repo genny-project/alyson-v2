@@ -31,7 +31,7 @@ class App extends Component {
               let event = message.detail;
               switch (event.id) {
                   case "GEOFENCE":
-                  GennyBridge.sendGeofenceData(event.data.event_id, event.data);
+                  GennyBridge.sendGeofenceData(event.data.value, event.data);
                   break;
                   default: console.log("received unknown event [" + event.id + "]");
               }
