@@ -28,7 +28,7 @@ class AppHolder extends Component {
             /* Hide the loading spinner */
             document.getElementById('mounting-preview').remove();
         }
-        
+
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
 
@@ -99,8 +99,6 @@ class AppHolder extends Component {
             height: `calc(100vh - ${otherHeight}px)`,
             width: `calc(100vw - ${otherWidth}px)`,
         }
-
-
     }
 
     render() {

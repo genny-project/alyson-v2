@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
 import { Modal, List } from 'views/components';
+import _ from 'lodash';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './bucketView.scss';
@@ -18,6 +19,18 @@ class BucketView extends Component {
 
     constructor(props) {
         super(props);
+    }
+
+    shouldComponentUpdate(newProps, newState) {
+
+        if(newProps.buckets && this.state.buckets) {
+            if(!_.isEqual(newProps.buckets, this.state.buckets) && newProps.buckets.length == this.state.buckets.length) {
+                console.log("NOT RENDERING. ANIMATING.");
+                console.log(newProps.buckets);
+            }
+        }
+
+        return true;
     }
 
     componentWillUpdate(props) {

@@ -185,23 +185,6 @@ export default function reducer(state = initialState, action) {
 
         case LINK_CHANGE:
 
-
-        /*
-
-        {
-           "msg_type":"DATA_MSG",
-           "data_type":"LINK_CHANGE",
-           "items":[
-              {
-                 "attributeCode":"LNK_CORE",
-                 "targetCode":"BEG_0000003",
-                 "sourceCode":"GRP_APPROVED"
-              }
-           ]
-        }
-
-        */
-
         action.payload.items.forEach(item => {
 
             let be_code = item.targetCode;
@@ -243,9 +226,11 @@ export default function reducer(state = initialState, action) {
                     state.data[be_code] // add be as new children of target code
                 ]
             };
-
-            return state;
         });
+
+        return {
+            ...state
+        };
 
         default:
         return state;

@@ -1,12 +1,12 @@
 import './gennyBucketView.scss';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { BaseEntityQuery } from 'utils/genny';
 import { IconSmall, BucketView, Card } from '../../';
 import { Draggable } from 'react-beautiful-dnd';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { GennyBridge } from 'utils/genny';
 
-class GennyBucketView extends Component {
+class GennyBucketView extends PureComponent {
 
     static defaultProps = {
 
@@ -128,6 +128,7 @@ class GennyBucketView extends Component {
     render() {
 
         const { root } = this.props;
+
         let buckets = this.generateBuckets(root);
 
         return (
