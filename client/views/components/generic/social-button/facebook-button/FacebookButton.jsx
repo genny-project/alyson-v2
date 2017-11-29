@@ -14,9 +14,7 @@ class FacebookButton extends Component {
         btn_code: 'FACEBOOK'
     };
 
-    clickHandler = () => {
-        this.props.onClick(this.props.btn_code);
-    }
+    
 
     state = {
     };

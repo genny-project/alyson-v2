@@ -34,7 +34,7 @@ export { default as Pagination } from './pagination';
 export { default as ProgressBar } from './progress-bar';
 export { default as Sidebar } from './sidebar/';
 export { default as SocialButton } from './social-button';
-export { default as InputSocial } from './input-social';
+export { default as InputButton } from './input-button';
 export { default as Status } from './status/';
 export { default as SubmitStatusIcon } from './submit-status-icon';
 export { default as Table } from './table';

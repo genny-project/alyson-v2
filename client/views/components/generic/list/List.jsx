@@ -26,6 +26,7 @@ class List extends Component {
     const { } = this.state;
     const componentStyle = { ...style, };
 
+
     return (
       <div className={`list ${className}`} style={componentStyle}>
         { header ?

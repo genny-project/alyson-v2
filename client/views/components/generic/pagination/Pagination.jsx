@@ -50,8 +50,6 @@ class Pagination extends Component {
     let childrenCount = Object.keys(this.props.children).length;
     const childrenPageArray = this.getChildrenForCurrentPage(perPage, offset, children);
 
-    
-
     return (
       <div className={`pagination ${className} ${ hideNav || children <= perPage ? 'hide-nav' : '' } `}>
         <div className='pagination-content'>
