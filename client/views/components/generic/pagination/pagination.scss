@@ -6,7 +6,7 @@
     .pagination-main {
         display: flex;
         list-style: none;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
         padding: 5px;
         border-radius: 5px;
@@ -36,14 +36,15 @@
                 font-size: 1em;
                 
             }
-            &.disabled > i {
-                color: red;
+            &.disabled i {
+                color: #DDD;
+                cursor: default;
             }
 
         }
 
         .pagination-number > a {
-            padding: 0 5px;
+            padding: 0 10px;
         }
 
         .pagination-current > a {

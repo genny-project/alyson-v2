@@ -1,10 +1,7 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
-import { InputDate, InputSocial, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
-
-//TODO: to remove
-import { GennySocialButton } from './../../';
+import { InputDate, InputButton, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
 
 class Input extends Component {
   static defaultProps = {
@@ -62,12 +59,11 @@ class Input extends Component {
     //TODO: remove this.
     // testing facebook
     if(identifier == "QUE_FB_BASIC") {
-
         return (
-            // <GennySocialButton type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}/>
-            <InputSocial {...this.props} type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}  />
+            <InputButton {...this.props} type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"} />
         );
     }
+
     else {
 
         switch(type) {

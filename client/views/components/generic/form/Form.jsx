@@ -34,10 +34,10 @@ class Form extends Component {
         <div className="form-main">
           <div className="form-fields">
             { !isHorizontal ?
-              <Pagination perPage={itemsPerPage} hideNav={hideNav} >
+              <Pagination perPage={itemsPerPage} hideNav={hideNav}>
                 {children}
               </Pagination>
-            : `${children}` }
+            : children }
           </div>
         </div>
       </div>

@@ -1,8 +1,9 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
 import { object, string } from 'prop-types';
-import { List, GennyForm, } from '../../';
+import { List, GennyForm, ListItem } from '../../';
 import { BaseEntityQuery } from 'utils/genny';
+import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class GennyList extends Component {
 
@@ -18,15 +19,45 @@ class GennyList extends Component {
     state = {
     }
 
+    generateListItems(items) {
+
+        let children = [];
+        
+        items.map(item => {
+
+            console.log('item', item);
+
+            //let layout_code = (item.attributes["PRI_LAYOUT"] ? item.attributes["PRI_LAYOUT"].value : null);
+            let layout_code = 'listLayout';
+            let sublayout = this.props.sublayout[layout_code]; 
+
+            children.push(
+                <ListItem>
+                    {
+                        sublayout ? <LayoutLoader layout={sublayout} /> : null
+                    }
+                </ListItem>
+            );
+        });
+        //console.log('children-before', children);
+        return children
+    }  
+
     render() {
 
         const { root } = this.props;
         let items = BaseEntityQuery.getEntityChildren(root);
 
+        //console.log('items', items);
+
+        let children = this.generateListItems(items);
+        
+        //console.log('children-after', children);
+
         return (
             <div className="genny-list">
                 <List header={ <GennyForm isHorizontal /> }>
-                    {items}
+                    {children}
                 </List>
             </div>
         );

@@ -25,6 +25,8 @@ class GennyForm extends Component {
     console.log("Button was clicked");
     // clickedButton is a react component. info is stored in clickedButton.props.
 
+    console.log(clickedButton, clickedButton.props);
+
     if(clickedButton && clickedButton.props) {
 
         let data = clickedButton.props.data;
