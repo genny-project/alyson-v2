@@ -95,8 +95,7 @@ class BucketElement extends Component {
     render() {
 
         const { className, item, style, screenSize } = this.props;
-        const {  } = this.state;
-        const componentStyle = { ...style, };
+        console.log(style);
 
         return (
 
@@ -106,10 +105,13 @@ class BucketElement extends Component {
                             <div>
                                 <div
                                     ref={provided.innerRef}
-                                    style={getItemStyle(
-                                        provided.draggableStyle,
-                                        snapshot.isDragging
-                                    )}
+                                    style={{
+                                        ...style,
+                                        ...getItemStyle(
+                                            provided.draggableStyle,
+                                            snapshot.isDragging
+                                        )
+                                    }}
                                     {...provided.dragHandleProps}
                                     className="bucket-contents"
                                     >
