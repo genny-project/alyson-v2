@@ -16,9 +16,9 @@ class AppHolder extends Component {
 
     state = {
         sidebarDefault: true,
-        sidebarHeight: this.props.sidebar.style.height ? this.props.sidebar.style.height : '200px',
-        headerHeight: this.props.header.style.height ? this.props.header.style.height : '90px',
-        footerHeight: this.props.footer.style.height ? this.props.footer.style.height : '30px',
+        sidebarHeight: this.props.sidebar ? this.props.sidebar.style.height ? this.props.sidebar.style.height : '200px' : '0px',
+        headerHeight: this.props.header ? this.props.header.style.height ? this.props.header.style.height : '90px' : '0px',
+        footerHeight: this.props.footer ? this.props.footer.style.height ? this.props.footer.style.height : '30px' : '0px',
         screenSize: window.getScreenSize(),
       }
 
@@ -90,12 +90,12 @@ class AppHolder extends Component {
 
     getContentHeight = () => {
         const { headerHeight, footerHeight, sidebarDefault, screenSize } = this.state;
-
+        //console.log(this.state);
         let h = Number(headerHeight.substr(0,headerHeight.length-2));
         let f = Number(footerHeight.substr(0,footerHeight.length-2));
 
         const otherHeight = h + f;
-        const otherWidth = screenSize === 'lg' ? sidebarDefault ? 300 : 0 : 0;
+        const otherWidth = this.props.sidebar ? screenSize === 'lg' ? sidebarDefault ? 300 : 0 : 0 : 0;
         return {
             height: `calc(100vh - ${otherHeight}px)`,
             width: `calc(100vw - ${otherWidth}px)`,
@@ -110,6 +110,8 @@ class AppHolder extends Component {
         const ctn = children.slice(1);
         const contentChildren = ctn;
         const contentStyle = this.getContentHeight();
+
+        //console.log(this.props);
 
         let renderSidebar;
         if ( sidebar ) {
@@ -147,7 +149,7 @@ class AppHolder extends Component {
 
             // we need to show the table view
             if(layout.currentView.code == "TABLE_VIEW") {
-                layoutContent = <GennyTable screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_USERS"}/>
+                layoutContent = <GennyTable screenSize={screenSize} showBaseEntity root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_USERS"}/>
             }
             // we need to show the bucket view
             else if (layout.currentView.code == "BUCKET_VIEW") {
@@ -161,7 +163,7 @@ class AppHolder extends Component {
             }
         }
         else if (layout.currentSublayout) {
-            console.log(layout.currentSublayout);
+            //console.log(layout.currentSublayout);
             layoutContent = <LayoutLoader layout={layout.currentSublayout} screenSize={screenSize} />
         }
 

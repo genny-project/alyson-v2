@@ -33,7 +33,7 @@ class Form extends Component {
       <div className={`form-container ${isHorizontal ? 'horizontal' : null }`}>
         <div className="form-main">
           <div className="form-fields">
-            { !isHorizontal ?
+            { !isHorizontal && children.length > itemsPerPage ?
               <Pagination perPage={itemsPerPage} hideNav={hideNav}>
                 {children}
               </Pagination>

@@ -21,10 +21,9 @@ class ColorPicker extends Component {
     }
   }
 
-  toggleColorPicker = () => {
-
-      this.setState({
-          showColorPicker: !this.state.showColorPicker
+  toggleColorPicker = () => { 
+    this.setState({
+        showColorPicker: !this.state.showColorPicker
       })
   }
 
@@ -33,18 +32,19 @@ class ColorPicker extends Component {
     const { primaryColor, hoverColor, style } = this.props;
     const { showColorPicker } = this.state;
 
+    //console.log(showColorPicker);
+
     return (
       <div className='color-picker'>
-        <CircleButton onClick={this.toggleColorPicker} primaryColor={primaryColor}>
-          {
-              showColorPicker ?
-              <div className="color-picker-selector">
-                  <ReactColor
-                    color={style.backgroundColor}
-                    onChangeComplete={ this.onColorChange }/>
-              </div> : null
+        <CircleButton onClick={this.toggleColorPicker}/>
+        {
+            showColorPicker ?
+            <div className="color-picker-selector">
+                <ReactColor
+                  color={style.backgroundColor}
+                  onChangeComplete={ this.onColorChange }/>
+            </div> : null
           }
-        </CircleButton>
       </div>
     );
   }
