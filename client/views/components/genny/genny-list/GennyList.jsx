@@ -39,7 +39,6 @@ class GennyList extends Component {
                 </ListItem>
             );
         });
-        //console.log('children-before', children);
         return children
     }  
 
@@ -48,11 +47,7 @@ class GennyList extends Component {
         const { root } = this.props;
         let items = BaseEntityQuery.getEntityChildren(root);
 
-        //console.log('items', items);
-
         let children = this.generateListItems(items);
-        
-        //console.log('children-after', children);
 
         return (
             <div className="genny-list">

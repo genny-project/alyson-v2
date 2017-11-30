@@ -1,9 +1,13 @@
 import './circleButton.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, any, func } from 'prop-types';
 import {  } from '../';
 
 class CircleButton extends Component {
+
+  static propTypes = {
+    onClick: func,
+  };
 
   state = {
   }
@@ -22,7 +26,7 @@ class CircleButton extends Component {
     }
 
     return (
-      <div className={`circleButton`} style={style}/>
+      <div className={`circleButton`} style={style} onClick={this.props.onClick}/>
     );
   }
 }
