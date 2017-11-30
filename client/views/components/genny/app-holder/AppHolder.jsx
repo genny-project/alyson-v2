@@ -90,7 +90,7 @@ class AppHolder extends Component {
 
     getContentHeight = () => {
         const { headerHeight, footerHeight, sidebarDefault, screenSize } = this.state;
-        console.log(this.state);
+        //console.log(this.state);
         let h = Number(headerHeight.substr(0,headerHeight.length-2));
         let f = Number(footerHeight.substr(0,footerHeight.length-2));
 
@@ -111,7 +111,7 @@ class AppHolder extends Component {
         const contentChildren = ctn;
         const contentStyle = this.getContentHeight();
 
-        console.log(this.props);
+        //console.log(this.props);
 
         let renderSidebar;
         if ( sidebar ) {
@@ -149,7 +149,7 @@ class AppHolder extends Component {
 
             // we need to show the table view
             if(layout.currentView.code == "TABLE_VIEW") {
-                layoutContent = <GennyTable screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_USERS"}/>
+                layoutContent = <GennyTable screenSize={screenSize} showBaseEntity root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_USERS"}/>
             }
             // we need to show the bucket view
             else if (layout.currentView.code == "BUCKET_VIEW") {
@@ -163,7 +163,7 @@ class AppHolder extends Component {
             }
         }
         else if (layout.currentSublayout) {
-            console.log(layout.currentSublayout);
+            //console.log(layout.currentSublayout);
             layoutContent = <LayoutLoader layout={layout.currentSublayout} screenSize={screenSize} />
         }
 

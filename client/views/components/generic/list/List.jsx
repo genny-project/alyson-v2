@@ -39,11 +39,11 @@ class List extends Component {
     const { } = this.state;
     const componentStyle = { ...style, };
 
-    console.log(children);
+    //console.log(children);
     
     const renderMain = this.renderMain(children, itemsPerPage, hideNav);
 
-    console.log(renderMain);
+    //console.log(renderMain);
 
     return (
       <div className={`list ${className}`} style={componentStyle}>

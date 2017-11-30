@@ -32,7 +32,7 @@ class ColorPicker extends Component {
     const { primaryColor, hoverColor, style } = this.props;
     const { showColorPicker } = this.state;
 
-    console.log(showColorPicker);
+    //console.log(showColorPicker);
 
     return (
       <div className='color-picker'>
