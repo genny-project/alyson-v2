@@ -23,5 +23,6 @@ export function grabValue(item) {
         value = item.valueString
     }
 
-    return value;
+    console.log(value);
+    return value ? value : null;
 }

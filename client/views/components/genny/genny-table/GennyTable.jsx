@@ -157,16 +157,54 @@ class GennyTable extends Component {
 
                 columns.push(
                     {
-                        "Header": 'Attribute Code',
-                        "accessor": 'code'
-                    },
-                    {
-                        "Header": 'Value',
-                        "accessor": 'value'
-                    },
-                    {
-                        "Header": 'Weight',
-                        "accessor": 'weight'
+                        "Header": <span style={{fontSize: '24px' }}>{baseEntity.name}</span>,
+                        "columns": [
+                            {
+                                "Header": <span style={{fontSize: '18px' }}>ATTRIBUTE CODE</span>,
+                                "accessor": 'code',
+                                "maxWidth": 200,
+                                "Cell": row => (
+                                    <span style={{
+                                        fontSize: '14px',
+                                        color: row.value.startsWith("PRI_") ? 'black'
+                                            : row.value.startsWith("FBK_") ? '#3B5998'
+                                            : null }}>
+                                        {row.value}
+                                    </span>
+                                )
+                            },
+                            {
+                                "Header": <span style={{fontSize: '18px' }}>VALUE</span>,
+                                "accessor": 'value',
+                                "Cell": ({row, original}) => {
+                                    return (
+                                        <span style={{
+                                            fontSize: '14px',
+                                            color: original.code.startsWith("PRI_") ? 'black'
+                                                : original.code.startsWith("FBK_") ? '#3B5998'
+                                                : null }}>
+                                            {row.value}
+                                        </span>
+                                    )
+                                }
+                            },
+                            {
+                                "Header": <span style={{fontSize: '18px' }}>WEIGHT</span>,
+                                "accessor": 'weight',
+                                "maxWidth": 100,
+                                "Cell": ({row, original}) => {
+                                    return (
+                                        <span style={{
+                                            fontSize: '14px',
+                                            color: original.code.startsWith("PRI_") ? 'black'
+                                                : original.code.startsWith("FBK_") ? '#3B5998'
+                                                : null }}>
+                                            {row.weight}
+                                        </span>
+                                    )
+                                }
+                            }
+                        ]
                     }
                 );
             }
@@ -226,13 +264,11 @@ class GennyTable extends Component {
 
                     let attribute = baseEntity.attributes[attribute_key];
 
-                    console.log(attribute);
-                    
                     newData["code"] = attribute.attributeCode;
                     newData["value"] = attribute.value;
                     newData["weight"] = attribute.weight;
-                    
-                    data.push(newData);
+                    //data.push(newData);
+                    attribute.value && attribute.value != 'null' ? data.push(newData) : null;
                 });
             }
         });
