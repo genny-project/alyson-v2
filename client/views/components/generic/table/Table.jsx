@@ -36,12 +36,15 @@ class Table extends Component {
       tableStyle: { style: { flex: 'initial' }},
       paginateStyle: { className: 'list-pagination' },
       tHeadFilterStyle: { style : { display: "none" }},
+      noDataStyle: { className: 'no-data' },
     }
     return props[key];
   }
 
   render() {
     const { className, columns, data, itemsPerPage, isList, } = this.props;
+
+    //console.log(data);
     
     return (
       <ReactTable

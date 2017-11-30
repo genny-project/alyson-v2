@@ -1,21 +1,24 @@
 import './gennyTable.scss';
 import React, { Component } from 'react';
 import { Table } from '../../';
-import { object, array } from 'prop-types';
+import { object, array, bool } from 'prop-types';
 import { BaseEntityQuery } from 'utils/genny';
 import { IconSmall } from '../../';
 import { GennyBridge } from 'utils/genny';
 
 class GennyTable extends Component {
 
-    static propTypes = {
-    };
+    static defaultProps = {
+        showBaseEntity: false
+      }
+    
+      static propTypes = {
+        showBaseEntity: bool,
+      }
 
     state = {
         columns: [],
         data: [],
-        columns2: [],
-        data2: [],
         width: null,
         height: null,
         isOpen: {}
@@ -105,7 +108,7 @@ class GennyTable extends Component {
             columns.push({
                 "Header": () => {
 
-                    console.log(accessors);
+                    //console.log(accessors);
                     return <div><span>{accessors[0].attributeCode}</span></div>
                 },
                 "accessor": accessors[0].attributeCode,
@@ -140,7 +143,36 @@ class GennyTable extends Component {
             });
         }
 
-        this.state.columns2 = columns;
+        this.state.columns = columns;
+        return columns;
+    }
+
+    generateHeadersForOne(baseEntities) {
+
+        let columns = [];
+        baseEntities.forEach(baseEntity => {
+
+            let attributes = baseEntity.attributes;
+            if(attributes) {
+
+                columns.push(
+                    {
+                        "Header": 'Attribute Code',
+                        "accessor": 'code'
+                    },
+                    {
+                        "Header": 'Value',
+                        "accessor": 'value'
+                    },
+                    {
+                        "Header": 'Weight',
+                        "accessor": 'weight'
+                    }
+                );
+            }
+        });
+
+        this.state.columns = columns;
         return columns;
     }
 
@@ -174,6 +206,34 @@ class GennyTable extends Component {
                 });
 
                 data.push(newData);
+            }
+        });        
+
+        this.state.data = data;
+        return data;
+    }
+
+    generateDataForOne(baseEntities) {
+        
+        let data = [];
+        baseEntities.forEach(baseEntity => {
+
+            if(baseEntity.attributes) {
+
+                Object.keys(baseEntity.attributes).forEach(attribute_key => {
+
+                    let newData = {}
+
+                    let attribute = baseEntity.attributes[attribute_key];
+
+                    console.log(attribute);
+                    
+                    newData["code"] = attribute.attributeCode;
+                    newData["value"] = attribute.value;
+                    newData["weight"] = attribute.weight;
+                    
+                    data.push(newData);
+                });
             }
         });
 
@@ -249,10 +309,9 @@ class GennyTable extends Component {
 
         let columns = [];
         let data = [];
-        let columns2 = [];
-        let data2= [];
 
         let children = BaseEntityQuery.getEntityChildren(root);
+
         if(children) {
 
             if(children.length == 0 && showBaseEntity) {
@@ -261,10 +320,13 @@ class GennyTable extends Component {
                 if(be) {
                     children = [be];
                 }
-            }
+                columns = this.generateHeadersForOne(children);
+                data = this.generateDataForOne(children);
 
-            columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
-            data = this.generateDataFor(children);
+            } else {
+                columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
+                data = this.generateDataFor(children);
+            }
         }
 
         return (
