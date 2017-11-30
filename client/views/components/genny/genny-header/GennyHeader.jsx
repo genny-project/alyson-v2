@@ -49,7 +49,6 @@ class GennyHeader extends Component {
   }
 
   onColorChange = (color) => {
-
     let answer = [
       {
         targetCode: this.props.currentProject,
@@ -94,21 +93,6 @@ class GennyHeader extends Component {
           <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }} position={[0,0]}/>
         </Grid>
 
-        {/*<Header
-          {...this.props}
-          handleProfile={this.handleProfile}
-          handleAccount={this.handleAccount}
-          handleLogout={this.handleLogout}>
-
-          <GennyNotification />
-
-          <ColorPicker {...this.props}
-            primaryColor={hoverColor}
-            onColorChange={ this.onColorChange }/>
-
-        </Header>
-        <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }}/> */}
-      
       </div>
     );
   }

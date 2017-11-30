@@ -1,0 +1,57 @@
+{
+  
+    "div": {
+      "style": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "fontSize": "0.75em"
+      },
+      "children": [
+        {
+          "span": {
+            "style": {
+              "marginBottom": "5px"
+            },
+            "children": "PER_USER1.PRI_FIRSTNAME"
+          }
+        },
+        {
+          "span": {
+            "style": {
+              "marginBottom": "5px"
+            },
+            "children": "LOD_LOAD1.PRI_DESCRIPTION"
+          }
+        },
+        {
+          "GennyButton": {
+            "style": {
+              "marginBottom": "5px",
+              "height": "30px"
+            },
+            "children": "Send Message"
+          }
+        },
+        {
+          "GennyButton": {
+            "style": {
+              "margin": "0 0 5px",
+              "height": "30px"
+            },
+            "children": "View on Map"
+          }
+        },
+        {
+          "GennyButton": {
+            "style": {
+              "margin": "0",
+              "height": "30px"
+            },
+            "type": "confirm",
+            "children": "Accept"
+          }
+        }
+      ]
+    }
+  }

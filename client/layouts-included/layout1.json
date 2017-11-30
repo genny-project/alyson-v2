@@ -2,35 +2,9 @@
   "layout": [
     {
       "AppHolder": {
-        "sidebar": {
-          "style": {
-            "backgroundColor": "PROJECT.PRI_COLOR",
-            "color": "white",
-            "textAlign": "center"
-          },
-          "hasImage": true,
-          "caption": "USER.PRI_FIRSTNAME",
-          "src": "PROJECT.PRI_LOGO"
-        },
-        "header": {
-          "style": {
-            "backgroundColor": "PROJECT.PRI_COLOR",
-            "color": "white"
-          },
-          "projectTitle" : "PROJECT.PRI_NAME",
-          "userName" : "USER.PRI_FIRSTNAME",
-          "userImage" : "USER.PRI_IMAGE_URL"
-        },
-        "footer" : {
-          "style": {
-            "backgroundColor": "PROJECT.PRI_COLOR",
-            "color": "white"
-          },
-          "version" : "0.0.0.1",
-          "poweredBy" : {
-            "caption" : "PROJECT.PRI_POWERED_BY"
-          }
-        },
+        "sidebar": false,
+        "header": false,
+        "footer" : false,
         "children": [
           {
             "GennyTreeView": {

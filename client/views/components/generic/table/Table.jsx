@@ -60,6 +60,7 @@ class Table extends Component {
         NextComponent={(props) => (
           <IconSmall {...props} className='table-next' name='chevron_right' />
         )}
+        noDataText='No data to display.'
         data={data}
         columns={columns}
         defaultPageSize={itemsPerPage}

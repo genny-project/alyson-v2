@@ -33,10 +33,6 @@ class InputButton extends Component {
 
       return (
         <div className={`input-button facebook`}>
-          <div className="input-header">
-            {name ? <Label text={name} /> : null }
-            {optional ? <Label text="(optional)" /> : null}
-          </div>
           <Button onClick={this.clickHandler}>
             <span className='button-text'></span>
           </Button>
