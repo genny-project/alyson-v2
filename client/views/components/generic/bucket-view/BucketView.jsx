@@ -70,23 +70,18 @@ class BucketView extends Component {
                 // we calculate the X and Y in destination.
                 const originSpot = this.getRectOfChildrenInBucketAtIndex(sourceBkt, sourceBkt.children.length - 1);
                 const destinationSpot = this.getAvailableSpotRectInBucket(destinationBkt);
+                if(originSpot && destinationSpot) {
 
-                const xDestination = destinationSpot.x - originSpot.x;
-                const yDestination = destinationSpot.y - originSpot.y;
+                    const xDestination = destinationSpot.x - originSpot.x;
+                    const yDestination = destinationSpot.y - originSpot.y;
 
-                child.style = {
-                    transition: "0.5s all",
-                    WebkitTransition: "0.5s all",
-                    transform: `translate(${xDestination}px, ${yDestination}px)`,
-                    WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
+                    child.style = {
+                        transition: "0.5s all",
+                        WebkitTransition: "0.5s all",
+                        transform: `translate(${xDestination}px, ${yDestination}px)`,
+                        WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
+                    }
                 }
-
-                console.log({
-                    transition: "0.5s all",
-                    WebkitTransition: "0.5s all",
-                    transform: `translate(${xDestination}px, ${yDestination}px)`,
-                    WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
-                });
             }
         }
     }
@@ -96,11 +91,7 @@ class BucketView extends Component {
         // we should allow auto re rendering as often as possible. However, if an item was moved from one bucket to another, we want to apply
         // a transformation instead of re rendering the whole bucket.
 
-        // TODO: remove to animate.
-        // this.setState({
-        //     buckets: newProps.buckets
-        // })
-
+        // TODO: uncomment to remove animation.
         // this.state.buckets = newProps.buckets;
         // return;
 
