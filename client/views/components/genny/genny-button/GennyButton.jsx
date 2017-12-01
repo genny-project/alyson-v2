@@ -23,7 +23,7 @@ class GennyButton extends Component {
         if(this.props.buttonCode) {
             GennyBridge.sendBtnClick({
                 code: 'LOD_LOAD5',
-                value: item.code
+                value: this.props.buttonCode,
             });
         }
     }
