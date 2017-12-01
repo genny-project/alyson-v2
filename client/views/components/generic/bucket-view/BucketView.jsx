@@ -92,8 +92,8 @@ class BucketView extends Component {
         // a transformation instead of re rendering the whole bucket.
 
         // TODO: uncomment to remove animation.
-        // this.state.buckets = newProps.buckets;
-        // return;
+        this.state.buckets = newProps.buckets;
+        return;
 
         if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0) {
 
