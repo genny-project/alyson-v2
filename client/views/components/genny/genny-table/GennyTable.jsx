@@ -268,7 +268,7 @@ class GennyTable extends Component {
                     newData["value"] = attribute.value;
                     newData["weight"] = attribute.weight;
                     //data.push(newData);
-                    attribute.value ? data.push(newData) : null;
+                    attribute.value && attribute.value != 'null' ? data.push(newData) : null;
                 });
             }
         });
