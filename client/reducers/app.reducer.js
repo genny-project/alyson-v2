@@ -1,5 +1,6 @@
 import { REDIRECT, SOCIAL_REDIRECT, GPS_CMD } from 'constants';
 import history from 'views/history.js';
+import { GennyBridge } from 'utils/genny';
 
 const initialState = {
     lastRedirect: null,
