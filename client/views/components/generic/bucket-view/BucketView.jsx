@@ -337,22 +337,28 @@ class BucketView extends Component {
 
         this.state.nodes = [];
 
-        let columns = buckets.map((bucket) =>
+        let counter = 0;
+        let columns = buckets.map((bucket) => {
 
-                <BucketColumn
-                    screenSize={this.props.screenSize}
-                    title={bucket.title}
-                    key={bucket.id}
-                    groupId={bucket.id}
-                    items={bucket.children}
-                    goToNextBucket={this.goToNextBucket}
-                    goToPreviousBucket={this.goToPreviousBucket}
-                    showMovingOptions={this.toggleMovingOptions}
-                    addNewItem={this.addNewItem}
-                    canAddItem={bucket.canAddItem}
-                    ref={ x => this.state.nodes.push(x) }
-                    />
-                )
+            let col =
+            <BucketColumn
+                screenSize={this.props.screenSize}
+                title={bucket.title}
+                key={bucket.id}
+                groupId={bucket.id}
+                items={bucket.children}
+                goToNextBucket={this.goToNextBucket}
+                goToPreviousBucket={this.goToPreviousBucket}
+                showMovingOptions={this.toggleMovingOptions}
+                addNewItem={this.addNewItem}
+                canAddItem={bucket.canAddItem}
+                ref={ x => this.state.nodes.push(x) }
+                style={{ backgroundColor: (counter % 2 == 0) ? '#b6b6b6' : 'transparent' }}
+                />
+
+            counter += 1;
+            return col;
+        })
 
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>

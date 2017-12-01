@@ -67,7 +67,7 @@ class BucketColumn extends Component {
 
         return (
 
-            <div>
+            <div style={style}>
                 <div className="bucket-title sticky">
                     {titleDiv}
                 </div>

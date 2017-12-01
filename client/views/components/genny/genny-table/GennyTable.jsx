@@ -11,7 +11,7 @@ class GennyTable extends Component {
     static defaultProps = {
         showBaseEntity: false
       }
-    
+
       static propTypes = {
         showBaseEntity: bool,
       }
@@ -245,14 +245,14 @@ class GennyTable extends Component {
 
                 data.push(newData);
             }
-        });        
+        });
 
         this.state.data = data;
         return data;
     }
 
     generateDataForOne(baseEntities) {
-        
+
         let data = [];
         baseEntities.forEach(baseEntity => {
 
@@ -348,22 +348,23 @@ class GennyTable extends Component {
 
         let children = BaseEntityQuery.getEntityChildren(root);
 
+        console.log(showBaseEntity);
         if(showBaseEntity) {
-            
-                            let be = BaseEntityQuery.getBaseEntity(root);
-                            if(be) {
-                                children = [be];
-                            }
-                            columns = this.generateHeadersForOne(children);
-                            data = this.generateDataForOne(children);
-            
-                        } else {
-            
-                            if(children) {
-                                columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
-                                data = this.generateDataFor(children);
-                            }
-                        }
+
+            let be = BaseEntityQuery.getBaseEntity(root);
+            if(be) {
+                children = [be];
+            }
+            columns = this.generateHeadersForOne(children);
+            data = this.generateDataForOne(children);
+
+        } else {
+
+            if(children) {
+                columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
+                data = this.generateDataFor(children);
+            }
+        }
         return (
             <div className="genny-table">
                 <Table {...this.props} data={data} columns={columns} />
