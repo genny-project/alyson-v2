@@ -5,7 +5,7 @@
     .grid {
 
         &.main-header {
-            height: 50px;
+            flex-grow: 1;
 
             span, i {
 				color: white;

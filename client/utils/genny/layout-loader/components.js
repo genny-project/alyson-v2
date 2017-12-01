@@ -9,6 +9,7 @@ import {
   GennyImageView,
   GennyBucketView,
   GennyNotification,
+  GennyHeader,
   Header,
   Footer,
   Card,
@@ -16,7 +17,8 @@ import {
   GennyForm,
   GennyTable,
   GennyList,
-  GennyButton
+  GennyButton,
+  AppContent,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -29,6 +31,7 @@ export default new ComponentCollection({
   Card,
   GennyTreeView,
   GennyImageView,
+  GennyHeader,
   Header,
   Footer,
   AppHolder,
@@ -38,5 +41,6 @@ export default new ComponentCollection({
   GennyBucketView,
   IconSmall,
   GennyList,
-  GennyButton
+  GennyButton,
+  AppContent,
 });

@@ -1,7 +1,8 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
-import { ImageView, } from '../../../components'
+import { ImageView, IconSmall } from '../../../components'
 import { object, bool, string, any } from 'prop-types';
+import { Grid } from '@genny-project/layson';
 
 class Sidebar extends Component {
 
@@ -14,38 +15,42 @@ class Sidebar extends Component {
       screenSize: string,
     };
 
-    getContentHeight = () => {
-        const { height } = this.props;
-
-        let s = Number(height.substr(0,height.length-2))+30;
-        
-        return {height: `calc(100vh - ${s}px)`}
+    state = {
+        sidebarDefault: true,
     }
+
+    handleSidebarToggle = (event) => {
+        event.preventDefault();
+        this.setState(prevState => ({
+          sidebarDefault: !prevState.sidebarDefault
+        }));
+    }  
 
     render() {
 
         const { style, src, caption, children, height } = this.props;
+        const { sidebarDefault } = this.state;
 
         const componentStyle = {
-          ...style,
+            ...style,
         };
-
-        const contentHeight = this.getContentHeight();
 
         let imageView = null;
         if ( src ) {
-            imageView = <ImageView src={src} caption={caption} style={{ maxWidth: "100px" }} />;
+            imageView = <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} position={[0,0]}><ImageView src={src} caption={caption} style={{ maxWidth: "100px" }}/></div>;
         }
+        let icon = <IconSmall className={`app-sidebar-toggle`}
+            name="menu"
+            onClick={this.handleSidebarToggle}
+            position={[0,0]}
+        />
 
         return (
-            <div className={`sidebar ${window.screenSize}`} style={componentStyle}>
-              <div className="sidebar-header" style={{height: height}}>
+            <Grid className={`sidebar ${sidebarDefault ? null : 'non-default' }`} style={componentStyle} rows={["200px", "auto"]} cols={1}>
+                {icon}
                 {imageView}
-              </div>
-              <div className="sidebar-content" style={contentHeight}>
                 {children}
-              </div>
-            </div>
+            </Grid>
         );
     }
 }
