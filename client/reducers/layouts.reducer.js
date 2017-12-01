@@ -53,7 +53,7 @@ export default function reducer( state = initialState, action ) {
     case SUBLAYOUT_CHANGE:
 
         const newSublayoutCode = action.payload.code;
-        const newSublayout = action.payload.layout;
+        const newSublayout = action.payload.items;
         if(newSublayoutCode) {
             return {
                 ...state,
