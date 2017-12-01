@@ -1,36 +1,37 @@
 import './gennyButton.scss';
 import React, { Component } from 'react';
-import {  } from 'prop-types';
+import { string } from 'prop-types';
 import { Button } from '../../';
 import { GennyBridge } from 'utils/genny';
 
 class GennyButton extends Component {
 
     static defaultProps = {
+        buttonCode: null,
     }
 
-      
     static propTypes = {
+        buttonCode: string,
     };
 
     state = {
     }
 
     handleClick = () => {
-        /* Send the Genny event */
-        
-        // this.sendData('BTN_CLICK', {
-        //     code: 'TV1',
-        //     value: item.code
-        // }, item.code);
 
-        console.log('click');
+        //TODO: to be changed.
+        if(this.props.buttonCode) {
+            GennyBridge.sendBtnClick({
+                code: 'LOD_LOAD5',
+                value: this.props.buttonCode,
+            });
+        }
     }
 
     render() {
         const { children, style } = this.props;
         const componentStyle = { ...style, };
-        
+
         return (
             <div className="genny-button" style={componentStyle}>
                 <Button {...this.props} onClick={this.handleClick}>

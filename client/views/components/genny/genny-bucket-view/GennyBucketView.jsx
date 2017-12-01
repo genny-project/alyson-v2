@@ -53,36 +53,6 @@ class GennyBucketView extends PureComponent {
         }
     }
 
-    generateBucket(group) {
-
-        let groupCode = group.code;
-        let children = [];
-
-        let bes = BaseEntityQuery.getEntityChildren(groupCode);
-
-        bes.forEach(be => {
-
-            // we get the sublayout code from the BE
-            let layout_code = (be.attributes["PRI_LAYOUT"] ? be.attributes["PRI_LAYOUT"].value : null);
-            let sublayout = this.props.sublayout[layout_code];
-
-            children.push(
-                {
-                content: (
-                    <Card title={be.name} description={be.code} screenSize={this.props.screenSize}>
-                        {
-                            sublayout ? <LayoutLoader layout={sublayout} /> : null
-                        }
-                    </Card>
-                ),
-                id: be.code
-                }
-            );
-        });
-
-        return children;
-    }
-
     addNewItem = (selectedColumn) => {
 
         let { root } = this.props;
@@ -100,6 +70,50 @@ class GennyBucketView extends PureComponent {
                 break;
             }
         }
+    }
+
+    onClick = (item) => {
+
+        //TODO: to be changed.
+        let itemValue = item.props.description;
+        if(itemValue) {
+            let data = {
+                code: "LOAD_CLICK",
+                value: itemValue,
+            }
+            
+            GennyBridge.sendBtnClick(data);
+        }
+    }
+
+    generateBucket(group) {
+
+        let groupCode = group.code;
+        let children = [];
+
+        let bes = BaseEntityQuery.getEntityChildren(groupCode);
+
+        bes.forEach(be => {
+
+            // we get the sublayout code from the BE
+            let layout_code = (be.attributes["PRI_LAYOUT"] ? be.attributes["PRI_LAYOUT"].value : null);
+            let sublayout = this.props.sublayout[layout_code];
+
+            children.push(
+                {
+                content: (
+                    <Card title={be.name} description={be.code} screenSize={this.props.screenSize} onClick={this.onClick}>
+                        {
+                            sublayout ? <LayoutLoader layout={sublayout} /> : null
+                        }
+                    </Card>
+                ),
+                id: be.code
+                }
+            );
+        });
+
+        return children;
     }
 
     generateBuckets(root) {

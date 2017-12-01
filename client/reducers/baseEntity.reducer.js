@@ -213,17 +213,17 @@ export default function reducer(state = initialState, action) {
                 });
             }
 
-            if(!state.data[newParentCode]) {
-                state.data[newParentCode] = {
-                    children: []
-                };
-            }
+            // if(!state.data[newParentCode]) {
+            //     state.data[newParentCode] = {
+            //         children: []
+            //     };
+            // }
 
             state.data[newParentCode] = {
                 ...state.data[newParentCode],
                 children: [
                     ...state.data[newParentCode].children,
-                    state.data[be_code] // add be as new children of target code
+                    state.data[be_code], // add be as new children of target code
                 ]
             };
         });

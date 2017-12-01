@@ -99,7 +99,7 @@ class Card extends Component {
     };
 
     return (
-      <div className={`card ${className} ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle}>
+      <div className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >
         <div className="card-top">
             {
                 screenSize == "xs" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
