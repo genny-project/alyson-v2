@@ -23,7 +23,7 @@ class Footer extends Component {
 
     return (
       	<div className="footer" style={componentStyle}>
-          <CompactList/>
+          {/* <CompactList/> */}
           { version ? <span className="version">{version}</span> : null }
       		{ poweredBy ?
             <div className="powered-by">

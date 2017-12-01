@@ -350,22 +350,22 @@ class GennyTable extends Component {
 
         if(showBaseEntity) {
             
-                            let be = BaseEntityQuery.getBaseEntity(root);
-                            if(be) {
-                                children = [be];
-                            }
-                            columns = this.generateHeadersForOne(children);
-                            data = this.generateDataForOne(children);
-            
-                        } else {
-            
-                            if(children) {
-                                columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
-                                data = this.generateDataFor(children);
-                            }
-                        }
+            let be = BaseEntityQuery.getBaseEntity(root);
+            if(be) {
+                children = [be];
+            }
+            columns = this.generateHeadersForOne(children);
+            data = this.generateDataForOne(children);
+
+        } else {
+
+            if(children) {
+                columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
+                data = this.generateDataFor(children);
+            }
+        }
         return (
-            <div className="genny-table">
+            <div className={`genny-table ${data.length ? null : 'empty'}`}>
                 <Table {...this.props} data={data} columns={columns} />
             </div>
         );
