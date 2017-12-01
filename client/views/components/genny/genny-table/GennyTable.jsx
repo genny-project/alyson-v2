@@ -268,7 +268,7 @@ class GennyTable extends Component {
                     newData["value"] = attribute.value;
                     newData["weight"] = attribute.weight;
                     //data.push(newData);
-                    attribute.value && attribute.value != 'null' ? data.push(newData) : null;
+                    attribute.value ? data.push(newData) : null;
                 });
             }
         });
@@ -348,23 +348,22 @@ class GennyTable extends Component {
 
         let children = BaseEntityQuery.getEntityChildren(root);
 
-        if(children) {
-
-            if(children.length == 0 && showBaseEntity) {
-
-                let be = BaseEntityQuery.getBaseEntity(root);
-                if(be) {
-                    children = [be];
-                }
-                columns = this.generateHeadersForOne(children);
-                data = this.generateDataForOne(children);
-
-            } else {
-                columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
-                data = this.generateDataFor(children);
-            }
-        }
-
+        if(showBaseEntity) {
+            
+                            let be = BaseEntityQuery.getBaseEntity(root);
+                            if(be) {
+                                children = [be];
+                            }
+                            columns = this.generateHeadersForOne(children);
+                            data = this.generateDataForOne(children);
+            
+                        } else {
+            
+                            if(children) {
+                                columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
+                                data = this.generateDataFor(children);
+                            }
+                        }
         return (
             <div className="genny-table">
                 <Table {...this.props} data={data} columns={columns} />
