@@ -81,11 +81,10 @@ class BucketColumn extends Component {
                                 className={`bucket size-${screenSize}`}
                                 key={title} >
 
-                                <div className={`bucket-content size-${screenSize} no-select`}>
+                                <div className={`bucket-content size-${screenSize}`}>
                                     {
                                         items.map(child => {
 
-                                            console.log(child);
                                             return (
                                                 <BucketElement
                                                 key={child.id}

@@ -23,7 +23,6 @@ class BucketElement extends Component {
 
     static propTypes = {
         className: string,
-        style: string,
         children: any,
     }
 
@@ -95,7 +94,6 @@ class BucketElement extends Component {
     render() {
 
         const { className, item, style, screenSize } = this.props;
-        console.log(style);
 
         return (
 
@@ -115,7 +113,9 @@ class BucketElement extends Component {
                                     {...provided.dragHandleProps}
                                     className="bucket-contents"
                                     >
-                                        {React.cloneElement(item.content, {...item.content.props, showMovingOptions: this.props.showMovingOptions})}
+                                        {
+                                            React.cloneElement(item.content, {...item.content.props, showMovingOptions: this.props.showMovingOptions})
+                                        }
                                     </div>
                                     {provided.placeholder}
                                 </div>

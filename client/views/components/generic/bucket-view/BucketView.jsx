@@ -17,16 +17,92 @@ class BucketView extends Component {
         currentlySelectedItem: false,
     }
 
-    constructor(props) {
-        super(props);
+    //TODO: if the destination bucket is empty this will break.
+    getRectOfChildrenInBucketAtIndex(destinationBucket, index) {
+
+        let index_destination = this.state.buckets.indexOf(destinationBucket);
+        let children_destination = destinationBucket.children;
+        let bucketNode = ReactDOM.findDOMNode(this);
+        if(bucketNode) {
+
+            // get destination bucket node
+            let destinationBucketNode = bucketNode.children[index_destination];
+            if(destinationBucketNode && destinationBucketNode.children.length == 2) { // title + column
+
+                let destinationBucketColumnNode = destinationBucketNode.children[1];
+                if(destinationBucketColumnNode) {
+
+                    let bucketContentNode = destinationBucketColumnNode.children[0];
+                    if(bucketContentNode) {
+
+                        let content = bucketContentNode.children[index];
+                        if(content) {
+                            return content.getBoundingClientRect();
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
-    shouldComponentUpdate(newProps, newState) {
+    getAvailableSpotRectInBucket(destinationBucket) {
 
-        return true;
+        let lastItemIndex = destinationBucket.children.length - 1;
+        let rect = this.getRectOfChildrenInBucketAtIndex(destinationBucket, lastItemIndex);
+        if(rect) {
+            rect.y = rect.y + rect.height;
+        }
+
+        return rect;
+    }
+
+    animateItem = (item, sourceBucket, destinationBucket) => {
+
+        let sourceBkt = this.state.buckets.filter(x => x.title == sourceBucket.title)[0];
+        let destinationBkt = this.state.buckets.filter(x => x.title == destinationBucket.title)[0];
+        if(sourceBkt && destinationBkt) {
+
+            let child = sourceBkt.children.filter(x => x.id == item.id)[0];
+            if(child) {
+
+                // we calculate the X and Y in destination.
+                const originSpot = this.getRectOfChildrenInBucketAtIndex(sourceBkt, sourceBkt.children.length - 1);
+                const destinationSpot = this.getAvailableSpotRectInBucket(destinationBkt);
+
+                const xDestination = destinationSpot.x - originSpot.x;
+                const yDestination = destinationSpot.y - originSpot.y;
+
+                child.style = {
+                    transition: "0.5s all",
+                    WebkitTransition: "0.5s all",
+                    transform: `translate(${xDestination}px, ${yDestination}px)`,
+                    WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
+                }
+
+                console.log({
+                    transition: "0.5s all",
+                    WebkitTransition: "0.5s all",
+                    transform: `translate(${xDestination}px, ${yDestination}px)`,
+                    WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
+                });
+            }
+        }
+    }
+
+    componentWillUpdate(newProps) {
 
         // we should allow auto re rendering as often as possible. However, if an item was moved from one bucket to another, we want to apply
         // a transformation instead of re rendering the whole bucket.
+
+        // TODO: remove to animate.
+        // this.setState({
+        //     buckets: newProps.buckets
+        // })
+
+        // this.state.buckets = newProps.buckets;
+        // return;
 
         if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0) {
 
@@ -78,34 +154,18 @@ class BucketView extends Component {
                     this.animateItem(movedItems[i].item, movedItems[i].source, movedItems[i].destination);
                 }
 
-                return false;
+                setTimeout(() => {
+                    this.setState({
+                        buckets: newProps.buckets
+                    })
+                }, 600);
             }
         }
-
-        return true;
-    }
-
-    animateItem = (item, sourceBucket, destinationBucket) => {
-
-        console.log('Moving item...');
-        console.log(item);
-
-        let bucket = this.state.buckets.filter(x => x.title == sourceBucket.title)[0];
-        if(bucket) {
-            console.log('got bucket');
-            let child = bucket.children.filter(x => x.code == item.code)[0];
-            if(child) {
-                console.log('got child');
-                console.log(child);
-                child.style = {
-                    color: "red"
-                }
-            }
+        else {
+            this.setState({
+                buckets: newProps.buckets
+            })
         }
-    }
-
-    componentWillUpdate(props) {
-        this.state.buckets = props.buckets;
     }
 
     onDragEnd = (result) => {
@@ -284,6 +344,8 @@ class BucketView extends Component {
         const { style } = this.props;
         const { buckets, currentlySelectedItem } = this.state;
 
+        this.state.nodes = [];
+
         let columns = buckets.map((bucket) =>
 
                 <BucketColumn
@@ -297,15 +359,20 @@ class BucketView extends Component {
                     showMovingOptions={this.toggleMovingOptions}
                     addNewItem={this.addNewItem}
                     canAddItem={bucket.canAddItem}
+                    ref={ x => this.state.nodes.push(x) }
                     />
                 )
 
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                 <div className={`bucket-view size-${this.props.screenSize}`}>
-                    <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
-                        <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
-                    </Modal>
+                    {
+                        this.props.screenSize == "xs" ?
+                        <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+                        </Modal>
+                        : null
+                    }
                     {columns}
                 </div>
             </DragDropContext>
