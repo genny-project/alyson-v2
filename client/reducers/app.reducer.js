@@ -78,10 +78,24 @@ export default function reducer( state = initialState, action ) {
 
          setTimeout(() => {
 
+             let event = {
+                 data: {
+                     value: "EXIT_SOURCE",
+                     code: "BEG_0000003_EXIT_SOURCE"
+                 }
+             };
+             GennyBridge.sendGeofenceData(event.data.value, event.data);
+
              setTimeout(() => {
 
+                 let event = {
+                     data: {
+                         value: "ENTER_DESTINATION",
+                         code: "BEG_0000003_ENTER_DESTINATION"
+                     }
+                 };
 
-
+                 GennyBridge.sendGeofenceData(event.data.value, event.data);
 
              }, 10000); // 10 seconds after we send the enter_destination event.
 
