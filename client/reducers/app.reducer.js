@@ -68,10 +68,25 @@ export default function reducer( state = initialState, action ) {
             enterCode: action.payload.enterCode,
             exitCode: action.payload.exitCode,
          };
-         window.postMessage(JSON.stringify({
-             "id": action.payload.code,
-             "data": data
-         }), "*"); // for the react native app to pick up
+
+         // window.postMessage(JSON.stringify({
+         //     "id": action.payload.code,
+         //     "data": data
+         // }), "*"); // for the react native app to pick up
+
+         // TODO: to be removed. demo only.
+
+         setTimeout(() => {
+
+             setTimeout(() => {
+
+
+
+
+             }, 10000); // 10 seconds after we send the enter_destination event.
+
+
+         }, 10000); // 10 seconds after we send the exit_source event.
      }
 
      return state;

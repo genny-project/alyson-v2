@@ -22,7 +22,7 @@ class GennyButton extends Component {
         //TODO: to be changed.
         if(this.props.buttonCode) {
             GennyBridge.sendBtnClick({
-                code: 'LOD_LOAD5',
+                code: 'LOAD_EDIT',
                 value: this.props.buttonCode,
             });
         }
