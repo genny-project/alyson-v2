@@ -86,7 +86,7 @@ class AppHolder extends Component {
         this.setState(prevState => ({
           sidebarDefault: !prevState.sidebarDefault
         }));
-    }       
+    }
 
     getContentHeight = () => {
         const { headerHeight, footerHeight, sidebarDefault, screenSize } = this.state;
@@ -159,7 +159,7 @@ class AppHolder extends Component {
                 layoutContent = <GennyList screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_QUOTES"} />
             }
             else if (layout.currentView.code == "FORM_VIEW") {
-                layoutContent = <GennyForm screenSize={screenSize} showProgress={true}/>
+                layoutContent = <GennyForm screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "PER_USER1"} showProgress={true}/>
             }
         }
         else if (layout.currentSublayout) {
