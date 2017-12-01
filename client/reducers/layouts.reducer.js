@@ -60,7 +60,7 @@ export default function reducer( state = initialState, action ) {
                 currentView: null,
                 currentSublayout: {
                     code: newSublayoutCode,
-                    layout: newSublayout
+                    layout: [newSublayout]
                 }
             }
         }
