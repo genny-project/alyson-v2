@@ -20,23 +20,8 @@
 
 			padding-bottom: 10px;
 
-
-			> div:not(:last-child) {
+			> .pagination > .pagination-content > div:not(:last-child) {
 				margin-bottom: 10px;
-			}
-		}
-
-		.form-nav {
-
-			display: flex;
-			justify-content: center;
-
-			> .visible {
-				visibility: visible;
-			}
-
-			> .hidden {
-				visibility: hidden;
 			}
 		}
 	}
@@ -51,7 +36,7 @@
 			width: 100%;
 			margin-top: 0px;
 			margin-bottom: 0px;
-			padding: 10px;
+			padding: 5px;
 		}
 
 		.form-fields {
@@ -59,8 +44,13 @@
 			justify-content: space-between;
 			padding-bottom: 0;
 
+			flex-wrap: wrap;
+
 			.input-text {
 				margin-bottom: 0 !important;
+				flex-grow: 1;
+
+				padding: 5px;
 
 				> input {
 					padding-top: 3px;

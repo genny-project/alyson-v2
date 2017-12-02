@@ -9,16 +9,17 @@ class InputSlider extends Component {
   static defaultProps = {
     className: '',
     validationList: [],
-
+    identifier: null,
+    validationStatus: null
   }
 
   static propTypes = {
     className: string,
     style: object,
     children: any,
-    onValidation: func,
+    validation: func,
     identifier: any,
-    validationList: array,
+    validationStatus: string
   }
 
   state = {
@@ -27,65 +28,31 @@ class InputSlider extends Component {
     validationStatus: null,
   }
 
-  handleChange = value => {
-
-    // console.log("value: ", value);
-    const { validationList } = this.props;
-    // console.log("valList", validationList);
-
-    this.setState({
-      active: true,
-    });
-
-    if ( validationList.length > 0 ) {
-      const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-      //console.log("valresult: ", valResult);
-      this.validateValue(valResult, value);
-    } else {
-      //window.alert("No regex supplied");
-      //this.sendAnswer(event.target.value);
-      const valResult = new RegExp(/.*/).test( value );
-      console.log("valresult: ", valResult);
-      this.validateValue(valResult, value);
-    }
-  }
-
-  validateValue = ( valResult, value ) => {
-    
-    if ( valResult ){
-      
+  handleChange = (value) => {
+    const { validationList, validation, identifier } = this.props;
+    this.setState({ active: true });
+    if(validation) {
       clearTimeout(this.state.timer);
-      this.state.timer = setTimeout(function(){ 
-        
-        if(this.props.onValidation) {
-          this.validationStyle('success');
-          this.props.onValidation(value, this.props.identifier);
-        } else {
-          this.validationStyle('error');
-        }
-
+      this.state.timer = setTimeout(function(){  
+        validation(value, identifier, validationList);
         this.setState({
           active: false,
         });
-
-      }.bind(this), 500);        
-      
-    } else {
-      this.validationStyle('error');
+      }.bind(this), 500);
     }
   }
 
-  validationStyle = (resultString) => {
-    this.setState({
-      validationStatus: resultString,
-    });
-  }
-
-
   render() {
- 	  const { className, children, style, name } = this.props;
-    const { validationStatus, active } = this.state;
+ 	  const { className, children, style, name, validationStatus } = this.props;
+    const { active } = this.state;
     const componentStyle = { ...style, };
+
+
+    console.log(this.props);
+    console.log(active);
+
+    let handleStyle = [ active ? {borderColor: componentStyle.color} : !validationStatus ? {borderColor: componentStyle.color} : {borderColor: null} ];
+    console.log(handleStyle);
 
     return (
       <div className={`input-slider ${className}`}>
@@ -95,9 +62,9 @@ class InputSlider extends Component {
           min={0}
           max={100}
           defaultValue={50}
-          handleStyle={[ active ? {borderColor: componentStyle.color} : !validationStatus ? {borderColor: componentStyle.color} : {borderColor: null} ]}
+          handleStyle={handleStyle}
           trackStyle={[ active ? {backgroundColor: componentStyle.color} : !validationStatus ? {backgroundColor: componentStyle.color} : {backgroundColor: null} ]}
-          onChange={this.handleChange}
+          onAfterChange={this.handleChange}
         />
       </div>
     );

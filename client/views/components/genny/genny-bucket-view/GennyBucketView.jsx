@@ -1,11 +1,12 @@
 import './gennyBucketView.scss';
-import React, { Component } from 'react';
-import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
+import React, { PureComponent } from 'react';
+import { BaseEntityQuery } from 'utils/genny';
 import { IconSmall, BucketView, Card } from '../../';
 import { Draggable } from 'react-beautiful-dnd';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import { GennyBridge } from 'utils/genny';
 
-class GennyBucketView extends Component {
+class GennyBucketView extends PureComponent {
 
     static defaultProps = {
 
@@ -24,26 +25,84 @@ class GennyBucketView extends Component {
 
     didMoveItem = (item, source, destination) => {
 
-        console.log("Send answer...");
+        if(item.draggableId) {
+
+            let begs = BaseEntityQuery.getEntityChildren(source.droppableId);
+            if(begs.length > 0) {
+
+                let movedBeg = begs.filter(x => x.code == item.draggableId)[0];
+                let loads = movedBeg.children;
+                if(loads && loads.length > 0) {
+
+                    let movedLoad = loads[0];
+                    let loadCode = movedLoad.code;
+                    let linkCode = movedBeg.linkCode;
+                    let data_event = {
+                        sourceBaseEntityCode: source.droppableId,
+                        targetBaseEntityCode: destination.droppableId,
+                        linkCode: linkCode,
+                        data: {
+                            code: item.draggableId,
+                            value: loadCode,
+                        }
+                    };
+
+                    GennyBridge.sendBucketDropEvent(data_event);
+                }
+            }
+        }
     }
 
-    generateBucket(query, group) {
+    addNewItem = (selectedColumn) => {
+
+        let { root } = this.props;
+        let rootGroups = BaseEntityQuery.getEntityChildren(root);
+        for (var i = 0; i < rootGroups.length; i++) {
+            let group = rootGroups[i];
+            if(group.code == selectedColumn) {
+
+                let itemValue = group.attributes["ADD_ITEM"].value;
+                let data = {
+                    code: group.code,
+                    value: itemValue,
+                }
+                GennyBridge.sendBtnClick(data);
+                break;
+            }
+        }
+    }
+
+    onClick = (item) => {
+
+        //TODO: to be changed.
+        let itemValue = item.props.description;
+        if(itemValue) {
+            let data = {
+                code: "LOAD_CLICK",
+                value: itemValue,
+            }
+
+            GennyBridge.sendBtnClick(data);
+        }
+    }
+
+    generateBucket(group) {
 
         let groupCode = group.code;
         let children = [];
 
-        let bes = query.getEntityChildren(groupCode);
+        let bes = BaseEntityQuery.getEntityChildren(groupCode);
 
         bes.forEach(be => {
 
             // we get the sublayout code from the BE
-            let layout_code = "SUBLAY_1";
+            let layout_code = (be.attributes["PRI_LAYOUT"] ? be.attributes["PRI_LAYOUT"].value : null);
             let sublayout = this.props.sublayout[layout_code];
 
             children.push(
                 {
                 content: (
-                    <Card title={be.name} description={be.code}>
+                    <Card title={be.name} description={be.code} screenSize={this.props.screenSize} onClick={this.onClick}>
                         {
                             sublayout ? <LayoutLoader layout={sublayout} /> : null
                         }
@@ -60,14 +119,20 @@ class GennyBucketView extends Component {
     generateBuckets(root) {
 
         let buckets = [];
-        let query = new BaseEntityQuery(this.props);
-        let rootGroups = query.getEntityChildren(root);
+        let rootGroups = BaseEntityQuery.getEntityChildren(root);
         rootGroups.forEach(group => {
+
+            let canAddItem = false;
+            if(group.attributes) {
+                canAddItem = Object.keys(group.attributes).filter(x => x == "ADD_ITEM").length > 0;
+            }
 
             buckets.push({
                 title: group.name,
                 id: group.code,
-                children: this.generateBucket(query, group)
+                children: this.generateBucket(group),
+                weight: group.weight,
+                canAddItem: canAddItem
             });
         });
 
@@ -77,11 +142,16 @@ class GennyBucketView extends Component {
     render() {
 
         const { root } = this.props;
+
         let buckets = this.generateBuckets(root);
 
         return (
             <div className="genny-bucket-view">
-                <BucketView buckets={buckets} didMoveItem={this.didMoveItem} />
+                <BucketView
+                    screenSize={this.props.screenSize}
+                    buckets={buckets}
+                    didMoveItem={this.didMoveItem}
+                    addNewItem={this.addNewItem} />
             </div>
         );
     }

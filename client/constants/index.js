@@ -32,6 +32,7 @@ export const CMD_VIEW = 'CMD_VIEW';
 
 /* Base entities */
 export const BASE_ENTITY = 'BaseEntity';
+export const LINK_CHANGE = 'LINK_CHANGE';
 
 /* Base entities + attributes */
 export const BASE_ENTITY_DATA = 'Data';
@@ -42,14 +43,17 @@ export const ASK = 'Ask';
 /* Answers */
 export const ANSWER = 'Answer';
 
+/* GPS CMD */
+export const GPS_CMD = 'CMD_GPS';
+
 /* Sublayout */
-export const SUBLAYOUT = 'SUBLAYOUT';
+export const SUB_LAYOUT = 'SUB_LAYOUT';
 
 /* Alias */
 export const ALIAS = 'Alias';
 
 /* Attribute */
-export const ATTRIBUTE = 'Attribute';
+export const ATTRIBUTE = 'Attributschmide';
 
 /* Notifications */
 export const NOTIFICATION = 'Notification';
@@ -58,4 +62,4 @@ export const NOTIFICATION = 'Notification';
 export const REDIRECT = 'REDIRECT';
 
 /* Redirect - Social */
-export const FB_REDIRECT = 'FB_REDIRECT';
+export const SOCIAL_REDIRECT = 'SOCIAL_REDIRECT';

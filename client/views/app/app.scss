@@ -1,4 +1,5 @@
 .app {
+
   display: flex;
   width: 100%;
   height: 100%;
@@ -6,5 +7,41 @@
  	.sticky {
  		position: sticky;
  		top: 0;
- 	}
+	 }
+
+	 .clickable {
+		 cursor: pointer;
+	  }
+
+   .no-select {
+
+    -webkit-touch-callout: none; /* iOS Safari */
+   -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* Internet Explorer/Edge */
+           user-select: none; /* Non-prefixed version, currently
+                                 supported by Chrome and Opera */
+
+   }
+}
+
+body {
+ background-color: black;
+}
+body.modal-active {
+ overflow: hidden;
+}
+
+body.modal-active {
+
+ .app {
+  animation: scaleBack .25s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+ }
+}
+
+body.modal-closing {
+ .app {
+  animation: scaleForward .25s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+ }
 }

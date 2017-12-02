@@ -1,10 +1,7 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
-import { InputDate, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
-
-//TODO: to remove
-import { GennySocialButton } from './../../';
+import { InputDate, InputButton, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
 
 class Input extends Component {
   static defaultProps = {
@@ -62,26 +59,29 @@ class Input extends Component {
     //TODO: remove this.
     // testing facebook
     if(identifier == "QUE_FB_BASIC") {
-
-        console.log("===============");
-        console.log(type);
-        console.log(this.props);
-
-
         return (
-            <GennySocialButton type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"}/>
+            <InputButton {...this.props} type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"} />
         );
     }
+
     else {
 
         switch(type) {
             case "textarea":
-                return ( <InputTextarea {...this.props}/> );
+                return ( <InputTextarea
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                /> );
             case "checkbox":
-                return ( <InputCheckbox {...this.props}/> );
-            case "java.time.Date":
-                return ( <InputDate items={items}
-                    {...this.props}/> );
+                return ( <InputCheckbox
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                /> );
+            // case "java.time.Date":
+            //     return ( <InputDate items={items}
+            //         {...this.props}/> );
             case "datepicker":
                 return ( <InputDatePicker
                     {...this.props}
@@ -89,15 +89,24 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 /> );
             case "dropdown":
-                return ( <InputDropdown items={items} {...this.props}/> );
+                return ( <InputDropdown
+                    items={items}
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                /> );
             // case "time":
             //     return ( <InputTime {...this.props}/> );
             case "slider":
-                return ( <InputSlider {...this.props}/> );
+                return ( <InputSlider
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}    
+                /> );
             case "upload-photo":
                 return ( <InputUploadPhoto {...this.props} /> );
-            case "password":
-                return ( <InputText {...this.props}/> );
+            // case "password":
+            //     return ( <InputText {...this.props}/> );
             case "address":
                 return ( <InputAddress {...this.props} /> );
             case "java.lang.String":

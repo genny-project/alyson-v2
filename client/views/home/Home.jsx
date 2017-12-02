@@ -4,9 +4,6 @@ import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class Home extends Component {
 
-    componentDidMount() {
-
-    }
     render() {
 
         const { layouts, baseEntity } = this.props;

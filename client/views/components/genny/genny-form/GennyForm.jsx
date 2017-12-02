@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Form, Input } from '../../';
 import { object, array } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
-import BaseEntityQuery from 'utils/genny/BaseEntityQuery';
+import { BaseEntityQuery } from 'utils/genny';
 
 class GennyForm extends Component {
 
@@ -20,9 +20,32 @@ class GennyForm extends Component {
     this.sendAnswer(newValue, ask);
   }
 
+  onClick = (clickedButton) => {
+
+    console.log("Button was clicked");
+    // clickedButton is a react component. info is stored in clickedButton.props.
+
+    console.log(clickedButton, clickedButton.props);
+
+    if(clickedButton && clickedButton.props) {
+
+        let data = clickedButton.props.data;
+        let buttonCode = clickedButton.props.buttonCode;
+
+        let btnEventData = {
+            code: buttonCode,
+            ...data
+        }
+
+        GennyBridge.sendBtnClick(btnEventData);
+    }
+  }
+
   sendAnswer = (value, ask) => {
-    console.log("send");
-    this.sendData('Answer', [
+
+    //let color = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_COLOR');
+
+    this.sendData([
       {
         sourceCode: ask.sourceCode,
         targetCode: ask.targetCode,
@@ -33,20 +56,19 @@ class GennyForm extends Component {
     ]);
   };
 
-  sendData(data, items) {
-    GennyBridge.sendAnswer(data, items);
+  sendData(items) {
+    GennyBridge.sendAnswer(items);
   }
 
   render() {
 
-    const { asks, style } = this.props;
+    const { asks, style, className } = this.props;
     const componentStyle = { ...style, };
-    let query = new BaseEntityQuery(this.props);
 
-    console.log(asks);
+    //console.log('form style', this.props.alias);
 
     return (
-      <div className="genny-form">
+      <div className={`genny-form ${className}`}>
         <Form {...this.props}>
           {
             Object.keys(asks).map((ask_code, index) => {
@@ -58,7 +80,7 @@ class GennyForm extends Component {
               let be_code = ask.targetCode;
               let attributeCode = ask.attributeCode;
               if(be_code && attributeCode) {
-                  let att = query.getBaseEntityAttribute(be_code, attributeCode);
+                  let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
                   if(att) {
                       default_value = att.value;
                   }
@@ -68,6 +90,9 @@ class GennyForm extends Component {
                 isHorizontal={this.props.isHorizontal}
                 key={index}
                 identifier={ask_code}
+                data={{
+                    value: ask.id
+                }}
                 type={inputType}
                 style={componentStyle}
                 name={ask.question.name}
@@ -77,6 +102,7 @@ class GennyForm extends Component {
                 validationList={ask.question.validationList}
                 mask={ask.question.mask}
                 onValidation={this.onInputValidation}
+                onClick={this.onClick}
               />;
             })
           }

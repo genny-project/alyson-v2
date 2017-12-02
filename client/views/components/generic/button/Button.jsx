@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { string, any, func } from 'prop-types';
 
 class Button extends Component {
+  
   static defaultProps = {
     className: '',
     href: '',
@@ -16,14 +17,28 @@ class Button extends Component {
     className: string,
     href: string,
     type: string,
-    onClick: func,
+    onClick: func
+  }
+
+  getClickFunction = () => {
+    const { onClick, handleClick } = this.props;
+    
+    if (handleClick) {
+      return handleClick
+    } else {
+      return onClick
+    }
   }
 
   render() {
-    const { children, type, className, href, onClick } = this.props;
+    const { children, type, className, href, onClick, style, color } = this.props;
+    const componentStyle = { ...style, };
+
+    const clickFunc = this.getClickFunction();
+
     const btn = (
-      <div className={`button ${className}`}>
-        <button onClick={onClick} className={type} >{children}</button>
+      <div className={`button ${className} ${type}`} style={componentStyle}>
+        <button onClick={clickFunc} style={{backgroundColor: color}}>{children}</button>
       </div>
     );
 

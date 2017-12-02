@@ -1,9 +1,13 @@
 import './circleButton.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, any, func } from 'prop-types';
 import {  } from '../';
 
 class CircleButton extends Component {
+
+  static propTypes = {
+    onClick: func,
+  };
 
   state = {
   }
@@ -13,7 +17,7 @@ class CircleButton extends Component {
     const { primaryColor } = this.props;
 
     const style = {
-        backgroundColor: "pink",
+        backgroundColor: primaryColor,
         border: "3px solid #fff",
         width: "35px",
         height: "35px",
@@ -22,9 +26,7 @@ class CircleButton extends Component {
     }
 
     return (
-      <div className={`circleButton`} style={style} {...this.props}>
-
-      </div>
+      <div className={`circleButton`} style={style} onClick={this.props.onClick}/>
     );
   }
 }

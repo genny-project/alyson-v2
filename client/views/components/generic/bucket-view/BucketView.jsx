@@ -1,18 +1,162 @@
-import './bucketView.scss';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
+import { Modal, List } from 'views/components';
+import _ from 'lodash';
+
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import './bucketView.scss';
 
 class BucketView extends Component {
 
     state = {
         buckets: [],
+        touch: {},
+        touchTimer: null,
+        currentlySelectedItem: false,
     }
 
-    constructor(props) {
-        super(props);
-        this.state.buckets = props.buckets;
+    //TODO: if the destination bucket is empty this will break.
+    getRectOfChildrenInBucketAtIndex(destinationBucket, index) {
+
+        let index_destination = this.state.buckets.indexOf(destinationBucket);
+        let children_destination = destinationBucket.children;
+        let bucketNode = ReactDOM.findDOMNode(this);
+        if(bucketNode) {
+
+            // get destination bucket node
+            let destinationBucketNode = bucketNode.children[index_destination];
+            if(destinationBucketNode && destinationBucketNode.children.length == 2) { // title + column
+
+                let destinationBucketColumnNode = destinationBucketNode.children[1];
+                if(destinationBucketColumnNode) {
+
+                    let bucketContentNode = destinationBucketColumnNode.children[0];
+                    if(bucketContentNode) {
+
+                        let content = bucketContentNode.children[index];
+                        if(content) {
+                            return content.getBoundingClientRect();
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    getAvailableSpotRectInBucket(destinationBucket) {
+
+        let lastItemIndex = destinationBucket.children.length - 1;
+        let rect = this.getRectOfChildrenInBucketAtIndex(destinationBucket, lastItemIndex);
+        if(rect) {
+            rect.y = rect.y + rect.height;
+        }
+
+        return rect;
+    }
+
+    animateItem = (item, sourceBucket, destinationBucket) => {
+
+        let sourceBkt = this.state.buckets.filter(x => x.title == sourceBucket.title)[0];
+        let destinationBkt = this.state.buckets.filter(x => x.title == destinationBucket.title)[0];
+        if(sourceBkt && destinationBkt) {
+
+            let child = sourceBkt.children.filter(x => x.id == item.id)[0];
+            if(child) {
+
+                // we calculate the X and Y in destination.
+                const originSpot = this.getRectOfChildrenInBucketAtIndex(sourceBkt, sourceBkt.children.length - 1);
+                const destinationSpot = this.getAvailableSpotRectInBucket(destinationBkt);
+                if(originSpot && destinationSpot) {
+
+                    const xDestination = destinationSpot.x - originSpot.x;
+                    const yDestination = destinationSpot.y - originSpot.y;
+
+                    child.style = {
+                        transition: "0.5s all",
+                        WebkitTransition: "0.5s all",
+                        transform: `translate(${xDestination}px, ${yDestination}px)`,
+                        WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
+                    }
+                }
+            }
+        }
+    }
+
+    componentWillUpdate(newProps) {
+
+        // we should allow auto re rendering as often as possible. However, if an item was moved from one bucket to another, we want to apply
+        // a transformation instead of re rendering the whole bucket.
+
+        // TODO: uncomment to remove animation.
+        this.state.buckets = newProps.buckets;
+        return;
+
+        if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0) {
+
+            let differences = [];
+            for (var i = 0; i < newProps.buckets.length; i++) {
+
+                let newBucket = newProps.buckets[i];
+                let oldBucket = this.state.buckets[i];
+
+                if(newBucket.children && oldBucket.children) {
+                    differences.push({
+                        difference: oldBucket.children.differences(newBucket.children),
+                        source: oldBucket
+                    });
+                }
+            }
+
+            // we loop through the differences to see if an item when from a "delete" array to a "added" array.
+            let movedItems = [];
+            for (var i = 0; i < differences.length; i++) {
+
+                let currentDifference = differences[i];
+                currentDifference.difference.deleted.forEach(deletedItem => {
+
+                    // we found an item that has been deleted.
+                    // we loop through the items again to see if the same item has been "added" in another difference
+                    // which would mean the item has been moved.
+                    for (var j = 0; j < differences.length; j++) {
+
+                        let searchDifference = differences[j];
+                        let items = searchDifference.difference.added.filter(y => _.isEqual(y, deletedItem));
+                        if(items.length > 0) {
+
+                            items.forEach(item => {
+                                movedItems.push({
+                                    source: currentDifference.source,
+                                    destination: searchDifference.source,
+                                    item: item
+                                });
+                            })
+                        }
+                    }
+                })
+            }
+
+            if(movedItems.length > 0) {
+
+                for (var i = 0; i < movedItems.length; i++) {
+                    this.animateItem(movedItems[i].item, movedItems[i].source, movedItems[i].destination);
+                }
+
+                setTimeout(() => {
+                    this.setState({
+                        buckets: newProps.buckets
+                    })
+                }, 600);
+            }
+        }
+        else {
+            this.setState({
+                buckets: newProps.buckets
+            })
+        }
     }
 
     onDragEnd = (result) => {
@@ -44,7 +188,14 @@ class BucketView extends Component {
 
         for (var i = 0; i < buckets.length; i++) {
             if(buckets[i].id == destinationBucketCode) {
-                buckets[i].children.splice(destinationIndex, 0, item);
+
+                if(buckets[i].children.length == 0) {
+                    buckets[i].children.push(item);
+                }
+                else {
+                    buckets[i].children.splice(destinationIndex, 0, item);
+                }
+
                 break;
             }
         }
@@ -69,22 +220,160 @@ class BucketView extends Component {
         }
     }
 
+    scrollToBucket = (positionBucket) => {
+
+        let bucket = ReactDOM.findDOMNode(this);
+        let bucketTotalWidth = bucket.scrollWidth;
+        let bucketPageWidth = bucket.getBoundingClientRect().width;
+        let currentScrollPosition = bucket.scrollLeft;
+        let new_position = currentScrollPosition;
+
+        if(positionBucket == "next") {
+
+            if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
+                new_position = currentScrollPosition + bucketPageWidth;
+            }
+        }
+        else if(positionBucket == "previous") {
+
+            if(currentScrollPosition - bucketPageWidth >= 0) {
+                new_position = currentScrollPosition - bucketPageWidth;
+            }
+        }
+
+        bucket.scrollTo({
+            "behavior": "smooth",
+            "left": new_position
+        });
+    }
+
+    goToNextBucket = () => {
+        this.scrollToBucket("next");
+    }
+
+    goToPreviousBucket = () => {
+        this.scrollToBucket("previous");
+    }
+
+    toggleMovingOptions = (item) => {
+
+        this.setState({
+            currentlySelectedItem: item
+        });
+    }
+
+    addNewItem = (selectedColumn) => {
+
+        let groupId = selectedColumn.props.groupId;
+        if(this.props.addNewItem) {
+            this.props.addNewItem(groupId);
+        }
+    }
+
+    mobileMoveItem = (item, bucketDestination) => {
+
+        // we find the original bucket
+        let itemCode = item.props.description;
+        let draggedItem = {
+            draggableId: itemCode,
+        };
+
+        let destinationBucket = {
+            droppableId: bucketDestination.id,
+            index: -1,
+        }
+
+        let sourceBucket = {
+            droppableId: null,
+            index: -1,
+        };
+
+        for (var i = 0; i < this.state.buckets.length; i++) {
+
+            let bucket = this.state.buckets[i];
+
+            if(bucket.id == bucketDestination.id) {
+                destinationBucket.index = bucket.children.length;
+            }
+
+            for (var j = 0; j < bucket.children.length; j++) {
+
+                let children = bucket.children[j];
+                if(children.id == itemCode) {
+                    sourceBucket.droppableId = bucket.id;
+                    sourceBucket.index = j;
+                    break;
+                }
+            }
+
+            if(sourceBucket.index > -1 && destinationBucket.index > -1) {
+                break; // sourceBucket and destinationBucket were found, not need to loop anymore.
+            }
+        }
+
+        // simulate dragging
+        if(this.props.didMoveItem) {
+            this.props.didMoveItem(draggedItem, sourceBucket, destinationBucket);
+        }
+        this.didMoveItem(draggedItem, sourceBucket, destinationBucket);
+        this.toggleMovingOptions();
+    }
+
+    bucketSelectionLayout = (item) => {
+
+        return (
+            <List itemsPerPage={this.state.buckets.length}>
+                {
+                    this.state.buckets.map(bucket => <div className={`bucket-option-item size-${this.props.screenSize}`} onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</div>)
+                }
+            </List>
+        );
+    }
+
     render() {
 
         const { style } = this.props;
-        const { buckets } = this.state;
+        const { buckets, currentlySelectedItem } = this.state;
+
+        this.state.nodes = [];
+
+        let counter = 0;
+        let columns = buckets.map((bucket) => {
+
+            let col =
+            <BucketColumn
+                screenSize={this.props.screenSize}
+                title={bucket.title}
+                key={bucket.id}
+                groupId={bucket.id}
+                items={bucket.children}
+                goToNextBucket={this.goToNextBucket}
+                goToPreviousBucket={this.goToPreviousBucket}
+                showMovingOptions={this.toggleMovingOptions}
+                addNewItem={this.addNewItem}
+                canAddItem={bucket.canAddItem}
+                ref={ x => this.state.nodes.push(x) }
+                style={{ backgroundColor: (counter % 2 == 0) ? '#b6b6b6' : 'transparent' }}
+                />
+
+            counter += 1;
+            return col;
+        })
 
         return (
-
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <div className="bucket-view" style={style}>
+            <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+                <div className={`bucket-view size-${this.props.screenSize}`}>
                     {
-                        buckets.map((bucket) => <BucketColumn title={bucket.title} key={bucket.id} groupId={bucket.id} children={bucket.children} />)
+                        this.props.screenSize == "xs" ?
+                        <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+                        </Modal>
+                        : null
                     }
+                    {columns}
                 </div>
             </DragDropContext>
-
-        );
+        )
     }
 }
 

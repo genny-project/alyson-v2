@@ -1,5 +1,5 @@
 import layoutsIncluded from '../layouts-included';
-import { LAYOUT_CHANGE, CMD_VIEW, SUBLAYOUT, SUBLAYOUT_CHANGE } from 'constants';
+import { LAYOUT_CHANGE, CMD_VIEW, SUB_LAYOUT, SUBLAYOUT_CHANGE } from 'constants';
 import config from 'config/config';
 
 const initialState = {
@@ -53,38 +53,33 @@ export default function reducer( state = initialState, action ) {
     case SUBLAYOUT_CHANGE:
 
         const newSublayoutCode = action.payload.code;
-        const newSublayout = action.payload.layout;
+        const newSublayout = action.payload.items;
         if(newSublayoutCode) {
             return {
                 ...state,
                 currentView: null,
                 currentSublayout: {
                     code: newSublayoutCode,
-                    layout: newSublayout
+                    layout: [newSublayout]
                 }
             }
         }
 
-    case SUBLAYOUT:
+    case SUB_LAYOUT:
 
-        return {
-            ...state,
-            sublayout: {
-                ...state.sublayout,
-                ...action.payload.items.reduce((existing, newSublayout) => {
-
-                    let sublayoutCode = newSublayout.code;
-
-                    existing[sublayoutCode] = {
-                        ...state.sublayout[sublayoutCode],
-                        ...newSublayout
-                    };
-
-                    return existing;
-
-                }, {}),
-            }
-        };
+        let sublayout_code = action.payload.code;
+        let layout = action.payload.items;
+        if(sublayout_code && layout) {
+            return {
+                ...state,
+                sublayout: {
+                    ...state.sublayout,
+                    [sublayout_code]: {
+                        layout: [layout]
+                    }
+                }
+            };
+        }
 
     default:
       return state;

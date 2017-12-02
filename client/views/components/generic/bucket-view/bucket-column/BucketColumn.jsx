@@ -3,11 +3,10 @@ import React, { Component } from 'react';
 import { string, object, any, bool } from 'prop-types';
 import { BucketElement } from './bucket-element';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { IconSmall } from 'views/components';
 
-const gridPadding = 5;
 const getListStyle = isDraggingOver => ({
     // background: isDraggingOver ? 'lightblue' : "#a3a3a3",
-    padding: gridPadding,
 });
 
 class BucketColumn extends Component {
@@ -29,39 +28,84 @@ class BucketColumn extends Component {
     state = {
     }
 
+    moveBucket = (notification) => {
+        if(notification == "previous") this.props.goToPreviousBucket()
+        if(notification == "next") this.props.goToNextBucket()
+    }
+
+    addNewItem = () => {
+
+        if(this.props.addNewItem) {
+            this.props.addNewItem(this);
+        }
+    }
+
     render() {
 
-        const { className, style, title, children, groupId } = this.props;
-        const {  } = this.state;
+        const { className, style, title, items, groupId, screenSize, canAddItem } = this.props;
         const componentStyle = { ...style, };
+
+        let titleDiv = null;
+        if(screenSize == "xs") {
+            titleDiv =
+            <div>
+                <IconSmall className="clickable bucket_action_previous" name='chevron_left' onClick={this.props.goToPreviousBucket}/>
+                {
+                    canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} /> : `${title}`
+                }
+                <IconSmall className="clickable bucket_action_next" name='chevron_right' onClick={this.props.goToNextBucket}/>
+            </div>
+        }
+        else {
+            titleDiv =
+            <div>
+                {
+                    canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} /> : `${title}`
+                }
+            </div>;
+        }
 
         return (
 
-            <Droppable droppableId={groupId}>
-                {
-                    (provided, snapshot) => (
+            <div style={style}>
+                <div className="bucket-title sticky">
+                    {titleDiv}
+                </div>
 
-                        <div ref={provided.innerRef}
-                            style={getListStyle(snapshot.isDraggingOver)}
-                            className="bucket"
-                            key={title} >
+                <Droppable droppableId={groupId}>
+                    {
+                        (provided, snapshot) => (
 
-                            <div className="bucket-title sticky">
-                                {title}
+                            <div ref={provided.innerRef}
+                                style={getListStyle(snapshot.isDraggingOver)}
+                                className={`bucket size-${screenSize}`}
+                                key={title} >
+
+                                <div className={`bucket-content size-${screenSize}`}>
+                                    {
+                                        items.map(child => {
+
+                                            return (
+                                                <BucketElement
+                                                key={child.id}
+                                                item={child}
+                                                style={child.style}
+                                                moveBucket={this.moveBucket}
+                                                screenSize={screenSize}
+                                                showMovingOptions={this.props.showMovingOptions} />
+                                            )
+                                        })
+                                    }
+                                </div>
+
+                                {provided.placeholder}
+
                             </div>
-                            <div className="bucket-content">
-                                {
-                                    children.map(child => (<BucketElement key={child.id} item={child} />))
-                                }
-                            </div>
+                        )
+                    }
 
-                            {provided.placeholder}
-
-                        </div>
-                    )
-                }
-
-            </Droppable>
+                </Droppable>
+            </div>
         );
     }
 }

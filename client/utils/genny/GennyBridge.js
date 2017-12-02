@@ -18,32 +18,71 @@ class GennyBridge {
     Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
   }
 
-  sendBtnClick(btn_code) {
+  sendBtnClick(data) {
 
       let token = this.getToken();
       if(token) {
-          Vertx.sendMessage(events.outgoing.BTN({ code: btn_code }, token));
+          Vertx.sendMessage(events.outgoing.BTN(data, token));
       }
   }
 
   sendTVEvent(event, data) {
+
     let token = this.getToken();
     if(token)
-    Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
+        Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
 
-    // store the current path
   }
 
   sendLogout(event, data) {
     let token = this.getToken();
     if(token)
-    Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
+        Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
   }
 
-  sendAnswer(data, items) {
+  sendBucketDropEvent(data) {
+
+      let token = this.getToken();
+      if(token) {
+          Vertx.sendMessage(events.outgoing.BUCKET_DROP_EVENT(data, token));
+      }
+  }
+
+  sendGPSData(data) {
+
+      let token = this.getToken();
+      if(token) {
+
+          data.targetCode = store.getState().baseEntity.aliases["USER"];
+          data.sourceCode = store.getState().baseEntity.aliases["USER"];
+          Vertx.sendMessage(events.outgoing.ANSWER('GPS', data, token));
+      }
+  }
+
+  sendGeofenceData(event_id, data) {
+
+      let token = this.getToken();
+      if(token) {
+          Vertx.sendMessage(events.outgoing.GEOFENCE_NOTIFICATION(event_id, data, token));
+      }
+  }
+
+  sendAnswer(items) {
+
     let token = this.getToken();
-    if(token)
-    Vertx.sendMessage(events.outgoing.ANSWER(data, items, token));
+    if(token) {
+
+        let answers = items.map(item => {
+
+            if(!item.sourceCode) {
+                item.sourceCode = store.getState().baseEntity.aliases["USER"];
+            }
+
+            return item;
+        });
+
+        Vertx.sendMessage(events.outgoing.ANSWER('Answer', answers, token));
+    }
 
     let payload = {
 

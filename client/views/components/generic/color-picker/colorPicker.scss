@@ -1,0 +1,11 @@
+@import '../../../../styles/colors';
+
+.color-picker {
+
+    .color-picker-selector {
+        position: absolute;
+        z-index: 1000;
+        top: 60px;
+    }
+}
+

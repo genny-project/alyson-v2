@@ -1,117 +1,59 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
-import { object, array } from 'prop-types';
-import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
-import { IconSmall, ListItem, List, GennyForm } from '../../';
-import { GennyBridge } from 'utils/genny';
+import { object, string } from 'prop-types';
+import { List, GennyForm, ListItem } from '../../';
+import { BaseEntityQuery } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class GennyList extends Component {
 
+    static defaultProps = {
+        root: '',
+    }
+
+
     static propTypes = {
+        root: string
     };
 
     state = {
-        columns: [],
-        data: []
     }
 
-    generateHeadersFor(baseEntities) {
+    generateListItems(items) {
 
-        let columns = [{
-            "Header": () => <div className='list-item-total'><span>{baseEntities.length} Items found</span></div>,
-            "accessor": "baseEntity",
-            "sortable" : "false",
-            "filterable" : "false",
-            "Cell": row => {
+        let children = [];
+        
+        items.map(item => {
 
-                let be = row.value;
-                let beAttributes = []
+            console.log('item', item);
 
-                if(be.attributes) {
-                    Object.keys(be.attributes).forEach(attribute_key => {
-                        let attribute = be.attributes[attribute_key].value;
-                        beAttributes.push(attribute);
-                    })
-                };
-                let layout_code = "SUBLAY_1";
-                let sublayout = this.props.sublayout[layout_code];
-                return (
-                    <ListItem>
-                        { sublayout ? <LayoutLoader layout={sublayout} /> : null }
-                    </ListItem>
-                )
-            }
-        }];
+            //let layout_code = (item.attributes["PRI_LAYOUT"] ? item.attributes["PRI_LAYOUT"].value : null);
+            let layout_code = 'listLayout';
+            let sublayout = this.props.sublayout[layout_code]; 
 
-        this.state.columns = columns;
-        return columns;
-    }
-
-    generateDataFor(baseEntities) {
-
-        let data = [];
-        let columns = this.state.columns;
-        baseEntities.forEach(baseEntity => {
-
-            data.push({
-                "baseEntity": baseEntity
-            });
-            data.push({
-                "baseEntity": '1'
-            });
-            data.push({
-                "baseEntity": '2'
-            });
-            data.push({
-                "baseEntity": '3'
-            });
-            data.push({
-                "baseEntity": '4'
-            });
-            data.push({
-                "baseEntity": '5'
-            });
-            data.push({
-                "baseEntity": '6'
-            });
+            children.push(
+                <ListItem>
+                    {
+                        sublayout ? <LayoutLoader layout={sublayout} /> : null
+                    }
+                </ListItem>
+            );
         });
-        this.state.data = data;
-        return data;
-    }
+        return children
+    }  
 
     render() {
 
-        const { root, showBaseEntity } = this.props;
+        const { root } = this.props;
+        let items = BaseEntityQuery.getEntityChildren(root);
 
-        let query = new BaseEntityQuery(this.props);
-        let columns = [];
-        let data = [];
-
-        let children = query.getEntityChildren(root);
-        if(children) {
-
-            if(children.length == 0 && showBaseEntity) {
-
-                let be = query.getBaseEntity(root);
-                if(be) {
-                    children = [be];
-                }
-            }
-
-            columns = this.generateHeadersFor(children);
-            data = this.generateDataFor(children);
-        }
-
-        let headerContent = <GennyForm isHorizontal />
+        let children = this.generateListItems(items);
 
         return (
             <div className="genny-list">
-                <List
-                    {...this.props}
-                    header={ headerContent }
-                    data={data}
-                    columns={columns} />
+                <List header={ <GennyForm isHorizontal /> }>
+                    {children}
+                </List>
             </div>
         );
     }

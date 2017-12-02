@@ -1,7 +1,7 @@
 import './gennyModal.scss';
 import React, { Component } from 'react';
 import { func, string } from 'prop-types';
-import BaseEntityQuery from './../../../../utils/genny/BaseEntityQuery';
+import { BaseEntityQuery } from 'utils/genny';
 import { Modal, } from '../../';
 import { GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -30,7 +30,6 @@ class GennyModal extends Component {
 
     render() {
         const { root, showBaseEntity, onClick } = this.props;
-        let query = new BaseEntityQuery(this.props);
         let modalContent = root ? this.getModalContent(root) : null;
 
         return (

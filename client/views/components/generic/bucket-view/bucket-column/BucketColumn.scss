@@ -1,5 +1,53 @@
 @import '../../../../../styles/colors';
 
-.bucketColumn {
+.bucket-title {
 
+  padding: 20px;
+  background: transparent;
+  text-align: center;
+  color: white;
+
+  > div  {
+   min-height: 20px;
+   max-height: 20px;
+  }
+}
+
+.bucket {
+
+  flex: 1;
+  flex-shrink: 0;
+
+  // background: #a3a3a3;
+  color: #FFF;
+  min-width: 190px;
+  height: 100%;
+
+  .bucket-content {
+    padding-top: 5px;
+  }
+
+  .bucket-content.size-xs {
+   padding-left: 10px;
+   padding-right: 10px;
+  }
+}
+
+.bucket.size-xs {
+  min-width: 100vw;
+  touch-action: none;
+
+  .bucket_action_previous .bucket_action_next {
+   visibility:hidden;
+  }
+}
+
+.bucket_action_previous {
+ float: left;
+ cursor: pointer;
+}
+
+.bucket_action_next {
+ float: right;
+ cursor: pointer;
 }
