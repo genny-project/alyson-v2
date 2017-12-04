@@ -11,7 +11,8 @@ class Table extends Component {
     className: '',
     columns: [],
     data: [],
-    list: false
+    list: false,
+    itemsPerPage: 20,
   }
 
   static propTypes = {
@@ -44,8 +45,6 @@ class Table extends Component {
   render() {
     const { className, columns, data, itemsPerPage, isList, } = this.props;
 
-    //console.log(data);
-    
     return (
       <ReactTable
         getTdProps={this.createProps( 'tdStyle' )}
@@ -68,6 +67,8 @@ class Table extends Component {
         columns={columns}
         defaultPageSize={itemsPerPage}
         className={`table -striped -highlight ${isList ? 'table-list' : null } `}
+        showPagination={ data.length > itemsPerPage ? true : false}
+       
       />
     );
   }

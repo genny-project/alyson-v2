@@ -366,7 +366,7 @@ class GennyTable extends Component {
             }
         }
         return (
-            <div className="genny-table">
+            <div className={`genny-table ${data.length ? null : 'empty'}`}>
                 <Table {...this.props} data={data} columns={columns} />
             </div>
         );
