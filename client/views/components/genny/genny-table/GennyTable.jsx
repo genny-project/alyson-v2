@@ -11,7 +11,7 @@ class GennyTable extends Component {
     static defaultProps = {
         showBaseEntity: false
       }
-    
+
       static propTypes = {
         showBaseEntity: bool,
       }
@@ -245,14 +245,14 @@ class GennyTable extends Component {
 
                 data.push(newData);
             }
-        });        
+        });
 
         this.state.data = data;
         return data;
     }
 
     generateDataForOne(baseEntities) {
-        
+
         let data = [];
         baseEntities.forEach(baseEntity => {
 
@@ -348,8 +348,9 @@ class GennyTable extends Component {
 
         let children = BaseEntityQuery.getEntityChildren(root);
 
+        console.log(showBaseEntity);
         if(showBaseEntity) {
-            
+
             let be = BaseEntityQuery.getBaseEntity(root);
             if(be) {
                 children = [be];

@@ -102,7 +102,7 @@ class GennyBucketView extends PureComponent {
             children.push(
                 {
                 content: (
-                    <Card title={be.name} description={be.created} screenSize={this.props.screenSize} onClick={this.onClick}>
+                    <Card title={be.name} description={be.code} screenSize={this.props.screenSize} onClick={this.onClick}>
                         {
                             sublayout ? <LayoutLoader layout={sublayout} /> : null
                         }
