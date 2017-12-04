@@ -348,7 +348,6 @@ class GennyTable extends Component {
 
         let children = BaseEntityQuery.getEntityChildren(root);
 
-        console.log(showBaseEntity);
         if(showBaseEntity) {
 
             let be = BaseEntityQuery.getBaseEntity(root);
@@ -366,7 +365,7 @@ class GennyTable extends Component {
             }
         }
         return (
-            <div className={`genny-table ${data.length ? null : 'empty'}`}>
+            <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
                 <Table {...this.props} data={data} columns={columns} />
             </div>
         );
