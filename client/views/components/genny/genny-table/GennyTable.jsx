@@ -341,7 +341,7 @@ class GennyTable extends Component {
 
     render() {
 
-        const { root, showBaseEntity } = this.props;
+        const { root, showBaseEntity, style } = this.props;
 
         let columns = [];
         let data = [];
@@ -366,7 +366,7 @@ class GennyTable extends Component {
             }
         }
         return (
-            <div className="genny-table">
+            <div className="genny-table" style={style}>
                 <Table {...this.props} data={data} columns={columns} />
             </div>
         );
