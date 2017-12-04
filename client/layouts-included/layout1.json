@@ -2,7 +2,7 @@
   "layout": [
     {
       "AppHolder": {
-        "cols": [1,5],
+        "cols": [0,5],
         "rows": 1,
         "children": [
           {
@@ -11,7 +11,8 @@
               "style": {
                 "backgroundColor": "PROJECT.PRI_COLOR",
                 "color": "white",
-                "textAlign": "center"
+                "textAlign": "center",
+                "zIndex": 100
               },
               "hasImage": true,
               "caption": "USER.PRI_FIRSTNAME",

@@ -24,7 +24,7 @@ class Sidebar extends Component {
         this.setState(prevState => ({
           sidebarDefault: !prevState.sidebarDefault
         }));
-    }  
+    }
 
     render() {
 
@@ -37,20 +37,20 @@ class Sidebar extends Component {
 
         let imageView = null;
         if ( src ) {
-            imageView = <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} position={[0,0]}><ImageView src={src} caption={caption} style={{ maxWidth: "100px" }}/></div>;
+            imageView = <div className='sidebar-image' position={[0,0]}><ImageView src={src} caption={caption} style={{ maxWidth: "100px" }}/></div>;
         }
-        let icon = <IconSmall className={`app-sidebar-toggle`}
-            name="menu"
-            onClick={this.handleSidebarToggle}
-            position={[0,0]}
-        />
+        let icon = <IconSmall className={`sidebar-toggle-icon`}
+                name="menu"
+                onClick={this.handleSidebarToggle}
+                
+            />
 
         return (
-            <Grid className={`sidebar ${sidebarDefault ? null : 'non-default' }`} style={componentStyle} rows={["200px", "auto"]} cols={1}>
-                {icon}
-                {imageView}
-                {children}
-            </Grid>
+                <Grid className={`sidebar ${sidebarDefault ? null : 'non-default' }`} style={componentStyle} rows={["200px", "auto"]} cols={1}>
+                    {icon}
+                    {imageView}
+                    {children}
+                </Grid>
         );
     }
 }

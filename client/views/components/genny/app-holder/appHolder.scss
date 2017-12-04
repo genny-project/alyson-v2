@@ -3,4 +3,11 @@
 .app-holder {
 
 	height: 100vh;
+
+	.grid > .row {
+	
+	 	.col:first-child {
+			overflow: initial !important;
+		 }
+	}
 }
