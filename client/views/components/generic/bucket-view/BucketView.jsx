@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
-import { Modal, List } from 'views/components';
+import { Modal, List, Device } from 'views/components';
 import _ from 'lodash';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -12,10 +12,7 @@ class BucketView extends Component {
 
     state = {
         buckets: [],
-        touch: {},
-        touchTimer: null,
         currentlySelectedItem: false,
-        hasDraggedItem: false,
     }
 
     //TODO: if the destination bucket is empty this will break.
@@ -36,9 +33,18 @@ class BucketView extends Component {
                     let bucketContentNode = destinationBucketColumnNode.children[0];
                     if(bucketContentNode) {
 
-                        let content = bucketContentNode.children[index];
-                        if(content) {
-                            return content.getBoundingClientRect();
+                        if(bucketContentNode.children.length == 0) { // if we dont have children
+
+                            let rect = bucketContentNode.getBoundingClientRect();
+                            rect.height = 50; // limit the height to be small enough;
+                            return rect;
+                        }
+                        else {
+
+                            let content = bucketContentNode.children[index];
+                            if(content) {
+                                return content.getBoundingClientRect();
+                            }
                         }
                     }
                 }
@@ -69,8 +75,11 @@ class BucketView extends Component {
             if(child) {
 
                 // we calculate the X and Y in destination.
-                const originSpot = this.getRectOfChildrenInBucketAtIndex(sourceBkt, sourceBkt.children.length - 1);
+                let childIndex = sourceBkt.children.indexOf(child);
+
+                const originSpot = this.getRectOfChildrenInBucketAtIndex(sourceBkt, (childIndex ? childIndex : 0));
                 const destinationSpot = this.getAvailableSpotRectInBucket(destinationBkt);
+
                 if(originSpot && destinationSpot) {
 
                     const xDestination = destinationSpot.x - originSpot.x;
@@ -87,7 +96,7 @@ class BucketView extends Component {
         }
     }
 
-    componentWillUpdate(newProps) {
+    componentWillUpdate(newProps, newState) {
 
         // we should allow auto re rendering as often as possible. However, if an item was moved from one bucket to another, we want to apply
         // a transformation instead of re rendering the whole bucket.
@@ -96,7 +105,7 @@ class BucketView extends Component {
         // this.state.buckets = newProps.buckets;
         // return;
 
-        if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0 && !this.state.hasDraggedItem) {
+        if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0 && !this.hasDraggedItem) {
 
             let differences = [];
             for (var i = 0; i < newProps.buckets.length; i++) {
@@ -142,9 +151,9 @@ class BucketView extends Component {
 
             if(movedItems.length > 0) {
 
+                // for now this code only handle 1 item animation and then re-render the bucket.
                 for (var i = 0; i < movedItems.length; i++) {
                     this.animateItem(movedItems[i].item, movedItems[i].source, movedItems[i].destination);
-
                 }
 
                 setTimeout(() => {
@@ -153,15 +162,15 @@ class BucketView extends Component {
                         buckets: newProps.buckets,
                         hasDraggedItem: false,
                     })
-                }, 600);
+                }, 600)
+
+                return;
             }
         }
-        else {
 
-            this.state.buckets = newProps.buckets;
-            this.state.hasDraggedItem = false;
-            return;
-        }
+        this.state.buckets = newProps.buckets;
+        this.hasDraggedItem = false;
+        return;
     }
 
     onDragEnd = (result) => {
@@ -217,7 +226,7 @@ class BucketView extends Component {
 
     didMoveItem = (item, source, destination) => {
 
-        this.state.hasDraggedItem = true;
+        this.hasDraggedItem = true;
 
         if(source.droppableId == destination.droppableId) {
             this.moveItemInBucket(item.draggableId, source.droppableId, source.index, destination.index);
@@ -342,8 +351,6 @@ class BucketView extends Component {
         const { style } = this.props;
         const { buckets, currentlySelectedItem } = this.state;
 
-        this.state.nodes = [];
-
         let counter = 0;
         let columns = buckets.map((bucket) => {
 
@@ -359,7 +366,6 @@ class BucketView extends Component {
                 showMovingOptions={this.toggleMovingOptions}
                 addNewItem={this.addNewItem}
                 canAddItem={bucket.canAddItem}
-                ref={ x => this.state.nodes.push(x) }
                 style={{ backgroundColor: (counter % 2 == 0) ? '#b6b6b6' : 'transparent' }}
                 />
 
@@ -370,9 +376,11 @@ class BucketView extends Component {
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                 <div className={`bucket-view size-${window.getScreenSize()}`}>
-                    <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
-                        <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
-                    </Modal>
+                    <Device isMobile>
+                        <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+                        </Modal>
+                    </Device>
                     {columns}
                 </div>
             </DragDropContext>

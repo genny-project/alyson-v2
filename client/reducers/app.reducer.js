@@ -70,38 +70,10 @@ export default function reducer( state = initialState, action ) {
             exitCode: action.payload.exitCode,
          };
 
-         // window.postMessage(JSON.stringify({
-         //     "id": action.payload.code,
-         //     "data": data
-         // }), "*"); // for the react native app to pick up
-
-         // TODO: to be removed. demo only.
-
-         setTimeout(() => {
-
-             let event = {
-                 data: {
-                     value: "EXIT_SOURCE",
-                     code: "BEG_0000003_EXIT_SOURCE"
-                 }
-             };
-             GennyBridge.sendGeofenceData("GEOFENCE_EXIT", event.data);
-
-             setTimeout(() => {
-
-                 let event = {
-                     data: {
-                         value: "ENTER_DESTINATION",
-                         code: "BEG_0000003_ENTER_DESTINATION"
-                     }
-                 };
-
-                 GennyBridge.sendGeofenceData("GEOFENCE_ENTER", event.data);
-
-             }, 10000); // 10 seconds after we send the enter_destination event.
-
-
-         }, 10000); // 10 seconds after we send the exit_source event.
+         window.postMessage(JSON.stringify({
+             "id": action.payload.code,
+             "data": data
+         }), "*"); // for the react native app to pick up
      }
 
      return state;

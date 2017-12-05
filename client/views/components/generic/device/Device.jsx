@@ -21,7 +21,7 @@ class Device extends Component {
 
     if ( window.getScreenSize() == 'sm' ) {
       if ( hideMobile )
-        return <div />;
+        return null;
 
       if ( isMobile )
         return children;
@@ -29,7 +29,7 @@ class Device extends Component {
 
     if ( window.getScreenSize() == 'md' ) {
       if ( hideTablet )
-        return <div />;
+        return null;
 
       if ( isTablet )
         return children;
@@ -37,13 +37,13 @@ class Device extends Component {
 
     if ( window.getScreenSize() == 'lg' ) {
       if ( hideDesktop )
-        return <div />;
+        return null;
 
       if ( isDesktop )
         return children;
     }
 
-    return <div />;
+    return null;
   }
 }
 
