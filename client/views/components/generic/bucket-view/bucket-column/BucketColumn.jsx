@@ -42,18 +42,28 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, items, groupId, canAddItem } = this.props;
+        const { className, style, title, items, groupId, canAddItem, goToPreviousBucket, goToNextBucket } = this.props;
         const componentStyle = { ...style, };
-
+        console.log();
         let titleDiv = null;
         if(window.getScreenSize() == "sm") {
             titleDiv =
             <div>
-                <IconSmall className="clickable bucket_action_previous" name='chevron_left' onClick={this.props.goToPreviousBucket}/>
                 {
-                    canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} /> : `${title}`
+                    goToPreviousBucket ?
+                        <IconSmall className="clickable bucket_action_previous" name='chevron_left' onClick={this.props.goToPreviousBucket}/>
+                    : <div className='spacer prev'/>
                 }
-                <IconSmall className="clickable bucket_action_next" name='chevron_right' onClick={this.props.goToNextBucket}/>
+                {
+                    canAddItem ?
+                        <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} />
+                    : `${title}`
+                }
+                {
+                    goToNextBucket ?
+                        <IconSmall className="clickable bucket_action_next" name='chevron_right' onClick={this.props.goToNextBucket}/>
+                    : <div className='spacer next'/>
+                }
             </div>
         }
         else {
@@ -67,7 +77,7 @@ class BucketColumn extends Component {
 
         return (
 
-            <div style={style}>
+            <div className={`bucket-column ${className}`} style={style}>
                 <div className="bucket-title sticky">
                     {titleDiv}
                 </div>
