@@ -24,6 +24,21 @@ class AppHolder extends Component {
             /* Hide the loading spinner */
             document.getElementById('mounting-preview').remove();
         }
+
+        let social_code = window.getQueryString('code');
+        let data_string = window.getQueryString("data_state");
+
+        if(social_code) {
+
+           if(data_string) {
+
+               let data = JSON.parse(decodeURIComponent(data_string));
+               if(data) {
+                   data.value = social_code;
+                   GennyBridge.sendAnswer([data]);
+               }
+           }
+       }
     }
 
     render() {
