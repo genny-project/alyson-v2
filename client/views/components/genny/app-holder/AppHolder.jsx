@@ -16,7 +16,6 @@ class AppHolder extends Component {
     };
 
     state = {
-        
     }
 
     componentDidMount() {
@@ -30,10 +29,10 @@ class AppHolder extends Component {
     render() {
 
         const { children, cols, rows } = this.props;
-        const {  } = this.state;
+        const { } = this.state;
 
         return (
-            <div className="app-holder">
+            <div className={`app-holder ${window.getScreenSize()}`}>
                 <Grid style={{backgroundColor: "white"}} cols={cols} rows={rows}>
                     {children}
                 </Grid>

@@ -14,20 +14,12 @@ class Device extends Component {
   }
 
   state = {
-    width: window.innerWidth,
-  }
-
-  componentWillMount() {
-    window.addEventListener( 'resize', event => {
-      this.setState({ width: event.target.innerWidth });
-    });
   }
 
   render() {
     const { isMobile, isTablet, isDesktop, hideMobile, hideTablet, hideDesktop, children } = this.props;
-    const { width } = this.state;
 
-    if ( width < 768 ) {
+    if ( window.getScreenSize() == 'sm' ) {
       if ( hideMobile )
         return <div />;
 
@@ -35,7 +27,7 @@ class Device extends Component {
         return children;
     }
 
-    if ( width >= 768 && width < 992 ) {
+    if ( window.getScreenSize() == 'md' ) {
       if ( hideTablet )
         return <div />;
 
@@ -43,7 +35,7 @@ class Device extends Component {
         return children;
     }
 
-    if ( width >= 992 ) {
+    if ( window.getScreenSize() == 'lg' ) {
       if ( hideDesktop )
         return <div />;
 

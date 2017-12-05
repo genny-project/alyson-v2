@@ -1,5 +1,4 @@
 .sidebar {
-	position: relative;
 	transition: 300ms ease;
 	width: 300px;
 
@@ -12,22 +11,30 @@
 		justify-content: center;
 		align-items: center;
 		transition-delay: 2s;
-
 	}
 
 	.sidebar-toggle-icon {
-		right: 20px;
+		left: 260px;
 		top: 10px;
 		position: absolute;
 		transition: 300ms ease;
 	}
 
-	&.non-default {
-		overflow:hidden;
+	&.closed:not(.sm) {
 		width: 0;
+		overflow: hidden;
 	
 		.sidebar-toggle-icon {
-			right: -40px;
+			left: 15px;
+		}
+	}
+
+	&.sm:not(.closed) {
+		width: 0;
+		overflow: hidden;
+	
+		.sidebar-toggle-icon {
+			left: 15px;
 		}
 	}
 }

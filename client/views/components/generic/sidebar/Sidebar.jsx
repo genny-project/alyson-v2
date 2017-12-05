@@ -12,43 +12,47 @@ class Sidebar extends Component {
       caption: any,
       children: any,
       height: string,
-      screenSize: string,
     };
 
     state = {
-        sidebarDefault: true,
+        isOpen: true,
     }
 
     handleSidebarToggle = (event) => {
         event.preventDefault();
         this.setState(prevState => ({
-          sidebarDefault: !prevState.sidebarDefault
+            isOpen: !prevState.isOpen
         }));
     }
 
     render() {
 
-        const { style, src, caption, children, height } = this.props;
-        const { sidebarDefault } = this.state;
+        const { style, src, caption, children, height, } = this.props;
+        const { isOpen } = this.state;
 
         const componentStyle = {
             ...style,
         };
 
-        let imageView = null;
+        let image = null;
         if ( src ) {
-            imageView = <div className='sidebar-image' position={[0,0]}><ImageView src={src} caption={caption} style={{ maxWidth: "100px" }}/></div>;
+            image = <div className='sidebar-image' position={[0,0]}><ImageView src={src} caption={caption} style={{ maxWidth: "100px" }}/></div>;
         }
-        let icon = <IconSmall className={`sidebar-toggle-icon`}
+        let icon = <IconSmall className={`sidebar-toggle-icon clickable`}
                 name="menu"
                 onClick={this.handleSidebarToggle}
-                
+                position={[0,0]}
             />
 
         return (
-                <Grid className={`sidebar ${sidebarDefault ? null : 'non-default' }`} style={componentStyle} rows={["200px", "auto"]} cols={1}>
+                <Grid 
+                    className={`sidebar ${window.getScreenSize()} ${isOpen ? '' : 'closed'}`}
+                    style={componentStyle}
+                    rows={["200px", "auto"]}
+                    cols={1}>
+
                     {icon}
-                    {imageView}
+                    {image}
                     {children}
                 </Grid>
         );

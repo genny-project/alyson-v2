@@ -1,118 +1,110 @@
 {
   "layout": [
-
-
     {
       "AppHolder": {
-        "sidebar": {
-          "style": {
-            "backgroundColor": "#1f1f1f",
-            "color": "white",
-            "textAlign": "center"
-          },
-          "hasImage": true,
-          "caption": "Tom Cavanagh",
-          "src": "https://lh3.googleusercontent.com/6EmDogbGliWNJdXB8NUX4oBxCx3TWZtQpsGdsC63miS1Ia4MrBsXC23GFta5AkC0yBE=w300"
-        },
-        "header": {
-          "style": {
-            "backgroundColor": "#1f1f1f",
-            "color": "white"
-          },
-          "projectTitle" : "Channel40",
-          "userName" : "Tom",
-          "userImage" : "http://www.terry.uga.edu/digitalmarketing/images/icons/user.jpg"
-        },
-        "footer" : {
-          "style": {
-            "backgroundColor": "#1f1f1f",
-            "color": "white"
-          },
-          "version" : "0.0.0.1",
-          "poweredBy" : {
-            "caption" : "Outcome.life"
-          }
-        },
+        "cols": [0,5],
+        "rows": 1,
         "children": [
-
           {
-            "GennyTreeView": {
+            "Sidebar": {
+              "position": [0,0],
               "style": {
-                "marginTop": "50px"
+                "backgroundColor": "PROJECT.PRI_COLOR",
+                "color": "white",
+                "textAlign": "center"
               },
-              "root": "GRP_ROOT"
-            }
-          },
-
-
-          {
-            "div": {
-              "style": {
-                "background": "#ff7000",
-                "color": "#FFF",
-                "padding": "20px",
-                "fontFamily": "Helvetica",
-                "fontWeight": "400"
-              },
-              "className" : "sticky",
+              "hasImage": true,
+              "caption": "USER.PRI_FIRSTNAME",
+              "src": "PROJECT.PRI_LOGO",
               "children": [
-
                 {
-                  "h3": {
-                    "children": "CHANNEL40 - QUESTIONS ",
+                  "GennyTreeView": {
+                    "position": [1,0],
                     "style": {
-                      "marginBottom": "10px",
-                      "marginTop": "10px"
-                    }
+                    "marginTop": "50px"
+                  },
+                    "root": "GRP_ROOT"
                   }
                 }
-
               ]
             }
           },
-
-
           {
-            "div": {
-              "style": {
-                "display": "flex"
-
-              },
+            "Grid": {
+              "cols": 1,
+              "rows": ["90px", "auto", "30px"],
+              "position": [0,1],
               "children": [
                 {
-                  "GennyForm": {
-                    "itemsPerPage" : 10,
-                    "showProgress" : true,
-                    "style" : "default",
-                    "asks" : [
+                  "GennyHeader": {
+                    "position": [0,0],
+
+                    "style": {
+                      "backgroundColor": "PROJECT.PRI_COLOR",
+                      "color": "white"
+                    },
+                    "projectTitle" : "PROJECT.PRI_NAME",
+                    "projectGreeting" : "PROJECT.PRI_GREETING",
+                    "userName" : "USER.PRI_FIRSTNAME",
+                    "userImage" : "USER.PRI_IMAGE_URL"
+                  }
+                },
+                {
+                  "AppContent": {
+                    "position": [1,0],
+                    "children" : [
+                      {
+                        "div": {
+                          "children": [
+                            {
+                              "GennyForm": {
+                                "itemsPerPage" : 10,
+                                "showProgress" : true,
+                                "style" : "default",
+                                "asks" : [
+                                ]
+                              }
+                            },
+                            {
+                              "GennyTable": {
+                                "itemsPerPage" : 10,
+                                "columns" : [
+                                  { "Header": "First Name", "accessor": "firstName" },
+                                  { "Header": "Last Name", "accessor": "lastName" }
+                                ],
+                                "data" : [
+                                  { "firstName" : "1office","lastName": "1photo", "age": 3, "visits": 3, "progress": 2, "status" : "single" },
+                                  { "firstName" : "2office", "lastName": "2photo", "age": 4, "visits": 4, "progress": 4, "status" : "sdas" },
+                                  { "firstName" : "3office", "lastName": "3photo", "age": 5, "visits": 5, "progress": 5, "status" : "bana" },
+                                  { "firstName" : "6office", "lastName": "4photo", "age": 33, "visits": 23, "progress": 10, "status" : "agrab" },
+                                  { "firstName" : "4office", "lastName": "5photo", "age": 344, "visits": 13, "progress": 23, "status" : "tbool" }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
                     ]
                   }
                 },
                 {
-                  "GennyTable": {
-                    "itemsPerPage" : 10,
-                    "columns" : [
-                      { "Header": "First Name", "accessor": "firstName" },
-                      { "Header": "Last Name", "accessor": "lastName" }
-                    ],
-                    "data" : [
-                      { "firstName" : "1office","lastName": "1photo", "age": 3, "visits": 3, "progress": 2, "status" : "single" },
-                      { "firstName" : "2office", "lastName": "2photo", "age": 4, "visits": 4, "progress": 4, "status" : "sdas" },
-                      { "firstName" : "3office", "lastName": "3photo", "age": 5, "visits": 5, "progress": 5, "status" : "bana" },
-                      { "firstName" : "6office", "lastName": "4photo", "age": 33, "visits": 23, "progress": 10, "status" : "agrab" },
-                      { "firstName" : "4office", "lastName": "5photo", "age": 344, "visits": 13, "progress": 23, "status" : "tbool" }
-                    ]
+                  "Footer": {
+                    "position": [2,0],
+                    "style": {
+                      "backgroundColor": "PROJECT.PRI_COLOR",
+                      "color": "white"
+                    },
+                    "version" : "PROJECT.PRI_VERSION",
+                    "poweredBy" : {
+                      "caption" : "PROJECT.PRI_POWERED_BY"
+                    }
                   }
                 }
               ]
             }
           }
-          
-
-          
         ]
       }
     }
-
   ]
 }

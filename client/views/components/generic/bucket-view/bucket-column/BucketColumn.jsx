@@ -42,11 +42,11 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, items, groupId, screenSize, canAddItem } = this.props;
+        const { className, style, title, items, groupId, canAddItem } = this.props;
         const componentStyle = { ...style, };
 
         let titleDiv = null;
-        if(screenSize == "xs") {
+        if(window.getScreenSize() == "sm") {
             titleDiv =
             <div>
                 <IconSmall className="clickable bucket_action_previous" name='chevron_left' onClick={this.props.goToPreviousBucket}/>
@@ -78,21 +78,20 @@ class BucketColumn extends Component {
 
                             <div ref={provided.innerRef}
                                 style={getListStyle(snapshot.isDraggingOver)}
-                                className={`bucket size-${screenSize}`}
+                                className={`bucket size-${window.getScreenSize()}`}
                                 key={title} >
 
-                                <div className={`bucket-content size-${screenSize} no-select`}>
+                                <div className={`bucket-content size-${window.getScreenSize()} no-select`}>
                                     {
                                         items.map(child => {
 
-                                            console.log(child);
                                             return (
                                                 <BucketElement
                                                 key={child.id}
                                                 item={child}
                                                 style={child.style}
                                                 moveBucket={this.moveBucket}
-                                                screenSize={screenSize}
+                                                screenSize={window.getScreenSize()}
                                                 showMovingOptions={this.props.showMovingOptions} />
                                             )
                                         })

@@ -4,10 +4,12 @@
 
 	height: 100vh;
 
-	.grid > .row {
+	> .grid > .row:first-child {
 	
-	 	.col:first-child {
+	 	> .col:first-child {
 			overflow: initial !important;
+			z-index: 100;
+			position: relative;
 		 }
 	}
 }
