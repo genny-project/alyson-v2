@@ -1,15 +1,50 @@
 @import '../../../../../styles/colors';
 
+
+.bucket-column {
+  background: #b6b6b6;
+
+  &.alt-style {
+    background: transparent;
+
+    .bucket-title {
+      background: #929292;
+    }
+  }
+}
 .bucket-title {
 
   padding: 20px;
-  background: transparent;
-  text-align: center;
+  background: #a3a3a3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
 
   > div  {
-   min-height: 20px;
-   max-height: 20px;
+    min-height: 20px;
+    max-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    i {
+      color: white;
+    }
+
+    .bucket_action_previous, .spacer.prev {
+      margin-right: auto;
+    }
+
+    .bucket_action_next, .spacer.next {
+      margin-left: auto;
+    }
+
+    .spacer.prev, .spacer.next {
+      width: 24px;
+    }
+    
   }
 }
 
