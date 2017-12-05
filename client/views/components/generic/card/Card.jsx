@@ -25,7 +25,6 @@ class Card extends Component {
     showProgress: bool,
     progressTotal: number,
     progressCurrent: number,
-    screenSize: string
   }
 
   state = {
@@ -70,7 +69,7 @@ class Card extends Component {
 
   render() {
 
-    const { className, title, description, level, style, screenSize } = this.props;
+    const { className, title, description, level, style } = this.props;
     const { isShowingOptions, isOpen } = this.state;
     const componentStyle = { ...style, };
     const cardContent = isOpen ? this.getCardContent() : '';
@@ -102,7 +101,7 @@ class Card extends Component {
       <div className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >
         <div className="card-top">
             {
-                screenSize == "xs" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
+                window.getScreenSize() == "sm" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
             }
             {
                 isShowingOptions ?

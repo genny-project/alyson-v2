@@ -24,22 +24,6 @@ class GennyTable extends Component {
         isOpen: {}
     }
 
-    componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions = () => {
-        this.setState({
-            width: window.innerWidth,
-            height: window.innerHeight
-        });
-    }
-
     generateHeadersFor(baseEntities) {
 
         let columns = [];
@@ -381,7 +365,7 @@ class GennyTable extends Component {
         } else {
 
             if(children) {
-                columns = this.state.width > 900 ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
+                columns =  window.getScreenSize() != 'sm' ? this.generateHeadersFor(children) : this.generateHeadersForMobile(children);
                 data = this.generateDataFor(children);
             }
         }

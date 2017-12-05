@@ -1,4 +1,5 @@
 export { default as AppHolder } from './app-holder';
+export { default as AppContent } from './app-content';
 export { default as GennyBucketView } from './genny-bucket-view';
 export { default as GennyButton } from './genny-button';
 export { default as GennyForm } from './genny-form';

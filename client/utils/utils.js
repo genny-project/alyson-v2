@@ -48,19 +48,20 @@ window.getQueryString = function ( field, url ) {
     return string ? string[1] : null;
 }
 
+const SMALL_SCREEN = 768;
+const MEDIUM_SCREEN = 992;
+const LARGE_SCREEN = 1400;
+
 window.getScreenSize = function() {
 
     let screenSize = '';
-    if (window.innerWidth < 576) {
-        screenSize = 'xs';
-    }
-    else if (window.innerWidth >= 576 && window.innerWidth < 768) {
+    if (window.innerWidth < SMALL_SCREEN) {
         screenSize = 'sm';
     }
-    else if (window.innerWidth >= 768 && window.innerWidth < 992) {
+    else if (window.innerWidth >= SMALL_SCREEN && window.innerWidth < MEDIUM_SCREEN) {
         screenSize = 'md';
     }
-    else if (window.innerWidth >= 992) {
+    else if (window.innerWidth >= MEDIUM_SCREEN) {
         screenSize = 'lg';
     }
 

@@ -1,7 +1,8 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
-import { ImageView, } from '../../../components'
+import { ImageView, IconSmall } from '../../../components'
 import { object, bool, string, any } from 'prop-types';
+import { Grid } from '@genny-project/layson';
 
 class Sidebar extends Component {
 
@@ -11,41 +12,49 @@ class Sidebar extends Component {
       caption: any,
       children: any,
       height: string,
-      screenSize: string,
     };
 
-    getContentHeight = () => {
-        const { height } = this.props;
+    state = {
+        isOpen: true,
+    }
 
-        let s = Number(height.substr(0,height.length-2))+30;
-        
-        return {height: `calc(100vh - ${s}px)`}
+    handleSidebarToggle = (event) => {
+        event.preventDefault();
+        this.setState(prevState => ({
+            isOpen: !prevState.isOpen
+        }));
     }
 
     render() {
 
-        const { style, src, caption, children, height } = this.props;
+        const { style, src, caption, children, height, } = this.props;
+        const { isOpen } = this.state;
 
         const componentStyle = {
-          ...style,
+            ...style,
         };
 
-        const contentHeight = this.getContentHeight();
-
-        let imageView = null;
+        let image = null;
         if ( src ) {
-            imageView = <ImageView src={src} caption={caption} style={{ maxWidth: "100px" }} />;
+            image = <div className='sidebar-image' position={[0,0]}><ImageView src={src} caption={caption} style={{ maxWidth: "100px" }}/></div>;
         }
+        let icon = <IconSmall className={`sidebar-toggle-icon clickable`}
+                name="menu"
+                onClick={this.handleSidebarToggle}
+                position={[0,0]}
+            />
 
         return (
-            <div className={`sidebar ${window.screenSize}`} style={componentStyle}>
-              <div className="sidebar-header" style={{height: height}}>
-                {imageView}
-              </div>
-              <div className="sidebar-content" style={contentHeight}>
-                {children}
-              </div>
-            </div>
+                <Grid 
+                    className={`sidebar ${window.getScreenSize()} ${isOpen ? '' : 'closed'}`}
+                    style={componentStyle}
+                    rows={["200px", "auto"]}
+                    cols={1}>
+
+                    {icon}
+                    {image}
+                    {children}
+                </Grid>
         );
     }
 }

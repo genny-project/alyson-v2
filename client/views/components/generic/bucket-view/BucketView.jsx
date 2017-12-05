@@ -369,14 +369,10 @@ class BucketView extends Component {
 
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                <div className={`bucket-view size-${this.props.screenSize}`}>
-                    {
-                        this.props.screenSize == "xs" ?
-                        <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
-                            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
-                        </Modal>
-                        : null
-                    }
+                <div className={`bucket-view size-${window.getScreenSize()}`}>
+                    <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                        <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+                    </Modal>
                     {columns}
                 </div>
             </DragDropContext>

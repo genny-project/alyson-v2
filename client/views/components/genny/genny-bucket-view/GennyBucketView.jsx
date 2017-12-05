@@ -102,7 +102,8 @@ class GennyBucketView extends PureComponent {
         bes.forEach(be => {
 
             // we get the sublayout code from the BE
-            let layout_code = (be.attributes["PRI_LAYOUT"] ? be.attributes["PRI_LAYOUT"].value : null);
+            
+            let layout_code = be.attributes["PRI_LAYOUT"] ? be.attributes["PRI_LAYOUT"].value : null;
             let sublayout = this.props.sublayout[layout_code];
 
             children.push(
@@ -154,7 +155,7 @@ class GennyBucketView extends PureComponent {
         return (
             <div className="genny-bucket-view">
                 <BucketView
-                    screenSize={this.props.screenSize}
+                    screenSize={window.getScreenSize()}
                     buckets={buckets}
                     didMoveItem={this.didMoveItem}
                     addNewItem={this.addNewItem} />
