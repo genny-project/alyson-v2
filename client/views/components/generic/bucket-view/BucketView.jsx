@@ -354,13 +354,13 @@ class BucketView extends Component {
                 key={bucket.id}
                 groupId={bucket.id}
                 items={bucket.children}
-                goToPreviousBucket={ counter == 0 ? false : this.goToPreviousBucket }
-                goToNextBucket={ counter == buckets.length - 1 ? false : this.goToNextBucket }
-                showMovingOptions={ this.toggleMovingOptions}
+                goToNextBucket={this.goToNextBucket}
+                goToPreviousBucket={this.goToPreviousBucket}
+                showMovingOptions={this.toggleMovingOptions}
                 addNewItem={this.addNewItem}
                 canAddItem={bucket.canAddItem}
                 ref={ x => this.state.nodes.push(x) }
-                className={(counter % 2 == 0) ? '' : 'alt-style'}
+                style={{ backgroundColor: (counter % 2 == 0) ? '#b6b6b6' : 'transparent' }}
                 />
 
             counter += 1;
