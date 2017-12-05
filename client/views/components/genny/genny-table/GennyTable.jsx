@@ -147,7 +147,7 @@ class GennyTable extends Component {
                                 "Header": <span style={{fontSize: '18px' }}>ATTRIBUTE CODE</span>,
                                 "accessor": 'code',
                                 "maxWidth": 200,
-                                "Cell": row => (
+                                "Cell": ({row, original}) => (
                                     <span style={{
                                         fontSize: '14px',
                                         color: () => {
@@ -160,7 +160,7 @@ class GennyTable extends Component {
                                                 return null;
                                             }
                                         }}>
-                                        {row.weight}
+                                        {row.code}
                                     </span>
                                 )
                             },
@@ -181,7 +181,7 @@ class GennyTable extends Component {
                                                     return null;
                                                 }
                                             }}>
-                                            {row.weight}
+                                            {row.value}
                                         </span>
                                     )
                                 }
