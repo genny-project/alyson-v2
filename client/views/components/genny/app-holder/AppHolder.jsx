@@ -111,8 +111,6 @@ class AppHolder extends Component {
         const contentChildren = ctn;
         const contentStyle = this.getContentHeight();
 
-        //console.log(this.props);
-
         let renderSidebar;
         if ( sidebar ) {
             const sidebarStyle = this.getSidebarStyle();
@@ -145,21 +143,21 @@ class AppHolder extends Component {
 
         let layoutContent = null;
 
-        if(layout.currentView) {
+        if(layout.currentView && layout.currentView.dataCode) {
 
             // we need to show the table view
             if(layout.currentView.code == "TABLE_VIEW") {
-                layoutContent = <GennyTable screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_USERS"}/>
+                layoutContent = <GennyTable screenSize={screenSize} root={layout.currentView.dataCode}/>
             }
             // we need to show the bucket view
             else if (layout.currentView.code == "BUCKET_VIEW") {
-                layoutContent = <GennyBucketView screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_DRIVER_VIEW"} />
+                layoutContent = <GennyBucketView screenSize={screenSize} root={layout.currentView.dataCode} />
             }
             else if (layout.currentView.code == "LIST_VIEW") {
-                layoutContent = <GennyList screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "GRP_QUOTES"} />
+                layoutContent = <GennyList screenSize={screenSize} root={layout.currentView.dataCode} />
             }
             else if (layout.currentView.code == "FORM_VIEW") {
-                layoutContent = <GennyForm screenSize={screenSize} root={layout.currentView.dataCode ? layout.currentView.dataCode : "PER_USER1"} showProgress={true}/>
+                layoutContent = <GennyForm screenSize={screenSize} root={layout.currentView.dataCode} showProgress={true}/> // should be coming from backend?
             }
         }
         else if (layout.currentSublayout) {
@@ -175,7 +173,9 @@ class AppHolder extends Component {
                 <div className="app-main">
                     {renderShade}
                     {renderHeader}
-                <div className="app-content" style={contentStyle}>{layoutContent}</div>
+                <div className="app-content" style={contentStyle}>
+                    {layoutContent}
+                </div>
                     {renderFooter}
                 </div>
             </div>

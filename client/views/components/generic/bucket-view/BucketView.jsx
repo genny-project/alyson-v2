@@ -15,6 +15,7 @@ class BucketView extends Component {
         touch: {},
         touchTimer: null,
         currentlySelectedItem: false,
+        hasDraggedItem: false,
     }
 
     //TODO: if the destination bucket is empty this will break.
@@ -92,10 +93,10 @@ class BucketView extends Component {
         // a transformation instead of re rendering the whole bucket.
 
         // TODO: uncomment to remove animation.
-        this.state.buckets = newProps.buckets;
-        return;
+        // this.state.buckets = newProps.buckets;
+        // return;
 
-        if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0) {
+        if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0 && !this.state.hasDraggedItem) {
 
             let differences = [];
             for (var i = 0; i < newProps.buckets.length; i++) {
@@ -143,19 +144,23 @@ class BucketView extends Component {
 
                 for (var i = 0; i < movedItems.length; i++) {
                     this.animateItem(movedItems[i].item, movedItems[i].source, movedItems[i].destination);
+
                 }
 
                 setTimeout(() => {
+
                     this.setState({
-                        buckets: newProps.buckets
+                        buckets: newProps.buckets,
+                        hasDraggedItem: false,
                     })
                 }, 600);
             }
         }
         else {
-            this.setState({
-                buckets: newProps.buckets
-            })
+
+            this.state.buckets = newProps.buckets;
+            this.state.hasDraggedItem = false;
+            return;
         }
     }
 
@@ -166,11 +171,11 @@ class BucketView extends Component {
             return;
         }
 
+        this.didMoveItem(result, result.source, result.destination);
+
         if(this.props.didMoveItem) {
             this.props.didMoveItem(result, result.source, result.destination);
         }
-
-        this.didMoveItem(result, result.source, result.destination);
     }
 
     moveItemInDifferentBucket = (itemCode, sourceBucketCode, destinationBucketCode, originalIndex, destinationIndex) => {
@@ -211,6 +216,8 @@ class BucketView extends Component {
     }
 
     didMoveItem = (item, source, destination) => {
+
+        this.state.hasDraggedItem = true;
 
         if(source.droppableId == destination.droppableId) {
             this.moveItemInBucket(item.draggableId, source.droppableId, source.index, destination.index);

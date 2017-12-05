@@ -22,11 +22,6 @@ class GennyForm extends Component {
 
   onClick = (clickedButton) => {
 
-    console.log("Button was clicked");
-    // clickedButton is a react component. info is stored in clickedButton.props.
-
-    console.log(clickedButton, clickedButton.props);
-
     if(clickedButton && clickedButton.props) {
 
         let data = clickedButton.props.data;
@@ -42,8 +37,6 @@ class GennyForm extends Component {
   }
 
   sendAnswer = (value, ask) => {
-
-    //let color = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_COLOR');
 
     this.sendData([
       {
@@ -64,8 +57,6 @@ class GennyForm extends Component {
 
     const { asks, style, className } = this.props;
     const componentStyle = { ...style, };
-
-    //console.log('form style', this.props.alias);
 
     return (
       <div className={`genny-form ${className}`}>

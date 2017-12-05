@@ -166,10 +166,17 @@ class GennyTable extends Component {
                                 "Cell": row => (
                                     <span style={{
                                         fontSize: '14px',
-                                        color: row.value.startsWith("PRI_") ? 'black'
-                                            : row.value.startsWith("FBK_") ? '#3B5998'
-                                            : null }}>
-                                        {row.value}
+                                        color: () => {
+
+                                                if(original.code) {
+                                                    if(original.code.startsWith("PRI_")) return 'black';
+                                                    if(original.code.startsWith("FBK_")) return '#3B5998';
+                                                }
+
+                                                return null;
+                                            }
+                                        }}>
+                                        {row.weight}
                                     </span>
                                 )
                             },
@@ -180,10 +187,17 @@ class GennyTable extends Component {
                                     return (
                                         <span style={{
                                             fontSize: '14px',
-                                            color: original.code.startsWith("PRI_") ? 'black'
-                                                : original.code.startsWith("FBK_") ? '#3B5998'
-                                                : null }}>
-                                            {row.value}
+                                            color: () => {
+
+                                                    if(original.code) {
+                                                        if(original.code.startsWith("PRI_")) return 'black';
+                                                        if(original.code.startsWith("FBK_")) return '#3B5998';
+                                                    }
+
+                                                    return null;
+                                                }
+                                            }}>
+                                            {row.weight}
                                         </span>
                                     )
                                 }
@@ -196,9 +210,16 @@ class GennyTable extends Component {
                                     return (
                                         <span style={{
                                             fontSize: '14px',
-                                            color: original.code.startsWith("PRI_") ? 'black'
-                                                : original.code.startsWith("FBK_") ? '#3B5998'
-                                                : null }}>
+                                            color: () => {
+
+                                                    if(original.code) {
+                                                        if(original.code.startsWith("PRI_")) return 'black';
+                                                        if(original.code.startsWith("FBK_")) return '#3B5998';
+                                                    }
+
+                                                    return null;
+                                                }
+                                            }}>
                                             {row.weight}
                                         </span>
                                     )

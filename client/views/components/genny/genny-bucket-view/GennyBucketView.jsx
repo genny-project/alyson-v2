@@ -25,13 +25,13 @@ class GennyBucketView extends PureComponent {
 
     didMoveItem = (item, source, destination) => {
 
-        if(item.draggableId) {
+        if(item.draggableId && source.droppableId) {
 
             let begs = BaseEntityQuery.getEntityChildren(source.droppableId);
             if(begs.length > 0) {
 
                 let movedBeg = begs.filter(x => x.code == item.draggableId)[0];
-                let loads = movedBeg.children;
+                let loads = movedBeg ? movedBeg.children : null;
                 if(loads && loads.length > 0) {
 
                     let movedLoad = loads[0];
@@ -50,6 +50,12 @@ class GennyBucketView extends PureComponent {
                     GennyBridge.sendBucketDropEvent(data_event);
                 }
             }
+        }
+        else {
+            console.log("========= Error bucket movement =========");
+            console.log(item);
+            console.log(source);
+            console.log(destination);
         }
     }
 
@@ -75,15 +81,15 @@ class GennyBucketView extends PureComponent {
     onClick = (item) => {
 
         //TODO: to be changed.
-        let itemValue = item.props.description;
-        if(itemValue) {
-            let data = {
-                code: "LOAD_CLICK",
-                value: itemValue,
-            }
-
-            GennyBridge.sendBtnClick(data);
-        }
+        // let itemValue = item.props.description;
+        // if(itemValue) {
+        //     let data = {
+        //         code: "LOAD_CLICK",
+        //         value: itemValue,
+        //     }
+        //
+        //     GennyBridge.sendBtnClick(data);
+        // }
     }
 
     generateBucket(group) {

@@ -34,7 +34,7 @@ class GennyTreeView extends Component {
       if(identifier && this.props.componentState) {
 
         if(this.props.componentState[identifier]) {
-      
+
             // ask for all the bes
             this.getNeededDataFor(this.props.componentState[identifier]);
 
@@ -195,7 +195,6 @@ class GennyTreeView extends Component {
     if(isHorizontal) {
 
         let bePath = this.generatePath(this.props.currentPath);
-
         return (
             <Breadcrumbs {...this.props} currentPath={ bePath } onClick={ this.onClick } />
         );
