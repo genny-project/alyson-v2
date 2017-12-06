@@ -1,10 +1,11 @@
 import './gennyTable.scss';
 import React, { Component } from 'react';
-import { Table } from '../../';
+import { Table } from 'views/components';
 import { object, array, bool } from 'prop-types';
 import { BaseEntityQuery } from 'utils/genny';
-import { IconSmall } from '../../';
+import { IconSmall } from 'views/components';
 import { GennyBridge } from 'utils/genny';
+import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile } from './genny-table-components';
 
 class GennyTable extends Component {
 
@@ -21,208 +22,122 @@ class GennyTable extends Component {
         data: [],
         width: null,
         height: null,
-        isOpen: {}
+        isOpen: {},
+        isMobile: window.getScreenSize() == 'sm'
     }
 
-    generateHeadersFor(baseEntities) {
-        const { showBaseEntity} = this.props;
+    generateColumns = (baseEntity) => {
 
-        let columns = [];
-        let accessors = [];
+        const { showBaseEntity } = this.props;
+        const { isMobile } = this.state;
+        let cols = [];
+        let attributes = baseEntity.attributes;
+        if(attributes) {
 
-        baseEntities.forEach(baseEntity => {
+            if(showBaseEntity) {
 
-            let attributes = baseEntity.attributes;
-            if(attributes) {
-
-                if(showBaseEntity){
-
-                    //  if showing single base entity
-                    
-                    columns.push(
+                return [{
+                    "Header": <span className="header-single-table">{baseEntity.name}</span>,
+                    "columns": [
                         {
-                            "Header": <span style={{fontSize: '24px' }}>{baseEntity.name}</span>,
-                            "columns": [
-                                {
-                                    "Header": <span style={{fontSize: '18px' }}>ATTRIBUTE CODE</span>,
-                                    "accessor": 'code',
-                                    "maxWidth": 200,
-                                    "Cell": ({row, original}) => (
-                                        <span style={{
-                                            fontSize: '14px',
-                                            color: (() => {
-    
-                                                    if(original.code) {
-                                                        if(original.code.startsWith("PRI_")) return 'black';
-                                                        if(original.code.startsWith("FBK_")) return '#3B5998';
-                                                    }
-    
-                                                    return null;
-                                                })()
-                                            }}>
-                                            {row.code}
-                                        </span>
-                                    )
-                                },
-                                {
-                                    "Header": <span style={{fontSize: '18px' }}>VALUE</span>,
-                                    "accessor": 'value',
-                                    "Cell": ({row, original}) => {
-                                        return (
-                                            <span style={{
-                                                fontSize: '14px',
-                                                color: (() => {
-    
-                                                        if(original.code) {
-                                                            if(original.code.startsWith("PRI_")) return 'black';
-                                                            if(original.code.startsWith("FBK_")) return '#3B5998';
-                                                        }
-    
-                                                        return null;
-                                                    })()
-                                                }}>
-                                                {row.value}
-                                            </span>
-                                        )
-                                    }
-                                },
-                                {
-                                    "Header": <span style={{fontSize: '18px' }}>WEIGHT</span>,
-                                    "accessor": 'weight',
-                                    "maxWidth": 100,
-                                    "Cell": ({row, original}) => {
-                                        return (
-                                            <span style={{
-                                                fontSize: '14px',
-                                                color: (() => {
-    
-                                                        if(original.code) {
-                                                            if(original.code.startsWith("PRI_")) return 'black';
-                                                            if(original.code.startsWith("FBK_")) return '#3B5998';
-                                                        }
-    
-                                                        return null;
-                                                    })()
-                                                }}>
-                                                {row.weight}
-                                            </span>
-                                        )
-                                    }
-                                }
-                            ]
+                            "Header": <span className="header-single">ATTRIBUTE CODE</span>,
+                            "accessor": 'code',
+                            "Cell": ({row, original}) => <GennyTableCell code={row.code} value={original.code} />
+                        },
+                        {
+                            "Header": <span className="header-single">VALUE</span>,
+                            "accessor": 'value',
+                            "Cell": ({row, original}) => <GennyTableCell code={row.code} value={original.code} />
+                        },
+                        {
+                            "Header": <span className="header-single">WEIGHT</span>,
+                            "accessor": 'weight',
+                            "Cell": ({row, original}) => <GennyTableCell code={row.code} value={original.code} />
                         }
-                    );
+                    ]
+                }];
 
-                } else {
+            } else {
 
-                    Object.keys(attributes).forEach(attribute_key => {
-                        
-                        let attribute = attributes[attribute_key];
+                Object.keys(attributes).forEach(attribute_key => {
 
-                        if(window.getScreenSize() == 'sm'){
-                            
-                                let headers = accessors.map(column => {
-                                    return column.attributeCode;
-                                });
-    
-                                if(!headers.includes(attribute.attributeCode)) {
-                                    accessors.push({
-                                        "attributeCode": attribute.attributeCode,
-                                        "name": attribute.attribute.name,
-                                    });
-                                }
-        
-                            } else {
-                                
-                                let headers = columns.map(column => {
-                                    return column.attributeCode;
-                                });
-
-                                if(!headers.includes(attribute.attributeCode)) {
-                                    columns.push({
-                                        "Header": this.renderHeader(attribute.attribute.name),
-                                        "accessor": attribute.attribute.name,
-                                        "Cell": this.renderEditable,
-                                        "attributeCode": attribute.attributeCode
-                                    });
-                                }        
-                            } 
+                    let attribute = attributes[attribute_key];
+                    let headers = cols.map(column => {
+                        return column.attributeCode;
                     });
-                }
-            }
-        });
 
-        if(!showBaseEntity && window.getScreenSize() == 'sm') {
-            if(accessors.length > 0) {
-                
-                columns.push({
-                    "Header": this.renderHeader(accessors[0].attributeCode),
-                    "accessor": accessors[0].attributeCode,
-                    "Cell": ({row, original}) => {
+                    if(!headers.includes(attribute.attributeCode)) {
 
-                        Object.prototype.getKey = function(value) {
-                            let object = this;
-                            return Object.keys(object).find(key => object[key] === value);
+                        let newCol = {
+                            "attributeCode": attribute.attributeCode
                         };
 
-                        return (
-                            <div className='table-mobile-cell'>
-                                    <IconSmall
-                                        className='table-mobile-icon clickable'
-                                        onClick={() => this.onClick(original.baseEntityCode)}
-                                        name={this.state.isOpen[original.baseEntityCode] ? 'expand_more' : 'chevron_right'}
-                                    />
-                                {
-                                    accessors.map((attribute, i ) => {
-                                        if ( i ===  0 || i > 0 && this.state.isOpen[original.baseEntityCode] === true )
-                                            return (
-                                                <div key={i} className={`${ i === 0 ? 'table-mobile-cell-header' : 'table-mobile-cell-row'} ${ this.state.isOpen[original.baseEntityCode] ? 'header-divider' : null }`}>
-                                                    <span className='table-mobile-cell-cell'>{original.getKey(original[attribute.name])}:</span>
-                                                    <span className='table-mobile-cell-cell'>{original[attribute.name]}</span>
-                                                </div>
-                                            );
-                                    })
-                                }
-                            </div>
-                        )
+                        if(!isMobile) {
+                            newCol.Header = <GennyTableHeader title={attribute.attribute.name}/>;
+                            newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
+                            newCol.accessor = attribute.attribute.name;
+                        }
+                        else {
+                            newCol.name = attribute.attribute.name;
+                        }
+
+                        cols.push(newCol);
                     }
                 });
             }
         }
 
-        this.state.columns = columns;
-        return columns;
+        return cols;
     }
 
-    renderHeader = (value) => () => {
-        return <div className='table-header'>
-            <span>{value}</span>
-            {/*<span><IconSmall name="sort" /></span>*/}
-        </div>
+    generateHeadersFor(baseEntities) {
+
+        const { showBaseEntity } = this.props;
+        const isMobile = this.state.isMobile;
+        let tableColumns = baseEntities.map(baseEntity => this.generateColumns(baseEntity))[0];
+        let mobileColumns = [];
+
+        if(!showBaseEntity && isMobile) {
+
+            if(tableColumns.length > 0) {
+
+                mobileColumns.push({
+                    "Header": <GennyTableHeader title={tableColumns[0].attributeCode} />,
+                    "accessor": tableColumns[0].attributeCode,
+                    "Cell": ({row, original}) => <GennyTableCellMobile data={tableColumns} row={row} original={original} />
+                });
+            }
+        }
+
+        this.state.columns = isMobile ? mobileColumns : tableColumns;
+        return isMobile ? mobileColumns : tableColumns;
     }
 
     generateDataFor(baseEntities) {
+
         const { showBaseEntity} = this.props;
 
-        let data = [];
-        baseEntities.forEach(baseEntity => {
+        let data = baseEntities.map((baseEntity, index) => {
 
+            let newData = {}
             if(baseEntity.attributes) {
-                let newData = {}
-                if(showBaseEntity){
-                    
-                    Object.keys(baseEntity.attributes).forEach(attribute_key => {
-                        
-                        let attribute = baseEntity.attributes[attribute_key];
-    
-                        newData["code"] = attribute.attributeCode;
-                        newData["value"] = attribute.value;
-                        newData["weight"] = attribute.weight;
-                        attribute.value && attribute.value != 'null' ? data.push(newData) : null;
-                    });
-                } else {
-                    Object.keys(baseEntity.attributes).forEach(attribute_key => {
-    
+
+                Object.keys(baseEntity.attributes).forEach(attribute_key => {
+
+                    let attribute = baseEntity.attributes[attribute_key];
+
+                    if(showBaseEntity) {
+
+                        if(attribute.value) {
+                            newData[attribute.attributeCode] = {
+                                code: attribute.attributeCode,
+                                value: attribute.value,
+                                weight: attribute.weight,
+                            };
+                        }
+                    }
+                    else {
+
                         let attribute = baseEntity.attributes[attribute_key];
                         newData[attribute.attribute.name] = attribute.value;
                         newData["baseEntityCode"] = attribute.baseEntityCode;
@@ -230,79 +145,16 @@ class GennyTable extends Component {
                             ...newData["validationList"],
                             [attribute.attributeCode]: attribute.attribute.dataType.validationList
                         };
-                    });
-                    data.push(newData);
-                }
+                    }
+                });
             }
+
+            return newData;
         });
 
+        console.log(data);
         this.state.data = data;
         return data;
-    }
-
-    renderEditable = (cellInfo) => {
-
-        return (
-            <div
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={e => {
-
-                    let newValue = e.target.innerHTML;
-                    if(newValue) {
-
-                        let attributeCode = cellInfo.column.attributeCode;
-                        if(attributeCode) {
-
-                            let baseEntity = this.state.data[cellInfo.index];
-                            let validationList = baseEntity.validationList[attributeCode];
-                            let targetCode = baseEntity.baseEntityCode;
-                            let answer = [
-                                {
-                                    targetCode: targetCode,
-                                    attributeCode: attributeCode,
-                                    value: newValue
-                                }
-                            ];
-
-                            // we validate and then send the answer if OK
-
-                            let valResult = null;
-                            if (validationList.length > 0 ) {
-                                valResult = validationList.every( validation => {
-                                    console.log(validation);
-                                    return new RegExp(validation.regex).test( newValue )
-                                });
-                            } else {
-                                valResult = new RegExp(/.*/).test( newValue );
-                            }
-
-                            if (valResult) {
-                                GennyBridge.sendAnswer(answer);
-
-                            } else {
-
-                                console.error("to implement: regex was not validated, should show error.");
-                            }
-                        }
-                    }
-                    console.log('cell', this.state.data[cellInfo.index][cellInfo.column.id]);
-                }}
-                dangerouslySetInnerHTML={{
-                    __html: this.state.data[cellInfo.index][cellInfo.column.id]
-                }}
-            />
-        );
-    }
-
-    onClick = (code) => {
-        this.setState(prevState => ({
-            isOpen: {
-                ...this.state.isOpen,
-                [code]: !prevState.isOpen[code],
-            }
-        }));
-
     }
 
     render() {
@@ -323,6 +175,9 @@ class GennyTable extends Component {
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children)
+
+        console.log(columns);
+        console.log(data);
 
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
