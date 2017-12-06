@@ -9,7 +9,7 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 
     userSelect: 'none',
     padding: gridPadding,
-    marginBottom: gridPadding,
+    // marginBottom: gridPadding,
 
     // styles we need to apply on draggables. This is mandatory.
     ...draggableStyle,
