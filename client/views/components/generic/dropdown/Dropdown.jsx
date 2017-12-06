@@ -38,9 +38,7 @@ class Dropdown extends Component {
   }
 
   handleFocus = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+    this.setState({ isOpen: !this.state.isOpen });
   }
 
   render() {
