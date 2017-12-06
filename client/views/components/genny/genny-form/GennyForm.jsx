@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import { Form, Input } from '../../';
 import { object, array } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
-import { BaseEntityQuery } from 'utils/genny';
+import { AskQuery } from 'utils/genny';
 
 class GennyForm extends Component {
 
   state = {
+      asks: []
   }
 
   static propTypes = {
@@ -16,7 +17,7 @@ class GennyForm extends Component {
 
   onInputValidation = (newValue, ask_code) =>  {
 
-    let ask = this.props.asks[ask_code];
+    let ask = this.state.asks[ask_code];
     this.sendAnswer(newValue, ask);
   }
 
@@ -55,13 +56,18 @@ class GennyForm extends Component {
 
   render() {
 
-    const { asks, style, className } = this.props;
+    const { root, style, className } = this.props;
     const componentStyle = { ...style, };
+
+    let asks = AskQuery.getAsksFromGroup(root);
+    // console.log("============");
+    // console.log(asks);
 
     return (
       <div className={`genny-form ${className}`}>
         <Form {...this.props}>
           {
+            asks ?
             Object.keys(asks).map((ask_code, index) => {
 
               let ask = asks[ask_code];
@@ -70,12 +76,12 @@ class GennyForm extends Component {
               let default_value = null;
               let be_code = ask.targetCode;
               let attributeCode = ask.attributeCode;
-              if(be_code && attributeCode) {
-                  let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
-                  if(att) {
-                      default_value = att.value;
-                  }
-              }
+              // if(be_code && attributeCode) {
+              //     let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
+              //     if(att) {
+              //         default_value = att.value;
+              //     }
+              // }
 
               return <Input
                 isHorizontal={this.props.isHorizontal}
@@ -95,7 +101,7 @@ class GennyForm extends Component {
                 onValidation={this.onInputValidation}
                 onClick={this.onClick}
               />;
-            })
+          }) : null
           }
         </Form>
       </div>

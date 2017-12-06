@@ -36,26 +36,26 @@ class GennyTable extends Component {
 
             if(showBaseEntity) {
 
-                return [{
+                cols.push({
                     "Header": <span className="header-single-table">{baseEntity.name}</span>,
                     "columns": [
                         {
                             "Header": <span className="header-single">ATTRIBUTE CODE</span>,
                             "accessor": 'code',
-                            "Cell": ({row, original}) => <GennyTableCell code={row.code} value={original.code} />
+                            "Cell": ({row, original}) => <GennyTableCell code={original.code} value={row.code} />
                         },
                         {
                             "Header": <span className="header-single">VALUE</span>,
                             "accessor": 'value',
-                            "Cell": ({row, original}) => <GennyTableCell code={row.code} value={original.code} />
+                            "Cell": ({row, original}) => <GennyTableCell code={original.code} value={row.value} />
                         },
                         {
                             "Header": <span className="header-single">WEIGHT</span>,
                             "accessor": 'weight',
-                            "Cell": ({row, original}) => <GennyTableCell code={row.code} value={original.code} />
+                            "Cell": ({row, original}) => <GennyTableCell code={original.code} value={row.weight} />
                         }
                     ]
-                }];
+                });
 
             } else {
 
@@ -117,10 +117,12 @@ class GennyTable extends Component {
 
         const { showBaseEntity} = this.props;
 
-        let data = baseEntities.map((baseEntity, index) => {
+        let data = []
+        baseEntities.forEach(baseEntity => {
 
-            let newData = {}
             if(baseEntity.attributes) {
+
+                let newData = {}
 
                 Object.keys(baseEntity.attributes).forEach(attribute_key => {
 
@@ -129,11 +131,12 @@ class GennyTable extends Component {
                     if(showBaseEntity) {
 
                         if(attribute.value) {
-                            newData[attribute.attributeCode] = {
+
+                            data.push({
                                 code: attribute.attributeCode,
                                 value: attribute.value,
                                 weight: attribute.weight,
-                            };
+                            })
                         }
                     }
                     else {
@@ -147,9 +150,11 @@ class GennyTable extends Component {
                         };
                     }
                 });
-            }
 
-            return newData;
+                if(!showBaseEntity) {
+                    data.push(newData)
+                }
+            }
         });
 
         this.state.data = data;
@@ -174,7 +179,6 @@ class GennyTable extends Component {
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children)
-
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
                 <Table {...this.props} data={data} columns={columns} />

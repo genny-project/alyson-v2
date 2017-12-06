@@ -14,21 +14,24 @@ class GennyTableCell extends Component {
     }
 
     render() {
+
+        const { code, value } = this.props;
+
         return (
             <span
                 style={{
                 fontSize: '14px',
                 color: (() => {
 
-                        if(this.props.code) {
-                            if(this.props.code.startsWith("PRI_")) return 'black';
-                            if(this.props.code.startsWith("FBK_")) return '#3B5998';
+                        if(code) {
+                            if(code.startsWith("PRI_")) return 'black';
+                            if(code.startsWith("FBK_")) return '#3B5998';
                         }
 
                         return null;
                     })()
                 }}>
-                {this.props.value}
+                {value}
             </span>
         );
     }

@@ -27,6 +27,7 @@ class Form extends Component {
     const { } = this.state;
     const componentStyle = { ...style, };
 
+    return <div></div>;
     let childrenCount = Object.keys(this.props.children).length;
 
     return (
