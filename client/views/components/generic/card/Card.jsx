@@ -118,7 +118,7 @@ class Card extends Component {
                 </Dropdown> : null
             }
           <div className="card-image">
-              <img src="https://www.highcountrygardens.com/wp/wp-content/uploads/2015/08/Chilopsis-linearis-Lucretia-Hamilton-feat-blog.jpg" />
+              <img />
           </div>
           <div className="card-center">
             <span>{title}</span>

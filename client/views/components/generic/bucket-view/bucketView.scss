@@ -16,7 +16,8 @@
 
 .bucket-view.size-sm {
   overflow-x: hidden;
-  touch-action: none;
+  // touch-action: none;
+  cursor: pointer;
 }
 
 .bucket-option-item.size-sm {
