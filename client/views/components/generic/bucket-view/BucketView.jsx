@@ -11,7 +11,7 @@ import './bucketView.scss';
 class BucketView extends Component {
 
     state = {
-        buckets: [],
+        buckets: this.props.buckets || [],
         currentlySelectedItem: false,
         touch: {}
     }
