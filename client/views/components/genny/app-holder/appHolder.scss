@@ -10,6 +10,15 @@
 			overflow: initial !important;
 			z-index: 100;
 			position: relative;
-		 }
+		}
+
+		> .col:nth-child(2) {
+			overflow: hidden !important;
+		}
+
+	}
+
+	&.sm > .app-main > .row:nth-child(2) .col {
+		overflow: hidden !important;
 	}
 }
