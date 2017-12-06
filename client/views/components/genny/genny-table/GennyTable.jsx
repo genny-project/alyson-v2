@@ -152,7 +152,6 @@ class GennyTable extends Component {
             return newData;
         });
 
-        console.log(data);
         this.state.data = data;
         return data;
     }
@@ -175,9 +174,6 @@ class GennyTable extends Component {
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children)
-
-        console.log(columns);
-        console.log(data);
 
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
