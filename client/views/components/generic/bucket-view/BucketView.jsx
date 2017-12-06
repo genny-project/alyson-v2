@@ -356,16 +356,22 @@ class BucketView extends Component {
             let deltaX = touch.clientX - this.state.touch.clientX;
             this.state.touch.clientX = touch.clientX;
             this.state.touch.deltaX = deltaX;
+            this.state.touch.isMoving = true;
         }
     }
 
     onTouchEnd = () => {
 
-        if(this.state.touch.deltaX < 0) {
-            this.goToNextBucket();
-        }
-        else {
-            this.goToPreviousBucket();
+        if(this.state.touch.isMoving) {
+
+            let deltaX = this.state.touch.deltaX;
+            this.state.touch = {};
+            if(deltaX < 0) {
+                this.goToNextBucket();
+            }
+            else {
+                this.goToPreviousBucket();
+            }
         }
     }
 
