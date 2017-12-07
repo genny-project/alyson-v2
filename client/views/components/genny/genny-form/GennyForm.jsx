@@ -103,7 +103,7 @@ class GennyForm extends Component {
     return (
       <div className={`genny-form ${className || ''}`}>
           <Form {...this.props}>
-              {this.renderForm(questionGroup.name, questionGroup.childAsks)}
+              { questionGroup ? this.renderForm(questionGroup.name, questionGroup.childAsks) : null }
           </Form>
       </div>
     );
