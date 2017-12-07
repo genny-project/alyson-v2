@@ -56,7 +56,6 @@ class GennyForm extends Component {
   renderForm(title, asks) {
 
       if(asks) {
-
           return {
               title: title,
               content: asks.map((ask, index) => {
@@ -97,7 +96,7 @@ class GennyForm extends Component {
 
     const { root, style, className } = this.props;
     const componentStyle = { ...style, };
-
+    
     let questionGroup = AskQuery.getQuestionGroup(root);
     return (
       <div className={`genny-form ${className || ''}`}>
