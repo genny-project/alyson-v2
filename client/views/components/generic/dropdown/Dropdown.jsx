@@ -2,13 +2,8 @@ import './dropdown.scss';
 import React, { Component } from 'react';
 import { string, object, any, bool, element } from 'prop-types';
 import {  } from '../';
-import Input from '../input';
 
 class Dropdown extends Component {
-
-  constructor(props){
-    super(props);
-  }
   static defaultProps = {
     className: '',
     opened: null,
