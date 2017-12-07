@@ -1,8 +1,6 @@
 import './header.scss';
 import React, { Component } from 'react';
-import { string, object, any, func } from 'prop-types';
-import { IconSmall, Profile, Label, ImageView, Dropdown,  } from '../../';
-import { GennyBridge } from 'utils/genny';
+import { string, object, any } from 'prop-types';
 
 class Header extends Component {
   static defaultProps = {
@@ -14,24 +12,14 @@ class Header extends Component {
     className: string,
     style: object,
     children: any,
-
   }
 
   state = {
   }
 
-  handleAccount = () => {
-    this.props.handleAccount();
-  }
-
-  handleLogout = () => {
-  this.props.handleLogout();
-  }
-
   render() {
 
-    const { className, projectTitle, userName, userImage, style, children } = this.props;
-    const {  } = this.state;
+    const { className, style } = this.props;
 
     const componentStyle = {
       ...style,
@@ -39,31 +27,13 @@ class Header extends Component {
 
     return (
 
-      <div className={`header`} style={componentStyle}>
+      <div className={'header'} style={componentStyle}>
         <div className="header-container">
             <div className="header-left">
-              <Label text={projectTitle} />
             </div>
-
-            { children ?
-              <div className="header-center">
-                {children}
-              </div>
-            : null }
-
+             <div className="header-center">
+             </div>
             <div className="header-right">
-              <Dropdown header={
-                <Label text={`Welcome, ${userName}`} />}
-              >
-                <ul className="dropdown-profile" >
-                  <li onClick={this.props.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
-                  <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
-                  <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Sign Out</span></li>
-                </ul>
-              </Dropdown>
-              <ImageView src={userImage} onClick={this.handleClickImage} />
-
-              <IconSmall className="help" name="help" />
             </div>
         </div>
 

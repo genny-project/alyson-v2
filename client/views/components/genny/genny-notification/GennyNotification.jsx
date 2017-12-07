@@ -20,10 +20,8 @@ class GennyNotification extends Component {
 
     const { notifications } = this.props;
 
-    return (
-      <Notifications notifications={notifications}>
-      </Notifications>
-    );
+    return <Notifications notifications={notifications}>
+      </Notifications>;
   }
 }
 

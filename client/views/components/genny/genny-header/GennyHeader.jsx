@@ -54,7 +54,7 @@ class GennyHeader extends Component {
     let answer = [
       {
         targetCode: this.props.currentProject,
-        attributeCode: "PRI_COLOR",
+        attributeCode: 'PRI_COLOR',
         value: color
       }
     ];
@@ -74,17 +74,13 @@ class GennyHeader extends Component {
         <Grid className='main-header' cols={[1,1]} rows={1}>
           <Label text={projectTitle} position={[0,0]} />
           
-          <Device isDesktop position={[0,1]}>
-            <ColorPicker {...this.props}
-            onColorChange={ this.onColorChange }
-            />
-          </Device>
+          
 
-          <GennyNotification position={[0,1]} />  
+          <GennyNotification position={[0,1]} />
 
           <Device isDesktop position={[0,1]}>
             <Dropdown header={
-                <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${projectGreeting}, ${userName}`} /><IconSmall name="expand_more" /></span>}
+                <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
               >
                 <ul className="dropdown-profile" >
                   <li onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
