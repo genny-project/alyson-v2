@@ -17,6 +17,7 @@ class BucketView extends Component {
     }
 
     //TODO: if the destination bucket is empty this will break.
+    //TODO: to fix
     getRectOfChildrenInBucketAtIndex(destinationBucket, index) {
 
         let index_destination = this.state.buckets.indexOf(destinationBucket);
