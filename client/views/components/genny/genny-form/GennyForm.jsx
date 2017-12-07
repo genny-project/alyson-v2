@@ -15,10 +15,13 @@ class GennyForm extends Component {
 
   };
 
-  onInputValidation = (newValue, ask_code) =>  {
+  onInputValidation = (newValue, data) =>  {
 
-    let ask = this.state.asks[ask_code];
-    this.sendAnswer(newValue, ask);
+    // let ask = this.state.asks[ask_code];
+    GennyBridge.sendAnswer([{
+        ...data,
+        value: newValue
+    }]);
   }
 
   onClick = (clickedButton) => {
@@ -35,22 +38,6 @@ class GennyForm extends Component {
 
         GennyBridge.sendBtnClick(btnEventData);
     }
-  }
-
-  sendAnswer = (value, ask) => {
-    this.sendData([
-      {
-        sourceCode: ask.sourceCode,
-        targetCode: ask.targetCode,
-        attributeCode: ask.question.attributeCode,
-        value: value,
-        askId: ask.id
-      }
-    ]);
-  };
-
-  sendData(items) {
-    GennyBridge.sendAnswer(items);
   }
 
   renderForm(title, asks) {
@@ -72,7 +59,10 @@ class GennyForm extends Component {
                     key={index}
                     identifier={ask.question.code}
                     data={{
-                        value: ask.id
+                        askId: ask.id,
+                        attributeCode: ask.question.attributeCode,
+                        sourceCode: ask.sourceCode,
+                        targetCode: ask.targetCode,
                     }}
                     type={inputType}
                     style={this.props.style}
@@ -96,7 +86,7 @@ class GennyForm extends Component {
 
     const { root, style, className } = this.props;
     const componentStyle = { ...style, };
-    
+
     let questionGroup = AskQuery.getQuestionGroup(root);
     return (
       <div className={`genny-form ${className || ''}`}>

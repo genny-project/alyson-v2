@@ -38,7 +38,7 @@ class Input extends Component {
 
     if ( valResult ){
       this.validationStyle('success');
-        if(this.props.onValidation) this.props.onValidation(value, this.props.identifier);
+        if(this.props.onValidation) this.props.onValidation(value, this.props.data);
     } else {
       this.validationStyle('error');
     }
@@ -101,7 +101,7 @@ class Input extends Component {
                 return ( <InputSlider
                     {...this.props}
                     validation={this.validateInput}
-                    validationStatus={validationStatus}    
+                    validationStatus={validationStatus}
                 /> );
             case "upload-photo":
                 return ( <InputUploadPhoto {...this.props} /> );

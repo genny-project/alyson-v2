@@ -6,13 +6,7 @@ class AskQuery {
     static getQuestionGroup(groupCode) {
         return store.getState().ask.data[groupCode];
     }
-
-    static getAsksForGroup(groupCode) {
-
-        const group = store.getState().ask.data[groupCode];
-        return AskQuery.recursivelyGetAsksForGroup(group);
-    }
-
+    
     static recursivelyGetAsksForGroup(group) {
 
         return group.childAsks.map(ask => {
