@@ -54,7 +54,7 @@ class GennyHeader extends Component {
     let answer = [
       {
         targetCode: this.props.currentProject,
-        attributeCode: "PRI_COLOR",
+        attributeCode: 'PRI_COLOR',
         value: color
       }
     ];
@@ -80,7 +80,7 @@ class GennyHeader extends Component {
             />
           </Device>
 
-          <GennyNotification position={[0,1]} />  
+          <GennyNotification position={[0,1]} />
 
           <Device isDesktop position={[0,1]}>
             <Dropdown header={
