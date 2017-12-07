@@ -17,7 +17,6 @@ class GennyForm extends Component {
 
   onInputValidation = (newValue, data) =>  {
 
-    // let ask = this.state.asks[ask_code];
     GennyBridge.sendAnswer([{
         ...data,
         value: newValue
