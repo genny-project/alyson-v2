@@ -37,7 +37,6 @@ class Dropdown extends Component {
 
 
   handleClick = (e) => {
-    console.log('############### YOLO ', e);
     this.setState({ isOpen: !this.state.isOpen});
   }
 
