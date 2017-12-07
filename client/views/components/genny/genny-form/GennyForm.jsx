@@ -31,14 +31,13 @@ class GennyForm extends Component {
         let btnEventData = {
             code: buttonCode,
             ...data
-        }
+        };
 
         GennyBridge.sendBtnClick(btnEventData);
     }
   }
 
   sendAnswer = (value, ask) => {
-
     this.sendData([
       {
         sourceCode: ask.sourceCode,
@@ -63,7 +62,7 @@ class GennyForm extends Component {
               content: asks.map((ask, index) => {
 
                   if(ask.childAsks) return this.renderForm(ask.name, ask.childAsks);
-                  let inputType = ask.question.type || "java.lang.String";
+                  let inputType = ask.question.type || 'java.lang.String';
 
                   let default_value = null;
                   let be_code = ask.targetCode;
@@ -88,7 +87,7 @@ class GennyForm extends Component {
                     onClick={this.onClick}
                   />;
               })
-          }
+          };
         }
 
       return null;
