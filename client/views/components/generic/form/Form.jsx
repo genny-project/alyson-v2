@@ -25,7 +25,7 @@ class Form extends Component {
 
     const { className, children, style, itemsPerPage, showProgress, isHorizontal, hideNav } = this.props;
 
-    let groups = children.content ? children.content.map(child => <FormGroup>{child}</FormGroup>) : []
+    let groups = children ? children.content.map(child => <FormGroup>{child}</FormGroup>) : []
 
     return (
       <div className={`form-container ${isHorizontal ? 'horizontal' : null }`}>
