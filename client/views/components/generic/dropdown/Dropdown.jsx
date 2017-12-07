@@ -27,7 +27,7 @@ class Dropdown extends Component {
   state = {
     isOpen: false
   }
-
+  
   handleBlur = () => {
     this.setState({
       isOpen: false,
