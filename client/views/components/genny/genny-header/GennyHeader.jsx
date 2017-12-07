@@ -74,11 +74,7 @@ class GennyHeader extends Component {
         <Grid className='main-header' cols={[1,1]} rows={1}>
           <Label text={projectTitle} position={[0,0]} />
           
-          <Device isDesktop position={[0,1]}>
-            <ColorPicker {...this.props}
-            onColorChange={ this.onColorChange }
-            />
-          </Device>
+          
 
           <GennyNotification position={[0,1]} />
 

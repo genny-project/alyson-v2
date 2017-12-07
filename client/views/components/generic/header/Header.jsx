@@ -39,7 +39,7 @@ class Header extends Component {
 
     return (
 
-      <div className={`header`} style={componentStyle}>
+      <div className={'header'} style={componentStyle}>
         <div className="header-container">
             <div className="header-left">
               <Label text={projectTitle} />
@@ -53,7 +53,7 @@ class Header extends Component {
 
             <div className="header-right">
               <Dropdown header={
-                <Label text={`Welcome, ${userName}`} />}
+                <Label text={`${userName}`} />}
               >
                 <ul className="dropdown-profile" >
                   <li onClick={this.props.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
