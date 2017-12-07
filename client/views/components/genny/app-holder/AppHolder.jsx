@@ -44,7 +44,6 @@ class AppHolder extends Component {
     render() {
 
         const { children, cols, rows } = this.props;
-        const { } = this.state;
 
         return (
             <div className={`app-holder ${window.getScreenSize()}`}>

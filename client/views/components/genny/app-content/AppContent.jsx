@@ -36,7 +36,7 @@ class AppContent extends Component {
                 layoutContent = <GennyList root={layout.currentView.dataCode} />
             }
             else if (layout.currentView.code == "FORM_VIEW") {
-                layoutContent = <GennyForm showProgress={true}/>
+                layoutContent = <GennyForm root={layout.currentView.dataCode} showProgress={true}/>
             }
         }
         else if (layout.currentSublayout) {

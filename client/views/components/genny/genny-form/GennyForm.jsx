@@ -54,56 +54,57 @@ class GennyForm extends Component {
     GennyBridge.sendAnswer(items);
   }
 
+  renderForm(title, asks) {
+
+      if(asks) {
+
+          return {
+              title: title,
+              content: asks.map((ask, index) => {
+
+                  if(ask.childAsks) return this.renderForm(ask.name, ask.childAsks);
+                  let inputType = ask.question.type || "java.lang.String";
+
+                  let default_value = null;
+                  let be_code = ask.targetCode;
+                  let attributeCode = ask.attributeCode;
+
+                  return <Input
+                    isHorizontal={this.props.isHorizontal}
+                    key={index}
+                    identifier={ask.question.code}
+                    data={{
+                        value: ask.id
+                    }}
+                    type={inputType}
+                    style={this.props.style}
+                    name={ask.question.name}
+                    placeholder={''}
+                    readOnly={ask.readOnly}
+                    optional={ask.optional}
+                    validationList={ask.question.validationList}
+                    mask={ask.question.mask}
+                    onValidation={this.onInputValidation}
+                    onClick={this.onClick}
+                  />;
+              })
+          }
+        }
+
+      return null;
+  }
+
   render() {
 
     const { root, style, className } = this.props;
     const componentStyle = { ...style, };
 
-    let asks = AskQuery.getAsksFromGroup(root);
-    // console.log("============");
-    // console.log(asks);
-
+    let questionGroup = AskQuery.getQuestionGroup(root);
     return (
-      <div className={`genny-form ${className}`}>
-        <Form {...this.props}>
-          {
-            asks ?
-            Object.keys(asks).map((ask_code, index) => {
-
-              let ask = asks[ask_code];
-              let inputType = ask.question.type || "java.lang.String";
-
-              let default_value = null;
-              let be_code = ask.targetCode;
-              let attributeCode = ask.attributeCode;
-              // if(be_code && attributeCode) {
-              //     let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
-              //     if(att) {
-              //         default_value = att.value;
-              //     }
-              // }
-
-              return <Input
-                isHorizontal={this.props.isHorizontal}
-                key={index}
-                identifier={ask_code}
-                data={{
-                    value: ask.id
-                }}
-                type={inputType}
-                style={componentStyle}
-                name={ask.question.name}
-                placeholder={default_value}
-                readOnly={ask.readOnly}
-                optional={ask.optional}
-                validationList={ask.question.validationList}
-                mask={ask.question.mask}
-                onValidation={this.onInputValidation}
-                onClick={this.onClick}
-              />;
-          }) : null
-          }
-        </Form>
+      <div className={`genny-form ${className || ''}`}>
+          <Form {...this.props}>
+              {this.renderForm(questionGroup.name, questionGroup.childAsks)}
+          </Form>
       </div>
     );
   }

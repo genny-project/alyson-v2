@@ -1,7 +1,8 @@
 import './form.scss';
 import React, { Component } from 'react';
-import { ProgressBar, Button, IconSmall, Pagination } from '../';
+import { ProgressBar, Button, IconSmall, Pagination } from 'views/components';
 import { string, bool, number} from 'prop-types';
+import { FormGroup } from './form-group';
 
 class Form extends Component {
 
@@ -20,25 +21,21 @@ class Form extends Component {
     showProgress: this.props.showProgress ? this.props.showProgress : false,
   }
 
-
   render() {
 
     const { className, children, style, itemsPerPage, showProgress, isHorizontal, hideNav } = this.props;
-    const { } = this.state;
-    const componentStyle = { ...style, };
 
-    return <div></div>;
-    let childrenCount = Object.keys(this.props.children).length;
+    let groups = children.content ? children.content.map(child => <FormGroup>{child}</FormGroup>) : []
 
     return (
       <div className={`form-container ${isHorizontal ? 'horizontal' : null }`}>
         <div className="form-main">
           <div className="form-fields">
-            { !isHorizontal && children.length > itemsPerPage ?
+            { !isHorizontal && groups.length > itemsPerPage ?
               <Pagination perPage={itemsPerPage} hideNav={hideNav}>
-                {children}
+                {groups}
               </Pagination>
-            : children }
+            : groups }
           </div>
         </div>
       </div>
