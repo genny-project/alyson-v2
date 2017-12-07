@@ -45,7 +45,7 @@ export default function reducer( state = initialState, action ) {
             });
 
             if(json) {
-                url += "?data_state=" + json;
+                url += "?state=" + json;
             }
 
             redirectUrl += "&redirect_uri=" + url;

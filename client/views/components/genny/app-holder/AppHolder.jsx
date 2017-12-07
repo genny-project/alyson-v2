@@ -26,7 +26,7 @@ class AppHolder extends Component {
         }
 
         let social_code = window.getQueryString('code');
-        let data_string = window.getQueryString("data_state");
+        let data_string = window.getQueryString("state");
 
         if(social_code) {
 
