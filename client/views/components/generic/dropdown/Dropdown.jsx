@@ -1,14 +1,12 @@
 import './dropdown.scss';
 import React, { Component } from 'react';
-import { string, object, any, bool, element } from 'prop-types';
-import {  } from '../';
+import { string, any, bool, element } from 'prop-types';
 
 class Dropdown extends Component {
-
   static defaultProps = {
     className: '',
     opened: null,
-    showTag: true,
+    showTag: true
   }
 
   static propTypes = {
@@ -17,38 +15,36 @@ class Dropdown extends Component {
     children: any,
     open: bool,
     header: element,
-    showTag: bool,
+    showTag: bool
   }
 
   state = {
     isOpen: false
   }
-
+  
   handleBlur = () => {
-
     this.setState({
-      isOpen: false
+      isOpen: false,
+      parentIsOpen: false,
     });
   }
 
-  handleFocus = () => {
-    this.setState({
-      isOpen: true
-    });
+
+  handleClick = (e) => {
+    this.setState({ isOpen: !this.state.isOpen});
   }
 
-  handleFocus = () => {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
+ 
+ 
 
   render() {
-    const { className, children, style, contentStyle, tagStyle, header, open, noDropdownStyle, showTag } = this.props;
+    const { className, children, style, contentStyle, tagStyle, header, open, noDropdownStyle, showTag,dropType } = this.props;
     let { isOpen, } = this.state;
 
     if(open != undefined) isOpen = open; // open props overrides
 
     return (
-      <div className={`dropdown ${className}`} onClick={this.handleClick} onBlur={this.handleBlur} onFocus={this.handleFocus} tabIndex='-1' style={style} >
+      <div className={`dropdown ${className}`} onClick={this.handleClick} onBlur={this.handleBlur}  tabIndex='-1' style={style} >
         <div className='dropdown-header'>
           {header}
         </div>

@@ -24,7 +24,7 @@ class ColorPicker extends Component {
   toggleColorPicker = () => { 
     this.setState({
         showColorPicker: !this.state.showColorPicker
-      })
+      });
   }
 
   render() {
