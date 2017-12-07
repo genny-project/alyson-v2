@@ -80,7 +80,7 @@ class GennyHeader extends Component {
 
           <Device isDesktop position={[0,1]}>
             <Dropdown header={
-                <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${projectGreeting}, ${userName}`} /><IconSmall name="expand_more" /></span>}
+                <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
               >
                 <ul className="dropdown-profile" >
                   <li onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
