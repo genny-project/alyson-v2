@@ -1,7 +1,6 @@
 import './dropdown.scss';
 import React, { Component } from 'react';
-import { string, object, any, bool, element } from 'prop-types';
-import {  } from '../';
+import { string, any, bool, element } from 'prop-types';
 
 class Dropdown extends Component {
   static defaultProps = {
