@@ -16,54 +16,36 @@ class BucketView extends Component {
         touch: {}
     }
 
-    //TODO: if the destination bucket is empty this will break.
-    getRectOfChildrenInBucketAtIndex(destinationBucket, index) {
+    getBucketColumnContentNode(bucket) {
 
-        let index_destination = this.state.buckets.indexOf(destinationBucket);
-        let children_destination = destinationBucket.children;
-        let bucketNode = ReactDOM.findDOMNode(this);
-        if(bucketNode) {
+        const index_bucket = this.state.buckets.indexOf(bucket);
+        const bucketNode = ReactDOM.findDOMNode(this);
+        if(index_bucket && bucketNode) {
 
-            // get destination bucket node
-            let destinationBucketNode = bucketNode.children[index_destination];
-            if(destinationBucketNode && destinationBucketNode.children.length == 2) { // title + column
-
-                let destinationBucketColumnNode = destinationBucketNode.children[1];
-                if(destinationBucketColumnNode) {
-
-                    let bucketContentNode = destinationBucketColumnNode.children[0];
-                    if(bucketContentNode) {
-
-                        if(bucketContentNode.children.length == 0) { // if we dont have children
-
-                            let rect = bucketContentNode.getBoundingClientRect();
-                            rect.height = 50; // limit the height to be small enough;
-                            return rect;
-                        }
-                        else {
-
-                            let content = bucketContentNode.children[index];
-                            if(content) {
-                                return content.getBoundingClientRect();
-                            }
-                        }
-                    }
-                }
+            let destinationBucketNode = bucketNode.children[index_bucket];
+            let destinationBucketContentNode = destinationBucketNode.getElementsByClassName('bucket-content')[0];
+            if(destinationBucketContentNode) {
+                return destinationBucketContentNode;
             }
+        }
+    }
+
+    getAvailableSpotRectInBucket(elementSize, destinationBucket) {
+
+        let bucketContentNode = this.getBucketColumnContentNode(destinationBucket);
+        if(bucketContentNode) {
+
+            let contentSize = bucketContentNode.getBoundingClientRect();
+            let number_of_children = bucketContentNode.children.length;
+
+            if(contentSize) {
+                contentSize.y += contentSize.height;
+            }
+
+            return contentSize;
         }
 
         return null;
-    }
-
-    getAvailableSpotRectInBucket(destinationBucket) {
-
-        let lastItemIndex = destinationBucket.children.length - 1;
-        let rect = this.getRectOfChildrenInBucketAtIndex(destinationBucket, lastItemIndex);
-        if(rect) {
-            rect.y = rect.y + rect.height;
-        }
-
-        return rect;
     }
 
     animateItem = (item, sourceBucket, destinationBucket) => {
@@ -77,20 +59,27 @@ class BucketView extends Component {
 
                 // we calculate the X and Y in destination.
                 let childIndex = sourceBkt.children.indexOf(child);
+                let sourceBucketNode = this.getBucketColumnContentNode(sourceBkt);
+                if(sourceBucketNode && sourceBucketNode.children) {
 
-                const originSpot = this.getRectOfChildrenInBucketAtIndex(sourceBkt, (childIndex ? childIndex : 0));
-                const destinationSpot = this.getAvailableSpotRectInBucket(destinationBkt);
+                    const originSpot = sourceBucketNode.children[childIndex] ? sourceBucketNode.children[childIndex].getBoundingClientRect() : null;
 
-                if(originSpot && destinationSpot) {
+                    if(originSpot) {
 
-                    const xDestination = destinationSpot.x - originSpot.x;
-                    const yDestination = destinationSpot.y - originSpot.y;
+                        const destinationSpot = this.getAvailableSpotRectInBucket(originSpot, destinationBkt);
+                        if(destinationSpot) {
 
-                    child.style = {
-                        transition: "0.5s all",
-                        WebkitTransition: "0.5s all",
-                        transform: `translate(${xDestination}px, ${yDestination}px)`,
-                        WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
+                            const xDestination = destinationSpot.x - originSpot.x;
+                            const yDestination = destinationSpot.y - originSpot.y;
+
+                            child.style = {
+                                transition: "0.5s all",
+                                WebkitTransition: "0.5s all",
+                                transform: `translate(${xDestination}px, ${yDestination}px)`,
+                                WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
+                                position: 'absolute',
+                            }
+                        }
                     }
                 }
             }
