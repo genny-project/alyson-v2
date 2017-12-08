@@ -42,6 +42,7 @@ class GennyForm extends Component {
   renderForm(title, asks) {
 
       if(asks) {
+
           return {
               title: title,
               content: asks.map((ask, index) => {
@@ -78,7 +79,7 @@ class GennyForm extends Component {
           };
         }
 
-      return null;
+      return [];
   }
 
   render() {
@@ -87,10 +88,11 @@ class GennyForm extends Component {
     const componentStyle = { ...style, };
 
     let questionGroup = AskQuery.getQuestionGroup(root);
+
     return (
       <div className={`genny-form ${className || ''}`}>
           <Form {...this.props}>
-              { questionGroup ? this.renderForm(questionGroup.name, questionGroup.childAsks) : null }
+              { questionGroup ? this.renderForm(questionGroup.name, questionGroup.childAsks) : [] }
           </Form>
       </div>
     );

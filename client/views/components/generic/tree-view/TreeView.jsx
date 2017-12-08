@@ -16,7 +16,6 @@ class TreeView extends Component {
 
   onClick = (item) => (event) => {
 
-    console.log(this.props);
     event.stopPropagation();
     event.preventDefault();
 
@@ -34,49 +33,39 @@ class TreeView extends Component {
   }
 
   renderList = (items) => {
+
     let layout = [];
     items.map((item, i) => {
-      if (item.children && item.open) {
+
+        let canOpen = item.children && item.open;
         layout.push(
-          <li key={i}>
-            <div>
-              <span onClick={this.onClick(item)}>
-                { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
-                {item.name}
-              </span>
-              <IconSmall className='clickable' onClick={this.onExpand(item)} name="expand_more" />
-            </div>
-            <ul className="child">
-              {item.children.length ? this.renderList(item.children) : <SubmitStatusIcon status="sending" />}
-            </ul>
-          </li>);
-      }
-      else {
-        layout.push(
-          <li key={i}>
-            <div>
-              <span className='clickable' onClick={this.onClick(item)}>
-                { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
-                {item && item.name}
-              </span>
-              <IconSmall className='clickable' onClick={this.onExpand(item)} name="chevron_right" />
-            </div>
-          </li>);
-      }
+            <li key={i}>
+              <div>
+                <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
+                  { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
+                  {item.name}
+                </span>
+                <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? "expand_more" : 'chevron_right'} />
+              </div>
+              <ul className="child">
+                {item.children.length > 0 ? this.renderList(item.children) : []}
+              </ul>
+            </li>
+        )
     });
+
     return layout;
   }
 
-
   render() {
+
     const { items, baseEntity } = this.props;
+
     return (
       <div className="treeview">
-
         <ul className="parent">
           {this.renderList(items)}
         </ul>
-
       </div>
     );
   }
