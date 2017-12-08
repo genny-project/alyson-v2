@@ -4,6 +4,7 @@ import { Form, Input } from '../../';
 import { object, array } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
 import { AskQuery } from 'utils/genny';
+import { log } from 'util';
 
 class GennyForm extends Component {
 
@@ -39,16 +40,16 @@ class GennyForm extends Component {
     }
   }
 
-  renderForm(title, asks) {
+  renderForm(askGroup) {
 
-      if(asks) {
+      if(askGroup && askGroup.childAsks) {
 
-          return {
-              title: title,
-              content: asks.map((ask, index) => {
+          return [{
+              title: askGroup.name,
+              content: askGroup.childAsks.map((ask, index) => {
 
-                  if(ask.childAsks) return this.renderForm(ask.name, ask.childAsks);
-                  let inputType = ask.question.type || 'java.lang.String';
+                  if(ask.childAsks) return this.renderForm(ask.name, ask);
+                  let inputType = ask.question.type || "java.lang.String";
 
                   let default_value = null;
                   let be_code = ask.targetCode;
@@ -76,7 +77,7 @@ class GennyForm extends Component {
                     onClick={this.onClick}
                   />;
               })
-          };
+          }];
         }
 
       return [];
@@ -88,11 +89,10 @@ class GennyForm extends Component {
     const componentStyle = { ...style, };
 
     let questionGroup = AskQuery.getQuestionGroup(root);
-
     return (
       <div className={`genny-form ${className || ''}`}>
           <Form {...this.props}>
-              { questionGroup ? this.renderForm(questionGroup.name, questionGroup.childAsks) : [] }
+              { questionGroup ? this.renderForm(questionGroup) : [] }
           </Form>
       </div>
     );
