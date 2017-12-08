@@ -82,7 +82,7 @@ class InputText extends Component {
     const { date, focused, value } = this.state;
 
     return (
-      <div className={`input-text ${className} ${validationStatus}`}>
+      <div className={`input input-text ${className} ${validationStatus || ''}`}>
         {!isHorizontal ?
           <div className="input-header">
             {name ? <Label text={name} /> : null }

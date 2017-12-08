@@ -47,9 +47,22 @@ class GennyForm extends Component {
               title: title,
               content: asks.map((ask, index) => {
 
+                  let inputType = '';
                   if(ask.childAsks) return this.renderForm(ask.name, ask.childAsks);
-                  let inputType = ask.question.type || 'java.lang.String';
-
+                  console.log('====================');
+                  if (ask.question) {
+                     if(ask.question.attribute){
+                         if(ask.question.attribute.dataType){
+                            if(ask.question.attribute.dataType.className){
+                                inputType = ask.question.attribute.dataType.className;
+                            }
+                         } else{inputType = 'Text';}
+                     }else{inputType = 'Text';}
+                  }else{inputType = 'Text';}
+                    
+                    
+                  console.log(ask.question);
+                  
                   let default_value = null;
                   let be_code = ask.targetCode;
                   let attributeCode = ask.attributeCode;
@@ -70,7 +83,7 @@ class GennyForm extends Component {
                     placeholder={''}
                     readOnly={ask.readOnly}
                     optional={ask.optional}
-                    validationList={ask.question.validationList}
+                    validationList={ask.question.attribute.dataType.validationList}
                     mask={ask.question.mask}
                     onValidation={this.onInputValidation}
                     onClick={this.onClick}

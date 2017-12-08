@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { string, object, any, func } from 'prop-types';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import {  } from '../';
+import { Label } from '../';
 
 class InputDatePicker extends Component {
 
@@ -39,15 +39,16 @@ class InputDatePicker extends Component {
   }
 
   render() {
- 	  const { className, children, style, validationStatus } = this.props;
+ 	  const { className, children, style, validationStatus, name } = this.props;
     const { startDate } = this.state;
     const componentStyle = { ...style, };
 
     return (
-      <div className={`input-date-picker ${className}`}>
+      <div className={`input input-date-picker ${className}`}>
+        { name ? <Label className="input-date-picker-label" text={name} /> : null }
         <DatePicker
           className={validationStatus}
-          calendarClassName="rasta-stripes"
+          calendarClassName=""
           dayClassName={date => date.date() < Math.random() * 31 ? 'random' : undefined}
           selected={startDate}
           onChange={this.handleChange}
