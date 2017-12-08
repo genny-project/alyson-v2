@@ -48,7 +48,7 @@ class TreeView extends Component {
                 <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? "expand_more" : 'chevron_right'} />
               </div>
               <ul className="child">
-                {item.children.length > 0 ? this.renderList(item.children) : []}
+                {canOpen ? this.renderList(item.children) : []}
               </ul>
             </li>
         )
