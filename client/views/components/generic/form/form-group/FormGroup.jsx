@@ -1,28 +1,29 @@
 import './formGroup.scss';
 import React, { Component } from 'react';
-import { array } from 'prop-types';
+import { array, string } from 'prop-types';
 
 class FormGroup extends Component {
 
     static defaultProps = {
         children: [],
+        title: '',
     }
 
     static propTypes = {
       children: array,
+      title: string,
     }
 
     render() {
 
-        const { children } = this.props;
+        const { children, title } = this.props;
 
         return (
             <div className="form-group">
-
                 <div className="form-group-title">
-                    {children.title}
+                    {title}
                 </div>
-                {children.content}
+                {children}
             </div>
         );
     }
