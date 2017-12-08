@@ -47,18 +47,17 @@ class GennyForm extends Component {
               title: title,
               content: asks.map((ask, index) => {
 
-                  let inputType = '';
+                  let inputType = 'Text';
                   if(ask.childAsks) return this.renderForm(ask.name, ask.childAsks);
-                  console.log('====================');
                   if (ask.question) {
                      if(ask.question.attribute){
                          if(ask.question.attribute.dataType){
                             if(ask.question.attribute.dataType.className){
                                 inputType = ask.question.attribute.dataType.className;
                             }
-                         } else{inputType = 'Text';}
-                     }else{inputType = 'Text';}
-                  }else{inputType = 'Text';}
+                         }
+                     }
+                  }
                     
                     
                   console.log(ask.question);
