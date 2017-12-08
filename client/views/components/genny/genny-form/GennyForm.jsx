@@ -69,6 +69,13 @@ class GennyForm extends Component {
                   let be_code = ask.targetCode;
                   let attributeCode = ask.attributeCode;
 
+                  if(be_code && attributeCode) {
+                      let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
+                      if(att) {
+                          default_value = att.value;
+                      }
+                  }
+
                   return <Input
                     isHorizontal={this.props.isHorizontal}
                     key={index}
@@ -82,7 +89,7 @@ class GennyForm extends Component {
                     type={inputType}
                     style={this.props.style}
                     name={ask.question.name}
-                    placeholder={''}
+                    placeholder={default_value}
                     readOnly={ask.readOnly}
                     optional={ask.optional}
                     validationList={valList}
