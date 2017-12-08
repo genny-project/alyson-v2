@@ -23,10 +23,7 @@ class BucketView extends Component {
         if(index_bucket && bucketNode) {
 
             let destinationBucketNode = bucketNode.children[index_bucket];
-            let destinationBucketContentNode = destinationBucketNode.getElementsByClassName('bucket-content')[0];
-            if(destinationBucketContentNode) {
-                return destinationBucketContentNode;
-            }
+            return destinationBucketNode.getElementsByClassName('bucket-content')[0]
         }
     }
 
