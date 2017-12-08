@@ -6,17 +6,9 @@ class AskQuery {
     static getQuestionGroup(groupCode) {
         return store.getState().ask.data[groupCode];
     }
-    
+
     static recursivelyGetAsksForGroup(group) {
-
-        return group.childAsks.map(ask => {
-
-            if(ask.childAsks) {
-                return AskQuery.getAsksForGroup(ask);
-            }
-
-            return ask;
-        });
+        return group.childAsks.map(ask => ask.childAsks ? AskQuery.getAsksForGroup(ask) : ask);
     }
 }
 
