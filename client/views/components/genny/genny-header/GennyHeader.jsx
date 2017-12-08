@@ -73,11 +73,7 @@ class GennyHeader extends Component {
       <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
         <Grid className='main-header' cols={[1,1]} rows={1}>
           <Label text={projectTitle} position={[0,0]} />
-          
-          
-
           <GennyNotification position={[0,1]} />
-
           <Device isDesktop position={[0,1]}>
             <Dropdown header={
                 <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
