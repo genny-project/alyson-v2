@@ -21,23 +21,36 @@ class Form extends Component {
     showProgress: this.props.showProgress ? this.props.showProgress : false,
   }
 
+  renderGroup(questionGroup) {
+
+      if(Array.isArray( questionGroup )) {
+          return questionGroup.map(group => {
+             if(group.content) return this.renderGroup(group);
+             return group;
+          });
+      }
+      else if (questionGroup.content) {
+          return <FormGroup title={questionGroup.title}>{this.renderGroup(questionGroup.content)}</FormGroup>
+      }
+
+      return []
+  }
+
   render() {
 
     const { className, style, itemsPerPage, showProgress, isHorizontal, hideNav } = this.props;
     let { children } = this.props;
-    children = children || []
 
-    let groups = children.map(child => child.content ? <FormGroup title={child.title}>{child.content}</FormGroup> : child);
-
+    let questionGroup = this.renderGroup( children );
     return (
       <div className={`form-container ${isHorizontal ? 'horizontal' : null }`}>
         <div className="form-main">
           <div className="form-fields">
-            { !isHorizontal && groups.length > itemsPerPage ?
+            { !isHorizontal && questionGroup.length > itemsPerPage ?
               <Pagination perPage={itemsPerPage} hideNav={hideNav}>
-                {groups}
+                {questionGroup}
               </Pagination>
-            : groups }
+            : questionGroup }
           </div>
         </div>
       </div>

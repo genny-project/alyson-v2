@@ -44,11 +44,11 @@ class GennyForm extends Component {
 
       if(askGroup && askGroup.childAsks) {
 
-          return [{
+          return {
               title: askGroup.name,
               content: askGroup.childAsks.map((ask, index) => {
 
-                  if(ask.childAsks) return this.renderForm(ask.name, ask);
+                  if(ask.childAsks) return this.renderForm(ask);
                   let inputType = ask.question.type || "java.lang.String";
 
                   let default_value = null;
@@ -77,7 +77,7 @@ class GennyForm extends Component {
                     onClick={this.onClick}
                   />;
               })
-          }];
+          };
         }
 
       return [];
@@ -89,6 +89,7 @@ class GennyForm extends Component {
     const componentStyle = { ...style, };
 
     let questionGroup = AskQuery.getQuestionGroup(root);
+
     return (
       <div className={`genny-form ${className || ''}`}>
           <Form {...this.props}>
