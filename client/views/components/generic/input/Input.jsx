@@ -65,15 +65,15 @@ class Input extends Component {
     }
 
     else {
-
+        
         switch(type) {
-            case "textarea":
+            case "TextArea":
                 return ( <InputTextarea
                     {...this.props}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 /> );
-            case "checkbox":
+            case "Boolean":
                 return ( <InputCheckbox
                     {...this.props}
                     validation={this.validateInput}
@@ -82,7 +82,7 @@ class Input extends Component {
             // case "java.time.Date":
             //     return ( <InputDate items={items}
             //         {...this.props}/> );
-            case "datepicker":
+            case "LocalDate":
                 return ( <InputDatePicker
                     {...this.props}
                     validation={this.validateInput}
@@ -110,6 +110,7 @@ class Input extends Component {
             case "address":
                 return ( <InputAddress {...this.props} /> );
             case "java.lang.String":
+                return null;
             default:
                 return ( <InputText
                     {...this.props}

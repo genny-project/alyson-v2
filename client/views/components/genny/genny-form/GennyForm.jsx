@@ -49,7 +49,21 @@ class GennyForm extends Component {
               content: askGroup.childAsks.map((ask, index) => {
 
                   if(ask.childAsks) return this.renderForm(ask);
-                  let inputType = ask.question.type || "java.lang.String";
+
+                  let inputType = 'Text';
+                  let valList = [];
+                  if (ask.question) {
+                     if(ask.question.attribute){
+                         if(ask.question.attribute.dataType){
+                            if(ask.question.attribute.dataType.className){
+                                inputType = ask.question.attribute.dataType.className;
+                            }
+                            if(ask.question.attribute.dataType.validationList){
+                                valList = ask.question.attribute.dataType.validationList;
+                            }
+                         }
+                     }
+                  }
 
                   let default_value = null;
                   let be_code = ask.targetCode;
@@ -71,7 +85,7 @@ class GennyForm extends Component {
                     placeholder={''}
                     readOnly={ask.readOnly}
                     optional={ask.optional}
-                    validationList={ask.question.validationList}
+                    validationList={valList}
                     mask={ask.question.mask}
                     onValidation={this.onInputValidation}
                     onClick={this.onClick}
