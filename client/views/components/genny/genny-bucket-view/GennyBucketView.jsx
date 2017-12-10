@@ -51,12 +51,6 @@ class GennyBucketView extends PureComponent {
                 }
             }
         }
-        else {
-            console.log("========= Error bucket movement =========");
-            console.log(item);
-            console.log(source);
-            console.log(destination);
-        }
     }
 
     addNewItem = (selectedColumn) => {
@@ -102,8 +96,8 @@ class GennyBucketView extends PureComponent {
         bes.forEach(be => {
 
             // we get the sublayout code from the BE
-            
-            let layout_code = be.attributes["PRI_LAYOUT"] ? be.attributes["PRI_LAYOUT"].value : null;
+            let layout_code = BaseEntityQuery.getBaseEntityAttribute(be, "PRI_LAYOUT");
+            layout_code = layout_code ? layout_code.value : null;
             let sublayout = this.props.sublayout[layout_code];
 
             children.push(

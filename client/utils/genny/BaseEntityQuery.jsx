@@ -56,7 +56,7 @@ class BaseEntityQuery {
     static getAliasAttribute = (alias_code, attribute_code) => {
 
         let be = BaseEntityQuery.getAlias(alias_code);
-        if(be) {
+        if(be && be.attributes) {
             return be.attributes[attribute_code];
         }
 
@@ -66,7 +66,7 @@ class BaseEntityQuery {
     static getBaseEntityAttribute = (baseEntityCode, attribute_code) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-        if(be) {
+        if(be && be.attributes) {
             return be.attributes[attribute_code];
         }
 
