@@ -8,7 +8,6 @@
     cursor: pointer;
     position: relative;
     
-
     &:focus {
         outline: none;
     }
@@ -16,10 +15,10 @@
     .dropdown-header {
      z-index: 9;
     }
-
    
     .dropdown-content {
         position: absolute;
+        right:200;
         z-index: 10;
         top: 40px;
         left: 50%;
@@ -29,7 +28,6 @@
         width: 100%;
 
         &:not(.no-style) {
-
             background: #DDD;
             border-radius: 5px;
             padding: 10px 0 20px;

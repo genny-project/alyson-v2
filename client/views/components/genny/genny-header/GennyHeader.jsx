@@ -69,22 +69,53 @@ class GennyHeader extends Component {
       ...style,
     };
 
-    return (
-      <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
-        <Grid className='main-header' cols={[1,1]} rows={1}>
-          <Label text={projectTitle} position={[0,0]} />
+    return <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
+        <Grid className="main-header" cols={[1, 1]} rows={1}>
+          <Label text={projectTitle} position={[0, 0]} />
           {/*<GennyNotification position={[0,1]} />*/}
-          <Device isDesktop position={[0,1]}>
-            <Dropdown header={
-                <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
-              >
-                <ul className="dropdown-profile" >
-                  <li onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
-                  <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
-                  <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Log Out</span></li>
-                </ul>
+          <Device isDesktop position={[0, 1]}>
+            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center', width: 100 }}>
+                  <Label text={`${userName}`} />
+                  <IconSmall name="expand_more" />
+                </span>}>
+              <ul className="dropdown-profile">
+                <li onClick={this.handleProfile}>
+                  <IconSmall name="person" />
+                  <span>Profile</span>
+                </li>
+                <li onClick={this.handleAccount}>
+                  <IconSmall name="settings" />
+                  <span>Account</span>
+                </li>
+                <li onClick={this.handleLogout}>
+                  <IconSmall name="power_settings_new" />
+                  <span>Log Out</span>
+                </li>
+              </ul>
             </Dropdown>
           </Device>
+          <Device isMobile position={[0, 1]}>
+            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center', width: 100 }}>
+                  <Label text={`${userName}`} />
+                  <IconSmall name="expand_more" />
+                </span>}>
+              <ul className="dropdown-profile">
+                <li onClick={this.handleProfile}>
+                  <IconSmall name="person" />
+                  <span>Profile</span>
+                </li>
+                <li onClick={this.handleAccount}>
+                  <IconSmall name="settings" />
+                  <span>Account</span>
+                </li>
+                <li onClick={this.handleLogout}>
+                  <IconSmall name="power_settings_new" />
+                  <span>Log Out</span>
+                </li>
+              </ul>
+            </Dropdown>
+          </Device>
+
           {/*}
           <Device isDesktop position={[0,1]}>
             <ImageView src={userImage} onClick={this.handleClickImage} style={{ width: '40px', minWidth: '40px'}}/>
@@ -93,12 +124,10 @@ class GennyHeader extends Component {
             <IconSmall className="help" name="help"/>
             </Device>*/}
         </Grid>
-        { !hideSubheader ? 
-        <Grid className='sub-header' cols={[1]} rows={1}>
-          <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }} position={[0,0]}/>
-        </Grid> : null }
-      </div>
-    );
+        {!hideSubheader ? <Grid className="sub-header" cols={[1]} rows={1}>
+            <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }} position={[0, 0]} />
+          </Grid> : null}
+      </div>;
   }
 }
 

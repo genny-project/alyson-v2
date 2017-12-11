@@ -49,7 +49,7 @@ class Dropdown extends Component {
           {header}
         </div>
         { isOpen ?
-          <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : null}`} style={contentStyle} >
+          <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : null}`}  >
             { showTag ? <div className='dropdown-tag' style={tagStyle}></div> : null }
             {children}
           </div>
