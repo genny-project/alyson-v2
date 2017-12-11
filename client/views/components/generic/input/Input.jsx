@@ -21,7 +21,9 @@ class Input extends Component {
 
   validateInput = (value, identifier, validationList) => {
 
-    if ( validationList.length > 0 ) {
+      if(value == this.props.placeholder) return;
+
+    if ( validationList.length > 0) {
       const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
       console.log(valResult)
       this.validateValue(valResult, value);
@@ -65,7 +67,7 @@ class Input extends Component {
     }
 
     else {
-        
+
         switch(type) {
             case "TextArea":
                 return ( <InputTextarea
