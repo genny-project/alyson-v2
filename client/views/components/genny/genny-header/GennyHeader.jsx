@@ -74,7 +74,7 @@ class GennyHeader extends Component {
           <Label text={projectTitle} position={[0, 0]} />
           {/*<GennyNotification position={[0,1]} />*/}
           <Device isDesktop position={[0, 1]}>
-            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center', width: 100 }}>
+            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center', width:100 }}>
                   <Label text={`${userName}`} />
                   <IconSmall name="expand_more" />
                 </span>}>
@@ -95,7 +95,7 @@ class GennyHeader extends Component {
             </Dropdown>
           </Device>
           <Device isMobile position={[0, 1]}>
-            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center', width: 100 }}>
+            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center',width:100 }}>
                   <Label text={`${userName}`} />
                   <IconSmall name="expand_more" />
                 </span>}>
