@@ -32,7 +32,7 @@ class GennyForm extends Component {
 
         let btnEventData = {
             code: buttonCode,
-            ...data
+            value: data.askId,
         };
 
         GennyBridge.sendBtnClick(btnEventData);
