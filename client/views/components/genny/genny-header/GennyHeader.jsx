@@ -72,12 +72,13 @@ class GennyHeader extends Component {
     return <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
         <Grid className="main-header" cols={[1, 1]} rows={1}>
           <Label text={projectTitle} position={[0, 0]} />
-          {/*<GennyNotification position={[0,1]} />*/}
           <Device isDesktop position={[0, 1]}>
-            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center', width:100 }}>
+            <Dropdown dropDownContentStyle={{ left: '20px' }} header={
+              <span style={{ display: 'flex', alignItems: 'center', width: 100 }}>
                   <Label text={`${userName}`} />
                   <IconSmall name="expand_more" />
-                </span>}>
+              </span>
+            }>
               <ul className="dropdown-profile">
                 <li onClick={this.handleProfile}>
                   <IconSmall name="person" />
@@ -94,8 +95,9 @@ class GennyHeader extends Component {
               </ul>
             </Dropdown>
           </Device>
+
           <Device isMobile position={[0, 1]}>
-            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center',width: 100}}>
+            <Dropdown header={<span style={{ display: 'flex', alignItems: 'center', width: 100 }}>
                   <Label text={`${userName}`} />
                   <IconSmall name="expand_more" />
                 </span>}>
