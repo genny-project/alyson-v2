@@ -118,7 +118,6 @@ class Input extends Component {
                     {...this.props}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
-                    onChange={this.props.handleChange}
                 /> );
         }
     }

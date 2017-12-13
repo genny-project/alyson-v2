@@ -91,6 +91,7 @@ class GennyForm extends Component {
                     type={inputType}
                     style={this.props.style}
                     name={ask.question.name}
+                    placeholder = {''}
                     value= {default_value}
                     readOnly={ask.readOnly}
                     optional={ask.optional}
