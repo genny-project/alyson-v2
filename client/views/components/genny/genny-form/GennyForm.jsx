@@ -88,7 +88,8 @@ class GennyForm extends Component {
                     type={inputType}
                     style={this.props.style}
                     name={ask.question.name}
-                    placeholder={default_value}
+                    placeholder=''
+                    value= {default_value}
                     readOnly={ask.readOnly}
                     optional={ask.optional}
                     validationList={valList}
@@ -104,10 +105,8 @@ class GennyForm extends Component {
   }
 
   render() {
-
     const { root, style, className } = this.props;
     const componentStyle = { ...style, };
-
     let questionGroup = AskQuery.getQuestionGroup(root);
 
     return (
