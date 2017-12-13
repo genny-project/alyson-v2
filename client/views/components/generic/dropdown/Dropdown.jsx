@@ -49,7 +49,6 @@ class Dropdown extends Component {
       dropDownContentStyle
     } = this.props;
 
-    console.log('###################################################======>>> noDropdownstyle', dropDownContentStyle);
     let { isOpen } = this.state;
 
     if (open != undefined) isOpen = open; // open props overrides
