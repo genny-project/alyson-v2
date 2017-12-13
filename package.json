@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@genny-project/keycloak-react": "^1.0.4",
-    "@genny-project/layson": "1.1.3",
+    "@genny-project/layson": "1.2.2",
     "babel-preset-stage-0": "^6.24.1",
     "downshift": "^1.12.0",
     "halogen": "^0.2.0",

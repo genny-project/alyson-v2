@@ -92,6 +92,7 @@ class App extends Component {
     }
 
     this.setupGoogleAPI();
+    console.log(window.location.origin);
 
     return (
       <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>
