@@ -153,6 +153,7 @@ export default function reducer(state = initialState, action) {
                 created: newAnswer.created,
                 updated: newAnswer.updated,
                 weight: newAnswer.weight,
+                inferred: newAnswer.inferred,
             };
 
             if(newAnswer.name) {
@@ -177,6 +178,7 @@ export default function reducer(state = initialState, action) {
                     ...newAtt,
                 },
                 weight: newAtt.weight,
+                inferred: newAtt.inferred,
             };
 
             return {
