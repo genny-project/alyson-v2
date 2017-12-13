@@ -175,7 +175,8 @@ export default function reducer(state = initialState, action) {
                 attribute: {
                     ...(state.data[be_code].attributes[attributeCode] ? state.data[be_code].attributes[attributeCode].attribute : {}),
                     ...newAtt,
-                }
+                },
+                weight: newAtt.weight,
             };
 
             return {
