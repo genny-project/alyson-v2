@@ -26,16 +26,16 @@ class AppHolder extends Component {
         }
 
         let social_code = window.getQueryString('code');
-        let data_string = window.getQueryString("state");
 
         if(social_code) {
 
            if(data_string) {
 
-               let data = JSON.parse(decodeURIComponent(data_string));
+               let data = JSON.parse(localStorage.getItem("socialredirect"))
                if(data) {
                    data.value = social_code;
                    GennyBridge.sendAnswer([data]);
+                   localStorage.setItem("socialredirect", '');
                }
            }
        }
