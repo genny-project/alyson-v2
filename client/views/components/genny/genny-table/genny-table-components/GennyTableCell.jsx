@@ -25,7 +25,7 @@ class GennyTableCell extends Component {
 
                         if(original) {
 
-                            if(original.inferred == true) return 'red';
+                            if(original.inferred == true) return '#cd201f';
                             if(original.code.startsWith("PRI_")) return 'black';
                             if(original.code.startsWith("FBK_")) return '#3B5998';
                         }
