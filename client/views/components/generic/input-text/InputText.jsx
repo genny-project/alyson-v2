@@ -35,7 +35,7 @@ class InputText extends Component {
   state = {
     date: new Date(),
     hasChanges: false,
-    value: this.props.defaultValue,
+    value: this.props.value,
     focused: false,
   }
 
@@ -82,7 +82,7 @@ class InputText extends Component {
     const { date, focused, value } = this.state;
 
     return (
-      <div className={`input input-text ${className} ${validationStatus || ''}`}>
+      <div className={`input-text ${className} ${validationStatus}`}>
         {!isHorizontal ?
           <div className="input-header">
             {name ? <Label text={name} /> : null }
@@ -93,7 +93,6 @@ class InputText extends Component {
         <input
           type="text"
           disabled={readOnly}
-          placeholder={placeholder}
           value={value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}

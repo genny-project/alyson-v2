@@ -30,10 +30,10 @@ class Form extends Component {
           });
       }
       else if (questionGroup.content) {
-          return <FormGroup title={questionGroup.title}>{this.renderGroup(questionGroup.content)}</FormGroup>
+          return <FormGroup title={questionGroup.title}>{this.renderGroup(questionGroup.content)}</FormGroup>;
       }
 
-      return []
+      return [];
   }
 
   render() {

@@ -23,6 +23,8 @@ class GennyForm extends Component {
     }]);
   }
 
+
+
   onClick = (clickedButton) => {
 
     if(clickedButton && clickedButton.props) {
@@ -38,6 +40,7 @@ class GennyForm extends Component {
         GennyBridge.sendBtnClick(btnEventData);
     }
   }
+
 
   renderForm(askGroup) {
 
@@ -88,13 +91,14 @@ class GennyForm extends Component {
                     type={inputType}
                     style={this.props.style}
                     name={ask.question.name}
-                    placeholder={default_value}
+                    value= {default_value}
                     readOnly={ask.readOnly}
                     optional={ask.optional}
                     validationList={valList}
                     mask={ask.question.mask}
                     onValidation={this.onInputValidation}
                     onClick={this.onClick}
+                    onChange={this.handleChange}
                   />;
               })
           };
