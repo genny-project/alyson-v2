@@ -75,7 +75,7 @@ class GennyHeader extends Component {
           <Label text={projectTitle} position={[0,0]} />
           {/*<GennyNotification position={[0,1]} />*/}
           <Device isDesktop position={[0,1]}>
-            <Dropdown open
+            <Dropdown 
               style={{ marginRight: '30px'}} 
               header={
                 <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
