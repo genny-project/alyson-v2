@@ -18,7 +18,7 @@ class AppContent extends Component {
 
     render() {
 
-        const { layout, children } = this.props;
+        const { layout, children, style } = this.props;
 
         let layoutContent = null;
 
@@ -45,8 +45,12 @@ class AppContent extends Component {
 
         layoutContent = layoutContent || children;
 
+        const componentStyle = {
+            ...style,
+        };
+
         return (
-            <div className="app-content">
+            <div className="app-content" style={componentStyle}>
                 {layoutContent}
             </div>
         );
