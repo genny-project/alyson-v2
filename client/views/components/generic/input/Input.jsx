@@ -21,7 +21,7 @@ class Input extends Component {
 
   validateInput = (value, identifier, validationList) => {
 
-      if(value == this.props.placeholder) return;
+      if(value == this.props.value) return;
 
     if ( validationList.length > 0) {
       const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
