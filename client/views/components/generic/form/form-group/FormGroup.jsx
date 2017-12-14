@@ -1,29 +1,41 @@
 import './formGroup.scss';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { array, string } from 'prop-types';
+import { Input } from '../../';
 
-class FormGroup extends Component {
+class FormGroup extends PureComponent {
 
     static defaultProps = {
-        children: [],
+        data: [],
         title: '',
     }
 
     static propTypes = {
-      children: array,
+      data: array,
       title: string,
+    }
+
+    renderData = (data) => {
+
+        return data.map((child, index) => {
+            if (React.isValidElement()){
+                return child
+            } else {
+                return <Input {...child}/>
+            }
+        });
     }
 
     render() {
 
-        const { children, title } = this.props;
-
+        const { data, title } = this.props;
+        
         return (
             <div className="form-group">
                 <div className="form-group-title">
                     {title}
                 </div>
-                {children}
+                {this.renderData(data)}
             </div>
         );
     }

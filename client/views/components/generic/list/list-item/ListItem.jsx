@@ -1,6 +1,6 @@
 import './listItem.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object } from 'prop-types';
 import { } from '../';
 
 class ListItem extends Component {
@@ -11,20 +11,21 @@ class ListItem extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
-    children: any
+    style: string
   }
 
   state = {
   }
 
   render() {
- 	  const { children, className, style, } = this.props;
-    const {  } = this.state;
+ 	  const { className, style, } = this.props;
     const componentStyle = { ...style, };
+    
+    console.log(this.props);
+    
     return (
       <div className={`list-item ${className}`}>
-        {children}
+        { this.props.layout || null }
       </div>
     );
   }

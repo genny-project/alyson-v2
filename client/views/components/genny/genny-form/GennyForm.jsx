@@ -1,6 +1,6 @@
 import './gennyForm.scss';
 import React, { Component } from 'react';
-import { Form, Input } from '../../';
+import { Form } from '../../';
 import { object, array } from 'prop-types';
 import { AskQuery, BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { log } from 'util';
@@ -39,7 +39,7 @@ class GennyForm extends Component {
     }
   }
 
-  renderForm(askGroup) {
+  generateFormData(askGroup) {
 
       if(askGroup && askGroup.childAsks) {
 
@@ -47,7 +47,7 @@ class GennyForm extends Component {
               title: askGroup.name,
               content: askGroup.childAsks.map((ask, index) => {
 
-                  if(ask.childAsks) return this.renderForm(ask);
+                  if(ask.childAsks) return this.generateFormData(ask);
 
                   let inputType = 'Text';
                   let valList = [];
@@ -75,28 +75,28 @@ class GennyForm extends Component {
                       }
                   }
 
-                  return <Input
-                    isHorizontal={this.props.isHorizontal}
-                    key={index}
-                    identifier={ask.question.code}
-                    data={{
+                  return {
+                    isHorizontal: this.props.isHorizontal,
+                    key: index,
+                    identifier: ask.question.code,
+                    data: {
                         askId: ask.id,
                         attributeCode: ask.question.attributeCode,
                         sourceCode: ask.sourceCode,
                         targetCode: ask.targetCode,
-                    }}
-                    type={inputType}
-                    style={this.props.style}
-                    name={ask.question.name}
-                    placeholder=''
-                    value= {default_value}
-                    readOnly={ask.readOnly}
-                    optional={ask.optional}
-                    validationList={valList}
-                    mask={ask.question.mask}
-                    onValidation={this.onInputValidation}
-                    onClick={this.onClick}
-                  />;
+                    },
+                    type: inputType,
+                    style: this.props.style,
+                    name: ask.question.name,
+                    placeholder: '',
+                    value: default_value,
+                    readOnly: ask.readOnly,
+                    optional: ask.optional,
+                    validationList: valList,
+                    mask: ask.question.mask,
+                    onValidation: this.onInputValidation,
+                    onClick: this.onClick,
+                  };
               })
           };
         }
@@ -111,9 +111,7 @@ class GennyForm extends Component {
 
     return (
       <div className={`genny-form ${className || ''}`}>
-          <Form {...this.props}>
-              { questionGroup ? this.renderForm(questionGroup) : [] }
-          </Form>
+          <Form {...this.props} data={questionGroup ? this.generateFormData(questionGroup) : []}/>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import './list.scss';
 import React, { Component } from 'react';
-import { Pagination, ListItem } from '../';
+import { Pagination } from '../';
+import { ListItem } from './list-item';
 import { string, bool, number} from 'prop-types';
 
 class List extends Component {
@@ -20,30 +21,29 @@ class List extends Component {
   state = {
   }
 
-  renderMain = (children, itemsPerPage, hideNav) => {
-
-    if ( children == null || children == false ) {
-      return ( <ListItem className='list-empty'>No data to display.</ListItem> );
-    } else {
+  renderMain = (data, itemsPerPage, hideNav) => {
+    console.log(data);
+    if (data.length > 0) { 
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
-          {children}
+          {data.map((item, index) => {
+            
+            return <ListItem {...item} />
+          })}
         </Pagination>
       );
-    }
+    } else {
+      return ( <div className='list-empty'>No data to display.</div> );
+    } 
   }
 
   render() {
   
-    const { className, style, children, itemsPerPage, header, hideNav } = this.props;
+    const { className, style, data, itemsPerPage, header, hideNav } = this.props;
     const { } = this.state;
     const componentStyle = { ...style, };
-
-    //console.log(children);
     
-    const renderMain = this.renderMain(children, itemsPerPage, hideNav);
-
-    //console.log(renderMain);
+    const renderMain = this.renderMain(data, itemsPerPage, hideNav);
 
     return (
       <div className={`list ${className}`} style={componentStyle}>
