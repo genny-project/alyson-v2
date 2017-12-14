@@ -146,7 +146,7 @@ class GennyBridge {
 
           // first we call auth init (post request)
         this.ajaxCall({
-            header: {
+            headers: {
                 Authorization: "Bearer " + token,
             },
             url: `${config.genny.bridge.endpoints.events}/init?url=${window.location.origin}`,
