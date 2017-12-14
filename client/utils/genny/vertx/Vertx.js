@@ -1,6 +1,10 @@
 import EventBus from 'vertx3-eventbus-client';
+import decode_token from 'jwt-decode';
+
+let session_state = null;
 
 class Vertx {
+
   constructor() {
     this.eventBus = null;
     this.incomingHandler = () => {};
@@ -8,22 +12,37 @@ class Vertx {
     this.connected = false;
   }
 
-  init( url ) {
+  init( token, url ) {
+
     this.eventBus = new EventBus( url );
     this.eventBus.onopen = () => {
+
       this.connected = true;
       console.debug( '[Vertx] Connection opened' );
 
-      /* Register a handler for incoming messages */
-      this.eventBus.registerHandler( 'address.outbound', ( error, message ) => {
-        this.onIncomingMessage( message.body );
-      });
+      // decode token
+      let session_data = decode_token(token);
+      if(session_data && session_data.session_state) {
 
-      /* Send all messages in the queue */
-      this.messageQueue.forEach(( message, i ) => {
-        this.sendMessage( message );
-        this.messageQueue.splice( i, 1 );
-      });
+          session_state = session_data.session_state;
+
+          console.log( session_data )
+          console.log( session_state );
+          /* Register a handler for incoming messages */
+          this.eventBus.registerHandler( session_state, ( error, message ) => {
+            this.onIncomingMessage( message.body );
+          });
+
+          /* Send all messages in the queue */
+          this.messageQueue.forEach(( message, i ) => {
+            this.sendMessage( message );
+            this.messageQueue.splice( i, 1 );
+          });
+      }
+      else {
+
+          console.error( 'no session state found' )
+      }
     };
   }
 

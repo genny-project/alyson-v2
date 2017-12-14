@@ -7,7 +7,6 @@ import 'rxjs/add/operator/mapTo';
 const receiveKeycloakConfig = action$ => {
   return action$
     .ofType( RECEIVE_KEYCLOAK_CONFIG )
-    .do( action => GennyBridge.initVertx( action.payload.vertx_url ))
     .mapTo({
       type: INIT_VERTX
     });

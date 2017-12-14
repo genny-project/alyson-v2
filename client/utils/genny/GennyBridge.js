@@ -122,7 +122,7 @@ class GennyBridge {
     });
   }
 
-  initVertx(url) {
+  static initVertx(token, url) {
 
     /* Create a new message handler */
     this.messageHandler = new MessageHandler();
@@ -131,7 +131,7 @@ class GennyBridge {
     Vertx.setIncomingHandler(this.messageHandler.onMessage);
 
     /* Init vertx */
-    Vertx.init(url);
+    Vertx.init(token, url);
 
     /* Allow incoming messages to be sent from the browser console */
     window.sendIncomingVertxMessage = (message) => {
@@ -141,8 +141,24 @@ class GennyBridge {
 
   sendAuthInit(token) {
 
-      Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+      let keycloakConfig = store.getState().keycloak.config;
+      if(keycloakConfig) {
 
+          // first we call auth init (post request)
+        this.ajaxCall({
+            header: {
+                Authorization: "Bearer " + token,
+            },
+            url: `${config.genny.bridge.endpoints.events}/init?url=${window.location.origin}`,
+            success: (response) => {
+                console.log("DONE");
+                GennyBridge.initVertx( token, keycloakConfig.vertx_url )
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        });
+      }
   }
 }
 
