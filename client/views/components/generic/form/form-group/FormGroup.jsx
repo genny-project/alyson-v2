@@ -18,10 +18,10 @@ class FormGroup extends PureComponent {
     renderData = (data) => {
 
         return data.map((child, index) => {
-            if (!child.$$typeof){
-                return <Input {...child}/>
-            } else {
+            if (React.isValidElement()){
                 return child
+            } else {
+                return <Input {...child}/>
             }
         });
     }

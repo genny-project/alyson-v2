@@ -22,8 +22,8 @@ class List extends Component {
   }
 
   renderMain = (data, itemsPerPage, hideNav) => {
-
-    if (data) { 
+    console.log(data);
+    if (data.length > 0) { 
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {
@@ -33,7 +33,7 @@ class List extends Component {
         </Pagination>
       );
     } else {
-      return ( <ListItem className='list-empty'>No data to display.</ListItem> );
+      return ( <div className='list-empty'>No data to display.</div> );
     } 
   }
 
