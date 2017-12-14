@@ -27,7 +27,7 @@ class GennyList extends Component {
             let sublayout = this.props.sublayout[layout_code]; 
 
             item['layout'] = <LayoutLoader layout={sublayout} />;
-            console.log(item['layout']);
+            
             return item;
         });
     }  
@@ -36,8 +36,7 @@ class GennyList extends Component {
 
         const { root } = this.props;
         let data = BaseEntityQuery.getEntityChildren(root);
-        console.log('data', data);
-
+        
         return (
             <div className="genny-list">
                 <List 

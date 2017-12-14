@@ -27,7 +27,7 @@ class List extends Component {
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {
-            console.log(item);
+            
             return <ListItem {...item} />
           })}
         </Pagination>
@@ -42,7 +42,6 @@ class List extends Component {
     const { className, style, data, itemsPerPage, header, hideNav } = this.props;
     const { } = this.state;
     const componentStyle = { ...style, };
-    console.log('data', data);
     
     const renderMain = this.renderMain(data, itemsPerPage, hideNav);
 
