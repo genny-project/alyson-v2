@@ -149,6 +149,7 @@ class GennyBridge {
             headers: {
                 Authorization: "Bearer " + token,
             },
+            type: "POST",
             url: `${config.genny.bridge.endpoints.events}/init?url=${window.location.origin}`,
             success: (response) => {
                 console.log("DONE");
