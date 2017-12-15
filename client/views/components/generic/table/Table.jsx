@@ -1,7 +1,7 @@
 import 'react-table/react-table.css';
 import './table.scss';
 import React, { Component } from 'react';
-import { string, array, number, bool, } from 'prop-types';
+import { string, array, number, bool, any } from 'prop-types';
 import ReactTable from 'react-table';
 import { IconSmall, } from '../../';
 
@@ -13,6 +13,7 @@ class Table extends Component {
     data: [],
     list: false,
     itemsPerPage: 20,
+    tBodyStyle: false,
   }
 
   static propTypes = {
@@ -21,25 +22,19 @@ class Table extends Component {
     data: array,
     itemsPerPage: number,
     isList: bool,
+    bodyHeight: any,
   }
 
   createProps = key => (state, rowInfo, column) => {
-    if ( !this.props.isList )
-      return {};
-
+    const {bodyHeight} = this.props;
     const props = {
-      tHeadStyle: { style: { display: 'none' }},
-      tdStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0, background: 'none' }},
-      trStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0 }},
-      trGroupStyle: { style: { height: 'initial', padding: 0, margin: 0, flexGrow: 0, marginBottom: '10px', border: 'none', }},
-      tBodyStyle: { style: { flexGrow: 0 }},
-      tHeadStyle: { style : { textAlign: 'left', marginBottom: '10px' }},
-      tableStyle: { style: { flex: 'initial' }},
-      paginateStyle: { className: 'list-pagination' },
-      tHeadFilterStyle: { style : { display: "none" }},
-      noDataStyle: { className: 'no-data' },
+      tBodyStyle: { style: {height: bodyHeight, overflow: 'scroll'}},
     }
-    return props[key];
+    if (props[key] && bodyHeight) {
+      return props[key];
+    } else {
+      return {};
+    }
   }
 
   render() {

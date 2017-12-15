@@ -31,14 +31,14 @@ class Button extends Component {
   }
 
   render() {
-    const { children, type, className, href, onClick, style, color } = this.props;
+    const { children, type, className, href, onClick, style, color, buttonStyle } = this.props;
     const componentStyle = { ...style, };
 
     const clickFunc = this.getClickFunction();
 
     const btn = (
       <div className={`button ${className} ${type}`} style={componentStyle}>
-        <button onClick={clickFunc} style={{backgroundColor: color}}>{children}</button>
+        <button onClick={clickFunc} style={{ ...buttonStyle }}>{children}</button>
       </div>
     );
 

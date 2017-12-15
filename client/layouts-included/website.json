@@ -1,0 +1,328 @@
+{
+  "layout": [
+    {
+      "AppHolder": {
+        "cols": 1,
+        "rows": ["50px", "auto", "30px"],
+        "children": [
+          {
+            "Header": {
+              "position": [0,0],
+              "style": {
+                "backgroundColor": "white",
+                "color": "black",
+                "width": "900px",
+                "margin": "0 auto"
+              },
+              "cols": [
+                {
+                  "style": {
+                    "flexGrow": 0,
+                    "flexBasis": "100px",
+                    "display": "flex",
+                    "alignItems": "center"
+                  }
+                },
+                {
+                  "style": {
+                    "flexGrow": 1,
+                    "display": "flex",
+                    "alignItems": "center",
+                    "justifyContent": "space-around"
+                  }
+                }
+              ],
+              "rows": [{ "style": {"flexGrow": 1, "width": "100%"}}],
+              "children": [
+                {
+                  "h1": {
+                    "position": [0,0],
+                    "style": {
+                      "margin": 0
+                    },
+                    "children": "CHANNEL40"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0,1],
+                    "children": "For"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0,1],
+                    "children": "Businesses Companies"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0,1],
+                    "children": "Become a Driver"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0,1],
+                    "children": "Register"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0,1],
+                    "children": "Log In"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "AppContent": {
+              "position": [1,0],
+              "style": {
+                "overflowY": "scroll"
+              },
+              "children" : [
+                {
+                  "div": {
+                    "style": {
+                      "position": "relative"
+                    },
+                    "children": [
+                      {
+                        "ImageView": {
+                          "style": {
+                            "margin": "0 0 20px",
+                            "height": "300px",
+                            "overflow": "hidden" 
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/01/landing-driver.png"
+                        }
+                      },
+                      {
+                        "Button" : {
+                          "style": { 
+                            "width": "250px",
+                            "top": "100px",
+                            "right": "100px",
+                            "position": "absolute"
+                          },
+                          "buttonStyle": {
+                            "color": "black",
+                            "background": "white",
+                            "border": "2px solid black",
+                            "borderRadius": "0px"
+                          },
+                          "children": "Move Freight. Online. Easy."
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "cols": 1,
+                    "rows": 3,
+                    "style": { 
+                      "width": "900px",
+                      "margin": "0 auto 20px"
+                    },
+                    "children": [
+
+                      {
+                        "Grid": {
+                          "cols": [
+                            { "style": {"flexGrow": 1, "padding": "10px 20px 10px 0", "position": "relative" }},
+                            { "style": {"flexGrow": 1, "padding": "10px 0 10px 20px", "position": "relative" }}
+                          ],
+                          "rows": 1,
+                          "position": [0,0],
+                          "children": [
+                            {
+                              "ImageView" : {
+                                "position": [0,0],
+                                "style": {
+                                  "width": "100%",
+                                  "height": "100%",
+                                  "overflow": "hidden" 
+                                },
+                                "src": "https://channel40.com.au/wp-content/uploads/2017/01/Y2C5972-1.png"
+                              }
+                            },
+                            {
+                              "div": {
+                                "position": [0,1],
+                                "children": "Move freight with Channel 40"
+                              }
+                            },
+                            {
+                              "div": {
+                                "position": [0,1],
+                                "children": "GET QUOTES, SELECT DRIVER + TRACK YOUR LOAD"
+                              }
+                            },
+                            {
+                              "Button" : {
+                                "position": [0,1],
+                                "style": { 
+                                  "width": "150px",
+                                  "position": "absolute",
+                                  "bottom": "20px",
+                                  "right": "30px"
+                                },
+                                "buttonStyle": {
+                                  "color": "black",
+                                  "background": "white",
+                                  "border": "2px solid black",
+                                  "borderRadius": "0px"
+                                },
+                                "children": "FREE QUOTE"
+                              }
+                            }
+                          ]
+                        }
+                      },
+
+                      {
+                        "Grid": {
+                          "cols": [
+                            { "style": {"flexGrow": 1, "padding": "10px 0 10px 20px", "position": "relative" }},
+                            { "style": {"flexGrow": 1, "padding": "10px 20px 10px 0", "position": "relative" }}
+                          ],
+                          "rows": 1,
+                          "position": [1,0],
+                          "children": [
+                            {
+                              "div": {
+                                "position": [0,0],
+                                "children": "Find loads with Channel 40"
+                              }
+                            },
+                            {
+                              "div": {
+                                "position": [0,0],
+                                "children": "AND GET PAID"
+                              }
+                            },
+                            {
+                              "Button" : {
+                                "position": [0,0],
+                                "style": { 
+                                  "width": "150px",
+                                  "position": "absolute",
+                                  "bottom": "20px",
+                                  "right": "30px"
+                                },
+                                "buttonStyle": {
+                                  "color": "black",
+                                  "background": "white",
+                                  "border": "2px solid black",
+                                  "borderRadius": "0px"
+                                },
+                                "children": "FIND JOBS"
+                              }
+                            },
+                            {
+                              "ImageView" : {
+                                "position": [0,1],
+                                "style": {
+                                  "width": "100%",
+                                  "height": "100%",
+                                  "overflow": "hidden" 
+                                },
+                                "src": "https://channel40.com.au/wp-content/uploads/2017/01/Y2C5972-1.png"
+                              }
+                            }
+                          ]
+                        }
+                      },
+
+                      {
+                        "Grid": {
+                          "cols": [
+                            { "style": {"flexGrow": 1, "padding": "10px 20px 10px 0", "position": "relative" }},
+                            { "style": {"flexGrow": 1, "padding": "10px 0 10px 20px", "position": "relative" }}
+                          ],
+                          "rows": 1,
+                          "position": [2,0],
+                          "children": [
+                            {
+                              "ImageView" : {
+                                "position": [0,0],
+                                "style": {
+                                  "width": "100%",
+                                  "height": "100%",
+                                  "overflow": "hidden" 
+                                },
+                                "src": "https://channel40.com.au/wp-content/uploads/2017/01/Y2C5972-1.png"
+                              }
+                            },
+                            {
+                              "div": {
+                                "position": [0,1],
+                                "children": "manage freight with Channel 40"
+                              }
+                            },
+                            {
+                              "div": {
+                                "position": [0,1],
+                                "children": "TRACK ALL YOUR SHIPMENTS, COMMUNICATE WITH AND INVOICE DRIVERS "
+                              }
+                            },
+                            {
+                              "Button" : {
+                                "position": [0,1],
+                                "style": { 
+                                  "width": "150px",
+                                  "position": "absolute",
+                                  "bottom": "20px",
+                                  "right": "30px"
+                                },
+                                "buttonStyle": {
+                                  "color": "black",
+                                  "background": "white",
+                                  "border": "2px solid black",
+                                  "borderRadius": "0px"
+                                },
+                                "children": "FOR BUSINESS"
+                              }
+                            }
+                    
+                          ]
+                        }
+                      }
+                    
+                    
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "div": {
+              "position": [2,0],
+              "style": {
+                "backgroundColor": "white",
+                "color": "black",
+                "height": "100%",
+                "margin": "0 auto",
+                "width": "900px",
+                "display": "flex",
+                "alignItems": "center",
+                "justifyContent": "center"
+              },
+              "children" : [
+                {
+                  "span" : {
+                    "children" : "copyright Channel 40 2018"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

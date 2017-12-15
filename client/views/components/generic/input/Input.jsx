@@ -21,9 +21,11 @@ class Input extends Component {
 
   validateInput = (value, identifier, validationList) => {
 
-    if ( validationList.length > 0 ) {
+      if(value == this.props.value) return;
+
+    if ( validationList.length > 0) {
       const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-      console.log(valResult)
+      console.log(valResult);
       this.validateValue(valResult, value);
     } else {
       //window.alert("No regex supplied");
@@ -54,26 +56,26 @@ class Input extends Component {
 
     const { type, identifier } = this.props;
     const {validationStatus } = this.state;
-    let items = ['Bananas', 'Oranges', 'Apples', 'Other']
+    let items = ['Bananas', 'Oranges', 'Apples', 'Other'];
 
-    //TODO: remove this.
+    ////TODO: remove this.
     // testing facebook
-    if(identifier == "QUE_FB_BASIC") {
+    if(identifier == 'QUE_FB_BASIC') {
         return (
-            <InputButton {...this.props} type="facebook" buttonCode={"SOC_FB_BASIC_GENNY"} />
+            <InputButton {...this.props} type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
         );
     }
 
     else {
 
         switch(type) {
-            case "textarea":
+            case 'TextArea':
                 return ( <InputTextarea
                     {...this.props}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 /> );
-            case "checkbox":
+            case 'Boolean':
                 return ( <InputCheckbox
                     {...this.props}
                     validation={this.validateInput}
@@ -82,13 +84,13 @@ class Input extends Component {
             // case "java.time.Date":
             //     return ( <InputDate items={items}
             //         {...this.props}/> );
-            case "datepicker":
+            case 'LocalDate':
                 return ( <InputDatePicker
                     {...this.props}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 /> );
-            case "dropdown":
+            case 'dropdown':
                 return ( <InputDropdown
                     items={items}
                     {...this.props}
@@ -97,19 +99,20 @@ class Input extends Component {
                 /> );
             // case "time":
             //     return ( <InputTime {...this.props}/> );
-            case "slider":
+            case 'slider':
                 return ( <InputSlider
                     {...this.props}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 /> );
-            case "upload-photo":
+            case 'upload-photo':
                 return ( <InputUploadPhoto {...this.props} /> );
             // case "password":
             //     return ( <InputText {...this.props}/> );
-            case "address":
+            case 'address':
                 return ( <InputAddress {...this.props} /> );
-            case "java.lang.String":
+            case 'Button':
+                return <InputButton {...this.props} />
             default:
                 return ( <InputText
                     {...this.props}

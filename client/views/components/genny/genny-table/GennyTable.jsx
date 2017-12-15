@@ -42,17 +42,17 @@ class GennyTable extends Component {
                         {
                             "Header": <span className="header-single">ATTRIBUTE CODE</span>,
                             "accessor": 'code',
-                            "Cell": ({row, original}) => <GennyTableCell code={original.code} value={row.code} />
+                            "Cell": ({row, original}) => <GennyTableCell original={original} value={row.code} />
                         },
                         {
                             "Header": <span className="header-single">VALUE</span>,
                             "accessor": 'value',
-                            "Cell": ({row, original}) => <GennyTableCell code={original.code} value={row.value} />
+                            "Cell": ({row, original}) => <GennyTableCell original={original} value={row.value} />
                         },
                         {
                             "Header": <span className="header-single">WEIGHT</span>,
                             "accessor": 'weight',
-                            "Cell": ({row, original}) => <GennyTableCell code={original.code} value={row.weight} />
+                            "Cell": ({row, original}) => <GennyTableCell original={original} value={row.weight} />
                         }
                     ]
                 });
@@ -136,6 +136,7 @@ class GennyTable extends Component {
                                 code: attribute.attributeCode,
                                 value: attribute.value,
                                 weight: attribute.weight,
+                                inferred: attribute.inferred,
                             })
                         }
                     }
@@ -181,7 +182,7 @@ class GennyTable extends Component {
         data = this.generateDataFor(children)
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
-                <Table {...this.props} data={data} columns={columns} />
+                <Table {...this.props} data={data} columns={columns}/>
             </div>
         );
     }

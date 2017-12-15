@@ -48,7 +48,7 @@ class Sidebar extends Component {
                 <Grid 
                     className={`sidebar ${window.getScreenSize()} ${isOpen ? '' : 'closed'}`}
                     style={componentStyle}
-                    rows={["200px", "auto"]}
+                    rows={["200px", {"style": { "flex": "1, 1, auto", "overflow": "scroll"} }]}
                     cols={1}>
 
                     {icon}

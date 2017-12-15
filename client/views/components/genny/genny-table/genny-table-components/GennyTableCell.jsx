@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+import { string, object } from 'prop-types';
 
 class GennyTableCell extends Component {
 
     static defaultProps = {
-        code: '',
+        original: {},
         value: '',
     }
 
     static propTypes = {
-        code: string,
+        original: object,
         value: string,
     }
 
     render() {
 
-        const { code, value } = this.props;
+        const { original, value } = this.props;
 
         return (
             <span
@@ -23,9 +23,11 @@ class GennyTableCell extends Component {
                 fontSize: '14px',
                 color: (() => {
 
-                        if(code) {
-                            if(code.startsWith("PRI_")) return 'black';
-                            if(code.startsWith("FBK_")) return '#3B5998';
+                        if(original) {
+
+                            if(original.inferred == true) return '#cd201f';
+                            if(original.code.startsWith("PRI_")) return 'black';
+                            if(original.code.startsWith("FBK_")) return '#3B5998';
                         }
 
                         return null;

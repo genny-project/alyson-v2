@@ -1,41 +1,59 @@
 import './form.scss';
 import React, { Component } from 'react';
-import { ProgressBar, Button, IconSmall, Pagination } from 'views/components';
-import { string, bool, number} from 'prop-types';
+import { Pagination, Input } from 'views/components';
+import { string, bool, number, array} from 'prop-types';
 import { FormGroup } from './form-group';
 
 class Form extends Component {
 
   static defaultProps = {
     className: '',
-    itemsPerPage: 3
+    itemsPerPage: 3,
+    data: [],
   }
 
   static propTypes = {
     className: string,
     itemsPerPage: number,
     showProgress: bool,
+    data: array,
   }
 
   state = {
     showProgress: this.props.showProgress ? this.props.showProgress : false,
   }
 
+  renderGroup(questionGroup) {
+
+      if(Array.isArray( questionGroup )) {
+        return questionGroup.map(group => {
+          
+            if(group.content) return this.renderGroup(group);
+            return group;
+        });
+      }
+      else if (questionGroup.content) {
+        return (<FormGroup title={questionGroup.title} data={this.renderGroup(questionGroup.content)}/>);
+      }
+
+      return [];
+  }
+
   render() {
 
-    const { className, children, style, itemsPerPage, showProgress, isHorizontal, hideNav } = this.props;
+    const { className, style, itemsPerPage, showProgress, isHorizontal, hideNav, data } = this.props;
+    const componentStyle = { ...style, };
 
-    let groups = children ? children.content.map(child => <FormGroup>{child}</FormGroup>) : []
-
+    let questionGroup = this.renderGroup( data );
     return (
-      <div className={`form-container ${isHorizontal ? 'horizontal' : null }`}>
+      <div className={`form-container ${isHorizontal ? 'horizontal' : null }`} style={componentStyle}>
         <div className="form-main">
           <div className="form-fields">
-            { !isHorizontal && groups.length > itemsPerPage ?
+            { !isHorizontal && questionGroup.length > itemsPerPage ?
               <Pagination perPage={itemsPerPage} hideNav={hideNav}>
-                {groups}
+                {questionGroup}
               </Pagination>
-            : groups }
+            : questionGroup }
           </div>
         </div>
       </div>

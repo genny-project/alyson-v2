@@ -45,7 +45,8 @@ export default function reducer( state = initialState, action ) {
             });
 
             if(json) {
-                url += "?state=" + json;
+                // url += "?state=" + json;
+                localStorage.setItem("socialredirect", json);
             }
 
             redirectUrl += "&redirect_uri=" + url;

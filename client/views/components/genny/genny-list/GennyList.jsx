@@ -1,7 +1,7 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
-import { object, string } from 'prop-types';
-import { List, GennyForm, ListItem } from '../../';
+import { object, string, number } from 'prop-types';
+import { List, GennyForm } from '../../';
 import { BaseEntityQuery } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
@@ -11,49 +11,43 @@ class GennyList extends Component {
         root: '',
     }
 
-
     static propTypes = {
-        root: string
+        root: string,
+        itemHeight: number,
+        itemWidth: number,
+        itemGap: number,
+        listGap: number,
+        rowsVisible: number
     };
 
     state = {
     }
 
-    generateListItems(items) {
+    generateListItems(data) {
 
-        let children = [];
-        
-        items.map(item => {
+        return data.map(item => {
 
-            console.log('item', item);
-
-            //let layout_code = (item.attributes["PRI_LAYOUT"] ? item.attributes["PRI_LAYOUT"].value : null);
             let layout_code = 'listLayout';
             let sublayout = this.props.sublayout[layout_code]; 
 
-            children.push(
-                <ListItem>
-                    {
-                        sublayout ? <LayoutLoader layout={sublayout} /> : null
-                    }
-                </ListItem>
-            );
+            item['layout'] = <LayoutLoader layout={sublayout} />;
+            
+            return item;
         });
-        return children
     }  
 
     render() {
 
-        const { root } = this.props;
-        let items = BaseEntityQuery.getEntityChildren(root);
-
-        let children = this.generateListItems(items);
-
+        const { root, ...rest } = this.props;
+        let data = BaseEntityQuery.getEntityChildren(root);
+        console.log({...rest});
         return (
             <div className="genny-list">
-                <List header={ <GennyForm isHorizontal /> }>
-                    {children}
-                </List>
+                <List 
+                    header={ <GennyForm isHorizontal /> }
+                    data={ this.generateListItems(data) }
+                    {...rest}
+                />
             </div>
         );
     }

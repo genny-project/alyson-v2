@@ -1,9 +1,9 @@
 import './gennyForm.scss';
 import React, { Component } from 'react';
-import { Form, Input } from '../../';
+import { Form } from '../../';
 import { object, array } from 'prop-types';
-import { GennyBridge } from 'utils/genny';
-import { AskQuery } from 'utils/genny';
+import { AskQuery, BaseEntityQuery, GennyBridge } from 'utils/genny';
+import { log } from 'util';
 
 class GennyForm extends Component {
 
@@ -28,53 +28,76 @@ class GennyForm extends Component {
     if(clickedButton && clickedButton.props) {
 
         let data = clickedButton.props.data;
-        let buttonCode = clickedButton.props.buttonCode;
 
         let btnEventData = {
-            code: buttonCode,
-            ...data
+            code: data.code,
+            value: data.questionGroup,
         };
 
         GennyBridge.sendBtnClick(btnEventData);
     }
   }
 
-  renderForm(title, asks) {
+  generateFormData(askGroup) {
 
-      if(asks) {
+      if(askGroup && askGroup.childAsks) {
 
           return {
-              title: title,
-              content: asks.map((ask, index) => {
+              title: askGroup.name,
+              content: askGroup.childAsks.map((ask, index) => {
 
-                  if(ask.childAsks) return this.renderForm(ask.name, ask.childAsks);
-                  let inputType = ask.question.type || 'java.lang.String';
+                  if(ask.childAsks) return this.generateFormData(ask);
+
+                  let inputType = 'Text';
+                  let valList = [];
+                  if (ask.question) {
+                     if(ask.question.attribute){
+                         if(ask.question.attribute.dataType){
+                            if(ask.question.attribute.dataType.className){
+                                inputType = ask.question.attribute.dataType.className;
+                            }
+                            if(ask.question.attribute.dataType.validationList){
+                                valList = ask.question.attribute.dataType.validationList;
+                            }
+                         }
+                     }
+                  }
 
                   let default_value = null;
                   let be_code = ask.targetCode;
                   let attributeCode = ask.attributeCode;
 
-                  return <Input
-                    isHorizontal={this.props.isHorizontal}
-                    key={index}
-                    identifier={ask.question.code}
-                    data={{
+                  if(be_code && attributeCode) {
+                      let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
+                      if(att) {
+                          default_value = att.value;
+                      }
+                  }
+
+                  return {
+                    isHorizontal: this.props.isHorizontal,
+                    key: index,
+                    identifier: ask.question.code,
+                    data: {
                         askId: ask.id,
                         attributeCode: ask.question.attributeCode,
                         sourceCode: ask.sourceCode,
                         targetCode: ask.targetCode,
-                    }}
-                    type={inputType}
-                    style={this.props.style}
-                    name={ask.question.name}
-                    placeholder={''}
-                    readOnly={ask.readOnly}
-                    optional={ask.optional}
-                    validationList={ask.question.validationList}
-                    mask={ask.question.mask}
-                    onValidation={this.onInputValidation}
-                    onClick={this.onClick}
-                  />;
+                        code: ask.question.code,
+                        questionGroup: askGroup.name,
+                    },
+                    type: inputType,
+                    style: this.props.style,
+                    name: ask.question.name,
+                    placeholder: '',
+                    value: default_value,
+                    readOnly: ask.readOnly,
+                    optional: ask.optional,
+                    validationList: valList,
+                    mask: ask.question.mask,
+                    onValidation: this.onInputValidation,
+                    onClick: this.onClick,
+                  };
               })
           };
         }
@@ -83,17 +106,13 @@ class GennyForm extends Component {
   }
 
   render() {
-
-    const { root, style, className } = this.props;
+    const { root, style, className, formStyle } = this.props;
     const componentStyle = { ...style, };
-
     let questionGroup = AskQuery.getQuestionGroup(root);
 
     return (
-      <div className={`genny-form ${className || ''}`}>
-          <Form {...this.props}>
-              { questionGroup ? this.renderForm(questionGroup.name, questionGroup.childAsks) : [] }
-          </Form>
+      <div className={`genny-form ${className || ''}`} style={componentStyle}>
+          <Form {...this.props} data={questionGroup ? this.generateFormData(questionGroup) : []} style={{...formStyle}}/>
       </div>
     );
   }

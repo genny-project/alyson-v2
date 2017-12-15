@@ -19,6 +19,7 @@ import {
   GennyList,
   GennyButton,
   AppContent,
+  Button,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -43,4 +44,5 @@ export default new ComponentCollection({
   GennyList,
   GennyButton,
   AppContent,
+  Button,
 });

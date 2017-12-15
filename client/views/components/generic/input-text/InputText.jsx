@@ -35,7 +35,7 @@ class InputText extends Component {
   state = {
     date: new Date(),
     hasChanges: false,
-    value: this.props.defaultValue,
+    value: this.props.value,
     focused: false,
   }
 
@@ -81,28 +81,14 @@ class InputText extends Component {
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
-    return (
-      <div className={`input-text ${className} ${validationStatus}`}>
-        {!isHorizontal ?
-          <div className="input-header">
-            {name ? <Label text={name} /> : null }
+    return <div className={`input input-text ${className} ${validationStatus || ''}`}>
+        {!isHorizontal ? <div className="input-header">
+            {name ? <Label text={name} /> : null}
             {optional ? <Label text="(optional)" /> : null}
             <SubmitStatusIcon status={validationStatus} />
-          </div>
-        : null }
-        <input
-          type="text"
-          disabled={readOnly}
-          placeholder={placeholder}
-          value={value}
-          onChange={this.handleChange}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          onKeyDown={this.onKeyDown}
-          style={ focused ? {borderColor: componentStyle.color} : null }
-        />
-      </div>
-    );
+          </div> : null}
+        <input type="text" disabled={readOnly} placeholder={placeholder} value={value} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} onKeyDown={this.onKeyDown} style={focused ? { borderColor: componentStyle.color } : null} />
+      </div>;
   }
 }
 
