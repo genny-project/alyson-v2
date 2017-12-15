@@ -127,6 +127,8 @@ class GennyBridge {
 
     static initVertx(token, url) {
 
+        console.log("[Vertx] Opening Vertx...");
+
         /* Create a new message handler */
         this.messageHandler = new MessageHandler();
 
