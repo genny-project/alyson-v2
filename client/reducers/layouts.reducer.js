@@ -22,7 +22,9 @@ export default function reducer( state = initialState, action ) {
       if ( !config.backendLayouts ) {
         return {
          ...state,
-         current: action.payload.code
+         current: action.payload.code,
+         currentSublayout: null,
+         currentView: null,
         };
       }
 
