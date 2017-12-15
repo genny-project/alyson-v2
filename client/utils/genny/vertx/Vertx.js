@@ -1,5 +1,6 @@
 import EventBus from 'vertx3-eventbus-client';
 import decode_token from 'jwt-decode';
+import { log } from 'util';
 
 let session_state = null;
 
@@ -18,19 +19,21 @@ class Vertx {
     this.eventBus.onopen = () => {
 
       this.connected = true;
-      console.debug( '[Vertx] Connection opened' );
 
       // decode token
       let session_data = decode_token(token);
       if(session_data && session_data.session_state) {
-
+          
           session_state = session_data.session_state;
-
-          console.log( session_data )
-          console.log( session_state );
+          console.log( '[Vertx] Connection opened' );
+          
           /* Register a handler for incoming messages */
           this.eventBus.registerHandler( session_state, ( error, message ) => {
             this.onIncomingMessage( message.body );
+            if(error) {
+              console.error(error)
+            }
+            
           });
 
           /* Send all messages in the queue */

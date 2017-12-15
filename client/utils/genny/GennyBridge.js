@@ -127,6 +127,8 @@ class GennyBridge {
 
     static initVertx(token, url) {
 
+        console.log("[Vertx] Opening Vertx...");
+
         /* Create a new message handler */
         this.messageHandler = new MessageHandler();
 
@@ -147,7 +149,6 @@ class GennyBridge {
         let keycloakConfig = store.getState().keycloak.config;
         if(keycloakConfig) {
 
-            console.log(`${config.genny.host}/${config.genny.bridge.endpoints.events}/init?url=${window.location.origin}`);
             axios.post(`${config.genny.host}/${config.genny.bridge.endpoints.events}/init?url=${window.location.origin}`, {
                 responseType: 'json',
                 timeout: 30000,
@@ -157,8 +158,7 @@ class GennyBridge {
                 },
             })
             .then(() => {
-                console.log('done');
-                GennyBridge.initVertx(token, keycloakConfig.vertx_url)
+                GennyBridge.initVertx(token, keycloakConfig.vertx_url);
             }).catch(err => console.err(err));
         }
     }
