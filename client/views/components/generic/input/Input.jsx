@@ -58,7 +58,7 @@ class Input extends Component {
     const {validationStatus } = this.state;
     let items = ['Bananas', 'Oranges', 'Apples', 'Other'];
 
-    //TODO: remove this.
+    ////TODO: remove this.
     // testing facebook
     if(identifier == 'QUE_FB_BASIC') {
         return (
