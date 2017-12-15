@@ -1,6 +1,6 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
-import { object, string } from 'prop-types';
+import { object, string, number } from 'prop-types';
 import { List, GennyForm } from '../../';
 import { BaseEntityQuery } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -11,9 +11,13 @@ class GennyList extends Component {
         root: '',
     }
 
-
     static propTypes = {
-        root: string
+        root: string,
+        itemHeight: number,
+        itemWidth: number,
+        itemGap: number,
+        listGap: number,
+        rowsVisible: number
     };
 
     state = {
@@ -34,14 +38,15 @@ class GennyList extends Component {
 
     render() {
 
-        const { root } = this.props;
+        const { root, ...rest } = this.props;
         let data = BaseEntityQuery.getEntityChildren(root);
-        
+        console.log({...rest});
         return (
             <div className="genny-list">
                 <List 
                     header={ <GennyForm isHorizontal /> }
                     data={ this.generateListItems(data) }
+                    {...rest}
                 />
             </div>
         );

@@ -182,7 +182,7 @@ class GennyTable extends Component {
         data = this.generateDataFor(children)
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
-                <Table {...this.props} data={data} columns={columns} />
+                <Table {...this.props} data={data} columns={columns}/>
             </div>
         );
     }

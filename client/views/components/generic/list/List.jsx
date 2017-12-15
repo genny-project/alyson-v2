@@ -8,7 +8,7 @@ class List extends Component {
 
   static defaultProps = {
     className: '',
-    itemsPerPage: 3,
+    itemsPerPage: 4,
     hideNav: false,
   }
 
@@ -16,19 +16,24 @@ class List extends Component {
     hideNav: bool,
     className: string,
     itemsPerPage: number,
+
+    itemHeight: number,
+    itemWidth: number,
+    itemGap: number,
   }
 
   state = {
   }
 
   renderMain = (data, itemsPerPage, hideNav) => {
+    const { itemHeight, itemWidth, itemGap } = this.props;
+
     console.log(data);
     if (data.length > 0) { 
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {
-            
-            return <ListItem {...item} />
+            return <ListItem {...item} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} />
           })}
         </Pagination>
       );
