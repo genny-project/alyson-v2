@@ -42,10 +42,11 @@ class Form extends Component {
   render() {
 
     const { className, style, itemsPerPage, showProgress, isHorizontal, hideNav, data } = this.props;
+    const componentStyle = { ...style, };
 
     let questionGroup = this.renderGroup( data );
     return (
-      <div className={`form-container ${isHorizontal ? 'horizontal' : null }`}>
+      <div className={`form-container ${isHorizontal ? 'horizontal' : null }`} style={componentStyle}>
         <div className="form-main">
           <div className="form-fields">
             { !isHorizontal && questionGroup.length > itemsPerPage ?
