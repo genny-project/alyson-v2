@@ -28,11 +28,10 @@ class GennyForm extends Component {
     if(clickedButton && clickedButton.props) {
 
         let data = clickedButton.props.data;
-        let buttonCode = clickedButton.props.buttonCode;
 
         let btnEventData = {
-            code: buttonCode,
-            value: data.askId,
+            code: data.code,
+            value: data.questionGroup,
         };
 
         GennyBridge.sendBtnClick(btnEventData);
@@ -84,6 +83,8 @@ class GennyForm extends Component {
                         attributeCode: ask.question.attributeCode,
                         sourceCode: ask.sourceCode,
                         targetCode: ask.targetCode,
+                        code: ask.question.code,
+                        questionGroup: askGroup.name,
                     },
                     type: inputType,
                     style: this.props.style,
