@@ -158,7 +158,8 @@ class GennyBridge {
                 },
             })
             .then(() => {
-                GennyBridge.initVertx(token, keycloakConfig.vertx_url)
+                GennyBridge.initVertx(token, keycloakConfig.vertx_url);
+                Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
             }).catch(err => console.err(err));
         }
     }
