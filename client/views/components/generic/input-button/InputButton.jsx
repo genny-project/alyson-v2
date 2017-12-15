@@ -32,7 +32,7 @@ class InputButton extends Component {
       const { date, focused } = this.state;
 
       return (
-        <div className={`input-button facebook`}>
+        <div className={`input input-button facebook`}>
           <Button onClick={this.clickHandler}>
             <span className='button-text'></span>
           </Button>

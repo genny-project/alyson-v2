@@ -105,13 +105,13 @@ class GennyForm extends Component {
   }
 
   render() {
-    const { root, style, className } = this.props;
+    const { root, style, className, formStyle } = this.props;
     const componentStyle = { ...style, };
     let questionGroup = AskQuery.getQuestionGroup(root);
 
     return (
-      <div className={`genny-form ${className || ''}`}>
-          <Form {...this.props} data={questionGroup ? this.generateFormData(questionGroup) : []}/>
+      <div className={`genny-form ${className || ''}`} style={componentStyle}>
+          <Form {...this.props} data={questionGroup ? this.generateFormData(questionGroup) : []} style={{...formStyle}}/>
       </div>
     );
   }
