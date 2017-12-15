@@ -35,6 +35,8 @@ export default function reducer( state = initialState, action ) {
       return {
         ...state,
         current: action.payload.code,
+        currentSublayout: null,
+        currentView: null,
         loaded
       };
 
