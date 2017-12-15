@@ -4,11 +4,11 @@
 	background: white;
 	display: flex;
 	justify-content: center;
-
+	overflow: scroll;
 	flex-grow: 1;
 
 	.form-main {
-		
+
 		color: #222;
 
 		width: 600px;

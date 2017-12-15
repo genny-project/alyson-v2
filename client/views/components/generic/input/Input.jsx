@@ -111,8 +111,8 @@ class Input extends Component {
             //     return ( <InputText {...this.props}/> );
             case 'address':
                 return ( <InputAddress {...this.props} /> );
-            case 'java.lang.String':
-                return null;
+            case 'Button':
+                return <InputButton {...this.props} buttonCode={this.props.code} />
             default:
                 return ( <InputText
                     {...this.props}
