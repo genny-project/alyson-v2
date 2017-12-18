@@ -29,7 +29,7 @@ class List extends Component {
     const { itemHeight, itemWidth, itemGap } = this.props;
 
     console.log(data);
-    if (data.length > 0) { 
+    if (data && data.length > 0) { 
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {

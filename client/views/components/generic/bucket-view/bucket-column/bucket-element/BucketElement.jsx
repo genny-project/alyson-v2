@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import ReactDOM from 'react-dom';
+import { Card } from 'views/components';
 
 const gridPadding = 5;
 const getItemStyle = (draggableStyle, isDragging) => ({
@@ -100,30 +101,28 @@ class BucketElement extends Component {
             <Draggable key={item.id} draggableId={item.id} isDragDisabled={window.getScreenSize() == "sm"} >
                 {
                     (provided, snapshot) => (
-                            <div>
-                                <div
-                                    ref={provided.innerRef}
-                                    style={{
-                                        ...style,
-                                        ...getItemStyle(
-                                            provided.draggableStyle,
-                                            snapshot.isDragging
-                                        )
-                                    }}
-                                    {...provided.dragHandleProps}
-                                    className="bucket-contents"
-                                    >
-                                        {
-                                            React.cloneElement(item.content, {...item.content.props, showMovingOptions: this.props.showMovingOptions})
-                                        }
-                                    </div>
-                                    {provided.placeholder}
-                                </div>
-                            )
+                        <div>
+                            <div
+                                ref={provided.innerRef}
+                                style={{
+                                    ...style,
+                                    ...getItemStyle(
+                                        provided.draggableStyle,
+                                        snapshot.isDragging
+                                    )
+                                }}
+                                {...provided.dragHandleProps}
+                                className="bucket-contents"
+                            >
+                                <Card {...item.content} showMovingOptions={this.props.showMovingOptions} />
+                            </div>
+                            {provided.placeholder}
+                        </div>
+                    )
                 }
-                </Draggable>
-            );
-        }
+            </Draggable>
+        );
     }
+}
 
-    export default BucketElement;
+export default BucketElement;
