@@ -141,49 +141,52 @@ export default function reducer(state = initialState, action) {
 
         case ANSWER:
 
-        let newAnswer = action.payload.items;
-        let be_code = newAnswer.targetCode;
-        let attributeCode = newAnswer.attributeCode;
-        if(be_code && attributeCode) {
+        let newAnswers = action.payload.items;
+        newAnswers.forEach(newAnswer => {
 
-            let newAtt = {
-                code: attributeCode,
-                value: newAnswer.value,
-                baseEntityCode: be_code,
-                created: newAnswer.created,
-                updated: newAnswer.updated,
-                weight: newAnswer.weight,
-                inferred: newAnswer.inferred,
-            };
+            let be_code = newAnswer.targetCode;
+            let attributeCode = newAnswer.attributeCode;
+            if(be_code && attributeCode) {
 
-            if(newAnswer.name) {
-                newAtt.name = newAnswer.name;
-            }
+                let newAtt = {
+                    code: attributeCode,
+                    value: newAnswer.value,
+                    baseEntityCode: be_code,
+                    created: newetAnswer.created,
+                    updated: newAnswer.updated,
+                    weight: newAnswer.weight,
+                    inferred: newAnswer.inferred,
+                };
 
-            if(!state.data[be_code])  {
-                state.data[be_code] = {
-                    attributes: {}
+                if(newAnswer.name) {
+                    newAtt.name = newAnswer.name;
+                }
+
+                if(!state.data[be_code])  {
+                    state.data[be_code] = {
+                        attributes: {}
+                    };
+                }
+
+                if(!state.data[be_code].attributes) {
+                    state.data[be_code].attributes = {};
+                }
+
+                state.data[be_code].attributes[attributeCode] = {
+                    ...state.data[be_code].attributes[attributeCode],
+                    value: newAtt.value,
+                    attribute: {
+                        ...(state.data[be_code].attributes[attributeCode] ? state.data[be_code].attributes[attributeCode].attribute : {}),
+                        ...newAtt,
+                    },
+                    weight: newAtt.weight,
+                    inferred: newAtt.inferred,
                 };
             }
+        });
 
-            if(!state.data[be_code].attributes) {
-                state.data[be_code].attributes = {};
-            }
-
-            state.data[be_code].attributes[attributeCode] = {
-                ...state.data[be_code].attributes[attributeCode],
-                value: newAtt.value,
-                attribute: {
-                    ...(state.data[be_code].attributes[attributeCode] ? state.data[be_code].attributes[attributeCode].attribute : {}),
-                    ...newAtt,
-                },
-                weight: newAtt.weight,
-                inferred: newAtt.inferred,
-            };
-
-            return {
-                ...state
-            };
+        return {
+            ...state
         }
 
         case LINK_CHANGE:

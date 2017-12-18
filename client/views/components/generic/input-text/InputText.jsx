@@ -69,6 +69,8 @@ class InputText extends Component {
   }
 
   handleBlur = (event) => {
+
+      console.log( "yes" );
     const { validationList, validation, identifier } = this.props;
     const value = event.target.value;
     this.setState({ focused: false });
