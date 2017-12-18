@@ -19,6 +19,8 @@ class App extends Component {
 
   componentDidMount() {
 
+      console.log( React.View )
+
     if (config.backendEnabled) {
       /* Start the app */
       this.props.appStart();
@@ -70,7 +72,7 @@ class App extends Component {
 
     const keycloak = this.props.keycloak;
     const keycloakConfig = keycloak.config;
-    
+
     /* If the backend isn't enabled just render the app */
     if (!config.backendEnabled) {
       return (

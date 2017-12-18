@@ -31,7 +31,7 @@ class GennyForm extends Component {
 
         let btnEventData = {
             code: data.code,
-            value: data.questionGroup,
+            value: data.askId,
         };
 
         GennyBridge.sendBtnClick(btnEventData);
