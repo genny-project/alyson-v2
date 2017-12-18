@@ -19,8 +19,6 @@ class App extends Component {
 
   componentDidMount() {
 
-      console.log( React.View )
-
     if (config.backendEnabled) {
       /* Start the app */
       this.props.appStart();
