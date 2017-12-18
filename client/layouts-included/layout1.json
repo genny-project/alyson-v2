@@ -6,15 +6,40 @@
         "rows": 1,
         "children": [
           {
-            "Grid": {
-              "cols": 1,
-              "rows": ["90px", "auto", "30px"],
+            "Sidebar": {
               "position": [0,0],
+              "style": {
+                "backgroundColor": "PROJECT.PRI_COLOR",
+                "color": "white",
+                "textAlign": "center"
+              },
+              "hasImage": true,
+              "caption": "USER.PRI_FIRSTNAME",
+              "src": "PROJECT.PRI_LOGO",
+              "children": [
+                {
+                  "GennyTreeView": {
+                    "position": [1,0],
+                    "style": {
+                    "marginTop": "50px"
+                  },
+                    "root": "GRP_ROOT"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Grid": {
+              "cols": [{"style": { "flexGrow" : 1, "width" : "100%"}}],
+              "rows": ["90px", { "style" : {"flex": "1 1 auto", "overflow": "hidden" }}, "30px"],
+              "position": [0,1],
+              "className": "app-main",
               "children": [
                 {
                   "GennyHeader": {
                     "position": [0,0],
-                    "hideSubheader": true,
+
                     "style": {
                       "backgroundColor": "PROJECT.PRI_COLOR",
                       "color": "white"
@@ -31,137 +56,7 @@
                     "children" : [
                       {
                         "div": {
-                          "children": [
-                            {
-                              "div": {
-                                "style": {
-                                  "display": "flex",
-                                  "flexFlow": "row nowrap",
-                                  "width": "100%",
-                                  "margin": "0"
-                                },
-                                "children": [{
-                                    "div": {
-                                      "style": {
-                                        "backgroundColor": "#f6f8f8",
-                                        "color": "#212121",
-                                        "padding": "10px",
-                                        "fontFamily": "Helvetica",
-                                        "fontWeight": "400"
-                                      },
-                                      "children": [
-                                        {
-                                          "h1": {
-                                            "children": "QUESTIONS",
-                                            "style": {
-                                              "marginBottom": "10px",
-                                              "marginTop": "10px",
-                                              "textAlign": "center"
-                                            }
-                                          }
-                                        },
-                                        
-                                        {
-                                          "GennyForm": {
-                                            "itemsPerPage": 10,
-                                            "showProgress": true,
-                                            "root": "QUE_MEMBERHUB_GRP",
-                                            "style": {
-                                              "color": "PROJECT.PRIMARY_COLOR"
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                    
-                                  {
-                                    "div": {
-                                      "style": {
-                                        "backgroundColor": "#f6f8f8",
-                                        "color": "#212121",
-                                        "padding": "10px",
-                                        "fontFamily": "Helvetica",
-                                        "fontWeight": "400",
-                                        "flexGrow": "1"
-                                      },
-                                      "children": [
-                                        {
-                                          "h1": {
-                                            "children": "ATTRIBUTES",
-                                            "style": {
-                                              "marginBottom": "10px",
-                                              "marginTop": "10px",
-                                              "textAlign": "center"
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "GennyTable": {
-                                            "root": "PER_USER1",
-                                            "showBaseEntity": true
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "div": {
-                                      "style": {
-                                        "backgroundColor": "#f6f8f8",
-                                        "color": "#212121",
-                                        "padding": "10px",
-                                        "fontFamily": "Helvetica",
-                                        "fontWeight": "400",
-                                        "flexGrow": "1"
-                                      },
-                                      "children": [{
-                                          "h1": {
-                                            "children": "SCORE BOARD",
-                                            "style": {
-                                              "marginBottom": "10px",
-                                              "marginTop": "10px",
-                                              "textAlign": "center"
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "GennyTable": {
-                                            "root": "PRD_HOME_LOAN",
-                                            "showBaseEntity": true,
-                                            "itemsPerPage": 1,
-                                            "style": {
-                                              "height": "20%"
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "GennyTable": {
-                                            "root": "PRD_HOLIDAY",
-                                            "showBaseEntity": true,
-                                            "itemsPerPage": 1,
-                                            "style": {
-                                              "height": "20%"
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "h1": {
-                                            "children": "FRIENDS",
-                                            "style": {
-                                              "marginBottom": "10px",
-                                              "marginTop": "10px",
-                                              "textAlign": "center"
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
+                          "children": ""
                         }
                       }
                     ]
