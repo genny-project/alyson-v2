@@ -156,6 +156,7 @@ export default function reducer(state = initialState, action) {
                     updated: newAnswer.updated,
                     weight: newAnswer.weight,
                     inferred: newAnswer.inferred,
+                    refused: newAnswer.refused,
                 };
 
                 if(newAnswer.name) {
