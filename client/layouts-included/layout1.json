@@ -55,8 +55,8 @@
                     "position": [1,0],
                     "children" : [
                       {
-                        "div": {
-                          "children": ""
+                        "Carousel": {
+                          "children": "tile"
                         }
                       }
                     ]

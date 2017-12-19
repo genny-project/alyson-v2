@@ -10,7 +10,7 @@ class Template extends Component {
   }
 
   static propTypes = {
-    className: string,
+    className: object,
     style: string,
     children: any,
   }
