@@ -362,6 +362,93 @@ class BucketView extends Component {
     }
 
     render() {
+        // CSS JS test 
+        if (!window) {
+            screenSize = 'sm';
+        } else {
+            screenSize = window.getScreenSize();
+        }
+
+        let bucketOptionItem = null;
+        let bucketViewSize = null;
+        const bucketColumn = {
+            display: 'flex',
+            flexDirection: 'column'
+        };
+
+        const bucketTitle = {
+            flexShrink: 0
+        };
+
+        switch (screenSize) {
+            case 'sm':
+                bucketViewSize = {
+                    overflowX: 'hidden',
+                    cursor: 'pointer'
+                };
+
+                bucketOptionItem = {
+                    marginBottom: 15,
+                    padding: 15,
+                    borderStyle: solid,
+                    border: 1,
+                    borderColor: 'lightgray',
+                    cursor: 'pointer'
+                };
+
+            case 'md':
+                bucketViewSize = {};
+
+            case 'lg':
+                bucketViewSize = {};
+
+            default:
+                {
+                    bucketViewSize = {
+                        overflowX: 'hidden',
+                        cursor: 'pointer'
+                    };
+                }
+        }
+
+        const bucketView = {
+            display: 'flex',
+            flexDirection: 'row',
+            flexGrow: 1,
+            position: 'relative',
+            backgroundColor: '#a3a3a3'
+        };
+
+        const bucketViewDiv = {
+            height: '100%',
+            flexGrow: 1
+        };
+
+        const bucketViewSizeLg = {
+            bucketColumn: {
+                display: 'flex',
+                flexDirection: 'column'
+            },
+            bucketTitle: {
+                flexShrink: 0
+            }
+        };
+
+        const bucketViewSizeSm = {
+            overflowX: 'hidden',
+            cursor: 'pointer'
+        };
+
+        const bucketOptionItemSizeSm = {
+            marginBottom: 15,
+            paddingBottom: 15,
+            border: 1,
+            borderStyle: 'solid',
+            borderColor: 'lightgray',
+            cursor: 'pointer'
+        };
+
+        /* CSS to Javascript ends */
 
         const { style } = this.props;
         const { buckets, currentlySelectedItem } = this.state;
