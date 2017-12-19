@@ -472,7 +472,7 @@ class BucketView extends Component {
 
         return (
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
+                <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} style={{...bucketView,...bucketViewSize}}>
                     <Device isMobile>
                         <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
                             <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
