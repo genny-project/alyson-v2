@@ -45,9 +45,6 @@ class AppContent extends Component {
 
         layoutContent = layoutContent || children;
 
-        console.log( "===================" )
-        console.log(layoutContent);
-
         const componentStyle = {
             ...style,
         };
