@@ -59,7 +59,8 @@ class Button extends Component {
       border: 'none',
       borderRadius: 5,
       color: '#fff',
-      backgroundColor: '#999',
+      background: '#999',
+      'fontSize': '1em',
       cursor: 'pointer',
       outline: 'none',
       display: 'flex',
@@ -100,7 +101,7 @@ class Button extends Component {
     
     const clickFunc = this.getClickFunction();
 
-    const btn = <div className={`button ${className} ${type}`} style={...componentStyle, ...buttonClass}>
+    const btn = <div className={`button ${className} ${type}`} style={{...componentStyle, ...buttonClass}}>
         <button onClick={clickFunc} style={{ buttonElement }} onMouseOver={()=> {
             this.handleHover(this);
           }}>
