@@ -25,10 +25,18 @@ class Button extends Component {
   
   // replaced css logic into javascript 
   handleHover = (aa) => {
-    console.log('hovering');
     this.setState({
       isHovering: true
     });
+    console.log('hovering');
+    console.log(this.state);
+  }
+
+  handleHoverOut = (aa) => {
+    this.setState({
+      isHovering: false,
+    });
+    console.log('Hovering out');
     console.log(this.state);
   }
 
@@ -90,20 +98,39 @@ class Button extends Component {
       color: '#fff'
     };
 
+    let buttonType = {};
+
     /* js stylesheet ends here */
     
     const { children, type, className, href, onClick, style, color, buttonStyle } = this.props;
     const componentStyle = { ...style, };
 
     if(isHovering) {
-      componentStyle.backgroundColor = 'red';
+      buttonElement.boxShadow= 'inset 0 0 100px 100px rgba(255, 255, 255, 0.3)';
     }
     
-    const clickFunc = this.getClickFunction();
 
-    const btn = <div className={`button ${className} ${type}`} style={{...componentStyle, ...buttonClass}}>
-        <button onClick={clickFunc} style={{ buttonElement }} onMouseOver={()=> {
+    switch(type){
+      case 'button':
+        buttonType = { backgroundColor: '#999' };
+        break;
+      case 'confirm': 
+         buttonType = { backgroundColor: '#5cb85c' };
+         break;
+      case 'cancel':
+          buttonType = { backgroundColor: '#cc0000' };
+          break;
+      default: 
+        buttonType = { backgroundColor: '#999' };
+    }
+
+    console.log(this.props.type, 'button type $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ');
+    const clickFunc = this.getClickFunction();
+    const btn = <div className={`button ${className} ${type}`} style={{ ...buttonClass, ...componentStyle }}>
+        <button onClick={clickFunc} style={{ ...buttonElement,...buttonType, ...buttonClass }} onMouseOver={() => {
             this.handleHover(this);
+          }} onMouseOut={() => {
+            this.handleHoverOut(this);
           }}>
           {children}
         </button>
