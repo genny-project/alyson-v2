@@ -386,16 +386,18 @@ class BucketView extends Component {
         })
 
         return (
-            <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
-                    <Device isMobile>
-                        <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
-                            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
-                        </Modal>
-                    </Device>
-                    {columns}
-                </div>
-            </DragDropContext>
+            <div style={{"overflow": "hidden", "display": "flex", "flex-grow": "1"}}>
+                <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+                    <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
+                        <Device isMobile>
+                            <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                                <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+                            </Modal>
+                        </Device>
+                        {columns}
+                    </div>
+                </DragDropContext>
+            </div>
         )
     }
 }
