@@ -152,7 +152,7 @@ export default function reducer(state = initialState, action) {
                     code: attributeCode,
                     value: newAnswer.value,
                     baseEntityCode: be_code,
-                    created: newetAnswer.created,
+                    created: newAnswer.created,
                     updated: newAnswer.updated,
                     weight: newAnswer.weight,
                     inferred: newAnswer.inferred,
