@@ -323,11 +323,38 @@ class BucketView extends Component {
     }
 
     bucketSelectionLayout = (item) => {
+        let bucketOptionItem = null;
+        let bucketViewSize = null;
+        let screenSize = '';
+        if (!window) {
+            screenSize = 'sm';
+        } else {
+            screenSize = window.getScreenSize();
+        }
+        switch (screenSize) {
+            case 'sm':              
+                bucketOptionItem = {
+                    marginBottom: 15,
+                    padding: 15,
+                    borderStyle: solid,
+                    border: 1,
+                    borderColor: 'lightgray',
+                    cursor: 'pointer'
+                };                 
+                bucketViewSize = {
+                    overflowX: 'hidden',
+                    cursor: 'pointer'
+                };
+                break;
+
+                default: 
+                    null;
+            }
 
         return (
             <List itemsPerPage={this.state.buckets.length}>
                 {
-                    this.state.buckets.map(bucket => <div className={`bucket-option-item size-${this.props.screenSize}`} onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</div>)
+                    this.state.buckets.map(bucket => <div style={{...bucketOptionItem, ...bucketViewSize}} onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</div>)
                 }
             </List>
         );
@@ -363,13 +390,12 @@ class BucketView extends Component {
 
     render() {
         // CSS JS test 
+        let screenSize = '';
         if (!window) {
             screenSize = 'sm';
         } else {
             screenSize = window.getScreenSize();
         }
-
-        let bucketOptionItem = null;
         let bucketViewSize = null;
         const bucketColumn = {
             display: 'flex',
@@ -386,16 +412,6 @@ class BucketView extends Component {
                     overflowX: 'hidden',
                     cursor: 'pointer'
                 };
-
-                bucketOptionItem = {
-                    marginBottom: 15,
-                    padding: 15,
-                    borderStyle: solid,
-                    border: 1,
-                    borderColor: 'lightgray',
-                    cursor: 'pointer'
-                };
-
             case 'md':
                 bucketViewSize = {};
 
@@ -448,6 +464,10 @@ class BucketView extends Component {
             cursor: 'pointer'
         };
 
+        const altStyle = {
+            background: 'transparent'
+        };
+
         /* CSS to Javascript ends */
 
         const { style } = this.props;
@@ -466,7 +486,7 @@ class BucketView extends Component {
                 showMovingOptions={this.toggleMovingOptions}
                 addNewItem={this.addNewItem}
                 canAddItem={bucket.canAddItem}
-                className={(index % 2 == 0) ? '' : 'alt-style'}
+                style={(index%2===0)? null : altStyle}
                 />
         );
 
@@ -478,9 +498,7 @@ class BucketView extends Component {
                 onTouchEnd = {
                     this.onTouchEnd
                 }
-                className = {
-                    `bucket-view size-${window.getScreenSize()}`
-                } >
+                style={{...bucketView,...bucketViewSize}}>
                     <Device isMobile>
                         <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
                             <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
