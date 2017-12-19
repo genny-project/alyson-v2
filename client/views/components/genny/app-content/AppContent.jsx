@@ -40,10 +40,13 @@ class AppContent extends Component {
             }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-            layoutContent = <LayoutLoader layout={layout.currentSublayout.layout} />
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} />
         }
 
         layoutContent = layoutContent || children;
+
+        console.log( "===================" )
+        console.log(layoutContent);
 
         const componentStyle = {
             ...style,
