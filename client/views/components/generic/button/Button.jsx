@@ -85,8 +85,7 @@ class Button extends Component {
     };
 
     const buttonSmall = {
-      height: 30,
-      fontSize: '1.5em'
+      height: 30
     };
 
     const buttonSmallI = {
@@ -127,7 +126,7 @@ class Button extends Component {
     console.log(this.props.type, 'button type $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ');
     const clickFunc = this.getClickFunction();
     const btn = <div className={`button ${className} ${type}`} style={{ ...buttonClass, ...componentStyle }}>
-        <button onClick={clickFunc} style={{ ...buttonElement,...buttonType, ...buttonClass }} onMouseOver={() => {
+        <button onClick={clickFunc} style={{ ...buttonElement,...buttonType, ...buttonClass, ...buttonSmall }} onMouseOver={() => {
             this.handleHover(this);
           }} onMouseOut={() => {
             this.handleHoverOut(this);
