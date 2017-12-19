@@ -99,23 +99,32 @@ class Card extends Component {
 
     return (
       <div className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >
-        <div className="card-top">
+        
+        <Dropdown
+          inline
+          header={
+            <span style={{display: 'flex', alignItems: 'center'}}><IconSmall name="expand_more" /></span>}
+          >
+          { this.props.layout || null }
+        </Dropdown>
+        
+        {/* <div className="card-top">
             {
-                window.getScreenSize() == "sm" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
+              window.getScreenSize() == "sm" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
             }
             {
-                isShowingOptions ?
-                <Dropdown
-                    style={dropDownStyle}
-                    tagStyle={dropDownTagStyle}
-                    contentStyle={dropDownContentStyle}
-                    open={true}
-                    >
-                    <ul className="card-options">
-                      <li onClick={this.moveItem}>Move</li>
-                      <li onClick={this.toggleOptions}>Cancel</li>
-                    </ul>
-                </Dropdown> : null
+              isShowingOptions ?
+              <Dropdown
+                  style={dropDownStyle}
+                  tagStyle={dropDownTagStyle}
+                  contentStyle={dropDownContentStyle}
+                  open={true}
+                  >
+                  <ul className="card-options">
+                    <li onClick={this.moveItem}>Move</li>
+                    <li onClick={this.toggleOptions}>Cancel</li>
+                  </ul>
+              </Dropdown> : null
             }
           <div className="card-image">
               <img />
@@ -129,7 +138,8 @@ class Card extends Component {
           </div>
           <Status className="card-status" color="ff0000"/>
         </div>
-          {cardContent}
+          {cardContent} */}
+
       </div>
     );
   }

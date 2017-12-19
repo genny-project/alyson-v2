@@ -366,34 +366,38 @@ class BucketView extends Component {
         const { style } = this.props;
         const { buckets, currentlySelectedItem } = this.state;
 
-        let columns = buckets.map((bucket, index) =>
+        let columns = buckets.map((bucket, index) => {
 
-            <BucketColumn
-                screenSize={this.props.screenSize}
-                title={bucket.title}
-                key={bucket.id}
-                groupId={bucket.id}
-                items={bucket.children}
-                goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
-                goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}
-                showMovingOptions={this.toggleMovingOptions}
-                addNewItem={this.addNewItem}
-                canAddItem={bucket.canAddItem}
-                className={(index % 2 == 0) ? '' : 'alt-style'}
+            return (
+                <BucketColumn
+                    screenSize={this.props.screenSize}
+                    title={bucket.title}
+                    key={bucket.id}
+                    groupId={bucket.id}
+                    items={bucket.children}
+                    goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
+                    goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}
+                    showMovingOptions={this.toggleMovingOptions}
+                    addNewItem={this.addNewItem}
+                    canAddItem={bucket.canAddItem}
+                    className={(index % 2 == 0) ? '' : 'alt-style'}
                 />
-        )
+            )
+        })
 
         return (
-            <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
-                    <Device isMobile>
-                        <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
-                            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
-                        </Modal>
-                    </Device>
-                    {columns}
-                </div>
-            </DragDropContext>
+            <div style={{"overflow": "hidden", "display": "flex", "flex-grow": "1"}}>
+                <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+                    <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
+                        <Device isMobile>
+                            <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                                <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+                            </Modal>
+                        </Device>
+                        {columns}
+                    </div>
+                </DragDropContext>
+            </div>
         )
     }
 }

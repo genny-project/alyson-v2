@@ -27,6 +27,11 @@ class GennyList extends Component {
 
         return data.map(item => {
 
+            //TODO : get layout code from BE
+
+            //let layout_code = BaseEntityQuery.getBaseEntityAttribute(be, "PRI_LAYOUT");
+            //layout_code = layout_code ? layout_code.value : null;
+
             let layout_code = 'listLayout';
             let sublayout = this.props.sublayout[layout_code]; 
 
