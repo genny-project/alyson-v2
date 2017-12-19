@@ -1,6 +1,6 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList } from '../../';
+import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyCarousel } from 'views/components';
 import { any } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
@@ -28,15 +28,18 @@ class AppContent extends Component {
             if(layout.currentView.code == "TABLE_VIEW") {
                 layoutContent = <GennyTable root={layout.currentView.dataCode}/>
             }
-            // we need to show the bucket view
-            else if (layout.currentView.code == "BUCKET_VIEW") {
-                layoutContent = <GennyBucketView root={layout.currentView.dataCode} />
-            }
+            // // we need to show the bucket view
+            // else if (layout.currentView.code == "BUCKET_VIEW") {
+            //     layoutContent = <GennyBucketView root={layout.currentView.dataCode} />
+            // }
             else if (layout.currentView.code == "LIST_VIEW") {
                 layoutContent = <GennyList root={layout.currentView.dataCode} />
             }
             else if (layout.currentView.code == "FORM_VIEW") {
                 layoutContent = <GennyForm root={layout.currentView.dataCode} showProgress={true}/>
+            }
+            else if (layout.currentView.code == "CAROUSEL_VIEW") {
+                layoutContent = <GennyCarousel root={layout.currentView.dataCode} />
             }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {

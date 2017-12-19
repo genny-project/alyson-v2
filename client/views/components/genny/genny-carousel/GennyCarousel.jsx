@@ -1,11 +1,11 @@
-import './gennyList.scss';
+import './gennyCarousel.scss';
 import React, { Component } from 'react';
 import { object, string, number } from 'prop-types';
-import { List, GennyForm } from '../../';
+import { Carousel } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
-class GennyList extends Component {
+class GennyCarousel extends Component {
 
     static defaultProps = {
         root: '',
@@ -18,7 +18,7 @@ class GennyList extends Component {
     state = {
     }
 
-    generateListItems(data) {
+    generateItems(data) {
 
         return data.map(item => {
 
@@ -27,7 +27,7 @@ class GennyList extends Component {
             //let layout_code = BaseEntityQuery.getBaseEntityAttribute(be, "PRI_LAYOUT");
             //layout_code = layout_code ? layout_code.value : null;
 
-            let layout_code = 'listLayout';
+            let layout_code = 'cardLayout';
             let sublayout = this.props.sublayout[layout_code]; 
 
             item['layout'] = <LayoutLoader layout={sublayout} />;
@@ -38,14 +38,14 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, ...rest } = this.props;
+        const { root, style, className, ...rest } = this.props;
+        const componentStyle = { ...style, };
+
         let data = BaseEntityQuery.getEntityChildren(root);
-        console.log({...rest});
         return (
-            <div className="genny-list">
-                <List 
-                    header={ <GennyForm isHorizontal /> }
-                    data={ this.generateListItems(data) }
+            <div className={`genny-carousel ${className}`} style={componentStyle}>
+                <Carousel 
+                    data={ this.generateItems(data) }
                     {...rest}
                 />
             </div>
@@ -53,4 +53,4 @@ class GennyList extends Component {
     }
 }
 
-export default GennyList;
+export default GennyCarousel;

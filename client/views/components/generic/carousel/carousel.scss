@@ -2,4 +2,12 @@
 
 .carousel {
 
+    .carousel-main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        transition: 1000ms ease;
+    }
+
 }

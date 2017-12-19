@@ -69,7 +69,7 @@ class Card extends Component {
 
   render() {
 
-    const { className, title, description, level, style } = this.props;
+    const { className, title, description, level, style,  } = this.props;
     const { isShowingOptions, isOpen } = this.state;
     const componentStyle = { ...style, };
     const cardContent = isOpen ? this.getCardContent() : '';
@@ -98,15 +98,22 @@ class Card extends Component {
     };
 
     return (
-      <div className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >
+      <div
+        className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`}
+        style={componentStyle}
+        onClick={() => this.props.onClick(this)}
+      >
         
+        { this.props.layout || null }
+
+        {/*
         <Dropdown
           inline
           header={
             <span style={{display: 'flex', alignItems: 'center'}}><IconSmall name="expand_more" /></span>}
           >
           { this.props.layout || null }
-        </Dropdown>
+          </Dropdown> */}
         
         {/* <div className="card-top">
             {
