@@ -23,7 +23,7 @@ class BucketView extends Component {
         if(index_bucket && bucketNode) {
 
             let destinationBucketNode = bucketNode.children[index_bucket];
-            return destinationBucketNode.getElementsByClassName('bucket-content')[0]
+            return destinationBucketNode.getElementsByClassName('bucket-content')[0];
         }
     }
 
@@ -70,12 +70,12 @@ class BucketView extends Component {
                             const yDestination = destinationSpot.y - originSpot.y;
 
                             child.style = {
-                                transition: "0.5s all",
-                                WebkitTransition: "0.5s all",
+                                transition: '0.5s all',
+                                WebkitTransition: '0.5s all',
                                 transform: `translate(${xDestination}px, ${yDestination}px)`,
                                 WebkitTransform: `translate(${xDestination}px, ${yDestination}px)`,
                                 position: 'absolute',
-                            }
+                            };
                         }
                     }
                 }
@@ -130,10 +130,10 @@ class BucketView extends Component {
                                     destination: searchDifference.source,
                                     item: item
                                 });
-                            })
+                            });
                         }
                     }
-                })
+                });
             }
 
             if(movedItems.length > 0) {
@@ -148,8 +148,8 @@ class BucketView extends Component {
                     this.setState({
                         buckets: newProps.buckets,
                         hasDraggedItem: false,
-                    })
-                }, 600)
+                    });
+                }, 600);
 
                 return;
             }
@@ -231,13 +231,13 @@ class BucketView extends Component {
         let currentScrollPosition = bucket.scrollLeft;
         let new_position = currentScrollPosition;
 
-        if(positionBucket == "next") {
+        if(positionBucket == 'next') {
 
             if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
                 new_position = currentScrollPosition + bucketPageWidth;
             }
         }
-        else if(positionBucket == "previous") {
+        else if(positionBucket == 'previous') {
 
             if(currentScrollPosition - bucketPageWidth >= 0) {
                 new_position = currentScrollPosition - bucketPageWidth;
@@ -245,17 +245,17 @@ class BucketView extends Component {
         }
 
         bucket.scrollTo({
-            "behavior": "smooth",
-            "left": new_position
+            'behavior': 'smooth',
+            'left': new_position
         });
     }
 
     goToNextBucket = () => {
-        this.scrollToBucket("next");
+        this.scrollToBucket('next');
     }
 
     goToPreviousBucket = () => {
-        this.scrollToBucket("previous");
+        this.scrollToBucket('previous');
     }
 
     toggleMovingOptions = (item) => {
@@ -284,7 +284,7 @@ class BucketView extends Component {
         let destinationBucket = {
             droppableId: bucketDestination.id,
             index: -1,
-        }
+        };
 
         let sourceBucket = {
             droppableId: null,
@@ -382,11 +382,11 @@ class BucketView extends Component {
                     canAddItem={bucket.canAddItem}
                     className={(index % 2 == 0) ? '' : 'alt-style'}
                 />
-            )
-        })
+            );
+        });
 
         return (
-            <div style={{"overflow": "hidden", "display": "flex", "flex-grow": "1"}}>
+            <div style={{'overflow': 'hidden', 'display': 'flex', 'flex-grow': '1'}}>
                 <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                     <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
                         <Device isMobile>
@@ -398,7 +398,7 @@ class BucketView extends Component {
                     </div>
                 </DragDropContext>
             </div>
-        )
+        );
     }
 }
 

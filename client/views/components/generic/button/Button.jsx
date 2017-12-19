@@ -5,6 +5,9 @@ import { string, any, func } from 'prop-types';
 
 class Button extends Component {
   
+  state = {
+    isHovering: false,
+  }
   static defaultProps = {
     className: '',
     href: '',
@@ -19,6 +22,16 @@ class Button extends Component {
     type: string,
     onClick: func
   }
+  
+  // replaced css logic into javascript 
+  handleHover = (aa) => {
+    console.log('hovering');
+    this.setState({
+      isHovering: true
+    });
+    console.log(this.state);
+  }
+
 
   getClickFunction = () => {
     const { onClick, handleClick } = this.props;
@@ -33,6 +46,7 @@ class Button extends Component {
   render() {
 
     /* js stylesheet */
+    const { isHovering } = this.state;
 
     const buttonClass = {
       height: 50,
@@ -61,7 +75,6 @@ class Button extends Component {
       backgroundColor: '#cc0000'
     };
 
-
     const buttonSmall = {
       height: 30,
       fontSize: '1.5em'
@@ -80,13 +93,20 @@ class Button extends Component {
     
     const { children, type, className, href, onClick, style, color, buttonStyle } = this.props;
     const componentStyle = { ...style, };
+
+    if(isHovering) {
+      componentStyle.backgroundColor = 'red';
+    }
+    
     const clickFunc = this.getClickFunction();
 
-    const btn = (
-      <div className={`button ${className} ${type}`} style={componentStyle}>
-        <button onClick={clickFunc} style={{ ...buttonStyle }}>{children}</button>
-      </div>
-    );
+    const btn = <div className={`button ${className} ${type}`} style={...componentStyle, ...buttonClass}>
+        <button onClick={clickFunc} style={{ buttonElement }} onMouseOver={()=> {
+            this.handleHover(this);
+          }}>
+          {children}
+        </button>
+      </div>;
 
     return href
       ? <Link to={href}>{btn}</Link>
