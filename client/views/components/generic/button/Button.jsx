@@ -1,4 +1,3 @@
-import './button.scss';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { string, any, func } from 'prop-types';
@@ -28,16 +27,12 @@ class Button extends Component {
     this.setState({
       isHovering: true
     });
-    console.log('hovering');
-    console.log(this.state);
   }
 
   handleHoverOut = (aa) => {
     this.setState({
       isHovering: false,
     });
-    console.log('Hovering out');
-    console.log(this.state);
   }
 
 
@@ -84,7 +79,7 @@ class Button extends Component {
       backgroundColor: '#cc0000'
     };
 
-    const buttonSmall = {
+    const buttonSize = {
       height: 30
     };
 
@@ -123,10 +118,9 @@ class Button extends Component {
         buttonType = { backgroundColor: '#999' };
     }
 
-    console.log(this.props.type, 'button type $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ');
     const clickFunc = this.getClickFunction();
     const btn = <div  style={{ ...buttonClass, ...componentStyle }}>
-        <button onClick={clickFunc} style={{ ...buttonElement,...buttonType, ...buttonClass, ...buttonSmall }} onMouseOver={() => {
+        <button onClick={clickFunc} style={{ ...buttonElement,...buttonType, ...buttonClass, ...buttonSize }} onMouseOver={() => {
             this.handleHover(this);
           }} onMouseOut={() => {
             this.handleHoverOut(this);
