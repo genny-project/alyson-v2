@@ -60,7 +60,8 @@ class GennyForm extends PureComponent {
         if(questionGroupCode) {
 
             let btnEventData = {
-                code: questionGroupCode
+                code: "AUTH_INIT", //TODO: might have to be removed.
+                value: questionGroupCode
             }
 
             GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
