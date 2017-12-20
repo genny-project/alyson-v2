@@ -125,7 +125,7 @@ class Button extends Component {
 
     console.log(this.props.type, 'button type $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ');
     const clickFunc = this.getClickFunction();
-    const btn = <div className={`button ${className} ${type}`} style={{ ...buttonClass, ...componentStyle }}>
+    const btn = <div  style={{ ...buttonClass, ...componentStyle }}>
         <button onClick={clickFunc} style={{ ...buttonElement,...buttonType, ...buttonClass, ...buttonSmall }} onMouseOver={() => {
             this.handleHover(this);
           }} onMouseOut={() => {
