@@ -4,11 +4,10 @@ import { string, func } from 'prop-types';
 import { Button, IconSmall, Label } from '../';
 
 class InputButton extends Component {
-    
+
   static defaultProps = {
     className: '',
     onClick: () => {},
-    btn_code: 'FACEBOOK'
   }
 
   static propTypes = {
@@ -32,9 +31,9 @@ class InputButton extends Component {
       const { date, focused } = this.state;
 
       return (
-        <div className={`input input-button facebook`}>
+        <div className={`input input-button ${className}`}>
           <Button onClick={this.clickHandler}>
-            <span className='button-text'></span>
+            <span className='button-text'>{name}</span>
           </Button>
         </div>
       );

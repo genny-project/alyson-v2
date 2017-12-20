@@ -20,7 +20,7 @@ class GennySocialButton extends Component {
 
   onClick = () => {
 
-      GennyBridge.sendBtnClick(this.props.buttonCode);
+      GennyBridge.sendBtnClick("BTN_CLICK", this.props.buttonCode);
     //   switch(this.props.type) {
     //       case "facebook":
     //       break;

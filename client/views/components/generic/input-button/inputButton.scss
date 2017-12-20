@@ -3,9 +3,18 @@
 
 .input-button {
 
-        .button {
-            margin-left: 0;
+    .button {
+        margin: 0 auto;
+    }
+
+    &.submit {
+
+        button {
+            background-color: green;
+            content: "Submit";
         }
+    }
+
     &.facebook {
 
         button {
