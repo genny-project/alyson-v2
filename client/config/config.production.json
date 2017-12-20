@@ -4,7 +4,7 @@
   "genny": {
     "host": "{{REACT_BRIDGE_HOST}}",
     "bridge": {
-      "port": "8081",
+      "port": "8088",
       "endpoints": {
         "vertex": "frontend",
         "service": "api/service",
