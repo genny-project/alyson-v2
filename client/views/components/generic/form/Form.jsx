@@ -47,7 +47,7 @@ class Form extends Component {
              const { className, style, itemsPerPage, showProgress, isHorizontal, hideNav, data } = this.props;
              const componentStyle = { ...style };
              let questionGroup = this.renderGroup(data);
-             return <div className={`form-container ${isHorizontal ? 'horizontal' : null}`} style={{ ...formContainer }}>
+             return <div className={`form-container ${isHorizontal ? 'horizontal' : null}`} style={{ ...formContainer, ...componentStyle }}>
                  <div className="form-main" style={formMain}>
                    <div className="form-fields" style={formFields}>
                      {!isHorizontal && questionGroup.length > itemsPerPage ? <Pagination perPage={itemsPerPage} hideNav={hideNav}>
