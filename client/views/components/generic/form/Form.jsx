@@ -4,6 +4,63 @@ import { Pagination, Input } from 'views/components';
 import { string, bool, number, array} from 'prop-types';
 import { FormGroup } from './form-group';
 
+/* Forms  Stylesheet starts*/
+
+const formContainer = {
+  background: '#fff',
+  display: 'flex',
+  justifyContent: 'center',
+  flexGrow: 1
+};
+
+const formMain = {
+  color: '#222',
+  width: 600,
+  marginTop: 50,
+  marginBottom: 50, 
+  padding: 20, 
+};
+
+const formFields = {
+  paddingBottom: 10, 
+  };
+
+const formContentZorizontal = {
+  background: '#999',
+  borderRadius: 5,
+  marginBottom: 10, 
+};
+
+const HorizontalFormMain = {
+  width: '100%',
+  marginTop: 0,
+  marginBottom: 0, 
+  padding: 5
+};
+
+const horizontalFormFields = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  paddingBottom: 0,
+  flexWrap: 'wrap',
+};
+
+const inputText = {
+  marginBottom: '0 !important',
+  flexGrow: 1,
+  padding: 5
+};
+
+const input = {
+  paddingTop: 3,
+  paddingBottom: 3,
+  height: 40,
+  borderRadius: 10
+};
+
+
+/* Forms Stylesheet ends  */
+
 class Form extends Component {
 
   static defaultProps = {
