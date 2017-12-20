@@ -38,12 +38,9 @@ class Form extends Component {
   }
 
   render() {
-             /* Forms  Stylesheet starts*/
              const formContainer = { backgroundColor: '#fff', display: 'flex', justifyContent: 'center', flexGrow: 1 };
              const formMain = { color: '#222', width: 600, marginTop: 50, marginBottom: 50, padding:20 };
-             const formFields = { paddingBottom: 10 };
-             /* Forms Stylesheet Ends  */
-             
+             const formFields = { paddingBottom: 10 };             
              const { className, style, itemsPerPage, showProgress, isHorizontal, hideNav, data } = this.props;
              const componentStyle = { ...style };
              let questionGroup = this.renderGroup(data);
