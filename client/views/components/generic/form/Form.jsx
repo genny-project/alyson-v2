@@ -1,4 +1,3 @@
-// import './form.scss';
 import React, { Component } from 'react';
 import { Pagination, Input } from 'views/components';
 import { string, bool, number, array} from 'prop-types';
