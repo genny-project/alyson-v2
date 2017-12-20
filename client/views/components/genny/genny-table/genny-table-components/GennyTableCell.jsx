@@ -17,6 +17,8 @@ class GennyTableCell extends Component {
 
         const { original, value } = this.props;
 
+        console.log( this.props )
+        
         return (
             <span
                 style={{

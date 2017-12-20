@@ -37,7 +37,7 @@ class GennyForm extends PureComponent {
     }
 
     toggleGroupButton(enable) {
-        console.log(enable);
+        // console.log(enable);
     }
 
     onClick = (clickedButton) => {

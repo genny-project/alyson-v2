@@ -60,9 +60,10 @@ class Input extends Component {
 
     ////TODO: remove this.
     // testing facebook
+
     if(identifier == 'QUE_FB_BASIC') {
         return (
-            <InputButton className="facebook" {...this.props} type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
+            <InputButton {...this.props} className="facebook" name="" type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
         );
     }
 
