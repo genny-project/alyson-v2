@@ -22,7 +22,6 @@ class Button extends Component {
     onClick: func
   }
   
-  // replaced css logic into javascript 
   handleHover = (aa) => {
     this.setState({
       isHovering: true
@@ -35,10 +34,8 @@ class Button extends Component {
     });
   }
 
-
   getClickFunction = () => {
-    const { onClick, handleClick } = this.props;
-    
+    const { onClick, handleClick } = this.props;    
     if (handleClick) {
       return handleClick;
     } else {
@@ -48,24 +45,12 @@ class Button extends Component {
 
   render() {
 
-    /* js stylesheet */
     const { isHovering } = this.state;
-
     const buttonClass = {
       height: 50,
       width: '100%',
       display: 'flex'
     };
-    
-  /* Remaining  to implement in javascript
-  	&:not(:last-child){
-		margin-right: 5px
-	}
-	&:not(:first-child){
-		margin-left: 5px
-	}
-  */
-
     const buttonElement = {
       width: 'inherit',
       border: 'none',
@@ -80,39 +65,19 @@ class Button extends Component {
       alignItems: 'center'
     };
 
-    const buttonConfirm = {
-      backgroundColor: '#5cb85c'
-    };
-
-    const buttonCancel = {
-      backgroundColor: '#cc0000'
-    };
-
     const buttonSize = {
       height: 30
     };
 
-    const buttonSmallI = {
-      fontSize: '1.5em'
-    };
-
-    const buttomElementI = {
-      paddingRight: 5,
-      color: '#fff'
-    };
-
     let buttonType = {};
-
-    /* js stylesheet ends here */
     
-    const { children, type, className, href, onClick, style, color, buttonStyle } = this.props;
-    const componentStyle = { ...style, };
+    const { children, type, href, onClick, style, color, buttonStyle } = this.props;
+    const componentStyle = { ...style, ...color,...buttonStyle };
 
     if(isHovering) {
       buttonElement.boxShadow= 'inset 0 0 100px 100px rgba(255, 255, 255, 0.3)';
     }
     
-
     switch(type){
       case 'button':
         buttonType = { backgroundColor: '#999' };
@@ -129,11 +94,12 @@ class Button extends Component {
 
     const clickFunc = this.getClickFunction();
     const btn = <div  style={{ ...buttonClass, ...componentStyle }}>
-        <button onClick={clickFunc} style={{ ...buttonElement,...buttonType, ...buttonClass, ...buttonSize }} onMouseOver={() => {
-            this.handleHover(this);
-          }} onMouseOut={() => {
-            this.handleHoverOut(this);
-          }}>
+        <button 
+        onClick={clickFunc}
+        style={{ ...buttonElement,...buttonType, ...buttonClass, ...buttonSize }}
+        onMouseOver={this.handleHover(this)}
+        onMouseOut={this.handleHoverOut(this)}
+        >
           {children}
         </button>
       </div>;
