@@ -56,6 +56,15 @@ class Button extends Component {
       width: '100%',
       display: 'flex'
     };
+    
+  /* Remaining  to implement in javascript
+  	&:not(:last-child){
+		margin-right: 5px
+	}
+	&:not(:first-child){
+		margin-left: 5px
+	}
+  */
 
     const buttonElement = {
       width: 'inherit',
