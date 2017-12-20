@@ -37,13 +37,14 @@ class Card extends Component {
       isOpen: !this.state.isOpen
     });
   }
-
+  
   getCardContent() {
     const { showProgress, progressCurrent, progressTotal, children } = this.props;
 
     return (
       <div className={`card-collapse fade fade-${status}`}>
-        {children}
+        { this.props.layout || null }
+        {/*children*/}
         {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
       </div>
     );
@@ -98,17 +99,8 @@ class Card extends Component {
     };
 
     return (
-      <div className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >
-        
-        <Dropdown
-          inline
-          header={
-            <span style={{display: 'flex', alignItems: 'center'}}><IconSmall name="expand_more" /></span>}
-          >
-          { this.props.layout || null }
-        </Dropdown>
-        
-        {/* <div className="card-top">
+      <div className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >   
+        <div className="card-top">
             {
               window.getScreenSize() == "sm" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
             }
@@ -138,8 +130,7 @@ class Card extends Component {
           </div>
           <Status className="card-status" color="ff0000"/>
         </div>
-          {cardContent} */}
-
+          {cardContent}
       </div>
     );
   }
