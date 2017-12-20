@@ -24,9 +24,9 @@ class Button extends Component {
     const { onClick, handleClick } = this.props;
     
     if (handleClick) {
-      return handleClick
+      return handleClick;
     } else {
-      return onClick
+      return onClick;
     }
   }
 
