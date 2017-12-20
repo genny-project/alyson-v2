@@ -20,6 +20,8 @@ import {
   GennyButton,
   AppContent,
   Button,
+  Dropdown,
+  Status,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -45,4 +47,6 @@ export default new ComponentCollection({
   GennyButton,
   AppContent,
   Button,
+  Dropdown,
+  Status,
 });
