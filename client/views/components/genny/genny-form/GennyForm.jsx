@@ -51,12 +51,20 @@ class GennyForm extends PureComponent {
                 value: data.askId,
             };
 
-            GennyBridge.sendBtnClick(btnEventData);
+            GennyBridge.sendBtnClick("BTN_CLICK", btnEventData);
         }
     }
 
     onSubmit = (questionGroupCode) => {
-        console.log(questionGroupCode)
+
+        if(questionGroupCode) {
+
+            let btnEventData = {
+                code: questionGroupCode
+            }
+
+            GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
+        }
     }
 
     generateFormData(askGroup) {

@@ -8,7 +8,6 @@ class InputButton extends Component {
   static defaultProps = {
     className: '',
     onClick: () => {},
-    btn_code: 'FACEBOOK'
   }
 
   static propTypes = {
@@ -31,12 +30,10 @@ class InputButton extends Component {
       const componentStyle = { ...style, };
       const { date, focused } = this.state;
 
-      console.log( this.props )
-
       return (
         <div className={`input input-button ${className}`}>
           <Button onClick={this.clickHandler}>
-            <span className='button-text'></span>
+            <span className='button-text'>{name}</span>
           </Button>
         </div>
       );

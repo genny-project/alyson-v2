@@ -39,7 +39,7 @@ class FormGroup extends PureComponent {
                     {title}
                 </div>
                 {this.renderData(data)}
-                {onSubmit ? <Input className="submit" type="Button" onClick={onSubmit} /> : null}
+                {onSubmit ? <Input className="submit" type="Button" onClick={onSubmit} name="Submit" /> : null}
             </div>
         );
     }

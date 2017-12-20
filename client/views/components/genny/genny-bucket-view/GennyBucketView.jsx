@@ -66,7 +66,7 @@ class GennyBucketView extends PureComponent {
                     code: group.code,
                     value: itemValue,
                 }
-                GennyBridge.sendBtnClick(data);
+                GennyBridge.sendBtnClick("BTN_CLICK", data);
                 break;
             }
         }
@@ -96,13 +96,13 @@ class GennyBucketView extends PureComponent {
         bes.forEach(be => {
 
             // we get the sublayout code from the BE
-            
+
             //TODO : get layout code from BE
             //let layout_code = BaseEntityQuery.getBaseEntityAttribute(be, "PRI_LAYOUT");
             //layout_code = layout_code ? layout_code.value : null;
-            
+
             let layout_code = 'cardLayout';
-            
+
             let sublayout = this.props.sublayout[layout_code];
 
             children.push(
