@@ -386,7 +386,7 @@ class BucketView extends Component {
         })
 
         return (
-            <div style={{"overflow": "hidden", "display": "flex", "flex-grow": "1"}}>
+            <div style={{"overflow": "hidden", "display": "flex", "flex-grow": "1", "width": "100%"}}>
                 <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                     <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
                         <Device isMobile>
