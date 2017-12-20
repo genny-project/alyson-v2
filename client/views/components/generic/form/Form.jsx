@@ -27,13 +27,13 @@ class Form extends Component {
 
       if(Array.isArray( questionGroup )) {
         return questionGroup.map(group => {
-          
+
             if(group.content) return this.renderGroup(group);
             return group;
         });
       }
       else if (questionGroup.content) {
-        return (<FormGroup title={questionGroup.title} data={this.renderGroup(questionGroup.content)}/>);
+        return (<FormGroup title={questionGroup.title} onSubmit={questionGroup.onSubmit} data={this.renderGroup(questionGroup.content)}/>);
       }
 
       return [];

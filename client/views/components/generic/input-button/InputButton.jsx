@@ -4,7 +4,7 @@ import { string, func } from 'prop-types';
 import { Button, IconSmall, Label } from '../';
 
 class InputButton extends Component {
-    
+
   static defaultProps = {
     className: '',
     onClick: () => {},
@@ -31,8 +31,10 @@ class InputButton extends Component {
       const componentStyle = { ...style, };
       const { date, focused } = this.state;
 
+      console.log( this.props )
+
       return (
-        <div className={`input input-button facebook`}>
+        <div className={`input input-button ${className}`}>
           <Button onClick={this.clickHandler}>
             <span className='button-text'></span>
           </Button>

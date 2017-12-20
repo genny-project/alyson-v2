@@ -3,12 +3,13 @@
 
 .button {
 
-	 width: 100%;
+	 width: 50%;
 	 height: 50px;
 	 display: flex;
 
  	> button {
-	    width: inherit;
+
+	    width: 100%;
 	    border: none;
 	    border-radius: 5px;
 	    color: white;
@@ -39,7 +40,7 @@
     	background: $error;
     }
 
-    
+
 
     &.small > button{
 	    height: 30px;

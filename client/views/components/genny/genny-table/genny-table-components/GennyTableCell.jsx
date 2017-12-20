@@ -23,7 +23,7 @@ class GennyTableCell extends Component {
                 fontSize: '14px',
                 color: (() => {
 
-                        if(original) {
+                        if(original && original.code) {
 
                             if(original.inferred == true) return '#cd201f';
                             if(original.code.startsWith("PRI_")) return 'black';
