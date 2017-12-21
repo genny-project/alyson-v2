@@ -18,7 +18,7 @@ class Breadcrumbs extends Component {
   state = {
   }
 
-  createBreadcrumbs = () => {
+ createBreadcrumbs = () => {
 
     let stringPath = this.props.currentPath;
     if(stringPath && stringPath.length > 0) {
@@ -31,11 +31,12 @@ class Breadcrumbs extends Component {
         return filepath.map((path, index) => {
 
             if(path && path.length > 0) {
-              // Manually wiring css on this part 
+
                 return (
-                    <li key={index} onClick={() => this.props.onClick(path)}>
-                        <IconSmall name='chevron_right' style= {{paddingRight:10}}/>
-                        <span style={{fontSize: '0.8em'}}>{path}</span>
+
+                    <li key={index} onClick={() => this.props.onClick(path)} style={{display:'flex', alignItems: 'center', paddingRight:10,cursor:'pointer'}}>
+                        <IconSmall name='chevron_right' />
+                        <span>{path}</span>
                     </li>
                 );
             }
@@ -46,23 +47,29 @@ class Breadcrumbs extends Component {
   }
 
   render() {
+             /* Styles start */
+             const breadcrumbsCss = { height: 40, width: '100%', display: 'flex', alignItems: 'center' };
+             const breadcrumbsMain = { display: 'flex', marginTop: 0, marginBottom: 0, padding: 0 };
+             const li = { display: 'flex', alignItems: 'center', paddingRight: 10, cursor: 'pointer' };
+             const span = { fontSize: '0.8em', paddingRight: 10};
+             const iEle = { padding: 0, color: 'white' };
+             /* Styles ends here */
+             console.log(this.props, '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  className $$$$$$$$$$$$$$');
 
-    const { className, style, home } = this.props;
-    const componentStyle = { ...style, };
-    const breadcrumbs = this.createBreadcrumbs();
+             const { className, style, home } = this.props;
+             const componentStyle = { ...style };
+             const breadcrumbs = this.createBreadcrumbs();
 
-    return (
-      <div className={`breadcrumbs ${className}`} style={componentStyle}>
-        <ul className='breadcrumbs-main'>
-          <li className='breadcrumbs-home'>
-            <IconSmall name='home' />
-            <span>Home</span>
-          </li>
-          {breadcrumbs}
-        </ul>
-      </div>
-    );
-  }
+             return <div className={`breadcrumbs ${className}`} style={{ ...breadcrumbsCss, ...componentStyle }}>
+                 <ul className="breadcrumbs-main" style={{ ...breadcrumbsMain, ...{ listStyleType: 'none' } }}>
+                   <li className="breadcrumbs-home" style={{ display: 'flex', alignItems: 'center', paddingRight: 10, cursor: 'pointer' }}>
+                     <IconSmall name="home" style={{ ...iEle }} />
+                     <span style={{ ...span }}>Home</span>
+                   </li>
+                   {breadcrumbs}
+                 </ul>
+               </div>;
+           }
 }
 
 export default Breadcrumbs;
