@@ -31,9 +31,8 @@ class Breadcrumbs extends Component {
         return filepath.map((path, index) => {
 
             if(path && path.length > 0) {
-
+              // Manually wiring css on this part 
                 return (
-
                     <li key={index} onClick={() => this.props.onClick(path)}>
                         <IconSmall name='chevron_right' style= {{paddingRight:10}}/>
                         <span style={{fontSize: '0.8em'}}>{path}</span>
