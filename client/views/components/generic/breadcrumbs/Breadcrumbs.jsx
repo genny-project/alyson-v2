@@ -34,7 +34,7 @@ class Breadcrumbs extends Component {
 
                 return (
 
-                    <li key={index} onClick={() => this.props.onClick(path)}>
+                    <li key={index} onClick={() => this.props.onClick(path)} style={{display:'flex', alignItems: 'center', paddingRight:10,cursor:'pointer'}}>
                         <IconSmall name='chevron_right' />
                         <span>{path}</span>
                     </li>
@@ -61,10 +61,10 @@ class Breadcrumbs extends Component {
              const breadcrumbs = this.createBreadcrumbs();
 
              return <div className={`breadcrumbs ${className}`} style={{ ...breadcrumbsCss, ...componentStyle }}>
-                 <ul className="breadcrumbs-main" style={{ ...breadcrumbsMain, ... {listStyleType:'none' }}}>
-                   <li className="breadcrumbs-home" style={li}>
-                     <IconSmall name="home" style={iEle}/>
-                     <span style={{...span}}>Home</span>
+                 <ul className="breadcrumbs-main" style={{ ...breadcrumbsMain, ...{ listStyleType: 'none' } }}>
+                   <li className="breadcrumbs-home" style={{ display: 'flex', alignItems: 'center', paddingRight: 10, cursor: 'pointer' }}>
+                     <IconSmall name="home" style={{ ...iEle }} />
+                     <span style={{ ...span }}>Home</span>
                    </li>
                    {breadcrumbs}
                  </ul>
