@@ -26,14 +26,14 @@ class Form extends Component {
   renderGroup(questionGroup) {
 
       if(Array.isArray( questionGroup )) {
-        return questionGroup.map(group => {
 
+        return questionGroup.map(group => {
             if(group.content) return this.renderGroup(group);
             return group;
         });
       }
       else if (questionGroup.content) {
-        return (<FormGroup title={questionGroup.title} onSubmit={questionGroup.onSubmit} data={this.renderGroup(questionGroup.content)}/>);
+        return (<FormGroup data={this.renderGroup(questionGroup.content)} {...questionGroup}/>);
       }
 
       return [];

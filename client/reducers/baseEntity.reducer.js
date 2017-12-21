@@ -182,6 +182,7 @@ export default function reducer(state = initialState, action) {
                     },
                     weight: newAtt.weight,
                     inferred: newAtt.inferred,
+                    attributeCode: attributeCode
                 };
             }
         });

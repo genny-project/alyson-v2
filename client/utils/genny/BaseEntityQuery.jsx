@@ -32,6 +32,12 @@ class BaseEntityQuery {
         return items.sort((x, y) => x.weight > y.weight);
     }
 
+    static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
+
+        let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        return be ? be.links : [];
+    }
+
     static getAlias = (alias_code) => {
 
         let aliases = store.getState().baseEntity.aliases;

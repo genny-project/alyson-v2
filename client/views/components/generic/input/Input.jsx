@@ -40,7 +40,7 @@ class Input extends Component {
 
     if ( valResult ){
       this.validationStyle('success');
-        if(this.props.onValidation) this.props.onValidation(value, this.props.data);
+        if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
     } else {
       this.validationStyle('error');
     }
