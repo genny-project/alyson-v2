@@ -22,6 +22,7 @@ import {
   Button,
   Dropdown,
   Status,
+  GennyDropdown,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -49,4 +50,5 @@ export default new ComponentCollection({
   Button,
   Dropdown,
   Status,
+  GennyDropdown,
 });

@@ -75,7 +75,7 @@ class LayoutLoader extends Component {
     const { layout, baseEntity, screenSize } = this.props;
 
     let finalLayout = this.replaceAliasesIn(layout);
-    return <JSONLoader layout={finalLayout} componentCollection={components} context={baseEntity.data} screenSize={screenSize} />;
+    return <JSONLoader layout={finalLayout} componentCollection={components} />;
   }
 }
 
