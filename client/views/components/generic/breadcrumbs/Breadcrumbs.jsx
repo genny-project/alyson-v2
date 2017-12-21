@@ -51,9 +51,10 @@ class Breadcrumbs extends Component {
              const breadcrumbsCss = { height: 40, width: '100%', display: 'flex', alignItems: 'center' };
              const breadcrumbsMain = { display: 'flex', marginTop: 0, marginBottom: 0, padding: 0 };
              const li = { display: 'flex', alignItems: 'center', paddingRight: 10, cursor: 'pointer' };
-             const span = { fontSize: '0.8em' };
+             const span = { fontSize: '0.8em', paddingRight: 10};
              const iEle = { padding: 0, color: 'white' };
              /* Styles ends here */
+             console.log(this.props, '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  className $$$$$$$$$$$$$$');
 
              const { className, style, home } = this.props;
              const componentStyle = { ...style };
@@ -61,7 +62,7 @@ class Breadcrumbs extends Component {
 
              return <div className={`breadcrumbs ${className}`} style={{ ...breadcrumbsCss, ...componentStyle }}>
                  <ul className="breadcrumbs-main" style={{ ...breadcrumbsMain, ... {listStyleType:'none' }}}>
-                   <li className="breadcrumbs-home" style={{...li}}>
+                   <li className="breadcrumbs-home" style={li}>
                      <IconSmall name="home" style={iEle}/>
                      <span style={{...span}}>Home</span>
                    </li>
