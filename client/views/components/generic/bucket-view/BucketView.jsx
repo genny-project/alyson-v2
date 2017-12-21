@@ -230,15 +230,15 @@ class BucketView extends Component {
         let bucketPageWidth = bucket.getBoundingClientRect().width;
         let currentScrollPosition = bucket.scrollLeft;
         let new_position = currentScrollPosition;
-
+                
         if(positionBucket == "next") {
-
+        
             if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
                 new_position = currentScrollPosition + bucketPageWidth;
             }
         }
         else if(positionBucket == "previous") {
-
+            
             if(currentScrollPosition - bucketPageWidth >= 0) {
                 new_position = currentScrollPosition - bucketPageWidth;
             }
@@ -386,7 +386,7 @@ class BucketView extends Component {
         })
 
         return (
-            <div style={{"overflow": "hidden", "display": "flex", "flex-grow": "1", "width": "100%"}}>
+            
                 <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                     <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
                         <Device isMobile>
@@ -397,7 +397,7 @@ class BucketView extends Component {
                         {columns}
                     </div>
                 </DragDropContext>
-            </div>
+            
         )
     }
 }
