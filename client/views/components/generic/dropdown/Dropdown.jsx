@@ -4,6 +4,11 @@ import { string, any, bool, object } from 'prop-types';
 import components from 'utils/genny/layout-loader/components.js';
 import { JSONLoader } from '@genny-project/layson';
 
+/* Stylesheet */
+
+
+
+/* stylesheet ends her */
 class Dropdown extends Component {
   static defaultProps = {
     className: '',
@@ -46,7 +51,7 @@ class Dropdown extends Component {
         return header;
       } else if (Array.isArray(header)) {
         let layout = {layout: header};
-        return <JSONLoader layout={layout} componentCollection={components} />
+        return <JSONLoader layout={layout} componentCollection={components} />;
       } else {
         return null;  
       } 
