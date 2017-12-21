@@ -37,18 +37,7 @@ class Card extends Component {
       isOpen: !this.state.isOpen
     });
   }
-  
-  getCardContent() {
-    const { showProgress, progressCurrent, progressTotal, children } = this.props;
-
-    return (
-      <div className={`card-collapse fade fade-${status}`}>
-        { this.props.layout || null }
-        {/*children*/}
-        {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
-      </div>
-    );
-  }
+ 
 
   toggleOptions = () => {
 
@@ -70,16 +59,13 @@ class Card extends Component {
 
   render() {
 
-    const { className, title, description, level, style } = this.props;
+    const { className, title, description, level, style, showProgress, progressCurrent, progressTotal, children  } = this.props;
     const { isShowingOptions, isOpen } = this.state;
     const componentStyle = { ...style, };
-    const cardContent = isOpen ? this.getCardContent() : '';
     const collapseArrow = isOpen ? 'expand_more' : 'expand_less';
 
     let dropDownStyle = {
-        width: "100px",
-        position: "absolute",
-        left: "0px",
+        float: "left",
     };
 
     let dropDownContentStyle = {
@@ -100,37 +86,22 @@ class Card extends Component {
 
     return (
       <div className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >   
-        <div className="card-top">
-            {
-              window.getScreenSize() == "sm" ? <IconSmall name="more_vert" onClick={this.toggleOptions} /> : null
-            }
-            {
-              isShowingOptions ?
-              <Dropdown
-                  style={dropDownStyle}
-                  tagStyle={dropDownTagStyle}
-                  contentStyle={dropDownContentStyle}
-                  open={true}
-                  >
-                  <ul className="card-options">
-                    <li onClick={this.moveItem}>Move</li>
-                    <li onClick={this.toggleOptions}>Cancel</li>
-                  </ul>
-              </Dropdown> : null
-            }
-          <div className="card-image">
-              <img />
-          </div>
-          <div className="card-center">
-            <span>{title}</span>
-            <span>{description}</span>
-            <div className="card-toggle" >
-              <IconSmall name={collapseArrow} onClick={this.handleClick}/>
-            </div>
-          </div>
-          <Status className="card-status" color="ff0000"/>
-        </div>
-          {cardContent}
+        {
+          window.getScreenSize() == "sm" ? 
+          <Dropdown
+              style={dropDownStyle}
+              tagStyle={dropDownTagStyle}
+              contentStyle={dropDownContentStyle}
+              header={<IconSmall name="more_vert" onClick={this.toggleOptions} />}
+              >
+              <ul className="card-options">
+                <li onClick={this.moveItem}>Move</li>
+                <li onClick={this.toggleOptions}>Cancel</li>
+              </ul>
+          </Dropdown> : null
+        }
+        { this.props.layout || null }
+        {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
       </div>
     );
   }

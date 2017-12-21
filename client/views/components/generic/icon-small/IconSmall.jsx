@@ -21,19 +21,19 @@ class IconSmall extends Component {
   }
 
   render() {
-    const { className, size, name, onClick, text, fa } = this.props;
+    const { className, size, name, onClick, text, fa,style } = this.props;
 
     let iconStyle = {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
     };
 
     return (
         <span style={text ? iconStyle : null} className={`icon-small ${className}`}>
-            <i className={`icon ${fa ? 'fa fa-' + name : 'material-icons'}`} onClick={onClick} style={{ fontSize: size, }}>{fa ? null : name}</i>
+            <i className={`icon ${fa ? 'fa fa-' + name : 'material-icons'}`} onClick={onClick} style={{ fontSize: size,...style }}>{fa ? null : name}</i>
             {
-                text ? <span style={{ fontSize: size, paddingLeft: "5px", }}>{text}</span> : null
+                text ? <span style={{ fontSize: size, paddingLeft: '5px', }}>{text}</span> : null
             }
         </span>
     );
