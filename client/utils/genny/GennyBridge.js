@@ -20,11 +20,11 @@ class GennyBridge {
         Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
     }
 
-    sendBtnClick(data) {
+    sendBtnClick(event_type, data) {
 
         let token = this.getToken();
         if(token) {
-            Vertx.sendMessage(events.outgoing.BTN(data, token));
+            Vertx.sendMessage(events.outgoing.BTN(event_type, data, token));
         }
     }
 

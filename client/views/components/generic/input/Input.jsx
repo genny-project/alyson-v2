@@ -60,9 +60,10 @@ class Input extends Component {
 
     ////TODO: remove this.
     // testing facebook
+
     if(identifier == 'QUE_FB_BASIC') {
         return (
-            <InputButton {...this.props} type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
+            <InputButton {...this.props} className="facebook" name="" type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
         );
     }
 
@@ -81,9 +82,6 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 /> );
-            // case "java.time.Date":
-            //     return ( <InputDate items={items}
-            //         {...this.props}/> );
             case 'LocalDate':
                 return ( <InputDatePicker
                     {...this.props}
@@ -97,8 +95,6 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 /> );
-            // case "time":
-            //     return ( <InputTime {...this.props}/> );
             case 'slider':
                 return ( <InputSlider
                     {...this.props}
@@ -107,8 +103,6 @@ class Input extends Component {
                 /> );
             case 'upload-photo':
                 return ( <InputUploadPhoto {...this.props} /> );
-            // case "password":
-            //     return ( <InputText {...this.props}/> );
             case 'address':
                 return ( <InputAddress {...this.props} /> );
             case 'Button':

@@ -3,9 +3,18 @@
 
 .input-button {
 
-        .button {
-            margin-left: 0;
+    .button {
+        margin: 0 auto;
+    }
+
+    &.submit {
+
+        button {
+            background-color: green;
+            content: "Submit";
         }
+    }
+
     &.facebook {
 
         button {
@@ -13,6 +22,7 @@
         }
 
         .button-text:after {
+
             content: "\f09a";
             display: inline-block;
             font: normal normal normal 14px/1 FontAwesome;

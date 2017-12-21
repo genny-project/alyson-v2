@@ -47,7 +47,7 @@ class GennyTable extends Component {
                         {
                             "Header": <span className="header-single">VALUE</span>,
                             "accessor": 'value',
-                            "Cell": ({row, original}) => <GennyTableCell original={original} value={row.value} />
+                            "Cell": ({row, original}) => <GennyTableCell original={original} dataType={original.type} value={row.value} />
                         },
                         {
                             "Header": <span className="header-single">WEIGHT</span>,
@@ -137,6 +137,7 @@ class GennyTable extends Component {
                                 value: attribute.value,
                                 weight: attribute.weight,
                                 inferred: attribute.inferred,
+                                type: attribute.attribute.dataType.className,
                             })
                         }
                     }
@@ -180,6 +181,7 @@ class GennyTable extends Component {
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children)
+
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
                 <Table {...this.props} data={data} columns={columns}/>
