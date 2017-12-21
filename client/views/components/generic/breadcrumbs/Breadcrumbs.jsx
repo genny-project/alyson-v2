@@ -1,4 +1,3 @@
-import './breadcrumbs.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
 import { IconSmall } from '../';
