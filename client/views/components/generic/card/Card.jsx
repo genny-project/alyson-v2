@@ -65,9 +65,7 @@ class Card extends Component {
     const collapseArrow = isOpen ? 'expand_more' : 'expand_less';
 
     let dropDownStyle = {
-        width: "100px",
-        //position: "absolute",
-        left: "0px",
+        float: "left",
     };
 
     let dropDownContentStyle = {

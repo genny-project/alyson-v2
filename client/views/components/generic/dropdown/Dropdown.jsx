@@ -1,7 +1,8 @@
 import './dropdown.scss';
 import React, { Component } from 'react';
-import { string, any, bool, element } from 'prop-types';
-import { LayoutLoader } from 'utils/genny/layout-loader';
+import { string, any, bool, object } from 'prop-types';
+import components from 'utils/genny/layout-loader/components.js';
+import { JSONLoader } from '@genny-project/layson';
 
 class Dropdown extends Component {
   static defaultProps = {
@@ -13,7 +14,7 @@ class Dropdown extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
+    style: object,
     children: any,
     open: bool,
     header: any,
@@ -45,7 +46,7 @@ class Dropdown extends Component {
         return header;
       } else if (Array.isArray(header)) {
         let layout = {layout: header};
-        return <LayoutLoader layout={layout} />;
+        return <JSONLoader layout={layout} componentCollection={components} />
       } else {
         return null;  
       } 

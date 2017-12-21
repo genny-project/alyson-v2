@@ -11,3 +11,4 @@ export { default as GennyHeader } from './genny-header';
 export { default as GennyNotification } from './genny-notification';
 export { default as GennySocialButton } from './genny-social-button';
 export { default as GennyModal } from './genny-modal';
+export { default as GennyDropdown } from './genny-dropdown';
