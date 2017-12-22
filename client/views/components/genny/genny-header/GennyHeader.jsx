@@ -74,19 +74,20 @@ class GennyHeader extends Component {
         <Grid className='main-header' cols={[1,1]} rows={1}>
           <Label text={projectTitle} position={[0,0]} />
           {/*<GennyNotification position={[0,1]} />*/}
-          <Device isDesktop position={[0,1]}>
-            <Dropdown 
-              style={{ marginRight: '30px'}} 
-              header={
-                <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
-              >
-                <ul className="dropdown-profile" >
-                  <li onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
-                  <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
-                  <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Log Out</span></li>
-                </ul>
-            </Dropdown>
-          </Device>
+          
+          <Dropdown 
+            style={{ marginRight: '30px'}} 
+            position={[0,1]}
+            header={
+              <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
+            >
+              <ul className="dropdown-profile" >
+                <li onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
+                <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
+                <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Log Out</span></li>
+              </ul>
+          </Dropdown>
+          
           {/*}
           <Device isDesktop position={[0,1]}>
             <ImageView src={userImage} onClick={this.handleClickImage} style={{ width: '40px', minWidth: '40px'}}/>
