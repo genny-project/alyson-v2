@@ -325,11 +325,11 @@ class BucketView extends Component {
     bucketSelectionLayout = (item) => {
 
         return (
-            <List itemsPerPage={this.state.buckets.length}>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
                 {
                     this.state.buckets.map(bucket => <div className={`bucket-option-item size-${this.props.screenSize}`} onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</div>)
                 }
-            </List>
+            </div>
         );
     }
 
