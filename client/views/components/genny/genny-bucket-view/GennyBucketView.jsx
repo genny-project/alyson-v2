@@ -112,7 +112,7 @@ class GennyBucketView extends PureComponent {
                     description: be.code,
                     screenSize: this.props.screenSize,
                     onClick: this.onClick,
-                    layout: <LayoutLoader layout={sublayout} />,
+                    layout: <LayoutLoader layout={sublayout} aliases={[{BEG: be.code}, {LOAD: 'lod_111'}]}/>,
                 },
                 id: be.code
                 }
