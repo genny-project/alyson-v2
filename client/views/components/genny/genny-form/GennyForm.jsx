@@ -14,10 +14,6 @@ class GennyForm extends PureComponent {
 
     };
 
-    onGroupValidation = (formGroup) => {
-        console.log( formGroup )
-        console.log("----------")
-    }
 
     onInputValidation = (newValue, data, mandatory) =>  {
 

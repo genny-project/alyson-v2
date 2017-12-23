@@ -14,6 +14,7 @@ import btnOutgoing from './btn.events.outgoing.js';
 import bucketDropOutgoing from './bucket.events.outgoing';
 import cmdIncoming from './cmd.events.incoming';
 import cmdOutgoing from './cmd.events.outgoing';
+import cacheMissingOutgoing from './cachemissing.events.outgoing';
 
 export default {
   incoming: {
@@ -35,5 +36,6 @@ export default {
     ...btnOutgoing,
     ...bucketDropOutgoing,
     ...cmdOutgoing,
+    ...cacheMissingOutgoing
   }
 };

@@ -1,9 +1,9 @@
 import './formGroup.scss';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { array, string, func, object } from 'prop-types';
 import { Input } from '../../';
 
-class FormGroup extends PureComponent {
+class FormGroup extends Component {
 
     static defaultProps = {
         data: [],
@@ -20,42 +20,19 @@ class FormGroup extends PureComponent {
     }
 
     state = {
-        mandatoryAnswers: {},
-    }
-
-    onInputValidation = (newValue, data, mandatory) => {
-
-        if(mandatory && data.code) {
-
-            let identifier = data.identifier;
-            this.state.mandatoryAnswers[identifier] = true;
-            // this.updateGroupButton()
-
-            // if(this.props.onGroupValidation) this.props.onGroupValidation(this);
-        }
-
-        console.log( this.state )
+        isFormValidated: true,
     }
 
     renderData = (data) => {
 
         return data.map((child, index) => {
 
-            if (child.$$typeof){
+            if (child.$$typeof) {
                 return child
             } else {
-
-                if(child.mandatory) {
-
-                    // first we check if the question is mandatory.
-                    // if it is we save the information to check it has been correctly filled later on
-                    this.state.mandatoryAnswers[child.identifier] = child.value != null;
-                }
-
-                return <Input key={index} {...child} onValidation={(newValue, data, mandatory) => {
-                    this.onInputValidation(newValue, data, mandatory);
-                    child.onValidation(newValue, data, mandatory);
-                }}/>
+                return (
+                    <Input key={index} {...child} />
+                )
             }
         });
     }
@@ -64,13 +41,15 @@ class FormGroup extends PureComponent {
 
         const { data, title, onSubmit } = this.props;
 
+        let inputs = this.renderData(data);
+
         return (
             <div className="form-group">
                 <div className="form-group-title">
                     {title}
                 </div>
-                {this.renderData(data)}
-                {onSubmit ? <Input className="submit" type="Button" onClick={onSubmit} name="Submit" /> : null}
+                {inputs}
+                {(onSubmit) ? <Input className="submit" type="Button" onClick={onSubmit} name="Submit" /> : null}
             </div>
         );
     }

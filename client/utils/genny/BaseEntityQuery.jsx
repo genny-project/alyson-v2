@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import store from 'views/store';
+import { GennyBridge } from 'utils/genny';
 
 class BaseEntityQuery {
 

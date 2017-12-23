@@ -33,7 +33,7 @@ class Form extends Component {
         });
       }
       else if (questionGroup.content) {
-        return (<FormGroup data={this.renderGroup(questionGroup.content)} {...questionGroup}/>);
+        return (<FormGroup title={questionGroup.title} onSubmit={questionGroup.onSubmit} data={this.renderGroup(questionGroup.content)}/>);
       }
 
       return [];
