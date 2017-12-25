@@ -69,6 +69,14 @@ class GennyBridge {
         }
     }
 
+    sendCacheMissing(beCode) {
+
+        let token = this.getToken();
+        if(token) {
+            Vertx.sendMessage(events.outgoing.CACHE_MISSING(token, beCode));
+        }
+    }
+
     sendAnswer(items) {
 
         let token = this.getToken();

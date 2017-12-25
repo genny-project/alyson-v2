@@ -4,6 +4,7 @@ import { string, func } from 'prop-types';
 import { InputDate, InputButton, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
 
 class Input extends Component {
+
   static defaultProps = {
     className: '',
     type: ''
@@ -13,6 +14,7 @@ class Input extends Component {
     className: string,
     type: string,
     onValidation: func,
+    onValidationFailure: func,
   }
 
   state = {
@@ -21,28 +23,34 @@ class Input extends Component {
 
   validateInput = (value, identifier, validationList) => {
 
-      if(value == this.props.value) return;
+    if(value == this.props.value) return;
 
     if ( validationList.length > 0) {
+
       const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-      console.log(valResult);
       this.validateValue(valResult, value);
-    } else {
-      //window.alert("No regex supplied");
-      //this.sendAnswer(event.target.value);
+
+    }
+    else {
+
       const valResult = new RegExp(/.*/).test( value );
-      console.log(valResult);
       this.validateValue(valResult, value);
+
     }
   }
 
   validateValue = ( valResult, value ) => {
 
     if ( valResult ){
-      this.validationStyle('success');
-        if(this.props.onValidation) this.props.onValidation(value, this.props.data);
-    } else {
+
+        this.validationStyle('success');
+        if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
+    }
+    else {
+
       this.validationStyle('error');
+      console.log(this.props);
+      if(this.props.onValidationFailure) this.props.onValidationFailure(this.props.data, this.props.mandatory);
     }
   }
 
@@ -55,14 +63,15 @@ class Input extends Component {
   render() {
 
     const { type, identifier } = this.props;
-    const {validationStatus } = this.state;
+    const { validationStatus } = this.state;
     let items = ['Bananas', 'Oranges', 'Apples', 'Other'];
 
     ////TODO: remove this.
     // testing facebook
+
     if(identifier == 'QUE_FB_BASIC') {
         return (
-            <InputButton className="facebook" {...this.props} type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
+            <InputButton {...this.props} className="facebook" name="" type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
         );
     }
 

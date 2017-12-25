@@ -8,36 +8,19 @@ import { log } from 'util';
 class GennyForm extends PureComponent {
 
     state = {
-        mandatoryAnswers: {},
     }
 
     static propTypes = {
 
     };
 
-    onInputValidation = (newValue, data) =>  {
+
+    onInputValidation = (newValue, data, mandatory) =>  {
 
         GennyBridge.sendAnswer([{
             ...data,
             value: newValue
         }]);
-
-        if(data.code) {
-
-            let questionCode = data.code;
-            this.state.mandatoryAnswers[questionCode] = true;
-            this.updateGroupButton()
-        }
-    }
-
-    updateGroupButton() {
-
-        let isFormCompleted = Object.keys(this.state.mandatoryAnswers).every(key => this.state.mandatoryAnswers[key] === true);
-        this.toggleGroupButton(isFormCompleted || Object.keys(this.state.mandatoryAnswers).length == 0)
-    }
-
-    toggleGroupButton(enable) {
-        console.log(enable);
     }
 
     onClick = (clickedButton) => {
@@ -76,6 +59,7 @@ class GennyForm extends PureComponent {
             return {
                 title: askGroup.name,
                 onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code) } : null,
+                onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
                     if(ask.childAsks) return this.generateFormData(ask);
@@ -95,13 +79,6 @@ class GennyForm extends PureComponent {
 
                     if (ask.question) {
 
-                        if(ask.question.mandatory) {
-
-                            // first we check if the question is mandatory.
-                            // if it is we save the information to check it has been correctly filled later on
-                            this.state.mandatoryAnswers[ask.question.code] = default_value != null;
-                        }
-
                         if(ask.question.attribute){
                             if(ask.question.attribute.dataType){
                                 if(ask.question.attribute.dataType.className){
@@ -114,10 +91,9 @@ class GennyForm extends PureComponent {
                         }
                     }
 
-                    this.updateGroupButton()
-
                     return {
                         isHorizontal: this.props.isHorizontal,
+                        mandatory: true, //ask.question.mandatory,
                         key: index,
                         identifier: ask.question.code,
                         data: {
@@ -127,6 +103,7 @@ class GennyForm extends PureComponent {
                             targetCode: ask.targetCode,
                             code: ask.question.code,
                             questionGroup: askGroup.name,
+                            identifier: ask.question.code,
                         },
                         type: inputType,
                         style: this.props.style,

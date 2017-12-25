@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import store from 'views/store';
+import { GennyBridge } from 'utils/genny';
 
 class BaseEntityQuery {
 
@@ -30,6 +31,12 @@ class BaseEntityQuery {
         });
 
         return items.sort((x, y) => x.weight > y.weight);
+    }
+
+    static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
+
+        let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        return be ? be.links : [];
     }
 
     static getAlias = (alias_code) => {

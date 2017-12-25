@@ -28,7 +28,6 @@ class List extends Component {
   renderMain = (data, itemsPerPage, hideNav) => {
     const { itemHeight, itemWidth, itemGap } = this.props;
 
-    console.log(data);
     if (data && data.length > 0) { 
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >

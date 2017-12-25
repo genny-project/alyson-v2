@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { object } from 'prop-types';
+import { object, array } from 'prop-types';
 import LayoutNotFound from './layout-not-found';
 import components from './components';
 import { JSONLoader } from '@genny-project/layson';
@@ -7,9 +7,14 @@ import { BaseEntityQuery } from 'utils/genny';
 
 class LayoutLoader extends Component {
 
+    static defaultProps = {
+        
+      }
+
   static propTypes = {
     layout: object,
     baseEntity: object,
+    aliases: array
   };
 
   getLayoutValues(layout) {
@@ -45,11 +50,10 @@ class LayoutLoader extends Component {
       else if (typeof layout == "string") {
           return [layout];
       }
-
       return layoutValues;
   }
 
-  replaceAliasesIn(layout) {
+  replaceAliasesIn(layout, localAliases) {
 
       let aliases = this.getLayoutValues(layout);
       aliases.forEach(alias => {
@@ -60,7 +64,26 @@ class LayoutLoader extends Component {
 
             let alias_code = split[0];
             let attribute_code = split[1];
-            let attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
+            let attribute = {};
+            if (localAliases) {
+                let isMatch = null;
+                localAliases.map(localAlias => {
+                    let localAliasKey = null;
+                    Object.keys(localAlias).map((localAlias_key, index) => {
+                        localAliasKey = localAlias_key;
+                    })
+                    if (alias_code === localAliasKey) {
+                        isMatch = true;
+                        attribute = BaseEntityQuery.getAliasAttribute(localAlias[localAliasKey], attribute_code) || BaseEntityQuery.getBaseEntityAttribute(localAlias[localAliasKey], attribute_code);
+                    
+                    } else if (!isMatch) {
+                        attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);        
+                    }
+                })
+                isMatch = null;
+            } else {
+                attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
+            }
             if(attribute && attribute.value) {
                 layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
             }
@@ -70,12 +93,14 @@ class LayoutLoader extends Component {
       return layout;
   }
 
+  getBaseEntityAttribute
+
   render() {
 
-    const { layout, baseEntity, screenSize } = this.props;
+    const { layout, baseEntity, aliases } = this.props;
 
-    let finalLayout = this.replaceAliasesIn(layout);
-    return <JSONLoader layout={finalLayout} componentCollection={components} context={baseEntity.data} screenSize={screenSize} />;
+    let finalLayout = this.replaceAliasesIn(layout, aliases);
+    return <JSONLoader layout={finalLayout} componentCollection={components} />;
   }
 }
 

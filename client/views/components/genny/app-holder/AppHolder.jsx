@@ -27,7 +27,7 @@ class AppHolder extends Component {
 
         let social_code = window.getQueryString('code');
 
-        if(social_code) {
+        if(social_code && localStorage.getItem("socialredirect")) {
 
             let data = JSON.parse(localStorage.getItem("socialredirect"))
             if(data) {
