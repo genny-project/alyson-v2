@@ -1,7 +1,7 @@
 import './colorPicker.scss';
 import React, { Component } from 'react';
 import { string } from 'prop-types';
-import { CircleButton, } from '../';
+import { CircleButton, } from 'views/components';
 import { TwitterPicker as ReactColor } from 'react-color';
 
 class ColorPicker extends Component {

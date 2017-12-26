@@ -1,7 +1,7 @@
 import './inputUploadPhoto.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import {  } from '../';
+import {  } from 'views/components';
 import DropzoneComponent from 'react-dropzone-component';
 import 'react-dropzone-component/styles/filepicker.css';
 

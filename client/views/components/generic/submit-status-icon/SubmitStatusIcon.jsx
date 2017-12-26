@@ -1,6 +1,6 @@
 import './submitStatusIcon.scss';
 import React, { Component } from 'react';
-import { IconSmall } from '../';
+import { IconSmall } from 'views/components';
 import { string } from 'prop-types';
 
 class SubmitStatusIcon extends Component {

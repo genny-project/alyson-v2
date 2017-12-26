@@ -2,7 +2,6 @@ import './socialButton.scss';
 import React, { Component } from 'react';
 import { string, object, func, any } from 'prop-types';
 import FacebookButton from './facebook-button';
-// import { TwitterLoginButton, GithubLoginButton, AmazonLoginButton, MicrosoftLoginButton, InstagramLoginButton, LinkedInLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
 
 class SocialButton extends Component {
 

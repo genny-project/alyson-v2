@@ -1,7 +1,7 @@
 import './inputTextarea.scss';
 import React, { Component } from 'react';
 import { string, bool, func, any } from 'prop-types';
-import { Label, SubmitStatusIcon } from '../';
+import { Label, SubmitStatusIcon } from 'views/components';
 
 class InputTextarea extends Component {
   static defaultProps = {

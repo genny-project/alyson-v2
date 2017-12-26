@@ -1,7 +1,7 @@
 import './carousel.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import {  } from '../';
+import {  } from 'views/components';
 
 class Carousel extends Component {
 

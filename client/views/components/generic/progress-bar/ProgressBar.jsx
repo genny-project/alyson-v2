@@ -1,7 +1,7 @@
 import './progressBar.scss';
 import React, { Component } from 'react';
 import { string, array, number } from 'prop-types';
-import { IconSmall } from '../';
+import { IconSmall } from 'views/components';
 
 class ProgressBar extends Component {
   

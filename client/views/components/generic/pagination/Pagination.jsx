@@ -2,7 +2,7 @@ import './pagination.scss';
 import React, { Component } from 'react';
 import { string, object, number, bool } from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import { IconSmall } from '../';
+import { IconSmall } from 'views/components';
 
 class Pagination extends Component {
 

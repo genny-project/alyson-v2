@@ -1,7 +1,7 @@
 import './inputAddress.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import { Label, SubmitStatusIcon } from '../';
+import { Label, SubmitStatusIcon } from 'views/components';
 import PlacesAutocomplete from 'react-places-autocomplete'
 import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete'
 

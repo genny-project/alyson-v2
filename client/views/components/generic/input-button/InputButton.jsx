@@ -1,7 +1,7 @@
 import './inputButton.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
-import { Button, IconSmall, Label } from '../';
+import { Button, IconSmall, Label } from 'views/components';
 
 class InputButton extends Component {
 

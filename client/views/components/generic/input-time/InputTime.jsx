@@ -1,7 +1,7 @@
 import './inputTime.scss';
 import React, { Component } from 'react';
 import { string, object, bool, number } from 'prop-types';
-import { InputDropdown, Label } from '../';
+import { InputDropdown, Label } from 'views/components';
 import moment from 'moment';
 
 class InputTime extends Component {

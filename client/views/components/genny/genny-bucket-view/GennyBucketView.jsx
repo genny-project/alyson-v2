@@ -1,10 +1,9 @@
 import './gennyBucketView.scss';
 import React, { PureComponent } from 'react';
-import { BaseEntityQuery } from 'utils/genny';
-import { IconSmall, BucketView, Card } from '../../';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+import { IconSmall, BucketView, Card } from 'views/components';
 import { Draggable } from 'react-beautiful-dnd';
 import { LayoutLoader } from 'utils/genny/layout-loader';
-import { GennyBridge } from 'utils/genny';
 
 class GennyBucketView extends PureComponent {
 
