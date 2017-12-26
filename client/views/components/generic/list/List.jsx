@@ -1,6 +1,6 @@
 import './list.scss';
 import React, { Component } from 'react';
-import { Pagination } from '../';
+import { Pagination } from 'views/components';
 import { ListItem } from './list-item';
 import { string, bool, number} from 'prop-types';
 

@@ -1,7 +1,7 @@
 import './circleButton.scss';
 import React, { Component } from 'react';
 import { string, object, any, func } from 'prop-types';
-import {  } from '../';
+import {  } from 'views/components';
 
 class CircleButton extends Component {
 

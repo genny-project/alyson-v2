@@ -1,6 +1,6 @@
 import './gennyForm.scss';
 import React, { PureComponent } from 'react';
-import { Form } from '../../';
+import { Form } from 'views/components';
 import { object, array } from 'prop-types';
 import { AskQuery, BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { log } from 'util';

@@ -1,4 +1,4 @@
-@import '../../../../styles/colors';
+@import 'client/styles/colors';
 
 .dropdown {
 
@@ -17,7 +17,6 @@
      z-index: 9;
     }
 
-   
     .dropdown-content {
         position: absolute;
         z-index: 10;

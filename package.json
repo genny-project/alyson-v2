@@ -1,6 +1,6 @@
 {
   "name": "alyson-v2",
-  "version": "0.0.1",
+  "version": "0.6.1",
   "description": "Alyson V2",
   "main": "index.js",
   "scripts": {

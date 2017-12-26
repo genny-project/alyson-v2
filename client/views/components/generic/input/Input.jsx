@@ -1,7 +1,19 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
-import { InputDate, InputButton, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
+import { 
+    InputDate, 
+    InputButton, 
+    InputSlider, 
+    InputDatePicker, 
+    InputDropdown, 
+    InputTime, 
+    InputText, 
+    InputTextarea, 
+    InputCheckbox, 
+    InputAddress, 
+    InputUploadPhoto 
+} from 'views/components';
 
 class Input extends Component {
 

@@ -1,10 +1,8 @@
 import './gennyTable.scss';
 import React, { Component } from 'react';
-import { Table } from 'views/components';
 import { object, array, bool } from 'prop-types';
-import { BaseEntityQuery } from 'utils/genny';
-import { IconSmall } from 'views/components';
-import { GennyBridge } from 'utils/genny';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+import { IconSmall, Table } from 'views/components';
 import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile } from './genny-table-components';
 
 class GennyTable extends Component {

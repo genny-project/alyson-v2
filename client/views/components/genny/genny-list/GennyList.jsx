@@ -1,7 +1,7 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
 import { object, string, number } from 'prop-types';
-import { List, GennyForm } from '../../';
+import { List, GennyForm } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 

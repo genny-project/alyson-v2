@@ -1,7 +1,7 @@
 import './listItem.scss';
 import React, { Component } from 'react';
 import { string, object, number } from 'prop-types';
-import { } from '../';
+import { } from 'views/components';
 
 class ListItem extends Component {
 

@@ -1,7 +1,7 @@
 import './footer.scss';
 import React, { Component }  from 'react';
 import { string, any, object } from 'prop-types';
-import { ImageView, CompactList } from '../';
+import { ImageView, CompactList } from 'views/components';
 
 class Footer extends Component {
   static defaultProps = {

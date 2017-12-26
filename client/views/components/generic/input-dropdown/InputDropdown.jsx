@@ -2,7 +2,7 @@ import './inputDropdown.scss';
 import React, { Component } from 'react';
 import { string, object, func, any } from 'prop-types';
 import Downshift from 'downshift'
-import { Label, IconSmall } from '../';
+import { Label, IconSmall } from 'views/components';
 
 class InputDropdown extends Component {
 
