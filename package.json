@@ -54,7 +54,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
-    "@genny-project/keycloak-react": "^1.0.7",
+    "@genny-project/keycloak-react": "^1.0.8",
     "@genny-project/layson": "1.3.0",
     "axios": "^0.17.1",
     "babel-preset-stage-0": "^6.24.1",
