@@ -145,7 +145,10 @@ class GennyTable extends Component {
                     else {
 
                         let attribute = baseEntity.attributes[attribute_key];
-                        newData[attribute.attribute.name] = attribute.value;
+                        newData[attribute.attribute.name] = {
+                            value: attribute.value,
+                            type: (attribute.attribute && attribute.attribute.dataType) ? attribute.attribute.dataType.className : null,
+                        };
                         newData["baseEntityCode"] = attribute.baseEntityCode;
                         newData["validationList"] = {
                             ...newData["validationList"],
