@@ -17,6 +17,8 @@ class GennyTableEditableCell extends Component {
 
     renderDiv() {
 
+        if (!this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]) return null;
+
         let dataType = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].type;
         let value = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value;
 
