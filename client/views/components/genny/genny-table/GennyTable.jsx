@@ -184,7 +184,6 @@ class GennyTable extends Component {
         }
         else if(linkCode) {
             children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
-            console.log(" =------------- ")
         }
 
         columns = this.generateHeadersFor(children);

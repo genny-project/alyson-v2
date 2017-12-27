@@ -23,7 +23,7 @@ class GennyTableEditableCell extends Component {
                 onBlur={e => {
 
                     let newValue = e.target.innerHTML;
-                    if(newValue) {
+                    if(newValue && newValue != this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]) {
 
                         let attributeCode = this.props.cellInfo.column.attributeCode;
                         if(attributeCode) {
@@ -60,7 +60,6 @@ class GennyTableEditableCell extends Component {
                             }
                         }
                     }
-                    console.log('cell', this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]);
                 }}
                 dangerouslySetInnerHTML={{
                     __html: this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]
