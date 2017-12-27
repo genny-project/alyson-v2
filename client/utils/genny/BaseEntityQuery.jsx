@@ -36,7 +36,16 @@ class BaseEntityQuery {
     static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-        return be ? be.links : [];
+        if(be && be.links && be.links[linkCode]) {
+            return be.links[linkCode].reducer(existingBes, link) => {
+
+                existingBes.push(link.baseEntity);
+                return existingBes;
+
+            }, {})
+        }
+
+        return []
     }
 
     static getAlias = (alias_code) => {
