@@ -32,7 +32,7 @@ class Header extends Component {
 
     return (
 
-      <Grid className={'header'} style={componentStyle} cols={cols} rows={rows} >
+      <Grid className={`header ${className}`} style={componentStyle} cols={cols} rows={rows} >
         {children}
       </Grid>
     );
