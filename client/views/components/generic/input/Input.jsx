@@ -1,7 +1,19 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
-import { InputDate, InputButton, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
+import {
+    InputDate,
+    InputButton,
+    InputSlider,
+    InputDatePicker,
+    InputDropdown,
+    InputTime,
+    InputText,
+    InputTextarea,
+    InputCheckbox,
+    InputAddress,
+    InputUploadPhoto
+} from 'views/components';
 
 class Input extends Component {
 
@@ -64,11 +76,11 @@ class Input extends Component {
 
     const { type, identifier } = this.props;
     const { validationStatus } = this.state;
-    let items = ['Bananas', 'Oranges', 'Apples', 'Other'];
+
+    let items = this.props.options;
 
     ////TODO: remove this.
     // testing facebook
-
     if(identifier == 'QUE_FB_BASIC') {
         return (
             <InputButton {...this.props} className="facebook" name="" type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />

@@ -1,4 +1,3 @@
-// export { default } from './Footer.jsx';
 
 import { connect } from 'react-redux';
 import Footer from './Footer.jsx';

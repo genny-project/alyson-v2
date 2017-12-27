@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import ReactDOM from 'react-dom';
-import { Card } from 'views/components';
+import { BucketCard } from './bucket-card';
 
 const gridPadding = 5;
 const getItemStyle = (draggableStyle, isDragging) => ({
@@ -114,7 +114,7 @@ class BucketElement extends Component {
                                 {...provided.dragHandleProps}
                                 className="bucket-contents"
                             >
-                                <Card {...item.content} showMovingOptions={this.props.showMovingOptions} />
+                                <BucketCard {...item.content} showMovingOptions={this.props.showMovingOptions} />
                             </div>
                             {provided.placeholder}
                         </div>

@@ -1,11 +1,9 @@
 import './treeView.scss';
 import React, { Component } from 'react';
 import { object, array, func } from 'prop-types';
-import { IconSmall, SubmitStatusIcon } from '../';
-import { BaseEntity } from '../../../../utils/genny/';
+import { IconSmall, SubmitStatusIcon } from 'views/components';
+import { BaseEntity, GennyBridge } from 'utils/genny/';
 
-
-import { GennyBridge } from 'utils/genny';
 class TreeView extends Component {
 
   static propTypes = {

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { string, object, any, func } from 'prop-types';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import { Label } from '../';
+import { Label } from 'views/components';
 
 class InputDatePicker extends Component {
 

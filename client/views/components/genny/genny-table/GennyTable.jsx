@@ -1,10 +1,8 @@
 import './gennyTable.scss';
 import React, { Component } from 'react';
-import { Table } from 'views/components';
 import { object, array, bool } from 'prop-types';
-import { BaseEntityQuery } from 'utils/genny';
-import { IconSmall } from 'views/components';
-import { GennyBridge } from 'utils/genny';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+import { IconSmall, Table } from 'views/components';
 import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile } from './genny-table-components';
 
 class GennyTable extends Component {
@@ -57,7 +55,6 @@ class GennyTable extends Component {
 
         } else {
 
-            console.log(baseEntity)
             let attributes = baseEntity.attributes;
             if(attributes) {
 
@@ -98,7 +95,6 @@ class GennyTable extends Component {
         const { showBaseEntity } = this.props;
         const isMobile = this.state.isMobile;
 
-        console.log( baseEntities )
         let tableColumns = baseEntities.map(baseEntity => this.generateColumns(baseEntity))[0];
         let mobileColumns = [];
 
@@ -149,7 +145,10 @@ class GennyTable extends Component {
                     else {
 
                         let attribute = baseEntity.attributes[attribute_key];
-                        newData[attribute.attribute.name] = attribute.value;
+                        newData[attribute.attribute.name] = {
+                            value: attribute.value,
+                            type: (attribute.attribute && attribute.attribute.dataType) ? attribute.attribute.dataType.className : null,
+                        };
                         newData["baseEntityCode"] = attribute.baseEntityCode;
                         newData["validationList"] = {
                             ...newData["validationList"],
@@ -186,7 +185,6 @@ class GennyTable extends Component {
         }
         else if(linkCode) {
             children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
-            console.log(" =------------- ")
         }
 
         columns = this.generateHeadersFor(children);

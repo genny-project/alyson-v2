@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SocialButton } from '../../';
+import { SocialButton } from 'views/components';
 import { object, array, any, string } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
 

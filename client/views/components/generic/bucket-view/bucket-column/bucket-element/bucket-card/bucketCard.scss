@@ -1,17 +1,12 @@
-@import '../../../../styles/colors';
+@import 'client/styles/colors';
 
-
-.card {
+.bucket-card {
 	padding: 10px;
 	background: white;
 	border-radius: 5px;
 	width: 100%;
 	box-shadow: 0 3px 5px rgba(0,0,0,0.5);
 	color: #222;
-
-
-	p, span, i {
-	}
 
 	.card-top {
 		display: flex;

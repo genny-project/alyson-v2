@@ -1,7 +1,7 @@
 import './inputCheckbox.scss';
 import React, { Component } from 'react';
 import { string, object, any, bool, func } from 'prop-types';
-import { Label } from '../';
+import { Label } from 'views/components';
 
 class InputCheckbox extends Component {
 

@@ -1,7 +1,7 @@
 import './inputText.scss';
 import React, { Component } from 'react';
 import { string, bool, array, object, int, any, func } from 'prop-types';
-import { Label, SubmitStatusIcon } from '../';
+import { Label, SubmitStatusIcon } from 'views/components';
 
 class InputText extends Component {
 

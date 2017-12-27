@@ -2,7 +2,7 @@ import './inputSlider.scss';
 import React, { Component } from 'react';
 import { string, object, any, func, array } from 'prop-types';
 import Slider, { Range } from 'rc-slider';
-import { Label } from '../';
+import { Label } from 'views/components';
 
 class InputSlider extends Component {
 

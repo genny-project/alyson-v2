@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { any, bool } from 'prop-types';
 
-
 class Device extends Component {
   static propTypes = {
     children: any,

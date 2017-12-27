@@ -9,7 +9,7 @@ class Button extends Component {
     className: '',
     href: '',
     type: '',
-    onClick: () => {},
+    onClick: null,
   }
 
   static propTypes = {
@@ -20,14 +20,11 @@ class Button extends Component {
     onClick: func
   }
 
-  getClickFunction = () => {
-    const { onClick, handleClick } = this.props;
+  onClick = (e) => {
 
-    if (handleClick) {
-      return handleClick
-    } else {
-      return onClick
-    }
+     e.stopPropagation();
+     e.nativeEvent.stopImmediatePropagation();
+     if(this.props.onClick) this.props.onClick(this);
   }
 
   render() {
@@ -35,11 +32,9 @@ class Button extends Component {
     const { children, type, className, href, onClick, style, color, buttonStyle, disabled } = this.props;
     const componentStyle = { ...style, };
 
-    const clickFunc = this.getClickFunction();
-
     const btn = (
       <div className={`button ${className} ${type}`} style={componentStyle}>
-        <button disabled={disabled} onClick={clickFunc} style={{ ...buttonStyle }}>{children}</button>
+        <button disabled={disabled} onClick={this.onClick} style={{ ...buttonStyle }}>{children}</button>
       </div>
     );
 

@@ -15,9 +15,9 @@ class BaseEntityQuery {
 
             // order by weight if found in links
             let weight = 0;
-            if(rootEntity && rootEntity.links) {
+            if(rootEntity && rootEntity.originalLinks) {
 
-                let currentLinks = rootEntity.links.filter(x => {
+                let currentLinks = rootEntity.originalLinks.filter(x => {
                     return x.link.targetCode == item.code
                 });
 
@@ -30,13 +30,30 @@ class BaseEntityQuery {
             return item;
         });
 
+        if(items.length == 0) {
+            GennyBridge.sendTVEvent('TV_EXPAND', {
+              code: 'TV1',
+              value: code
+            }, code);
+        }
+
         return items.sort((x, y) => x.weight > y.weight);
     }
 
     static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-        return be ? be.links : [];
+        if(be && be.links && be.links[linkCode]) {
+
+            return be.links[linkCode].reduce((existingBes, link) => {
+
+                if(link.baseEntity) existingBes.push(link.baseEntity);
+                return existingBes;
+
+            }, [])
+        }
+
+        return []
     }
 
     static getAlias = (alias_code) => {

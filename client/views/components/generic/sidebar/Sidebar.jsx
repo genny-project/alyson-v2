@@ -1,6 +1,6 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
-import { ImageView, IconSmall } from '../../../components'
+import { ImageView, IconSmall } from 'views/components'
 import { object, bool, string, any } from 'prop-types';
 import { Grid } from '@genny-project/layson';
 

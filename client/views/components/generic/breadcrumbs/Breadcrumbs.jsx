@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall } from '../';
+import { IconSmall } from 'views/components';
 
 class Breadcrumbs extends Component {
 

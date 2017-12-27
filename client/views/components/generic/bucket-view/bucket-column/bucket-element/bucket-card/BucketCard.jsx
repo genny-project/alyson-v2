@@ -1,9 +1,9 @@
-import './card.scss';
+import './bucketCard.scss';
 import React, { Component } from 'react';
 import { string, bool, array, number } from 'prop-types';
-import { Button, IconSmall, ProgressBar, Status, Dropdown } from '../';
+import { Button, IconSmall, ProgressBar, Status, Dropdown } from 'views/components';
 
-class Card extends Component {
+class BucketCard extends Component {
 
   static defaultProps = {
     className: '',
@@ -85,7 +85,7 @@ class Card extends Component {
     };
 
     return (
-      <div className={`card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >   
+      <div className={`bucket-card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >   
         {
           window.getScreenSize() == "sm" ? 
           <Dropdown
@@ -107,4 +107,4 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default BucketCard;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { func, string } from 'prop-types';
-import { Button, IconSmall } from '../../../';
+import { Button, IconSmall } from 'views/components';
 
 class FacebookButton extends Component {
 

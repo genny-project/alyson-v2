@@ -4,7 +4,7 @@ import config from 'config/config';
 import { Vertx, MessageHandler } from './vertx';
 import events from './vertx-events';
 import store from 'views/store';
-import { ATTRIBUTE } from './../../constants';
+import { ATTRIBUTE } from 'constants';
 import axios from 'axios';
 
 class GennyBridge {

@@ -1,7 +1,7 @@
 import './formGroup.scss';
 import React, { Component } from 'react';
 import { array, string, func, object } from 'prop-types';
-import { Input } from '../../';
+import { Input } from 'views/components';
 
 class FormGroup extends Component {
 
