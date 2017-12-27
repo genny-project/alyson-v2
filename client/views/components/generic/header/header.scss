@@ -1,86 +1,11 @@
 @import 'client/styles/colors';
 
 .header {
-	background: rgb(31, 31, 31);
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	height: 50px;
-
-	.header-container {
-		flex-direction: row;
-		display: flex;
-		width: 100%;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0 50px;
-		flex-grow: 1;
-
-		.header-left, .header-right {
-			display: flex;
-			align-items: center;
-
-			img {
-				width: 30px;
-				height: 30px;
-				margin-left: 10px;
-				border-radius: 5px;
-			}
-
-			span, i {
-				color: white;
-			}
-		}
-
-		.header-right {
-
-			.help {
-				margin-left: 10px;
-			}
-
-			.dropdown-profile {
-				list-style-type: none;
-				background: #DDD;
-				border-radius: 5px;
-				margin: 0;
-				padding: 0;
-		
-				> li {
-					display: flex;
-					align-items: center;
-					padding: 5px 10px;
-		
-					i {
-						padding-right: 5px;
-					}
-		
-					i, span {
-						color: rgb(31, 31, 31);
-					}
-		
-					&:hover {
-						background: rgb(31, 31, 31);
-		
-						i, span {
-							color: white;
-						}
-					}
-				}
-			}
-		}
-
-		.header-center {
-			display: flex;
-			flex-grow: 1;
-		}
-
-	}
-
-	&.sm, &.md {
-
-		.header-container {
-			padding-left: 50px;
-		}
-	}
+        .row {
+            
+            .col {
+               
+            }
+        }
+ 
 }

@@ -1,64 +1,24 @@
 @import '../../../../styles/colors';
 
 .genny-header {
-    display: flex;
-    flex-flow: column nowrap;
-    height: 100%;
 
-    .grid {
+    .dropdown-profile {
 
-        &.main-header {
-            flex-grow: 1;
+        > li {
 
-            span, i {
-				color: white;
-            }
-            
-            > .row > .col:nth-child(2) {
-                justify-content: flex-end;  
-            }
-        }
-        &.sub-header {
-            box-shadow: 0px -4px 3px rgba(50,50,50,0.50);
-        }
-        .row {
-            padding-left: 50px;
-            height: 100%;
-
-            .col {
-                display: flex;
-                align-items: center;
-                padding-left: 5px;
+            i {
                 padding-right: 5px;
+            }
 
-                .dropdown-profile {
-                    list-style-type: none;
-                    background: #DDD;
-                    border-radius: 5px;
-                    margin: 0;
-                    padding: 0;
-            
-                    > li {
-                        display: flex;
-                        align-items: center;
-                        padding: 5px 10px;
-            
-                        i {
-                            padding-right: 5px;
-                        }
-            
-                        i, span {
-                            color: rgb(31, 31, 31);
-                        }
-            
-                        &:hover {
-                            background: rgb(31, 31, 31);
-            
-                            i, span {
-                                color: white;
-                            }
-                        }
-                    }
+            i, span {
+                color: rgb(31, 31, 31);
+            }
+
+            &:hover {
+                background: rgb(31, 31, 31);
+
+                i, span {
+                    color: white;
                 }
             }
         }
