@@ -30,6 +30,13 @@ class BaseEntityQuery {
             return item;
         });
 
+        if(items.length == 0) {
+            GennyBridge.sendTVEvent('TV_EXPAND', {
+              code: 'TV1',
+              value: code
+            }, code);
+        }
+
         return items.sort((x, y) => x.weight > y.weight);
     }
 

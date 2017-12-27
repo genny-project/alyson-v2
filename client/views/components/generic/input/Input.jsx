@@ -76,11 +76,11 @@ class Input extends Component {
 
     const { type, identifier } = this.props;
     const { validationStatus } = this.state;
-    let items = ['Bananas', 'Oranges', 'Apples', 'Other'];
+
+    let items = this.props.options;
 
     ////TODO: remove this.
     // testing facebook
-
     if(identifier == 'QUE_FB_BASIC') {
         return (
             <InputButton {...this.props} className="facebook" name="" type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
@@ -88,8 +88,6 @@ class Input extends Component {
     }
 
     else {
-
-        // console.log( this.props )
 
         switch(type) {
             case 'TextArea':

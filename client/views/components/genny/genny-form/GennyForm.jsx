@@ -69,6 +69,7 @@ class GennyForm extends PureComponent {
                     let default_value = null;
                     let be_code = ask.targetCode;
                     let attributeCode = ask.attributeCode;
+                    let options = [];
 
                     if(be_code && attributeCode) {
                         let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
@@ -79,13 +80,19 @@ class GennyForm extends PureComponent {
 
                     if (ask.question) {
 
-                        if(ask.question.attribute){
-                            if(ask.question.attribute.dataType){
-                                if(ask.question.attribute.dataType.className){
+                        if(ask.question.attribute) {
+                            if(ask.question.attribute.dataType) {
+                                if(ask.question.attribute.dataType.className) {
                                     inputType = ask.question.attribute.dataType.className;
                                 }
-                                if(ask.question.attribute.dataType.validationList){
+                                if(ask.question.attribute.dataType.validationList) {
                                     valList = ask.question.attribute.dataType.validationList;
+                                    if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
+                                        options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
+                                            existing.push(newEntity.name)
+                                            return existing;
+                                        }, []);
+                                    }
                                 }
                             }
                         }
@@ -93,7 +100,7 @@ class GennyForm extends PureComponent {
 
                     return {
                         isHorizontal: this.props.isHorizontal,
-                        mandatory: true, //ask.question.mandatory,
+                        mandatory: ask.question.mandatory,
                         key: index,
                         identifier: ask.question.code,
                         data: {
@@ -116,6 +123,7 @@ class GennyForm extends PureComponent {
                         mask: ask.question.mask,
                         onValidation: this.onInputValidation,
                         onClick: this.onClick,
+                        options: options,
                     };
                 })
             };
