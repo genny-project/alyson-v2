@@ -28,6 +28,25 @@ export default function reducer(state = initialState, action) {
                             ...state.data[baseEntityCode],
                             ...existing[baseEntityCode],
                             ...newItem,
+                            originalLinks: newItem.links,
+                            links: newItem.links.reduce((existingLinks, newLink) => {
+
+                                let linkCode = newLink.link ? newLink.link.attributeCode : null;
+                                if(!linkCode) return [];
+
+                                if(!existingLinks[linkCode]) {
+                                    existingLinks[linkCode] = []
+                                }
+
+                                existingLinks[linkCode].push({
+                                    ...newLink,
+                                    targetCode: newLink.pk.targetCode,
+                                    baseEntity: state.data[newLink.pk.targetCode]
+                                });
+
+                                return existingLinks;
+
+                            }, {}),
                             linkCode: action.payload.linkCode,
                         };
 
@@ -53,6 +72,25 @@ export default function reducer(state = initialState, action) {
                         ...state.data[baseEntityCode],
                         ...existing[baseEntityCode],
                         ...newItem,
+                        originalLinks: newItem.links,
+                        links: newItem.links.reduce((existingLinks, newLink) => {
+
+                            let linkCode = newLink.link ? newLink.link.attributeCode : null;
+                            if(!linkCode) return [];
+
+                            if(!existingLinks[linkCode]) {
+                                existingLinks[linkCode] = []
+                            }
+
+                            existingLinks[linkCode].push({
+                                ...newLink,
+                                targetCode: newLink.pk.targetCode,
+                                baseEntity: state.data[newLink.pk.targetCode]
+                            });
+
+                            return existingLinks;
+
+                        }, {}),
                         linkCode: action.payload.linkCode,
                         attributes: existingAttributes
                     };
