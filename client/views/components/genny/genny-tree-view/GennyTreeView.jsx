@@ -1,11 +1,11 @@
 import './gennyTreeView.scss';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { TreeView, Breadcrumbs } from 'views/components';
 import { object, array, bool } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge, BaseEntity } from 'utils/genny';
 
-class GennyTreeView extends Component {
+class GennyTreeView extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -35,29 +35,11 @@ class GennyTreeView extends Component {
         if(this.props.componentState[identifier]) {
 
             // ask for all the bes
-            this.getNeededDataFor(this.props.componentState[identifier]);
+            // this.getNeededDataFor(this.props.componentState[identifier]);
 
             // update state
             this.setState(this.props.componentState[identifier]);
         }
-      }
-  }
-
-  getNeededDataFor(state) {
-
-      Object.keys(state.tree).forEach(be_key => {
-          this.getNeededItems(state, be_key);
-      });
-  }
-
-  getNeededItems(state, itemCode) {
-
-      // get be
-      this.onExpand({code: itemCode});
-
-      // get children codes if exist
-      if(state[itemCode] instanceof Object) {
-          this.getNeededDataFor(state[itemCode]);
       }
   }
 
