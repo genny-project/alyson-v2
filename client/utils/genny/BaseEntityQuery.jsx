@@ -31,13 +31,27 @@ class BaseEntityQuery {
         });
 
         if(items.length == 0) {
+
+            if(relationships && relationships[code]) {
+
+                console.log("----------")
+                console.log(relationships[code])
+                console.log(code)
+
+                // set dummy value so we wont call this again
+                relationships[code] = {};
+                relationships[code]["DUMMY"] = {
+                    hidden: true
+                }
+            }
+
             GennyBridge.sendTVEvent('TV_EXPAND', {
               code: 'TV1',
               value: code
             }, code);
         }
 
-        return items.sort((x, y) => x.weight > y.weight);
+        return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true);
     }
 
     static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
