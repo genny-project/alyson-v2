@@ -55,7 +55,6 @@ class GennyTable extends Component {
 
         } else {
 
-            console.log(baseEntity)
             let attributes = baseEntity.attributes;
             if(attributes) {
 
@@ -96,7 +95,6 @@ class GennyTable extends Component {
         const { showBaseEntity } = this.props;
         const isMobile = this.state.isMobile;
 
-        console.log( baseEntities )
         let tableColumns = baseEntities.map(baseEntity => this.generateColumns(baseEntity))[0];
         let mobileColumns = [];
 
