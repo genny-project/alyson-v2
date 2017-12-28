@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { TreeView, Breadcrumbs } from 'views/components';
 import { object, array, bool } from 'prop-types';
 import store from 'views/store';
-import { GennyBridge, BaseEntity } from 'utils/genny';
+import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 
 class GennyTreeView extends PureComponent {
 
@@ -132,20 +132,40 @@ class GennyTreeView extends PureComponent {
 
   getEntityChildren(code) {
 
-    const { baseEntity } = this.props;
-    const relationships = baseEntity.relationships[code];
-    let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code]) : [];
+    const relationships = store.getState().baseEntity.relationships;
+    const grp = relationships[code];
+
+    let items = grp ? Object.keys(grp).filter(x => x != "DUMMY").map(code => store.getState().baseEntity.data[code]) : [];
+
+    let rootEntity = BaseEntityQuery.getBaseEntity(code);
 
     items = items.map(item => {
-      /* Get the children for this item */
-      const children = this.getEntityChildren(item.code);
-      item.children = children;
-      item.open = !!this.state.tree[item.code];
-      item.parentCode = code;
-      return item;
+
+        if(item) {
+
+            // order by weight if found in links
+            let weight = 0;
+            if(rootEntity && rootEntity.originalLinks) {
+
+                let currentLinks = rootEntity.originalLinks.filter(x => {
+                    return x.link.targetCode == item.code
+                });
+
+                weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
+            }
+
+            const children = this.getEntityChildren(item.code);
+            item.children = children;
+            item.open = !!this.state.tree[item.code];
+            item.parentCode = code;
+            return item;
+        }
+
+        return false;
+
     });
 
-    return items;
+    return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true);
   }
 
   generatePath = (baseEntityPath) => {

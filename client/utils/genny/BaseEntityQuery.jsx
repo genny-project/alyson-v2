@@ -44,7 +44,7 @@ class BaseEntityQuery {
                 relationships[code] = {}
             }
 
-            if(grp) {
+            if(relationships[code] && !relationships[code]["DUMMY"]) {
 
                 // set dummy value so we wont call this again
                 relationships[code]["DUMMY"] = {
