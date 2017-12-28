@@ -71,8 +71,6 @@ class GennyHeader extends Component {
       ...customStyle.gennyHeader
     };
 
-    console.log( customStyle);
-
     return (
       <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
         <Header
