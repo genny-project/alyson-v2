@@ -78,7 +78,7 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, } = this.props;
+    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType } = this.props;
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
@@ -88,7 +88,7 @@ class InputText extends Component {
             {optional ? <Label text="(optional)" /> : null}
             <SubmitStatusIcon status={validationStatus} />
           </div> : null}
-        <input id={this.props.id || '' } type={inputType || "text"} disabled={readOnly} placeholder={placeholder} value={value} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} onKeyDown={this.onKeyDown} style={focused ? { borderColor: componentStyle.color } : null} />
+        <input type={inputType || "text"} disabled={readOnly} placeholder={placeholder} value={value} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} onKeyDown={this.onKeyDown} style={focused ? { borderColor: componentStyle.color } : null} />
       </div>;
   }
 }
