@@ -29,18 +29,18 @@ class GennyTreeView extends PureComponent {
 
   componentDidMount() {
 
-      let identifier = this.props.key || this.props.root;
-      if(identifier && this.props.componentState) {
-
-        if(this.props.componentState[identifier]) {
-
-            // ask for all the bes
-            // this.getNeededDataFor(this.props.componentState[identifier]);
-
-            // update state
-            this.setState(this.props.componentState[identifier]);
-        }
-      }
+      // let identifier = this.props.key || this.props.root;
+      // if(identifier && this.props.componentState) {
+      //
+      //   if(this.props.componentState[identifier]) {
+      //
+      //       // ask for all the bes
+      //       // this.getNeededDataFor(this.props.componentState[identifier]);
+      //
+      //       // update state
+      //       this.setState(this.props.componentState[identifier]);
+      //   }
+      // }
   }
 
   onExpand = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */

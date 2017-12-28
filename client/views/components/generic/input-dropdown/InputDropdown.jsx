@@ -24,10 +24,11 @@ class InputDropdown extends Component {
 
   state = {
     ask: this.props.ask ? this.props.ask : false,
-    value: this.props.placeholder,
+    value: this.props.default_value,
   }
 
   handleClick = (selectedItem) => {
+
     const { validationList, validation, identifier,  } = this.props;
     const value = selectedItem;
     this.setState({ focused: false });
@@ -38,8 +39,6 @@ class InputDropdown extends Component {
  	  const { className, style, items, name, hint, validationStatus, ...rest } = this.props;
     const { value } = this.state;
     const componentStyle = { ...style, };
-
-    console.log(this.props);
 
     return (
       <div className={`input-dropdown ${className} ${validationStatus}` }>
@@ -54,6 +53,7 @@ class InputDropdown extends Component {
             selectedItem,
             inputValue,
             highlightedIndex,
+
           }) => (
             <div className="dropdown-container">
               <div
@@ -74,7 +74,7 @@ class InputDropdown extends Component {
                       {...getItemProps({item})}
                       key={item}
                       className="dropdown-item"
-                      style={{cursor: 'pointer'}}    
+                      style={{cursor: 'pointer'}}
                     >
                       <span>{item}</span>
                     </li>

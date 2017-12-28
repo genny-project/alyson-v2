@@ -6,8 +6,10 @@ class BaseEntityQuery {
 
     static getEntityChildren(code) {
 
-        const relationships = store.getState().baseEntity.relationships[code];
-        let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => store.getState().baseEntity.data[code]) : [];
+        const relationships = store.getState().baseEntity.relationships;
+        const grp = relationships[code];
+
+        let items = grp ? Object.keys(grp).filter(x => x != "DUMMY").map(code => store.getState().baseEntity.data[code]) : [];
 
         let rootEntity = BaseEntityQuery.getBaseEntity(code);
 
@@ -28,27 +30,27 @@ class BaseEntityQuery {
             item.children = children;
             item.weight = weight;
             return item;
+
         });
 
         if(items.length == 0) {
 
-            if(relationships && relationships[code]) {
+            if(!grp && code.indexOf("GRP") == 0) {
+                relationships[code] = {}
+            }
 
-                console.log("----------")
-                console.log(relationships[code])
-                console.log(code)
+            if(grp) {
 
                 // set dummy value so we wont call this again
-                relationships[code] = {};
                 relationships[code]["DUMMY"] = {
                     hidden: true
                 }
-            }
 
-            GennyBridge.sendTVEvent('TV_EXPAND', {
-              code: 'TV1',
-              value: code
-            }, code);
+                GennyBridge.sendTVEvent('TV_EXPAND', {
+                  code: 'TV1',
+                  value: code
+                }, code);
+            }
         }
 
         return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true);

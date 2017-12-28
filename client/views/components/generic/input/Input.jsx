@@ -123,6 +123,8 @@ class Input extends Component {
                 /> );
             case 'upload-photo':
                 return ( <InputUploadPhoto {...this.props} /> );
+            case 'upload':
+                return <div>upload</div>;
             case 'address':
                 return ( <InputAddress {...this.props} /> );
             case 'Button':
