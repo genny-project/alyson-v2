@@ -128,6 +128,7 @@ class Input extends Component {
             case 'address':
                 return ( <InputAddress {...this.props} /> );
             case 'Button':
+            case 'Event Button':
                 return <InputButton {...this.props} />
             default:
                 return ( <InputText
