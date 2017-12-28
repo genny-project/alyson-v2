@@ -15,21 +15,26 @@ class BaseEntityQuery {
 
         items = items.map(item => {
 
-            // order by weight if found in links
-            let weight = 0;
-            if(rootEntity && rootEntity.originalLinks) {
+            if(item) {
 
-                let currentLinks = rootEntity.originalLinks.filter(x => {
-                    return x.link.targetCode == item.code
-                });
+                // order by weight if found in links
+                let weight = 0;
+                if(rootEntity && rootEntity.originalLinks) {
 
-                weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
+                    let currentLinks = rootEntity.originalLinks.filter(x => {
+                        return x.link.targetCode == item.code
+                    });
+
+                    weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
+                }
+
+                const children = this.getEntityChildren(item.code);
+                item.children = children;
+                item.weight = weight;
+                return item;
             }
 
-            const children = this.getEntityChildren(item.code);
-            item.children = children;
-            item.weight = weight;
-            return item;
+            return false;
 
         });
 
