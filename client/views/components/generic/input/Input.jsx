@@ -12,7 +12,8 @@ import {
     InputTextarea,
     InputCheckbox,
     InputAddress,
-    InputUploadPhoto
+    InputUploadPhoto,
+    InputUpload
 } from 'views/components';
 
 class Input extends Component {
@@ -61,7 +62,6 @@ class Input extends Component {
     else {
 
       this.validationStyle('error');
-      console.log(this.props);
       if(this.props.onValidationFailure) this.props.onValidationFailure(this.props.data, this.props.mandatory);
     }
   }
@@ -123,8 +123,8 @@ class Input extends Component {
                 /> );
             case 'upload-photo':
                 return ( <InputUploadPhoto {...this.props} /> );
-            case 'upload':
-                return <div>upload</div>;
+            case 'Upload':
+                return ( <InputUpload {...this.props} /> );
             case 'address':
                 return ( <InputAddress {...this.props} /> );
             case 'Button':
