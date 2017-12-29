@@ -32,7 +32,7 @@ class List extends Component {
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {
-            return <ListItem {...item} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} />
+            return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} />
           })}
         </Pagination>
       );
