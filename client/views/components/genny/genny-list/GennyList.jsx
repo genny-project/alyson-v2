@@ -1,6 +1,6 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
-import { object, string, number } from 'prop-types';
+import { object, string, number, bool } from 'prop-types';
 import { List, GennyForm } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -9,6 +9,7 @@ class GennyList extends Component {
 
     static defaultProps = {
         root: '',
+        showLinks: false
     }
 
     static propTypes = {
@@ -17,7 +18,8 @@ class GennyList extends Component {
         itemWidth: number,
         itemGap: number,
         listGap: number,
-        rowsVisible: number
+        rowsVisible: number,
+        showLinks: bool
     };
 
     state = {
@@ -35,17 +37,18 @@ class GennyList extends Component {
             let layout_code = 'listLayout';
             let sublayout = this.props.sublayout[layout_code]; 
 
-            item['layout'] = <LayoutLoader layout={sublayout} />;
-            
+            item['layout'] = <LayoutLoader layout={sublayout}  aliases={[{BE: item.code}]}/>;
+        
             return item;
         });
     }  
 
     render() {
 
-        const { root, ...rest } = this.props;
-        let data = BaseEntityQuery.getEntityChildren(root);
-        console.log({...rest});
+        const { root, showLinks, ...rest } = this.props;
+        
+        let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root) : BaseEntityQuery.getEntityChildren(root);
+    
         return (
             <div className="genny-list">
                 <List 

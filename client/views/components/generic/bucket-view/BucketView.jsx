@@ -327,7 +327,7 @@ class BucketView extends Component {
         return (
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 {
-                    this.state.buckets.map(bucket => <div className={`bucket-option-item size-${this.props.screenSize}`} onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</div>)
+                    this.state.buckets.map((bucket, index) => <div className={`bucket-option-item size-${this.props.screenSize}`} key={index} onClick={() => this.mobileMoveItem(item, bucket)}>{bucket.title}</div>)
                 }
             </div>
         );

@@ -64,17 +64,32 @@ class BaseEntityQuery {
     static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-        if(be && be.links && be.links[linkCode]) {
 
+        if(be && be.links && be.links[linkCode]) {
             return be.links[linkCode].reduce((existingBes, link) => {
 
                 if(link.baseEntity) existingBes.push(link.baseEntity);
+                else if(link.targetCode) {
+                    let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
+                    if(targetBe) existingBes.push(targetBe);
+                }
+
                 return existingBes;
 
             }, [])
         }
 
         return []
+    }
+
+    static getBaseEntitiesForLinkCode = (baseEntityCode) => {
+
+        let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        if(be && be.links) {
+            return Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link))[0];
+        }
+
+        return [];
     }
 
     static getAlias = (alias_code) => {
