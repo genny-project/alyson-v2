@@ -8,10 +8,14 @@ class GennyButton extends Component {
 
     static defaultProps = {
         buttonCode: null,
+        value: null,
+        hint: null,
     }
 
     static propTypes = {
         buttonCode: string,
+        value: string,
+        hint: string,
     };
 
     state = {
@@ -22,14 +26,16 @@ class GennyButton extends Component {
         //TODO: to be changed.
         if(this.props.buttonCode) {
             GennyBridge.sendBtnClick("BTN_CLICK", {
-                code: 'LOAD_EDIT',
-                value: this.props.buttonCode,
+                //code: 'LOAD_EDIT',
+                code: this.props.buttonCode,
+                value: this.props.value || null,
+                hint: this.props.hint || null,
             });
         }
     }
 
     render() {
-        const { children, style } = this.props;
+        const { children, hint, style } = this.props;
         const componentStyle = { ...style, };
 
         return (

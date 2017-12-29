@@ -29,7 +29,7 @@ class Button extends Component {
 
   render() {
 
-    const { children, type, className, href, onClick, style, color, buttonStyle, disabled } = this.props;
+    const { children, type, className, href, onClick, style, buttonStyle, disabled } = this.props;
     const componentStyle = { ...style, };
 
     const btn = (

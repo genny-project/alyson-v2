@@ -23,8 +23,8 @@ class GennyTreeView extends PureComponent {
   }
 
   componentDidUpdate() {
-      let identifier = this.props.key || this.props.root;
-      store.storeState(identifier, this.state);
+      //let identifier = this.props.key || this.props.root;
+      //store.storeState(identifier, this.state);
   }
 
   componentDidMount() {

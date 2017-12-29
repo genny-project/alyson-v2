@@ -35,9 +35,8 @@ class GennyList extends Component {
             //layout_code = layout_code ? layout_code.value : null;
 
             let layout_code = 'listLayout';
-            let sublayout = this.props.sublayout[layout_code]; 
-
-            item['layout'] = <LayoutLoader layout={sublayout}  aliases={[{BE: item.code}]}/>;
+            let sublayout = this.props.sublayout[layout_code];
+            item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: this.props.root, ITEMCODE: item.code}}/>;
         
             return item;
         });

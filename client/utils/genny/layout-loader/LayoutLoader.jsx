@@ -58,42 +58,42 @@ class LayoutLoader extends Component {
       let aliases = this.getLayoutValues(layout);
       aliases.forEach(alias => {
 
-         // step1: check if string has format: "ALIAS.ATTRIBUTE"
-         let split = alias.split(".");
-         if(split.length == 2) {
+        let split = alias.split(".");
+        let alias_code = split[0];
+        let attribute_code = split[1];
+        let attribute = {};
+        if (localAliases) {
+            
+           Object.keys(localAliases).forEach((alias_key, index) => {
+               
+               let localAliasCode = localAliases[alias_key];
+               if(alias_key == alias_code) {``
 
-            let alias_code = split[0];
-            let attribute_code = split[1];
-            let attribute = {};
-            if (localAliases) {
-                let isMatch = null;
-                localAliases.map(localAlias => {
-                    let localAliasKey = null;
-                    Object.keys(localAlias).map((localAlias_key, index) => {
-                        localAliasKey = localAlias_key;
-                    })
-                    if (alias_code === localAliasKey) {
-                        isMatch = true;
-                        attribute = BaseEntityQuery.getAliasAttribute(localAlias[localAliasKey], attribute_code) || BaseEntityQuery.getBaseEntityAttribute(localAlias[localAliasKey], attribute_code);
-                    
-                    } else if (!isMatch) {
-                        attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);        
-                    }
-                })
-                isMatch = null;
-            } else {
+                   let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
+                   if(baseEntity) {
+                       
+                       attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
+                       if(!attribute) {
+                           layout = JSON.parse(JSON.stringify(layout).replace(alias, localAliasCode));
+                       }
+                   }
+                }
+            });
+        } 
+        else {
+            if(split.length == 2) {
                 attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
             }
-            if(attribute && attribute.value) {
-                layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
-            }
-         }
+        }
+
+        if(attribute && attribute.value) {
+            layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
+        }
+
       });
 
       return layout;
   }
-
-  getBaseEntityAttribute
 
   render() {
 
