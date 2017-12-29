@@ -26,7 +26,7 @@ class InputDatePicker extends Component {
   }
 
   state = {
-    startDate: this.props.value ? moment(this.props.value, this.props.defaultDateFormat).format(this.props.defaultDateFormat) : '',
+    startDate: this.props.value ? moment(this.props.value, this.props.defaultDateFormat).format(this.props.defaultDateFormat) : moment().format(this.props.defaultDateFormat),
   }
 
   handleChange = (date) => {
