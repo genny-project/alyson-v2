@@ -40,7 +40,7 @@ class AppContent extends Component {
             }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-            layoutContent = <LayoutLoader layout={layout.currentSublayout} />
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BEG: layout.currentSublayout.root}} />
         }
 
         layoutContent = layoutContent || children;
