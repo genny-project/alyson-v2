@@ -64,7 +64,7 @@ class InputDropdown extends Component {
                 aria-haspopup="true"
                 aria-expanded={isOpen}
               >
-                <span className="">{selectedItem ? selectedItem : value }</span>
+                <span className="">{selectedItem ? selectedItem.name : value }</span>
                 <IconSmall name={ isOpen ? 'expand_more' : 'chevron_right'} />
               </div>
               {isOpen ? (
