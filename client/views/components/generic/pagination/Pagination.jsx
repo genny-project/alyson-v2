@@ -52,10 +52,6 @@ class Pagination extends Component {
 
     let nav = hideNav || childrenCount <= perPage ? 'hide-nav' : '';
 
-    console.log('==========================');
-    console.log(nav);
-
-    console.log(childrenCount <= perPage ? 'true' : 'false')
     return (
       <div className={`pagination ${className} ${nav}`}>
         <div className='pagination-content'>
