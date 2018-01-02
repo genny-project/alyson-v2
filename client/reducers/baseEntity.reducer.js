@@ -41,7 +41,8 @@ export default function reducer(state = initialState, action) {
                                 existingLinks[linkCode].push({
                                     ...newLink,
                                     targetCode: newLink.pk.targetCode,
-                                    baseEntity: state.data[newLink.pk.targetCode]
+                                    baseEntity: state.data[newLink.pk.targetCode],
+                                    linkValue: newLink.link.linkValue,
                                 });
 
                                 return existingLinks;
@@ -85,7 +86,8 @@ export default function reducer(state = initialState, action) {
                             existingLinks[linkCode].push({
                                 ...newLink,
                                 targetCode: newLink.pk.targetCode,
-                                baseEntity: state.data[newLink.pk.targetCode]
+                                baseEntity: state.data[newLink.pk.targetCode],
+                                linkValue: newLink.link.linkValue,
                             });
 
                             return existingLinks;
