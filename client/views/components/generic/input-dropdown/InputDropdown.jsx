@@ -29,14 +29,16 @@ class InputDropdown extends Component {
 
   handleClick = (selectedItem) => {
 
+    let code = this.props.items.filter(x => x.name == selectedItem)[0].code;
     const { validationList, validation, identifier,  } = this.props;
-    const value = selectedItem.code;
+    const value = code;
     this.setState({ focused: false });
     if(validation) validation(value, identifier, validationList);
   }
 
   render() {
- 	  const { className, style, items, name, hint, validationStatus, ...rest } = this.props;
+
+    const { className, style, items, name, hint, validationStatus, ...rest } = this.props;
     const { value } = this.state;
     const componentStyle = { ...style, };
 
@@ -64,13 +66,14 @@ class InputDropdown extends Component {
                 aria-haspopup="true"
                 aria-expanded={isOpen}
               >
-                <span className="">{selectedItem ? selectedItem.name : value }</span>
+                <span className="">{selectedItem ? selectedItem : value }</span>
                 <IconSmall name={ isOpen ? 'expand_more' : 'chevron_right'} />
               </div>
               {isOpen ? (
                 <ul style={{display: 'block'}} className="dropdown-menu">
                   {items.map(item => (
                     <li
+                      {...getItemProps({item: item.name})}
                       key={item.name}
                       className="dropdown-item"
                       style={{cursor: 'pointer'}}
