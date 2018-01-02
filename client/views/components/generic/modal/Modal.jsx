@@ -1,7 +1,7 @@
 import './modal.scss';
 import React, { Component } from 'react';
 import { string, object, any, func, bool } from 'prop-types';
-import { IconSmall } from '../';
+import { IconSmall } from 'views/components';
 
 class Modal extends Component {
 

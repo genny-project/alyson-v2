@@ -4,7 +4,7 @@ import config from 'config/config';
 import { Vertx, MessageHandler } from './vertx';
 import events from './vertx-events';
 import store from 'views/store';
-import { ATTRIBUTE } from './../../constants';
+import { ATTRIBUTE } from 'constants';
 import axios from 'axios';
 
 class GennyBridge {
@@ -69,6 +69,14 @@ class GennyBridge {
         }
     }
 
+    sendCacheMissing(beCode) {
+
+        let token = this.getToken();
+        if(token) {
+            Vertx.sendMessage(events.outgoing.CACHE_MISSING(token, beCode));
+        }
+    }
+
     sendAnswer(items) {
 
         let token = this.getToken();
@@ -129,7 +137,7 @@ class GennyBridge {
 
         console.log("[Vertx] Opening Vertx...");
 
-        /* Create a new message handler */
+    /* Create a new message handler */
         this.messageHandler = new MessageHandler();
 
         /* Set vertx to use the message handler */
@@ -159,7 +167,16 @@ class GennyBridge {
             })
             .then(() => {
                 GennyBridge.initVertx(token, keycloakConfig.vertx_url);
-                Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+
+                let social_code = window.getQueryString('code');
+                if(social_code && localStorage.getItem("socialredirect")) {  // we are coming back from a redirect.
+                    // Vertx.sendMessage(events.outgoing.REDIRECT_RETURN(token));
+                    Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+                }
+                else {
+                    Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+                }
+
             }).catch(err => console.err(err));
         }
     }

@@ -3,7 +3,7 @@ import './table.scss';
 import React, { Component } from 'react';
 import { string, array, number, bool, any } from 'prop-types';
 import ReactTable from 'react-table';
-import { IconSmall, } from '../../';
+import { IconSmall, } from 'views/components';
 
 class Table extends Component {
 

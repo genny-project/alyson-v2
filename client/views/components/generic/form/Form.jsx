@@ -26,8 +26,8 @@ class Form extends Component {
   renderGroup(questionGroup) {
 
       if(Array.isArray( questionGroup )) {
-        return questionGroup.map(group => {
 
+        return questionGroup.map(group => {
             if(group.content) return this.renderGroup(group);
             return group;
         });

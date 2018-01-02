@@ -1,7 +1,7 @@
 import './inputButton.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
-import { Button, IconSmall, Label } from '../';
+import { Button, IconSmall, Label } from 'views/components';
 
 class InputButton extends Component {
 
@@ -26,13 +26,13 @@ class InputButton extends Component {
 
   render() {
 
-      const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal } = this.props;
+      const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, disabled } = this.props;
       const componentStyle = { ...style, };
       const { date, focused } = this.state;
 
       return (
         <div className={`input input-button ${className}`}>
-          <Button onClick={this.clickHandler}>
+          <Button disable={disabled} onClick={this.clickHandler}>
             <span className='button-text'>{name}</span>
           </Button>
         </div>

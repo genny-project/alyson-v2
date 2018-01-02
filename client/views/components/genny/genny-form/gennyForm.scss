@@ -1,5 +1,6 @@
-@import '../../../../styles/colors';
+@import 'client/styles/colors';
 
 .genny-form {
     flex-grow: 1;
+    overflow-y: auto;
 }

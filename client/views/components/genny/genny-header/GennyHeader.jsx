@@ -1,6 +1,7 @@
 import './gennyHeader.scss';
+import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
-import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyNotification, ColorPicker, Device } from 'views/components';
+import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyNotification, ColorPicker, Device, Header } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import store from 'views/store';
@@ -67,26 +68,50 @@ class GennyHeader extends Component {
     const { } = this.state;
     const componentStyle = {
       ...style,
+      ...customStyle.gennyHeader
     };
 
     return (
       <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
-        <Grid className='main-header' cols={[1,1]} rows={1}>
+        <Header
+          className='main-header'
+          cols={[
+            { style: { 
+              flexGrow: "1", 
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              paddingLeft: "5px",
+              paddingRight: "5px" 
+            }},
+            { style: { 
+              flexGrow: "1", 
+              justifyContent: "flex-end", 
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              paddingLeft: "5px",
+              paddingRight: "5px" 
+            }}
+          ]} 
+          rows={[ { style: { flexGrow: "1", paddingLeft: "50px", height: "100%" } } ]}
+        >
           <Label text={projectTitle} position={[0,0]} />
           {/*<GennyNotification position={[0,1]} />*/}
-          <Device isDesktop position={[0,1]}>
-            <Dropdown 
-              style={{ marginRight: '30px'}} 
-              header={
-                <span style={{display: 'flex', alignItems: 'center'}}><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
-              >
-                <ul className="dropdown-profile" >
-                  <li onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
-                  <li onClick={this.handleAccount} ><IconSmall name="settings" /><span>Account</span></li>
-                  <li onClick={this.handleLogout} ><IconSmall name="power_settings_new" /><span>Log Out</span></li>
-                </ul>
-            </Dropdown>
-          </Device>
+          
+          <Dropdown 
+            style={ customStyle.dropdown } 
+            position={[0,1]}
+            header={
+              <span style={ customStyle.dropdownSpan }><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
+            >
+              <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
+                <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
+                <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
+                <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
+              </ul>
+          </Dropdown>
+          
           {/*}
           <Device isDesktop position={[0,1]}>
             <ImageView src={userImage} onClick={this.handleClickImage} style={{ width: '40px', minWidth: '40px'}}/>
@@ -94,9 +119,9 @@ class GennyHeader extends Component {
           <Device isDesktop position={[0,1]}>
             <IconSmall className="help" name="help"/>
             </Device>*/}
-        </Grid>
+        </Header>
         { !hideSubheader ? 
-        <Grid className='sub-header' cols={[1]} rows={1}>
+        <Grid className='sub-header' cols={[1]} rows={1} style={ customStyle.subHeader }>
           <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }} position={[0,0]}/>
         </Grid> : null }
       </div>

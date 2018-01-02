@@ -1,10 +1,11 @@
-@import '../../../../styles/colors';
+@import 'client/styles/colors';
 
 .genny-table {
     flex-grow: 1;
     padding-left: 10px;
     padding-right: 10px;
     //height:100%;
+    overflow: scroll;
 
     &.empty {
         > div {

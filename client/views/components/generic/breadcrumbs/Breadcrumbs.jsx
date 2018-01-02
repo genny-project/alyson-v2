@@ -1,6 +1,7 @@
+import './breadcrumbs.scss';
 import React, { Component } from 'react';
 import { string, object } from 'prop-types';
-import { IconSmall } from '../';
+import { IconSmall } from 'views/components';
 
 class Breadcrumbs extends Component {
 
@@ -46,8 +47,8 @@ class Breadcrumbs extends Component {
              const breadcrumbsCss = { height: 40, width: '100%', display: 'flex', alignItems: 'center' };
              const breadcrumbsMain = { display: 'flex', marginTop: 0, marginBottom: 0, padding: 0 };
              const li = { display: 'flex', alignItems: 'center', paddingRight: 10, cursor: 'pointer' };
-             const span = { fontSize: '0.8em', paddingRight: 10};
-             const iEle = { padding: 0, color: 'white' };
+             const span = {paddingLeft: '5px'};
+             const iEle = { padding: '0 0 0 20px', color: 'white' };
              const { className, style, home } = this.props;
              const componentStyle = { ...style };
              const breadcrumbs = this.createBreadcrumbs();

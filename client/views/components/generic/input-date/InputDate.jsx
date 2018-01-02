@@ -1,7 +1,7 @@
 import './inputDate.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import { Label, InputDropdown } from '../';
+import { Label, InputDropdown } from 'views/components';
 
 class InputDate extends Component {
 

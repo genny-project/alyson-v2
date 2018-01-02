@@ -1,6 +1,6 @@
 import './compactList.scss';
 import React, { Component } from 'react';
-import { List, IconSmall } from '../';
+import { List, IconSmall } from 'views/components';
 import { string, array,} from 'prop-types';
 
 class CompactList extends Component {

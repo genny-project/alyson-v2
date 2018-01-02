@@ -1,6 +1,6 @@
 import './list.scss';
 import React, { Component } from 'react';
-import { Pagination } from '../';
+import { Pagination } from 'views/components';
 import { ListItem } from './list-item';
 import { string, bool, number} from 'prop-types';
 
@@ -28,12 +28,11 @@ class List extends Component {
   renderMain = (data, itemsPerPage, hideNav) => {
     const { itemHeight, itemWidth, itemGap } = this.props;
 
-    console.log(data);
     if (data && data.length > 0) { 
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {
-            return <ListItem {...item} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} />
+            return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} />
           })}
         </Pagination>
       );

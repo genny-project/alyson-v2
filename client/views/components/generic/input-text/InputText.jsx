@@ -1,7 +1,7 @@
 import './inputText.scss';
 import React, { Component } from 'react';
 import { string, bool, array, object, int, any, func } from 'prop-types';
-import { Label, SubmitStatusIcon } from '../';
+import { Label, SubmitStatusIcon } from 'views/components';
 
 class InputText extends Component {
 
@@ -70,7 +70,6 @@ class InputText extends Component {
 
   handleBlur = (event) => {
 
-      console.log( "yes" );
     const { validationList, validation, identifier } = this.props;
     const value = event.target.value;
     this.setState({ focused: false });
@@ -79,7 +78,7 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal } = this.props;
+    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType } = this.props;
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
@@ -89,7 +88,7 @@ class InputText extends Component {
             {optional ? <Label text="(optional)" /> : null}
             <SubmitStatusIcon status={validationStatus} />
           </div> : null}
-        <input type="text" disabled={readOnly} placeholder={placeholder} value={value} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} onKeyDown={this.onKeyDown} style={focused ? { borderColor: componentStyle.color } : null} />
+        <input type={inputType || "text"} disabled={readOnly} placeholder={placeholder} value={value} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} onKeyDown={this.onKeyDown} style={focused ? { borderColor: componentStyle.color } : null} />
       </div>;
   }
 }

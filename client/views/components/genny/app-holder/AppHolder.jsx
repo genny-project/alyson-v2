@@ -1,6 +1,6 @@
 import './appHolder.scss';
 import React, { Component } from 'react';
-import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyForm, GennyHeader } from '../../';
+import { Sidebar, Header, Footer, IconSmall, GennyTable, GennyBucketView, GennyList, GennyForm, GennyHeader } from 'views/components';
 import { any } from 'prop-types';
 import { Grid } from '@genny-project/layson';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -27,7 +27,7 @@ class AppHolder extends Component {
 
         let social_code = window.getQueryString('code');
 
-        if(social_code) {
+        if(social_code && localStorage.getItem("socialredirect")) {
 
             let data = JSON.parse(localStorage.getItem("socialredirect"))
             if(data) {

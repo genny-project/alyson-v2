@@ -1,6 +1,6 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList } from '../../';
+import { GennyBucketView, GennyForm, GennyTable, GennyList } from 'views/components';
 import { any } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
@@ -40,7 +40,7 @@ class AppContent extends Component {
             }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-            layoutContent = <LayoutLoader layout={layout.currentSublayout} />
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BEG: layout.currentSublayout.root}} />
         }
 
         layoutContent = layoutContent || children;

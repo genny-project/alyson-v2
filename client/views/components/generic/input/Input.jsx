@@ -1,9 +1,23 @@
 import './input.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
-import { InputDate, InputButton, InputSlider, InputDatePicker, InputDropdown, InputTime, InputText, InputTextarea, InputCheckbox, InputAddress, InputUploadPhoto } from '../';
+import {
+    InputDate,
+    InputButton,
+    InputSlider,
+    InputDatePicker,
+    InputDropdown,
+    InputTime,
+    InputText,
+    InputTextarea,
+    InputCheckbox,
+    InputAddress,
+    InputUploadPhoto,
+    InputUpload
+} from 'views/components';
 
 class Input extends Component {
+
   static defaultProps = {
     className: '',
     type: ''
@@ -13,6 +27,7 @@ class Input extends Component {
     className: string,
     type: string,
     onValidation: func,
+    onValidationFailure: func,
   }
 
   state = {
@@ -21,28 +36,33 @@ class Input extends Component {
 
   validateInput = (value, identifier, validationList) => {
 
-      if(value == this.props.value) return;
+    if(value == this.props.value) return;
 
     if ( validationList.length > 0) {
+
       const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-      console.log(valResult);
       this.validateValue(valResult, value);
-    } else {
-      //window.alert("No regex supplied");
-      //this.sendAnswer(event.target.value);
+
+    }
+    else {
+
       const valResult = new RegExp(/.*/).test( value );
-      console.log(valResult);
       this.validateValue(valResult, value);
+
     }
   }
 
   validateValue = ( valResult, value ) => {
 
     if ( valResult ){
-      this.validationStyle('success');
-        if(this.props.onValidation) this.props.onValidation(value, this.props.data);
-    } else {
+
+        this.validationStyle('success');
+        if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
+    }
+    else {
+
       this.validationStyle('error');
+      if(this.props.onValidationFailure) this.props.onValidationFailure(this.props.data, this.props.mandatory);
     }
   }
 
@@ -55,12 +75,12 @@ class Input extends Component {
   render() {
 
     const { type, identifier } = this.props;
-    const {validationStatus } = this.state;
-    let items = ['Bananas', 'Oranges', 'Apples', 'Other'];
+    const { validationStatus } = this.state;
+
+    let items = this.props.options;
 
     ////TODO: remove this.
     // testing facebook
-
     if(identifier == 'QUE_FB_BASIC') {
         return (
             <InputButton {...this.props} className="facebook" name="" type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
@@ -103,9 +123,15 @@ class Input extends Component {
                 /> );
             case 'upload-photo':
                 return ( <InputUploadPhoto {...this.props} /> );
+            case 'Upload':
+                return ( <InputUpload
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus} /> );
             case 'address':
                 return ( <InputAddress {...this.props} /> );
             case 'Button':
+            case 'Event Button':
                 return <InputButton {...this.props} />
             default:
                 return ( <InputText

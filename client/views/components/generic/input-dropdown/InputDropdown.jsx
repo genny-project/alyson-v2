@@ -2,7 +2,7 @@ import './inputDropdown.scss';
 import React, { Component } from 'react';
 import { string, object, func, any } from 'prop-types';
 import Downshift from 'downshift'
-import { Label, IconSmall } from '../';
+import { Label, IconSmall } from 'views/components';
 
 class InputDropdown extends Component {
 
@@ -24,22 +24,23 @@ class InputDropdown extends Component {
 
   state = {
     ask: this.props.ask ? this.props.ask : false,
-    value: this.props.placeholder,
+    value: this.props.default_value,
   }
 
   handleClick = (selectedItem) => {
+
+    let code = this.props.items.filter(x => x.name == selectedItem)[0].code;
     const { validationList, validation, identifier,  } = this.props;
-    const value = selectedItem;
+    const value = code;
     this.setState({ focused: false });
     if(validation) validation(value, identifier, validationList);
   }
 
   render() {
- 	  const { className, style, items, name, hint, validationStatus, ...rest } = this.props;
+
+    const { className, style, items, name, hint, validationStatus, ...rest } = this.props;
     const { value } = this.state;
     const componentStyle = { ...style, };
-
-    console.log(this.props);
 
     return (
       <div className={`input-dropdown ${className} ${validationStatus}` }>
@@ -54,6 +55,7 @@ class InputDropdown extends Component {
             selectedItem,
             inputValue,
             highlightedIndex,
+
           }) => (
             <div className="dropdown-container">
               <div
@@ -71,12 +73,12 @@ class InputDropdown extends Component {
                 <ul style={{display: 'block'}} className="dropdown-menu">
                   {items.map(item => (
                     <li
-                      {...getItemProps({item})}
-                      key={item}
+                      {...getItemProps({item: item.name})}
+                      key={item.name}
                       className="dropdown-item"
-                      style={{cursor: 'pointer'}}    
+                      style={{cursor: 'pointer'}}
                     >
-                      <span>{item}</span>
+                      <span>{item.name}</span>
                     </li>
                   ))}
                 </ul>

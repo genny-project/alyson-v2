@@ -2,7 +2,7 @@ import './pagination.scss';
 import React, { Component } from 'react';
 import { string, object, number, bool } from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import { IconSmall } from '../';
+import { IconSmall } from 'views/components';
 
 class Pagination extends Component {
 
@@ -50,8 +50,10 @@ class Pagination extends Component {
     let childrenCount = Object.keys(this.props.children).length;
     const childrenPageArray = this.getChildrenForCurrentPage(perPage, offset, children);
 
+    let nav = hideNav || childrenCount <= perPage ? 'hide-nav' : '';
+
     return (
-      <div className={`pagination ${className} ${ hideNav || children <= perPage ? 'hide-nav' : '' } `}>
+      <div className={`pagination ${className} ${nav}`}>
         <div className='pagination-content'>
           {childrenPageArray}
         </div>

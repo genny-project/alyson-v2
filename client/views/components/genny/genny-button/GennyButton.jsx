@@ -1,17 +1,19 @@
 import './gennyButton.scss';
 import React, { Component } from 'react';
-import { string } from 'prop-types';
-import { Button } from '../../';
+import { string, any, object} from 'prop-types';
+import { Button } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
 class GennyButton extends Component {
 
     static defaultProps = {
         buttonCode: null,
+        value: null,
     }
 
     static propTypes = {
         buttonCode: string,
+        value: object,
     };
 
     state = {
@@ -21,15 +23,19 @@ class GennyButton extends Component {
 
         //TODO: to be changed.
         if(this.props.buttonCode) {
+
+            let btnValue = JSON.stringify(this.props.value);
+
             GennyBridge.sendBtnClick("BTN_CLICK", {
-                code: 'LOAD_EDIT',
-                value: this.props.buttonCode,
+                //code: 'LOAD_EDIT',
+                code: this.props.buttonCode,
+                value: btnValue || null,
             });
         }
     }
 
     render() {
-        const { children, style } = this.props;
+        const { children, hint, style } = this.props;
         const componentStyle = { ...style, };
 
         return (

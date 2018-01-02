@@ -1,6 +1,7 @@
-@import '../../../../styles/colors';
+@import 'client/styles/colors';
 
 .genny-bucket-view {
  flex-grow: 1;
  display: flex;
+ overflow-x: auto;
 }

@@ -1,12 +1,11 @@
 import './gennyTreeView.scss';
-import React, { Component } from 'react';
-import { TreeView, Breadcrumbs } from '../../';
+import React, { PureComponent } from 'react';
+import { TreeView, Breadcrumbs } from 'views/components';
 import { object, array, bool } from 'prop-types';
 import store from 'views/store';
-import { GennyBridge } from 'utils/genny';
-import { BaseEntity } from '../../../../utils/genny/';
+import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 
-class GennyTreeView extends Component {
+class GennyTreeView extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -24,42 +23,24 @@ class GennyTreeView extends Component {
   }
 
   componentDidUpdate() {
-      let identifier = this.props.key || this.props.root;
-      store.storeState(identifier, this.state);
+      //let identifier = this.props.key || this.props.root;
+      //store.storeState(identifier, this.state);
   }
 
   componentDidMount() {
 
-      let identifier = this.props.key || this.props.root;
-      if(identifier && this.props.componentState) {
-
-        if(this.props.componentState[identifier]) {
-
-            // ask for all the bes
-            this.getNeededDataFor(this.props.componentState[identifier]);
-
-            // update state
-            this.setState(this.props.componentState[identifier]);
-        }
-      }
-  }
-
-  getNeededDataFor(state) {
-
-      Object.keys(state.tree).forEach(be_key => {
-          this.getNeededItems(state, be_key);
-      });
-  }
-
-  getNeededItems(state, itemCode) {
-
-      // get be
-      this.onExpand({code: itemCode});
-
-      // get children codes if exist
-      if(state[itemCode] instanceof Object) {
-          this.getNeededDataFor(state[itemCode]);
-      }
+      // let identifier = this.props.key || this.props.root;
+      // if(identifier && this.props.componentState) {
+      //
+      //   if(this.props.componentState[identifier]) {
+      //
+      //       // ask for all the bes
+      //       // this.getNeededDataFor(this.props.componentState[identifier]);
+      //
+      //       // update state
+      //       this.setState(this.props.componentState[identifier]);
+      //   }
+      // }
   }
 
   onExpand = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
@@ -151,20 +132,40 @@ class GennyTreeView extends Component {
 
   getEntityChildren(code) {
 
-    const { baseEntity } = this.props;
-    const relationships = baseEntity.relationships[code];
-    let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code]) : [];
+    const relationships = store.getState().baseEntity.relationships;
+    const grp = relationships[code];
+
+    let items = grp ? Object.keys(grp).filter(x => x != "DUMMY").map(code => store.getState().baseEntity.data[code]) : [];
+
+    let rootEntity = BaseEntityQuery.getBaseEntity(code);
 
     items = items.map(item => {
-      /* Get the children for this item */
-      const children = this.getEntityChildren(item.code);
-      item.children = children;
-      item.open = !!this.state.tree[item.code];
-      item.parentCode = code;
-      return item;
+
+        if(item) {
+
+            // order by weight if found in links
+            let weight = 0;
+            if(rootEntity && rootEntity.originalLinks) {
+
+                let currentLinks = rootEntity.originalLinks.filter(x => {
+                    return x.link.targetCode == item.code
+                });
+
+                weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
+            }
+
+            const children = this.getEntityChildren(item.code);
+            item.children = children;
+            item.open = !!this.state.tree[item.code];
+            item.parentCode = code;
+            return item;
+        }
+
+        return false;
+
     });
 
-    return items;
+    return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true);
   }
 
   generatePath = (baseEntityPath) => {

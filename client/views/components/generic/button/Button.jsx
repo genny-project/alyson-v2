@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { string, any, func } from 'prop-types';
 
 class Button extends Component {
-  
+
   static defaultProps = {
     className: '',
     href: '',
     type: '',
-    onClick: () => {},
+    onClick: null,
   }
 
   static propTypes = {
@@ -20,25 +20,21 @@ class Button extends Component {
     onClick: func
   }
 
-  getClickFunction = () => {
-    const { onClick, handleClick } = this.props;
-    
-    if (handleClick) {
-      return handleClick
-    } else {
-      return onClick
-    }
+  onClick = (e) => {
+
+     e.stopPropagation();
+     e.nativeEvent.stopImmediatePropagation();
+     if(this.props.onClick) this.props.onClick(this);
   }
 
   render() {
-    const { children, type, className, href, onClick, style, color, buttonStyle } = this.props;
-    const componentStyle = { ...style, };
 
-    const clickFunc = this.getClickFunction();
+    const { children, type, className, href, onClick, style, buttonStyle, disabled } = this.props;
+    const componentStyle = { ...style, };
 
     const btn = (
       <div className={`button ${className} ${type}`} style={componentStyle}>
-        <button onClick={clickFunc} style={{ ...buttonStyle }}>{children}</button>
+        <button disabled={disabled} onClick={this.onClick} style={{ ...buttonStyle }}>{children}</button>
       </div>
     );
 

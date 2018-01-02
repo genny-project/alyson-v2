@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { array, object } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
+import { ImageView } from 'views/components';
 
 class GennyTableEditableCell extends Component {
 
@@ -14,6 +15,32 @@ class GennyTableEditableCell extends Component {
         cellInfo: object,
     }
 
+    renderDiv() {
+
+        if (!this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]) return null;
+
+        let dataType = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].type;
+        let value = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value;
+
+        switch (dataType) {
+
+            case "Image": {
+                return <ImageView src={value} style={{ "width": "50px", "height": "50px", "borderRadius": "25px" }} />
+            }
+
+            default: {
+
+                return (
+                    <span>
+                        {value}
+                    </span>
+                );
+            }
+        }
+
+        return null
+    }
+
     render() {
 
         return (
@@ -23,7 +50,7 @@ class GennyTableEditableCell extends Component {
                 onBlur={e => {
 
                     let newValue = e.target.innerHTML;
-                    if(newValue) {
+                    if(newValue && newValue != this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value) {
 
                         let attributeCode = this.props.cellInfo.column.attributeCode;
                         if(attributeCode) {
@@ -60,12 +87,11 @@ class GennyTableEditableCell extends Component {
                             }
                         }
                     }
-                    console.log('cell', this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]);
-                }}
-                dangerouslySetInnerHTML={{
-                    __html: this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]
-                }}
-            />
+                }}>
+
+                {this.renderDiv()}
+
+            </div>
         );
     }
 
