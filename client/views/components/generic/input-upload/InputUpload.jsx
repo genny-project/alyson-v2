@@ -41,12 +41,27 @@ class InputUpload extends Component {
   }
 
   handleChange = event => {
-    console.log(event.target.value);
-    this.setState({
-      value: event.target.value
-    })
 
-    //todo loris???
+    // we consider for now we can only upload 1 file at a time. this could change.
+    if(event.target.files && event.target.files.length > 0) {
+
+        let uploadedfile = event.target.files[0];
+        var reader  = new FileReader();
+
+        reader.readAsDataURL(uploadedfile);
+        reader.onloadend = (event) => {
+
+            // base64
+            let base64String = event.target.result;
+
+            const { validationList, validation, identifier } = this.props;
+            if(validation) validation(base64String, identifier, validationList);
+
+            this.setState({
+              value: uploadedfile.name
+            })
+        }
+    }
   }
 
   render() {

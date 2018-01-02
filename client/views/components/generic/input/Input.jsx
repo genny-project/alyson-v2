@@ -124,7 +124,10 @@ class Input extends Component {
             case 'upload-photo':
                 return ( <InputUploadPhoto {...this.props} /> );
             case 'Upload':
-                return ( <InputUpload {...this.props} /> );
+                return ( <InputUpload
+                    {...this.props}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus} /> );
             case 'address':
                 return ( <InputAddress {...this.props} /> );
             case 'Button':
