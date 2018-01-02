@@ -120,6 +120,7 @@ class GennyTable extends Component {
         const { showBaseEntity } = this.props;
 
         let data = []
+
         baseEntities.forEach(baseEntity => {
 
             if(baseEntity.attributes) {
@@ -145,7 +146,6 @@ class GennyTable extends Component {
                     }
                     else {
 
-                        let attribute = baseEntity.attributes[attribute_key];
                         newData[attribute.attribute.name] = {
                             value: attribute.value,
                             type: (attribute.attribute && attribute.attribute.dataType) ? attribute.attribute.dataType.className : null,
