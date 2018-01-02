@@ -13,7 +13,7 @@ class InputDatePicker extends Component {
     className: '',
     identifier: null,
     validationStatus: null,
-    defaultDateFormat: 'DD MMMM YYYY'
+    defaultDateFormat: 'DD/MM/YYYY'
   }
 
   static propTypes = {
@@ -31,15 +31,15 @@ class InputDatePicker extends Component {
 
   handleChange = (date) => {
 
-    const { validationList, validation, identifier } = this.props;
-    const value = moment(date).format(this.props.defaultDateFormat);
+    const { validationList, validation, identifier, defaultDateFormat } = this.props;
+    const value = moment(date).format(defaultDateFormat);
     this.setState({ startDate: date });
     if(validation) validation(value, identifier, validationList);
   }
 
   render() {
 
-    const { className, children, style, validationStatus, name } = this.props;
+    const { className, children, style, validationStatus, name, defaultDateFormat } = this.props;
     const { startDate } = this.state;
     const componentStyle = { ...style, };
 
@@ -49,9 +49,9 @@ class InputDatePicker extends Component {
         <DatePicker
           className={validationStatus}
           calendarClassName=""
-          dateFormat={this.props.defaultDateFormat}
+          dateFormat={defaultDateFormat}
           dayClassName={date => date.date() < Math.random() * 31 ? 'random' : undefined}
-          selected={moment(startDate)}
+          selected={startDate ? moment(startDate, defaultDateFormat): null}
           onChange={this.handleChange}
           peekNextMonth
           showMonthDropdown
