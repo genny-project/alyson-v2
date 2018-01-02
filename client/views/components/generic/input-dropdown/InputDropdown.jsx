@@ -71,8 +71,7 @@ class InputDropdown extends Component {
                 <ul style={{display: 'block'}} className="dropdown-menu">
                   {items.map(item => (
                     <li
-                      {...getItemProps({item})}
-                      key={item}
+                      key={item.name}
                       className="dropdown-item"
                       style={{cursor: 'pointer'}}
                     >
