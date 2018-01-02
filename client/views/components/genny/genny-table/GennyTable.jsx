@@ -61,7 +61,6 @@ class GennyTable extends Component {
                 Object.keys(attributes).forEach(attribute_key => {
 
                     let attribute = attributes[attribute_key];
-                    console.log( attribute )
 
                     let headers = cols.map(column => {
                         return column.attributeCode;

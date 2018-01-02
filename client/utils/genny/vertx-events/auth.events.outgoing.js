@@ -8,6 +8,16 @@ export const AUTH_INIT = token => ({
   },
 });
 
+export const REDIRECT_RETURN = token => ({
+
+  event_type: 'REDIRECT_RETURN',
+  msg_type: 'EVT_MSG',
+  token,
+  data: {
+    code: 'REDIRECT_RETURN',
+  },
+});
+
 export const SEND_CODE = (event, data, token) => ({
 
     event_type: event,

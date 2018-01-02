@@ -66,11 +66,10 @@ class BaseEntityQuery {
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
 
         if(be && be.links && be.links[linkCode]) {
-           
+
             return be.links[linkCode].reduce((existingBes, link) => {
 
-                if(link.baseEntity) existingBes.push(link.baseEntity);
-                else if(link.targetCode) {
+                if(link.targetCode) {
                     let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
                     if(targetBe) existingBes.push(targetBe);
                 }
@@ -103,7 +102,7 @@ class BaseEntityQuery {
                        }
                     }
                 }
-            }   
+            }
         }
 
         return null;

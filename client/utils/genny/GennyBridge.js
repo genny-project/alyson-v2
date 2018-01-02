@@ -137,7 +137,7 @@ class GennyBridge {
 
         console.log("[Vertx] Opening Vertx...");
 
-        /* Create a new message handler */
+    /* Create a new message handler */
         this.messageHandler = new MessageHandler();
 
         /* Set vertx to use the message handler */
@@ -167,7 +167,16 @@ class GennyBridge {
             })
             .then(() => {
                 GennyBridge.initVertx(token, keycloakConfig.vertx_url);
-                Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+
+                let social_code = window.getQueryString('code');
+                if(social_code && localStorage.getItem("socialredirect")) {  // we are coming back from a redirect.
+                    // Vertx.sendMessage(events.outgoing.REDIRECT_RETURN(token));
+                    Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+                }
+                else {
+                    Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+                }
+
             }).catch(err => console.err(err));
         }
     }
