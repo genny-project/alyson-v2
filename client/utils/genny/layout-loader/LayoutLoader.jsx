@@ -14,7 +14,7 @@ class LayoutLoader extends Component {
   static propTypes = {
     layout: object,
     baseEntity: object,
-    aliases: array
+    aliases: object
   };
 
   getLayoutValues(layout) {

@@ -9,7 +9,8 @@ class GennyList extends Component {
 
     static defaultProps = {
         root: '',
-        showLinks: false
+        showLinks: false,
+        hideHeader: false,
     }
 
     static propTypes = {
@@ -19,7 +20,8 @@ class GennyList extends Component {
         itemGap: number,
         listGap: number,
         rowsVisible: number,
-        showLinks: bool
+        showLinks: bool,
+        hideHeader: bool,
     };
 
     state = {
@@ -29,29 +31,29 @@ class GennyList extends Component {
 
         return data.map(item => {
 
-            //TODO : get layout code from BE
+            let linkToParent = BaseEntityQuery.getLinkToParent(this.props.root, item);
+            if(linkToParent) {
 
-            //let layout_code = BaseEntityQuery.getBaseEntityAttribute(be, "PRI_LAYOUT");
-            //layout_code = layout_code ? layout_code.value : null;
-
-            let layout_code = 'listLayout';
-            let sublayout = this.props.sublayout[layout_code];
-            item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: this.props.root, ITEMCODE: item.code}}/>;
-        
-            return item;
+                let layout_code = linkToParent.linkValue || "listLayout";
+                let sublayout = this.props.sublayout[layout_code];
+                item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: this.props.root, ITEMCODE: item.code}}/>;
+                return item;
+            }
+            
+            return false;
         });
     }  
 
     render() {
 
-        const { root, showLinks, ...rest } = this.props;
+        const { root, showLinks, hideHeader, ...rest } = this.props;
         
         let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root) : BaseEntityQuery.getEntityChildren(root);
     
         return (
             <div className="genny-list">
                 <List 
-                    header={ <GennyForm isHorizontal /> }
+                    header={ hideHeader ? null : <GennyForm root='' isHorizontal /> }
                     data={ this.generateListItems(data) }
                     {...rest}
                 />

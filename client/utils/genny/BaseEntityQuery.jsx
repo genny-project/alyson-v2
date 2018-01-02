@@ -66,6 +66,7 @@ class BaseEntityQuery {
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
 
         if(be && be.links && be.links[linkCode]) {
+           
             return be.links[linkCode].reduce((existingBes, link) => {
 
                 if(link.baseEntity) existingBes.push(link.baseEntity);
@@ -80,6 +81,32 @@ class BaseEntityQuery {
         }
 
         return []
+    }
+
+    static getLinkToParent(parentCode, child) {
+
+        if(parentCode && child) {
+
+            const parent = BaseEntityQuery.getBaseEntity(parentCode);
+            if(parent) {
+
+                let keys = Object.keys(parent.links);
+                for(let i = 0; i < keys.length; i++) {
+
+                    const linkKey = keys[i];
+                    const links = parent.links[linkKey];
+                    for(let j = 0; j < links.length; j++) {
+
+                        const link = links[j];
+                        if(link.targetCode == child.code) {
+                            return link;
+                       }
+                    }
+                }
+            }   
+        }
+
+        return null;
     }
 
     static getBaseEntitiesForLinkCode = (baseEntityCode) => {

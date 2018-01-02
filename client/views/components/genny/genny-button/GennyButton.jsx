@@ -1,6 +1,6 @@
 import './gennyButton.scss';
 import React, { Component } from 'react';
-import { string, any} from 'prop-types';
+import { string, any, object} from 'prop-types';
 import { Button } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
@@ -13,7 +13,7 @@ class GennyButton extends Component {
 
     static propTypes = {
         buttonCode: string,
-        value: string,
+        value: object,
     };
 
     state = {
