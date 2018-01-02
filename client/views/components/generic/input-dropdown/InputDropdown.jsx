@@ -30,7 +30,7 @@ class InputDropdown extends Component {
   handleClick = (selectedItem) => {
 
     const { validationList, validation, identifier,  } = this.props;
-    const value = selectedItem;
+    const value = selectedItem.code;
     this.setState({ focused: false });
     if(validation) validation(value, identifier, validationList);
   }
@@ -76,7 +76,7 @@ class InputDropdown extends Component {
                       className="dropdown-item"
                       style={{cursor: 'pointer'}}
                     >
-                      <span>{item}</span>
+                      <span>{item.name}</span>
                     </li>
                   ))}
                 </ul>

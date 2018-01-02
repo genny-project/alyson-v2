@@ -89,7 +89,10 @@ class GennyForm extends PureComponent {
                                     valList = ask.question.attribute.dataType.validationList;
                                     if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
                                         options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
-                                            existing.push(newEntity.name)
+                                            existing.push({
+                                                name: newEntity.name,
+                                                code: newEntity.code,
+                                            })
                                             return existing;
                                         }, []);
                                     }

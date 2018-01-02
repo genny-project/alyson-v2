@@ -61,6 +61,8 @@ class GennyTable extends Component {
                 Object.keys(attributes).forEach(attribute_key => {
 
                     let attribute = attributes[attribute_key];
+                    console.log( attribute )
+
                     let headers = cols.map(column => {
                         return column.attributeCode;
                     });
@@ -189,7 +191,6 @@ class GennyTable extends Component {
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children)
-
 
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
