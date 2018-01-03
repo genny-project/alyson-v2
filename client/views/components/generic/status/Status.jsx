@@ -11,7 +11,7 @@ class Status extends Component {
 
     static propTypes = {
         className: string,
-        style: string,
+        style: object,
         color: string
     }
 
@@ -40,9 +40,9 @@ class Status extends Component {
         const { statusColor, statusClass } = this.state;
         let renderState = this.getRenderState();
         const componentStyle = { ...style, ...renderState.statusColor };
-
+        
         return (
-            <div className={`status ${className} ${renderState.statusClass}`} style={{componentStyle}}/>
+            <div className={`status ${className} ${renderState.statusClass}`} style={componentStyle}/>
         );
     }
 }

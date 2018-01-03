@@ -10,6 +10,8 @@ class List extends Component {
     className: '',
     itemsPerPage: 4,
     hideNav: false,
+    hideCount: false,
+    countText: 'Items Found',
   }
 
   static propTypes = {
@@ -20,6 +22,9 @@ class List extends Component {
     itemHeight: number,
     itemWidth: number,
     itemGap: number,
+
+    hideCount: bool,
+    countText: string,
   }
 
   state = {
@@ -41,13 +46,26 @@ class List extends Component {
     } 
   }
 
+  renderCount = (data, countText, countStyle) => {
+    if (data && data.length > 0) { 
+      return (
+        <div className='list-count' style={{ ...countStyle }}>
+          <span>{data.length} {countText}</span>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
   
-    const { className, style, data, itemsPerPage, header, hideNav } = this.props;
+    const { className, style, data, itemsPerPage, header, hideNav, hideCount, countText, countStyle } = this.props;
     const { } = this.state;
     const componentStyle = { ...style, };
     
     const renderMain = this.renderMain(data, itemsPerPage, hideNav);
+    const renderCount = this.renderCount(data, countText, countStyle);
 
     return (
       <div className={`list ${className}`} style={componentStyle}>
@@ -56,6 +74,9 @@ class List extends Component {
             {header}
           </div>
         : null }
+        { hideCount ? null :
+          renderCount
+        }
         <div className="list-main">
           {renderMain}
         </div>

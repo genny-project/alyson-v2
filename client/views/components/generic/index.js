@@ -4,6 +4,7 @@ export { default as Button } from './button';
 export { default as ColorPicker } from './color-picker';
 export { default as CircleButton } from './circle-button';
 export { default as CompactList } from './compact-list';
+export { default as DateLabel } from './date-label';
 export { default as Device } from './device';
 export { default as Dropdown } from './dropdown';
 export { default as Footer } from './footer';
