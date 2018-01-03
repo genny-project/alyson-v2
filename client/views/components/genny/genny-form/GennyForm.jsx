@@ -51,7 +51,8 @@ class GennyForm extends PureComponent {
         if(questionGroupCode) {
 
             let btnEventData = {
-                code: questionGroupCode
+                code: questionGroupCode,
+                value: targetCode,
             }
 
             GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
@@ -66,7 +67,7 @@ class GennyForm extends PureComponent {
 
             return {
                 title: askGroup.name,
-                onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code) } : null,
+                onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code. askGroup.targetCode) } : null,
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
