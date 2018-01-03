@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { array, object } from 'prop-types';
+import { array, object, bool } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
 import { ImageView } from 'views/components';
 
@@ -15,6 +15,10 @@ class GennyTableEditableCell extends Component {
         cellInfo: object,
     }
 
+    state = {
+        canEdit: false,
+    }
+
     renderDiv() {
 
         if (!this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]) return null;
@@ -28,8 +32,14 @@ class GennyTableEditableCell extends Component {
                 return <ImageView src={value} style={{ "width": "50px", "height": "50px", "borderRadius": "25px" }} />
             }
 
+            case "link": {
+
+                return <a href={value}>Click Here</a>;
+            }
+
             default: {
 
+                this.state.canEdit = true;
                 return (
                     <span>
                         {value}
@@ -45,7 +55,7 @@ class GennyTableEditableCell extends Component {
 
         return (
             <div
-                contentEditable
+                contentEditable={this.state.canEdit}
                 suppressContentEditableWarning
                 onBlur={e => {
 

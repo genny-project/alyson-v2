@@ -89,6 +89,8 @@ class Input extends Component {
 
     else {
 
+        console.log ( this.props )
+
         switch(type) {
             case 'TextArea':
                 return ( <InputTextarea

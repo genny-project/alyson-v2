@@ -70,6 +70,7 @@ class GennyForm extends PureComponent {
                     let be_code = ask.targetCode;
                     let attributeCode = ask.attributeCode;
                     let options = [];
+                    let inputMasks = [];
 
                     if(be_code && attributeCode) {
                         let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
@@ -82,9 +83,15 @@ class GennyForm extends PureComponent {
 
                         if(ask.question.attribute) {
                             if(ask.question.attribute.dataType) {
+
+                                if(ask.question.attribute.dataType.inputmask) {
+                                    inputMasks.push(ask.question.attribute.dataType.inputmask);
+                                }
+
                                 if(ask.question.attribute.dataType.className) {
                                     inputType = ask.question.attribute.dataType.className;
                                 }
+
                                 if(ask.question.attribute.dataType.validationList) {
                                     valList = ask.question.attribute.dataType.validationList;
                                     if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
@@ -127,6 +134,7 @@ class GennyForm extends PureComponent {
                         onValidation: this.onInputValidation,
                         onClick: this.onClick,
                         options: options,
+                        inputMasks: inputMasks.length > 0 ? inputMasks : false,
                     };
                 })
             };

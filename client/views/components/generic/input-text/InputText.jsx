@@ -2,6 +2,7 @@ import './inputText.scss';
 import React, { Component } from 'react';
 import { string, bool, array, object, int, any, func } from 'prop-types';
 import { Label, SubmitStatusIcon } from 'views/components';
+import MaskedTextInput from 'react-text-mask';
 
 class InputText extends Component {
 
@@ -78,17 +79,36 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType } = this.props;
+    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMasks } = this.props;
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
+    if(inputMasks) {
+        console.log( "================" )
+        console.log(inputMasks)
+    }
+
     return <div className={`input input-text ${className} ${validationStatus || ''}`}>
-        {!isHorizontal ? <div className="input-header">
+        {
+            !isHorizontal ? <div className="input-header">
             {name ? <Label text={name} /> : null}
             {optional ? <Label text="(optional)" /> : null}
             <SubmitStatusIcon status={validationStatus} />
-          </div> : null}
-        <input type={inputType || "text"} disabled={readOnly} placeholder={placeholder} value={value} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} onKeyDown={this.onKeyDown} style={focused ? { borderColor: componentStyle.color } : null} />
+          </div> : null
+        }
+        <MaskedTextInput
+            mask={false}
+            guide={true}
+            disabled={readOnly}
+            type={inputType || "text"}
+            value={value}
+            placeholder={placeholder}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onKeyDown={this.onKeyDown}
+            style={focused ? { borderColor: componentStyle.color } : null}
+        />
       </div>;
   }
 }
