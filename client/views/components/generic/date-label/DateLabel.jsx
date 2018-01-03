@@ -7,25 +7,20 @@ class DateLabel extends Component {
 
   static defaultProps = {
     text: '',
-    defaultDateFormat: 'DD/MM/YYYY'
+    format: 'DD/MM/YYYY'
   }
 
   static propTypes = {
     className: string,
     date: string,
-    defaultDateFormat: string,
     format: string,
   }
 
   renderDate = (date) => {
-    const { defaultDateFormat, format } = this.props;
+    const { format } = this.props;
     
     if (date) {
-      if (format) {
-        const formattedDate = moment(date).format(format);
-      } else {
-        const formattedDate = moment(date).format(defaultDateFormat);
-      }
+      const formattedDate = moment(date).format(format);
       return formattedDate;
     } else {
       return null;
@@ -33,7 +28,7 @@ class DateLabel extends Component {
   }
 
   render() {
- 	  const { className, text, defaultDateFormat, style } = this.props;
+ 	  const { className, text, style } = this.props;
     const componentStyle = { ...style, };
     return (
       <div className={`date-label ${className || ''}`} style={componentStyle}>
