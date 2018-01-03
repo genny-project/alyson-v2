@@ -38,11 +38,11 @@ class GennyForm extends PureComponent {
         }
     }
 
-    onClick = (clickedButton) => {
+    onClick = (clickedButton, data) => {
 
         GennyBridge.sendAnswer([{
             ...data,
-            value: data.code
+            value: data.attributeCode
         }]);
     }
 

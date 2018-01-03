@@ -20,7 +20,7 @@ class InputButton extends Component {
   }
 
   clickHandler = () => {
-    this.props.onClick(this);
+    this.props.onClick(this, this.props.data);
   }
 
   render() {
