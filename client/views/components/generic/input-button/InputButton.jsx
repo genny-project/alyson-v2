@@ -13,7 +13,6 @@ class InputButton extends Component {
   static propTypes = {
     className: string,
     onClick: func,
-    btn_code: string
   }
 
   state = {

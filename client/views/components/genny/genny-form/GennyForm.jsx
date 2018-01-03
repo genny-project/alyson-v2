@@ -23,7 +23,7 @@ class GennyForm extends PureComponent {
         }]);
     }
 
-    onClick = (clickedButton) => {
+    onClickEvent = (clickedButton) => {
 
         if(clickedButton && clickedButton.props) {
 
@@ -36,6 +36,14 @@ class GennyForm extends PureComponent {
 
             GennyBridge.sendBtnClick("BTN_CLICK", btnEventData);
         }
+    }
+
+    onClick = (clickedButton) => {
+
+        GennyBridge.sendAnswer([{
+            ...data,
+            value: data.code
+        }]);
     }
 
     onSubmit = (questionGroupCode) => {
@@ -133,6 +141,7 @@ class GennyForm extends PureComponent {
                         mask: ask.question.mask,
                         onValidation: this.onInputValidation,
                         onClick: this.onClick,
+                        onClickEvent: this.onClickEvent,
                         options: options,
                         inputMasks: inputMasks.length > 0 ? inputMasks : false,
                     };

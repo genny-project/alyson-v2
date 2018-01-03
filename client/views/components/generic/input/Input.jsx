@@ -79,69 +79,62 @@ class Input extends Component {
 
     let items = this.props.options;
 
-    ////TODO: remove this.
-    // testing facebook
-    if(identifier == 'QUE_FB_BASIC') {
-        return (
-            <InputButton {...this.props} className="facebook" name="" type="facebook" buttonCode={'SOC_FB_BASIC_GENNY'} />
-        );
+    switch(type) {
+
+        // socials
+        case 'Facebook':
+                return <InputButton {...this.props} onClick={this.props.onClickEvent} className="facebook" name="" type="facebook" />
+        case 'TextArea':
+            return ( <InputTextarea
+                {...this.props}
+                validation={this.validateInput}
+                validationStatus={validationStatus}
+            /> );
+        case 'Boolean':
+            return ( <InputCheckbox
+                {...this.props}
+                validation={this.validateInput}
+                validationStatus={validationStatus}
+            /> );
+        case 'LocalDate':
+            return ( <InputDatePicker
+                {...this.props}
+                validation={this.validateInput}
+                validationStatus={validationStatus}
+            /> );
+        case 'dropdown':
+            return ( <InputDropdown
+                items={items}
+                {...this.props}
+                validation={this.validateInput}
+                validationStatus={validationStatus}
+            /> );
+        case 'slider':
+            return ( <InputSlider
+                {...this.props}
+                validation={this.validateInput}
+                validationStatus={validationStatus}
+            /> );
+        case 'upload-photo':
+            return ( <InputUploadPhoto {...this.props} /> );
+        case 'Upload':
+            return ( <InputUpload
+                {...this.props}
+                validation={this.validateInput}
+                validationStatus={validationStatus} /> );
+        case 'address':
+            return ( <InputAddress {...this.props} /> );
+        case 'Event Button':
+            return <InputButton {...this.props} onClick={this.props.onClickEvent} />
+        case 'Button':
+            return <InputButton {...this.props} />
+        default:
+            return ( <InputText
+                {...this.props}
+                validation={this.validateInput}
+                validationStatus={validationStatus}
+            /> );
     }
-
-    else {
-
-        switch(type) {
-            case 'TextArea':
-                return ( <InputTextarea
-                    {...this.props}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                /> );
-            case 'Boolean':
-                return ( <InputCheckbox
-                    {...this.props}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                /> );
-            case 'LocalDate':
-                return ( <InputDatePicker
-                    {...this.props}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                /> );
-            case 'dropdown':
-                return ( <InputDropdown
-                    items={items}
-                    {...this.props}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                /> );
-            case 'slider':
-                return ( <InputSlider
-                    {...this.props}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                /> );
-            case 'upload-photo':
-                return ( <InputUploadPhoto {...this.props} /> );
-            case 'Upload':
-                return ( <InputUpload
-                    {...this.props}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus} /> );
-            case 'address':
-                return ( <InputAddress {...this.props} /> );
-            case 'Button':
-            case 'Event Button':
-                return <InputButton {...this.props} />
-            default:
-                return ( <InputText
-                    {...this.props}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                /> );
-        }
-    }
-
   }
 }
 

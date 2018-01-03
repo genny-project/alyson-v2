@@ -97,7 +97,7 @@ class InputText extends Component {
           </div> : null
         }
         <MaskedTextInput
-            mask={[/\d/, /\d/, /\d/, /\d/]}
+            mask={false} //[/\d/, /\d/, /\d/, /\d/]
             guide={true}
             disabled={readOnly}
             type={inputType || "text"}
