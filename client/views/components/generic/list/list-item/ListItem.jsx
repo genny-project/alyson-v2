@@ -25,9 +25,9 @@ class ListItem extends Component {
 
     const componentStyle = {
       ...style,
-      'height': `${itemHeight}px`,
-      'width': `${itemWidth}px`,
-      'margin': `${itemGap}px`,
+      height: `${itemHeight}px`,
+      width: `${itemWidth}px`,
+      margin: `${itemGap}px`,
     };
  
     return (

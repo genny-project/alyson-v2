@@ -23,6 +23,7 @@ import {
   Dropdown,
   Status,
   GennyDropdown,
+  DateLabel,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -51,4 +52,5 @@ export default new ComponentCollection({
   Dropdown,
   Status,
   GennyDropdown,
+  DateLabel,
 });
