@@ -84,8 +84,8 @@ class InputText extends Component {
     const { date, focused, value } = this.state;
 
     if(inputMasks) {
-        console.log( "================" )
-        console.log(inputMasks)
+        // console.log( "================" )
+        // console.log(inputMasks)
     }
 
     return <div className={`input input-text ${className} ${validationStatus || ''}`}>
@@ -97,7 +97,7 @@ class InputText extends Component {
           </div> : null
         }
         <MaskedTextInput
-            mask={false}
+            mask={[/\d/, /\d/, /\d/, /\d/]}
             guide={true}
             disabled={readOnly}
             type={inputType || "text"}
