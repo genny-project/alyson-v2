@@ -78,7 +78,7 @@ class GennyForm extends PureComponent {
                     let be_code = ask.targetCode;
                     let attributeCode = ask.attributeCode;
                     let options = [];
-                    let inputMasks = [];
+                    let inputMask = null;
 
                     if(be_code && attributeCode) {
                         let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
@@ -93,7 +93,7 @@ class GennyForm extends PureComponent {
                             if(ask.question.attribute.dataType) {
 
                                 if(ask.question.attribute.dataType.inputmask) {
-                                    inputMasks.push(ask.question.attribute.dataType.inputmask);
+                                    inputMask = ask.question.attribute.dataType.inputmask.split(',').map(x => new RegExp(x));
                                 }
 
                                 if(ask.question.attribute.dataType.className) {
@@ -143,7 +143,7 @@ class GennyForm extends PureComponent {
                         onClick: this.onClick,
                         onClickEvent: this.onClickEvent,
                         options: options,
-                        inputMasks: inputMasks.length > 0 ? inputMasks : false,
+                        inputMask: inputMask ? inputMask : false,
                     };
                 })
             };

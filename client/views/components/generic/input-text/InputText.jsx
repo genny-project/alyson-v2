@@ -79,13 +79,13 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMasks } = this.props;
+    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask } = this.props;
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
-    if(inputMasks) {
-        // console.log( "================" )
-        // console.log(inputMasks)
+    if(inputMask) {
+        console.log( "================" )
+        console.log(inputMask)
     }
 
     return <div className={`input input-text ${className} ${validationStatus || ''}`}>
@@ -97,7 +97,7 @@ class InputText extends Component {
           </div> : null
         }
         <MaskedTextInput
-            mask={false} //[/\d/, /\d/, /\d/, /\d/]
+            mask={inputMask}
             guide={true}
             disabled={readOnly}
             type={inputType || "text"}
