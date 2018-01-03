@@ -127,6 +127,7 @@ class Input extends Component {
         case 'Event Button':
             return <InputButton {...this.props} onClick={this.props.onClickEvent} />
         case 'Answer Button':
+        case 'Button':
             return <InputButton {...this.props} />
         default:
             return ( <InputText

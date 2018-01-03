@@ -62,7 +62,7 @@ class GennyForm extends PureComponent {
 
         if(askGroup && askGroup.childAsks) {
 
-            const showSubmitButton = askGroup.attributeCode && askGroup.attributeCode.includes('BUTTON');
+            const showSubmitButton = askGroup.attributeCode && askGroup.attributeCode.includes('BUTTON_SUBMIT');
 
             return {
                 title: askGroup.name,
