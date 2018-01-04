@@ -38,9 +38,17 @@ class InputDropdown extends Component {
 
   render() {
 
-    const { className, style, items, name, hint, validationStatus, ...rest } = this.props;
+    const { className, style, name, hint, validationStatus, ...rest } = this.props;
+    let { items } = this.props;
     const { value } = this.state;
     const componentStyle = { ...style, };
+
+
+    // we add an empty item that will allow the user to select nothing. perhaps this should be a prop?
+    items.unshift({
+        name: "-",
+        code: null,
+    });
 
     return (
       <div className={`input-dropdown ${className} ${validationStatus}` }>

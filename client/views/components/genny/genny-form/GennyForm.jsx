@@ -23,7 +23,7 @@ class GennyForm extends PureComponent {
         }]);
     }
 
-    onClick = (clickedButton) => {
+    onClickEvent = (clickedButton) => {
 
         if(clickedButton && clickedButton.props) {
 
@@ -38,12 +38,21 @@ class GennyForm extends PureComponent {
         }
     }
 
-    onSubmit = (questionGroupCode) => {
+    onClick = (clickedButton, data) => {
+
+        GennyBridge.sendAnswer([{
+            ...data,
+            value: data.attributeCode
+        }]);
+    }
+
+    onSubmit = (questionGroupCode, targetCode) => {
 
         if(questionGroupCode) {
 
             let btnEventData = {
-                code: questionGroupCode
+                code: questionGroupCode,
+                value: targetCode,
             }
 
             GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
@@ -54,11 +63,11 @@ class GennyForm extends PureComponent {
 
         if(askGroup && askGroup.childAsks) {
 
-            const showSubmitButton = askGroup.attributeCode && askGroup.attributeCode.includes('BUTTON');
+            const showSubmitButton = askGroup.attributeCode && askGroup.attributeCode.includes('BUTTON_SUBMIT');
 
             return {
                 title: askGroup.name,
-                onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code) } : null,
+                onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code, askGroup.targetCode) } : null,
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
@@ -70,6 +79,7 @@ class GennyForm extends PureComponent {
                     let be_code = ask.targetCode;
                     let attributeCode = ask.attributeCode;
                     let options = [];
+                    let inputMask = null;
 
                     if(be_code && attributeCode) {
                         let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
@@ -82,9 +92,15 @@ class GennyForm extends PureComponent {
 
                         if(ask.question.attribute) {
                             if(ask.question.attribute.dataType) {
+
+                                if(ask.question.attribute.dataType.inputmask) {
+                                    inputMask = ask.question.attribute.dataType.inputmask.split(',').map(x => new RegExp(x));
+                                }
+
                                 if(ask.question.attribute.dataType.className) {
                                     inputType = ask.question.attribute.dataType.className;
                                 }
+
                                 if(ask.question.attribute.dataType.validationList) {
                                     valList = ask.question.attribute.dataType.validationList;
                                     if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
@@ -126,7 +142,9 @@ class GennyForm extends PureComponent {
                         mask: ask.question.mask,
                         onValidation: this.onInputValidation,
                         onClick: this.onClick,
+                        onClickEvent: this.onClickEvent,
                         options: options,
+                        inputMask: inputMask ? inputMask : false,
                     };
                 })
             };

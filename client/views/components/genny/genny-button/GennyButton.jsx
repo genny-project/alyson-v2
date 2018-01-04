@@ -35,12 +35,12 @@ class GennyButton extends Component {
     }
 
     render() {
-        const { children, hint, style } = this.props;
+        const { children, hint, style, ...rest } = this.props;
         const componentStyle = { ...style, };
 
         return (
             <div className="genny-button" style={componentStyle}>
-                <Button {...this.props} onClick={this.handleClick}>
+                <Button {...rest} onClick={this.handleClick} style={componentStyle}>
                     {children}
                 </Button>
             </div>

@@ -9,11 +9,22 @@
 	
 	padding-top: 10px;
 	
-	.list-main, .list-nav, .list-header {
+	.list-main, .list-nav, .list-header, .list-count {
 		width: 100%;
         max-width: 800px;
 
 	} 
+
+	.list-main {
+
+		background-color: #ddd;
+		padding: 5px;
+		border-radius: 5px;
+	}
+
+	.list-count {
+		margin-bottom: 5px;
+	}
 
 	.list-nav {			
 		display: flex;
@@ -31,9 +42,5 @@
 	.list-empty {
 		display: flex;
 		justify-content: center;
-	}
-
-	.list-item:not(:last-child){
-		margin-bottom: 10px;
 	}
 }
