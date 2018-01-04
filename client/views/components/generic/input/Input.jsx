@@ -78,7 +78,7 @@ class Input extends Component {
     const { validationStatus } = this.state;
 
     let items = this.props.options;
-
+    
     switch(type) {
 
         // socials
@@ -129,6 +129,12 @@ class Input extends Component {
         case 'Answer Button':
         case 'Button':
             return <InputButton {...this.props} />
+        case 'Time':
+            return ( <InputTime
+                {...this.props}
+                validation={this.validateInput}
+                validationStatus={validationStatus}
+            /> );
         default:
             return ( <InputText
                 {...this.props}

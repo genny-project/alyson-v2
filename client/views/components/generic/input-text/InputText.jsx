@@ -79,13 +79,13 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask } = this.props;
+    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader } = this.props;
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
     return <div className={`input input-text ${className} ${validationStatus || ''}`}>
         {
-            !isHorizontal ? <div className="input-header">
+            !isHorizontal && !hideHeader ? <div className="input-header">
             {name ? <Label text={name} /> : null}
             {optional ? <Label text="(optional)" /> : null}
             <SubmitStatusIcon status={validationStatus} />
