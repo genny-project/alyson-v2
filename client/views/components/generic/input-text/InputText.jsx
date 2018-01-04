@@ -83,11 +83,6 @@ class InputText extends Component {
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
-    if(inputMask) {
-        console.log( "================" )
-        console.log(inputMask)
-    }
-
     return <div className={`input input-text ${className} ${validationStatus || ''}`}>
         {
             !isHorizontal ? <div className="input-header">
