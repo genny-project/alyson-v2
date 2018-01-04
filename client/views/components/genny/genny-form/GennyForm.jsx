@@ -46,7 +46,7 @@ class GennyForm extends PureComponent {
         }]);
     }
 
-    onSubmit = (questionGroupCode) => {
+    onSubmit = (questionGroupCode, targetCode) => {
 
         if(questionGroupCode) {
 
