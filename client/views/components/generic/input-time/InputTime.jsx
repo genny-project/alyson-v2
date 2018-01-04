@@ -73,7 +73,6 @@ class InputTime extends Component {
     const { focused, value, format } = this.state;
     const componentStyle = { ...style, };
 
-    console.log(inputMask);
     return (
       <div className={`input input-time ${className} ${validationStatus || ''}`}>
         { name ? <Label className="input-time-label" text={name} /> : null }
