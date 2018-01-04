@@ -16,10 +16,9 @@ class ImageView extends Component {
   }
 
   onError = () => {
-
       this.setState({
           error: true,
-      })
+      });
   }
 
   render() {
@@ -32,8 +31,8 @@ class ImageView extends Component {
     };
 
     return (
-      <div className={`imageView ${rounded ? "rounded" : ""}`} style={componentStyle}>
-        <img src={ error ? 'https://i.imgur.com/FKJV3fp.jpg' : (src || placeholder)} onError={this.onError} onClick={onClick} />
+      <div className={`imageView ${rounded ? 'rounded' : ''}`} style={componentStyle}>
+        <img src={ error === false ? 'https://i.imgur.com/FKJV3fp.jpg' : (src || placeholder)} onError={this.onError} onClick={onClick} />
         { caption ? <span>{caption}</span> : null }
       </div>
     );

@@ -2,77 +2,402 @@
   "layout": [
     {
       "AppHolder": {
-        "cols": [0,5],
-        "rows": 1,
+        "cols": 1,
+        "rows": ["120px", "140px", "300px", "300px", "400px", "30px"],
         "children": [
           {
-            "Sidebar": {
-              "position": [0,0],
+            "Header": {
+              "position": [0, 0],
               "style": {
-                "backgroundColor": "PROJECT.PRI_COLOR",
-                "color": "white",
-                "textAlign": "center"
+                "backgroundColor": "white",
+                "color": "black",
+                "width": "900px",
+                "margin": "0 auto",
+                "maxHeight": "80px"
               },
-              "hasImage": true,
-              "caption": "USER.PRI_FIRSTNAME",
-              "src": "PROJECT.PRI_LOGO",
+              "cols": [
+                {
+                  "style": {
+                    "flexGrow": 0,
+                    "display": "flex",
+                    "alignItems": "center"
+                  }
+                },
+
+                {
+                  "style": {
+                    "flexGrow": 1,
+                    "display": "flex",
+                    "alignItems": "center",
+                    "justifyContent": "space-around"
+                  }
+                }
+              ],
+              "rows": [{ "style": { "flexGrow": 1, "width": "100%" } }],
               "children": [
                 {
-                  "GennyTreeView": {
-                    "position": [1,0],
+                  "h1": {
+                    "position": [0, 0],
                     "style": {
-                    "marginTop": "50px"
-                  },
-                    "root": "GRP_ROOT"
+                      "margin": 0
+                    },
+                    "children": "CHANNEL40"
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "For"
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Businesses Companies"
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Become a Driver"
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Register"
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Log In"
                   }
                 }
               ]
             }
           },
+
           {
-            "Grid": {
-              "cols": [{"style": { "flexGrow" : 1, "width" : "100%"}}],
-              "rows": ["90px", { "style" : {"flex": "1 1 auto", "overflow": "hidden" }}, "30px"],
-              "position": [0,1],
-              "className": "app-main",
+            "div": {
+              "position": [0, 0],
+              "style": {
+                "backgroundColor": "black",
+                "color": "white",
+                "height": "40px"
+              },
               "children": [
                 {
-                  "GennyHeader": {
-                    "position": [0,0],
-
-                    "style": {
-                      "backgroundColor": "PROJECT.PRI_COLOR",
-                      "color": "white"
-                    },
-                    "projectTitle" : "PROJECT.PRI_NAME",
-                    "projectGreeting" : "PROJECT.PRI_GREETING",
-                    "userName" : "USER.PRI_FIRSTNAME",
-                    "userImage" : "USER.PRI_IMAGE_URL"
+                  "span": {
+                    "children": "sub header"
                   }
-                },
+                }
+              ]
+            }
+          },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols": 4,
+              "position": [1, 0],
+              "style": {
+                "backgroundColor": "black",
+                "color": "white"
+              },
+              "children": [
                 {
-                  "AppContent": {
-                    "position": [1,0],
-                    "children" : [
+                  "Grid": {
+                    "position": [0, 0],
+                    "rows": [{ "style": { "flexGrow": 0 } }],
+                    "cols": [
                       {
-                        "div": {
-                          "children": ""
+                        "style": {
+                          "flexGrow": 1,
+                          "display": "flex",
+                          "alignItems": "center",
+                          "justifyContent": "center"
+                        }
+                      },
+                      1
+                    ],
+                    "children": [
+                      {
+                        "IconSmall": {
+                          "position": [0, 0],
+                          "name": "check_circle"
+                        }
+                      },
+
+                      {
+                        "h4": {
+                          "position": [0, 1],
+                          "children": "Benefit"
+                        }
+                      },
+
+                      {
+                        "span": {
+                          "position": [0, 1],
+                          "children": "asdasd asdasdha asd asdh"
                         }
                       }
                     ]
                   }
                 },
                 {
-                  "Footer": {
-                    "position": [2,0],
-                    "style": {
-                      "backgroundColor": "PROJECT.PRI_COLOR",
-                      "color": "white"
-                    },
-                    "version" : "PROJECT.PRI_VERSION",
-                    "poweredBy" : {
-                      "caption" : "PROJECT.PRI_POWERED_BY"
-                    }
+                  "Grid": {
+                    "position": [0, 1],
+                    "rows": [{ "style": { "flexGrow": 0 } }],
+                    "cols": [
+                      {
+                        "style": {
+                          "flexGrow": 1,
+                          "display": "flex",
+                          "alignItems": "center",
+                          "justifyContent": "center"
+                        }
+                      },
+                      1
+                    ],
+                    "children": [
+                      {
+                        "IconSmall": {
+                          "position": [0, 0],
+                          "name": "check_circle"
+                        }
+                      },
+
+                      {
+                        "h4": {
+                          "position": [0, 1],
+                          "children": "Benefit"
+                        }
+                      },
+
+                      {
+                        "span": {
+                          "position": [0, 1],
+                          "children": "asdasd asdasdha asd asdh"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position": [0, 2],
+                    "rows": [{ "style": { "flexGrow": 0 } }],
+                    "cols": [
+                      {
+                        "style": {
+                          "flexGrow": 1,
+                          "display": "flex",
+                          "alignItems": "center",
+                          "justifyContent": "center"
+                        }
+                      },
+                      1
+                    ],
+                    "children": [
+                      {
+                        "IconSmall": {
+                          "position": [0, 0],
+                          "name": "check_circle"
+                        }
+                      },
+
+                      {
+                        "h4": {
+                          "position": [0, 1],
+                          "children": "Benefit"
+                        }
+                      },
+
+                      {
+                        "span": {
+                          "position": [0, 1],
+                          "children": "asdasd asdasdha asd asdh"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position": [0, 3],
+                    "rows": [{ "style": { "flexGrow": 0 } }],
+                    "cols": [
+                      {
+                        "style": {
+                          "flexGrow": 1,
+                          "display": "flex",
+                          "alignItems": "center",
+                          "justifyContent": "center"
+                        }
+                      },
+                      1
+                    ],
+                    "children": [
+                      {
+                        "IconSmall": {
+                          "position": [0, 0],
+                          "name": "check_circle"
+                        }
+                      },
+
+                      {
+                        "h4": {
+                          "position": [0, 1],
+                          "children": "Benefit"
+                        }
+                      },
+
+                      {
+                        "span": {
+                          "position": [0, 1],
+                          "children": "asdasd asdasdha asd asdh"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols": 2,
+              "position": [2, 0],
+              "style": {
+                "color": "#fff",
+                "backgroundColor": "lightGrey",
+                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)"
+              },
+              "children": [
+                {
+                  "ImageView": {
+                    "position": [0, 0],
+                    "src": "https://i.imgur.com/BLslJdp.jpg"
+                  }
+                },
+
+                {
+                  "h3": {
+                    "position": [0, 1],
+                    "children": "Manage Whenever on the Go"
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children":
+                      "Subcontent Goes here lorem ipsum Subcontent Goes here lorem ipsum "
+                  }
+                }
+              ]
+            }
+          },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols": 2,
+              "position": [3, 0],
+              "style": {
+                "backgroundColor": "white",
+                "padding": "80"
+              },
+              "children": [
+                {
+                  "ImageView": {
+                    
+                    "position": [0, 1],
+                    "src": ""
+                  }
+                },
+
+                {
+                  "h3": {
+                    "position": [0, 0],
+                    "children": [
+                      {"h3":{ "children": "How it Works"}}
+                    ]
+                  }
+                },
+
+                {
+                  "p": {
+                    "position": [0, 0],
+                    "children":
+                      "1. dsasd adhas dadhasdhaos aisdu isd as s oada djaosdj aosd"
+                  }
+                },
+                { "p": { "position": [0, 0], "children": "2. dsasd adhas dadhasdhaos aisdu isd as s oada djaosdj aosd" } },
+                { "p": { "position": [0, 0], "children": "3.dsasd adhas dadhasdhaos aisdu isd as s oada djaosdj aosd" } }
+              ]
+            }
+          },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols": 3,
+              "position": [3, 0],
+              "style": {
+                "backgroundColor": "white"
+              },
+              "children": [
+                {
+                  "Imageview": {
+                    "position": [0, 1],
+                    "src": ""
+                  }
+                },
+
+                {
+                  "h3": {
+                    "position": [0, 2],
+                    "children": "Transparent. Reliable. National."
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 2],
+                    "children":
+                      "dsasd adhas dadhasdhaos aisdu isd as s oada djaosdj aosd"
+                  }
+                }
+              ]
+            }
+          },
+
+          {
+            "div": {
+              "position": [5, 0],
+              "style": {
+                "backgroundColor": "white",
+                "color": "black",
+                "height": "100%",
+                "margin": "0 auto",
+                "width": "900px",
+                "display": "flex",
+                "alignItems": "center",
+                "justifyContent": "center"
+              },
+              "children": [
+                {
+                  "span": {
+                    "children": "copyright Channel 40 2018"
                   }
                 }
               ]
