@@ -118,7 +118,7 @@ class GennyTreeView extends PureComponent {
       }
 
       // update the current path
-      store.getState().app.currentPath = path;
+      store.getState().app.currentPath = path
 
       this.sendData('TV_SELECT', {
           code: 'TV1',
