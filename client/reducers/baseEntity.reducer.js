@@ -193,42 +193,51 @@ export default function reducer(state = initialState, action) {
             let attributeCode = newAnswer.attributeCode;
             if(be_code && attributeCode) {
 
-                let newAtt = {
-                    code: attributeCode,
-                    value: newAnswer.value,
-                    baseEntityCode: be_code,
-                    created: newAnswer.created,
-                    updated: newAnswer.updated,
-                    weight: newAnswer.weight,
-                    inferred: newAnswer.inferred,
-                    refused: newAnswer.refused,
-                };
+                if(action.payload.delete) {
 
-                if(newAnswer.name) {
-                    newAtt.name = newAnswer.name;
+                    if(state.data[be_code] && state.data[be_code].attributes) {
+                        delete state.data[be_code].attributes[attributeCode];
+                    }
                 }
+                else {
 
-                if(!state.data[be_code])  {
-                    state.data[be_code] = {
-                        attributes: {}
+                    let newAtt = {
+                        code: attributeCode,
+                        value: newAnswer.value,
+                        baseEntityCode: be_code,
+                        created: newAnswer.created,
+                        updated: newAnswer.updated,
+                        weight: newAnswer.weight,
+                        inferred: newAnswer.inferred,
+                        refused: newAnswer.refused,
+                    };
+
+                    if(newAnswer.name) {
+                        newAtt.name = newAnswer.name;
+                    }
+
+                    if(!state.data[be_code])  {
+                        state.data[be_code] = {
+                            attributes: {}
+                        };
+                    }
+
+                    if(!state.data[be_code].attributes) {
+                        state.data[be_code].attributes = {};
+                    }
+
+                    state.data[be_code].attributes[attributeCode] = {
+                        ...state.data[be_code].attributes[attributeCode],
+                        value: newAtt.value,
+                        attribute: {
+                            ...(state.data[be_code].attributes[attributeCode] ? state.data[be_code].attributes[attributeCode].attribute : {}),
+                            ...newAtt,
+                        },
+                        weight: newAtt.weight,
+                        inferred: newAtt.inferred,
+                        attributeCode: attributeCode
                     };
                 }
-
-                if(!state.data[be_code].attributes) {
-                    state.data[be_code].attributes = {};
-                }
-
-                state.data[be_code].attributes[attributeCode] = {
-                    ...state.data[be_code].attributes[attributeCode],
-                    value: newAtt.value,
-                    attribute: {
-                        ...(state.data[be_code].attributes[attributeCode] ? state.data[be_code].attributes[attributeCode].attribute : {}),
-                        ...newAtt,
-                    },
-                    weight: newAtt.weight,
-                    inferred: newAtt.inferred,
-                    attributeCode: attributeCode
-                };
             }
         });
 
