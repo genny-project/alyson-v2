@@ -25,9 +25,6 @@ class GennyForm extends PureComponent {
 
     onClickEvent = (clickedButton) => {
 
-        console.log("-----------")
-        console.log( clickedButton )
-
         if(clickedButton && clickedButton.props) {
 
             let data = clickedButton.props.data;
@@ -97,7 +94,15 @@ class GennyForm extends PureComponent {
                             if(ask.question.attribute.dataType) {
 
                                 if(ask.question.attribute.dataType.inputmask) {
-                                    inputMask = ask.question.attribute.dataType.inputmask.split(',').map(x => new RegExp(x));
+
+                                    inputMask = ask.question.attribute.dataType.inputmask.split(',').map(x => {
+                                        
+                                        if(x.indexOf('d') == 1 || x.indexOf('w') == 1) {
+                                            return new RegExp(x)
+                                        } 
+
+                                        return x
+                                    });
                                 }
 
                                 if(ask.question.attribute.dataType.className) {

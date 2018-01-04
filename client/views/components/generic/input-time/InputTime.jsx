@@ -1,129 +1,94 @@
 import './inputTime.scss';
 import React, { Component } from 'react';
-import { string, object, bool, number } from 'prop-types';
-import { InputDropdown, Label } from 'views/components';
+import { string, object, any, func, array } from 'prop-types';
 import moment from 'moment';
+import { Label, Button } from 'views/components';
+import MaskedTextInput from 'react-text-mask';
 
 class InputTime extends Component {
 
   static defaultProps = {
     className: '',
-    isTwentyFourHour: false,
-    minuteIncrement: 5
+    identifier: null,
+    validationStatus: null,
+    inputMask: [/\d/, /\d/, ':', /\d/, /\d/],
   }
 
   static propTypes = {
     className: string,
-    style: object,
-    isTwentyFourHour: bool,
-    minuteIncrement: number
+    style: string,
+    children: any,
+    validation: func,
+    identifier: any,
+    validationStatus: string,
+    inputMask: array
   }
 
   state = {
-    hour: null,
-    minute: null,
-    format: null,
-    validationStatus: null,
+    format: 'AM',
+    value: this.props.value,
+    focused: false,
   }
 
-  getItemsForFormat = () => {
-    const format = this.props.isTwentyFourHour ? false : ['AM', 'PM'];
-    return format;
-  }
-  
-  getItemsForHours = () => {
-    
-    let hours = [...Array(this.props.isTwentyFourHour ? 24 : 12).keys()].map(x => this.props.isTwentyFourHour ? x : x + 1).map(String);
-    return hours;
-  }
-
-  getItemsForMinutes = () => {
-    const increment = this.props.minuteIncrement;
-    let minutes = [...Array(60/increment).keys()].map(x => x * increment).map(String).map(x => x.length < 2 ? "0" + x : x);
-    return minutes;
-  }
-
-  onDropdownChange = (newValue, identifier) => {
-    console.log(newValue, identifier);
-    switch (identifier) {
-      case 'hour' :
-        this.setState({ hour: newValue }, () => {
-          this.dropdownPrevalidation();
-        });
-      break;
-      case 'minute':
-      this.setState({ minute: newValue }, () => {
-        this.dropdownPrevalidation();
-      });
-      break;
-      case 'format':
-      this.setState({ format: newValue }, () => {
-        this.dropdownPrevalidation();
-      });
-      break;
-      default:
-        console.log("unknown identifier");
-    }
-  }
-
-  dropdownPrevalidation = () => {
-    const { validationList } = this.props;
-    ///console.log(validationList);
-
-    const { hour, minute, format } = this.state;
-  
-    if ( hour && minute && format ) {
-      //TODO load date format from ask
-      const newDate = hour + ":" + minute + " " + format;
-
-      if ( validationList.length > 0 ) {
-        const valResult = validationList.every( validation => new RegExp(validation.regex).test( newDate ));
-        console.log(valResult)
-        this.validateValue(valResult, newDate);
-      } else {
-        //window.alert("No regex supplied");
-        //this.sendAnswer(event.target.value);
-        const valResult = new RegExp(/.*/).test( newDate );
-        console.log(valResult);
-        this.validateValue(valResult, newDate);
-      }
-    }
-  }
-
-  validateValue = ( valResult, value ) => {
-    if ( valResult ){
-      this.validationStyle('success');
-      if(this.props.onValidation) {
-        this.props.onValidation(value, this.props.identifier);
-      }
-
-    } else {
-      this.validationStyle('error');
-    }
-  }
-
-  validationStyle = (resultString) => {
+  handleChange = event => {
     this.setState({
-      validationStatus: resultString,
+      value: event.target.value,
+      hasChanges: true
     });
   }
 
+
+  handleFocus = event => {
+    this.setState({
+      focused: true
+    });
+  }
+
+  onKeyDown = event => {
+    if(event.key == 'Enter') {
+        this.handleBlur();
+    }
+  }
+
+  handleBlur = () => {
+
+    const { validationList, validation, identifier } = this.props;
+    const { format, value } = this.state;
+    const time = value.concat(' ', format);
+    this.setState({ focused: false });
+    if(validation) validation(time, identifier, validationList);
+  }
+
+
+  toggleFormat = () => {
+    this.setState({
+      format: this.state.format == 'AM' ? 'PM' : 'AM'
+    })
+    this.handleBlur();
+  }
+
   render() {
- 	  const { className, style, items, name, isTwentyFourHour, minuteIncrement } = this.props;
-    const { hours, minutes, format, validationStatus } = this.state;
+
+    const { className, children, style, validationStatus, name, readOnly, placeholder, inputMask } = this.props;
+    const { focused, value, format } = this.state;
     const componentStyle = { ...style, };
-    const itemFormat = this.getItemsForFormat();
-    const itemHours = this.getItemsForHours();
-    const itemMinutes = this.getItemsForMinutes();
-    
+
     return (
-      <div className={`input-time ${className} ${validationStatus}`}>
-        {name ? <Label className="input-time-label" text={name} /> : null }
-        <InputDropdown {...this.props} items={itemHours}  className="input-time-dropdown hour" name={null} onValidation={this.onDropdownChange} identifier={'hour'} noValidation hint={'hour'}/>
-        <InputDropdown {...this.props} items={itemMinutes} className="input-time-dropdown minute" name={null} onValidation={this.onDropdownChange} identifier={'minute'} noValidation hint={'minute'}/>
-        { !isTwentyFourHour ? 
-          <InputDropdown {...this.props} items={itemFormat} className="input-time-dropdown format" name={null} onValidation={this.onDropdownChange} identifier={'format'} noValidation hint={'format'}/>
-        : null}
+      <div className={`input input-time ${className} ${validationStatus || ''}`}>
+        { name ? <Label className="input-time-label" text={name} /> : null }
+        <MaskedTextInput
+            mask={inputMask}
+            guide={true}
+            disabled={readOnly}
+            value={value}
+            placeholder={placeholder}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onKeyDown={this.onKeyDown}
+            style={focused ? { borderColor: componentStyle.color } : null}
+        />
+        <Button className="input-time-button" onClick={this.toggleFormat}>{format}</Button>
       </div>
     );
   }
