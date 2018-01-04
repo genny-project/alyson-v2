@@ -11,7 +11,7 @@ class InputTime extends Component {
     className: '',
     identifier: null,
     validationStatus: null,
-    inputMask: [/\d/, /\d/, ':', /\d/, /\d/]
+    inputMask: [/\d/, /\d/, ':', /\d/, /\d/],
   }
 
   static propTypes = {
@@ -73,6 +73,7 @@ class InputTime extends Component {
     const { focused, value, format } = this.state;
     const componentStyle = { ...style, };
 
+    console.log(inputMask);
     return (
       <div className={`input input-time ${className} ${validationStatus || ''}`}>
         { name ? <Label className="input-time-label" text={name} /> : null }
