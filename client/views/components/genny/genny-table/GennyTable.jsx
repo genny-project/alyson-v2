@@ -56,9 +56,10 @@ class GennyTable extends Component {
         } else {
 
             let attributes = baseEntity.attributes;
+
             if(attributes) {
 
-                Object.keys(attributes).forEach(attribute_key => {
+                Object.keys(attributes).sort((x,y) => attributes[x].weight > attributes[y].weight).forEach(attribute_key => {
 
                     let attribute = attributes[attribute_key];
 

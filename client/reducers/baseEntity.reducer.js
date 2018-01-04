@@ -21,8 +21,57 @@ export default function reducer(state = initialState, action) {
                 ...action.payload.items.reduce((existing, newItem) => {
 
                     let baseEntityCode = newItem.code;
+                    if(action.payload.delete) {
 
-                    if(!newItem.baseEntityAttributes) {
+                        delete state.data[baseEntityCode];
+                        delete existing[baseEntityCode];
+                    }
+                    else {
+                        if(!newItem.baseEntityAttributes) {
+
+                            existing[baseEntityCode] = {
+                                ...state.data[baseEntityCode],
+                                ...existing[baseEntityCode],
+                                ...newItem,
+                                originalLinks: newItem.links,
+                                links: newItem.links.reduce((existingLinks, newLink) => {
+
+                                    let linkCode = newLink.link ? newLink.link.attributeCode : null;
+                                    if(!linkCode) return [];
+
+                                    if(!existingLinks[linkCode]) {
+                                        existingLinks[linkCode] = []
+                                    }
+
+                                    existingLinks[linkCode].push({
+                                        ...newLink,
+                                        targetCode: newLink.pk.targetCode,
+                                        linkValue: newLink.link.linkValue,
+                                    });
+
+                                    return existingLinks;
+
+                                }, {}),
+                                linkCode: action.payload.linkCode,
+                            };
+
+                            return existing;
+                        }
+
+                        let newAttributes = newItem.baseEntityAttributes;
+                        let existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
+
+                        newAttributes.forEach(newAttribute => {
+
+                            existingAttributes[newAttribute.attributeCode] = {
+                                ...existingAttributes[newAttribute.attributeCode],
+                                ...newAttribute,
+                                ... {
+                                    value: grabValue(newAttribute),
+                                    baseEntityCode: baseEntityCode
+                                }
+                            };
+                        });
 
                         existing[baseEntityCode] = {
                             ...state.data[baseEntityCode],
@@ -48,54 +97,12 @@ export default function reducer(state = initialState, action) {
 
                             }, {}),
                             linkCode: action.payload.linkCode,
+                            attributes: existingAttributes
                         };
 
-                        return existing;
+                        delete existing[baseEntityCode].baseEntityAttributes;
                     }
 
-                    let newAttributes = newItem.baseEntityAttributes;
-                    let existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
-
-                    newAttributes.forEach(newAttribute => {
-
-                        existingAttributes[newAttribute.attributeCode] = {
-                            ...existingAttributes[newAttribute.attributeCode],
-                            ...newAttribute,
-                            ... {
-                                value: grabValue(newAttribute),
-                                baseEntityCode: baseEntityCode
-                            }
-                        };
-                    });
-
-                    existing[baseEntityCode] = {
-                        ...state.data[baseEntityCode],
-                        ...existing[baseEntityCode],
-                        ...newItem,
-                        originalLinks: newItem.links,
-                        links: newItem.links.reduce((existingLinks, newLink) => {
-
-                            let linkCode = newLink.link ? newLink.link.attributeCode : null;
-                            if(!linkCode) return [];
-
-                            if(!existingLinks[linkCode]) {
-                                existingLinks[linkCode] = []
-                            }
-
-                            existingLinks[linkCode].push({
-                                ...newLink,
-                                targetCode: newLink.pk.targetCode,
-                                linkValue: newLink.link.linkValue,
-                            });
-
-                            return existingLinks;
-
-                        }, {}),
-                        linkCode: action.payload.linkCode,
-                        attributes: existingAttributes
-                    };
-
-                    delete existing[baseEntityCode].baseEntityAttributes;
                     return existing;
 
                 }, {}),

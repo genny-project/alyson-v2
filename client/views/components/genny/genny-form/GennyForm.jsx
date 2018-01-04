@@ -25,6 +25,9 @@ class GennyForm extends PureComponent {
 
     onClickEvent = (clickedButton) => {
 
+        console.log("-----------")
+        console.log( clickedButton )
+
         if(clickedButton && clickedButton.props) {
 
             let data = clickedButton.props.data;
