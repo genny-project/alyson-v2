@@ -24,6 +24,7 @@ import {
   Status,
   GennyDropdown,
   DateLabel,
+  Device,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -53,4 +54,5 @@ export default new ComponentCollection({
   Status,
   GennyDropdown,
   DateLabel,
+  Device,
 });
