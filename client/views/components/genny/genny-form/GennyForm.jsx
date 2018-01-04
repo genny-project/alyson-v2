@@ -67,7 +67,7 @@ class GennyForm extends PureComponent {
 
             return {
                 title: askGroup.name,
-                onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code. askGroup.targetCode) } : null,
+                onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code, askGroup.targetCode) } : null,
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
