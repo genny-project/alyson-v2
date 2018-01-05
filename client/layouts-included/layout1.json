@@ -281,13 +281,16 @@
                 "backgroundColor": "lightGrey",
                 "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
                 "backgroundRepeat": "no-repeat",
-                "backgroundSize": "cover"
+                "backgroundSize": "cover",
+                "height": "900px"
+
               },
               "children": [
                 {
                   "ImageView": {
                     "position": [0, 0],
-                    "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg"
+                    "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg",
+                    "style": {"height": 200, "weight": 100}
                   }
                 },
 
@@ -356,8 +359,9 @@
               "cols": 3,
               "position": [3, 0],
               "style": {
+                "height": "auto",
                 "backgroundColor": "white",
-                "height":"auto"
+                "width": "100%"
               },
               "children": [
                 {
@@ -385,26 +389,16 @@
             }
           },
 
+
           {
-            "div": {
+            "Footer": {
               "position": [5, 0],
               "style": {
-                "backgroundColor": "white",
-                "color": "black",
-                "height": "100%",
-                "margin": "0 auto",
-                "width": "900px",
-                "display": "flex",
-                "alignItems": "center",
-                "justifyContent": "center"
+                "position": "absolute"
               },
-              "children": [
-                {
-                  "span": {
-                    "children": "copyright Channel 40 2018"
-                  }
-                }
-              ]
+              "poweredBy" : {
+                  "caption" : "Channel40"
+              }
             }
           }
         ]
