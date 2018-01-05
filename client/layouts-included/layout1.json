@@ -92,11 +92,7 @@
                 "height": "40px"
               },
               "children": [
-                {
-                  "span": {
-                    "children": "sub header"
-                  }
-                }
+                
               ]
             }
           },
@@ -144,7 +140,7 @@
                       {
                         "span": {
                           "position": [0, 1],
-                          "children": "asdasd asdasdha asd asdh"
+                          "children": "Lorem ipsum dolor sit amet"
                         }
                       }
                     ]
@@ -183,7 +179,7 @@
                       {
                         "span": {
                           "position": [0, 1],
-                          "children": "asdasd asdasdha asd asdh"
+                          "children": "Lorem ipsum dolor sit amet"
                         }
                       }
                     ]
@@ -222,7 +218,7 @@
                       {
                         "span": {
                           "position": [0, 1],
-                          "children": "asdasd asdasdha asd asdh"
+                          "children": "Lorem ipsum dolor sit amet"
                         }
                       }
                     ]
@@ -261,7 +257,7 @@
                       {
                         "span": {
                           "position": [0, 1],
-                          "children": "asdasd asdasdha asd asdh"
+                          "children": "Lorem ipsum dolor sit amet"
                         }
                       }
                     ]
@@ -282,7 +278,7 @@
                 "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "cover",
-                "height": "900px"
+                "height": 500
 
               },
               "children": [
@@ -290,7 +286,7 @@
                   "ImageView": {
                     "position": [0, 0],
                     "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg",
-                    "style": {"height": 200, "weight": 100}
+                    "style": {"height": 300, "width": 300, "padding": 50}
                   }
                 },
 
@@ -394,7 +390,7 @@
                   "span": {
                     "position": [0, 2],
                     "children":
-                      "dsasd adhas dadhasdhaos aisdu isd as s oada djaosdj aosd"
+                      "Subcontent Goes here lorem ipsum Subcontent Goes here lorem ipsum"
                   }
                 }
               ]
