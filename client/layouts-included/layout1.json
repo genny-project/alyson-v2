@@ -338,17 +338,29 @@
                       {"h3":{ "children": "How it Works"}}
                     ]
                   }
-                },
-
+                },  
                 {
                   "p": {
-                    "position": [0, 0],
-                    "children":
-                      "1. dsasd adhas dadhasdhaos aisdu isd as s oada djaosdj aosd"
+                    "position": [0,0],
+                    "style": {"color": "green"},
+                    "children": [{"IconSmall": {"name": "check", "text": "Lorem ipsum dolor sit amet, consectetur"}} ]
                   }
                 },
-                { "p": { "position": [0, 0], "children": "2. dsasd adhas dadhasdhaos aisdu isd as s oada djaosdj aosd" } },
-                { "p": { "position": [0, 0], "children": "3.dsasd adhas dadhasdhaos aisdu isd as s oada djaosdj aosd" } }
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {"color": "green"},
+                    "children": [{"IconSmall": {"name": "check", "text": "iure reprehenderit qui in ea voluptate"}} ]
+                  }
+                },
+                { "p": { "position": [0, 0], "style": { "color": "green" }, "children": [{ "IconSmall": { "name": "check", "text": "Quis autem vel eum iure reprehenderit qui in ea" } }] } },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {"color": "green"},
+                    "children": [{"IconSmall": {"name": "check", "text": " dolor sit amet reprehenderit qui in ea"}} ]
+                  }
+                }
               ]
             }
           },
