@@ -9,6 +9,8 @@ export { default as Device } from './device';
 export { default as Dropdown } from './dropdown';
 export { default as Footer } from './footer';
 export { default as Form } from './form';
+export { default as GoogleMap } from './google-map';
+export { default as GoogleMapInput } from './google-map-input';
 export { default as Header } from './header';
 export { default as IconSmall } from './icon-small';
 export { default as ImageView } from './imageview';

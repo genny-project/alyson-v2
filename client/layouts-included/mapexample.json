@@ -1,0 +1,144 @@
+{
+  "layout": [
+    {
+      "AppHolder": {
+        "cols": [0,5],
+        "rows": 1,
+        "children": [
+          {
+            "Sidebar": {
+              "position": [0,0],
+              "style": {
+                "backgroundColor": "PROJECT.PRI_COLOR",
+                "color": "white",
+                "textAlign": "center"
+              },
+              "hasImage": true,
+              "caption": "USER.PRI_FIRSTNAME",
+              "src": "PROJECT.PRI_LOGO",
+              "children": [
+                {
+                  "GennyTreeView": {
+                    "position": [1,0],
+                    "style": {
+                    "marginTop": "50px"
+                  },
+                    "root": "GRP_ROOT"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Grid": {
+              "cols": [{"style": { "flexGrow" : 1, "width" : "100%"}}],
+              "rows": ["90px", { "style" : {"flex": "1 1 auto", "overflow": "hidden" }}, "30px"],
+              "position": [0,1],
+              "className": "app-main",
+              "children": [
+                {
+                  "GennyHeader": {
+                    "position": [0,0],
+
+                    "style": {
+                      "backgroundColor": "PROJECT.PRI_COLOR",
+                      "color": "white"
+                    },
+                    "projectTitle" : "PROJECT.PRI_NAME",
+                    "projectGreeting" : "PROJECT.PRI_GREETING",
+                    "userName" : "USER.PRI_FIRSTNAME",
+                    "userImage" : "USER.PRI_IMAGE_URL"
+                  }
+                },
+                {
+                  "AppContent": {
+                    "position": [1,0],
+                    "children" : [
+                      {
+                        "div": {
+                          "style": {
+                            "padding": "100px",
+                            "height": "100%",
+                            "weight": "100%"
+                          },
+                          "children" : [
+                            {
+                              "GoogleMapInput" : {
+                                "lat": -37.803670,
+                                "lng": 144.964796,
+                                "style": {
+                                  "marginBottom": "50px"
+                                }
+                              }
+                            },
+                            {
+                              "GoogleMap" : {
+                                "lat": -37.803670,
+                                "lng": 144.964796,
+                                "markers": [
+                                  {
+                                    "lat": -36.1460,
+                                    "lng": 144.7448
+                                  }
+                                ],
+                                "directions": [
+                                  {
+                                    "origin" : {
+                                      "lat": -37.803670,
+                                      "lng": 144.964796
+                                    },
+                                    "dest" : {
+                                      "lat": -32.224693,
+                                      "lng": 148.631974
+                                    }
+                                  },
+                                  {
+                                    "origin" : {
+                                      "lat": -32.224693,
+                                      "lng": 148.631974
+                                    },
+                                    "dest" : {
+                                      "lat": -34.554699,
+                                      "lng": 138.961454
+                                    }
+                                  },
+                                  {
+                                    "origin" : {
+                                      "lat": -34.554699,
+                                      "lng": 138.961454
+                                    },
+                                    "dest" : {
+                                      "lat": -37.803670,
+                                      "lng": 144.964796
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Footer": {
+                    "position": [2,0],
+                    "style": {
+                      "backgroundColor": "PROJECT.PRI_COLOR",
+                      "color": "white"
+                    },
+                    "version" : "PROJECT.PRI_VERSION",
+                    "poweredBy" : {
+                      "caption" : "PROJECT.PRI_POWERED_BY"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

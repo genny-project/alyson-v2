@@ -29,9 +29,9 @@ class AppContent extends Component {
                 layoutContent = <GennyTable root={layout.currentView.dataCode}/>
             }
             // we need to show the bucket view
-            else if (layout.currentView.code == "BUCKET_VIEW") {
-                layoutContent = <GennyBucketView root={layout.currentView.dataCode} />
-            }
+            // else if (layout.currentView.code == "BUCKET_VIEW") {
+            //     layoutContent = <GennyBucketView root={layout.currentView.dataCode} />
+            // }
             else if (layout.currentView.code == "LIST_VIEW") {
                 layoutContent = <GennyList root={layout.currentView.dataCode} />
             }

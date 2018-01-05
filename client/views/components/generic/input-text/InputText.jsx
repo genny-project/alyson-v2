@@ -16,7 +16,7 @@ class InputText extends Component {
     readOnly: false,
     optional: false,
     identifier: null,
-    validationStatus: null
+    validationStatus: null,
   }
 
   static propTypes = {
@@ -30,7 +30,7 @@ class InputText extends Component {
     optional: bool,
     validation: func,
     identifier: any,
-    validationStatus: string
+    validationStatus: string,
   }
 
   state = {
@@ -77,13 +77,17 @@ class InputText extends Component {
     if(validation) validation(value, identifier, validationList);
   }
 
+  getInput() {
+    return this.input;
+  }
+
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader } = this.props;
+    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, ...rest } = this.props;
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
-    return <div className={`input input-text ${className} ${validationStatus || ''}`}>
+    return <div className={`input input-text ${className} ${validationStatus || ''}`} style={componentStyle}>
         {
             !isHorizontal && !hideHeader ? <div className="input-header">
             {name ? <Label text={name} /> : null}
@@ -91,7 +95,10 @@ class InputText extends Component {
             <SubmitStatusIcon status={validationStatus} />
           </div> : null
         }
-        <MaskedTextInput
+        {
+
+          inputMask ? 
+          <MaskedTextInput
             mask={inputMask}
             guide={true}
             disabled={readOnly}
@@ -103,7 +110,23 @@ class InputText extends Component {
             onFocus={this.handleFocus}
             onKeyDown={this.onKeyDown}
             style={focused ? { borderColor: componentStyle.color } : null}
-        />
+          /> : 
+          <input
+            ref={r => this.input = r}
+            guide={true}
+            disabled={readOnly}
+            type={inputType || "text"}
+            value={value}
+            placeholder={placeholder}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onKeyDown={this.onKeyDown}
+            style={focused ? { borderColor: componentStyle.color } : null}
+            {...rest}
+          />
+        }
+        
       </div>;
   }
 }
