@@ -29,10 +29,11 @@ class ImageView extends Component {
     const componentStyle = {
       ...style,
     };
+    console.log(error,'error');
 
     return (
       <div className={`imageView ${rounded ? 'rounded' : ''}`} style={componentStyle}>
-        <img src={ error === false ? 'https://i.imgur.com/FKJV3fp.jpg' : (src || placeholder)} onError={this.onError} onClick={onClick} />
+        <img src={ error === true ? 'https://i.imgur.com/FKJV3fp.jpg' : (src || placeholder)} onError={this.onError} onClick={onClick} />
         { caption ? <span>{caption}</span> : null }
       </div>
     );

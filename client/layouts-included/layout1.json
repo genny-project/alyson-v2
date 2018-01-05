@@ -279,13 +279,15 @@
               "style": {
                 "color": "#fff",
                 "backgroundColor": "lightGrey",
-                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)"
+                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "cover"
               },
               "children": [
                 {
                   "ImageView": {
                     "position": [0, 0],
-                    "src": "https://i.imgur.com/BLslJdp.jpg"
+                    "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg"
                   }
                 },
 
@@ -314,14 +316,15 @@
               "position": [3, 0],
               "style": {
                 "backgroundColor": "white",
-                "padding": "80"
+                "padding": "80",
+                "height": "auto"
               },
               "children": [
                 {
                   "ImageView": {
                     
                     "position": [0, 1],
-                    "src": ""
+                    "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg"
                   }
                 },
 
@@ -353,13 +356,14 @@
               "cols": 3,
               "position": [3, 0],
               "style": {
-                "backgroundColor": "white"
+                "backgroundColor": "white",
+                "height":"auto"
               },
               "children": [
                 {
-                  "Imageview": {
-                    "position": [0, 1],
-                    "src": ""
+                  "ImageView": {
+                    "position": [0, 0],
+                    "src": "http://www.catmospherecafe.com/assets/kitten-200d8e0e3cbf6c4ab8c2037ffb207e81f840554ceed0891f0b00f3a085156d01.jpg"
                   }
                 },
 
