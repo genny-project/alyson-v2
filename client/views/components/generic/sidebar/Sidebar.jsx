@@ -36,7 +36,7 @@ class Sidebar extends Component {
 
         let image = null;
         if ( src ) {
-            image = <div className='sidebar-image' position={[0,0]}><ImageView src={src} caption={caption} style={{ maxWidth: "100px" }}/></div>;
+            image = <div className='sidebar-image' position={[0,0]}><ImageView src={src} caption={caption} style={{ maxHeight: "100px", maxWidth: "200px" }}/></div>;
         }
         let icon = <IconSmall className={`sidebar-toggle-icon clickable`}
                 name="menu"
