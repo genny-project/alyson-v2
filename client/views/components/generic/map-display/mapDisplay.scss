@@ -1,0 +1,11 @@
+@import 'client/styles/colors';
+
+.map-display {
+    width: 100%;
+    height: 100%;
+  
+    .google-map {
+      width: 100%;
+      height: 100%;
+    }
+  }

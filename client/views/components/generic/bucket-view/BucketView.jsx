@@ -380,6 +380,7 @@ class BucketView extends Component {
                     showMovingOptions={this.toggleMovingOptions}
                     addNewItem={this.addNewItem}
                     canAddItem={bucket.canAddItem}
+                    style={{ flexBasis: `calc(100vw / ${buckets.length})` }}
                     className={(index % 2 == 0) ? '' : 'alt-style'}
                 />
             )
