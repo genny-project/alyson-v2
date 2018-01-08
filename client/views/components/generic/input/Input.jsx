@@ -136,7 +136,7 @@ class Input extends Component {
                 validationStatus={validationStatus}
             /> );
         default:
-            return ( <InputAddress
+            return ( <InputText
                 {...this.props}
                 validation={this.validateInput}
                 validationStatus={validationStatus}
