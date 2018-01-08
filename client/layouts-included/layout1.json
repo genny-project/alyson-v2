@@ -207,14 +207,131 @@
           {
             "Grid": {
               "rows":1,
-              "cols":4,
+              "cols":1,
               "position": [1,0],
-              "style": {"backgroundColor": "lightsalmon", "padding":"0px 40px"},
+              "style": {"backgroundColor": "white", "color": "black","borderBottom": "1px solid #e3e3e3"},
               "children": [
-              { "Grid": { "rows": 2, "cols": 2, "position": [0, 0], "style": { "padding": 10},"children": [{ "h3": { "position": [0, 0], "children": "Content 1" } }] } },
-              { "Grid": { "rows": 2, "cols": 2, "position": [0, 1], "style": { "padding": 10},"children": [{ "h3": { "position": [0, 0], "children": "Content 2" } }] } },
-              { "Grid": { "rows": 2, "cols": 2, "position": [0, 2],"style": { "padding": 10}, "children": [{ "h3": { "position": [0, 0], "children": "Content 3" } }] } },
-            { "Grid": { "rows": 2, "cols": 2, "position": [0, 3], "style": { "padding": 10}, "children": [{ "h3": { "position": [0, 0], "children": "Content 4" } }] } } ]
+                {
+                  "Grid": {
+                    "rows": 1,
+                    "cols": 2,
+                    "position": [0,0],
+                    "children": [
+                      {
+                      "h3": {
+                        "position": [0, 0],
+                        "children": "Find Jobs",
+                        "style": {
+                          "textAlign": "center"
+                        }
+                      }
+                    }, 
+                    {
+                      "h3": {
+                        "position": [0, 1],
+                        "children": "Atlas Copco M2D",
+                        "style": {
+                          "textAlign": "center"
+                        }
+                        
+                      }
+                    }
+                  ]
+                  }
+                }
+          ]
+            }
+          },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols":2,
+              "position": [3,0],
+              "style": {"padding": "0 200px"},
+              "children":[
+                {
+                  "Grid": {
+                    "rows":3,
+                    "cols":1,
+                    "position": [0,0],
+                    "children":[
+                      {
+                        "h3": {
+                          "position": [0,0],
+                          "children": "Atlas Copco M2D"
+                        }
+                        
+                      },
+                      {
+                        "h3": {
+                          "position": [1, 0],
+                          "children": "Pickup | Drop off"
+                        }
+
+                      },
+                      {
+                        "Grid": {
+                          "position":[2,0],
+                          "rows":1,
+                          "cols":2,
+                          "style":{ "alignItems": "baseline"},
+                          "children":[
+                            {
+                              "Grid": {
+                                "rows":1,
+                                "cols":1,
+                                "position": [0,0],
+                                "children": [
+                                  {
+                                    "h2":{"position":[0,0], "children": "Description", "style": {"marginTop": 20}}},
+                                    {
+                                    "p": {"position": [0,0], "children": "This is a description about the job blah blah blah"}}
+                                  ]
+                              }
+                            },
+                            {
+                              "Grid": {
+                                "rows":1,
+                                "cols":1,
+                                "position": [0, 1],
+                                "children":[
+                                 { 
+                                   "ImageView": { 
+                                     "position": [0, 0], 
+                                     "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg", 
+                                     "style": { 
+                                       "height": 300, 
+                                       "width": 300, 
+                                       "padding": 50 
+                                       }
+                                    } 
+                                  } 
+                                ]
+                                
+                              }
+
+                            }
+
+                          ]
+                        }
+                      }
+
+                    ]
+
+                  }
+                },
+                
+                {
+                  "Grid": {
+                    "rows":1,
+                    "cols":1,
+                    "position": [0,1]
+                  }
+                }
+
+              ]
+
             }
           },
           {
