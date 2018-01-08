@@ -1,15 +1,15 @@
-import './googleMapInput.scss';
+import './mapInput.scss';
 import React, { Component } from 'react';
 import { string, object, array, number, bool } from 'prop-types';
 import { IconSmall, InputText } from 'views/components';
 
-class GoogleMapInput extends Component {
+class MapInput extends Component {
 
   static defaultProps = {
     className: '',
     lat: -33.8688,
     lng: 151.2093,
-    controls: true,
+    controls: false,
     zoom: 14,
   }
 
@@ -28,23 +28,15 @@ class GoogleMapInput extends Component {
 
   componentWillUnmount() {
 
-    console.log("======================= UNMOUNTING =========================")
+    //console.log("======================= UNMOUNTING =========================")
     if(this.map) {
       this.map = null;
     }
   }
 
-  // componentDidUpdate() {
-
-  //   console.log("======================= DID UPDATE =========================")
-  //   if(this.map == null) {
-  //     this.setup();
-  //   }
-  // }
-
   setup = () => {
     
-    console.log('SETTING UP')
+    //console.log('SETTING UP')
     if(typeof google == 'object') {
 
       const { lat, lng, controls, zoom } = this.props;
@@ -53,26 +45,18 @@ class GoogleMapInput extends Component {
         zoom,
         center: new google.maps.LatLng( lat, lng ),
         disableDefaultUI: !controls,
+        zoomControl: !controls,
         scrollwheel: false,
       };
 
       this.map = new google.maps.Map( this.mapRef, mapOptions );
-      
-      // this.map.addListener('center_changed', () => {
-        
-      //   if(this.map) {
-      //      let coords = this.map.getCenter();
-      //      this.geocodeLatLng(geocoder, this.map, infowindow);
-      //   }
-      // });
 
       let geocoder = new google.maps.Geocoder;
-      let infowindow = new google.maps.InfoWindow;
 
       this.map.addListener('idle', () => {
 
         if(this.map) {
-         this.geocodeLatLng(geocoder, this.map, infowindow);
+         this.geocodeLatLng(geocoder, this.map);
         }
       });
 
@@ -88,11 +72,8 @@ class GoogleMapInput extends Component {
       });
 
       let markers = [];
-      searchBox.addListener('places_changed', function() {
-          
-
-        //TODO : failing here. this.map is undefined.
-
+      searchBox.addListener('places_changed', () => {
+        
         if(!this.map) return;
 
         var places = searchBox.getPlaces();
@@ -100,13 +81,6 @@ class GoogleMapInput extends Component {
         if (places.length == 0) {
           return;
         }
-
-        // Clear out the old markers.
-        markers.forEach(function(marker) {
-          marker.setMap(null);
-        });
-
-        markers = [];
 
         // For each place, get the icon, name and location.
         var bounds = new google.maps.LatLngBounds();
@@ -116,21 +90,6 @@ class GoogleMapInput extends Component {
             console.log("Returned place contains no geometry");
             return;
           }
-          var icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
-
-          // Create a marker for each place.
-          markers.push(new google.maps.Marker({
-            map: this.map,
-            icon: icon,
-            title: place.name,
-            position: place.geometry.location
-          }));
 
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
@@ -158,29 +117,23 @@ class GoogleMapInput extends Component {
         lat: parseFloat(latlngStr[0]),
         lng: parseFloat(latlngStr[1])
       };
-      console.log(latlng);
       geocoder.geocode({'location': latlng}, (results, status) => {
 
         if (status === 'OK') {
 
-            if (results[0]) {
-              console.log(results[0].formatted_address);
-              
-              this.setState({
-                value: results[0].formatted_address
-              });
-              // var marker = new google.maps.Marker({
-              //   position: latlng,
-              //   map: map
-              // });
-            } else {
-              console.log('No results found');
-            }
+          if (results[0]) {
+            
+            this.setState({
+              value: results[0].formatted_address
+            });
+          } else {
+            console.log('No results found');
+          }
         } 
         else {
           console.log('Geocoder failed due to: ' + status);
         }
-      });
+    });
   }
 
   handleChange = event => {
@@ -211,8 +164,8 @@ class GoogleMapInput extends Component {
     const componentStyle = { ...style, position: "relative" };
 
     return (
-      <div className={`google-map-input ${className}`} style={componentStyle}>
-        <div className={`map`} ref={div => this.mapRef = div}/>
+      <div className={`map-input ${className}`} style={componentStyle}>
+        <div className={`google-map`} ref={div => this.mapRef = div}/>
         <InputText
           ref={r => this.input = r }
           value={value}
@@ -221,10 +174,10 @@ class GoogleMapInput extends Component {
           onBlur={this.handleBlur}
           onKeyDown={this.onKeyDown}
         />
-        <IconSmall name="place" style={{ zIndex: '1', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -100% )' }}/>
+        <IconSmall name="place" style={{ zIndex: '1', position: 'absolute', fontSize: '2em', top: '50%', left: '50%', transform: 'translate(-50%, -100% )', color: '#ff6b65' }}/>
       </div>
     );
   }
 }
 
-export default GoogleMapInput;
+export default MapInput;

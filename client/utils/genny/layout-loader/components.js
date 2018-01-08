@@ -25,8 +25,8 @@ import {
   GennyDropdown,
   DateLabel,
   Device,
-  GoogleMap,
-  GoogleMapInput,
+  MapDisplay,
+  MapInput,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -57,6 +57,6 @@ export default new ComponentCollection({
   GennyDropdown,
   DateLabel,
   Device,
-  GoogleMap,
-  GoogleMapInput,
+  MapDisplay,
+  MapInput,
 });
