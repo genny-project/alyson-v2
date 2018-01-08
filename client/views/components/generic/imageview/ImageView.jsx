@@ -29,7 +29,6 @@ class ImageView extends Component {
     const componentStyle = {
       ...style,
     };
-    console.log(error,'error');
 
     return (
       <div className={`imageView ${rounded ? 'rounded' : ''}`} style={componentStyle}>

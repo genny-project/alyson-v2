@@ -26,7 +26,7 @@ class InputTime extends Component {
 
   state = {
     format: 'AM',
-    value: this.props.value,
+    value: this.props.value || '',
     focused: false,
   }
 
