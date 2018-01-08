@@ -209,15 +209,12 @@
               "rows":1,
               "cols":4,
               "position": [1,0],
-              "style": {"backgroundColor": "yellow"},
+              "style": {"backgroundColor": "lightsalmon", "padding":"0px 40px"},
               "children": [
-                {
-                  "Grid": {
-                    "position": [0,0],
-                    "children": [{"p": {"children": "Hello World"}}]
-                }
-              }
-              ]
+              { "Grid": { "rows": 2, "cols": 2, "position": [0, 0], "style": { "padding": 10},"children": [{ "h3": { "position": [0, 0], "children": "Content 1" } }] } },
+              { "Grid": { "rows": 2, "cols": 2, "position": [0, 1], "style": { "padding": 10},"children": [{ "h3": { "position": [0, 0], "children": "Content 2" } }] } },
+              { "Grid": { "rows": 2, "cols": 2, "position": [0, 2],"style": { "padding": 10}, "children": [{ "h3": { "position": [0, 0], "children": "Content 3" } }] } },
+            { "Grid": { "rows": 2, "cols": 2, "position": [0, 3], "style": { "padding": 10}, "children": [{ "h3": { "position": [0, 0], "children": "Content 4" } }] } } ]
             }
           },
           {
