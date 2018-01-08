@@ -96,10 +96,10 @@ class GennyForm extends PureComponent {
                                 if(ask.question.attribute.dataType.inputmask) {
 
                                     inputMask = ask.question.attribute.dataType.inputmask.split(',').map(x => {
-                                        
+
                                         if(x.indexOf('d') == 1 || x.indexOf('w') == 1) {
                                             return new RegExp(x)
-                                        } 
+                                        }
 
                                         return x
                                     });
@@ -132,7 +132,7 @@ class GennyForm extends PureComponent {
                         identifier: ask.question.code,
                         data: {
                             askId: ask.id,
-                            attributeCode: ask.question.attributeCode,
+                            attributeCode: ask.question.attribute.code,
                             sourceCode: ask.sourceCode,
                             targetCode: ask.targetCode,
                             code: ask.question.code,

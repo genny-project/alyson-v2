@@ -49,7 +49,7 @@ class FormGroup extends Component {
                     {title}
                 </div>
                 {inputs}
-                {(onSubmit) ? <Input className="submit" type="Button" onClick={onSubmit} name="Submit" /> : null}
+                {(onSubmit) ? <Input className="submit" type="Button" animate={true} onClick={onSubmit} name="Submit" /> : null}
             </div>
         );
     }
