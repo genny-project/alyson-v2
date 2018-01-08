@@ -149,8 +149,6 @@ class GennyForm extends PureComponent {
                         validationList: valList,
                         mask: ask.question.mask,
                         onValidation: this.onInputValidation,
-                        //onClick props are being passed to all children
-                        //should just be passed to buttons
                         onClick: this.onClick,
                         onClickEvent: this.onClickEvent,
                         options: options,
