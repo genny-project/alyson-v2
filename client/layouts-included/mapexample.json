@@ -63,7 +63,7 @@
                           },
                           "children" : [
                             {
-                              "GoogleMapInput" : {
+                              "MapInput" : {
                                 "lat": -37.803670,
                                 "lng": 144.964796,
                                 "style": {
@@ -72,25 +72,26 @@
                               }
                             },
                             {
-                              "GoogleMap" : {
-                                "lat": -37.803670,
-                                "lng": 144.964796,
+                              "MapDisplay" : {
+                                "style": {
+                                  "marginBottom": "50px"
+                                },
+                                "center": "115 Spur Rd, Clonbinane VIC 3658, Australia",
                                 "markers": [
                                   {
                                     "lat": -36.1460,
                                     "lng": 144.7448
+                                  },
+                                  "229 Westgarth St, Northcote VIC 3070, Australia",
+                                  {
+                                    "lat": -32.224693,
+                                    "lng": 148.631974
                                   }
                                 ],
-                                "directions": [
+                                "routes": [
                                   {
-                                    "origin" : {
-                                      "lat": -37.803670,
-                                      "lng": 144.964796
-                                    },
-                                    "dest" : {
-                                      "lat": -32.224693,
-                                      "lng": 148.631974
-                                    }
+                                    "origin" : "32 Lane Cres, Reservoir VIC 3073, Australia",
+                                    "dest" : "121 Cardigan St, Carlton VIC 3053, Australia"
                                   },
                                   {
                                     "origin" : {
@@ -100,16 +101,6 @@
                                     "dest" : {
                                       "lat": -34.554699,
                                       "lng": 138.961454
-                                    }
-                                  },
-                                  {
-                                    "origin" : {
-                                      "lat": -34.554699,
-                                      "lng": 138.961454
-                                    },
-                                    "dest" : {
-                                      "lat": -37.803670,
-                                      "lng": 144.964796
                                     }
                                   }
                                 ]
