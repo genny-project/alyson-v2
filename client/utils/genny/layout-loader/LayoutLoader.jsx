@@ -67,7 +67,7 @@ class LayoutLoader extends Component {
            Object.keys(localAliases).forEach((alias_key, index) => {
                
                let localAliasCode = localAliases[alias_key];
-               if(alias_key == alias_code) {``
+               if(alias_key == alias_code) {
 
                    let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
                    if(baseEntity) {
@@ -83,6 +83,15 @@ class LayoutLoader extends Component {
         else {
             if(split.length == 2) {
                 attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
+                if(!attribute) {
+
+                    let baseEntity = BaseEntityQuery.getAlias(alias_code);
+                    if(baseEntity) {
+                        attribute = {
+                            value: baseEntity.code
+                        }; 
+                    }
+                }
             }
         }
 
