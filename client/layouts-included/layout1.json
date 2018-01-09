@@ -3,7 +3,7 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": ["120px", "140px", "300px", "300px", "400px", "30px"],
+        "rows": ["120px", "80px", "100px", "300px", "400px", "30px"],
         "children": [
           {
             "Header": {
@@ -126,7 +126,6 @@
                           "name": "check_circle"
                         }
                       },
-
                       {
                         "h4": {
                           "position": [0, 1],
@@ -172,6 +171,7 @@
                   "Grid": {
                     "position": [0, 2],
                     "rows": [{ "style": { "flexGrow": 0 } }],
+                    "style": {"alignItems":"center"},
                     "cols": [
                       {
                         "style": {
@@ -214,7 +214,8 @@
                 {
                   "Grid": {
                     "rows": 1,
-                    "cols": 2,
+                    "cols": 3,
+                    "style": {"padding": "10px 400px"},
                     "position": [0,0],
                     "children": [
                       {
@@ -227,8 +228,15 @@
                       }
                     }, 
                     {
+                      "IconSmall": {
+                        "position": [0,1],
+                        "name": "check_circle",
+                        "style": {"fontSize": 40, "color": "green", "padding": "0 0 0 40%"}
+                      }
+                    },
+                    {
                       "h3": {
-                        "position": [0, 1],
+                        "position": [0, 2],
                         "children": "Atlas Copco M2D",
                         "style": {
                           "textAlign": "center"
@@ -248,7 +256,7 @@
               "rows": 1,
               "cols":2,
               "position": [3,0],
-              "style": {"padding": "0 200px"},
+              "style": {"padding": "0 100px", "flexWrap": "wrap"},
               "children":[
                 {
                   "Grid": {
@@ -257,18 +265,16 @@
                     "position": [0,0],
                     "children":[
                       {
-                        "h3": {
+                        "h2": {
                           "position": [0,0],
                           "children": "Atlas Copco M2D"
                         }
-                        
                       },
                       {
                         "h3": {
                           "position": [1, 0],
-                          "children": "Pickup | Drop off"
+                          "children": "Pickup | Drop off 2010/23/13 | 1233/12/12"
                         }
-
                       },
                       {
                         "Grid": {
@@ -284,9 +290,9 @@
                                 "position": [0,0],
                                 "children": [
                                   {
-                                    "h2":{"position":[0,0], "children": "Description", "style": {"marginTop": 20}}},
+                                    "h4":{"position":[0,0], "children": "Description", "style": {"marginTop": 20}}},
                                     {
-                                    "p": {"position": [0,0], "children": "This is a description about the job blah blah blah"}}
+                                    "p": {"position": [0,0], "children": "This is a description about the job loream ipsum random text about the job description"}}
                                   ]
                               }
                             },
@@ -299,11 +305,11 @@
                                  { 
                                    "ImageView": { 
                                      "position": [0, 0], 
-                                     "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg", 
+                                     "src": "http://i.imgur.com/yqdlJB5.jpg", 
                                      "style": { 
                                        "height": 300, 
-                                       "width": 300, 
-                                       "padding": 50 
+                                       "width": 300,
+                                       "marginTop": "20"
                                        }
                                     } 
                                   } 
@@ -326,7 +332,36 @@
                     "rows":1,
                     "cols":1,
                     "position": [0,1],
-                    "children": [{ "MapDisplay": {"position": [0,0],"style":{ "marginBottom": "50px" }}}]
+                    "style": {"width": "100%"},
+                    "children": [{
+                      "MapDisplay": {
+                        "position": [0,0],
+                        "center": "115 Spur Rd, Clonbinane VIC 3658", 
+                        "markers": [{
+                          "lat": -36.1460,
+                          "lng": 144.7448
+                            },
+                          "229 Westgarth St, Northcote VIC 3070, Australia"
+                        ],
+                         "routes": [
+                                  {
+                                    "origin" : "32 Lane Cres, Reservoir VIC 3073, Australia",
+                                    "dest" : "121 Cardigan St, Carlton VIC 3053, Australia"
+                                  },
+                                  {
+                                    "origin" : {
+                                      "lat": -32.224693,
+                                      "lng": 148.631974
+                                    },
+                                    "dest" : {
+                                      "lat": -34.554699,
+                                      "lng": 138.961454
+                                    }
+                                  }
+                                ]
+                            
+                      }
+                      }]
                   }
                 }
               ]

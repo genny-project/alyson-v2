@@ -40,7 +40,6 @@ class MapDisplay extends Component {
       const { center, controls, zoom, markers, routes } = this.props;
 
       let geocoder = new google.maps.Geocoder;
-
       const mapOptions = {
         zoom,
         center: { lat: -33.8688, lng: 151.2093},
@@ -58,7 +57,7 @@ class MapDisplay extends Component {
             this.adjustBounds();
           }, 500);
         }
-      }
+      };
 
       this.checkAddressFormat(geocoder, center, (centerCoords) => { 
 
@@ -89,8 +88,8 @@ class MapDisplay extends Component {
             else {
               counterMarkers += 1;
             }
-          })
-        })
+          });
+        });
 
         let counterRoutes = 0;
         routes.forEach(route => {
@@ -117,6 +116,12 @@ class MapDisplay extends Component {
           });
         });
       });
+    }
+    else {
+
+      setTimeout(() => {
+        this.setup();
+      }, 1000);
     }
   }
 
@@ -189,7 +194,7 @@ class MapDisplay extends Component {
     if(bounds && this.map && this.locations) {
       this.locations.forEach(location => {
         bounds.extend(location);
-      })
+      });
     }
 
     this.map.fitBounds(bounds); 
@@ -197,12 +202,13 @@ class MapDisplay extends Component {
   }
 
   render() {
+    console.log(this.props, 'Log props from Map Display Component');
     const { className, style } = this.props;
     const componentStyle = { ...style,};
 
     return (
       <div className={`map-display ${className}`} style={componentStyle}>
-        <div className={`google-map`} ref={div => this.mapRef = div} />
+        <div className={'google-map'} ref={div => this.mapRef = div} />
       </div>
     );
   }

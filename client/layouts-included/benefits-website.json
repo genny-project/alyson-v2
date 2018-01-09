@@ -43,35 +43,30 @@
                     "children": "CHANNEL40"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "For"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Businesses Companies"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Become a Driver"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Register"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
@@ -81,7 +76,6 @@
               ]
             }
           },
-
           {
             "div": {
               "position": [0, 0],
@@ -90,8 +84,7 @@
                 "color": "white",
                 "height": "40px"
               },
-              "children": [
-                
+              "children": [                
               ]
             }
           },
@@ -166,14 +159,12 @@
                           "name": "check_circle"
                         }
                       },
-
                       {
                         "h4": {
                           "position": [0, 1],
                           "children": "Benefit"
                         }
                       },
-
                       {
                         "span": {
                           "position": [0, 1],
@@ -277,7 +268,6 @@
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "cover",
                 "height": 500
-
               },
               "children": [
                 {
@@ -287,14 +277,12 @@
                     "style": {"height": 300, "width": 300, "padding": 50}
                   }
                 },
-
                 {
                   "h3": {
                     "position": [0, 1],
                     "children": "Manage Whenever on the Go"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
@@ -347,7 +335,12 @@
                     "children": [{"IconSmall": {"name": "check", "text": "iure reprehenderit qui in ea voluptate"}} ]
                   }
                 },
-                { "p": { "position": [0, 0], "style": { "color": "green" }, "children": [{ "IconSmall": { "name": "check", "text": "Quis autem vel eum iure reprehenderit qui in ea" } }] } },
+                { "p": {
+                   "position": [0, 0],
+                    "style": { "color": "green" },
+                     "children": [{ "IconSmall": { "name": "check", "text": "Quis autem vel eum iure reprehenderit qui in ea" } }]
+                  }
+                },
                 {
                   "p": {
                     "position": [0,0],
@@ -376,14 +369,12 @@
                     "src": "http://www.catmospherecafe.com/assets/kitten-200d8e0e3cbf6c4ab8c2037ffb207e81f840554ceed0891f0b00f3a085156d01.jpg"
                   }
                 },
-
                 {
                   "h3": {
                     "position": [0, 2],
                     "children": "Transparent. Reliable. National."
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 2],
@@ -394,8 +385,6 @@
               ]
             }
           },
-
-
           {
             "Footer": {
               "position": [5, 0],

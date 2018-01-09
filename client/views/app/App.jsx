@@ -30,13 +30,13 @@ class App extends Component {
 
               let event = message.detail;
               switch (event.id) {
-                  case "GEOFENCE":
+                  case 'GEOFENCE':
                   GennyBridge.sendGeofenceData(event.data.value, event.data);
                   break;
-                  default: console.log("received unknown event [" + event.id + "]");
+                  default: console.log('received unknown event [' + event.id + ']');
               }
           }
-      })
+      });
     }
   }
 
@@ -53,18 +53,19 @@ class App extends Component {
 
   setupGoogleAPI() {
 
-      let googleScript = document.getElementById("google-api");
+      let googleScript = document.getElementById('google-api');
       if(!googleScript) {
 
           // load google api
           //TODO: move the API key to config file
-          const script = document.createElement("script");
-          script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6Te7CSJZvfTITavnAijxdkqN-Viugpg&libraries=places";
+          const script = document.createElement('script');
+          script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6Te7CSJZvfTITavnAijxdkqN-Viugpg&libraries=places';
           script.async = true;
-          script.id = "google-api";
+          script.id = 'google-api';
           document.body.appendChild(script);
       }
   }
+
 
   render() {
 
@@ -73,6 +74,8 @@ class App extends Component {
 
     /* If the backend isn't enabled just render the app */
     if (!config.backendEnabled) {
+
+      this.setupGoogleAPI();
       return (
         <div className='app'>
           <main>
