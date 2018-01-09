@@ -320,18 +320,16 @@
                     ]
 
                   }
-                },
-                
+                },                
                 {
                   "Grid": {
                     "rows":1,
                     "cols":1,
-                    "position": [0,1]
+                    "position": [0,1],
+                    "children": [{ "MapDisplay": {"position": [0,0],"style":{ "marginBottom": "50px" }}}]
                   }
                 }
-
               ]
-
             }
           },
           {
