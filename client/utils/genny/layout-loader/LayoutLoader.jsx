@@ -8,7 +8,7 @@ import { BaseEntityQuery } from 'utils/genny';
 class LayoutLoader extends Component {
 
     static defaultProps = {
-        
+
       }
 
   static propTypes = {
@@ -63,23 +63,23 @@ class LayoutLoader extends Component {
         let attribute_code = split[1];
         let attribute = {};
         if (localAliases) {
-            
+
            Object.keys(localAliases).forEach((alias_key, index) => {
-               
+
                let localAliasCode = localAliases[alias_key];
-               if(alias_key == alias_code) {``
+               if(alias_key == alias_code) {
 
                    let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
                    if(baseEntity) {
-                       
+
                        attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                        if(!attribute) {
-                           layout = JSON.parse(JSON.stringify(layout).replace(alias, localAliasCode));
+                           layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
                        }
                    }
                 }
             });
-        } 
+        }
         else {
             if(split.length == 2) {
                 attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
