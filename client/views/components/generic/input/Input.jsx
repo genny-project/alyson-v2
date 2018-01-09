@@ -172,6 +172,14 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
+        case 'Address':
+            return (
+            <InputAddress
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                />
+            );
         default:
             return (
                 <InputText
