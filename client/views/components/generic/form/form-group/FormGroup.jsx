@@ -46,7 +46,7 @@ class FormGroup extends Component {
             <Grid rows={1} cols={buttons.length}>
                 {
                     buttons.map((button, index) => {
-                        return <Button style={{ "margin" : "10px" }} position={[0, index]} className={button} onClick={this.props.onSubmit} />
+                        return <Button style={{ "margin" : "10px" }} position={[0, index]} className={button} onClick={() => this.props.onSubmit(button.replace('form-', ''))} />
                     })
                 }
             </Grid>
@@ -58,9 +58,6 @@ class FormGroup extends Component {
         const { data, title, submitButtons } = this.props;
 
         let inputs = this.renderData(data);
-
-        console.log("== " + title + " ==")
-        console.log( submitButtons )
 
         return (
             <div className="form-group">

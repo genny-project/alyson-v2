@@ -31,10 +31,7 @@ class GennyForm extends PureComponent {
 
             let btnEventData = {
                 code: data.code,
-                value: JSON.stringify({
-                    askId: data.askId,
-                    targetCode: data.targetCode,
-                }),
+                value: JSON.stringify(data),
             };
 
             GennyBridge.sendBtnClick("BTN_CLICK", btnEventData);
@@ -49,13 +46,16 @@ class GennyForm extends PureComponent {
         }]);
     }
 
-    onSubmit = (questionGroupCode, targetCode) => {
+    onSubmit = (questionGroupCode, targetCode, action) => {
 
         if(questionGroupCode) {
 
             let btnEventData = {
                 code: questionGroupCode,
-                value: targetCode,
+                value: JSON.stringify({
+                    targetCode: targetCode,
+                    action: action
+                }),
             }
 
             GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
@@ -82,11 +82,9 @@ class GennyForm extends PureComponent {
                     submitButtons = ['form-cancel', 'form-reset', 'form-submit']
                 }
                 else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_NEXT') {
-
                     submitButtons =  ['form-next']
                 }
                 else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_PREVIOUS_NEXT') {
-
                     submitButtons = ['form-previous', 'form-next'];
                 }
             }
@@ -94,7 +92,7 @@ class GennyForm extends PureComponent {
             return {
                 title: askGroup.name,
                 submitButtons: submitButtons,
-                onSubmit: () => this.onSubmit(askGroup.question.code, askGroup.targetCode),
+                onSubmit: (action) => this.onSubmit(askGroup.question.code, askGroup.targetCode, action),
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
