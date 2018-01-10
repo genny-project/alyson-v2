@@ -77,7 +77,7 @@ class InputTime extends Component {
       <div className={`input input-time ${className} ${validationStatus || ''}`}>
         { name ? <div className='input-header'>
           { name ? <Label className="input-time-label" text={name} /> : null }
-          { mandatory ? <Label className='input-label-required' style={{ marginRight: '10px'}} textStyle={{color: '#cc0000'}} text="*  required" /> : null}
+          { mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
         </div> : null }
         <div className='input-time-main'>
           <MaskedTextInput
