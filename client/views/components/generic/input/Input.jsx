@@ -177,6 +177,7 @@ class Input extends Component {
                 />
             );
         default:
+           console.log({...rest});
             return (
                 <InputText
                     {...rest}

@@ -133,7 +133,11 @@ class InputAddress extends Component {
                                 paddingRight: '10px'
                             }
                         },
-                        1
+                        {
+                            style: {
+                                flex: '0 0 100px'
+                            }
+                        },
                     ]
                 }
                 rows="1"
@@ -146,15 +150,15 @@ class InputAddress extends Component {
 
     render() {
 
-        const { name, optional,  } = this.props;
+        const { name, mandatory,  } = this.props;
         const { validationStatus, showMap, address  } = this.state;
 
         return (
             <div className="input input-address">
                 <div className="input-header">
-                  {name ? <Label text={name} /> : null }
-                  {optional ? <Label text="(optional)" /> : null}
-                  <SubmitStatusIcon status={validationStatus} />
+                    {name ? <Label text={name} /> : null }
+                    {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
+                    <SubmitStatusIcon status={validationStatus} />
                 </div>
                 {window.google ? this.renderInput() : <p>Loading...</p>}
                 <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>

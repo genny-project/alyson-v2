@@ -170,7 +170,7 @@ class GennyForm extends PureComponent {
                         placeholder: '',
                         value: default_value,
                         readOnly: ask.readOnly,
-                        optional: ask.optional,
+                        mandatory: ask.mandatory,
                         validationList: valList,
                         mask: ask.question.mask,
                         onValidation: this.onInputValidation,

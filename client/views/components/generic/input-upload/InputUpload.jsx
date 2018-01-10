@@ -66,14 +66,14 @@ class InputUpload extends Component {
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, } = this.props;
+    const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, } = this.props;
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
     return <div className={`input input-file-upload ${className} ${validationStatus || ''}`}>
       {!isHorizontal ? <div className="input-header">
           {name ? <Label text={name} /> : null}
-          {optional ? <Label text="(optional)" /> : null}
+          {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
           <SubmitStatusIcon status={validationStatus} />
         </div> : null}
       <Grid rows={1} cols={[{ style: { flexGrow: 4, marginRight: "10px" }},1]}>
