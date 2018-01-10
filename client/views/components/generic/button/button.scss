@@ -13,13 +13,13 @@
 	    border-radius: 5px;
 	    color: white;
 	    background: #999;
-	    font-size: 1em;
+			font-size: 1em;
 	    cursor: pointer;
 	    outline: none;
-
 	    display: flex;
-	 	justify-content: center;
-	 	align-items: center;
+	 		justify-content: center;
+			 align-items: center;
+			 font-weight:500;
 
 	 	> i {
 	 		padding-right: 5px;
@@ -37,7 +37,10 @@
 
     &.cancel > button{
     	background: $error;
-    }
+		}
+		&.warning >button{
+			background-color: #f9691f;
+		}
 
 
 

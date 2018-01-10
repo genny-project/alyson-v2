@@ -3,7 +3,7 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": ["120px", "80px", "100px", "300px", "400px", "30px"],
+        "rows": ["120px", "80px", "100px", "500px", "400px", "30px"],
         "children": [
           {
             "Header": {
@@ -107,7 +107,7 @@
                 {
                   "Grid": {
                     "position": [0, 0],
-                    "rows": [{ "style": { "flexGrow": 0 } }],
+                    "rows": [{ "style": { "flexGrow": 0 ,"padding": "20px 0px"} }],
                     "cols": [
                       {
                         "style": {
@@ -263,6 +263,7 @@
                     "rows":4,
                     "cols":1,
                     "position": [0,0],
+                    "style": {"border": "2px solid #e3e3e3", "padding":"20px 20px"},
                     "children":[
                       {
                         "h2": {
@@ -272,39 +273,50 @@
                         }
                       },
                       {
+                        "Grid":{
+                          "position":[1,0],
+                          "rows":2,
+                          "cols":1,
+                          "style":{"margin": "10px 0"},
+                          "children":[
+                            {
                         "IconSmall":{
                           "position": [0,0],
                           "name": "perm_contact_calendar",
-                          "style": {"fontSize":20, "color": "green","marginTop": 20},
+                          "style": {"fontSize":20, "color": "green"},
                           "text": "Pickup:  21 Jan 2017"
                         }
                       },
                       {
                         "IconSmall":{
-                          "position": [0,0],
+                          "position": [1,0],
                           "name": "perm_contact_calendar",
-                          "style": {"fontSize":20, "color": "green","marginTop": 10},
+                          "style": {"fontSize":20, "color": "green"},
                           "text": "Dropoff: 21 Jan 2017"
                         }
-                      },
+                      }
+
+                          ]
+                        }}
+                      ,
+                      
                       {
                         "Grid": {
                           "position":[2,0],
                           "rows":1,
                           "cols":2,
-                          "style":{ "alignItems": "baseline","marginTop": "30px"},
+                          "style":{ "alignItems": "baseline", "flexWrap":"wrap"},
                           "children":[
                             {
                               "Grid": {
                                 "rows":1,
                                 "cols":1,
                                 "position": [0,0],
-                                "style": {"marginTop": "30px"},
                                 "children": [
                                   {
-                                    "h3":{"position":[0,0], "children": "Description:", "style": {"marginTop": 0, "color": "#f9691f"}}},
+                                    "h3":{"position":[0,0], "children": "Description:", "style": { "color": "#f9691f"}}},
                                     {
-                                    "p": {"position": [0,0], "children": "This is a description about the job loream ipsum ran this is a description about the job loream ipsum "}}
+                                    "p": {"style": {"color":"#4a4747","lineHeight": 1.8},"position": [0,0], "children": "This is a description about the job loream ipsum ran this is a description about the job loream ipsum  loream ipsum ran this is a description  loream ipsum ran this is a description "}}
                                   ]
                               }
                             },
@@ -313,7 +325,7 @@
                                 "rows":1,
                                 "cols":1,
                                 "position": [0, 1],
-                                "style": {"padding": 10},
+                                "style": {"padding": 10,"marginTop":20},
                                 "children":[
                                  { 
                                    "ImageView": { 
@@ -338,12 +350,12 @@
                           "position": [3,0],
                           "rows":1,
                           "cols":1,
-                          "style": {"marginTop":25},
+                          "style": { "display": "flex"},
                           "children": [
-                            {"span": {"style": {"fontWeight": 600, "color": "#f9691f" }, "position": [0,0], "children": "Posted By: "}},
+                            {"h3": {"style": {"fontWeight": 600, "color": "#f9691f"}, "position": [0,0], "children": "Posted By: "}},
                             { "span": { "position": [0, 0], "children": "Nischal Gautam"}}, 
-                            {"Button": {"className": "confirm small","position":[0,0], "children": "Contact Enquire", "style": {"width": "120px", "fontSize":12,"display": "inline-block", "marginLeft": "20px"} }},
-                            {"Button": {"className": "confirm small","position": [0, 0], "children": "Quote New", "style": { "width": "120px", "fontSize":12, "padding":0, "display": "inline-block", "marginLeft": "20px"} }}
+                            {"Button": {"className": "confirm small","position":[0,0], "children": "Contact Enquire", "style": {"width": "120px", "fontSize":14,"display": "inline-block", "marginLeft": "20px"} }},
+                            {"Button": {"className": "warning small","position": [0, 0], "children": "Quote New", "style": { "width": "120px", "fontSize":14, "padding":0, "display": "inline-block", "marginLeft": "20px"} }}
                           ]
                         }
                       }
@@ -355,7 +367,7 @@
                     "rows":1,
                     "cols":1,
                     "position": [0,1],
-                    "style": {"width": "100%"},
+                    "style": {"width": "100%","height":"500px"},
                     "children": [{
                       "MapDisplay": {
                         
