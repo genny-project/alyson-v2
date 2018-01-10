@@ -14,7 +14,7 @@ class InputText extends Component {
     placeholder: '',
     defaultValue: '',
     readOnly: false,
-    optional: false,
+    mandatory: false,
     identifier: null,
     validationStatus: null,
   }
@@ -27,7 +27,7 @@ class InputText extends Component {
     placeholder: string,
     defaultValue: string,
     readOnly: bool,
-    optional: bool,
+    mandatory: bool,
     validation: func,
     identifier: any,
     validationStatus: string,
@@ -83,7 +83,7 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, ...rest } = this.props;
+    const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, ...rest } = this.props;
     const componentStyle = { ...style, };
     const { date, focused, value } = this.state;
 
@@ -91,7 +91,7 @@ class InputText extends Component {
         {
             !isHorizontal && !hideHeader ? <div className="input-header">
             {name ? <Label text={name} /> : null}
-            {optional ? <Label text="(optional)" /> : null}
+            {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
             <SubmitStatusIcon status={validationStatus} />
           </div> : null
         }

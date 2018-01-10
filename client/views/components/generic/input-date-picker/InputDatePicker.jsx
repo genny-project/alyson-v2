@@ -39,15 +39,18 @@ class InputDatePicker extends Component {
 
   render() {
 
-    const { className, children, style, validationStatus, name, defaultDateFormat } = this.props;
+    const { className, children, style, validationStatus, name, defaultDateFormat, mandatory } = this.props;
     const { startDate } = this.state;
     const componentStyle = { ...style, };
 
     return (
       <div className={`input input-date-picker ${className}`}>
-        { name ? <Label className="input-date-picker-label" text={name} /> : null }
+        { name ? <div className='input-header'>
+          { name ? <Label className="input-date-picker-label" text={name} /> : null }
+          { mandatory ? <Label className='input-label-required' style={{ marginRight: '10px'}} textStyle={{color: '#cc0000'}} text="*  required" /> : null}
+        </div> : null }
         <DatePicker
-          className={validationStatus}
+          className={`${validationStatus}`}
           calendarClassName=""
           dateFormat={defaultDateFormat}
           dayClassName={date => date.date() < Math.random() * 31 ? 'random' : undefined}

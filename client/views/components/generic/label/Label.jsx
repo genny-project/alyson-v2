@@ -13,8 +13,8 @@ Label.defaultProps = {
 
 function Label(props) {
   return (
-    <div className={`label ${props.className || ''}`}>
-      <span className="label-text" onClick={props.onClick}>
+    <div className={`label ${props.className || ''}`} style={{...props.style}}>
+      <span className="label-text" onClick={props.onClick} style={{...props.textStyle}}>
         {props.text}
       </span>
     </div>

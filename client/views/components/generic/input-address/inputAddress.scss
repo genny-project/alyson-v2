@@ -1,5 +1,14 @@
 @import 'client/styles/colors';
 
+.input-address {
+	.input-header {
+    	display: flex;
+    	align-items: center;
+    	justify-content: flex-start;
+    	margin-bottom: 3px;
+    }
+}
+
 .input-address-search {
   position:relative;
   width: 100%;
@@ -37,5 +46,4 @@
 	    }
 	}
 
-  
 }
