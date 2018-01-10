@@ -46,7 +46,7 @@ class FormGroup extends Component {
             <Grid rows={1} cols={buttons.length}>
                 {
                     buttons.map((button, index) => {
-                        return <Button style={{ "margin" : "10px" }} position={[0, index]} className={button} onClick={() => this.props.onSubmit(button.replace('form-', ''))} />
+                        return <Button style={{ "margin" : "10px" }} position={[0, index]} key={index} className={button} onClick={() => this.props.onSubmit(button.replace('form-', ''))} />
                     })
                 }
             </Grid>

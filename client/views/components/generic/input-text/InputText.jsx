@@ -40,8 +40,8 @@ class InputText extends Component {
   }
 
   handleChange = event => {
-    
-  
+
+
     if ( this.props.mask ) {
       var mask = this.props.mask;
       if ( mask.test(event.target.value) ) {
@@ -73,8 +73,8 @@ class InputText extends Component {
 
     const { validationList, validation, identifier } = this.props;
     const value = event.target.value;
-    this.setState({ 
-      focused: false 
+    this.setState({
+      focused: false
     });
     if(validation) validation(value, identifier, validationList);
   }
@@ -88,7 +88,7 @@ class InputText extends Component {
     const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, value, ...rest } = this.props;
     const componentStyle = { ...style, };
     const { date, focused } = this.state;
-    
+
     return <div className={`input input-text ${className} ${validationStatus || ''}`} style={componentStyle}>
       {
           !isHorizontal && !hideHeader ? <div className="input-header">
@@ -99,7 +99,7 @@ class InputText extends Component {
       }
       {
 
-        inputMask ? 
+        inputMask ?
         <MaskedTextInput
           mask={inputMask}
           guide={true}
@@ -112,10 +112,9 @@ class InputText extends Component {
           onFocus={this.handleFocus}
           onKeyDown={this.onKeyDown}
           style={focused ? { borderColor: componentStyle.color } : null}
-        /> : 
+        /> :
         <input
           ref={r => this.input = r}
-          guide={true}
           disabled={readOnly}
           type={inputType || "text"}
           defaultValue={value}
@@ -125,10 +124,9 @@ class InputText extends Component {
           onFocus={this.handleFocus}
           onKeyDown={this.onKeyDown}
           style={focused ? { borderColor: componentStyle.color } : null}
-          {...rest}
         />
       }
-      
+
     </div>;
   }
 }

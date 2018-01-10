@@ -13,7 +13,7 @@ class Button extends Component {
   }
 
   static propTypes = {
-    children: any.isRequired,
+    children: any,
     className: string,
     href: string,
     type: string,

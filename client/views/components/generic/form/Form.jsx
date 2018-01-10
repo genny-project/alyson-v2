@@ -1,7 +1,7 @@
 import './form.scss';
 import React, { Component } from 'react';
 import { Pagination, Input } from 'views/components';
-import { string, bool, number, array} from 'prop-types';
+import { string, bool, number, array, object } from 'prop-types';
 import { FormGroup } from './form-group';
 
 class Form extends Component {
@@ -16,7 +16,7 @@ class Form extends Component {
     className: string,
     itemsPerPage: number,
     showProgress: bool,
-    data: array,
+    data: object,
   }
 
   state = {
@@ -33,7 +33,7 @@ class Form extends Component {
         });
       }
       else if (questionGroup.content) {
-          return (<FormGroup title={questionGroup.title} submitButtons={questionGroup.submitButtons} onSubmit={questionGroup.onSubmit} data={this.renderGroup(questionGroup.content)}/>);
+          return (<FormGroup key={questionGroup.title} title={questionGroup.title} submitButtons={questionGroup.submitButtons} onSubmit={questionGroup.onSubmit} data={this.renderGroup(questionGroup.content)}/>);
       }
 
       return [];

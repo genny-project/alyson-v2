@@ -150,7 +150,6 @@ class GennyForm extends Component {
                         }
                     }
 
-                    
                     return {
                         isHorizontal: this.props.isHorizontal,
                         mandatory: ask.question.mandatory,
