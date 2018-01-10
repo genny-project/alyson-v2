@@ -31,15 +31,68 @@
 	    }
  	}
 
- 	&.confirm > button{
+ 	&.confirm > button {
  		background: $success;
     }
 
-    &.cancel > button{
+    &.cancel > button {
     	background: $error;
     }
 
+	&.form-submit {
 
+		> button {
+			background: $error;
+		}
+
+		> button:after {
+			content: "Cancel";
+		}
+	}
+
+	&.form-submit {
+
+		> button {
+			background: $success;
+		}
+
+		> button:after {
+			content: "Submit";
+		}
+	}
+
+	&.form-next {
+
+		> button {
+			background: $primary-color;
+		}
+
+		> button:after {
+			content: "Next";
+		}
+	}
+
+	&.form-previous {
+
+		> button {
+			background: $primary-color;
+		}
+
+		> button:after {
+			content: "Previous";
+		}
+    }
+
+	&.form-reset {
+
+		> button {
+			background: $grey-text-color;
+		}
+
+		> button:after {
+			content: "Clear";
+		}
+	}
 
     &.small > button{
 	    height: 30px;

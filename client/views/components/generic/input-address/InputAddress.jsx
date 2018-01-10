@@ -25,12 +25,12 @@ class InputAddress extends Component {
     }
 
     onSelect = (newAddress) => {
-        
+
         if(newAddress) {
 
             geocodeByAddress(newAddress)
             .then(results => {
-                
+
                 let addressObj = results[0];
 
                 let requiredFields = ['street_number','route','locality','administrative_area_level_1','postal_code','country'];
@@ -41,7 +41,7 @@ class InputAddress extends Component {
                 requiredFields.forEach((f) => {
 
                     addressObj.address_components.forEach((a) => {
-                    
+
                         if (a.types.includes(f)) {
 
                             if (a.types.includes('street_number')) {
@@ -68,6 +68,8 @@ class InputAddress extends Component {
                             resultObj['street_address'] = streetAddress['street_number'] + ' ' + streetAddress['street_name'];
                         }
 
+                        resultObj['full_address'] = results[0].formatted_address;
+
                     });
                 });
 
@@ -85,7 +87,7 @@ class InputAddress extends Component {
             value: newAddress
         });
     }
-    
+
     onChange = (newAddress) => {
         this.setState({
             value: newAddress,
@@ -133,7 +135,7 @@ class InputAddress extends Component {
                         },
                         1
                     ]
-                } 
+                }
                 rows="1"
             >
                 <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
@@ -156,7 +158,7 @@ class InputAddress extends Component {
                 </div>
                 {window.google ? this.renderInput() : <p>Loading...</p>}
                 <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
-                    <MapInput 
+                    <MapInput
                         handleUpdate={this.onSelect}
                         style={{
                             "height": "300px",
