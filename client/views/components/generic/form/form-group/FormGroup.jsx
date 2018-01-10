@@ -24,6 +24,7 @@ class FormGroup extends Component {
 
     state = {
         isFormValidated: true,
+        animatedButtons: {}, // TODO: hum.
     }
 
     renderData = (data) => {
@@ -40,13 +41,38 @@ class FormGroup extends Component {
         });
     }
 
+    onSubmitClick = (button) => {
+
+        if(this.props.onSubmit)
+            this.props.onSubmit(button.replace('form-', ''))
+
+        let animatedButtons = this.state.animatedButtons
+        animatedButtons[button] = animatedButtons[button] ? !animatedButtons[button] : true;
+        this.setState({
+            animatedButtons: animatedButtons
+        })
+    }
+
     renderFormButtons(buttons) {
+
+        const { animatedButtons } = this.state;
 
         return (
             <Grid rows={1} cols={buttons.length}>
                 {
                     buttons.map((button, index) => {
-                        return <Button style={{ "margin" : "10px" }} position={[0, index]} key={index} className={button} onClick={() => this.props.onSubmit(button.replace('form-', ''))} />
+                        return (
+                            <Button
+                                key={index}
+                                style={{ "margin" : "10px" }}
+                                position={[0, index]}
+                                className={`form-button ${button} ${animatedButtons[button] ? "animate" : ""}`}
+                                onClick={() => this.onSubmitClick(button)}>
+                                {
+                                    <div className={"spinner"} />
+                                }
+                            </Button>
+                        )
                     })
                 }
             </Grid>
