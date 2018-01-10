@@ -78,22 +78,22 @@ class Input extends Component {
     const { validationStatus } = this.state;
 
     let items = this.props.options;
-    
+
     switch(this.props.type) {
 
         // socials
         case 'Facebook':
-            return ( 
-                <InputButton 
+            return (
+                <InputButton
                     {...rest}
                     onClick={this.props.onClickEvent}
                     className="facebook"
                     name=""
-                    type="facebook" 
-                /> 
+                    type="facebook"
+                />
             );
         case 'TextArea':
-            return ( 
+            return (
                 <InputTextarea
                     {...rest}
                     validation={this.validateInput}
@@ -134,7 +134,7 @@ class Input extends Component {
                 />
             );
         case 'upload-photo':
-            return ( 
+            return (
                 <InputUploadPhoto {...rest} />
             );
         case 'Upload':
@@ -144,10 +144,6 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 />
-            );
-        case 'address':
-            return (
-                <InputAddress {...rest} />
             );
         case 'Event Button':
             return (
@@ -167,6 +163,14 @@ class Input extends Component {
         case 'Time':
             return (
                 <InputTime
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                />
+            );
+        case 'Address':
+            return (
+            <InputAddress
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
