@@ -273,7 +273,7 @@
                       },
                       {
                         "IconSmall":{
-                          "position": [1,0],
+                          "position": [0,0],
                           "name": "perm_contact_calendar",
                           "style": {"fontSize":20, "color": "green","marginTop": 20},
                           "text": "Pickup:  21 Jan 2017"
@@ -281,7 +281,7 @@
                       },
                       {
                         "IconSmall":{
-                          "position": [2,0],
+                          "position": [0,0],
                           "name": "perm_contact_calendar",
                           "style": {"fontSize":20, "color": "green","marginTop": 10},
                           "text": "Dropoff: 21 Jan 2017"
@@ -292,17 +292,17 @@
                           "position":[2,0],
                           "rows":1,
                           "cols":2,
-                          "style":{ "alignItems": "baseline"},
+                          "style":{ "alignItems": "baseline","marginTop": "30px"},
                           "children":[
                             {
                               "Grid": {
                                 "rows":1,
                                 "cols":1,
                                 "position": [0,0],
-                                "style": {"margin": "10px 0 "},
+                                "style": {"marginTop": "30px"},
                                 "children": [
                                   {
-                                    "h3":{"position":[0,0], "children": "Description:", "style": {"marginTop": 20, "color": "#f9691f"}}},
+                                    "h3":{"position":[0,0], "children": "Description:", "style": {"marginTop": 0, "color": "#f9691f"}}},
                                     {
                                     "p": {"position": [0,0], "children": "This is a description about the job loream ipsum ran this is a description about the job loream ipsum "}}
                                   ]
