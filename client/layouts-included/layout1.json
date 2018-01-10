@@ -256,24 +256,35 @@
               "rows": 1,
               "cols":2,
               "position": [3,0],
-              "style": {"padding": "0 100px", "flexWrap": "wrap"},
+              "style": {"padding": "0 100px", "flexWrap": "wrap", "margin": "60px 0 0 0 "},
               "children":[
                 {
                   "Grid": {
-                    "rows":3,
+                    "rows":4,
                     "cols":1,
                     "position": [0,0],
                     "children":[
                       {
                         "h2": {
                           "position": [0,0],
-                          "children": "Atlas Copco M2D"
+                          "children": "Atlas Copco M2D",
+                          "style": {"color": "#f9691f"}
                         }
                       },
                       {
-                        "h3": {
-                          "position": [1, 0],
-                          "children": "Pickup | Drop off 2010/23/13 | 1233/12/12"
+                        "IconSmall":{
+                          "position": [1,0],
+                          "name": "perm_contact_calendar",
+                          "style": {"fontSize":20, "color": "green","marginTop": 20},
+                          "text": "Pickup:  21 Jan 2017"
+                        }
+                      },
+                      {
+                        "IconSmall":{
+                          "position": [2,0],
+                          "name": "perm_contact_calendar",
+                          "style": {"fontSize":20, "color": "green","marginTop": 10},
+                          "text": "Dropoff: 21 Jan 2017"
                         }
                       },
                       {
@@ -288,11 +299,12 @@
                                 "rows":1,
                                 "cols":1,
                                 "position": [0,0],
+                                "style": {"margin": "10px 0 "},
                                 "children": [
                                   {
-                                    "h4":{"position":[0,0], "children": "Description", "style": {"marginTop": 20}}},
+                                    "h3":{"position":[0,0], "children": "Description:", "style": {"marginTop": 20, "color": "#f9691f"}}},
                                     {
-                                    "p": {"position": [0,0], "children": "This is a description about the job loream ipsum random text about the job description"}}
+                                    "p": {"position": [0,0], "children": "This is a description about the job loream ipsum ran this is a description about the job loream ipsum "}}
                                   ]
                               }
                             },
@@ -301,30 +313,41 @@
                                 "rows":1,
                                 "cols":1,
                                 "position": [0, 1],
+                                "style": {"padding": 10},
                                 "children":[
                                  { 
                                    "ImageView": { 
                                      "position": [0, 0], 
                                      "src": "http://i.imgur.com/yqdlJB5.jpg", 
                                      "style": { 
-                                       "height": 300, 
-                                       "width": 300,
-                                       "marginTop": "20"
+                                       "height": 150, 
+                                       "width": 150,
+                                       "marginTop": "20",
+                                       "borderRadius":"0px"
                                        }
                                     } 
                                   } 
-                                ]
-                                
+                                ]                               
                               }
-
                             }
-
+                          ]
+                        }
+                      },
+                      {
+                        "Grid": { 
+                          "position": [3,0],
+                          "rows":1,
+                          "cols":1,
+                          "style": {"marginTop":25},
+                          "children": [
+                            {"span": {"style": {"fontWeight": 600, "color": "#f9691f" }, "position": [0,0], "children": "Posted By: "}},
+                            { "span": { "position": [0, 0], "children": "Nischal Gautam"}}, 
+                            {"Button": {"className": "confirm small","position":[0,0], "children": "Contact Enquire", "style": {"width": "120px", "fontSize":12,"display": "inline-block", "marginLeft": "20px"} }},
+                            {"Button": {"className": "confirm small","position": [0, 0], "children": "Quote New", "style": { "width": "120px", "fontSize":12, "padding":0, "display": "inline-block", "marginLeft": "20px"} }}
                           ]
                         }
                       }
-
                     ]
-
                   }
                 },                
                 {
@@ -335,6 +358,7 @@
                     "style": {"width": "100%"},
                     "children": [{
                       "MapDisplay": {
+                        
                         "position": [0,0],
                         "center": "115 Spur Rd, Clonbinane VIC 3658", 
                         "markers": [{
