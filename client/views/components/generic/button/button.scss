@@ -94,6 +94,17 @@
 		}
 	}
 
+	&.form-button {
+
+		&.animate {
+
+	        transition: 0.5s all;
+	        max-width: 50px;
+	        max-height: 50px;
+	        border-radius: 25px;
+	    }
+	}
+
     &.small > button{
 	    height: 30px;
 	    font-size: 0.75em;
