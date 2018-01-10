@@ -12,7 +12,7 @@ class InputText extends Component {
     mask: '',
     name: '',
     placeholder: '',
-    defaultValue: '',
+    value: '',
     readOnly: false,
     mandatory: false,
     identifier: null,
@@ -25,7 +25,7 @@ class InputText extends Component {
     mask: string,
     name: string,
     placeholder: string,
-    defaultValue: string,
+    value: string,
     readOnly: bool,
     mandatory: bool,
     validation: func,
@@ -36,22 +36,21 @@ class InputText extends Component {
   state = {
     date: new Date(),
     hasChanges: false,
-    value: this.props.value,
     focused: false,
   }
 
   handleChange = event => {
+    
+  
     if ( this.props.mask ) {
       var mask = this.props.mask;
       if ( mask.test(event.target.value) ) {
         this.setState({
-          value: event.target.value,
           hasChanges: true
         });
      }
     } else {
       this.setState({
-        value: event.target.value,
         hasChanges: true
       });
     }
@@ -64,6 +63,7 @@ class InputText extends Component {
   }
 
   onKeyDown = event => {
+
     if(event.key == 'Enter') {
         this.handleBlur(event);
     }
@@ -73,7 +73,9 @@ class InputText extends Component {
 
     const { validationList, validation, identifier } = this.props;
     const value = event.target.value;
-    this.setState({ focused: false });
+    this.setState({ 
+      focused: false 
+    });
     if(validation) validation(value, identifier, validationList);
   }
 
@@ -83,51 +85,51 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, ...rest } = this.props;
+    const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, value, ...rest } = this.props;
     const componentStyle = { ...style, };
-    const { date, focused, value } = this.state;
-
+    const { date, focused } = this.state;
+    
     return <div className={`input input-text ${className} ${validationStatus || ''}`} style={componentStyle}>
-        {
-            !isHorizontal && !hideHeader ? <div className="input-header">
-            {name ? <Label text={name} /> : null}
-            {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
-            <SubmitStatusIcon status={validationStatus} />
-          </div> : null
-        }
-        {
+      {
+          !isHorizontal && !hideHeader ? <div className="input-header">
+          {name ? <Label text={name} /> : null}
+          {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
+          <SubmitStatusIcon status={validationStatus} />
+        </div> : null
+      }
+      {
 
-          inputMask ? 
-          <MaskedTextInput
-            mask={inputMask}
-            guide={true}
-            disabled={readOnly}
-            type={inputType || "text"}
-            value={value}
-            placeholder={placeholder}
-            onChange={this.handleChange}
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onKeyDown={this.onKeyDown}
-            style={focused ? { borderColor: componentStyle.color } : null}
-          /> : 
-          <input
-            ref={r => this.input = r}
-            guide={true}
-            disabled={readOnly}
-            type={inputType || "text"}
-            value={value}
-            placeholder={placeholder}
-            onChange={this.handleChange}
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onKeyDown={this.onKeyDown}
-            style={focused ? { borderColor: componentStyle.color } : null}
-            {...rest}
-          />
-        }
-        
-      </div>;
+        inputMask ? 
+        <MaskedTextInput
+          mask={inputMask}
+          guide={true}
+          disabled={readOnly}
+          type={inputType || "text"}
+          defaultValue={value}
+          placeholder={placeholder}
+          onChange={this.handleChange}
+          onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
+          onKeyDown={this.onKeyDown}
+          style={focused ? { borderColor: componentStyle.color } : null}
+        /> : 
+        <input
+          ref={r => this.input = r}
+          guide={true}
+          disabled={readOnly}
+          type={inputType || "text"}
+          defaultValue={value}
+          placeholder={placeholder}
+          onChange={this.handleChange}
+          onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
+          onKeyDown={this.onKeyDown}
+          style={focused ? { borderColor: componentStyle.color } : null}
+          {...rest}
+        />
+      }
+      
+    </div>;
   }
 }
 

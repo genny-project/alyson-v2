@@ -1,11 +1,11 @@
 import './gennyForm.scss';
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { Form } from 'views/components';
 import { object, array } from 'prop-types';
 import { AskQuery, BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { log } from 'util';
 
-class GennyForm extends PureComponent {
+class GennyForm extends Component {
 
     state = {
     }
@@ -100,7 +100,7 @@ class GennyForm extends PureComponent {
 
                     let inputType = 'Text';
                     let valList = [];
-                    let default_value = null;
+                    let default_value = '';
                     let be_code = ask.targetCode;
                     let attributeCode = ask.attributeCode;
                     let options = [];
@@ -150,6 +150,7 @@ class GennyForm extends PureComponent {
                         }
                     }
 
+                    
                     return {
                         isHorizontal: this.props.isHorizontal,
                         mandatory: ask.question.mandatory,

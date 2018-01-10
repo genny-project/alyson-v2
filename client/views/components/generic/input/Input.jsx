@@ -20,12 +20,14 @@ class Input extends Component {
 
   static defaultProps = {
     className: '',
-    type: ''
+    type: '',
+    value: '',
   }
 
   static propTypes = {
     className: string,
     type: string,
+    value: string,
     onValidation: func,
     onValidationFailure: func,
   }
@@ -177,7 +179,7 @@ class Input extends Component {
                 />
             );
         default:
-           console.log({...rest});
+
             return (
                 <InputText
                     {...rest}
