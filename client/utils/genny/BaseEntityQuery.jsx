@@ -74,7 +74,7 @@ class BaseEntityQuery {
                     if(targetBe) existingBes.push(targetBe);
                 }
 
-                return existingBes;
+                return existingBes.sort((x,y) => x.weight > y.weight);
 
             }, [])
         }
