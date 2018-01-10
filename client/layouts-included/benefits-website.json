@@ -90,7 +90,9 @@
                 "color": "white",
                 "height": "40px"
               },
-              "children": []
+              "children": [
+                
+              ]
             }
           },
 
@@ -130,7 +132,13 @@
                       {
                         "h4": {
                           "position": [0, 1],
-                          "children": "How it works"
+                          "children": "Benefit"
+                        }
+                      },
+                      {
+                        "span": {
+                          "position": [0, 1],
+                          "children": "Lorem ipsum dolor sit amet"
                         }
                       }
                     ]
@@ -162,7 +170,14 @@
                       {
                         "h4": {
                           "position": [0, 1],
-                          "children": "Find Jobs"
+                          "children": "Benefit"
+                        }
+                      },
+
+                      {
+                        "span": {
+                          "position": [0, 1],
+                          "children": "Lorem ipsum dolor sit amet"
                         }
                       }
                     ]
@@ -194,154 +209,201 @@
                       {
                         "h4": {
                           "position": [0, 1],
-                          "children": "Free Quote"
+                          "children": "Benefit"
                         }
-                      }                    
+                      },
+
+                      {
+                        "span": {
+                          "position": [0, 1],
+                          "children": "Lorem ipsum dolor sit amet"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position": [0, 3],
+                    "rows": [{ "style": { "flexGrow": 0 } }],
+                    "cols": [
+                      {
+                        "style": {
+                          "flexGrow": 1,
+                          "display": "flex",
+                          "alignItems": "center",
+                          "justifyContent": "center"
+                        }
+                      },
+                      1
+                    ],
+                    "children": [
+                      {
+                        "IconSmall": {
+                          "position": [0, 0],
+                          "name": "check_circle"
+                        }
+                      },
+
+                      {
+                        "h4": {
+                          "position": [0, 1],
+                          "children": "Benefit"
+                        }
+                      },
+
+                      {
+                        "span": {
+                          "position": [0, 1],
+                          "children": "Lorem ipsum dolor sit amet"
+                        }
+                      }
                     ]
                   }
                 }
               ]
-            }
-          },
-
-          {
-            "Grid": {
-              "rows":1,
-              "cols":1,
-              "position": [1,0],
-              "style": {"backgroundColor": "white", "color": "black","borderBottom": "1px solid #e3e3e3"},
-              "children": [
-                {
-                  "Grid": {
-                    "rows": 1,
-                    "cols": 2,
-                    "position": [0,0],
-                    "children": [
-                      {
-                      "h3": {
-                        "position": [0, 0],
-                        "children": "Find Jobs",
-                        "style": {
-                          "textAlign": "center"
-                        }
-                      }
-                    }, 
-                    {
-                      "h3": {
-                        "position": [0, 1],
-                        "children": "Atlas Copco M2D",
-                        "style": {
-                          "textAlign": "center"
-                        }
-                        
-                      }
-                    }
-                  ]
-                  }
-                }
-          ]
             }
           },
 
           {
             "Grid": {
               "rows": 1,
-              "cols":2,
-              "position": [3,0],
-              "style": {"padding": "0 200px"},
-              "children":[
+              "cols": 2,
+              "position": [2, 0],
+              "style": {
+                "color": "#fff",
+                "backgroundColor": "lightGrey",
+                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "cover",
+                "height": 500
+
+              },
+              "children": [
                 {
-                  "Grid": {
-                    "rows":3,
-                    "cols":1,
-                    "position": [0,0],
-                    "children":[
-                      {
-                        "h3": {
-                          "position": [0,0],
-                          "children": "Atlas Copco M2D"
-                        }
-                        
-                      },
-                      {
-                        "h3": {
-                          "position": [1, 0],
-                          "children": "Pickup | Drop off"
-                        }
-
-                      },
-                      {
-                        "Grid": {
-                          "position":[2,0],
-                          "rows":1,
-                          "cols":2,
-                          "style":{ "alignItems": "baseline"},
-                          "children":[
-                            {
-                              "Grid": {
-                                "rows":1,
-                                "cols":1,
-                                "position": [0,0],
-                                "children": [
-                                  {
-                                    "h2":{"position":[0,0], "children": "Description", "style": {"marginTop": 20}}},
-                                    {
-                                    "p": {"position": [0,0], "children": "This is a description about the job blah blah blah"}}
-                                  ]
-                              }
-                            },
-                            {
-                              "Grid": {
-                                "rows":1,
-                                "cols":1,
-                                "position": [0, 1],
-                                "children":[
-                                 { 
-                                   "ImageView": { 
-                                     "position": [0, 0], 
-                                     "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg", 
-                                     "style": { 
-                                       "height": 300, 
-                                       "width": 300, 
-                                       "padding": 50 
-                                       }
-                                    } 
-                                  } 
-                                ]
-                                
-                              }
-
-                            }
-
-                          ]
-                        }
-                      }
-
-                    ]
-
+                  "ImageView": {
+                    "position": [0, 0],
+                    "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg",
+                    "style": {"height": 300, "width": 300, "padding": 50}
                   }
                 },
-                
+
                 {
-                  "Grid": {
-                    "rows":1,
-                    "cols":1,
-                    "position": [0,1]
+                  "h3": {
+                    "position": [0, 1],
+                    "children": "Manage Whenever on the Go"
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children":
+                      "Subcontent Goes here lorem ipsum Subcontent Goes here lorem ipsum "
                   }
                 }
-
               ]
-
             }
           },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols": 2,
+              "position": [3, 0],
+              "style": {
+                "backgroundColor": "white",
+                "padding": "80",
+                "height": "auto"
+              },
+              "children": [
+                {
+                  "ImageView": {
+                    
+                    "position": [0, 1],
+                    "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg"
+                  }
+                },
+
+                {
+                  "h3": {
+                    "position": [0, 0],
+                    "children": [
+                      {"h3":{ "children": "How it Works"}}
+                    ]
+                  }
+                },  
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {"color": "green"},
+                    "children": [{"IconSmall": {"name": "check", "text": "Lorem ipsum dolor sit amet, consectetur"}} ]
+                  }
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {"color": "green"},
+                    "children": [{"IconSmall": {"name": "check", "text": "iure reprehenderit qui in ea voluptate"}} ]
+                  }
+                },
+                { "p": { "position": [0, 0], "style": { "color": "green" }, "children": [{ "IconSmall": { "name": "check", "text": "Quis autem vel eum iure reprehenderit qui in ea" } }] } },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {"color": "green"},
+                    "children": [{"IconSmall": {"name": "check", "text": " dolor sit amet reprehenderit qui in ea"}} ]
+                  }
+                }
+              ]
+            }
+          },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols": 3,
+              "position": [3, 0],
+              "style": {
+                "height": "auto",
+                "backgroundColor": "white",
+                "width": "100%"
+              },
+              "children": [
+                {
+                  "ImageView": {
+                    "position": [0, 0],
+                    "src": "http://www.catmospherecafe.com/assets/kitten-200d8e0e3cbf6c4ab8c2037ffb207e81f840554ceed0891f0b00f3a085156d01.jpg"
+                  }
+                },
+
+                {
+                  "h3": {
+                    "position": [0, 2],
+                    "children": "Transparent. Reliable. National."
+                  }
+                },
+
+                {
+                  "span": {
+                    "position": [0, 2],
+                    "children":
+                      "Subcontent Goes here lorem ipsum Subcontent Goes here lorem ipsum"
+                  }
+                }
+              ]
+            }
+          },
+
+
           {
             "Footer": {
               "position": [5, 0],
               "style": {
                 "position": "absolute"
               },
-              "poweredBy": {
-                "caption": "Channel40"
+              "poweredBy" : {
+                  "caption" : "Channel40"
               }
             }
           }

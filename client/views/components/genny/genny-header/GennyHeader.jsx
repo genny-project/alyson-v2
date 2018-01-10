@@ -43,6 +43,17 @@ class GennyHeader extends Component {
     });
   }
 
+  handleMessages = () => {
+    this.sendData('TV_SELECT', {
+      code: 'TV1',
+      value: 'GRP_COMMS_TEST'
+  }, 'GRP_COMMS_TEST');
+  }
+
+  sendEvent(event, data) {
+    GennyBridge.sendTVEvent(event, data);
+  }
+
   handleClickImage = () => {
     //console.log("clicked profile image");
   }
@@ -108,6 +119,8 @@ class GennyHeader extends Component {
               <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
                 <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
                 <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
+                <li style={ customStyle.dropdownLi } onClick={this.handleMessages}><IconSmall name="person" /><span>Text Message</span></li>
+                <br/>
                 <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
               </ul>
           </Dropdown>

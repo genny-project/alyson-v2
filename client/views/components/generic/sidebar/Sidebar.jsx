@@ -36,7 +36,11 @@ class Sidebar extends Component {
 
         let image = null;
         if ( src ) {
-            image = <div className='sidebar-image' position={[0,0]}><ImageView src={src} caption={caption} style={{ maxHeight: "100px", maxWidth: "200px" }}/></div>;
+            image = (
+                <div className='sidebar-image' position={[0,0]}>
+                    <ImageView src={src} caption={caption} style={{ maxHeight: "100px", maxWidth: "200px" }}/>
+                </div>
+            );
         }
         let icon = <IconSmall className={`sidebar-toggle-icon clickable`}
                 name="menu"
@@ -46,7 +50,7 @@ class Sidebar extends Component {
 
         return (
             <div className={`sidebar ${window.getScreenSize()} ${isOpen ? '' : 'closed'}`}>
-                <Grid 
+                <Grid
                     className='sidebar-main'
                     style={componentStyle}
                     rows={["200px", {"style": { "flex": "1, 1, auto", "overflow": "scroll"} }]}

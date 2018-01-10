@@ -31,7 +31,7 @@ class GennyForm extends PureComponent {
 
             let btnEventData = {
                 code: data.code,
-                value: data.askId,
+                value: JSON.stringify(data),
             };
 
             GennyBridge.sendBtnClick("BTN_CLICK", btnEventData);
@@ -46,13 +46,16 @@ class GennyForm extends PureComponent {
         }]);
     }
 
-    onSubmit = (questionGroupCode, targetCode) => {
+    onSubmit = (questionGroupCode, targetCode, action) => {
 
         if(questionGroupCode) {
 
             let btnEventData = {
                 code: questionGroupCode,
-                value: targetCode,
+                value: JSON.stringify({
+                    targetCode: targetCode,
+                    action: action
+                }),
             }
 
             GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
@@ -63,11 +66,33 @@ class GennyForm extends PureComponent {
 
         if(askGroup && askGroup.childAsks) {
 
-            const showSubmitButton = askGroup.attributeCode && askGroup.attributeCode.includes('BUTTON_SUBMIT');
+            let submitButtons = [];
+
+            if(askGroup.attributeCode.includes("BUTTON")) {
+
+                if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_SUBMIT') {
+                    submitButtons = ['form-submit']
+                }
+                else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_SUBMIT_CANCEL') {
+
+                    submitButtons = ['form-cancel', 'form-submit']
+                }
+                else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_SUBMIT_CANCEL_RESET') {
+
+                    submitButtons = ['form-cancel', 'form-reset', 'form-submit']
+                }
+                else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_NEXT') {
+                    submitButtons =  ['form-next']
+                }
+                else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_PREVIOUS_NEXT') {
+                    submitButtons = ['form-previous', 'form-next'];
+                }
+            }
 
             return {
                 title: askGroup.name,
-                onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code, askGroup.targetCode) } : null,
+                submitButtons: submitButtons,
+                onSubmit: (action) => this.onSubmit(askGroup.question.code, askGroup.targetCode, action),
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
