@@ -67,27 +67,29 @@ class GennyForm extends Component {
         if(askGroup && askGroup.childAsks) {
 
             let submitButtons = [];
+            let submitButtonsData = [];
+            let availableButtons = [
+                'submit',
+                'previous',
+                'next',
+                'cancel',
+                'reset'
+            ];
 
             if(askGroup.attributeCode.includes("BUTTON")) {
 
-                if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_SUBMIT') {
-                    submitButtons = ['form-submit']
-                }
-                else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_SUBMIT_CANCEL') {
+                availableButtons.forEach(availableButton => {
 
-                    submitButtons = ['form-cancel', 'form-submit']
-                }
-                else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_SUBMIT_CANCEL_RESET') {
-
-                    submitButtons = ['form-cancel', 'form-reset', 'form-submit']
-                }
-                else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_NEXT') {
-                    submitButtons =  ['form-next']
-                }
-                else if(askGroup.attributeCode == 'QQQ_QUESTION_GROUP_BUTTON_PREVIOUS_NEXT') {
-                    submitButtons = ['form-previous', 'form-next'];
-                }
+                    if(askGroup.attributeCode.indexOf(availableButton.toUpperCase()) > -1) {
+                        submitButtonsData.push({
+                            index: askGroup.attributeCode.indexOf(availableButton.toUpperCase()),
+                            button: 'form-' + availableButton
+                        });
+                    }
+                });
             }
+
+            submitButtons = submitButtonsData.sort((button, button2) => button.index > button2.index).map(button => button.button);
 
             return {
                 title: askGroup.name,
