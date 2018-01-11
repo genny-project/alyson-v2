@@ -49,6 +49,7 @@ class FormGroup extends Component {
 
         // first we validate all the inputs and see if we get any error.
         if(this.props.onSubmit) {
+
             if(this.props.onSubmit(button.replace('form-', ''))) {
                 let animatedButtons = this.state.animatedButtons
                 animatedButtons[button] = animatedButtons[button] ? !animatedButtons[button] : true;

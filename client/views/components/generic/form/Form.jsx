@@ -74,7 +74,7 @@ class Form extends Component {
                   key={questionGroup.title}
                   title={questionGroup.title}
                   submitButtons={questionGroup.submitButtons}
-                  onSubmit={() => this.onFormSubmit(questionGroup, questionGroup.onSubmit)}
+                  onSubmit={(action) => this.onFormSubmit(questionGroup, () => questionGroup.onSubmit(action))}
                   data={this.renderGroup(questionGroup.content)}/>);
       }
 
