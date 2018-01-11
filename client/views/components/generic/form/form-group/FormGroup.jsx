@@ -27,6 +27,10 @@ class FormGroup extends Component {
         animatedButtons: {}, // TODO: hum.
     }
 
+    componentWillMount() {
+        this.inputRefs = [];
+    }
+
     renderData = (data) => {
 
         return data.map((child, index) => {
@@ -35,7 +39,7 @@ class FormGroup extends Component {
                 return child
             } else {
                 return (
-                    <Input key={index} {...child} />
+                    <Input ref={inputRef => this.inputRefs.push(inputRef)} key={index} {...child} />
                 )
             }
         });
@@ -43,14 +47,20 @@ class FormGroup extends Component {
 
     onSubmitClick = (button) => {
 
-        if(this.props.onSubmit)
-            this.props.onSubmit(button.replace('form-', ''))
+        // first we validate all the inputs and see if we get any error.
+        if(this.props.onSubmit) {
+            if(this.props.onSubmit(button.replace('form-', ''))) {
+                let animatedButtons = this.state.animatedButtons
+                animatedButtons[button] = animatedButtons[button] ? !animatedButtons[button] : true;
+                this.setState({
+                    animatedButtons: animatedButtons
+                })
+            }
+        }
+    }
 
-        let animatedButtons = this.state.animatedButtons
-        animatedButtons[button] = animatedButtons[button] ? !animatedButtons[button] : true;
-        this.setState({
-            animatedButtons: animatedButtons
-        })
+    isFormGroupValid = () => {
+        return this.inputRefs.map(input => input.isValid());
     }
 
     renderFormButtons(buttons) {
@@ -82,15 +92,14 @@ class FormGroup extends Component {
     render() {
 
         const { data, title, submitButtons } = this.props;
-
-        let inputs = this.renderData(data);
+        const subforms = this.renderData(data);
 
         return (
             <div className="form-group">
                 <div className="form-group-title">
                     {title}
                 </div>
-                {inputs}
+                {subforms}
                 {
                     submitButtons.length > 0 ? this.renderFormButtons(submitButtons) : null
                 }

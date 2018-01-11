@@ -34,11 +34,46 @@ class Input extends Component {
 
   state = {
     validationStatus: null,
+    newValue: this.props.value || '',
+  }
+
+  componentWillReceiveProps(newProps) {
+
+      console.log("----------")
+      console.log(newProps);
+      this.setState({
+          value: newProps.value
+      })
+  }
+
+  isValid = () => {
+
+      const { validationList } = this.props;
+      const { value } = this.state;
+
+      let isValid = false;
+      if (validationList.length > 0) {
+        isValid = validationList.every( validation => new RegExp(validation.regex).test( value ));
+      }
+      else {
+        isValid = new RegExp(/.*/).test( value );
+      }
+
+      if(isValid) {
+          this.validationStyle('success');
+      }
+      else {
+          this.validationStyle('error');
+      }
+
+      return isValid;
   }
 
   validateInput = (value, identifier, validationList) => {
 
-    if(value == this.props.value) return;
+    if(value == this.state.value) return;
+
+    this.state.value = value; // update value in state
 
     if ( validationList.length > 0) {
 
@@ -56,7 +91,7 @@ class Input extends Component {
 
   validateValue = ( valResult, value ) => {
 
-    if ( valResult ){
+    if ( valResult ) {
 
         this.validationStyle('success');
         if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
