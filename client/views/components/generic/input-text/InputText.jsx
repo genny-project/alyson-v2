@@ -31,6 +31,8 @@ class InputText extends Component {
     validation: func,
     identifier: any,
     validationStatus: string,
+
+    handleOnChange: func,
   }
 
   state = {
@@ -41,18 +43,19 @@ class InputText extends Component {
 
   handleChange = event => {
 
+    const { handleOnChange, inputMask } = this.props;
+    const value = event.target.value;
 
-    if ( this.props.mask ) {
-      var mask = this.props.mask;
-      if ( mask.test(event.target.value) ) {
-        this.setState({
-          hasChanges: true
-        });
+    console.log( inputMask);
+    
+    if ( inputMask ) {
+      let maskTest = inputMask;
+      if ( maskTest.test(value) ) {
+        if(handleOnChange) handleOnChange(value);
+
      }
     } else {
-      this.setState({
-        hasChanges: true
-      });
+      if(handleOnChange) handleOnChange(value);
     }
   }
 
@@ -88,7 +91,7 @@ class InputText extends Component {
     const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, value, ...rest } = this.props;
     const componentStyle = { ...style, };
     const { date, focused } = this.state;
-
+    
     return <div className={`input input-text ${className} ${validationStatus || ''}`} style={componentStyle}>
       {
           !isHorizontal && !hideHeader ? <div className="input-header">
@@ -105,7 +108,7 @@ class InputText extends Component {
           guide={true}
           disabled={readOnly}
           type={inputType || "text"}
-          defaultValue={value}
+          value={value}
           placeholder={placeholder}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
@@ -117,7 +120,7 @@ class InputText extends Component {
           ref={r => this.input = r}
           disabled={readOnly}
           type={inputType || "text"}
-          defaultValue={value}
+          value={value}
           placeholder={placeholder}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
