@@ -43,6 +43,10 @@ class Breadcrumbs extends Component {
     return null;
   }
 
+  handleClick = () => {
+    window.location.reload();
+  }
+
   render() {
              const breadcrumbsCss = { height: 40, width: '100%', display: 'flex', alignItems: 'center' };
              const breadcrumbsMain = { display: 'flex', marginTop: 0, marginBottom: 0, padding: 0 };
@@ -57,7 +61,7 @@ class Breadcrumbs extends Component {
                  <ul className="breadcrumbs-main" style={{ ...breadcrumbsMain }}>
                    <li className="breadcrumbs-home" style={{ ...li}}>
                      <IconSmall name="home" style={{ ...iEle }} />
-                     <span style={{ ...span }}>Home</span>
+                     <span style={{ ...span }} onClick={this.handleClick}>Home</span>
                    </li>
                    {breadcrumbs}
                  </ul>
