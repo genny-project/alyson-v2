@@ -14,6 +14,7 @@ class GennyButton extends Component {
     static propTypes = {
         buttonCode: string,
         value: object,
+
     };
 
     state = {
@@ -35,12 +36,12 @@ class GennyButton extends Component {
     }
 
     render() {
-        const { children, hint, style, ...rest } = this.props;
+        const { children, hint, style, buttonComponentStyle, ...rest } = this.props;
         const componentStyle = { ...style, };
 
         return (
             <div className="genny-button" style={componentStyle}>
-                <Button {...rest} onClick={this.handleClick} style={componentStyle}>
+                <Button {...rest} onClick={this.handleClick} style={ {...buttonComponentStyle }}>
                     {children}
                 </Button>
             </div>
