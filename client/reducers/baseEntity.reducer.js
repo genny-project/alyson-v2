@@ -288,21 +288,28 @@ export default function reducer(state = initialState, action) {
                 children: [
                     ...state.data[newParentCode].children,
                     state.data[be_code], // add be as new children of target code
-                ],
-                links: {
-                    ...state.data[newParentCode].links,
-                    [newLinkCode]: [
-                        ...state.data[newParentCode].links[newLinkCode],
-                        ...{
-                            value: linkValue,
-                            valueString: linkValue,
-                            weight: 1,
-                            targetCode: be_code,
-                            linkValue: linkValue
-                        }
-                    ]
-                }
+                ]
             };
+
+            if(state.data[newParentCode].links && state.data[newParentCode].links[newLinkCode]) {
+
+                if(state.data[newParentCode].links[newLinkCode].filter(x => x.targetCode == be_code).length == 0) {
+                     
+                    state.data[newParentCode].links = {
+                        ...state.data[newParentCode].links,
+                        [newLinkCode]: [
+                            ...state.data[newParentCode].links[newLinkCode],
+                            {
+                                value: linkValue,
+                                valueString: linkValue,
+                                weight: 1,
+                                targetCode: be_code,
+                                linkValue: linkValue
+                            }
+                        ]
+                    };
+                }
+            }
         });
 
         return {
