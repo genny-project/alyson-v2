@@ -30,7 +30,7 @@ class Form extends Component {
   onFormSubmit = (formGroup, next) => {
 
     const validated = this.formGroupRefs.map(formGroup => {
-        return formGroup.isFormGroupValid()
+        return formGroup ? formGroup.isFormGroupValid() : true
     });
 
     const validate = function(inputs) {

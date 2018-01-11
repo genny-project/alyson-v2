@@ -34,16 +34,10 @@ class Input extends Component {
 
   state = {
     validationStatus: null,
-    newValue: this.props.value || '',
   }
 
-  componentWillReceiveProps(newProps) {
-
-      console.log("----------")
-      console.log(newProps);
-      this.setState({
-          value: newProps.value
-      })
+  componentDidMount() {
+      this._ismounted = true;
   }
 
   isValid = () => {
@@ -104,9 +98,12 @@ class Input extends Component {
   }
 
   validationStyle = (resultString) => {
-    this.setState({
-      validationStatus: resultString,
-    });
+
+    if(this._ismounted) {
+        this.setState({
+          validationStatus: resultString,
+        });
+    }
   }
 
   render() {

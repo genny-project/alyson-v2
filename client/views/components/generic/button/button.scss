@@ -64,7 +64,22 @@
 
 			&:hover {
 				transform: scale(1.05) 0.2s;
-				box-shadow: inset 0 0 100px 100px green;
+
+				.form-submit {
+					box-shadow: inset 0 0 100px 100px green;
+				}
+
+				.form-next {
+					box-shadow: inset 0 0 100px 100px blue;
+				}
+
+				.form-previous {
+					box-shadow: inset 0 0 100px 100px blue;
+				}
+
+				.form-reset {
+					box-shadow: inset 0 0 100px 100px gray;
+				}
 			}
 		}
 
