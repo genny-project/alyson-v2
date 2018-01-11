@@ -157,7 +157,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-            case 'LocalDate':
+            case 'java.time.LocalDate':
             return (
                 <InputDatePicker
                     {...rest}
