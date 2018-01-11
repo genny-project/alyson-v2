@@ -18,29 +18,52 @@ import {
 
 class Input extends Component {
 
-  static defaultProps = {
-    className: '',
-    type: '',
-    value: '',
-  }
+    static defaultProps = {
+        className: '',
+        type: '',
+        value: '',
+    }
 
-  static propTypes = {
-    className: string,
-    type: string,
-    value: string,
-    onValidation: func,
-    onValidationFailure: func,
-  }
+    static propTypes = {
+        className: string,
+        type: string,
+        value: string,
+        onValidation: func,
+        onValidationFailure: func,
+    }
 
-  state = {
-    validationStatus: null,
-    value: this.props.value || '',
-  }
+    state = {
+        validationStatus: null,
+        value: this.props.value || '',
+    }
 
     componentDidMount() {
-
         this._ismounted = true;
     }
+
+    isValid = () => {
+
+        const { validationList } = this.props;
+        const { value } = this.state;
+
+        let isValid = false;
+        if (validationList.length > 0) {
+            isValid = validationList.every( validation => new RegExp(validation.regex).test( value ));
+        }
+        else {
+            isValid = new RegExp(/.*/).test( value );
+        }
+
+        if(isValid) {
+            this.validationStyle('success');
+        }
+        else {
+            this.validationStyle('error');
+        }
+
+        return isValid;
+    }
+
     componentWillReceiveProps(newProps) {
 
         if(this._ismounted) {
@@ -58,7 +81,6 @@ class Input extends Component {
     }
 
     validateInput = (value, identifier, validationList) => {
-
 
         if(value == this.props.value) return;
 
@@ -91,22 +113,25 @@ class Input extends Component {
     }
 
     validationStyle = (resultString) => {
-        this.setState({
-            validationStatus: resultString,
-        });
+
+        if(this._ismounted) {
+            this.setState({
+                validationStatus: resultString,
+            });
+        }
     }
 
-  render() {
+    render() {
 
-    const { onClick, onClickEvent, ...rest } = this.props;
-    const { validationStatus } = this.state;
-    
-    let items = this.props.options;
+        const { onClick, onClickEvent, ...rest } = this.props;
+        const { validationStatus } = this.state;
 
-    switch(this.props.type) {
+        let items = this.props.options;
 
-        // socials
-        case 'Facebook':
+        switch(this.props.type) {
+
+            // socials
+            case 'Facebook':
             return (
                 <InputButton
                     {...rest}
@@ -116,7 +141,7 @@ class Input extends Component {
                     type="facebook"
                 />
             );
-        case 'TextArea':
+            case 'TextArea':
             return (
                 <InputTextarea
                     {...rest}
@@ -124,7 +149,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'Boolean':
+            case 'Boolean':
             return (
                 <InputCheckbox
                     {...rest}
@@ -132,7 +157,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'LocalDate':
+            case 'LocalDate':
             return (
                 <InputDatePicker
                     {...rest}
@@ -140,7 +165,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'dropdown':
+            case 'dropdown':
             return (
                 <InputDropdown
                     {...rest}
@@ -149,7 +174,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'slider':
+            case 'slider':
             return (
                 <InputSlider
                     {...rest}
@@ -157,11 +182,11 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'upload-photo':
+            case 'upload-photo':
             return (
                 <InputUploadPhoto {...rest} />
             );
-        case 'Upload':
+            case 'Upload':
             return (
                 <InputUpload
                     {...rest}
@@ -169,22 +194,22 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'Event Button':
+            case 'Event Button':
             return (
                 <InputButton
                     {...rest}
                     onClick={this.props.onClickEvent}
                 />
             );
-        case 'Answer Button':
-        case 'Button':
+            case 'Answer Button':
+            case 'Button':
             return (
                 <InputButton
                     {...rest}
                     onClick={this.props.onClick}
                 />
             );
-        case 'Time':
+            case 'Time':
             return (
                 <InputTime
                     {...rest}
@@ -192,15 +217,15 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'Address':
+            case 'Address':
             return (
-            <InputAddress
+                <InputAddress
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 />
             );
-        default:
+            default:
             return (
                 <InputText
                     {...rest}
@@ -210,8 +235,8 @@ class Input extends Component {
                     value={this.state.value}
                 />
             );
+        }
     }
-  }
 }
 
 export default Input;

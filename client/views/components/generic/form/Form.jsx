@@ -23,6 +23,41 @@ class Form extends Component {
     showProgress: this.props.showProgress ? this.props.showProgress : false,
   }
 
+  componentWillMount() {
+      this.formGroupRefs = [];
+  }
+
+  onFormSubmit = (formGroup, next) => {
+
+    const validated = this.formGroupRefs.map(formGroup => {
+        return formGroup ? formGroup.isFormGroupValid() : true
+    });
+
+    const validate = function(inputs) {
+
+        if(inputs.constructor == Array) {
+            return inputs.every(x => {
+                if(x.contructor == Boolean) {
+                    return x === true;
+                }
+                else {
+                    return validate(x);
+                }
+            })
+        }
+        else {
+            return inputs === true;
+        }
+    };
+
+    if(validate(validated)) {
+        next();
+        return true;
+    }
+
+    return false;
+  }
+
   renderGroup(questionGroup) {
 
       if(Array.isArray( questionGroup )) {
@@ -33,7 +68,14 @@ class Form extends Component {
         });
       }
       else if (questionGroup.content) {
-          return (<FormGroup key={questionGroup.title} title={questionGroup.title} submitButtons={questionGroup.submitButtons} onSubmit={questionGroup.onSubmit} data={this.renderGroup(questionGroup.content)}/>);
+          return (
+              <FormGroup
+                  ref={(groupRef) => this.formGroupRefs.push(groupRef)}
+                  key={questionGroup.title}
+                  title={questionGroup.title}
+                  submitButtons={questionGroup.submitButtons}
+                  onSubmit={() => this.onFormSubmit(questionGroup, questionGroup.onSubmit)}
+                  data={this.renderGroup(questionGroup.content)}/>);
       }
 
       return [];

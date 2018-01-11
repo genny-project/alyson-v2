@@ -252,6 +252,8 @@ export default function reducer(state = initialState, action) {
             let be_code = item.targetCode;
             let oldParentCode = state.data[be_code].parentCode;
             let newParentCode = item.sourceCode;
+            let newLinkCode = item.attributeCode;
+            let linkValue = item.linkValue;
 
             let relationshipObject = {
                 ...state.relationships[oldParentCode]
@@ -288,6 +290,26 @@ export default function reducer(state = initialState, action) {
                     state.data[be_code], // add be as new children of target code
                 ]
             };
+
+            if(state.data[newParentCode].links && state.data[newParentCode].links[newLinkCode]) {
+
+                if(state.data[newParentCode].links[newLinkCode].filter(x => x.targetCode == be_code).length == 0) {
+                     
+                    state.data[newParentCode].links = {
+                        ...state.data[newParentCode].links,
+                        [newLinkCode]: [
+                            ...state.data[newParentCode].links[newLinkCode],
+                            {
+                                value: linkValue,
+                                valueString: linkValue,
+                                weight: 1,
+                                targetCode: be_code,
+                                linkValue: linkValue
+                            }
+                        ]
+                    };
+                }
+            }
         });
 
         return {
