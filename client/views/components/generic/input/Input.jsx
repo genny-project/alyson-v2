@@ -34,51 +34,73 @@ class Input extends Component {
 
   state = {
     validationStatus: null,
+    value: this.props.value || '',
   }
 
-  validateInput = (value, identifier, validationList) => {
+    componentDidMount() {
 
-    if(value == this.props.value) return;
-
-    if ( validationList.length > 0) {
-
-      const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-      this.validateValue(valResult, value);
-
+        this._ismounted = true;
     }
-    else {
+    componentWillReceiveProps(newProps) {
 
-      const valResult = new RegExp(/.*/).test( value );
-      this.validateValue(valResult, value);
+        if(this._ismounted) {
 
+            this.setState({
+                value: newProps.value
+            })
+        }
     }
-  }
 
-  validateValue = ( valResult, value ) => {
-
-    if ( valResult ){
-
-        this.validationStyle('success');
-        if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
+    handleOnChange = (newValue) => {
+        this.setState({
+            value: newValue
+        });
     }
-    else {
 
-      this.validationStyle('error');
-      if(this.props.onValidationFailure) this.props.onValidationFailure(this.props.data, this.props.mandatory);
+    validateInput = (value, identifier, validationList) => {
+
+
+        if(value == this.props.value) return;
+
+        if ( validationList.length > 0) {
+
+            const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
+            this.validateValue(valResult, value);
+
+        }
+        else {
+
+            const valResult = new RegExp(/.*/).test( value );
+            this.validateValue(valResult, value);
+
+        }
     }
-  }
 
-  validationStyle = (resultString) => {
-    this.setState({
-      validationStatus: resultString,
-    });
-  }
+    validateValue = ( valResult, value ) => {
+
+        if ( valResult ){
+
+            this.validationStyle('success');
+            if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
+        }
+        else {
+
+            this.validationStyle('error');
+            if(this.props.onValidationFailure) this.props.onValidationFailure(this.props.data, this.props.mandatory);
+        }
+    }
+
+    validationStyle = (resultString) => {
+        this.setState({
+            validationStatus: resultString,
+        });
+    }
 
   render() {
 
     const { onClick, onClickEvent, ...rest } = this.props;
     const { validationStatus } = this.state;
-
+    
     let items = this.props.options;
 
     switch(this.props.type) {
@@ -179,12 +201,13 @@ class Input extends Component {
                 />
             );
         default:
-
             return (
                 <InputText
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    handleOnChange={this.handleOnChange}
+                    value={this.state.value}
                 />
             );
     }
