@@ -291,13 +291,16 @@ export default function reducer(state = initialState, action) {
                 ],
                 links: {
                     ...state.data[newParentCode].links,
-                    state.data[newParentCode].links[newLinkCode] {
-                        value: linkValue,
-                        valueString: linkValue,
-                        weight: 1,
-                        targetCode: be_code,
-                        linkValue: linkValue
-                    }
+                    [newLinkCode]: [
+                        ...state.data[newParentCode].links[newLinkCode],
+                        ...{
+                            value: linkValue,
+                            valueString: linkValue,
+                            weight: 1,
+                            targetCode: be_code,
+                            linkValue: linkValue
+                        }
+                    ]
                 }
             };
         });
