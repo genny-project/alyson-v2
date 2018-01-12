@@ -44,9 +44,115 @@
                 }
                 }
               ]
-                
+              }
+            },
+
+            {
+              "Grid": {
+                "style": {
+                  "height": "initial",
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "justifyContent": "center",
+                  "alignItems": "center"
+                },
+                "position": [2,0],
+                "rows": [
+                  {"style": {"flexGrow":0,"width":700}},
+                  {"style": {"flexGrow":0,"width":700}},
+                  {"style": {"flexGrow":0,"width":700}},
+                  {"style": {"flexGrow":0,"width":700}},
+                  {"style": {"flexGrow":0,"width":700}}
+                ],
+                "cols":1,
+                "children": [
+                  { 
+                    "Grid": {
+                      "style": {
+                        "height": "initial" 
+                      },
+                      "position": [0, 0],
+                      "rows": 1,
+                       "cols": 1,
+                      "children": [{ "h3": { "position": [0, 0], "children": "Media Enquiries" } },
+                      { "p": { "position": [0, 0], "children": "Contact Kate on 0447 475 328, Jeremy on 0411 477 233, or email enquiries@ch40.com.au" } }] } 
+                  },
+                  {
+                    "Grid": {
+                      "position": [1,0],
+                      "rows":1,
+                      "cols":1,
+                      "style": {"height": "initial"},
+                      "children": [{
+                        "h3": {"position": [0,0], "children": "Recent Coverages", "style": {"textAlign": "left"}}}
+                      ]
+                    }
+                  },
+                  {
+                    "Grid": {
+                      "position": [2,0],
+                      "rows":1,
+                      "cols":1,
+                      "style": {"height": "initial"},
+                      "children": [
+                        {
+                        "h3": {
+                          "position": [0,0],
+                          "children": "Channel 40 Media Release"
+                        }
+                      },
+                      {
+                        "p": {
+                          "position":[0,0],
+                          "children": "Channel 40 wins New Business Startup Superstar Award!"
+                        }
+                      },
+                      {
+                        "ImageView": {
+                          "position": [0, 0],
+                          "style": {"height": 200, "width": 300},
+                          "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg" 
+                        } 
+                      }
+                    ]
+                    }
+                  },
+                  { "Grid": { "position": [3, 0], "rows": 1, "cols": 1, "style": { "height": "initial" }, "children": [{ "h3": { "position": [0, 0], "children": "The Daily Liberal" } }, { "p": { "position": [0, 0], "children": "Channel 40 wins New Business Startup Superstar Award!" } }, { "ImageView": { "position": [0, 0], "style": { "height": 200, "width": 300 }, "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg" } }] } },
+                  {
+                    "Grid": {
+                      "position": [2, 0],
+                      "rows": 1,
+                      "cols": 1,
+                      "style": {
+                        "height": "initial"
+                      },
+                      "children": [{
+                        "h3": {
+                          "position": [0, 0],
+                          "children": "Channel 40 Tom Cavanagh reports of rapid growth and the challenges of a start-up"
+                        }
+                      }, {
+                        "p": {
+                          "position": [0, 0],
+                          "children": "Channel 40 wins New Business Startup Superstar Award!"
+                        }
+                      }, {
+                        "ImageView": {
+                          "position": [0, 0],
+                          "style": {
+                            "height": 200,
+                            "width": 300
+                          },
+                          "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg"
+                        }
+                      }]
+                    }
+                  }
+
+                ]
               }
             }
+            
         ]
       }
     }
