@@ -111,10 +111,10 @@
 		background: $error;
 	}
 
-	&.form-submit {
+	&.form-cancel {
 
 		> button {
-			background: $error;
+			background: $grey-text-color;
 		}
 
 		> button:after {
