@@ -43,20 +43,11 @@ class InputText extends Component {
 
   handleChange = event => {
 
-    const { handleOnChange, inputMask } = this.props;
+    const { handleOnChange } = this.props;
     const value = event.target.value;
-
-    console.log( inputMask);
     
-    if ( inputMask ) {
-      let maskTest = inputMask;
-      if ( maskTest.test(value) ) {
-        if(handleOnChange) handleOnChange(value);
+    if(handleOnChange) handleOnChange(value);
 
-     }
-    } else {
-      if(handleOnChange) handleOnChange(value);
-    }
   }
 
   handleFocus = event => {
@@ -91,7 +82,7 @@ class InputText extends Component {
     const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, value, ...rest } = this.props;
     const componentStyle = { ...style, };
     const { date, focused } = this.state;
-    
+
     return <div className={`input input-text ${className} ${validationStatus || ''}`} style={componentStyle}>
       {
           !isHorizontal && !hideHeader ? <div className="input-header">
@@ -105,7 +96,7 @@ class InputText extends Component {
         inputMask ?
         <MaskedTextInput
           mask={inputMask}
-          guide={true}
+          guide={false}
           disabled={readOnly}
           type={inputType || "text"}
           value={value}

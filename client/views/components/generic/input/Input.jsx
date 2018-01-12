@@ -2,18 +2,21 @@ import './input.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
 import {
-    InputDate,
+    InputAddress,
     InputButton,
-    InputSlider,
+    InputCheckbox,
+    InputCurrency,
+    InputDate,
     InputDatePicker,
     InputDropdown,
-    InputTime,
+    InputEmail,
+    InputSlider,
     InputText,
     InputTextarea,
-    InputCheckbox,
-    InputAddress,
+    InputTime,
+    InputUpload,
     InputUploadPhoto,
-    InputUpload
+    
 } from 'views/components';
 
 class Input extends Component {
@@ -127,7 +130,6 @@ class Input extends Component {
         const { validationStatus } = this.state;
 
         let items = this.props.options;
-        console.log(this.props.type);
 
         switch(this.props.type) {
 
@@ -224,6 +226,24 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                />
+            );
+            case 'Currency':
+            return (
+                <InputCurrency
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    value={this.state.value}
+                />
+            );
+            case 'Email':
+            return (
+                <InputEmail
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    value={this.state.value}
                 />
             );
             default:

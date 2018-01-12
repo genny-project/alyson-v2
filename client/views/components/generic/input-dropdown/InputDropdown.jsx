@@ -51,7 +51,7 @@ class InputDropdown extends Component {
     });
 
     return (
-      <div className={`input-dropdown ${className} ${validationStatus}` }>
+      <div className={`input input-dropdown ${className} ${validationStatus}` }>
         {name ? <Label className="dropdown-label" text={name} /> : null }
         <Downshift {...rest} onChange={this.handleClick}>
           {({
