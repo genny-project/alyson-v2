@@ -97,11 +97,11 @@
           {
             "Grid": {
               "rows": 1,
-              "cols": 4,
+              "cols": 3,
               "position": [1, 0],
               "style": {
                 "backgroundColor": "black",
-                "color": "white"
+                "color": "white"              
               },
               "children": [
                 {
@@ -228,11 +228,12 @@
                     {
                       "IconSmall": {
                         "position": [0,1],
-                        "name": "check_circle",
+                        "name": "chevron_right",
                         "style": {
                           "fontSize": 40,
                           "color": "green",
-                          "padding": "0 0 0 40%"
+                          "padding": "0 0 0 40%",
+                          "fontWeight": "bold"
                         }
                       }
                     },
@@ -370,7 +371,7 @@
                     "rows":1,
                     "cols":1,
                     "position": [0,1],
-                    "style": {"width": "100%","height":"500px"},
+                    "style": {"height":"500px"},
                     "children": [{
                       "MapDisplay": {
                         
