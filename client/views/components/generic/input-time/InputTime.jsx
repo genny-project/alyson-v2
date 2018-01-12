@@ -82,7 +82,7 @@ class InputTime extends Component {
         <div className='input-time-main'>
           <MaskedTextInput
               mask={inputMask}
-              guide={true}
+              guide={false}
               disabled={readOnly}
               value={value}
               placeholder={placeholder}

@@ -20,6 +20,14 @@ class InputCurrency extends Component {
         hasChanges: false,
     }
 
+    validateString = (value, identifier, validationList) => {
+        const {validation} = this.props;
+        
+        let newValue = value.replace(/[^0-9\.]/g,'');
+        
+        if(validation) validation(newValue, identifier, validationList);
+    }
+
     render() {
 
         const { name, mandatory, value, ...rest } = this.props;
@@ -36,7 +44,14 @@ class InputCurrency extends Component {
                         { mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
                     </div> :
                 null }
-                <InputText {...rest} hideHeader style={{ width: '100%' }} inputMask={numberMask} value={value} />
+                <InputText
+                    {...rest}
+                    hideHeader
+                    style={{ width: '100%' }}
+                    inputMask={numberMask}
+                    value={value}
+                    validation={this.validateString}
+                />
             </div>
         )
     }
