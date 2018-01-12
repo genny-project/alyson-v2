@@ -24,6 +24,44 @@ class GennyTable extends Component {
         isMobile: window.getScreenSize() == 'sm'
     }
 
+    generateHeadersFor(baseEntities) {
+
+        const { showBaseEntity } = this.props;
+        const isMobile = this.state.isMobile;
+
+        let tableColumns = [];
+        let headers = [];
+
+        baseEntities.map(baseEntity => {
+            
+            let cols = this.generateColumns(baseEntity);
+            cols.map(c => {
+
+                if( !headers.includes(c.attributeCode) ) {
+                    headers.push(c.attributeCode);
+                    tableColumns.push(c);
+                }
+            })
+        });
+
+        let mobileColumns = [];
+
+        if(!showBaseEntity && isMobile) {
+
+            if(tableColumns.length > 0) {
+
+                mobileColumns.push({
+                    "Header": <GennyTableHeader title={tableColumns[0].attributeCode} />,
+                    "accessor": tableColumns[0].attributeCode,
+                    "Cell": ({row, original}) => <GennyTableCellMobile data={tableColumns} row={row} original={original} />
+                });
+            }
+        }
+
+        this.state.columns = isMobile ? mobileColumns : tableColumns;
+        return isMobile ? mobileColumns : tableColumns;
+    }
+
     generateColumns = (baseEntity) => {
 
         const { showBaseEntity, linkCode } = this.props;
@@ -88,32 +126,7 @@ class GennyTable extends Component {
             }
 
         }
-
         return cols;
-    }
-
-    generateHeadersFor(baseEntities) {
-
-        const { showBaseEntity } = this.props;
-        const isMobile = this.state.isMobile;
-
-        let tableColumns = baseEntities.map(baseEntity => this.generateColumns(baseEntity))[0];
-        let mobileColumns = [];
-
-        if(!showBaseEntity && isMobile) {
-
-            if(tableColumns.length > 0) {
-
-                mobileColumns.push({
-                    "Header": <GennyTableHeader title={tableColumns[0].attributeCode} />,
-                    "accessor": tableColumns[0].attributeCode,
-                    "Cell": ({row, original}) => <GennyTableCellMobile data={tableColumns} row={row} original={original} />
-                });
-            }
-        }
-
-        this.state.columns = isMobile ? mobileColumns : tableColumns;
-        return isMobile ? mobileColumns : tableColumns;
     }
 
     generateDataFor(baseEntities) {
