@@ -33,7 +33,7 @@ class List extends Component {
   renderMain = (data, itemsPerPage, hideNav) => {
     const { itemHeight, itemWidth, itemGap } = this.props;
 
-    if (data && data.length > 0) { 
+    if (data && data.length > 0) {
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {
@@ -43,11 +43,11 @@ class List extends Component {
       );
     } else {
       return ( <div className='list-empty'>No data to display.</div> );
-    } 
+    }
   }
 
   renderCount = (data, countText, countStyle) => {
-    if (data && data.length > 0) { 
+    if (data && data.length > 0) {
       return (
         <div className='list-count' style={{ ...countStyle }}>
           <span>{data.length} {countText}</span>
@@ -59,11 +59,11 @@ class List extends Component {
   }
 
   render() {
-  
+
     const { className, style, data, itemsPerPage, header, hideNav, hideCount, countText, countStyle } = this.props;
     const { } = this.state;
     const componentStyle = { ...style, };
-    
+
     const renderMain = this.renderMain(data, itemsPerPage, hideNav);
     const renderCount = this.renderCount(data, countText, countStyle);
 

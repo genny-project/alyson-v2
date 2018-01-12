@@ -41,7 +41,7 @@ class GennyButton extends Component {
 
         return (
             <div className="genny-button" style={componentStyle}>
-                <Button {...rest} onClick={this.handleClick} style={ {...buttonComponentStyle }}>
+                <Button {...rest} onClick={this.handleClick} style={ {...buttonComponentStyle, height: componentStyle.height }}>
                     {children}
                 </Button>
             </div>

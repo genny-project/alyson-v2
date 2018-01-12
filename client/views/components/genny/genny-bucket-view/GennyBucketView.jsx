@@ -103,7 +103,7 @@ class GennyBucketView extends PureComponent {
             let linkToParent = BaseEntityQuery.getLinkToParent(group.code, be.code);
 
             let color = this.getBaseEntityColor(linkToParent.link);
-            
+
             let layout_code = 'cardLayout';
 
             let sublayout = this.props.sublayout[layout_code];
@@ -115,7 +115,7 @@ class GennyBucketView extends PureComponent {
                     description: be.code,
                     screenSize: this.props.screenSize,
                     onClick: this.onClick,
-                    layout: <LayoutLoader layout={sublayout} aliases={{BEG: be.code}}/>,
+                    layout: <LayoutLoader layout={sublayout} aliases={{BEG: be.code, ROOT: group.code}}/>,
                     backgroundColor: color
                 },
                 id: be.code
@@ -150,7 +150,7 @@ class GennyBucketView extends PureComponent {
     }
 
     getBaseEntityColor = (link) => {
-        
+
         if( link.rule == 'override:parent' || !link.rule ) {
             return link.parentColor;
         } else if ( link.rule == 'override:child' ) {
