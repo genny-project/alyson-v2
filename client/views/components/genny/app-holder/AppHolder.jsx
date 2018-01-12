@@ -27,24 +27,24 @@ class AppHolder extends Component {
 
         let social_code = window.getQueryString('code');
 
-        if(social_code && localStorage.getItem("socialredirect")) {
+        if(social_code && localStorage.getItem('socialredirect')) {
 
-            let data = JSON.parse(localStorage.getItem("socialredirect"))
+            let data = JSON.parse(localStorage.getItem('socialredirect'));
             if(data) {
                 data.value = social_code;
                 GennyBridge.sendAnswer([data]);
-                localStorage.setItem("socialredirect", '');
+                localStorage.setItem('socialredirect', '');
             }
        }
     }
 
     render() {
 
-        const { children, cols, rows } = this.props;
-
+        const { children, cols, rows, style } = this.props;
+        const componentStyle = { ...style, backgroundColor: 'white' };
         return (
             <div className={`app-holder ${window.getScreenSize()}`}>
-                <Grid style={{backgroundColor: "white"}} cols={cols} rows={rows}>
+                <Grid style={componentStyle} cols={cols} rows={rows}>
                     {children}
                 </Grid>
             </div>
