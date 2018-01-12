@@ -127,6 +127,7 @@ class Input extends Component {
         const { validationStatus } = this.state;
 
         let items = this.props.options;
+        console.log(this.props.type);
 
         switch(this.props.type) {
 
@@ -157,7 +158,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-            case 'LocalDate':
+            case 'java.time.LocalDate':
             return (
                 <InputDatePicker
                     {...rest}

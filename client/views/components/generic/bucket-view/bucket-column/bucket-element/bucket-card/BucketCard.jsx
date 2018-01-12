@@ -60,12 +60,10 @@ class BucketCard extends Component {
 
   render() {
 
-    const { className, title, description, level, style, showProgress, progressCurrent, progressTotal, children  } = this.props;
+    const { className, title, description, level, style, showProgress, progressCurrent, progressTotal, children, backgroundColor  } = this.props;
     const { isShowingOptions, isOpen } = this.state;
-
-    let layoutColor = BaseEntityQuery.getBaseEntityAttribute(description, 'LAY_COLOR');
     
-    const componentStyle = { ...style, backgroundColor: layoutColor.value || '' };
+    const componentStyle = { ...style, backgroundColor: backgroundColor || '' };
 
     const collapseArrow = isOpen ? 'expand_more' : 'expand_less';
 

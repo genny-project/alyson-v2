@@ -100,6 +100,8 @@ class GennyBucketView extends PureComponent {
             //let layout_code = BaseEntityQuery.getBaseEntityAttribute(be, "PRI_LAYOUT");
             //layout_code = layout_code ? layout_code.value : null;
 
+            let linkToParent = BaseEntityQuery.getLinkToParent(group.code, be.code);
+
             let layout_code = 'cardLayout';
 
             let sublayout = this.props.sublayout[layout_code];
@@ -112,6 +114,7 @@ class GennyBucketView extends PureComponent {
                     screenSize: this.props.screenSize,
                     onClick: this.onClick,
                     layout: <LayoutLoader layout={sublayout} aliases={{BEG: be.code}}/>,
+                    backgroundColor: ''
                 },
                 id: be.code
                 }

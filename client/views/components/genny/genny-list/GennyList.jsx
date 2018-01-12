@@ -31,7 +31,7 @@ class GennyList extends Component {
 
         return data.map(item => {
 
-            let linkToParent = BaseEntityQuery.getLinkToParent(this.props.root, item);
+            let linkToParent = BaseEntityQuery.getLinkToParent(this.props.root, item.code);
             if(linkToParent) {
 
                 let layout_code = linkToParent.linkValue || "listLayout";
