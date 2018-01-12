@@ -3,7 +3,7 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": ["120px", "80px", "100px", "500px", "400px", "30px"],
+        "rows": ["120px", "140px", "300px", "300px", "400px", "30px"],
         "children": [
           {
             "Header": {
@@ -43,35 +43,30 @@
                     "children": "CHANNEL40"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "For"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Businesses Companies"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Become a Driver"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Register"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
@@ -81,340 +76,48 @@
               ]
             }
           },
-
           {
             "div": {
               "position": [0, 0],
               "style": {
-                "backgroundColor": "black",
+                "backgroundColor": "white",
+                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
                 "color": "white",
-                "height": "40px"
+                "height": "200px"
               },
-              "children": []
+              "children": [     
+                { "h1": { "position": [0, 0], "children": "Frequently Asked Questions" ,"style": {"display": "flex","textAlign": "center","justifyContent":"center","marginTop":80}} }
+              ]
             }
           },
 
           {
             "Grid": {
               "rows": 1,
-              "cols": 3,
-              "position": [1, 0],
+              "cols": 1,
+              "position": [2, 0],
               "style": {
-                "backgroundColor": "black",
-                "color": "white"              
+                "backgroundColor": "white",
+                "color": "black"
               },
               "children": [
                 {
-                  "Grid": {
-                    "position": [0, 0],
-                    "rows": [{ "style": { "flexGrow": 0 ,"padding": "20px 0px"} }],
-                    "cols": [
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "display": "flex",
-                          "alignItems": "center",
-                          "justifyContent": "center"
-                        }
-                      },
-                      1
-                    ],
-                    "children": [
-                      {
-                        "IconSmall": {
-                          "position": [0, 0],
-                          "name": "check_circle"
-                        }
-                      },
-                      {
-                        "h4": {
-                          "position": [0, 1],
-                          "children": "How it works"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "position": [0, 1],
-                    "rows": [{ "style": { "flexGrow": 0 } }],
-                    "cols": [
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "display": "flex",
-                          "alignItems": "center",
-                          "justifyContent": "center"
-                        }
-                      },
-                      1
-                    ],
-                    "children": [
-                      {
-                        "IconSmall": {
-                          "position": [0, 0],
-                          "name": "check_circle"
-                        }
-                      },
-
-                      {
-                        "h4": {
-                          "position": [0, 1],
-                          "children": "Find Jobs"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "position": [0, 2],
-                    "rows": [{ "style": { "flexGrow": 0 } }],
-                    "style": {"alignItems":"center"},
-                    "cols": [
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "display": "flex",
-                          "alignItems": "center",
-                          "justifyContent": "center"
-                        }
-                      },
-                      1
-                    ],
-                    "children": [
-                      {
-                        "IconSmall": {
-                          "position": [0, 0],
-                          "name": "check_circle"
-                        }
-                      },
-
-                      {
-                        "h4": {
-                          "position": [0, 1],
-                          "children": "Free Quote"
-                        }
-                      }                    
-                    ]
-                  }
+                  "h3":{
+                    "position": [0,0],
+                    "children": "Block1 "}
                 }
               ]
             }
           },
-          {
-            "Grid": {
-              "rows":1,
-              "cols":1,
-              "position": [1,0],
-              "style": {"backgroundColor": "white", "color": "black","borderBottom": "1px solid #e3e3e3"},
-              "children": [
-                {
-                  "Grid": {
-                    "cols": 3,
-                    "rows": [{ "style": {"padding": "10px" } }],
-                    "position": [0,0],
-                    "children": [
-                      {
-                      "h3": {
-                        "position": [0, 0],
-                        "children": "Find Jobs",
-                        "style": {
-                          "textAlign": "center"
-                        }
-                      }
-                    }, 
-                    {
-                      "IconSmall": {
-                        "position": [0,1],
-                        "name": "chevron_right",
-                        "style": {
-                          "fontSize": 40,
-                          "color": "green",
-                          "padding": "0 0 0 40%",
-                          "fontWeight": "bold"
-                        }
-                      }
-                    },
-                    {
-                      "h3": {
-                        "position": [0, 2],
-                        "children": "Atlas Copco M2D",
-                        "style": {
-                          "textAlign": "center",
-                          "flexGrow":4
-                        }
-                        
-                      }
-                    }
-                  ]
-                  }
-                }
-          ]
-            }
-          },
 
-          {
-            "Grid": {
-              "rows": 1,
-              "cols":2,
-              "position": [3,0],
-              "style": {"padding": "0 100px", "flexWrap": "wrap", "margin": "30px 0 0 0 "},
-              "children":[
-                {
-                  "Grid": {
-                    "rows":4,
-                    "cols":1,
-                    "position": [0,0],
-                    "style": {"border": "2px solid #e3e3e3", "padding":"20px 20px"},
-                    "children":[
-                      {
-                        "h2": {
-                          "position": [0,0],
-                          "children": "Atlas Copco M2D",
-                          "style": {"color": "#f9691f"}
-                        }
-                      },
-                      {
-                        "Grid":{
-                          "position":[1,0],
-                          "rows":2,
-                          "cols":1,
-                          "style":{"margin": "10px 0"},
-                          "children":[
-                            {
-                        "IconSmall":{
-                          "position": [0,0],
-                          "name": "perm_contact_calendar",
-                          "style": {"fontSize":20, "color": "green"},
-                          "text": "Pickup:  21 Jan 2017"
-                        }
-                      },
-                      {
-                        "IconSmall":{
-                          "position": [1,0],
-                          "name": "perm_contact_calendar",
-                          "style": {"fontSize":20, "color": "green"},
-                          "text": "Dropoff: 21 Jan 2017"
-                        }
-                      }
-
-                          ]
-                        }}
-                      ,
-                      
-                      {
-                        "Grid": {
-                          "position":[2,0],
-                          "rows":1,
-                          "cols":2,
-                          "style":{ "alignItems": "baseline", "flexWrap":"wrap"},
-                          "children":[
-                            {
-                              "Grid": {
-                                "rows":1,
-                                "cols":1,
-                                "position": [0,0],
-                                "children": [
-                                  {
-                                    "h3":{"position":[0,0], "children": "Description:", "style": { "color": "#f9691f"}}},
-                                    {
-                                    "p": {"style": {"color":"#4a4747","lineHeight": 1.8},"position": [0,0], "children": "This is a description about the job loream ipsum ran this is a description about the job loream ipsum  loream ipsum ran this is a description  loream ipsum ran this is a description "}}
-                                  ]
-                              }
-                            },
-                            {
-                              "Grid": {
-                                "rows":1,
-                                "cols":1,
-                                "position": [0, 1],
-                                "style": {"padding": 10,"marginTop":20},
-                                "children":[
-                                 { 
-                                   "ImageView": { 
-                                     "position": [0, 0], 
-                                     "src": "http://i.imgur.com/yqdlJB5.jpg", 
-                                     "style": { 
-                                       "height": 150, 
-                                       "width": 150,
-                                       "marginTop": "20",
-                                       "borderRadius":"0px"
-                                       }
-                                    } 
-                                  } 
-                                ]                               
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "Grid": { 
-                          "position": [3,0],
-                          "rows":1,
-                          "cols":1,
-                          "style": { "display": "flex"},
-                          "children": [
-                            {"h3": {"style": {"fontWeight": 600, "color": "#f9691f"}, "position": [0,0], "children": "Posted By: "}},
-                            { "span": { "position": [0, 0], "children": "Nischal Gautam"}}, 
-                            {"Button": {"className": "confirm small","position":[0,0], "children": "Contact Enquire", "style": {"width": "120px", "fontSize":14,"display": "inline-block", "marginLeft": "20px"} }},
-                            {"Button": {"className": "warning small","position": [0, 0], "children": "Quote New", "style": { "width": "120px", "fontSize":14, "padding":0, "display": "inline-block", "marginLeft": "20px"} }}
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },                
-                {
-                  "Grid": {
-                    "rows":1,
-                    "cols":1,
-                    "position": [0,1],
-                    "style": {"height":"500px"},
-                    "children": [{
-                      "MapDisplay": {
-                        
-                        "position": [0,0],
-                        "center": "115 Spur Rd, Clonbinane VIC 3658", 
-                        "markers": [{
-                          "lat": -36.1460,
-                          "lng": 144.7448
-                            },
-                          "229 Westgarth St, Northcote VIC 3070, Australia"
-                        ],
-                         "routes": [
-                                  {
-                                    "origin" : "32 Lane Cres, Reservoir VIC 3073, Australia",
-                                    "dest" : "121 Cardigan St, Carlton VIC 3053, Australia"
-                                  },
-                                  {
-                                    "origin" : {
-                                      "lat": -32.224693,
-                                      "lng": 148.631974
-                                    },
-                                    "dest" : {
-                                      "lat": -34.554699,
-                                      "lng": 138.961454
-                                    }
-                                  }
-                                ]
-                            
-                      }
-                      }]
-                  }
-                }
-              ]
-            }
-          },
           {
             "Footer": {
               "position": [5, 0],
               "style": {
                 "position": "absolute"
               },
-              "poweredBy": {
-                "caption": "Channel40"
+              "poweredBy" : {
+                  "caption" : "Channel40"
               }
             }
           }
