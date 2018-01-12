@@ -96,7 +96,7 @@ class InputText extends Component {
         inputMask ?
         <MaskedTextInput
           mask={inputMask}
-          guide={true}
+          guide={false}
           disabled={readOnly}
           type={inputType || "text"}
           value={value}
