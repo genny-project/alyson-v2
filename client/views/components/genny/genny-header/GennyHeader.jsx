@@ -1,11 +1,12 @@
 import './gennyHeader.scss';
 import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
-import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyNotification, ColorPicker, Device, Header } from 'views/components';
+import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyNotification, ColorPicker, Device, Header, Selector } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
+import decode_token from 'jwt-decode';
 
 class GennyHeader extends Component {
 
@@ -75,12 +76,16 @@ class GennyHeader extends Component {
 
   render() {
 
-    const { style, className, projectTitle, projectGreeting, userName, userImage, hideSubheader } = this.props;
+    const { style, className, projectTitle, projectGreeting, userName, userImage, hideSubheader, token } = this.props;
     const { } = this.state;
     const componentStyle = {
       ...style,
       ...customStyle.gennyHeader
     };
+
+    let session_data = decode_token(token);
+    let roles = session_data.realm_access.roles;
+    console.log(roles);
 
     return (
       <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
@@ -114,15 +119,18 @@ class GennyHeader extends Component {
             style={ customStyle.dropdown } 
             position={[0,1]}
             header={
-              <span style={ customStyle.dropdownSpan }><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>}
-            >
-              <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
-                <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
-                <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
-                <li style={ customStyle.dropdownLi } onClick={this.handleMessages}><IconSmall name="person" /><span>Text Message</span></li>
-                <br/>
-                <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
-              </ul>
+              <span style={ customStyle.dropdownSpan }><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>
+            }
+          >
+            <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
+              <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
+              <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
+              <Selector checkValues={roles} showValues={['uma_authorization']}>
+                <li style={ customStyle.dropdownLi } onClick={this.handleMessages}><IconSmall name="email" /><span>Test Message</span></li>
+              </Selector>
+              <br/>
+              <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
+            </ul>
           </Dropdown>
           
           {/*}
