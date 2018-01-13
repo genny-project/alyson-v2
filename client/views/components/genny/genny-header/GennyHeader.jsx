@@ -85,41 +85,39 @@ class GennyHeader extends Component {
 
     let session_data = decode_token(token);
     let roles = session_data.realm_access.roles;
-    console.log(roles);
 
     return (
       <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
         <Header
           className='main-header'
           cols={[
-            { style: { 
-              flexGrow: "1", 
+            { style: {
+              flexGrow: "1",
               color: "white",
               display: "flex",
               alignItems: "center",
               paddingLeft: "5px",
-              paddingRight: "5px" 
+              paddingRight: "5px"
             }},
-            { style: { 
-              flexGrow: "1", 
-              justifyContent: "flex-end", 
+            { style: {
+              flexGrow: "1",
+              justifyContent: "flex-end",
               color: "white",
               display: "flex",
               alignItems: "center",
               paddingLeft: "5px",
-              paddingRight: "5px" 
+              paddingRight: "5px"
             }}
-          ]} 
+          ]}
           rows={[ { style: { flexGrow: "1", paddingLeft: "50px", height: "100%" } } ]}
         >
-          <Label text={projectTitle} position={[0,0]} />
-          {/*<GennyNotification position={[0,1]} />*/}
-          
-          <Dropdown 
-            style={ customStyle.dropdown } 
+          <Label position={[0,0]} text={projectTitle} />
+          <Label position={[0,1]} text={`${userName}`} />
+          <Dropdown
+            style={ customStyle.dropdown }
             position={[0,1]}
             header={
-              <span style={ customStyle.dropdownSpan }><Label text={`${userName}`} /><IconSmall name="expand_more" /></span>
+              <span style={ customStyle.dropdownSpan }><IconSmall name="expand_more" /></span>
             }
           >
             <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
@@ -132,7 +130,7 @@ class GennyHeader extends Component {
               <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
             </ul>
           </Dropdown>
-          
+
           {/*}
           <Device isDesktop position={[0,1]}>
             <ImageView src={userImage} onClick={this.handleClickImage} style={{ width: '40px', minWidth: '40px'}}/>
@@ -141,7 +139,7 @@ class GennyHeader extends Component {
             <IconSmall className="help" name="help"/>
             </Device>*/}
         </Header>
-        { !hideSubheader ? 
+        { !hideSubheader ?
         <Grid className='sub-header' cols={[1]} rows={1} style={ customStyle.subHeader }>
           <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }} position={[0,0]}/>
         </Grid> : null }
