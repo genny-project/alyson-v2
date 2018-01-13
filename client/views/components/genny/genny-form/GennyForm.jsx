@@ -93,6 +93,7 @@ class GennyForm extends Component {
 
             return {
                 title: askGroup.name,
+                isHorizontal: askGroup.attributeCode.includes("HORIZONTAL"),
                 submitButtons: submitButtons,
                 onSubmit: (action) => this.onSubmit(askGroup.question.code, askGroup.targetCode, action),
                 onGroupValidation: this.onGroupValidation,

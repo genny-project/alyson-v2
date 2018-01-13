@@ -16,7 +16,7 @@ import {
     InputTime,
     InputUpload,
     InputUploadPhoto,
-    
+
 } from 'views/components';
 
 class Input extends Component {
@@ -124,7 +124,7 @@ class Input extends Component {
         }
     }
 
-    render() {
+    renderInput() {
 
         const { onClick, onClickEvent, ...rest } = this.props;
         const { validationStatus } = this.state;
@@ -257,6 +257,13 @@ class Input extends Component {
                 />
             );
         }
+
+    }
+
+    render() {
+
+        console.log(this.props);
+        return <div style={this.props.style}>{this.renderInput()}</div>;
     }
 }
 

@@ -73,6 +73,7 @@ class Form extends Component {
                   ref={(groupRef) => this.formGroupRefs.push(groupRef)}
                   key={questionGroup.title}
                   title={questionGroup.title}
+                  isHorizontal={questionGroup.isHorizontal}
                   submitButtons={questionGroup.submitButtons}
                   onSubmit={(action) => this.onFormSubmit(questionGroup, () => questionGroup.onSubmit(action))}
                   data={this.renderGroup(questionGroup.content)}/>);

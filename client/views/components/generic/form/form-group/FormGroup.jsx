@@ -33,13 +33,15 @@ class FormGroup extends Component {
 
     renderData = (data) => {
 
+        const { isHorizontal } = this.props;
+
         return data.map((child, index) => {
 
             if (child.$$typeof) {
                 return child
             } else {
                 return (
-                    <Input ref={inputRef => this.inputRefs.push(inputRef)} key={index} {...child} />
+                    <Input ref={inputRef => this.inputRefs.push(inputRef)} key={index} {...child} style={isHorizontal ? { "flex" : "1", "margin-left": "5px", "margin-right": "5px", "margin-bottom": "10px" } : { "margin-bottom": "5px" }} />
                 )
             }
         });
@@ -61,6 +63,7 @@ class FormGroup extends Component {
     }
 
     isFormGroupValid = () => {
+
         return this.inputRefs.map(input => {
             return input ? input.isValid() : true;
         });
@@ -95,7 +98,7 @@ class FormGroup extends Component {
 
     render() {
 
-        const { data, title, submitButtons } = this.props;
+        const { data, title, submitButtons, isHorizontal } = this.props;
         const subforms = this.renderData(data);
 
         return (
@@ -103,7 +106,9 @@ class FormGroup extends Component {
                 <div className="form-group-title">
                     {title}
                 </div>
-                {subforms}
+                <div style={isHorizontal ? { "display": "flex" } : null}>
+                    {subforms}
+                </div>
                 {
                     submitButtons.length > 0 ? this.renderFormButtons(submitButtons) : null
                 }

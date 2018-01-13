@@ -61,7 +61,8 @@ class LayoutLoader extends Component {
         let split = alias.split(".");
         let alias_code = split[0];
         let attribute_code = split[1];
-        let attribute = {};
+        let attribute = {}
+
         if (localAliases) {
 
            Object.keys(localAliases).forEach((alias_key, index) => {
@@ -89,7 +90,7 @@ class LayoutLoader extends Component {
                     if(baseEntity) {
                         attribute = {
                             value: baseEntity.code
-                        }; 
+                        };
                     }
                 }
             }

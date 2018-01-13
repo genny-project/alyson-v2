@@ -22,13 +22,10 @@ class GennyDropdown extends Component {
             if (header.$$typeof ) {
               return header;
             } else if (Array.isArray(header)) {
-              let layout = {layout: header};
-      
-              //use JSON loader instead of Layout loader
-              return <LayoutLoader layout={layout} />;
+              return <LayoutLoader layout={{layout: header}} />;
             } else {
-              return null;  
-            } 
+              return null;
+            }
           } else {
             return null;
           }
@@ -38,9 +35,9 @@ class GennyDropdown extends Component {
     render() {
 
         const { children, header, ...rest } = this.props;
-        
+
         return (
-            <Dropdown 
+            <Dropdown
                 {...rest}
                 header={ this.generateHeader(header) }
             >
