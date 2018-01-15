@@ -236,7 +236,7 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     value={this.state.value}
-                    prefix={this.props.type == "Current" ? "$" : ''}
+                    prefix={this.props.type == "Currency" ? "$" : ''}
                 />
             );
             case 'Email':

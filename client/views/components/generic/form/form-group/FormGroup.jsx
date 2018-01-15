@@ -45,8 +45,8 @@ class FormGroup extends Component {
                         ref={inputRef => this.inputRefs.push(inputRef)}
                         key={index} {...child}
                         style={isHorizontal ?
-                            { "margin-left": "5px", "margin-right": "5px", "margin-bottom": "10px", "width": "calc(50% - 10px)" } :
-                            { "margin-bottom": "5px" }}
+                            { "marginLeft": "5px", "marginRight": "5px", "marginBottom": "10px", "width": "calc(50% - 10px)" } :
+                            { "marginBottom": "5px" }}
                     />
                 )
             }
@@ -112,7 +112,7 @@ class FormGroup extends Component {
                 <div className="form-group-title">
                     {title}
                 </div>
-                <div style={isHorizontal ? { "display": "flex", "flex-wrap": "wrap" } : null}>
+                <div style={isHorizontal ? { "display": "flex", "flexWrap": "wrap" } : null}>
                     {subforms}
                 </div>
                 {
