@@ -13,7 +13,8 @@ class InputDatePicker extends Component {
     className: '',
     identifier: null,
     validationStatus: null,
-    defaultDateFormat: 'YYYY-MM-DD'
+    defaultDateFormat: 'YYYY-MM-DD HH:mm',
+    defaultTimeFormat: 'HH:mm'
   }
 
   static propTypes = {
@@ -39,7 +40,7 @@ class InputDatePicker extends Component {
 
   render() {
 
-    const { className, children, style, validationStatus, name, defaultDateFormat, mandatory } = this.props;
+    const { className, children, style, validationStatus, name, defaultDateFormat, defaultTimeFormat, mandatory } = this.props;
     const { startDate } = this.state;
     const componentStyle = { ...style, };
 
@@ -50,16 +51,18 @@ class InputDatePicker extends Component {
           { mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
         </div> : null }
         <DatePicker
-          className={`${validationStatus}`}
+          className={`${validationStatus} input-date-picker-input`}
           calendarClassName=""
           dateFormat={defaultDateFormat}
+          timeFormat={defaultTimeFormat}
           dayClassName={date => date.date() < Math.random() * 31 ? 'random' : undefined}
           selected={startDate ? moment(startDate, defaultDateFormat): null}
           onChange={this.handleChange}
           peekNextMonth
           showMonthDropdown
           showYearDropdown
-          dropdownMode="select"
+          showTimeSelect
+          timeIntervals={15}
         />
       </div>
     );
