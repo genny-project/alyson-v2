@@ -148,6 +148,14 @@ class Input extends Component {
                     type="facebook"
                 />
             );
+            case 'java.time.LocalDate':
+            return (
+                <InputDatePicker
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                />
+            );
             case 'TextArea':
             return (
                 <InputTextarea
