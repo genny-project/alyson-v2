@@ -4,7 +4,7 @@ import { string, object, any } from 'prop-types';
 import { Label, SubmitStatusIcon, InputText } from 'views/components';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
-class Numbers extends Component {
+class InputNumbers extends Component {
 
     static defaultProps = {
         className: '',
@@ -34,7 +34,8 @@ class Numbers extends Component {
         const { name, mandatory, value, ...rest } = this.props;
 
         const numberMask = createNumberMask({
-            allowDecimal: true
+            allowDecimal: true,
+            prefix: this.props.prefix
         })
 
         return (
@@ -58,4 +59,4 @@ class Numbers extends Component {
     }
 }
 
-export default Numbers;
+export default InputNumbers;
