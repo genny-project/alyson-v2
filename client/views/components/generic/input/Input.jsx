@@ -48,6 +48,10 @@ class Input extends Component {
         return true;
     }
 
+    componentWillUpdate() {
+        this.state.validationStatus = 'normal';
+    }
+
     isValid = () => {
 
         const { validationList } = this.props;

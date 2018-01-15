@@ -13,8 +13,8 @@ class InputDatePicker extends Component {
     className: '',
     identifier: null,
     validationStatus: null,
-    defaultDateFormat: 'YYYY-MM-DD HH:mm',
-    defaultTimeFormat: 'HH:mm'
+    defaultDateFormat: 'YYYY-MM-DD H:mm a',
+    defaultTimeFormat: 'H:mm a'
   }
 
   static propTypes = {
