@@ -115,25 +115,24 @@
               "position": [2,0],
               "rows":5,
               "cols":2,
-              "style": {"padding": "20px 100px", "display":"flex"},
+              "style": {"padding": "20px", "alignItems": "center","justifyContent":"center","flexWrap": "wrap"},
               "children": [
                    {
                     "Grid": {
-                      "position": [2, 0],
+                      "position": [0, 0],
                       "rows": 3,
                       "cols": 1,
-                      "style": {"display": "flex", "flexDirection": "column"},
+                      "style": {"display": "flex", "flex": 3},
                       "children": [
                         {
                           "ImageView": 
                           {
                             "position": [0, 0],
                             "style": {
-                              "height": "450px",
                               "width": "100%",
                               "borderRadius": "0px" 
                               },
-                            "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg" 
+                            "src": "https://i.imgur.com/5mbZZUK.jpg" 
                           }
                         },
                         {
@@ -163,13 +162,55 @@
                     "Grid": {
                       "position": [0,1],
                       "rows":1,
-                      "cols":1,
-                      "style": {"paddingLeft":"40px", "flex":1 },
+                      "cols":2,
+                      "style": {"marginLeft":"70px", "height":400,"backgroundColor": "#f26522", "padding":20, "display":"flex" },
                       "children": [
                         {
-                          "h1": {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
                             "position": [0,0],
-                            "children": "Download the new App"
+                            "children": [
+                              {
+                                "h1": {
+                                  "position": [0,0],
+                                  "style": {"color": "#fff"},
+                                  "children": "Download the new App"
+                                }
+                              },
+                              {
+                                "p": {
+                                  "position": [0, 0],
+                                  "style": { "color": "#fff" },
+                                  "children": "The app is available for download from App Store and Play Store Today" 
+                                } 
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position": [0,1],
+                            "style": {"position":"relative"},
+                            "children": [
+                              {
+                                 "ImageView": {
+                                    "position": [0, 0],
+                                    "src": "https://channel40.com.au/wp-content/uploads/2017/02/iPhone-2.png",
+                                    "style": {
+                                      "position": "absolute",
+                                      "backgroundColor": "red",
+                                      "bottom": "-20px",
+                                      "right": "15px",
+                                      "z-index": "1",
+                                      "height": "auto",
+                                      "verticalAlign": "middle"
+                                    }
+                                  } 
+                              }
+                            ]
                           }
                         }
                       ]
