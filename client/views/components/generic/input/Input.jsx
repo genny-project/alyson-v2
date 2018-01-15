@@ -126,9 +126,8 @@ class Input extends Component {
 
     renderInput() {
 
-        const { onClick, onClickEvent, ...rest } = this.props;
+        const { onClick, onClickEvent, style, ...rest } = this.props;
         const { validationStatus } = this.state;
-
         let items = this.props.options;
 
         switch(this.props.type) {
@@ -262,7 +261,6 @@ class Input extends Component {
 
     render() {
 
-        console.log(this.props);
         return <div style={this.props.style}>{this.renderInput()}</div>;
     }
 }
