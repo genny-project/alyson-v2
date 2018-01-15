@@ -114,8 +114,8 @@
             "Grid": {
               "position": [2,0],
               "rows":5,
-              "cols":1,
-              "style": {"padding": "20px 200px"},
+              "cols":2,
+              "style": {"padding": "20px 100px", "display":"flex"},
               "children": [
                    {
                     "Grid": {
@@ -137,11 +137,12 @@
                           }
                         },
                         {
-                          "h3": 
+                          "h3":
                             {
                               "position": [1,0],
                               "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country.",
-                              "color": "#fff"
+                              "color": "#fff",
+                              "fontSize": "20px"
                             }
                         },
                         {
@@ -157,6 +158,22 @@
                         }
                       ]
                     } 
+                  },
+                  {
+                    "Grid": {
+                      "position": [0,1],
+                      "rows":1,
+                      "cols":1,
+                      "style": {"paddingLeft":"40px", "flex":1 },
+                      "children": [
+                        {
+                          "h1": {
+                            "position": [0,0],
+                            "children": "Download the new App"
+                          }
+                        }
+                      ]
+                    }
                   }
               ]
             }
