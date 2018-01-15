@@ -11,7 +11,6 @@ class InputDropdown extends Component {
     hint: '',
     identifier: null,
     validationStatus: null,
-    isMulti: true,
   }
 
   static propTypes = {
@@ -21,36 +20,32 @@ class InputDropdown extends Component {
     validation: func,
     identifier: any,
     validationStatus: string,
-    isMulti: bool
   }
 
   state = {
     ask: this.props.ask ? this.props.ask : false,
     value: this.props.default_value,
     selectedItems: [],
+    isOpen: false,
+    currentValue: ''
   }
 
-  handleClick = (selectedItem) => {
-
-    console.log('onclick');
-    console.log(this.state.selectedItems);
-
-    if (this.state.selectedItems.includes(selectedItem)) {
-      console.log('remove');
-      this.removeItem(selectedItem);
-    } else {
-      console.log('add');
-      this.addSelectedItem(selectedItem);
-    }
-
-    // let code = this.props.items.filter(x => x.name == selectedItem)[0].code;
-    // const { validationList, validation, identifier,  } = this.props;
-    // const value = code;
-    // this.setState({ focused: false });
+  handleBlur = () => {
+    console.log('blur');
+    let code = this.props.items.filter(x => x.name == this.selectedItems);
+    const { validationList, validation, identifier,  } = this.props;
+    const value = code;
+    console.log(code);
     //if(validation) validation(value, identifier, validationList);
   }
 
-
+  handleChange = selectedItem => {
+    if (this.state.selectedItems.includes(selectedItem)) {
+      this.removeItem(selectedItem)
+    } else {
+      this.addSelectedItem(selectedItem)
+    }
+  }
 
   addSelectedItem(item) {
     this.setState(({selectedItems}) => ({
@@ -65,54 +60,149 @@ class InputDropdown extends Component {
     })
   }
 
+  getDisplayText = () => {
+    const { selectedItems } = this.state;
+    console.log(selectedItems);
+    if ( selectedItems && selectedItems.length > 0) {
+      if (selectedItems.length == 1) {
+        return '1 item selected';
+      } else if (selectedItems.length > 1) {
+        return `${selectedItems.length} items selected`; 
+      }
+    }
+    return 'Select an item';
+  }
+
+  onToggleMenu = () => {
+    this.setState(({isOpen}) => ({
+      isOpen: !isOpen,
+    }))
+  }
+
+  handleStateChange = changes => {
+
+    const {isOpen, type} = changes;
+
+    console.log(type);
+    
+
+    if (type === Downshift.stateChangeTypes.mouseUp) {
+      this.setState({isOpen})
+    }
+    else if (type === Downshift.stateChangeTypes.keyDownSpaceButton) {
+      this.setState({
+        isOpen: true,
+        currentValue: this.state.currentValue + ' '
+      })
+    }
+    else if (type === Downshift.stateChangeTypes.changeInput) {
+      this.setState({
+        isOpen: true,
+        currentValue: changes.inputValue
+      })
+    }
+    else {
+    }
+  }
+
+  handleClearInput = () => {
+    this.setState({
+      currentValue: ''
+    })
+  }
+
+  getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps,) {
+
+    let list = items;
+
+    list = list.filter(item => !inputValue || item.name.toUpperCase().includes(inputValue.toUpperCase()))
+    
+    list = list.sort((x, y) => 
+      selectedItem.indexOf(x.name) == -1 && selectedItem.indexOf(y.name) > -1
+    )
+    
+    if (list.length > 0 ) {
+
+      list = list.map((item, index) => {
+        return (
+          <li
+            key={index}
+            className="dropdown-item"
+            style={{cursor: 'pointer'}}
+            {...getItemProps({
+              item: item.name,
+              isActive: highlightedIndex === index,
+              isSelected: selectedItem.indexOf(item.name) > -1,
+            })}
+          >
+            <span>{selectedItem.indexOf(item.name) > -1 ? `✓ ${item.name}` : item.name}</span>
+          </li>
+        )
+      })
+    } else {
+      list = (
+        <li className="dropdown-item no-items-found" style={{cursor: 'default'}}>
+          <i>No Matches Found</i>
+        </li>
+      )
+    }
+
+    return list;
+  }
+
   render() {
 
-    const { className, style, name, hint, validationStatus, isMulti, ...rest } = this.props;
+    const { className, style, name, hint, validationStatus, ...rest } = this.props;
     let { items } = this.props;
-    const { value } = this.state;
+    const { value, selectedItems } = this.state;
     const componentStyle = { ...style, };
 
-    console.log(this.state.selectedItems);
-
+    let displayText = this.getDisplayText();
+    
     return (
-      <div className={`input input-dropdown ${className} ${validationStatus}` }>
+      <div className={`input input-dropdown ${className} ${validationStatus}` }>      
         {name ? <Label className="dropdown-label" text={name} /> : null }
-        <Downshift {...rest} onSelect={this.handleClick}>
+        <Downshift
+          isOpen={this.state.isOpen}
+          selectedItem={selectedItems}
+          onChange={this.handleChange}
+          onStateChange={this.handleStateChange}
+          inputValue={this.state.currentValue}
+          onBlur={this.handleBlur}
+        >
           {({
-
             getItemProps,
+            getButtonProps,
+            getInputProps,
             isOpen,
-            toggleMenu,
-            clearSelection,
             selectedItem,
-            inputValue,
+            inputValue,   
             highlightedIndex,
-
           }) => (
             <div className="dropdown-container">
               <div
+                {...getButtonProps({   
+                  onClick: this.onToggleMenu
+                })}
                 type="button"
-                className={`input-dropdown-button ${isOpen ? "selected" : ""}`}
-                onClick={ toggleMenu}
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded={isOpen}
+                className={`input-dropdown-field ${isOpen ? "selected" : ""}`}
               >
-                <span className="">{selectedItem ? selectedItem : value }</span>
-                <IconSmall name={ isOpen ? 'expand_more' : 'chevron_right'} />
+                <input
+                  value={this.state.currentValue}
+                  placeholder={displayText}
+                  {...getInputProps({})}
+                />
+                {/* <span className="">{displayText}</span> */}
+                { this.state.currentValue && this.state.currentValue.length > 0 ?
+                  <IconSmall className='input-dropdown-icon' name='clear' onClick={this.handleClearInput}/>
+                  : <IconSmall className='input-dropdown-icon' name={ isOpen ? 'expand_more' : 'chevron_right'} />
+                }
               </div>
               {isOpen ? (
                 <ul style={{display: 'block'}} className="dropdown-menu">
-                  {items.map(item => (
-                    <li
-                      {...getItemProps({item: item.name})}
-                      key={item.name}
-                      className="dropdown-item"
-                      style={{cursor: 'pointer'}}
-                    >
-                      <span>{item.name}</span>
-                    </li>
-                  ))}
+                  { 
+                    this.getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps)
+                  } 
                 </ul>
               ) : null}
             </div>
