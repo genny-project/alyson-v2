@@ -36,23 +36,23 @@ class GennyList extends Component {
 
                 let layout_code = linkToParent.linkValue || "listLayout";
                 let sublayout = this.props.sublayout[layout_code];
-                item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: this.props.root, ITEMCODE: item.code}}/>;
+                item['layout'] = <LayoutLoader layout={sublayout} aliases={{BEG: item.code, ROOT: this.props.root, ITEMCODE: item.code}}/>;
                 return item;
             }
-            
+
             return false;
         });
-    }  
+    }
 
     render() {
 
         const { root, showLinks, hideHeader, ...rest } = this.props;
-        
+
         let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root) : BaseEntityQuery.getEntityChildren(root);
-    
+
         return (
             <div className="genny-list">
-                <List 
+                <List
                     header={ hideHeader ? null : <GennyForm root='' isHorizontal /> }
                     data={ this.generateListItems(data) }
                     {...rest}
