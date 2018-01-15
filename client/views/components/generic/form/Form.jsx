@@ -58,12 +58,12 @@ class Form extends Component {
     return false;
   }
 
-  renderGroup(questionGroup) {
+  renderGroup(questionGroup, index) {
 
       if(Array.isArray( questionGroup )) {
 
-        return questionGroup.map(group => {
-            if(group.content) return this.renderGroup(group);
+        return questionGroup.map((group, index) => {
+            if(group.content) return this.renderGroup(group, index);
             return group;
         });
       }
@@ -71,7 +71,7 @@ class Form extends Component {
           return (
               <FormGroup
                   ref={(groupRef) => this.formGroupRefs.push(groupRef)}
-                  key={questionGroup.title}
+                  key={index}
                   title={questionGroup.title}
                   isHorizontal={questionGroup.isHorizontal}
                   submitButtons={questionGroup.submitButtons}

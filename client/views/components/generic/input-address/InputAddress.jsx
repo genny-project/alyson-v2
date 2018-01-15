@@ -26,6 +26,8 @@ class InputAddress extends Component {
 
     onSelect = (newAddress) => {
 
+        console.log(" ======= on select ======== ");
+
         if(newAddress) {
 
             geocodeByAddress(newAddress)
