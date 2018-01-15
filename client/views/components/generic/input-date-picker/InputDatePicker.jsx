@@ -33,7 +33,7 @@ class InputDatePicker extends Component {
   handleChange = (date) => {
 
     const { validationList, validation, identifier, defaultDateFormat } = this.props;
-    const value = moment(date).format(defaultDateFormat);
+    const value = moment(date).toISOString();
     this.setState({ startDate: date });
     if(validation) validation(value, identifier, validationList);
   }
