@@ -4,16 +4,20 @@
       "AppHolder": {
         "cols": 1,
         "rows":4,
+        "style" : {
+          "height" : "auto"
+        },
         "children": [
              {
             "Header": {
               "position": [0, 0],
+              "row":1,
               "style": {
                 "backgroundColor": "white",
                 "color": "black",
                 "width": "900px",
                 "margin": "0 auto",
-                "maxHeight": "80px"
+                "height": "80px"
               },
               "cols": [
                 {
@@ -84,7 +88,8 @@
               "style": {
                 "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
                 "textAlign": "left",
-                "alignItems":"center"
+                "alignItems":"center",
+                "height": "initial"
               },
               "children": [
                 {
@@ -109,7 +114,8 @@
                 "justifyContent": "space-around",
                 "padding": "20px 200px",
                 "flexWrap": "wrap",
-                "marginTop": "30px"
+                "marginTop": "40px",
+                "backgroundColor":"#fff"
               },
               "children": [
                    {
@@ -147,7 +153,7 @@
                            "position": [0,0],
                            "rows":1,
                            "cols":2,
-                           "style": {"display": "flex", "flexDirection": "row", "justifyContent":"center"},
+                           "style": {"display": "flex", "flexDirection": "row", "justifyContent":"center", "paddingBottom": "10px", "borderBottom": "1px solid #e3e3e3"},
                            "children": [
                              { 
                                "ImageView":
@@ -180,7 +186,7 @@
                       "position": [0,1],
                       "rows":1,
                       "cols":2,
-                      "style": {"marginLeft":"70px", "height":400,"backgroundColor": "#f26522", "padding":20, "display":"flex" },
+                      "style": {"marginLeft":"70px", "height":400,"backgroundColor": "#f26522", "padding":20, "display":"flex", "height":"initial"},
                       "children": [
                         {
                           "Grid": {
@@ -232,6 +238,258 @@
                     }
                   }
               ]
+            }
+          },
+          {
+            "Grid": {
+              "position":[2,0],
+              "rows":4,
+              "cols":1,
+              "style": {
+                "marginTop": "100px",
+                "padding": "0 200px",
+                "color": "#f26522",
+                "backgroundColor":"#fff",
+                "marginBottom":"100px",
+                "height": "initial"
+
+              },
+              "children": [
+                {
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
+                      {
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                  "h1": {"position": [0,0],"children": "Tom Cavanagh"}
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {
+                    "color":"#6a6a6a",
+                    "fontSize": "24px"
+                  },
+                    "children": "Founder"
+                  }
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color":"#6a6a6a",
+                        "lineHeight":"1.7em"
+                      },
+                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
+                    }
+                  }
+                          ]
+                        }
+                        
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":200,
+                            "width":150,
+                            "padding": "100px 0"
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-tom-e1503270711248.jpg"
+                        }}
+                      
+                       
+
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
+                      {
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                  "h1": {"position": [0,0],"children": "Josh Mullens"}
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {
+                    "color":"#6a6a6a",
+                    "fontSize": "24px"
+                  },
+                    "children": "Founder"
+                  }
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color":"#6a6a6a",
+                        "lineHeight":"1.7em"
+                      },
+                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
+                    }
+                  }
+                          ]
+                        }
+                        
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":200,
+                            "width":150,
+                            "padding": "100px 0"
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/08/Josh-Mullens-Channel-40-4-e1508718045251.jpg"
+                        }}
+                      
+                       
+
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
+                      {
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                  "h1": {"position": [0,0],"children": "Drew Davis"}
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {
+                    "color":"#6a6a6a",
+                    "fontSize": "24px"
+                  },
+                    "children": "Founder"
+                  }
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color":"#6a6a6a",
+                        "lineHeight":"1.7em"
+                      },
+                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
+                    }
+                  }
+                          ]
+                        }
+                        
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":200,
+                            "width":150,
+                            "padding": "100px 0"
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-drew-e1503271388868.jpg"
+                        }}
+                      
+                       
+
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
+                      {
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                  "h1": {"position": [0,0],"children": "Evan Schmalz"}
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {
+                    "color":"#6a6a6a",
+                    "fontSize": "24px"
+                  },
+                    "children": "Founder"
+                  }
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color":"#6a6a6a",
+                        "lineHeight":"1.7em"
+                      },
+                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
+                    }
+                  }
+                          ]
+                        }
+                        
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":200,
+                            "width":150,
+                            "padding": "100px 0"
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/12/Evan-Schmalz-Freight-Coordinator-Channel-40-3-1-e1513835810986.jpg"
+                        }}
+                      
+                       
+
+                    ]
+                  }
+                }
+               
+                        
+                ]
             }
           }
         ]
