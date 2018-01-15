@@ -8,234 +8,233 @@
         "children": [
           {
             "Header": {
-            "position": [0, 0],
-            "style": { "backgroundColor": "white", "color": "black", "width": "900px", "margin": "0 auto", "maxHeight": "80px" },
-            "cols": [{ "style": { "flexGrow": 0, "display": "flex", "alignItems": "center" } },
-            { "style": { "flexGrow": 1, "display": "flex", "alignItems": "center", "justifyContent": "space-around" } }],
-            "rows": [{ "style": { "flexGrow": 1, "width": "100%" } }], "children": [{ "h1": { "position": [0, 0],
-            "style": { "margin": 0 }, "children": "CHANNEL40" } }, { "span": { "position": [0, 1], "children": "For" } },
-            { "span": { "position": [0, 1], "children": "Businesses Companies" } },
-            { "span": { "position": [0, 1], "children": "Become a Driver" } },
-            { "span": { "position": [0, 1], "children": "Register" } },
-            { "span": { "position": [0, 1], "children": "Log In" } }] } 
-          },
-          {
-            "Grid": {
-              "position": [1,0],
-              "rows":1,
-              "cols":1,
+              "position": [0, 0],
               "style": {
-                "backgroundColor": "#fff",
-                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
-                "height":"200px",
-                "color": "#fff",
-                "display": "flex",
-                "justifyContent": "center"
+                "backgroundColor": "white",
+                "color": "black",
+                "width": "900px",
+                "margin": "0 auto",
+                "maxHeight": "80px"
               },
+              "cols": [
+                {
+                  "style": {
+                    "flexGrow": 0,
+                    "display": "flex",
+                    "alignItems": "center"
+                  }
+                },
+                {
+                  "style": {
+                    "flexGrow": 1,
+                    "display": "flex",
+                    "alignItems": "center",
+                    "justifyContent": "space-around"
+                  }
+                }
+              ],
+              "rows": [{ "style": { "flexGrow": 1, "width": "100%" } }],
               "children": [
                 {
                   "h1": {
-                  "position": [0,0],
-                  "children": "Media Releases",
-                  "style": {
-                    "textAlign": "center",
-                    "padding": "80px 0 "
+                    "position": [0, 0],
+                    "style": {
+                      "margin": 0
+                    },
+                    "children": "CHANNEL40"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "For"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Businesses Companies"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Become a Driver"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Register"
+                  }
+                },
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Log In"
                   }
                 }
+              ]
+            }
+          },
+          {
+            "div": {
+              "position": [0, 0],
+              "style": {
+                "backgroundColor": "white",
+                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
+                "color": "white",
+                "height": "200px"
+              },
+              "children": [     
+                { "h1": 
+                  { "position": [0, 0],
+                    "children": "Frequently Asked Questions" ,
+                    "style": {
+                      "display": "flex",
+                      "textAlign": "center",
+                      "justifyContent":"center",
+                      "paddingTop": 80
+                    }
+                  }
                 }
               ]
-              }
-            },
-
-            {
-              "Grid": {
-                "style": {
-                  "height": "initial",
-                  "display": "flex",
-                  "flexDirection": "column",
-                  "justifyContent": "center",
-                  "alignItems": "center"
-                },
-                "position": [2,0],
-                "rows": [
-                  {"style": {"flexGrow":0,"width":700}},
-                  {"style": {"flexGrow":0,"width":700}},
-                  {"style": {"flexGrow":0,"width":700}},
-                  {"style": {"flexGrow":0,"width":700}},
-                  {"style": {"flexGrow":0,"width":700}}
-                ],
-                "cols":1,
-                "children": [
-                  { 
-                    "Grid": {
-                      "style": {
-                        "height": "initial" 
-                      },
-                      "position": [0, 0],
-                      "rows": 1,
-                       "cols": 1,
-                      "children": [{ "h3": { "position": [0, 0], "children": "Media Enquiries", "style": {"fontSize": "28px"} } },
+            }
+          },
+          {
+            "Grid":{
+              "rows": 5,
+              "cols":1,
+              "position": [2,0],
+              "style": {
+                "backgroundColor": "white",
+                "color": "black",
+                "padding": "60px 100px",
+                "height":"initial"
+              },
+              "children":[
+                {
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":1,
+                    "cols":1,
+                    "style": {"marginTop": "60px",
+                      "height":"auto"
+},
+                    "children": [
                       {
-                        "p": {
-                          "position": [0, 0],
-                          "children": "Contact Kate on 0447 475 328, Jeremy on 0411 477 233, or email enquiries@ch40.com.au",
-                          "style": {"color": "#6a6a6a" }
-                        }
-
-                      }
-                      ] 
-                    } 
-                  },
-                  {
-                    "Grid": {
-                      "position": [1,0],
-                      "rows":1,
-                      "cols":1,
-                      "style": {"height": "initial"},
-                      "children": [{
-                        "h3": {"position": [0,0], "children": "Recent Coverages", "style": {"textAlign": "left", "fontSize": "28px", "color": "#e07615"}}}
-                      ]
-                    }
-                  },
-                  {
-                    "Grid": {
-                      "position": [2,0],
-                      "rows":1,
-                      "cols":1,
-                      "style": {
-                      "height": "initial",
-                      "paddingBottom": "30px",
-                      "borderBottom": "1px solid #e3e3e3"
-
-                      },
-                      "children": [
-                        {
-                        "h3": {
-                          "position": [0,0],
-                          "children": "Channel 40 Media Release",
-                          "style": { "fontSize": "22px", "color": "#e07615"}
-                        }
+                        "h3": { "position": [0,0], "children": "Why comission and not subscription like the others?"}
                       },
                       {
-                        "p": {
-                          "position":[0,0],
-                          "children": "Channel 40 wins New Business Startup Superstar Award!",
-                          "style": {"color": "#6a6a6a"}
+                        "p": {"position": [0,0],
+                          "children": "The Commission based model is the only method that 100% guarantees that you can never lose out in being a Channel 40 user. It is totally free to download and create an account. You only ever pay a commission when you receive a job as a driver. With a subscription model, there is no guarantee that you will secure work and the only way you can find work is by rolling the dice and paying your monthly fee and hope that you can get a job. Our model is similar to that of Uber if you like – drivers lose a small clip on each job, but it is free to use otherwise and when you know you are getting paid on delivery, the value add in this case is huge.",
+                          "style": {
+                            "color": "#676767",
+                            "lineHeight": "1.6em"
+                          }
                         }
-                      },
-                      {
-                        "ImageView": {
-                          "position": [0, 0],
-                          "style": {"height": 200, "width": 300},
-                          "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg" 
-                        } 
                       }
                     ]
-                    }
+                  }
+                },
+                { "Grid": {
+                  "position": [1, 0],
+                  "rows": 1,
+                  "cols": 1,
+                  "style": {"marginTop": "30px","height":"initial"
                   },
-                  {
-                    "Grid": {
+                  "children": [
+                    { "h3":
+                      { "position": [0, 0],
+                        "children": "What is the commission amount, and where does this money go?" }
+                    },
+                    {
+                      "p": { "position": [0, 0], "children": "We are implementing a very lean commission model, with well over 50% of the commission going into the facilitation of the payment (merchant fees if you like) and cargo insurance – which we are sure you will agree makes life a lot easier and more secure for both parties. On average, Channel 40 will take less than 5% of the total job amount, and much less for the higher freight cost jobs.", "style": { "color": "#676767", "lineHeight": "1.6em" } } }] 
+                    } 
+                },
+                {
+                  "Grid": {
+                    "position": [2, 0],
+                    "rows": 1,
+                     "cols": 1,
+                      "style": {
+                        "marginTop": "30px",
+                        "height":"initial"
+
+                      },
+                     "children": [
+                       { 
+                        "h3": { "position": [0, 0], "children": "How do I know I can trust the driver or freight owner?" } },
+                         {
+                          "p": {
+                            "position": [0, 0],
+                             "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.",
+                              "style": { "color": "#676767", "lineHeight": "1.6em" }
+                          }
+                          }
+                      ] 
+                    } 
+                },
+                   {
+                  "Grid": {
                     "position": [3, 0],
                     "rows": 1,
                     "cols": 1,
                     "style": {
-                      "height": "initial",
-                      "paddingBottom": "20px",
-                      "borderBottom": "1px solid #e3e3e3"
-                      },
-                    "children": 
-                    [
-                      {
-                        "h3": {
-                          "position": [0, 0],
-                          "children": "The Daily Liberal",
-                          "style": {"color": "#e07615"}
-      
-                        }
-                        },
-                        {
+                      "marginTop": "30px",
+                      "height":"initial"
+
+                    },
+                     "children": [
+                       { 
+                        "h3": { "position": [0, 0], "children": "What about high cost freight movements? Say, $10K or more. How do you transact payment?" } },
+                         {
                           "p": {
                             "position": [0, 0],
-                            "children": "Channel 40 wins New Business Startup Superstar Award!",
-                            "style": {"color": "#6a6a6a"}
-
+                             "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.",
+                              "style": { "color": "#676767", "lineHeight": "1.6em" }
                           }
-                        },
-                        {
-                          "ImageView": {
-                            "position": [0, 0],
-                            "style": { "height": 200, "width": 300 },
-                            "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg" }
-                        }]
-                      } 
+                          }
+                      ] 
+                    } 
+                },
+                 { 
+                  "Grid": {
+                  "position": [4, 0],
+                  "rows": 1,
+                  "cols": 1,
+                  "style": { "marginTop": "30px",
+                    "height":"initial"
+                   },
+                   "children": [
+                    {
+                      "h3":{
+                        "position": [0, 0],
+                        "children": "How do I know I can trust the driver or freight owner?" 
+                      }
                     },
-                  {
-                    "Grid": {
-                      "position": [2, 0],
-                      "rows": 1,
-                      "cols": 1,
-                      "style": {
-                      "height": "initial",
-                      "paddingBottom": "30px",
-                      "borderBottom": "1px solid #e3e3e3"
-
-                      },
-                      "children": [{
-                        "h3": {
-                          "position": [0, 0],
-                          "children": "The Daily Liberal",
-                          "style": { "color": "#e07615", "fontSize": "22px"}
-                        }
-                      }, {
-                        "p": {
-                          "position": [0, 0],
-                          "children": "Dubbo’s Tom Cavanagh, Channel 40 founder, welcomes Orana Freight and Logistics Capability Study",
-                          "style": {"color": "#6a6a6a"}
-
-                        }
-                      }, {
-                        "ImageView": {
-                          "position": [0, 0],
-                          "style": {
-                            "height": 200,
-                            "width": 300
-                          },
-                          "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg"
-                        }
-                      }]
-                    }
-                  }
-
-                ]
+                    {
+                      "p":{
+                        "position": [0, 0],
+                        "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.", "style": { "color": "#676767", "lineHeight": "1.6em" } } }] 
+                      } 
+                }
+              ]
+            }
+          },
+          {
+            "Footer": {
+              "position": [4, 0],
+              "style": {
+                "position": "absolute"
+              },
+              "poweredBy" : {
+                  "caption" : "Channel40"
               }
             }
-            ,
-        {
-          "Grid": {
-            "position": [4,0],
-            "rows": 1,
-            "cols":1,
-            "children": [
-              {
-                "h1": [
-                  {
-                    "position": [0,0],
-                    "children": "Seen Enough? ",
-                    "style": {
-                      "color": "black"
-                    }
-                  }
-                ]
-              }
-            ]
           }
-        }
-            
         ]
       }
     }
   ]
 }
-    
-
-
