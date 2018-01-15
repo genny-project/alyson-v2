@@ -3,7 +3,7 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": 5,
+        "rows": 6,
         "style": {"height": "initial"},
         "children": [
           {
@@ -270,7 +270,8 @@
               
                 ]
               }
-            }
+            },
+             { "Footer": { "position": [5, 0], "style": { "position": "absolute" }, "poweredBy": { "caption": "Channel40" } } }
             
         ]
       }
