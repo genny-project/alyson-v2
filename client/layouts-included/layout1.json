@@ -3,7 +3,7 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows":5,
+        "rows":4,
         "children": [
              {
             "Header": {
@@ -83,8 +83,6 @@
               "cols":1,
               "style": {
                 "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
-                "justifyContent": "center",
-                "alignItems": "center",
                 "textAlign": "left"
               },
               "children": [
@@ -96,33 +94,29 @@
                       "color": "#fff"
                     }
                   }
-                },
-                {
-                  "h1": {
-                    "position": [0, 0],
-                    "children": "CHANNEL 40",
-                    "style": {
-                        "color": "#fff",
-                        "textAlign": "left" 
-                      } 
-                    } 
                 }
               ]
             }
           },
           {
-            "Grid": {
+            "div": {
               "position": [2,0],
-              "rows":5,
+              "rows":3,
               "cols":2,
-              "style": {"padding": "20px", "alignItems": "center","justifyContent":"center","flexWrap": "wrap"},
+              "style": {
+                "display": "flex",
+                "justifyContent": "space-around",
+                "padding": "20px 200px",
+                "flexWrap": "wrap",
+                "marginTop": "30px"
+              },
               "children": [
                    {
                     "Grid": {
                       "position": [0, 0],
                       "rows": 3,
                       "cols": 1,
-                      "style": {"display": "flex", "flex": 3},
+                      "style": {"display": "flex", "flex": 6},
                       "children": [
                         {
                           "ImageView": 
@@ -138,23 +132,47 @@
                         {
                           "h3":
                             {
-                              "position": [1,0],
+                              "position": [0,0],
                               "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country.",
-                              "color": "#fff",
-                              "fontSize": "20px"
+                              "style": {
+                                "fontSize": "20px",
+                                "lineHeight": "1.7em",
+                                "color":"#676767"
+                              }
                             }
                         },
                         {
+                         "div": {
+                           "position": [0,0],
+                           "rows":1,
+                           "cols":2,
+                           "style": {"display": "flex", "flexDirection": "row", "justifyContent":"center"},
+                           "children": [
+                             { 
+                               "ImageView":
+                                {
+                                  "position":[0,0],
+                                  "style":{"height":80, "width":100,"paddingRight": "20px", "flexGrow":0},
+                                  "src": "http://channel40.com.au/wp-content/uploads/2017/01/quote.png"
+                                }
+                              },
+                        {
                           "p":
                           {
-                            "position": [2,0],
+                            "position": [0,1],
                             "style": {
                               "color": "#6a6a6a",
-                            "lineHeight": "1.6em"
+                              "lineHeight": "1.6em",
+                              "fontSize":"18px"
                             },
                             "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country. We connect freight owners to truck drivers like never before – offering the latest technology to assist with tracking your load, offering insurance and even to facilitating the payment transaction. Transport just got a whole lot simpler."
                           }
                         }
+                           ]
+                           
+                         }                        
+                        }
+                       
                       ]
                     } 
                   },
@@ -205,8 +223,7 @@
                                       "bottom": "-20px",
                                       "right": "15px",
                                       "z-index": "1",
-                                      "height": "auto",
-                                      "verticalAlign": "middle"
+                                      "height": "auto"
                                     }
                                   } 
                               }
