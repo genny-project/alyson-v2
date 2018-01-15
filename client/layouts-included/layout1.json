@@ -3,7 +3,7 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": 4,
+        "rows": 5,
         "style": {"height": "initial"},
         "children": [
           {
@@ -74,8 +74,17 @@
                       "position": [0, 0],
                       "rows": 1,
                        "cols": 1,
-                      "children": [{ "h3": { "position": [0, 0], "children": "Media Enquiries" } },
-                      { "p": { "position": [0, 0], "children": "Contact Kate on 0447 475 328, Jeremy on 0411 477 233, or email enquiries@ch40.com.au" } }] } 
+                      "children": [{ "h3": { "position": [0, 0], "children": "Media Enquiries", "style": {"fontSize": "28px"} } },
+                      {
+                        "p": {
+                          "position": [0, 0],
+                          "children": "Contact Kate on 0447 475 328, Jeremy on 0411 477 233, or email enquiries@ch40.com.au",
+                          "style": {"color": "#6a6a6a" }
+                        }
+
+                      }
+                      ] 
+                    } 
                   },
                   {
                     "Grid": {
@@ -84,7 +93,7 @@
                       "cols":1,
                       "style": {"height": "initial"},
                       "children": [{
-                        "h3": {"position": [0,0], "children": "Recent Coverages", "style": {"textAlign": "left"}}}
+                        "h3": {"position": [0,0], "children": "Recent Coverages", "style": {"textAlign": "left", "fontSize": "28px", "color": "#e07615"}}}
                       ]
                     }
                   },
@@ -93,18 +102,25 @@
                       "position": [2,0],
                       "rows":1,
                       "cols":1,
-                      "style": {"height": "initial"},
+                      "style": {
+                      "height": "initial",
+                      "paddingBottom": "30px",
+                      "borderBottom": "1px solid #e3e3e3"
+
+                      },
                       "children": [
                         {
                         "h3": {
                           "position": [0,0],
-                          "children": "Channel 40 Media Release"
+                          "children": "Channel 40 Media Release",
+                          "style": { "fontSize": "22px", "color": "#e07615"}
                         }
                       },
                       {
                         "p": {
                           "position":[0,0],
-                          "children": "Channel 40 wins New Business Startup Superstar Award!"
+                          "children": "Channel 40 wins New Business Startup Superstar Award!",
+                          "style": {"color": "#6a6a6a"}
                         }
                       },
                       {
@@ -117,24 +133,65 @@
                     ]
                     }
                   },
-                  { "Grid": { "position": [3, 0], "rows": 1, "cols": 1, "style": { "height": "initial" }, "children": [{ "h3": { "position": [0, 0], "children": "The Daily Liberal" } }, { "p": { "position": [0, 0], "children": "Channel 40 wins New Business Startup Superstar Award!" } }, { "ImageView": { "position": [0, 0], "style": { "height": 200, "width": 300 }, "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg" } }] } },
+                  {
+                    "Grid": {
+                    "position": [3, 0],
+                    "rows": 1,
+                    "cols": 1,
+                    "style": {
+                      "height": "initial",
+                      "paddingBottom": "20px",
+                      "borderBottom": "1px solid #e3e3e3"
+                      },
+                    "children": 
+                    [
+                      {
+                        "h3": {
+                          "position": [0, 0],
+                          "children": "The Daily Liberal",
+                          "style": {"color": "#e07615"}
+      
+                        }
+                        },
+                        {
+                          "p": {
+                            "position": [0, 0],
+                            "children": "Channel 40 wins New Business Startup Superstar Award!",
+                            "style": {"color": "#6a6a6a"}
+
+                          }
+                        },
+                        {
+                          "ImageView": {
+                            "position": [0, 0],
+                            "style": { "height": 200, "width": 300 },
+                            "src": "https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg" }
+                        }]
+                      } 
+                    },
                   {
                     "Grid": {
                       "position": [2, 0],
                       "rows": 1,
                       "cols": 1,
                       "style": {
-                        "height": "initial"
+                      "height": "initial",
+                      "paddingBottom": "30px",
+                      "borderBottom": "1px solid #e3e3e3"
+
                       },
                       "children": [{
                         "h3": {
                           "position": [0, 0],
-                          "children": "Channel 40 Tom Cavanagh reports of rapid growth and the challenges of a start-up"
+                          "children": "The Daily Liberal",
+                          "style": { "color": "#e07615", "fontSize": "22px"}
                         }
                       }, {
                         "p": {
                           "position": [0, 0],
-                          "children": "Channel 40 wins New Business Startup Superstar Award!"
+                          "children": "Dubbo’s Tom Cavanagh, Channel 40 founder, welcomes Orana Freight and Logistics Capability Study",
+                          "style": {"color": "#6a6a6a"}
+
                         }
                       }, {
                         "ImageView": {
@@ -152,6 +209,27 @@
                 ]
               }
             }
+            ,
+        {
+          "Grid": {
+            "position": [4,0],
+            "rows": 1,
+            "cols":1,
+            "children": [
+              {
+                "h1": [
+                  {
+                    "position": [0,0],
+                    "children": "Seen Enough? ",
+                    "style": {
+                      "color": "black"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
             
         ]
       }
