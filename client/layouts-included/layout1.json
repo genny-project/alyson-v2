@@ -83,7 +83,8 @@
               "cols":1,
               "style": {
                 "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
-                "textAlign": "left"
+                "textAlign": "left",
+                "alignItems":"center"
               },
               "children": [
                 {
@@ -163,7 +164,8 @@
                             "style": {
                               "color": "#6a6a6a",
                               "lineHeight": "1.6em",
-                              "fontSize":"18px"
+                              "fontSize":"12px",
+                              "fontWeight":200
                             },
                             "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country. We connect freight owners to truck drivers like never before – offering the latest technology to assist with tracking your load, offering insurance and even to facilitating the payment transaction. Transport just got a whole lot simpler."
                           }
