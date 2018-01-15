@@ -61,7 +61,7 @@ class InputDatePicker extends Component {
           peekNextMonth
           showMonthDropdown
           showYearDropdown
-          showTimeSelect
+          showTimeSelect={this.props.showTimeSelect}
           timeIntervals={15}
         />
       </div>
