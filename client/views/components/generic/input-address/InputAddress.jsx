@@ -56,13 +56,13 @@ class InputAddress extends Component {
                                 resultObj['suburb'] = a.long_name;
                             }
                             else if (a.types.includes('administrative_area_level_1')) {
-                                resultObj['state'] = a.long_name;
+                                resultObj['state'] = a.short_name;
                             }
                             else if (a.types.includes('postal_code')) {
                                 resultObj['postal_code'] = a.long_name;
                             }
                             else if (a.types.includes('country')) {
-                                resultObj['country'] = a.long_name;
+                                resultObj['country'] = a.short_name;
                             }
                         }
 
