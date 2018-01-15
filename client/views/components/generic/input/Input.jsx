@@ -5,7 +5,7 @@ import {
     InputAddress,
     InputButton,
     InputCheckbox,
-    InputCurrency,
+    InputNumbers,
     InputDate,
     InputDatePicker,
     InputDropdown,
@@ -228,9 +228,10 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
+            case 'Double':
             case 'Currency':
             return (
-                <InputCurrency
+                <InputNumbers
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}

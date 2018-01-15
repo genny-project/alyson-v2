@@ -1,17 +1,19 @@
-import './inputCurrency.scss';
+import './inputNumbers.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
 import { Label, SubmitStatusIcon, InputText } from 'views/components';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
-class InputCurrency extends Component {
+class Numbers extends Component {
 
     static defaultProps = {
         className: '',
+        prefix: '',
     }
 
     static propTypes = {
         className: string,
+        prefix: string,
         style: object,
     }
 
@@ -21,23 +23,22 @@ class InputCurrency extends Component {
     }
 
     validateString = (value, identifier, validationList) => {
+
         const {validation} = this.props;
-        
         let newValue = value.replace(/[^0-9\.]/g,'');
-        
         if(validation) validation(newValue, identifier, validationList);
     }
 
     render() {
 
         const { name, mandatory, value, ...rest } = this.props;
-        
+
         const numberMask = createNumberMask({
             allowDecimal: true
         })
 
         return (
-            <div className="input input-currency">
+            <div className="input input-numbers">
                 { name ?
                     <div className='input-header'>
                         { name ? <Label text={name} /> : null }
@@ -57,4 +58,4 @@ class InputCurrency extends Component {
     }
 }
 
-export default InputCurrency;
+export default Numbers;
