@@ -31,6 +31,11 @@ class FormGroup extends Component {
         this.inputRefs = [];
     }
 
+    componentWillUpdate() {
+        this.inputRefs = [];
+        this.state.animatedButtons = {};
+    }
+
     renderData = (data) => {
 
         const { isHorizontal } = this.props;

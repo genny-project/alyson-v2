@@ -23,6 +23,14 @@ class Form extends Component {
     showProgress: this.props.showProgress ? this.props.showProgress : false,
   }
 
+  shouldComponentUpdate() {
+      return true;
+  }
+
+  componentWillUpdate() {
+      this.formGroupRefs = [];
+  }
+
   componentWillMount() {
       this.formGroupRefs = [];
   }
@@ -88,6 +96,7 @@ class Form extends Component {
     const componentStyle = { ...style, };
 
     let questionGroup = this.renderGroup( data );
+    
     return (
       <div className={`form-container ${isHorizontal ? 'horizontal' : null }`} style={componentStyle}>
         <div className="form-main">

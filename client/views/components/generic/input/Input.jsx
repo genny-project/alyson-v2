@@ -44,6 +44,10 @@ class Input extends Component {
         this._ismounted = true;
     }
 
+    shouldComponentUpdate() {
+        return true;
+    }
+
     isValid = () => {
 
         const { validationList } = this.props;
@@ -155,14 +159,6 @@ class Input extends Component {
             case 'Boolean':
             return (
                 <InputCheckbox
-                    {...rest}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                />
-            );
-            case 'java.time.LocalDate':
-            return (
-                <InputDatePicker
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}

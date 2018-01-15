@@ -49,6 +49,8 @@ class AppContent extends Component {
             ...style,
         };
 
+        console.log("re-rendering");
+
         return (
             <div className="app-content" style={componentStyle}>
                 {layoutContent}
