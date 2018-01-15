@@ -148,7 +148,7 @@ class Input extends Component {
                     type="facebook"
                 />
             );
-            case 'java.time.LocalDate':
+            case 'java.time.LocalDateTime':
             return (
                 <InputDatePicker
                     {...rest}
