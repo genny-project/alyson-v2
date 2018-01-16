@@ -1,0 +1,21 @@
+{
+  "layout": [
+    {
+      "AppHolder": {
+        "cols": 1,
+        "rows":1,
+        "style" : {
+          "height" : "100%"
+        },
+        "children": [
+            {
+              "GennyList": {
+                "position": [0,0],
+                "root": "GRP_DRIVER_VIEW"
+              }
+            }
+        ]
+      }
+    }
+  ]
+}

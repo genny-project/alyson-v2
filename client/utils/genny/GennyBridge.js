@@ -55,8 +55,8 @@ class GennyBridge {
         let token = this.getToken();
         if(token) {
 
-            data.targetCode = store.getState().baseEntity.aliases["USER"];
-            data.sourceCode = store.getState().baseEntity.aliases["USER"];
+            data.targetCode = store.getState().baseEntity.aliases['USER'];
+            data.sourceCode = store.getState().baseEntity.aliases['USER'];
             Vertx.sendMessage(events.outgoing.ANSWER('GPS', data, token));
         }
     }
@@ -85,7 +85,7 @@ class GennyBridge {
             let answers = items.map(item => {
 
                 if(!item.sourceCode) {
-                    item.sourceCode = store.getState().baseEntity.aliases["USER"];
+                    item.sourceCode = store.getState().baseEntity.aliases['USER'];
                 }
 
                 return item;
@@ -96,7 +96,7 @@ class GennyBridge {
 
         let payload = {
 
-            data_type: "Attribute",
+            data_type: 'Attribute',
             delete: false,
             items: [
                 {
@@ -106,7 +106,7 @@ class GennyBridge {
                     attributeCode: items[0].attributeCode
                 }
             ],
-            msg_type: "DATA_MSG"
+            msg_type: 'DATA_MSG'
         };
 
         // locally updating the attribute so we dont have to wait for the backend to send us an answer. this is called optimistic results.
@@ -135,7 +135,7 @@ class GennyBridge {
 
     static initVertx(token, url) {
 
-        console.log("[Vertx] Opening Vertx...");
+        console.log('[Vertx] Opening Vertx...');
 
     /* Create a new message handler */
         this.messageHandler = new MessageHandler();
@@ -154,6 +154,7 @@ class GennyBridge {
 
     sendAuthInit(token) {
 
+        console.log('-------');
         let keycloakConfig = store.getState().keycloak.config;
         if(keycloakConfig) {
 
@@ -162,14 +163,14 @@ class GennyBridge {
                 timeout: 30000,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': "Bearer " + this.getToken()
+                    'Authorization': 'Bearer ' + this.getToken()
                 },
             })
             .then(() => {
                 GennyBridge.initVertx(token, keycloakConfig.vertx_url);
 
                 let social_code = window.getQueryString('code');
-                if(social_code && localStorage.getItem("socialredirect")) {  // we are coming back from a redirect.
+                if(social_code && localStorage.getItem('socialredirect')) {  // we are coming back from a redirect.
                     // Vertx.sendMessage(events.outgoing.REDIRECT_RETURN(token));
                     Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
                 }

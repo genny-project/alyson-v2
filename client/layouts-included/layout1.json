@@ -3,21 +3,17 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows":4,
-        "style" : {
-          "height" : "auto"
-        },
+        "rows": ["120px", "80px", "100px", "500px", "400px", "30px"],
         "children": [
-             {
+          {
             "Header": {
               "position": [0, 0],
-              "row":1,
               "style": {
                 "backgroundColor": "white",
                 "color": "black",
                 "width": "900px",
                 "margin": "0 auto",
-                "height": "80px"
+                "maxHeight": "80px"
               },
               "cols": [
                 {
@@ -47,30 +43,35 @@
                     "children": "CHANNEL40"
                   }
                 },
+
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "For"
                   }
                 },
+
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Businesses Companies"
                   }
                 },
+
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Become a Driver"
                   }
                 },
+
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Register"
                   }
                 },
+
                 {
                   "span": {
                     "position": [0, 1],
@@ -80,405 +81,341 @@
               ]
             }
           },
+
           {
-            "Grid":{
-              "position": [1,0],
-              "rows":1,
-              "cols":1,
+            "div": {
+              "position": [0, 0],
               "style": {
-                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
-                "textAlign": "left",
-                "alignItems":"center",
-                "height": "initial"
+                "backgroundColor": "black",
+                "color": "white",
+                "height": "40px"
+              },
+              "children": []
+            }
+          },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols": 3,
+              "position": [1, 0],
+              "style": {
+                "backgroundColor": "black",
+                "color": "white"              
               },
               "children": [
                 {
-                  "h1": {
-                    "position": [0,0],
-                    "children": "Team Members",
-                    "style": {
-                      "color": "#fff",
-                      "height":"100px",
-                      "paddingTop": "30px"
-                    }
+                  "Grid": {
+                    "position": [0, 0],
+                    "rows": [{ "style": { "flexGrow": 0 ,"padding": "20px 0px"} }],
+                    "cols": [
+                      {
+                        "style": {
+                          "flexGrow": 1,
+                          "display": "flex",
+                          "alignItems": "center",
+                          "justifyContent": "center"
+                        }
+                      },
+                      1
+                    ],
+                    "children": [
+                      {
+                        "IconSmall": {
+                          "position": [0, 0],
+                          "name": "check_circle"
+                        }
+                      },
+                      {
+                        "h4": {
+                          "position": [0, 1],
+                          "children": "How it works"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position": [0, 1],
+                    "rows": [{ "style": { "flexGrow": 0 } }],
+                    "cols": [
+                      {
+                        "style": {
+                          "flexGrow": 1,
+                          "display": "flex",
+                          "alignItems": "center",
+                          "justifyContent": "center"
+                        }
+                      },
+                      1
+                    ],
+                    "children": [
+                      {
+                        "IconSmall": {
+                          "position": [0, 0],
+                          "name": "check_circle"
+                        }
+                      },
+
+                      {
+                        "h4": {
+                          "position": [0, 1],
+                          "children": "Find Jobs"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position": [0, 2],
+                    "rows": [{ "style": { "flexGrow": 0 } }],
+                    "style": {"alignItems":"center"},
+                    "cols": [
+                      {
+                        "style": {
+                          "flexGrow": 1,
+                          "display": "flex",
+                          "alignItems": "center",
+                          "justifyContent": "center"
+                        }
+                      },
+                      1
+                    ],
+                    "children": [
+                      {
+                        "IconSmall": {
+                          "position": [0, 0],
+                          "name": "check_circle"
+                        }
+                      },
+
+                      {
+                        "h4": {
+                          "position": [0, 1],
+                          "children": "Free Quote"
+                        }
+                      }                    
+                    ]
                   }
                 }
-              ]
-            }
-          },
-          {
-            "div": {
-              "position": [2,0],
-              "rows":3,
-              "cols":2,
-              "style": {
-                "display": "flex",
-                "justifyContent": "space-around",
-                "padding": "20px 200px",
-                "flexWrap": "wrap",
-                "marginTop": "40px",
-                "backgroundColor":"#fff"
-              },
-              "children": [
-                   {
-                    "Grid": {
-                      "position": [0, 0],
-                      "rows": 3,
-                      "cols": 1,
-                      "style": {"display": "flex", "flex": 6},
-                      "children": [
-                        {
-                          "ImageView": 
-                          {
-                            "position": [0, 0],
-                            "style": {
-                              "width": "100%",
-                              "borderRadius": "0px" 
-                              },
-                            "src": "https://i.imgur.com/5mbZZUK.jpg" 
-                          }
-                        },
-                        {
-                          "h3":
-                            {
-                              "position": [0,0],
-                              "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country.",
-                              "style": {
-                                "fontSize": "20px",
-                                "lineHeight": "1.7em",
-                                "color":"black"
-                              }
-                            }
-                        },
-                        {
-                         "div": {
-                           "position": [0,0],
-                           "rows":1,
-                           "cols":2,
-                           "style": {"display": "flex", "flexDirection": "row", "justifyContent":"center", "paddingBottom": "10px", "borderBottom": "1px solid #e3e3e3"},
-                           "children": [
-                             { 
-                               "ImageView":
-                                {
-                                  "position":[0,0],
-                                  "style":{"height":80, "width":100,"paddingRight": "20px", "flexGrow":0},
-                                  "src": "http://channel40.com.au/wp-content/uploads/2017/01/quote.png"
-                                }
-                              },
-                              {
-                                "div":
-                                {
-                                  "position":[0,1],
-                                  "rows":1,
-                                  "cols":1,
-                                  "children": [
-                                    { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "lineHeight": "1.6em", "fontWeight": 200 }, "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country. We connect freight owners to truck drivers like never before – offering the latest technology to assist with tracking your load, offering insurance and even to facilitating the payment transaction. Transport just got a whole lot simpler." } },
-                                    { "p": { "position": [0, 1], "style": { "color": "#6a6a6a", "lineHeight": "1.6em", "fontWeight": 200 }, "children": "The founders of Channel 40 are active freight movers and have experienced the same frustrations as so many others from both sides of the industry. Channel 40 offers huge win-wins without either party losing out at all." } }
-
-                                  ]
-                                }
-                              }                           ]
-                         }                        
-                        }
-                      ]
-                    } 
-                  },
-                  {
-                    "Grid": {
-                      "position": [0,1],
-                      "rows":1,
-                      "cols":2,
-                      "style": {"marginLeft":"70px", "height":400,"backgroundColor": "#f26522", "padding":20, "display":"flex", "height":"initial"},
-                      "children": [
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position": [0,0],
-                            "children": [
-                              {
-                                "h1": {
-                                  "position": [0,0],
-                                  "style": {"color": "#fff"},
-                                  "children": "Download the new App"
-                                }
-                              },
-                              {
-                                "p": {
-                                  "position": [0, 0],
-                                  "style": { "color": "#fff" },
-                                  "children": "The app is available for download from App Store and Play Store Today" 
-                                } 
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position": [0,1],
-                            "children": [
-                              
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  }
               ]
             }
           },
           {
             "Grid": {
-              "position":[2,0],
-              "rows":4,
+              "rows":1,
               "cols":1,
-              "style": {
-                "marginTop": "100px",
-                "padding": "0 200px",
-                "color": "#f26522",
-                "backgroundColor":"#fff",
-                "marginBottom":"100px",
-                "height": "initial"
-
-              },
+              "position": [1,0],
+              "style": {"backgroundColor": "white", "color": "black","borderBottom": "1px solid #e3e3e3"},
               "children": [
                 {
                   "Grid": {
-                    "position":[0,0],
-                    "rows":1,
-                    "cols":2,
-                    "style": {"height": "initial"},
-                    "children":[
-                      {
-                        "div": {
-                          "position":[0,0],
-                          "rows":1,
-                          "cols":1,
-                          "children": [
-                            {
-                  "h1": {"position": [0,0],"children": "Tom Cavanagh"}
-                },
-                {
-                  "p": {
+                    "cols": 3,
+                    "rows": [{ "style": {"padding": "10px" } }],
                     "position": [0,0],
-                    "style": {
-                    "color":"#6a6a6a",
-                    "fontSize": "24px"
-                  },
-                    "children": "Founder"
-                  }
-                  },
-                  {
-                    "p": {
-                      "position": [0,0],
-                      "style": {
-                        "color":"#6a6a6a",
-                        "lineHeight":"1.7em"
-                      },
-                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
-                    }
-                  }
-                          ]
+                    "children": [
+                      {
+                      "h3": {
+                        "position": [0, 0],
+                        "children": "Find Jobs",
+                        "style": {
+                          "textAlign": "center"
+                        }
+                      }
+                    }, 
+                    {
+                      "IconSmall": {
+                        "position": [0,1],
+                        "name": "chevron_right",
+                        "style": {
+                          "fontSize": 40,
+                          "color": "green",
+                          "padding": "0 0 0 40%",
+                          "fontWeight": "bold"
+                        }
+                      }
+                    },
+                    {
+                      "h3": {
+                        "position": [0, 2],
+                        "children": "Atlas Copco M2D",
+                        "style": {
+                          "textAlign": "center",
+                          "flexGrow":4
                         }
                         
-                      },
-                      {
-                        "ImageView":{
-                          "position":[0,1],
-                          "rows":1,
-                          "cols":1,
-                          "style": {
-                            "height":200,
-                            "width":150,
-                            "padding": "100px 0"
-                          },
-                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-tom-e1503270711248.jpg"
-                        }}
-                      
-                       
-
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "position":[0,0],
-                    "rows":1,
-                    "cols":2,
-                    "style": {"height": "initial"},
-                    "children":[
-                      {
-                        "div": {
-                          "position":[0,0],
-                          "rows":1,
-                          "cols":1,
-                          "children": [
-                            {
-                  "h1": {"position": [0,0],"children": "Josh Mullens"}
-                },
-                {
-                  "p": {
-                    "position": [0,0],
-                    "style": {
-                    "color":"#6a6a6a",
-                    "fontSize": "24px"
-                  },
-                    "children": "Founder"
-                  }
-                  },
-                  {
-                    "p": {
-                      "position": [0,0],
-                      "style": {
-                        "color":"#6a6a6a",
-                        "lineHeight":"1.7em"
-                      },
-                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
+                      }
                     }
-                  }
-                          ]
-                        }
-                        
-                      },
-                      {
-                        "ImageView":{
-                          "position":[0,1],
-                          "rows":1,
-                          "cols":1,
-                          "style": {
-                            "height":200,
-                            "width":150,
-                            "padding": "100px 0"
-                          },
-                          "src": "https://channel40.com.au/wp-content/uploads/2017/08/Josh-Mullens-Channel-40-4-e1508718045251.jpg"
-                        }}
-                      
-                       
-
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "position":[0,0],
-                    "rows":1,
-                    "cols":2,
-                    "style": {"height": "initial"},
-                    "children":[
-                      {
-                        "div": {
-                          "position":[0,0],
-                          "rows":1,
-                          "cols":1,
-                          "children": [
-                            {
-                  "h1": {"position": [0,0],"children": "Drew Davis"}
-                },
-                {
-                  "p": {
-                    "position": [0,0],
-                    "style": {
-                    "color":"#6a6a6a",
-                    "fontSize": "24px"
-                  },
-                    "children": "Founder"
-                  }
-                  },
-                  {
-                    "p": {
-                      "position": [0,0],
-                      "style": {
-                        "color":"#6a6a6a",
-                        "lineHeight":"1.7em"
-                      },
-                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
-                    }
-                  }
-                          ]
-                        }
-                        
-                      },
-                      {
-                        "ImageView":{
-                          "position":[0,1],
-                          "rows":1,
-                          "cols":1,
-                          "style": {
-                            "height":200,
-                            "width":150,
-                            "padding": "100px 0"
-                          },
-                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-drew-e1503271388868.jpg"
-                        }}
-                      
-                       
-
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "position":[0,0],
-                    "rows":1,
-                    "cols":2,
-                    "style": {"height": "initial"},
-                    "children":[
-                      {
-                        "div": {
-                          "position":[0,0],
-                          "rows":1,
-                          "cols":1,
-                          "children": [
-                            {
-                  "h1": {"position": [0,0],"children": "Evan Schmalz"}
-                },
-                {
-                  "p": {
-                    "position": [0,0],
-                    "style": {
-                    "color":"#6a6a6a",
-                    "fontSize": "24px"
-                  },
-                    "children": "Founder"
-                  }
-                  },
-                  {
-                    "p": {
-                      "position": [0,0],
-                      "style": {
-                        "color":"#6a6a6a",
-                        "lineHeight":"1.7em"
-                      },
-                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
-                    }
-                  }
-                          ]
-                        }
-                        
-                      },
-                      {
-                        "ImageView":{
-                          "position":[0,1],
-                          "rows":1,
-                          "cols":1,
-                          "style": {
-                            "height":200,
-                            "width":150,
-                            "padding": "100px 0"
-                          },
-                          "src": "https://channel40.com.au/wp-content/uploads/2017/12/Evan-Schmalz-Freight-Coordinator-Channel-40-3-1-e1513835810986.jpg"
-                        }}
-                      
-                       
-
-                    ]
+                  ]
                   }
                 }
-               
+          ]
+            }
+          },
+
+          {
+            "Grid": {
+              "rows": 1,
+              "cols":2,
+              "position": [3,0],
+              "style": {"padding": "0 100px", "flexWrap": "wrap", "margin": "30px 0 0 0 ", "backgroundColor":"#fff"},
+              "children":[
+                {
+                  "Grid": {
+                    "rows":4,
+                    "cols":1,
+                    "position": [0,0],
+                    "style": {"border": "2px solid #e3e3e3", "padding":"20px 20px"},
+                    "children":[
+                      {
+                        "h2": {
+                          "position": [0,0],
+                          "children": "Atlas Copco M2D",
+                          "style": {"color": "#f9691f"}
+                        }
+                      },
+                      {
+                        "Grid":{
+                          "position":[1,0],
+                          "rows":2,
+                          "cols":1,
+                          "style":{"margin": "10px 0"},
+                          "children":[
+                            {
+                        "IconSmall":{
+                          "position": [0,0],
+                          "name": "perm_contact_calendar",
+                          "style": {"fontSize":20, "color": "green"},
+                          "text": "Pickup:  21 Jan 2017"
+                        }
+                      },
+                      {
+                        "IconSmall":{
+                          "position": [1,0],
+                          "name": "perm_contact_calendar",
+                          "style": {"fontSize":20, "color": "green"},
+                          "text": "Dropoff: 21 Jan 2017"
+                        }
+                      }
+
+                          ]
+                        }}
+                      ,
+                      
+                      {
+                        "Grid": {
+                          "position":[2,0],
+                          "rows":1,
+                          "cols":2,
+                          "style":{ "alignItems": "baseline", "flexWrap":"wrap"},
+                          "children":[
+                            {
+                              "Grid": {
+                                "rows":1,
+                                "cols":1,
+                                "position": [0,0],
+                                "children": [
+                                  {
+                                    "h3":{"position":[0,0], "children": "Description:", "style": { "color": "#f9691f"}}},
+                                    {
+                                    "p": {"style": {"color":"#4a4747","lineHeight": 1.8},"position": [0,0], "children": "This is a description about the job loream ipsum ran this is a description about the job loream ipsum  loream ipsum ran this is a description  loream ipsum ran this is a description "}}
+                                  ]
+                              }
+                            },
+                            {
+                              "Grid": {
+                                "rows":1,
+                                "cols":1,
+                                "position": [0, 1],
+                                "style": {"padding": 10,"marginTop":20},
+                                "children":[
+                                 { 
+                                   "ImageView": { 
+                                     "position": [0, 0], 
+                                     "src": "http://i.imgur.com/yqdlJB5.jpg", 
+                                     "style": { 
+                                       "height": 150, 
+                                       "width": 150,
+                                       "marginTop": "20",
+                                       "borderRadius":"0px"
+                                       }
+                                    } 
+                                  } 
+                                ]                               
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "Grid": { 
+                          "position": [3,0],
+                          "rows":1,
+                          "cols":1,
+                          "style": { "display": "flex"},
+                          "children": [
+                            {"h3": {"style": {"fontWeight": 600, "color": "#f9691f"}, "position": [0,0], "children": "Posted By: "}},
+                            { "span": { "position": [0, 0], "children": "Nischal Gautam"}}, 
+                            {"GennyButton": {"className": "confirm small","position":[0,0], "children": "Contact Enquire", "style": {"width": "120px", "fontSize":14,"display": "inline-block", "marginLeft": "20px"} }},
+                            {"GennyButton": {"className": "warning small","position": [0, 0], "children": "Quote New", "style": { "width": "120px", "fontSize":14, "padding":0, "display": "inline-block", "marginLeft": "20px"} }}
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },                
+                {
+                  "Grid": {
+                    "rows":1,
+                    "cols":1,
+                    "position": [0,1],
+                    "style": {"height":"500px"},
+                    "children": [{
+                      "MapDisplay": {
                         
-                ]
+                        "position": [0,0],
+                        "center": "115 Spur Rd, Clonbinane VIC 3658", 
+                        "markers": [{
+                          "lat": -36.1460,
+                          "lng": 144.7448
+                            },
+                          "229 Westgarth St, Northcote VIC 3070, Australia"
+                        ],
+                         "routes": [
+                                  {
+                                    "origin" : "32 Lane Cres, Reservoir VIC 3073, Australia",
+                                    "dest" : "121 Cardigan St, Carlton VIC 3053, Australia"
+                                  },
+                                  {
+                                    "origin" : {
+                                      "lat": -32.224693,
+                                      "lng": 148.631974
+                                    },
+                                    "dest" : {
+                                      "lat": -34.554699,
+                                      "lng": 138.961454
+                                    }
+                                  }
+                                ]
+                            
+                      }
+                      }]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Footer": {
+              "position": [5, 0],
+              "style": {
+                "position": "absolute"
+              },
+              "poweredBy": {
+                "caption": "Channel40"
+              }
             }
           }
         ]
