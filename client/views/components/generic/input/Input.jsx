@@ -152,13 +152,21 @@ class Input extends Component {
                 />
             );
             case 'java.time.LocalDateTime':
+            return (
+                <InputDatePicker
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                />
+            );
             case 'java.time.LocalDate':
             return (
                 <InputDatePicker
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
-                    showTimeSelect={this.props.type == "java.time.LocalDateTime"}
+                    showTimeSelect={false}
+                    defaultDateFormat='YYYY-MM-DD'
                 />
             );
             case 'TextArea':

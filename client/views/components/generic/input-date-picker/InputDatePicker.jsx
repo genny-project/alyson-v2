@@ -2,7 +2,7 @@ import './inputDatePicker.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import React, { Component } from 'react';
-import { string, object, any, func } from 'prop-types';
+import { string, object, any, func, bool } from 'prop-types';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Label } from 'views/components';
@@ -14,7 +14,8 @@ class InputDatePicker extends Component {
     identifier: null,
     validationStatus: null,
     defaultDateFormat: 'YYYY-MM-DD HH:mm',
-    defaultTimeFormat: 'HH:mm'
+    defaultTimeFormat: 'HH:mm',
+    showTimeSelect: true
   }
 
   static propTypes = {
@@ -23,7 +24,8 @@ class InputDatePicker extends Component {
     children: any,
     validation: func,
     identifier: any,
-    validationStatus: string
+    validationStatus: string,
+    showTimeSelect: bool
   }
 
   state = {
@@ -40,7 +42,7 @@ class InputDatePicker extends Component {
 
   render() {
 
-    const { className, children, style, validationStatus, name, defaultDateFormat, defaultTimeFormat, mandatory } = this.props;
+    const { className, children, style, validationStatus, name, defaultDateFormat, defaultTimeFormat, mandatory, showTimeSelect } = this.props;
     const { startDate } = this.state;
     const componentStyle = { ...style, };
 
@@ -61,7 +63,10 @@ class InputDatePicker extends Component {
           peekNextMonth
           showMonthDropdown
           showYearDropdown
-          showTimeSelect={this.props.showTimeSelect}
+          minDate={moment().subtract(60, "years")}
+          maxDate={moment().add(5, "years")}
+          dropdownMode="select"
+          showTimeSelect={showTimeSelect}
           timeIntervals={15}
         />
       </div>

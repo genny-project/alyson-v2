@@ -15,10 +15,6 @@ class Selector extends Component {
 
   render() {
     const { checkValues, showValues, hideValues, showOverride, children } = this.props;
-
-    console.log('checkValues', checkValues);
-    console.log('showValues', showValues);
-    console.log('hideValues', hideValues);
     // checkValues : the values that will be compared to other values
     // showValues : array of values. if checkValues matches any of these values, return true
     // hideValues : array of values. if checkValues matches any of these values, return false
