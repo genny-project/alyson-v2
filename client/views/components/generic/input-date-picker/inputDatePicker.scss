@@ -1,14 +1,38 @@
 @import 'client/styles/colors';
 
 .input-date-picker {
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+
+    > div {
+
+        width: 90%;
+
+        .react-datepicker-wrapper {
+            width: 90%;
+        }
+    }
+
+    .react-datepicker-popper {
+        z-index: 100;
+    }
+
+    .input-date-picker-input {
+        width: 100%;
+    }
+
+    .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     .react-datepicker__input-container {
+
         width: 100%;
         min-width: 170px;
-   
+
         > input {
             height: 50px;
             width: 100%;
@@ -21,12 +45,12 @@
             text-align: center;
             transition: 300ms ease;
             border: 1px solid #DDD;
-    
+
             &.success{
                 color: $success;
                 border: 1px solid $success;
             }
-        
+
             &.error{
                 color: $error;
                 border: 1px solid $error;
@@ -35,7 +59,7 @@
             &:hover, &:focus {
 				outline: none;
             }
-            
+
             &:focus, &:not([disabled]):hover:focus {
 				border: 1px solid black;
 				box-shadow: 0px 0px 5px #888;
@@ -51,5 +75,6 @@
         justify-content: flex-start;
         flex-shrink: 0;
         margin-right: 10px;
+        width: 10%;
     }
 }

@@ -31,6 +31,11 @@ class FormGroup extends Component {
         this.inputRefs = [];
     }
 
+    componentWillUpdate() {
+        this.inputRefs = [];
+        this.state.animatedButtons = {};
+    }
+
     renderData = (data) => {
 
         const { isHorizontal } = this.props;
@@ -41,7 +46,13 @@ class FormGroup extends Component {
                 return child
             } else {
                 return (
-                    <Input ref={inputRef => this.inputRefs.push(inputRef)} key={index} {...child} style={isHorizontal ? { "flex" : "1", "margin-left": "5px", "margin-right": "5px", "margin-bottom": "10px" } : { "margin-bottom": "5px" }} />
+                    <Input
+                        ref={inputRef => this.inputRefs.push(inputRef)}
+                        key={index} {...child}
+                        style={isHorizontal ?
+                            { "marginLeft": "5px", "marginRight": "5px", "marginBottom": "10px", "width": "calc(50% - 10px)" } :
+                            { "marginBottom": "5px" }}
+                    />
                 )
             }
         });
@@ -106,7 +117,7 @@ class FormGroup extends Component {
                 <div className="form-group-title">
                     {title}
                 </div>
-                <div style={isHorizontal ? { "display": "flex" } : null}>
+                <div style={isHorizontal ? { "display": "flex", "flexWrap": "wrap" } : null}>
                     {subforms}
                 </div>
                 {

@@ -5,7 +5,7 @@ import {
     InputAddress,
     InputButton,
     InputCheckbox,
-    InputCurrency,
+    InputNumbers,
     InputDate,
     InputDatePicker,
     InputDropdown,
@@ -42,6 +42,14 @@ class Input extends Component {
 
     componentDidMount() {
         this._ismounted = true;
+    }
+
+    shouldComponentUpdate() {
+        return true;
+    }
+
+    componentWillUpdate() {
+        this.state.validationStatus = 'normal';
     }
 
     isValid = () => {
@@ -143,6 +151,16 @@ class Input extends Component {
                     type="facebook"
                 />
             );
+            case 'java.time.LocalDateTime':
+            case 'java.time.LocalDate':
+            return (
+                <InputDatePicker
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    showTimeSelect={this.props.type == "java.time.LocalDateTime"}
+                />
+            );
             case 'TextArea':
             return (
                 <InputTextarea
@@ -154,14 +172,6 @@ class Input extends Component {
             case 'Boolean':
             return (
                 <InputCheckbox
-                    {...rest}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                />
-            );
-            case 'java.time.LocalDate':
-            return (
-                <InputDatePicker
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
@@ -237,13 +247,15 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
+            case 'Double':
             case 'Currency':
             return (
-                <InputCurrency
+                <InputNumbers
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     value={this.state.value}
+                    prefix={this.props.type == "Currency" ? "$" : ''}
                 />
             );
             case 'Email':
@@ -270,7 +282,6 @@ class Input extends Component {
     }
 
     render() {
-
         return <div style={this.props.style}>{this.renderInput()}</div>;
     }
 }

@@ -23,6 +23,14 @@ class Form extends Component {
     showProgress: this.props.showProgress ? this.props.showProgress : false,
   }
 
+  shouldComponentUpdate() {
+      return true;
+  }
+
+  componentWillUpdate() {
+      this.formGroupRefs = [];
+  }
+
   componentWillMount() {
       this.formGroupRefs = [];
   }
@@ -58,12 +66,12 @@ class Form extends Component {
     return false;
   }
 
-  renderGroup(questionGroup) {
+  renderGroup(questionGroup, index) {
 
       if(Array.isArray( questionGroup )) {
 
-        return questionGroup.map(group => {
-            if(group.content) return this.renderGroup(group);
+        return questionGroup.map((group, index) => {
+            if(group.content) return this.renderGroup(group, index);
             return group;
         });
       }
@@ -71,7 +79,7 @@ class Form extends Component {
           return (
               <FormGroup
                   ref={(groupRef) => this.formGroupRefs.push(groupRef)}
-                  key={questionGroup.title}
+                  key={index}
                   title={questionGroup.title}
                   isHorizontal={questionGroup.isHorizontal}
                   submitButtons={questionGroup.submitButtons}
@@ -88,6 +96,7 @@ class Form extends Component {
     const componentStyle = { ...style, };
 
     let questionGroup = this.renderGroup( data );
+    
     return (
       <div className={`form-container ${isHorizontal ? 'horizontal' : null }`} style={componentStyle}>
         <div className="form-main">

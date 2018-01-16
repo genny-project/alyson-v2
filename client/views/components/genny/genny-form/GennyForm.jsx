@@ -23,6 +23,10 @@ class GennyForm extends Component {
         }]);
     }
 
+    shouldComponentUpdate() {
+        return true;
+    }
+
     onClickEvent = (clickedButton) => {
 
         if(clickedButton && clickedButton.props) {

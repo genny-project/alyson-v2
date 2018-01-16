@@ -16,7 +16,7 @@ export { default as Input } from './input';
 export { default as InputAddress } from './input-address';
 export { default as InputButton } from './input-button';
 export { default as InputCheckbox } from './input-checkbox';
-export { default as InputCurrency } from './input-currency';
+export { default as InputNumbers } from './input-numbers';
 export { default as InputDate } from './input-date';
 export { default as InputDatePicker } from './input-date-picker';
 export { default as InputDropdown } from './input-dropdown';
