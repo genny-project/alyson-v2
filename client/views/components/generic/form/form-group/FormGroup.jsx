@@ -25,6 +25,7 @@ class FormGroup extends Component {
     state = {
         isFormValidated: true,
         animatedButtons: {}, // TODO: hum.
+        isMobile: window.getScreenSize() == 'sm'
     }
 
     componentWillMount() {
@@ -49,7 +50,7 @@ class FormGroup extends Component {
                     <Input
                         ref={inputRef => this.inputRefs.push(inputRef)}
                         key={index} {...child}
-                        style={isHorizontal ?
+                        style={isHorizontal && !this.state.isMobile ?
                             { "marginLeft": "5px", "marginRight": "5px", "marginBottom": "10px", "width": "calc(50% - 10px)" } :
                             { "marginBottom": "5px" }}
                     />
@@ -117,7 +118,7 @@ class FormGroup extends Component {
                 <div className="form-group-title">
                     {title}
                 </div>
-                <div style={isHorizontal ? { "display": "flex", "flexWrap": "wrap" } : null}>
+                <div style={isHorizontal && !this.state.isMobile ? { "display": "flex", "flexWrap": "wrap" } : null}>
                     {subforms}
                 </div>
                 {
