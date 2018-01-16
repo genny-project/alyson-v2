@@ -26,6 +26,7 @@ class MapInput extends Component {
   }
 
   state = {
+    timer: null,
     value: this.props.value || ''
   }
 
@@ -142,12 +143,15 @@ class MapInput extends Component {
   }
 
   setCenter = (address) => {
-    geocodeByAddress(address)
-    .then(results => {
-      if(this.map) {
-        this.map.setCenter(new google.maps.LatLng( results[0].geometry.location.lat(), results[0].geometry.location.lng() ));
-      }
-    })
+    clearTimeout(this.state.timer);
+    this.state.timer = setTimeout(function(){  
+      geocodeByAddress(address)
+      .then(results => {
+        if(this.map) {
+          this.map.setCenter(new google.maps.LatLng( results[0].geometry.location.lat(), results[0].geometry.location.lng() ));
+        }
+      })  
+    }.bind(this), 500);
   }
 
   handleChange = event => {
