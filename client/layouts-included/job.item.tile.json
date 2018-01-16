@@ -1,0 +1,22 @@
+{
+  "div": {
+    "style": {
+      "display": "flex",
+      "flexDirection": "column",
+      "fontSize": "18px"
+    },
+    "children": [
+      {
+        "ImageView": {
+          "src": ""
+        }
+      },
+      {
+        "p":{
+          "children": "Hello there this is a job item title"
+        }
+      }
+    ]
+
+  }
+}
