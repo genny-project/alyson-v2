@@ -11,6 +11,7 @@ class InputDropdown extends Component {
     hint: '',
     identifier: null,
     validationStatus: null,
+    isSingleSelect: false
   }
 
   static propTypes = {
@@ -20,6 +21,7 @@ class InputDropdown extends Component {
     validation: func,
     identifier: any,
     validationStatus: string,
+    isSingleSelect: bool
   }
 
   state = {
@@ -27,16 +29,8 @@ class InputDropdown extends Component {
     value: this.props.default_value,
     selectedItems: [],
     isOpen: false,
-    currentValue: ''
-  }
-
-  handleBlur = () => {
-    console.log('blur');
-    let code = this.props.items.filter(x => x.name == this.selectedItems);
-    const { validationList, validation, identifier,  } = this.props;
-    const value = code;
-    console.log(code);
-    //if(validation) validation(value, identifier, validationList);
+    currentValue: '',
+    lastSentValue: null
   }
 
   handleChange = selectedItem => {
@@ -49,45 +43,63 @@ class InputDropdown extends Component {
 
   addSelectedItem(item) {
     this.setState(({selectedItems}) => ({
-      selectedItems: [...selectedItems, item],
-    }))
+      selectedItems: this.props.isSingleSelect ? [item] : [...selectedItems, item],
+      isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
+    }), () => {
+      if (this.props.isSingleSelect){
+        this.handleValidation();
+      }
+    })
   }
   removeItem = item => {
     this.setState(({selectedItems}) => {
       return {
         selectedItems: selectedItems.filter(i => i !== item),
+        isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
+      }
+    }, () => {
+      if (this.props.isSingleSelect){
+        this.handleValidation();
       }
     })
   }
 
   getDisplayText = () => {
     const { selectedItems } = this.state;
-    console.log(selectedItems);
-    if ( selectedItems && selectedItems.length > 0) {
-      if (selectedItems.length == 1) {
+    if ( selectedItems) {
+      if ( selectedItems.length == 1 && this.props.isSingleSelect ) {
+        return selectedItems[0];
+      }
+      else if ( selectedItems.length == 1 && !this.props.isSingleSelect ) {  
         return '1 item selected';
       } else if (selectedItems.length > 1) {
         return `${selectedItems.length} items selected`; 
       }
-    }
-    return 'Select an item';
+      return 'Select an item';
+    } 
   }
 
   onToggleMenu = () => {
     this.setState(({isOpen}) => ({
       isOpen: !isOpen,
-    }))
+    }), () => { 
+      if (!this.state.isOpen) {
+        this.handleValidation();
+      }
+    })    
   }
 
   handleStateChange = changes => {
 
     const {isOpen, type} = changes;
 
-    console.log(type);
-    
-
     if (type === Downshift.stateChangeTypes.mouseUp) {
-      this.setState({isOpen})
+      this.setState({isOpen}, () => {
+          if (!this.state.isOpen) {
+
+            this.handleValidation();
+          }
+        })      
     }
     else if (type === Downshift.stateChangeTypes.keyDownSpaceButton) {
       this.setState({
@@ -101,14 +113,33 @@ class InputDropdown extends Component {
         currentValue: changes.inputValue
       })
     }
-    else {
-    }
   }
 
   handleClearInput = () => {
     this.setState({
       currentValue: ''
     })
+  }
+  
+handleValidation = () => {
+    const { validationList, validation, identifier, isSingleSelect } = this.props;
+    const { selectedItems, lastSentValue } = this.state;
+
+    let match = true;
+    match = selectedItems.compare(lastSentValue);
+
+    if( !match || selectedItems && lastSentValue == null){
+
+      this.setState({
+        lastSentValue: selectedItems
+      })
+      
+      if ( isSingleSelect && selectedItems.length == 1 ) {
+        if(validation) validation(selectedItems[0], identifier, validationList);
+      } else {
+        if(validation) validation(selectedItems, identifier, validationList);
+      }
+    }
   }
 
   getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps,) {
@@ -131,8 +162,6 @@ class InputDropdown extends Component {
             style={{cursor: 'pointer'}}
             {...getItemProps({
               item: item.name,
-              isActive: highlightedIndex === index,
-              isSelected: selectedItem.indexOf(item.name) > -1,
             })}
           >
             <span>{selectedItem.indexOf(item.name) > -1 ? `✓ ${item.name}` : item.name}</span>
