@@ -1,6 +1,6 @@
 import './inputDropdown.scss';
 import React, { Component } from 'react';
-import { string, object, func, any } from 'prop-types';
+import { string, object, func, any, bool } from 'prop-types';
 import Downshift from 'downshift'
 import { Label, IconSmall } from 'views/components';
 
@@ -10,7 +10,8 @@ class InputDropdown extends Component {
     className: '',
     hint: '',
     identifier: null,
-    validationStatus: null
+    validationStatus: null,
+    isSingleSelect: false
   }
 
   static propTypes = {
@@ -19,69 +20,218 @@ class InputDropdown extends Component {
     hint: string,
     validation: func,
     identifier: any,
-    validationStatus: string
+    validationStatus: string,
+    isSingleSelect: bool
   }
 
   state = {
     ask: this.props.ask ? this.props.ask : false,
     value: this.props.default_value,
+    selectedItems: [],
+    isOpen: false,
+    currentValue: '',
+    lastSentValue: null
   }
 
-  handleClick = (selectedItem) => {
+  handleChange = selectedItem => {
+    if (this.state.selectedItems.includes(selectedItem)) {
+      this.removeItem(selectedItem)
+    } else {
+      this.addSelectedItem(selectedItem)
+    }
+  }
 
-    let code = this.props.items.filter(x => x.name == selectedItem)[0].code;
-    const { validationList, validation, identifier,  } = this.props;
-    const value = code;
-    this.setState({ focused: false });
-    if(validation) validation(value, identifier, validationList);
+  addSelectedItem(item) {
+    this.setState(({selectedItems}) => ({
+      selectedItems: this.props.isSingleSelect ? [item] : [...selectedItems, item],
+      isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
+    }), () => {
+      if (this.props.isSingleSelect){
+        this.handleValidation();
+      }
+    })
+  }
+  removeItem = item => {
+    this.setState(({selectedItems}) => {
+      return {
+        selectedItems: selectedItems.filter(i => i !== item),
+        isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
+      }
+    }, () => {
+      if (this.props.isSingleSelect){
+        this.handleValidation();
+      }
+    })
+  }
+
+  getDisplayText = () => {
+    const { selectedItems } = this.state;
+    if ( selectedItems) {
+      if ( selectedItems.length == 1 && this.props.isSingleSelect ) {
+        return selectedItems[0];
+      }
+      else if ( selectedItems.length == 1 && !this.props.isSingleSelect ) {  
+        return '1 item selected';
+      } else if (selectedItems.length > 1) {
+        return `${selectedItems.length} items selected`; 
+      }
+      return 'Select an item';
+    } 
+  }
+
+  onToggleMenu = () => {
+    this.setState(({isOpen}) => ({
+      isOpen: !isOpen,
+    }), () => { 
+      if (!this.state.isOpen) {
+        this.handleValidation();
+      }
+    })    
+  }
+
+  handleStateChange = changes => {
+
+    const {isOpen, type} = changes;
+
+    if (type === Downshift.stateChangeTypes.mouseUp) {
+      this.setState({isOpen}, () => {
+          if (!this.state.isOpen) {
+
+            this.handleValidation();
+          }
+        })      
+    }
+    else if (type === Downshift.stateChangeTypes.keyDownSpaceButton) {
+      this.setState({
+        isOpen: true,
+        currentValue: this.state.currentValue + ' '
+      })
+    }
+    else if (type === Downshift.stateChangeTypes.changeInput) {
+      this.setState({
+        isOpen: true,
+        currentValue: changes.inputValue
+      })
+    }
+  }
+
+  handleClearInput = () => {
+    this.setState({
+      currentValue: ''
+    })
+  }
+  
+handleValidation = () => {
+    const { validationList, validation, identifier, isSingleSelect } = this.props;
+    const { selectedItems, lastSentValue } = this.state;
+
+    let match = true;
+    match = selectedItems.compare(lastSentValue);
+
+    if( !match || selectedItems && lastSentValue == null){
+
+      this.setState({
+        lastSentValue: selectedItems
+      })
+      
+      if ( isSingleSelect && selectedItems.length == 1 ) {
+        if(validation) validation(selectedItems[0], identifier, validationList);
+      } else {
+        if(validation) validation(selectedItems, identifier, validationList);
+      }
+    }
+  }
+
+  getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps,) {
+
+    let list = items;
+
+    list = list.filter(item => !inputValue || item.name.toUpperCase().includes(inputValue.toUpperCase()))
+    
+    list = list.sort((x, y) => 
+      selectedItem.indexOf(x.name) == -1 && selectedItem.indexOf(y.name) > -1
+    )
+    
+    if (list.length > 0 ) {
+
+      list = list.map((item, index) => {
+        return (
+          <li
+            key={index}
+            className="dropdown-item"
+            style={{cursor: 'pointer'}}
+            {...getItemProps({
+              item: item.name,
+            })}
+          >
+            <span>{selectedItem.indexOf(item.name) > -1 ? `✓ ${item.name}` : item.name}</span>
+          </li>
+        )
+      })
+    } else {
+      list = (
+        <li className="dropdown-item no-items-found" style={{cursor: 'default'}}>
+          <i>No Matches Found</i>
+        </li>
+      )
+    }
+
+    return list;
   }
 
   render() {
 
     const { className, style, name, hint, validationStatus, ...rest } = this.props;
     let { items } = this.props;
-    const { value } = this.state;
+    const { value, selectedItems } = this.state;
     const componentStyle = { ...style, };
 
+    let displayText = this.getDisplayText();
+    
     return (
-      <div className={`input input-dropdown ${className} ${validationStatus}` }>
+      <div className={`input input-dropdown ${className} ${validationStatus}` }>      
         {name ? <Label className="dropdown-label" text={name} /> : null }
-        <Downshift {...rest} onChange={this.handleClick}>
+        <Downshift
+          isOpen={this.state.isOpen}
+          selectedItem={selectedItems}
+          onChange={this.handleChange}
+          onStateChange={this.handleStateChange}
+          inputValue={this.state.currentValue}
+          onBlur={this.handleBlur}
+        >
           {({
-
             getItemProps,
+            getButtonProps,
+            getInputProps,
             isOpen,
-            toggleMenu,
-            clearSelection,
             selectedItem,
-            inputValue,
+            inputValue,   
             highlightedIndex,
-
           }) => (
             <div className="dropdown-container">
               <div
+                {...getButtonProps({   
+                  onClick: this.onToggleMenu
+                })}
                 type="button"
-                className={`input-dropdown-button ${isOpen ? "selected" : ""}`}
-                onClick={toggleMenu}
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded={isOpen}
+                className={`input-dropdown-field ${isOpen ? "selected" : ""}`}
               >
-                <span className="">{selectedItem ? selectedItem : value }</span>
-                <IconSmall name={ isOpen ? 'expand_more' : 'chevron_right'} />
+                <input
+                  value={this.state.currentValue}
+                  placeholder={displayText}
+                  {...getInputProps({})}
+                />
+                {/* <span className="">{displayText}</span> */}
+                { this.state.currentValue && this.state.currentValue.length > 0 ?
+                  <IconSmall className='input-dropdown-icon' name='clear' onClick={this.handleClearInput}/>
+                  : <IconSmall className='input-dropdown-icon' name={ isOpen ? 'expand_more' : 'chevron_right'} />
+                }
               </div>
               {isOpen ? (
                 <ul style={{display: 'block'}} className="dropdown-menu">
-                  {items.map(item => (
-                    <li
-                      {...getItemProps({item: item.name})}
-                      key={item.name}
-                      className="dropdown-item"
-                      style={{cursor: 'pointer'}}
-                    >
-                      <span>{item.name}</span>
-                    </li>
-                  ))}
+                  { 
+                    this.getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps)
+                  } 
                 </ul>
               ) : null}
             </div>
