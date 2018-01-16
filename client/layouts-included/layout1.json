@@ -218,21 +218,8 @@
                             "rows":1,
                             "cols":1,
                             "position": [0,1],
-                            "style": {"position":"relative"},
                             "children": [
-                              {
-                                 "ImageView": {
-                                    "position": [0, 0],
-                                    "src": "https://channel40.com.au/wp-content/uploads/2017/02/iPhone-2.png",
-                                    "style": {
-                                      "position": "absolute",
-                                      "backgroundColor": "red",
-                                      "bottom": "-20px",
-                                      "right": "15px",
-                                      "height": "auto"
-                                    }
-                                  } 
-                              }
+                              
                             ]
                           }
                         }
