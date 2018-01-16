@@ -97,7 +97,9 @@
                     "position": [0,0],
                     "children": "Team Members",
                     "style": {
-                      "color": "#fff"
+                      "color": "#fff",
+                      "height":"100px",
+                      "paddingTop": "30px"
                     }
                   }
                 }
