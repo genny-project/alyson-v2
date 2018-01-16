@@ -257,7 +257,7 @@
                     }
                   },
                   {
-                    "Button": {
+                    "GennyButton": {
                       "position": [0,0],
                       "className": "warning",
                       "children": "Create an Account"
