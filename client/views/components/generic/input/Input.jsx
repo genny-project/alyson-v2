@@ -172,6 +172,16 @@ class Input extends Component {
                 <InputDropdown
                     {...rest}
                     items={items}
+                    isSingleSelect
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                />
+            );
+            case 'dropdownmultiple':
+            return (
+                <InputDropdown
+                    {...rest}
+                    items={items}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 />
