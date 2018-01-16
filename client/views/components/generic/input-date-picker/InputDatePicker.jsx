@@ -30,6 +30,7 @@ class InputDatePicker extends Component {
 
   state = {
     startDate: this.props.value ? moment(this.props.value, this.props.defaultDateFormat).format(this.props.defaultDateFormat) : moment().format(this.props.defaultDateFormat),
+    isMobile: window.getScreenSize() == 'sm',
   }
 
   handleChange = (date) => {
@@ -52,23 +53,29 @@ class InputDatePicker extends Component {
           { name ? <Label className="input-date-picker-label" text={name} /> : null }
           { mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
         </div> : null }
-        <DatePicker
-          className={`${validationStatus} input-date-picker-input`}
-          calendarClassName=""
-          dateFormat={defaultDateFormat}
-          timeFormat={defaultTimeFormat}
-          dayClassName={date => date.date() < Math.random() * 31 ? 'random' : undefined}
-          selected={startDate ? moment(startDate, defaultDateFormat): null}
-          onChange={this.handleChange}
-          peekNextMonth
-          showMonthDropdown
-          showYearDropdown
-          minDate={moment().subtract(60, "years")}
-          maxDate={moment().add(5, "years")}
-          dropdownMode="select"
-          showTimeSelect={showTimeSelect}
-          timeIntervals={15}
-        />
+        {
+          this.state.isMobile ? 
+          
+            <div style={{display: 'flex'}}> <input type='date'/> <input type='time'/> </div>
+          
+          : (<DatePicker
+            className={`${validationStatus} input-date-picker-input`}
+            calendarClassName=""
+            dateFormat={defaultDateFormat}
+            timeFormat={defaultTimeFormat}
+            dayClassName={date => date.date() < Math.random() * 31 ? 'random' : undefined}
+            selected={startDate ? moment(startDate, defaultDateFormat): null}
+            onChange={this.handleChange}
+            peekNextMonth
+            showMonthDropdown
+            showYearDropdown
+            minDate={moment().subtract(60, "years")}
+            maxDate={moment().add(5, "years")}
+            dropdownMode="select"
+            showTimeSelect={showTimeSelect}
+            timeIntervals={15}
+          /> )
+        }
       </div>
     );
   }
