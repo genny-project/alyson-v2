@@ -13,7 +13,8 @@ class InputDatePicker extends Component {
     className: '',
     identifier: null,
     validationStatus: null,
-    defaultDateFormat: 'DD/MM/YYYY'
+    defaultDateFormat: 'YYYY-MM-DD HH:mm',
+    defaultTimeFormat: 'HH:mm'
   }
 
   static propTypes = {
@@ -32,31 +33,36 @@ class InputDatePicker extends Component {
   handleChange = (date) => {
 
     const { validationList, validation, identifier, defaultDateFormat } = this.props;
-    const value = moment(date).format(defaultDateFormat);
+    const value = moment(date).toISOString();
     this.setState({ startDate: date });
     if(validation) validation(value, identifier, validationList);
   }
 
   render() {
 
-    const { className, children, style, validationStatus, name, defaultDateFormat } = this.props;
+    const { className, children, style, validationStatus, name, defaultDateFormat, defaultTimeFormat, mandatory } = this.props;
     const { startDate } = this.state;
     const componentStyle = { ...style, };
 
     return (
       <div className={`input input-date-picker ${className}`}>
-        { name ? <Label className="input-date-picker-label" text={name} /> : null }
+        { name ? <div className='input-header'>
+          { name ? <Label className="input-date-picker-label" text={name} /> : null }
+          { mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
+        </div> : null }
         <DatePicker
-          className={validationStatus}
+          className={`${validationStatus} input-date-picker-input`}
           calendarClassName=""
           dateFormat={defaultDateFormat}
+          timeFormat={defaultTimeFormat}
           dayClassName={date => date.date() < Math.random() * 31 ? 'random' : undefined}
           selected={startDate ? moment(startDate, defaultDateFormat): null}
           onChange={this.handleChange}
           peekNextMonth
           showMonthDropdown
           showYearDropdown
-          dropdownMode="select"
+          showTimeSelect={this.props.showTimeSelect}
+          timeIntervals={15}
         />
       </div>
     );

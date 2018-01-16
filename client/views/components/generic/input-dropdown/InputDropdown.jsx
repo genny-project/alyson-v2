@@ -43,15 +43,8 @@ class InputDropdown extends Component {
     const { value } = this.state;
     const componentStyle = { ...style, };
 
-
-    // we add an empty item that will allow the user to select nothing. perhaps this should be a prop?
-    items.unshift({
-        name: "-",
-        code: null,
-    });
-
     return (
-      <div className={`input-dropdown ${className} ${validationStatus}` }>
+      <div className={`input input-dropdown ${className} ${validationStatus}` }>
         {name ? <Label className="dropdown-label" text={name} /> : null }
         <Downshift {...rest} onChange={this.handleClick}>
           {({

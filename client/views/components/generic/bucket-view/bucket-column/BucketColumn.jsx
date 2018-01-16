@@ -19,7 +19,7 @@ class BucketColumn extends Component {
 
     static propTypes = {
         className: string,
-        style: string,
+        style: object,
         children: object,
         title: string,
         groupId: string,

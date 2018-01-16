@@ -1,34 +1,80 @@
 @import 'client/styles/colors';
 
 .input-date-picker {
+
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
-    input {
-        height: 50px;
-	    width: 100%;
-	    border-radius: 5px;
-	    color: #999;
-	    background-color: #DDD;
-	    font-size: 1em;
-	    padding: 10px;
-	    box-sizing: border-box;
-	    text-align: center;
-	    transition: 300ms ease;
-        border: 1px solid #DDD;
+    > div {
 
-        &.success{
-            color: $success;
-            border: 1px solid $success;
-        }
-    
-        &.error{
-            color: $error;
-            border: 1px solid $error;
+        width: 90%;
+
+        .react-datepicker-wrapper {
+            width: 90%;
         }
     }
 
-    .input-date-picker-label {
+    .react-datepicker-popper {
+        z-index: 100;
+    }
+
+    .input-date-picker-input {
+        width: 100%;
+    }
+
+    .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .react-datepicker__input-container {
+
+        width: 100%;
+        min-width: 170px;
+
+        > input {
+            height: 50px;
+            width: 100%;
+            border-radius: 5px;
+            color: #999;
+            background-color: #DDD;
+            font-size: 1em;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: 300ms ease;
+            border: 1px solid #DDD;
+
+            &.success{
+                color: $success;
+                border: 1px solid $success;
+            }
+
+            &.error{
+                color: $error;
+                border: 1px solid $error;
+            }
+
+            &:hover, &:focus {
+				outline: none;
+            }
+
+            &:focus, &:not([disabled]):hover:focus {
+				border: 1px solid black;
+				box-shadow: 0px 0px 5px #888;
+				background-color: white;
+				color: black;
+			}
+        }
+    }
+
+    .input-header {
+    	display: flex;
+    	align-items: center;
+        justify-content: flex-start;
+        flex-shrink: 0;
         margin-right: 10px;
+        width: 10%;
     }
 }

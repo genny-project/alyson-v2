@@ -13,7 +13,7 @@ class Button extends Component {
   }
 
   static propTypes = {
-    children: any.isRequired,
+    children: any,
     className: string,
     href: string,
     type: string,
@@ -34,7 +34,7 @@ class Button extends Component {
 
     const btn = (
       <div className={`button ${className} ${type}`} style={componentStyle}>
-        <button disabled={disabled} onClick={this.onClick} style={{ ...buttonStyle }}>{children}</button>
+        <button disabled={disabled} onClick={this.onClick} style={{ ...buttonStyle }}>{children ? children : null}</button>
       </div>
     );
 

@@ -1,11 +1,11 @@
 import './gennyForm.scss';
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { Form } from 'views/components';
 import { object, array } from 'prop-types';
 import { AskQuery, BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { log } from 'util';
 
-class GennyForm extends PureComponent {
+class GennyForm extends Component {
 
     state = {
     }
@@ -23,6 +23,10 @@ class GennyForm extends PureComponent {
         }]);
     }
 
+    shouldComponentUpdate() {
+        return true;
+    }
+
     onClickEvent = (clickedButton) => {
 
         if(clickedButton && clickedButton.props) {
@@ -31,7 +35,7 @@ class GennyForm extends PureComponent {
 
             let btnEventData = {
                 code: data.code,
-                value: data.askId,
+                value: JSON.stringify(data),
             };
 
             GennyBridge.sendBtnClick("BTN_CLICK", btnEventData);
@@ -46,13 +50,16 @@ class GennyForm extends PureComponent {
         }]);
     }
 
-    onSubmit = (questionGroupCode, targetCode) => {
+    onSubmit = (questionGroupCode, targetCode, action) => {
 
         if(questionGroupCode) {
 
             let btnEventData = {
                 code: questionGroupCode,
-                value: targetCode,
+                value: JSON.stringify({
+                    targetCode: targetCode,
+                    action: action
+                }),
             }
 
             GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
@@ -63,11 +70,36 @@ class GennyForm extends PureComponent {
 
         if(askGroup && askGroup.childAsks) {
 
-            const showSubmitButton = askGroup.attributeCode && askGroup.attributeCode.includes('BUTTON_SUBMIT');
+            let submitButtons = [];
+            let submitButtonsData = [];
+            let availableButtons = [
+                'submit',
+                'previous',
+                'next',
+                'cancel',
+                'reset'
+            ];
+
+            if(askGroup.attributeCode.includes("BUTTON")) {
+
+                availableButtons.forEach(availableButton => {
+
+                    if(askGroup.attributeCode.indexOf(availableButton.toUpperCase()) > -1) {
+                        submitButtonsData.push({
+                            index: askGroup.attributeCode.indexOf(availableButton.toUpperCase()),
+                            button: 'form-' + availableButton
+                        });
+                    }
+                });
+            }
+
+            submitButtons = submitButtonsData.sort((button, button2) => button.index > button2.index).map(button => button.button);
 
             return {
                 title: askGroup.name,
-                onSubmit: showSubmitButton ? () => { this.onSubmit(askGroup.question.code, askGroup.targetCode) } : null,
+                isHorizontal: askGroup.attributeCode.includes("HORIZONTAL"),
+                submitButtons: submitButtons,
+                onSubmit: (action) => this.onSubmit(askGroup.question.code, askGroup.targetCode, action),
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
@@ -75,7 +107,7 @@ class GennyForm extends PureComponent {
 
                     let inputType = 'Text';
                     let valList = [];
-                    let default_value = null;
+                    let default_value = '';
                     let be_code = ask.targetCode;
                     let attributeCode = ask.attributeCode;
                     let options = [];
@@ -145,7 +177,7 @@ class GennyForm extends PureComponent {
                         placeholder: '',
                         value: default_value,
                         readOnly: ask.readOnly,
-                        optional: ask.optional,
+                        mandatory: ask.mandatory,
                         validationList: valList,
                         mask: ask.question.mask,
                         onValidation: this.onInputValidation,

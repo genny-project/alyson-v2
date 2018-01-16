@@ -91,11 +91,10 @@ class BucketElement extends Component {
             }, 500);
         }
     }
-
+    
     render() {
 
         const { className, item, style } = this.props;
-
         return (
 
             <Draggable key={item.id} draggableId={item.id} isDragDisabled={window.getScreenSize() == "sm"} >

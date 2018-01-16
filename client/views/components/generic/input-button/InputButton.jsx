@@ -16,30 +16,22 @@ class InputButton extends Component {
   }
 
   state = {
-      shouldAnimate: false,
   }
 
   clickHandler = () => {
-
-      if(this.props.animate) {
-          this.setState({
-              shouldAnimate: true,
-          })
-      }
-
       this.props.onClick(this, this.props.data);
   }
 
   render() {
 
-      const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, disabled, animate } = this.props;
+      const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, disabled } = this.props;
       const componentStyle = { ...style, };
-      const { date, focused, shouldAnimate } = this.state;
+      const { date, focused } = this.state;
 
       return (
-        <div className={`input input-button ${className} ${shouldAnimate ? 'animate' : ''}`}>
+        <div className={`input input-button ${className}`}>
           <Button disable={disabled} onClick={this.clickHandler}>
-            <span className='button-text'>{shouldAnimate ? null : name}</span>
+            <span className='button-text'>{name}</span>
           </Button>
         </div>
       );

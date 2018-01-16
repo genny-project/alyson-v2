@@ -2,6 +2,7 @@ import './bucketCard.scss';
 import React, { Component } from 'react';
 import { string, bool, array, number } from 'prop-types';
 import { Button, IconSmall, ProgressBar, Status, Dropdown } from 'views/components';
+import { BaseEntityQuery } from 'utils/genny';
 
 class BucketCard extends Component {
 
@@ -59,9 +60,11 @@ class BucketCard extends Component {
 
   render() {
 
-    const { className, title, description, level, style, showProgress, progressCurrent, progressTotal, children  } = this.props;
+    const { className, title, description, level, style, showProgress, progressCurrent, progressTotal, children, backgroundColor  } = this.props;
     const { isShowingOptions, isOpen } = this.state;
-    const componentStyle = { ...style, };
+    
+    const componentStyle = { ...style, backgroundColor: backgroundColor || '' };
+
     const collapseArrow = isOpen ? 'expand_more' : 'expand_less';
 
     let dropDownStyle = {

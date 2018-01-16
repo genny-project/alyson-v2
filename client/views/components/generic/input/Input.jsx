@@ -2,105 +2,175 @@ import './input.scss';
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
 import {
-    InputDate,
+    InputAddress,
     InputButton,
-    InputSlider,
+    InputCheckbox,
+    InputNumbers,
+    InputDate,
     InputDatePicker,
     InputDropdown,
-    InputTime,
+    InputEmail,
+    InputSlider,
     InputText,
     InputTextarea,
-    InputCheckbox,
-    InputAddress,
+    InputTime,
+    InputUpload,
     InputUploadPhoto,
-    InputUpload
+
 } from 'views/components';
 
 class Input extends Component {
 
-  static defaultProps = {
-    className: '',
-    type: ''
-  }
-
-  static propTypes = {
-    className: string,
-    type: string,
-    onValidation: func,
-    onValidationFailure: func,
-  }
-
-  state = {
-    validationStatus: null,
-  }
-
-  validateInput = (value, identifier, validationList) => {
-
-    if(value == this.props.value) return;
-
-    if ( validationList.length > 0) {
-
-      const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-      this.validateValue(valResult, value);
-
+    static defaultProps = {
+        className: '',
+        type: '',
+        value: '',
     }
-    else {
 
-      const valResult = new RegExp(/.*/).test( value );
-      this.validateValue(valResult, value);
-
+    static propTypes = {
+        className: string,
+        type: string,
+        value: string,
+        onValidation: func,
+        onValidationFailure: func,
     }
-  }
 
-  validateValue = ( valResult, value ) => {
-
-    if ( valResult ){
-
-        this.validationStyle('success');
-        if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
+    state = {
+        validationStatus: null,
+        value: this.props.value || '',
     }
-    else {
 
-      this.validationStyle('error');
-      if(this.props.onValidationFailure) this.props.onValidationFailure(this.props.data, this.props.mandatory);
+    componentDidMount() {
+        this._ismounted = true;
     }
-  }
 
-  validationStyle = (resultString) => {
-    this.setState({
-      validationStatus: resultString,
-    });
-  }
+    shouldComponentUpdate() {
+        return true;
+    }
 
-  render() {
+    componentWillUpdate() {
+        this.state.validationStatus = 'normal';
+    }
 
-    const { onClick, onClickEvent, ...rest } = this.props;
-    const { validationStatus } = this.state;
+    isValid = () => {
 
-    let items = this.props.options;
-    
-    switch(this.props.type) {
+        const { validationList } = this.props;
+        const { value } = this.state;
 
-        // socials
-        case 'Facebook':
-            return ( 
-                <InputButton 
+        let isValid = false;
+        if (validationList.length > 0) {
+            isValid = validationList.every( validation => new RegExp(validation.regex).test( value ));
+        }
+        else {
+            isValid = new RegExp(/.*/).test( value );
+        }
+
+        if(isValid) {
+            this.validationStyle('success');
+        }
+        else {
+            this.validationStyle('error');
+        }
+
+        return isValid;
+    }
+
+    componentWillReceiveProps(newProps) {
+
+        if(this._ismounted) {
+
+            this.setState({
+                value: newProps.value
+            })
+        }
+    }
+
+    handleOnChange = (newValue) => {
+        this.setState({
+            value: newValue
+        });
+    }
+
+    validateInput = (value, identifier, validationList) => {
+
+        if(value == this.props.value) return;
+
+        if ( validationList.length > 0) {
+
+            const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
+            this.validateValue(valResult, value);
+
+        }
+        else {
+
+            const valResult = new RegExp(/.*/).test( value );
+            this.validateValue(valResult, value);
+
+        }
+    }
+
+    validateValue = ( valResult, value ) => {
+
+        if ( valResult ){
+
+            this.validationStyle('success');
+            if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
+        }
+        else {
+
+            this.validationStyle('error');
+            if(this.props.onValidationFailure) this.props.onValidationFailure(this.props.data, this.props.mandatory);
+        }
+    }
+
+    validationStyle = (resultString) => {
+
+        if(this._ismounted) {
+            this.setState({
+                validationStatus: resultString,
+            });
+        }
+    }
+
+    renderInput() {
+
+        const { onClick, onClickEvent, ...rest } = this.props;
+        const { validationStatus } = this.state;
+
+        let items = this.props.options;
+
+        switch(this.props.type) {
+
+            // socials
+            case 'Facebook':
+            return (
+                <InputButton
                     {...rest}
                     onClick={this.props.onClickEvent}
                     className="facebook"
                     name=""
-                    type="facebook" 
-                /> 
+                    type="facebook"
+                />
             );
-        case 'TextArea':
-            return ( 
+            case 'java.time.LocalDateTime':
+            case 'java.time.LocalDate':
+            return (
+                <InputDatePicker
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    showTimeSelect={this.props.type == "java.time.LocalDateTime"}
+                />
+            );
+            case 'TextArea':
+            return (
                 <InputTextarea
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 />
             );
-        case 'Boolean':
+            case 'Boolean':
             return (
                 <InputCheckbox
                     {...rest}
@@ -108,15 +178,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'LocalDate':
-            return (
-                <InputDatePicker
-                    {...rest}
-                    validation={this.validateInput}
-                    validationStatus={validationStatus}
-                />
-            );
-        case 'dropdown':
+            case 'dropdown':
             return (
                 <InputDropdown
                     {...rest}
@@ -125,7 +187,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'slider':
+            case 'slider':
             return (
                 <InputSlider
                     {...rest}
@@ -133,11 +195,11 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'upload-photo':
-            return ( 
+            case 'upload-photo':
+            return (
                 <InputUploadPhoto {...rest} />
             );
-        case 'Upload':
+            case 'Upload':
             return (
                 <InputUpload
                     {...rest}
@@ -145,26 +207,22 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        case 'address':
-            return (
-                <InputAddress {...rest} />
-            );
-        case 'Event Button':
+            case 'Event Button':
             return (
                 <InputButton
                     {...rest}
                     onClick={this.props.onClickEvent}
                 />
             );
-        case 'Answer Button':
-        case 'Button':
+            case 'Answer Button':
+            case 'Button':
             return (
                 <InputButton
                     {...rest}
                     onClick={this.props.onClick}
                 />
             );
-        case 'Time':
+            case 'Time':
             return (
                 <InputTime
                     {...rest}
@@ -172,16 +230,51 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-        default:
+            case 'Address':
             return (
-                <InputText
+                <InputAddress
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                 />
             );
+            case 'Double':
+            case 'Currency':
+            return (
+                <InputNumbers
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    value={this.state.value}
+                    prefix={this.props.type == "Currency" ? "$" : ''}
+                />
+            );
+            case 'Email':
+            return (
+                <InputEmail
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    value={this.state.value}
+                />
+            );
+            default:
+            return (
+                <InputText
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    handleOnChange={this.handleOnChange}
+                    value={this.state.value}
+                />
+            );
+        }
+
     }
-  }
+
+    render() {
+        return <div style={this.props.style}>{this.renderInput()}</div>;
+    }
 }
 
 export default Input;

@@ -50,7 +50,7 @@ class Sidebar extends Component {
 
         return (
             <div className={`sidebar ${window.getScreenSize()} ${isOpen ? '' : 'closed'}`}>
-                <Grid 
+                <Grid
                     className='sidebar-main'
                     style={componentStyle}
                     rows={["200px", {"style": { "flex": "1, 1, auto", "overflow": "scroll"} }]}

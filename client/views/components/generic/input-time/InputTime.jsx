@@ -69,26 +69,31 @@ class InputTime extends Component {
 
   render() {
 
-    const { className, children, style, validationStatus, name, readOnly, placeholder, inputMask } = this.props;
+    const { className, children, style, validationStatus, name, readOnly, placeholder, inputMask, mandatory } = this.props;
     const { focused, value, format } = this.state;
     const componentStyle = { ...style, };
 
     return (
       <div className={`input input-time ${className} ${validationStatus || ''}`}>
-        { name ? <Label className="input-time-label" text={name} /> : null }
-        <MaskedTextInput
-            mask={inputMask}
-            guide={true}
-            disabled={readOnly}
-            value={value}
-            placeholder={placeholder}
-            onChange={this.handleChange}
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onKeyDown={this.onKeyDown}
-            style={focused ? { borderColor: componentStyle.color } : null}
-        />
-        <Button className="input-time-button" onClick={this.toggleFormat}>{format}</Button>
+        { name ? <div className='input-header'>
+          { name ? <Label className="input-time-label" text={name} /> : null }
+          { mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
+        </div> : null }
+        <div className='input-time-main'>
+          <MaskedTextInput
+              mask={inputMask}
+              guide={false}
+              disabled={readOnly}
+              value={value}
+              placeholder={placeholder}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              onFocus={this.handleFocus}
+              onKeyDown={this.onKeyDown}
+              style={focused ? { borderColor: componentStyle.color } : null}
+          />
+          <Button className="input-time-button" onClick={this.toggleFormat}>{format}</Button>
+        </div>
       </div>
     );
   }

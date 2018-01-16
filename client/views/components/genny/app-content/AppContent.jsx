@@ -40,7 +40,7 @@ class AppContent extends Component {
             }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BEG: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />
         }
 
         layoutContent = layoutContent || children;
@@ -48,6 +48,8 @@ class AppContent extends Component {
         const componentStyle = {
             ...style,
         };
+
+        console.log("re-rendering");
 
         return (
             <div className="app-content" style={componentStyle}>

@@ -1,7 +1,8 @@
 import './inputAddress.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import { Label, SubmitStatusIcon } from 'views/components';
+import { Label, SubmitStatusIcon, Dropdown, MapInput, Button } from 'views/components';
+import { Grid } from '@genny-project/layson';
 import PlacesAutocomplete from 'react-places-autocomplete'
 import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete'
 
@@ -17,74 +18,162 @@ class InputAddress extends Component {
     }
 
     state = {
-        address: '',
-        hasChanges: false
+        address: this.props.value || '',
+        value: this.props.value || '',
+        hasChanges: false,
+        showMap: false,
+    }
+
+    onSelect = (newAddress) => {
+
+        console.log(" ======= on select ======== ");
+
+        if(newAddress) {
+
+            geocodeByAddress(newAddress)
+            .then(results => {
+
+                let addressObj = results[0];
+
+                let requiredFields = ['street_number','route','locality','administrative_area_level_1','postal_code','country'];
+
+                let resultObj = {};
+                let streetAddress = {};
+
+                requiredFields.forEach((f) => {
+
+                    addressObj.address_components.forEach((a) => {
+
+                        if (a.types.includes(f)) {
+
+                            if (a.types.includes('street_number')) {
+                                streetAddress['street_number'] = a.long_name;
+                            }
+                            else if (a.types.includes('route')) {
+                                streetAddress['street_name'] = a.long_name;
+                            }
+                            else if (a.types.includes('locality')) {
+                                resultObj['suburb'] = a.long_name;
+                            }
+                            else if (a.types.includes('administrative_area_level_1')) {
+                                resultObj['state'] = a.short_name;
+                            }
+                            else if (a.types.includes('postal_code')) {
+                                resultObj['postal_code'] = a.long_name;
+                            }
+                            else if (a.types.includes('country')) {
+                                resultObj['country'] = a.short_name;
+                            }
+                        }
+
+                        if (streetAddress.street_number && streetAddress.street_name) {
+                            resultObj['street_address'] = streetAddress['street_number'] + ' ' + streetAddress['street_name'];
+                        }
+
+                        resultObj['full_address'] = results[0].formatted_address;
+
+                    });
+                });
+
+                this.updateAddressProp(results[0].formatted_address);
+
+                // send answer
+                this.onBlur(resultObj);
+            })
+        }
+    }
+
+    updateAddressProp = (newAddress) => {
+        this.setState({
+            address: newAddress,
+            value: newAddress
+        });
     }
 
     onChange = (newAddress) => {
-
         this.setState({
-            address: newAddress,
+            value: newAddress,
             hasChanges: true
         });
     }
 
-    onBlur = () => {
-
-        // validation value
-        const { validationList } = this.props;
-        const value = this.state.address;
-
-        if (validationList.length > 0) {
-
-          const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-          this.validateValue(valResult, value);
-
-        } else {
-          const valResult = new RegExp(/.*/).test( value );
-          this.validateValue(valResult, value);
-        }
-
+    onBlur = (address) => {
+        const { validationList, validation, identifier } = this.props;
+        const value = JSON.stringify(address);
+        if(validation) validation(value, identifier, validationList);
     }
 
-    validateValue = (valResult, value) => {
+    showMap = () => {
 
-      if (valResult) {
-        if(this.state.hasChanges) {
-
-          if(this.props.onValidation) this.props.onValidation(value, this.props.identifier);
-          this.setState({
-              hasChanges: false
-          });
-        }
-      }
+        this.setState({
+            showMap: !this.state.showMap
+        })
     }
 
-    render() {
+    renderInput() {
 
         const { style, name, optional } = this.props;
-        const { validationStatus } = this.state;
+        const { showMap } = this.state;
         const componentStyle = { ...style, };
 
         const inputProps = {
-            value: this.state.address,
+            value: this.state.value,
             onChange: this.onChange,
-            onBlur: this.onBlur,
             placeholder: this.props.placeholder
         };
 
         const classes = {
-            root: "input-text input-address",
+            root: "input-address-search",
         };
 
         return (
-            <div>
+            <Grid cols={
+                    [
+                        {
+                            style: {
+                                flexGrow: 5,
+                                paddingRight: '10px'
+                            }
+                        },
+                        {
+                            style: {
+                                flex: '0 0 100px'
+                            }
+                        },
+                    ]
+                }
+                rows="1"
+            >
+                <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
+                <Button position={[0, 1]} onClick={this.showMap}>{showMap ? "Hide Map" : "Show on Map"}</Button>
+            </Grid>
+        )
+    }
+
+    render() {
+
+        const { name, mandatory,  } = this.props;
+        const { validationStatus, showMap, address  } = this.state;
+
+        return (
+            <div className="input input-address">
                 <div className="input-header">
-                  {name ? <Label text={name} /> : null }
-                  {optional ? <Label text="(optional)" /> : null}
-                  <SubmitStatusIcon status={validationStatus} />
+                    {name ? <Label text={name} /> : null }
+                    {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
+                    <SubmitStatusIcon status={validationStatus} />
                 </div>
-                {window.google ? <PlacesAutocomplete inputProps={inputProps} classNames={classes}/> : <p>Loading...</p>}
+                {window.google ? this.renderInput() : <p>Loading...</p>}
+                <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
+                    <MapInput
+                        handleUpdate={this.onSelect}
+                        style={{
+                            "height": "300px",
+                            "width": "100%"
+                        }}
+                        address={address}
+                        hideInput
+                    />
+                </Dropdown>
             </div>
         )
     }

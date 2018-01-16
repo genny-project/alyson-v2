@@ -74,7 +74,7 @@ class BaseEntityQuery {
                     if(targetBe) existingBes.push(targetBe);
                 }
 
-                return existingBes;
+                return existingBes.sort((x,y) => x.weight > y.weight);
 
             }, [])
         }
@@ -82,9 +82,9 @@ class BaseEntityQuery {
         return []
     }
 
-    static getLinkToParent(parentCode, child) {
+    static getLinkToParent(parentCode, childCode) {
 
-        if(parentCode && child) {
+        if(parentCode && childCode) {
 
             const parent = BaseEntityQuery.getBaseEntity(parentCode);
             if(parent) {
@@ -97,7 +97,7 @@ class BaseEntityQuery {
                     for(let j = 0; j < links.length; j++) {
 
                         const link = links[j];
-                        if(link.targetCode == child.code) {
+                        if(link.targetCode == childCode) {
                             return link;
                        }
                     }
