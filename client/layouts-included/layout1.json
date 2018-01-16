@@ -284,26 +284,26 @@
                           "style":{"margin": "10px 0"},
                           "children":[
                             {
-                        "IconSmall":{
-                          "position": [0,0],
-                          "name": "perm_contact_calendar",
-                          "style": {"fontSize":20, "color": "green"},
-                          "text": "Pickup:  21 Jan 2017"
+                              "IconSmall":
+                              {
+                              "position": [0,0],
+                              "name": "perm_contact_calendar",
+                              "style": {"fontSize":20, "color": "green"},
+                              "text": "Pickup:  21 Jan 2017"
+                              }
+                            },
+                            {
+                              "IconSmall":
+                              {
+                                "position": [1,0],
+                                "name": "perm_contact_calendar",
+                                "style": {"fontSize":20, "color": "green"},
+                                "text": "Dropoff: 21 Jan 2017"
+                              }
+                            }
+                        ]
                         }
                       },
-                      {
-                        "IconSmall":{
-                          "position": [1,0],
-                          "name": "perm_contact_calendar",
-                          "style": {"fontSize":20, "color": "green"},
-                          "text": "Dropoff: 21 Jan 2017"
-                        }
-                      }
-
-                          ]
-                        }}
-                      ,
-                      
                       {
                         "Grid": {
                           "position":[2,0],
