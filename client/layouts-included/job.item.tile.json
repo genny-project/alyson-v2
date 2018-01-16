@@ -8,7 +8,7 @@
     "children": [
       {
         "ImageView": {
-          "src": ""
+          "src": "BE.PRI_IMAGE_URL"
         }
       },
       {
@@ -20,3 +20,4 @@
 
   }
 }
+
