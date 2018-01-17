@@ -279,132 +279,156 @@
                 ]
               }
             },
-          {
-            "Footer": {
-              "position": [5, 0],
-              "rows":1,
-              "cols":5,
-              "style": {
-                "height":"auto",
-                "display":"flex",
-                "justifyContent": "space-around",
-                "alignItems":"center",
-                "padding": "50px 0",
-                "backgroundColor": "#fefefe"
-               },
-              "children": [
-                {
-                  "Grid": {
-                    "rows":1,
-                    "cols":1,
-                    "position":[0,0],
-                    "children": [
-                      {
-                        "h1": {
-                          "style": {
-                            "fontSize": "18px"
-                          },
-                          "position":[0,0],
-                          "children": "Channel 40"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "rows":1,
-                    "cols":1,
-                    "position":[0,1],
-                    "children": [
-                      {
-                        "p": {
-                          "position":[0,0],
-                          "children": "SITE LINKS"
-                        }
+            {
+              "Device": {
+                "isDesktop": true,
+                "position": [5, 0],
+                "children": [
+                  {
+                    "Footer": {
+                      "rows":1,
+                      "cols":5,
+                      "style": {
+                        "height":"auto",
+                        "display":"flex",
+                        "justifyContent": "space-around",
+                        "alignItems":"flex-start",
+                        "padding": "50px 0",
+                        "flexWrap": "wrap",
+                        "backgroundColor": "#fefefe"
                       },
-                      {
-                        "ul":{
-                          "position": [0,0],
-                          "children": [
-                            {
-                              "li": {
-                                "children": "About Channel 40 "
-                              }
+                      "children": [
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,0],
+                            "style": {
+                              "flexBasis": "20%"
                             },
-                            { "li": { "children": "Drivers " } },
-                            { "li": { "children": "Freight Owners" } },
-                            { "li": { "children": "FAQ's " } },
-                            { "li": { "children": "Media" } },
-                            { "li": { "children": "Contact" } }
+                            "children": [
+                              {
+                                "h1": {
+                                  "style": {
+                                    "fontSize": "18px"
+                                  },
+                                  "position":[0,0],
+                                  "children": "Channel 40"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,1],
+                            "style": {
+                              "flexBasis": "20%"
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "SITE LINKS"
+                                }
+                              },
+                              {
+                                "ul":{
+                                  "position": [0,0],
+                                  "children": [
+                                    {
+                                      "li": {
+                                        "children": "About Channel 40 "
+                                      }
+                                    },
+                                    { "li": { "children": "Drivers " } },
+                                    { "li": { "children": "Freight Owners" } },
+                                    { "li": { "children": "FAQ's " } },
+                                    { "li": { "children": "Media" } },
+                                    { "li": { "children": "Contact" } }
 
-                          ]
-                        }
-                      }
-                    ]
+                                  ]
+                                }
+                              }
+                            ]
 
-                  }
-                },
-                {
-                  "Grid": {
-                    "rows":1,
-                    "cols":1,
-                    "position":[0,2],
-                    "children": [
-                      {
-                        "p": {
-                          "position":[0,0],
-                          "children": "LEGALS"
-                        }
-                      },
-                      {
-                        "ul":{
-                          "position": [0,0],
-                          "children": [
-                            {"li": {"children": "Terms of Use"}},
-                            { "li": { "children": "Privacy Policy " } },
-                            { "li": { "children": "Policies" } }
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,2],
+                            "style": {
+                              "flexBasis": "20%"
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "LEGALS"
+                                }
+                              },
+                              {
+                                "ul":{
+                                  "position": [0,0],
+                                  "children": [
+                                    {"li": {"children": "Terms of Use"}},
+                                    { "li": { "children": "Privacy Policy " } },
+                                    { "li": { "children": "Policies" } }
 
-                          ]
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "position":[0,3],
+                            "rows":1,
+                            "cols":1,
+                            "style": {
+                              "width": "20%"
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "NEWSLETTER"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "position":[0,4],
+                            "rows":1,
+                            "cols":1,
+                            "style": {
+                              "flexBasis": "20%"
+                            },
+                            "children":[
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "Social Media Goes Here"
+                                }
+                              }
+                            ]
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    
+                    }
                   }
-                },
-                {
-                  "Grid": {
-                    "position":[0,3],
-                    "rows":1,
-                    "cols":1,
-                    "children": [
-                      {
-                        "p": {
-                          "position":[0,0],
-                          "children": "NEWSLETTER"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "position":[0,4],
-                    "rows":1,
-                    "cols":1,
-                    "children":[
-                      {
-                        "p": {
-                          "position":[0,0],
-                          "children": "Social Media Goes Here"
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-             
+                ]
+              }
             }
-          }
+          
         ]
       }
     }
