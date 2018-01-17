@@ -37,4 +37,13 @@
 
 i {
   color: #BBB;
+
+  
+}
+
+.success i {
+    color: $success;
+}
+.error i {
+    display: none;
 }
