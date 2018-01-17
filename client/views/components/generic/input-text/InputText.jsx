@@ -88,7 +88,7 @@ class InputText extends Component {
         !isHorizontal && !hideHeader ? 
           <div className="input-header">
             {name ? <Label text={name} /> : null}
-            {mandatory? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
+            {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : ''} text="*  required" /> : null}
             <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
           </div> :
         null

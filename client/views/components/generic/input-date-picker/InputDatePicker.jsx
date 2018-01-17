@@ -25,50 +25,94 @@ class InputDatePicker extends Component {
     validation: func,
     identifier: any,
     validationStatus: string,
-    showTimeSelect: bool
+    showTimeSelect: bool,
+    handleOnChange: func,
   }
 
-  state = {
-    startDate: this.props.value ? moment(this.props.value, this.props.defaultDateFormat).format(this.props.defaultDateFormat) : moment().format(this.props.defaultDateFormat),
-    isMobile: window.getScreenSize() == 'sm',
+  getStartDate() {
+    return this.props.value ? moment(this.props.value, this.props.defaultDateFormat).format(this.props.defaultDateFormat) : moment().format(this.props.defaultDateFormat);
   }
 
-  handleChange = (date) => {
+  getMobileValues = (type) => {
+    if (type == 'date') return moment(this.getStartDate()).format('YYYY-MM-DD');
+    if (type == 'time') return moment(this.getStartDate()).format('HH:mm');
+  }
 
-    const { validationList, validation, identifier, type, defaultDateFormat } = this.props;
-    let value = moment(date);
-    if(type == 'java.time.LocalDate') {
-      value = value.format(defaultDateFormat);
-    } else {
-      value = value.toISOString();
+  handleChange = (date, noValidate) => {
+    const { validationList, validation, identifier, type, defaultDateFormat, handleOnChange } = this.props;
+    const value = ( type === 'java.time.LocalDate' ) ? moment(date).format( defaultDateFormat ) : moment(date).toISOString();
+    if (value) {
+      if(handleOnChange) handleOnChange(date);
+      if(validation && !noValidate) validation(value, identifier, validationList);
+    }    
+  }
+
+  handleChangeMobile = (event) => {
+    let date;
+    let time;
+
+    if (this.props.type != 'java.time.LocalDate' ) {
+      if (event.target.type == 'date') {
+        date = event.target.value;
+        time = this.getMobileValues('time');
+        let dateTime = date + ' ' + time;
+        this.handleChange(dateTime);
+      }
+      
+      if (event.target.type == 'time') {
+        date = this.getMobileValues('date');
+        time = event.target.value;
+        let dateTime = date + ' ' + time;
+
+        if (event.type == 'blur' || event.keyCode == '13') {
+          this.handleChange(dateTime);
+        } else {
+          this.handleChange(dateTime, true);
+        }
+      } 
+    } 
+    else {
+      date = event.target.value;
+      this.handleChange(date);
     }
-    this.setState({ startDate: date });
-    if(validation) validation(value, identifier, validationList);
   }
 
   render() {
-
-    const { className, children, style, validationStatus, name, defaultDateFormat, defaultTimeFormat, mandatory, showTimeSelect } = this.props;
-    const { startDate } = this.state;
+    const { className, children, style, validationStatus, name, defaultDateFormat, type, defaultTimeFormat, mandatory, showTimeSelect } = this.props;
     const componentStyle = { ...style, };
+    const startDate = this.getStartDate();
+    const isMobile = window.getScreenSize() === 'sm';
 
     return (
-      <div className={`input input-date-picker ${className}`}>
+      <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `}>
         { name ? <div className='input-header'>
-          { name ? <Label className="input-date-picker-label" text={name} /> : null }
+          { name && <Label className="input-date-picker-label" text={name} /> }
           { mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
         </div> : null }
         {
-          this.state.isMobile ? 
-          
-            <div style={{display: 'flex'}}> <input type='date'/> <input type='time'/> </div>
+          isMobile ?
+            <div className='input-date-picker-mobile' style={{display: 'flex'}}>
+              <input
+                type='date'
+                onChange={this.handleChangeMobile}
+                value={this.getMobileValues('date')}
+              />
+              { type == 'java.time.LocalDate' ? null : 
+                <input
+                  type='time'
+                  onChange={this.handleChangeMobile}
+                  onBlur={this.handleChangeMobile}
+                  onKeyDown={this.handleChangeMobile}
+                  value={this.getMobileValues('time')}
+                /> 
+              }
+            </div>
           
           : (<DatePicker
-            className={`${validationStatus} input-date-picker-input`}
+            className={`${validationStatus} input-date-picker-main`}
             calendarClassName=""
             dateFormat={defaultDateFormat}
             timeFormat={defaultTimeFormat}
-            dayClassName={date => date.date() < Math.random() * 31 ? 'random' : undefined}
             selected={startDate ? moment(startDate, defaultDateFormat): null}
             onChange={this.handleChange}
             peekNextMonth

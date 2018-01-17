@@ -42,7 +42,6 @@ class InputCheckbox extends Component {
  	  const { className, children, style, name, } = this.props;
     const { checked } = this.state;
     const componentStyle = { ...style, };
-    console.log(checked);
 
     return (
       <div className={`input-checkbox ${className}`}>

@@ -2,10 +2,11 @@
 
 .input-date-picker {
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
+    &:not(.mobile) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
     > div {
 
@@ -20,7 +21,7 @@
         z-index: 100;
     }
 
-    .input-date-picker-input {
+    .input-date-picker-main {
         width: 100%;
     }
 
@@ -33,40 +34,60 @@
 
         width: 100%;
         min-width: 170px;
+    }
+    
+    input {
+        height: 50px;
+        width: 100%;
+        border-radius: 5px;
+        color: #999;
+        background-color: #DDD;
+        font-size: 1em;
+        padding: 10px;
+        box-sizing: border-box;
+        text-align: center;
+        transition: 300ms ease;
+        border: 1px solid #DDD;
 
-        > input {
-            height: 50px;
-            width: 100%;
-            border-radius: 5px;
-            color: #999;
-            background-color: #DDD;
-            font-size: 1em;
-            padding: 10px;
-            box-sizing: border-box;
-            text-align: center;
-            transition: 300ms ease;
-            border: 1px solid #DDD;
+        &.success{
+            color: $success;
+            border: 1px solid $success;
+        }
 
-            &.success{
-                color: $success;
-                border: 1px solid $success;
-            }
+        &.error{
+            color: $error;
+            border: 1px solid $error;
+        }
 
-            &.error{
-                color: $error;
-                border: 1px solid $error;
-            }
+        &:hover, &:focus {
+            outline: none;
+        }
 
-            &:hover, &:focus {
-				outline: none;
-            }
+        &:focus, &:not([disabled]):hover:focus {
+            border: 1px solid black;
+            box-shadow: 0px 0px 5px #888;
+            background-color: white;
+            color: black;
+        }
+    }
 
-            &:focus, &:not([disabled]):hover:focus {
-				border: 1px solid black;
-				box-shadow: 0px 0px 5px #888;
-				background-color: white;
-				color: black;
-			}
+    &.mobile {
+
+        &.success input {
+            color: $success;
+            border: 1px solid $success;
+        }
+
+        &.error input {
+            color: $error;
+            border: 1px solid $error;
+        }
+    }
+
+    .input-date-picker-mobile {
+
+        input:not(:first-child) {
+            margin-left: 5px;
         }
     }
 
