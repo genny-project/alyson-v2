@@ -291,7 +291,7 @@
                       "style": {
                         "height":"auto",
                         "display":"flex",
-                        "justifyContent": "space-around",
+                        "justifyContent": "flex-start",
                         "alignItems":"flex-start",
                         "padding": "50px 0",
                         "flexWrap": "wrap",
@@ -421,6 +421,169 @@
                             ]
                           }
                         }
+                      ]
+                    
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Device": {
+                "isMobile": true,
+                "position":[5,0],
+                "rows":1,
+                "cols":1,
+                "children": [
+                  {
+                    "Footer": {
+                      "position":[0,0],
+                      "rows":1,
+                      "cols":1,
+                      "style": {
+                        "height":"auto",
+                        "display":"flex",
+                        "flexDirection": "column",
+                        "justifyContent": "space-around",
+                        "alignItems":"flex-start",
+                        "padding": "50px 0",
+                        "flexWrap": "wrap",
+                        "backgroundColor": "#fefefe"
+                      },
+                      "children": [
+                        {
+                          "Div":{
+                            "position": [0,0],
+                            "rows":1,
+                            "cols":5,
+                            "children": [
+                              {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,0],
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"center",
+                              "alignItems":"center",
+                              "width":"100%"
+                            },
+                            "children": [
+                              {
+                                "h1": {
+                                  "style": {
+                                    "fontSize": "18px"
+                                  },
+                                  "position":[0,0],
+                                  "children": "Channel 40"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,1],
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"center",
+                              "alignItems":"center",
+                              "width":"100%"
+
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "SITE LINKS"
+                                }
+                              },
+                              {
+                                "ul":{
+                                  "position": [0,0],
+                                  "children": [
+                                    {
+                                      "li": {
+                                        "children": "About Channel 40 "
+                                      }
+                                    },
+                                    { "li": { "children": "Drivers " } },
+                                    { "li": { "children": "Freight Owners" } },
+                                    { "li": { "children": "FAQ's " } },
+                                    { "li": { "children": "Media" } },
+                                    { "li": { "children": "Contact" } }
+
+                                  ]
+                                }
+                              }
+                            ]
+
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,2],
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"center",
+                              "alignItems":"center",
+                              "width":"100%"
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "LEGALS"
+                                }
+                              },
+                              {
+                                "ul":{
+                                  "position": [0,0],
+                                  "children": [
+                                    {"li": {"children": "Terms of Use"}},
+                                    { "li": { "children": "Privacy Policy " } },
+                                    { "li": { "children": "Policies" } }
+
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "position":[0,3],
+                            "rows":1,
+                            "cols":1,
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"center",
+                              "alignItems":"center",
+                              "width":"100%"
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "NEWSLETTER"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        { "Grid": { "position": [0, 4], "rows": 1, "cols": 1, "style": { "display": "flex", "justifyContent": "center", "alignItems": "center", "width": "100%" }, "children": [{ "p": { "position": [0, 0], "children": "Social Media" } }] } }
+                            ]
+                          }
+                        }
+                        
+                        
+                        
+                        
+                        
                       ]
                     
                     }
