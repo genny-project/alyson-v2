@@ -150,15 +150,15 @@ class InputAddress extends Component {
 
     render() {
 
-        const { name, mandatory,  } = this.props;
-        const { validationStatus, showMap, address  } = this.state;
+        const { name, mandatory, validationStatus } = this.props;
+        const { showMap, address  } = this.state;
 
         return (
             <div className="input input-address">
                 <div className="input-header">
                     {name ? <Label text={name} /> : null }
-                    {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
-                    <SubmitStatusIcon status={validationStatus} />
+                    {mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
+                    <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
                 </div>
                 {window.google ? this.renderInput() : <p>Loading...</p>}
                 <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
