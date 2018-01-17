@@ -6,7 +6,7 @@ import { ImageView, CompactList } from 'views/components';
 class Footer extends Component {
   static defaultProps = {
     className: '',
-    
+
   }
 
   static propTypes = {
@@ -32,6 +32,7 @@ class Footer extends Component {
               { poweredBy.caption ? <span>{poweredBy.caption}</span> : null }
             </div>
           : null }
+          {children}
     	</div>
     );
   }
