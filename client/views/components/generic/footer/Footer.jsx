@@ -15,7 +15,7 @@ class Footer extends Component {
   }
 
   render() {
-    const { className, version, poweredBy, style, } = this.props;
+    const { className, version, poweredBy, style, children } = this.props;
 
     const componentStyle = {
       ...style,
