@@ -15,18 +15,26 @@ class SubmitStatusIcon extends Component {
   }
 
   render() {
-    const { status } = this.props;
-	switch(status) {
+		const { status, style } = this.props;
+		const componentStyle = { ...style, };
+
+		switch(status) {
 	    case "sending":
-	        return ( <div className="ellipsis-anim">
-	        			<IconSmall name="brightness_1" size={4} />
-	        			<IconSmall name="brightness_1" size={4} />
-	        			<IconSmall name="brightness_1" size={4} />
-	        		</div> );
+			return ( 
+				<div className="ellipsis-anim" style={componentStyle}>
+					<IconSmall name="brightness_1" size={4} />
+					<IconSmall name="brightness_1" size={4} />
+					<IconSmall name="brightness_1" size={4} />
+				</div>
+			);
 	    case "success":
-	        return ( <IconSmall className="success" name="check_circle" size={14} /> );
+			return ( 
+				<IconSmall className="success" name="check_circle" size={14} style={componentStyle}/>
+			);
 	    case "error":
-	        return ( <IconSmall className="error" name="error" size={14} /> );
+			return (
+				<IconSmall className="error" name="error" size={14} style={componentStyle}/>
+			);
 	    default:
 	        return null;
     }

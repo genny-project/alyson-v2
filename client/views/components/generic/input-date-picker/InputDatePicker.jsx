@@ -35,8 +35,13 @@ class InputDatePicker extends Component {
 
   handleChange = (date) => {
 
-    const { validationList, validation, identifier, defaultDateFormat } = this.props;
-    const value = moment(date).toISOString();
+    const { validationList, validation, identifier, type, defaultDateFormat } = this.props;
+    let value = moment(date);
+    if(type == 'java.time.LocalDate') {
+      value = value.format(defaultDateFormat);
+    } else {
+      value = value.toISOString();
+    }
     this.setState({ startDate: date });
     if(validation) validation(value, identifier, validationList);
   }
@@ -51,7 +56,7 @@ class InputDatePicker extends Component {
       <div className={`input input-date-picker ${className}`}>
         { name ? <div className='input-header'>
           { name ? <Label className="input-date-picker-label" text={name} /> : null }
-          { mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
+          { mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
         </div> : null }
         {
           this.state.isMobile ? 

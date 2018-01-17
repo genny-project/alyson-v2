@@ -59,9 +59,9 @@ class Breadcrumbs extends Component {
 
              return <div className={`breadcrumbs ${className}`} style={{ ...breadcrumbsCss, ...componentStyle }}>
                  <ul className="breadcrumbs-main" style={{ ...breadcrumbsMain }}>
-                   <li className="breadcrumbs-home" style={{ ...li}}>
+                   <li className="breadcrumbs-home" style={{ ...li}} onClick={this.handleClick}>
                      <IconSmall name="home" style={{ ...iEle }} />
-                     <span style={{ ...span }} onClick={this.handleClick}>Home</span>
+                     <span style={{ ...span }}>Home</span>
                    </li>
                    {breadcrumbs}
                  </ul>

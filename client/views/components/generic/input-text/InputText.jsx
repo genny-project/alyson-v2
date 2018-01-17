@@ -85,11 +85,13 @@ class InputText extends Component {
 
     return <div className={`input input-text ${className} ${validationStatus || ''}`} style={componentStyle}>
       {
-          !isHorizontal && !hideHeader ? <div className="input-header">
-          {name ? <Label text={name} /> : null}
-          {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
-          <SubmitStatusIcon status={validationStatus} />
-        </div> : null
+        !isHorizontal && !hideHeader ? 
+          <div className="input-header">
+            {name ? <Label text={name} /> : null}
+            {mandatory? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
+            <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
+          </div> :
+        null
       }
       {
 

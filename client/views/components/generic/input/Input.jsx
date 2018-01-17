@@ -36,7 +36,7 @@ class Input extends Component {
     }
 
     state = {
-        validationStatus: null,
+        validationStatus: this.props.value ? 'success' : null,
         value: this.props.value || '',
     }
 
@@ -286,7 +286,6 @@ class Input extends Component {
                 />
             );
         }
-
     }
 
     render() {
