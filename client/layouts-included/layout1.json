@@ -3,7 +3,7 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": 5,
+        "rows": 6,
         "style": {"height": "initial"},
         "children": [
           {
@@ -223,16 +223,75 @@
               ]
             }
           },
+            {
+              "Grid": {
+                "position": [4,0],
+                "rows": 1,
+                "cols":1,
+                "style": {
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "padding": "40px",
+                  "backgroundColor": "#363636",
+                  "color": "#fff"
+                },
+                "children": [
+                  {
+                    "Grid": {
+                      "position": [0,0],
+                      "rows":1,
+                      "cols":1,
+                      "style": {"textAlign": "center"},
+                      "children": [
+                            {
+                    "h1": 
+                      {
+                        "position": [0,0],
+                        "children": "Seen Enough? ",
+                        "style": {
+                          "color": "#fff",
+                          "fontSize": "42px"
+                        }
+                      }
+                    
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color": "#fff",
+                        "fontSize": "18px"
+                      },
+                      "children": "Time to get your account and get trucking smarter"
+                    }
+                  },
+                  {
+                    "GennyButton": {
+                      "position": [0,0],
+                      "className": "warning",
+                      "children": "Create an Account"
+                    }
+                  }
+
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
           {
             "Footer": {
-              "position": [4, 0],
+              "position": [5, 0],
               "rows":1,
               "cols":5,
               "style": {
                 "height":"auto",
                 "display":"flex",
-                "justifyContent": "space-around"
-              },
+                "justifyContent": "space-around",
+                "alignItems":"center",
+                "padding": "50px 0",
+                "backgroundColor": "#fefefe"
+               },
               "children": [
                 {
                   "Grid": {
@@ -258,7 +317,6 @@
                     "rows":1,
                     "cols":1,
                     "position":[0,1],
-                    "style": {"color": "#fff"},
                     "children": [
                       {
                         "p": {
@@ -293,7 +351,6 @@
                     "rows":1,
                     "cols":1,
                     "position":[0,2],
-                    "style": {"color": "#fff"},
                     "children": [
                       {
                         "p": {
@@ -320,7 +377,6 @@
                     "position":[0,3],
                     "rows":1,
                     "cols":1,
-                    "style": {"color": "#fff"},
                     "children": [
                       {
                         "p": {
@@ -336,13 +392,11 @@
                     "position":[0,4],
                     "rows":1,
                     "cols":1,
-                    "style": {"color": "#fff"},
                     "children":[
                       {
-                        "position": [0,0],
                         "p": {
-                          "style": {"color":"#fff"},
-                          "children": "Social Media Goes"
+                          "position":[0,0],
+                          "children": "Social Media Goes Here"
                         }
                       }
                     ]
