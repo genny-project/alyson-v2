@@ -1,7 +1,7 @@
 import './inputAddress.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
-import { Label, SubmitStatusIcon, Dropdown, MapInput, Button } from 'views/components';
+import { Label, SubmitStatusIcon, Dropdown, MapInput, Button, } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import PlacesAutocomplete from 'react-places-autocomplete'
 import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete'
@@ -22,6 +22,7 @@ class InputAddress extends Component {
         value: this.props.value || '',
         hasChanges: false,
         showMap: false,
+        coords: null,
     }
 
     onSelect = (newAddress) => {
@@ -32,6 +33,13 @@ class InputAddress extends Component {
             .then(results => {
 
                 let addressObj = results[0];
+
+                this.setState({
+                    coords: {
+                        lat: results[0].geometry.location.lat,
+                        lng: results[0].geometry.location.lng, 
+                    }
+                })
 
                 let requiredFields = ['street_number','route','locality','administrative_area_level_1','postal_code','country'];
 
@@ -124,35 +132,50 @@ class InputAddress extends Component {
             root: "input-address-search",
         };
 
-        return (
-            <Grid cols={
-                    [
-                        {
-                            style: {
-                                flexGrow: 5,
-                                paddingRight: '10px'
-                            }
-                        },
-                        {
-                            style: {
-                                flex: '0 0 100px'
-                            }
-                        },
-                    ]
-                }
-                rows="1"
-            >
-                <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
-                <Button position={[0, 1]} onClick={this.showMap}>{showMap ? "Hide Map" : "Show on Map"}</Button>
-            </Grid>
-        )
+        if (window.getScreenSize() == 'sm') {
+            return (
+                <Grid cols={1} rows={1}>
+                    <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
+                </Grid>
+            )
+        } else {
+            return (
+                <Grid cols={
+                        [
+                            {
+                                style: {
+                                    flexGrow: 5,
+                                    paddingRight: '10px'
+                                }
+                            },
+                            {
+                                style: {
+                                    flex: '0 0 100px'
+                                }
+                            },
+                        ]
+                    }
+                    rows="1"
+                >
+                    <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
+                    <Button position={[0, 1]} onClick={this.showMap}>{showMap ? "Hide Map" : "Show on Map"}</Button>
+                </Grid>
+            )
+        }    
+    }
+
+    getCoords = (address) => {
+        geocodeByAddress(address)
+        .then(results => {
+            return results;
+        })
     }
 
     render() {
 
         const { name, mandatory, validationStatus } = this.props;
-        const { showMap, address  } = this.state;
-
+        const { showMap, address, coords  } = this.state;
+        
         return (
             <div className="input input-address">
                 <div className="input-header">
@@ -161,6 +184,7 @@ class InputAddress extends Component {
                     <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
                 </div>
                 {window.google ? this.renderInput() : <p>Loading...</p>}
+                { window.getScreenSize() == 'sm' && <Button onClick={this.showMap} style={{marginTop: '10px'}}>{showMap ? "Hide Map" : "Show on Map"}</Button> }
                 <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
                     <MapInput
                         handleUpdate={this.onSelect}
@@ -169,6 +193,8 @@ class InputAddress extends Component {
                             "width": "100%"
                         }}
                         address={address}
+                        lat={coords && coords.lat}
+                        lng={coords && coords.lng}
                         hideInput
                     />
                 </Dropdown>

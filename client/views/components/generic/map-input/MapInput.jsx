@@ -58,12 +58,15 @@ class MapInput extends Component {
       let geocoder = new google.maps.Geocoder;
 
       if (address && address.length > 0) {
+        console.log('center');
         this.setCenter(address);
       }
 
       this.map.addListener('idle', () => {
         if(this.map) {
          this.geocodeLatLng(geocoder, this.map);
+
+         
         }
       });
 
