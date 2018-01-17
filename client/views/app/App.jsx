@@ -5,8 +5,6 @@ import Routes from './Routes.jsx';
 import { func, object } from 'prop-types';
 import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn, KeycloakAccount } from '@genny-project/keycloak-react';
 import keycloakAdapter from 'keycloak-js';
-
-// TODO: to remove
 import { GennyBridge } from 'utils/genny';
 
 class App extends Component {
@@ -14,8 +12,14 @@ class App extends Component {
   static propTypes = {
     appStart: func,
     authLoggedIn: func,
-    keycloak: object
+    keycloak: object,
+    gps: object,
   };
+
+  state = {
+    gpsWatcher: null,
+    lastPosition: null,
+  }
 
   componentDidMount() {
 
@@ -66,6 +70,74 @@ class App extends Component {
       }
   }
 
+  setupGPS() {
+
+        setInterval(() => {
+
+            if(this.props.gps && this.props.gps.destinations) {
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+
+                        var lastPosition = JSON.stringify(position);
+                        this.setState({lastPosition});
+
+                        if(position && position.coords) {
+
+                            this.props.gps.destinations.forEach(destination => {
+
+                                GeoFencing.containsLocation({
+                                    x: position.coords.latitude,
+                                    y: position.coords.lontitude,
+                                }, destination.center, destination.radius)
+                                .then(() => {
+
+                                    if(destination.status == "out") {
+                                        this.onEnterGPSCircle(destination)
+                                    }
+                                })
+                                .catch(() => {
+
+                                    if(destination.status == "in") {
+                                        this.onExitGPSCircle(destination)
+                                    }
+                                    else if(destination.status == "out") {
+                                        this.onEnterGPSCircle(destination)
+                                    }
+                                })
+                            });
+                        }
+                    },
+                    (error) => console.log(error.message),
+                    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+                );
+            }
+
+        }, 5000);
+  }
+
+  onExitGPSCircle = (destination) => {
+
+        console.log("did exit destination: ");
+        console.log(destination);
+        this.props.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = "out";
+        // this.sendDataToWeb("GEOFENCE", {
+        //     value: "GEOFENCE_EXIT",
+        //     code: destination.exitCode,
+        // })
+    }
+
+    onEnterGPSCircle = (destination) => {
+
+        console.log("did enter destination: ");
+        console.log(destination);
+        this.props.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = "in";
+        // this.sendDataToWeb("GEOFENCE", {
+        //     value: "GEOFENCE_ENTRY",
+        //     code: destination.enterCode,
+        // })
+    }
+
   render() {
 
     const keycloak = this.props.keycloak;
@@ -92,6 +164,7 @@ class App extends Component {
     }
 
     this.setupGoogleAPI();
+    this.setupGPS();
 
     return (
       <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>

@@ -151,6 +151,8 @@ class GennyBucketView extends PureComponent {
 
     getBaseEntityColor = (link) => {
 
+        if(!link) return;
+        
         if( link.rule == 'override:parent' || !link.rule ) {
             return link.parentColor;
         } else if ( link.rule == 'override:child' ) {

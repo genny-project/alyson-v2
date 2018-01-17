@@ -4,7 +4,12 @@ import { GennyBridge } from 'utils/genny';
 
 const initialState = {
     lastRedirect: null,
-    openedDropdown: null
+    openedDropdown: null,
+    gps: {
+        initialPosition: 'unknown',
+        lastPosition: 'unknown',
+        destinations: [],
+    }
 };
 
 export default function reducer( state = initialState, action ) {
@@ -64,17 +69,25 @@ export default function reducer( state = initialState, action ) {
      if(action.payload.gpsLocation) {
 
          let data = {
-            latitude: action.payload.gpsLocation.latitude,
-            longitude: action.payload.gpsLocation.longitude,
-            radius: action.payload.radius,
-            enterCode: action.payload.enterCode,
-            exitCode: action.payload.exitCode,
+             latitude: action.payload.gpsLocation.latitude,
+             longitude: action.payload.gpsLocation.longitude,
+             radius: action.payload.radius,
+             enterCode: action.payload.enterCode,
+             exitCode: action.payload.exitCode,
          };
 
          window.postMessage(JSON.stringify({
              "id": action.payload.code,
              "data": data
          }), "*"); // for the react native app to pick up
+
+         state.destinations = [{
+             ...data
+         }];
+
+         return {
+             ...state
+         };
      }
 
      return state;
