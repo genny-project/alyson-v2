@@ -58,7 +58,7 @@ class BaseEntityQuery {
             }
         }
 
-        return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true);
+        return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
     }
 
     static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
