@@ -177,7 +177,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                 />
             );
-            case 'Boolean':
+            case 'java.lang.Boolean':
             return (
                 <InputCheckbox
                     {...rest}
