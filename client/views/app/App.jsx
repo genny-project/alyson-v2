@@ -172,8 +172,8 @@ class App extends Component {
           {keycloak.logout && <KeycloakLogout />}
           {keycloak.accounts && <KeycloakAccount force />}
           <KeycloakLoggedIn>
-            <main>
-              <content>
+            <main style={{ "height" : "100%" }}>
+              <content style={{ "height" : "100%" }}>
                 <Routes />
               </content>
             </main>

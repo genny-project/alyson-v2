@@ -13,8 +13,6 @@ window.reactRouterHistory = history;
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-
-      {/* <Home /> */}
       <App />
     </Router>
   </Provider>,

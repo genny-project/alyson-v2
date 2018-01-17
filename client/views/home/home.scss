@@ -1,8 +1,19 @@
 @import 'client/styles/colors';
 
 .home {
-	>p {
+	> p {
 		text-align: center;
+	}
+
+	height: 100%;
+}
+
+.root {
+
+	height: 100%;
+
+	> div {
+		height: 100%;
 	}
 }
 
