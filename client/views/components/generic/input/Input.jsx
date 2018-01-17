@@ -187,6 +187,8 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    value={this.state.value}
+                    handleOnChange={this.handleOnChange}
                 />
             );
             case 'dropdown':

@@ -19,17 +19,18 @@ class InputCheckbox extends Component {
     checked: bool,
     validation: func,
     identifier: any,
-    validationStatus: string
+    validationStatus: string,
+    handleOnChange: func,
   }
 
   state = {
-    checked: this.props.checked ? this.props.checked : false,
   }
 
   handleChange = (event) => {
-    const { validationList, validation, identifier } = this.props;
+    const { validationList, validation, identifier, handleOnChange } = this.props;
     const value = event.target.checked;
-    this.setState(prevState => ({ checked: !prevState.checked }));
+    
+    if(handleOnChange) handleOnChange(value);
     if(validation) {
       clearTimeout(this.state.timer);
       this.state.timer = setTimeout(function(){  
@@ -39,8 +40,7 @@ class InputCheckbox extends Component {
   }
 
   render() {
- 	  const { className, children, style, name, } = this.props;
-    const { checked } = this.state;
+ 	  const { className, children, style, name, checked } = this.props;
     const componentStyle = { ...style, };
 
     return (
