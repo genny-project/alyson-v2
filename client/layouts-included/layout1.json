@@ -432,14 +432,11 @@
               "Device": {
                 "isMobile": true,
                 "position":[5,0],
-                "rows":1,
-                "cols":1,
                 "children": [
                   {
                     "Footer": {
-                      "position":[0,0],
                       "rows":1,
-                      "cols":1,
+                      "cols":5,
                       "style": {
                         "height":"auto",
                         "display":"flex",
@@ -452,10 +449,11 @@
                       },
                       "children": [
                         {
-                          "Div":{
-                            "position": [0,0],
-                            "rows":1,
-                            "cols":5,
+                          "div": {
+                            "style": {
+                              "justifyContent": "center",
+                              "alignItems":"center"
+                            },
                             "children": [
                               {
                           "Grid": {
@@ -575,14 +573,34 @@
                             ]
                           }
                         },
-                        { "Grid": { "position": [0, 4], "rows": 1, "cols": 1, "style": { "display": "flex", "justifyContent": "center", "alignItems": "center", "width": "100%" }, "children": [{ "p": { "position": [0, 0], "children": "Social Media" } }] } }
+                        {
+                          "Grid": {
+                            "position":[0,4],
+                            "rows":1,
+                            "cols":1,
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"center",
+                              "alignItems":"center",
+                              "width":"100%"
+                            },
+                            "children":[
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "Social Media"
+                                }
+                              }
                             ]
                           }
                         }
+                       
                         
                         
                         
-                        
+                            ]
+                          }
+                        }
                         
                       ]
                     
