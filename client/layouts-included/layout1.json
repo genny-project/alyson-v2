@@ -3,7 +3,8 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": ["120px", "80px", "100px", "500px", "400px", "30px"],
+        "rows": 5,
+        "style": {"height": "initial"},
         "children": [
           {
             "Header": {
@@ -43,35 +44,30 @@
                     "children": "CHANNEL40"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "For"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Businesses Companies"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Become a Driver"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
                     "children": "Register"
                   }
                 },
-
                 {
                   "span": {
                     "position": [0, 1],
@@ -81,340 +77,160 @@
               ]
             }
           },
-
           {
             "div": {
               "position": [0, 0],
               "style": {
-                "backgroundColor": "black",
+                "backgroundColor": "white",
+                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
                 "color": "white",
-                "height": "40px"
+                "height": "200px"
               },
-              "children": []
-            }
-          },
-
-          {
-            "Grid": {
-              "rows": 1,
-              "cols": 3,
-              "position": [1, 0],
-              "style": {
-                "backgroundColor": "black",
-                "color": "white"              
-              },
-              "children": [
-                {
-                  "Grid": {
-                    "position": [0, 0],
-                    "rows": [{ "style": { "flexGrow": 0 ,"padding": "20px 0px"} }],
-                    "cols": [
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "display": "flex",
-                          "alignItems": "center",
-                          "justifyContent": "center"
-                        }
-                      },
-                      1
-                    ],
-                    "children": [
-                      {
-                        "IconSmall": {
-                          "position": [0, 0],
-                          "name": "check_circle"
-                        }
-                      },
-                      {
-                        "h4": {
-                          "position": [0, 1],
-                          "children": "How it works"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "position": [0, 1],
-                    "rows": [{ "style": { "flexGrow": 0 } }],
-                    "cols": [
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "display": "flex",
-                          "alignItems": "center",
-                          "justifyContent": "center"
-                        }
-                      },
-                      1
-                    ],
-                    "children": [
-                      {
-                        "IconSmall": {
-                          "position": [0, 0],
-                          "name": "check_circle"
-                        }
-                      },
-
-                      {
-                        "h4": {
-                          "position": [0, 1],
-                          "children": "Find Jobs"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "Grid": {
-                    "position": [0, 2],
-                    "rows": [{ "style": { "flexGrow": 0 } }],
-                    "style": {"alignItems":"center"},
-                    "cols": [
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "display": "flex",
-                          "alignItems": "center",
-                          "justifyContent": "center"
-                        }
-                      },
-                      1
-                    ],
-                    "children": [
-                      {
-                        "IconSmall": {
-                          "position": [0, 0],
-                          "name": "check_circle"
-                        }
-                      },
-
-                      {
-                        "h4": {
-                          "position": [0, 1],
-                          "children": "Free Quote"
-                        }
-                      }                    
-                    ]
+              "children": [     
+                { "h1": 
+                  { "position": [0, 0],
+                    "children": "Frequently Asked Questions" ,
+                    "style": {
+                      "display": "flex",
+                      "textAlign": "center",
+                      "justifyContent":"center",
+                      "paddingTop": 80
+                    }
                   }
                 }
               ]
             }
           },
           {
-            "Grid": {
-              "rows":1,
+            "Grid":{
+              "rows": 5,
               "cols":1,
-              "position": [1,0],
-              "style": {"backgroundColor": "white", "color": "black","borderBottom": "1px solid #e3e3e3"},
-              "children": [
-                {
-                  "Grid": {
-                    "cols": 3,
-                    "rows": [{ "style": {"padding": "10px" } }],
-                    "position": [0,0],
-                    "children": [
-                      {
-                      "h3": {
-                        "position": [0, 0],
-                        "children": "Find Jobs",
-                        "style": {
-                          "textAlign": "center"
-                        }
-                      }
-                    }, 
-                    {
-                      "IconSmall": {
-                        "position": [0,1],
-                        "name": "chevron_right",
-                        "style": {
-                          "fontSize": 40,
-                          "color": "green",
-                          "padding": "0 0 0 40%",
-                          "fontWeight": "bold"
-                        }
-                      }
-                    },
-                    {
-                      "h3": {
-                        "position": [0, 2],
-                        "children": "Atlas Copco M2D",
-                        "style": {
-                          "textAlign": "center",
-                          "flexGrow":4
-                        }
-                        
-                      }
-                    }
-                  ]
-                  }
-                }
-          ]
-            }
-          },
-
-          {
-            "Grid": {
-              "rows": 1,
-              "cols":2,
-              "position": [3,0],
-              "style": {"padding": "0 100px", "flexWrap": "wrap", "margin": "30px 0 0 0 ", "backgroundColor":"#fff"},
+              "position": [2,0],
+              "style": {
+                "backgroundColor": "white",
+                "color": "black",
+                "padding": "60px 100px",
+                "height":"initial"
+              },
               "children":[
                 {
                   "Grid": {
-                    "rows":4,
+                    "position":[0,0],
+                    "rows":1,
                     "cols":1,
-                    "position": [0,0],
-                    "style": {"border": "2px solid #e3e3e3", "padding":"20px 20px"},
-                    "children":[
+                    "style": {
+                      "marginTop": "60px",
+                      "height":"auto"
+                },
+                    "children": [
                       {
-                        "h2": {
-                          "position": [0,0],
-                          "children": "Atlas Copco M2D",
-                          "style": {"color": "#f9691f"}
-                        }
+                        "h3": { "position": [0,0], "children": "Why comission and not subscription like the others?"}
                       },
                       {
-                        "Grid":{
-                          "position":[1,0],
-                          "rows":2,
-                          "cols":1,
-                          "style":{"margin": "10px 0"},
-                          "children":[
-                            {
-                              "IconSmall":
-                              {
-                              "position": [0,0],
-                              "name": "perm_contact_calendar",
-                              "style": {"fontSize":20, "color": "green"},
-                              "text": "Pickup:  21 Jan 2017"
-                              }
-                            },
-                            {
-                              "IconSmall":
-                              {
-                                "position": [1,0],
-                                "name": "perm_contact_calendar",
-                                "style": {"fontSize":20, "color": "green"},
-                                "text": "Dropoff: 21 Jan 2017"
-                              }
-                            }
-                        ]
-                        }
-                      },
-                      {
-                        "Grid": {
-                          "position":[2,0],
-                          "rows":1,
-                          "cols":2,
-                          "style":{ "alignItems": "baseline", "flexWrap":"wrap"},
-                          "children":[
-                            {
-                              "Grid": {
-                                "rows":1,
-                                "cols":1,
-                                "position": [0,0],
-                                "children": [
-                                  {
-                                    "h3":{"position":[0,0], "children": "Description:", "style": { "color": "#f9691f"}}},
-                                    {
-                                    "p": {"style": {"color":"#4a4747","lineHeight": 1.8},"position": [0,0], "children": "This is a description about the job loream ipsum ran this is a description about the job loream ipsum  loream ipsum ran this is a description  loream ipsum ran this is a description "}}
-                                  ]
-                              }
-                            },
-                            {
-                              "Grid": {
-                                "rows":1,
-                                "cols":1,
-                                "position": [0, 1],
-                                "style": {"padding": 10,"marginTop":20},
-                                "children":[
-                                 { 
-                                   "ImageView": { 
-                                     "position": [0, 0], 
-                                     "src": "http://i.imgur.com/yqdlJB5.jpg", 
-                                     "style": { 
-                                       "height": 150, 
-                                       "width": 150,
-                                       "marginTop": "20",
-                                       "borderRadius":"0px"
-                                       }
-                                    } 
-                                  } 
-                                ]                               
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "Grid": { 
-                          "position": [3,0],
-                          "rows":1,
-                          "cols":1,
-                          "style": { "display": "flex"},
-                          "children": [
-                            {"h3": {"style": {"fontWeight": 600, "color": "#f9691f"}, "position": [0,0], "children": "Posted By: "}},
-                            { "span": { "position": [0, 0], "children": "Nischal Gautam"}}, 
-                            {"GennyButton": {"className": "confirm small","position":[0,0], "children": "Contact Enquire", "style": {"width": "120px", "fontSize":14,"display": "inline-block", "marginLeft": "20px"} }},
-                            {"GennyButton": {"className": "warning small","position": [0, 0], "children": "Quote New", "style": { "width": "120px", "fontSize":14, "padding":0, "display": "inline-block", "marginLeft": "20px"} }}
-                          ]
+                        "p": {"position": [0,0],
+                          "children": "The Commission based model is the only method that 100% guarantees that you can never lose out in being a Channel 40 user. It is totally free to download and create an account. You only ever pay a commission when you receive a job as a driver. With a subscription model, there is no guarantee that you will secure work and the only way you can find work is by rolling the dice and paying your monthly fee and hope that you can get a job. Our model is similar to that of Uber if you like – drivers lose a small clip on each job, but it is free to use otherwise and when you know you are getting paid on delivery, the value add in this case is huge.",
+                          "style": {
+                            "color": "#676767",
+                            "lineHeight": "1.6em"
+                          }
                         }
                       }
                     ]
                   }
-                },                
+                },
+                { "Grid": {
+                  "position": [1, 0],
+                  "rows": 1,
+                  "cols": 1,
+                  "style": {"marginTop": "30px","height":"initial"
+                  },
+                  "children": [
+                    { "h3":
+                      { "position": [0, 0],
+                        "children": "What is the commission amount, and where does this money go?" }
+                    },
+                    {
+                      "p": { "position": [0, 0], "children": "We are implementing a very lean commission model, with well over 50% of the commission going into the facilitation of the payment (merchant fees if you like) and cargo insurance – which we are sure you will agree makes life a lot easier and more secure for both parties. On average, Channel 40 will take less than 5% of the total job amount, and much less for the higher freight cost jobs.", "style": { "color": "#676767", "lineHeight": "1.6em" } } }] 
+                    } 
+                },
                 {
                   "Grid": {
-                    "rows":1,
-                    "cols":1,
-                    "position": [0,1],
-                    "style": {"height":"500px"},
-                    "children": [{
-                      "MapDisplay": {
-                        
-                        "position": [0,0],
-                        "center": "115 Spur Rd, Clonbinane VIC 3658", 
-                        "markers": [{
-                          "lat": -36.1460,
-                          "lng": 144.7448
-                            },
-                          "229 Westgarth St, Northcote VIC 3070, Australia"
-                        ],
-                         "routes": [
-                                  {
-                                    "origin" : "32 Lane Cres, Reservoir VIC 3073, Australia",
-                                    "dest" : "121 Cardigan St, Carlton VIC 3053, Australia"
-                                  },
-                                  {
-                                    "origin" : {
-                                      "lat": -32.224693,
-                                      "lng": 148.631974
-                                    },
-                                    "dest" : {
-                                      "lat": -34.554699,
-                                      "lng": 138.961454
-                                    }
-                                  }
-                                ]
-                            
+                    "position": [2, 0],
+                    "rows": 1,
+                     "cols": 1,
+                      "style": {
+                        "marginTop": "30px",
+                        "height":"initial"
+
+                      },
+                     "children": [
+                       { 
+                        "h3": { "position": [0, 0], "children": "How do I know I can trust the driver or freight owner?" } },
+                         {
+                          "p": {
+                            "position": [0, 0],
+                             "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.",
+                              "style": { "color": "#676767", "lineHeight": "1.6em" }
+                          }
+                          }
+                      ] 
+                    } 
+                },
+                   {
+                  "Grid": {
+                    "position": [3, 0],
+                    "rows": 1,
+                    "cols": 1,
+                    "style": {
+                      "marginTop": "30px",
+                      "height":"initial"
+
+                    },
+                     "children": [
+                       { 
+                        "h3": { "position": [0, 0], "children": "What about high cost freight movements? Say, $10K or more. How do you transact payment?" } },
+                         {
+                          "p": {
+                            "position": [0, 0],
+                             "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.",
+                              "style": { "color": "#676767", "lineHeight": "1.6em" }
+                          }
+                          }
+                      ] 
+                    } 
+                },
+                 { 
+                  "Grid": {
+                  "position": [4, 0],
+                  "rows": 1,
+                  "cols": 1,
+                  "style": { "marginTop": "30px",
+                    "height":"initial"
+                   },
+                   "children": [
+                    {
+                      "h3":{
+                        "position": [0, 0],
+                        "children": "How do I know I can trust the driver or freight owner?" 
                       }
-                      }]
-                  }
+                    },
+                    {
+                      "p":{
+                        "position": [0, 0],
+                        "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.", "style": { "color": "#676767", "lineHeight": "1.6em" } } }] 
+                      } 
                 }
               ]
             }
           },
           {
             "Footer": {
-              "position": [5, 0],
+              "position": [4, 0],
               "style": {
                 "position": "absolute"
               },
-              "poweredBy": {
-                "caption": "Channel40"
+              "poweredBy" : {
+                  "caption" : "Channel40"
               }
             }
           }
