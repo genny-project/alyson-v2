@@ -12,10 +12,11 @@ class Footer extends Component {
   static propTypes = {
     className: string,
     style: object,
+    children: any
   }
 
   render() {
-    const { className, version, poweredBy, style, } = this.props;
+    const { className, version, poweredBy, style} = this.props;
 
     const componentStyle = {
       ...style,
@@ -32,6 +33,7 @@ class Footer extends Component {
               { poweredBy.caption ? <span>{poweredBy.caption}</span> : null }
             </div>
           : null }
+          {this.props.children}
     	</div>
     );
   }

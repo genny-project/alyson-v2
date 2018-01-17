@@ -226,12 +226,130 @@
           {
             "Footer": {
               "position": [4, 0],
+              "rows":1,
+              "cols":5,
               "style": {
-                "position": "absolute"
+                "height":"auto",
+                "display":"flex",
+                "justifyContent": "space-around"
               },
-              "poweredBy" : {
-                  "caption" : "Channel40"
-              }
+              "children": [
+                {
+                  "Grid": {
+                    "rows":1,
+                    "cols":1,
+                    "position":[0,0],
+                    "children": [
+                      {
+                        "h1": {
+                          "style": {
+                            "color": "#fff",
+                            "fontSize": "18px"
+                          },
+                          "position":[0,0],
+                          "children": "Channel 40"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "rows":1,
+                    "cols":1,
+                    "position":[0,1],
+                    "style": {"color": "#fff"},
+                    "children": [
+                      {
+                        "p": {
+                          "position":[0,0],
+                          "children": "SITE LINKS"
+                        }
+                      },
+                      {
+                        "ul":{
+                          "position": [0,0],
+                          "children": [
+                            {
+                              "li": {
+                                "children": "About Channel 40 "
+                              }
+                            },
+                            { "li": { "children": "Drivers " } },
+                            { "li": { "children": "Freight Owners" } },
+                            { "li": { "children": "FAQ's " } },
+                            { "li": { "children": "Media" } },
+                            { "li": { "children": "Contact" } }
+
+                          ]
+                        }
+                      }
+                    ]
+
+                  }
+                },
+                {
+                  "Grid": {
+                    "rows":1,
+                    "cols":1,
+                    "position":[0,2],
+                    "style": {"color": "#fff"},
+                    "children": [
+                      {
+                        "p": {
+                          "position":[0,0],
+                          "children": "LEGALS"
+                        }
+                      },
+                      {
+                        "ul":{
+                          "position": [0,0],
+                          "children": [
+                            {"li": {"children": "Terms of Use"}},
+                            { "li": { "children": "Privacy Policy " } },
+                            { "li": { "children": "Policies" } }
+
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,3],
+                    "rows":1,
+                    "cols":1,
+                    "style": {"color": "#fff"},
+                    "children": [
+                      {
+                        "p": {
+                          "position":[0,0],
+                          "children": "NEWSLETTER"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,4],
+                    "rows":1,
+                    "cols":1,
+                    "style": {"color": "#fff"},
+                    "children":[
+                      {
+                        "position": [0,0],
+                        "p": {
+                          "style": {"color":"#fff"},
+                          "children": "Social Media Goes"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+             
             }
           }
         ]
