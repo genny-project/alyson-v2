@@ -111,6 +111,10 @@
 		background: $error;
 	}
 
+	&.warning > button {
+		background: #f26423;
+	}
+
 	&.form-cancel {
 
 		> button {
