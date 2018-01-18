@@ -3,18 +3,21 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": 6,
-        "style": {"height": "initial"},
+        "rows":4,
+        "style" : {
+          "height" : "auto"
+        },
         "children": [
-          {
+             {
             "Header": {
               "position": [0, 0],
+              "row":1,
               "style": {
                 "backgroundColor": "white",
                 "color": "black",
-                "width": "100%",
+                "width": "900px",
                 "margin": "0 auto",
-                "maxHeight": "80px"
+                "height": "80px"
               },
               "cols": [
                 {
@@ -34,137 +37,44 @@
                 }
               ],
               "rows": [{ "style": { "flexGrow": 1, "width": "100%" } }],
-              "rows":1,
-              "cols":6,
               "children": [
                 {
-                  "Grid": {
-                    "position":[0,0],
-                    "rows":1,
-                    "cols":1,
-                    "children": [
-                      {
-                        "h1": {
-                          "position":[0,0],
-                          "children": "Channel 40"
-                        }
-                      }
-                    ]
+                  "h1": {
+                    "position": [0, 0],
+                    "style": {
+                      "margin": 0
+                    },
+                    "children": "CHANNEL40"
                   }
                 },
                 {
-                  "Grid": {
-                    "position":[0,1],
-                    "rows":1,
-                    "cols":1,
-                    "style": {
-                      "padding": "30px 0"
-                    },
-                    "children": [
-                      {
-                        "span": {
-                          "position":[0,0],
-                          "children": "for"
-                        }
-                      }
-                    ]
-                  }
-                },
-                
-                {
-                  "Grid": {
-                    "position":[0,2],
-                    "rows":1,
-                    "cols":1,
-                    "style": {
-                      "padding": "30px 0"
-                    },
-                    "children": [
-                      {
-                        "span": {
-                          "position":[0,0],
-                          "children": "Business Companies"
-                        }
-                      }
-                    ]
+                  "span": {
+                    "position": [0, 1],
+                    "children": "For"
                   }
                 },
                 {
-                  "Grid": {
-                    "position":[0,3],
-                    "rows":1,
-                    "cols":1,
-                    "style": {
-                      "padding": "30px 0"
-                    },
-                    "children": [
-                      {
-                        "span": {
-                          "position":[0,0],
-                          "children": "Become a Driver"
-                        }
-                      }
-                    ]
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Businesses Companies"
                   }
                 },
                 {
-                  "Grid": {
-                    "position":[0,4],
-                    "rows":1,
-                    "cols":1,
-                    "style": {
-                      "padding": "30px 0"
-                    },
-                    "children": [
-                      {
-                        "span": {
-                          "position":[0,0],
-                          "children": "Register"
-                        }
-                      }
-                    ]
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Become a Driver"
                   }
                 },
                 {
-                  "Grid": {
-                    "position": [0, 5],
-                    "rows": 1,
-                    "cols": 1,
-                    "style": {
-                      "padding": "30px 0"
-                    },
-                    "children": [
-                      {
-                        "span": {
-                           "position": [0, 0],
-                          "children": "Login" 
-                        }
-                      }
-                    ] 
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Register"
                   }
-                }
-              ]
-            }
-          },
-          {
-            "div": {
-              "position": [0, 0],
-              "style": {
-                "backgroundColor": "white",
-                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
-                "color": "white",
-                "height": "200px"
-              },
-              "children": [     
-                { "h1": 
-                  { "position": [0, 0],
-                    "children": "Frequently Asked Questions" ,
-                    "style": {
-                      "display": "flex",
-                      "textAlign": "center",
-                      "justifyContent":"center",
-                      "paddingTop": 80
-                    }
+                },
+                {
+                  "span": {
+                    "position": [0, 1],
+                    "children": "Log In"
                   }
                 }
               ]
@@ -172,572 +82,501 @@
           },
           {
             "Grid":{
-              "rows": 5,
+              "position": [1,0],
+              "rows":1,
               "cols":1,
-              "position": [2,0],
               "style": {
-                "backgroundColor": "white",
-                "color": "black",
-                "padding": "60px 10%",
-                "height":"initial"
+                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
+                "textAlign": "left",
+                "alignItems":"center",
+                "height": "initial"
               },
-              "children":[
+              "children": [
                 {
-                  "Grid": {
-                    "position":[0,0],
-                    "rows":1,
-                    "cols":1,
+                  "h1": {
+                    "position": [0,0],
+                    "children": "Team Members",
                     "style": {
-                      "marginTop": "60px",
-                      "height":"auto"
-                },
-                    "children": [
-                      {
-                        "h3": { "position": [0,0], "children": "Why comission and not subscription like the others?"}
-                      },
-                      {
-                        "p": {"position": [0,0],
-                          "children": "The Commission based model is the only method that 100% guarantees that you can never lose out in being a Channel 40 user. It is totally free to download and create an account. You only ever pay a commission when you receive a job as a driver. With a subscription model, there is no guarantee that you will secure work and the only way you can find work is by rolling the dice and paying your monthly fee and hope that you can get a job. Our model is similar to that of Uber if you like – drivers lose a small clip on each job, but it is free to use otherwise and when you know you are getting paid on delivery, the value add in this case is huge.",
-                          "style": {
-                            "color": "#676767",
-                            "lineHeight": "1.6em"
-                          }
-                        }
-                      }
-                    ]
+                      "color": "#fff",
+                      "height":"100px",
+                      "paddingTop": "30px"
+                    }
                   }
-                },
-                { "Grid": {
-                  "position": [1, 0],
-                  "rows": 1,
-                  "cols": 1,
-                  "style": {"marginTop": "30px","height":"initial"
-                  },
-                  "children": [
-                    { "h3":
-                      { "position": [0, 0],
-                        "children": "What is the commission amount, and where does this money go?" }
-                    },
-                    {
-                      "p": { "position": [0, 0], "children": "We are implementing a very lean commission model, with well over 50% of the commission going into the facilitation of the payment (merchant fees if you like) and cargo insurance – which we are sure you will agree makes life a lot easier and more secure for both parties. On average, Channel 40 will take less than 5% of the total job amount, and much less for the higher freight cost jobs.", "style": { "color": "#676767", "lineHeight": "1.6em" } } }] 
-                    } 
-                },
-                {
-                  "Grid": {
-                    "position": [2, 0],
-                    "rows": 1,
-                     "cols": 1,
-                      "style": {
-                        "marginTop": "30px",
-                        "height":"initial"
-
-                      },
-                     "children": [
-                       { 
-                        "h3": { "position": [0, 0], "children": "How do I know I can trust the driver or freight owner?" } },
-                         {
-                          "p": {
-                            "position": [0, 0],
-                             "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.",
-                              "style": { "color": "#676767", "lineHeight": "1.6em" }
-                          }
-                          }
-                      ] 
-                    } 
-                },
-                   {
-                  "Grid": {
-                    "position": [3, 0],
-                    "rows": 1,
-                    "cols": 1,
-                    "style": {
-                      "marginTop": "30px",
-                      "height":"initial"
-
-                    },
-                     "children": [
-                       { 
-                        "h3": { "position": [0, 0], "children": "What about high cost freight movements? Say, $10K or more. How do you transact payment?" } },
-                         {
-                          "p": {
-                            "position": [0, 0],
-                             "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.",
-                              "style": { "color": "#676767", "lineHeight": "1.6em" }
-                          }
-                          }
-                      ] 
-                    } 
-                },
-                 { 
-                  "Grid": {
-                  "position": [4, 0],
-                  "rows": 1,
-                  "cols": 1,
-                  "style": { "marginTop": "30px",
-                    "height":"initial"
-                   },
-                   "children": [
-                    {
-                      "h3":{
-                        "position": [0, 0],
-                        "children": "How do I know I can trust the driver or freight owner?" 
-                      }
-                    },
-                    {
-                      "p":{
-                        "position": [0, 0],
-                        "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.", "style": { "color": "#676767", "lineHeight": "1.6em" } } }] 
-                      } 
                 }
               ]
             }
           },
-            {
-              "Grid": {
-                "position": [4,0],
-                "rows": 1,
-                "cols":1,
-                "style": {
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "padding": "40px",
-                  "backgroundColor": "#363636",
-                  "color": "#fff"
-                },
-                "children": [
+          {
+            "div": {
+              "position": [2,0],
+              "rows":3,
+              "cols":2,
+              "style": {
+                "display": "flex",
+                "justifyContent": "space-around",
+                "padding": "20px 200px",
+                "flexWrap": "wrap",
+                "marginTop": "40px",
+                "backgroundColor":"#fff"
+              },
+              "children": [
+                   {
+                    "Grid": {
+                      "position": [0, 0],
+                      "rows": 3,
+                      "cols": 1,
+                      "style": {"display": "flex", "flex": 6},
+                      "children": [
+                        {
+                          "ImageView": 
+                          {
+                            "position": [0, 0],
+                            "style": {
+                              "width": "100%"
+                              },
+                            "src": "https://i.imgur.com/5mbZZUK.jpg" 
+                          }
+                        },
+                        {
+                          "h3":
+                            {
+                              "position": [0,0],
+                              "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country.",
+                              "style": {
+                                "fontSize": "20px",
+                                "lineHeight": "1.7em",
+                                "color":"black"
+                              }
+                            }
+                        },
+                        {
+                         "div": {
+                           "position": [0,0],
+                           "rows":1,
+                           "cols":2,
+                           "style": {"display": "flex", "flexDirection": "row", "justifyContent":"center", "paddingBottom": "10px", "borderBottom": "1px solid #e3e3e3"},
+                           "children": [
+                             { 
+                               "ImageView":
+                                {
+                                  "position":[0,0],
+                                  "style":{"height":80, "width":100,"paddingRight": "20px", "flexGrow":0},
+                                  "src": "http://channel40.com.au/wp-content/uploads/2017/01/quote.png"
+                                }
+                              },
+                              {
+                                "div":
+                                {
+                                  "position":[0,1],
+                                  "rows":1,
+                                  "cols":1,
+                                  "children": [
+                                    { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "lineHeight": "1.6em", "fontWeight": 200 }, "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country. We connect freight owners to truck drivers like never before – offering the latest technology to assist with tracking your load, offering insurance and even to facilitating the payment transaction. Transport just got a whole lot simpler." } },
+                                    { "p": { "position": [0, 1], "style": { "color": "#6a6a6a", "lineHeight": "1.6em", "fontWeight": 200 }, "children": "The founders of Channel 40 are active freight movers and have experienced the same frustrations as so many others from both sides of the industry. Channel 40 offers huge win-wins without either party losing out at all." } }
+
+                                  ]
+                                }
+                              }                           ]
+                         }                        
+                        }
+                      ]
+                    } 
+                  },
                   {
                     "Grid": {
-                      "position": [0,0],
+                      "position": [0,1],
                       "rows":1,
-                      "cols":1,
-                      "style": {"textAlign": "center"},
+                      "cols":2,
+                      "style": {
+                        "marginLeft":"70px",
+                        "height":"auto",
+                        "backgroundColor": "#f26522",
+                        "padding":20,
+                        "display":"flex"
+                      },
                       "children": [
-                            {
-                    "h1": 
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position": [0,0],
+                            "children": [
+                              {
+                                "h1": {
+                                  "position": [0,0],
+                                  "style": {"color": "#fff"},
+                                  "children": "Download the new App"
+                                }
+                              },
+                              {
+                                "p": {
+                                  "position": [0, 0],
+                                  "style": { "color": "#fff" },
+                                  "children": "The app is available for download from App Store and Play Store Today" 
+                                } 
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position": [0,1],
+                            "children": [
+                              
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+              ]
+            }
+          },
+          {
+            "Grid": {
+              "position":[2,0],
+              "rows":6,
+              "cols":1,
+              "style": {
+                "marginTop": "100px",
+                "padding": "0 200px",
+                "color": "#f26522",
+                "backgroundColor":"#fff",
+                "marginBottom":"100px",
+                "height": "initial"
+
+              },
+              "children": [
+                {
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":4,
+                    "cols":1,
+                    "children": [
+                         {
+                  "Grid": {
+                    "position":[1,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
                       {
-                        "position": [0,0],
-                        "children": "Seen Enough? ",
-                        "style": {
-                          "color": "#fff",
-                          "fontSize": "42px"
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                              "h1": {
+                                "position": [0,0],"children": "Tom Cavanagh"
+                              }
+                            },
+                            {
+                            "p": {
+                              "position": [0,0],
+                              "style":
+                               {
+                                "color":"#6a6a6a",
+                                "fontSize": "24px"
+                              },
+                              "children": "Founder"
+                            }
+                            },
+                            {
+                            "p": {
+                              "position": [0,0],
+                              "style": 
+                              {
+                                "color":"#6a6a6a",
+                                "lineHeight":"1.7em",
+                                "flexGrow":3
+                              },
+                              "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
+                            }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":200,
+                            "width":150
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-tom-e1503270711248.jpg"
                         }
                       }
-                    
+                      
+                       
+
+                    ]
+                  }
+                },
+                     {
+                  "Grid": {
+                    "position":[1,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
+                      {
+                        "Grid": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                  "h1": {"position": [0,0],"children": "Tom Cavanagh"}
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {
+                    "color":"#6a6a6a",
+                    "fontSize": "24px"
+                  },
+                    "children": "Founder"
+                  }
                   },
                   {
                     "p": {
                       "position": [0,0],
                       "style": {
-                        "color": "#fff",
-                        "fontSize": "18px"
+                        "color":"#6a6a6a",
+                        "lineHeight":"1.7em"
                       },
-                      "children": "Time to get your account and get trucking smarter"
-                    }
-                  },
-                  {
-                    "GennyButton": {
-                      "position": [0,0],
-                      "className": "warning",
-                      "children": "Create an Account"
+                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
                     }
                   }
-
-                      ]
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "Device": {
-                "isDesktop": true,
-                "position": [5, 0],
-                "children": [
-                  {
-                    "Footer": {
-                      "rows":1,
-                      "cols":5,
-                      "style": {
-                        "height":"auto",
-                        "display":"flex",
-                        "justifyContent": "center",
-                        "alignItems":"flex-start",
-                        "padding": "50px 10%",
-                        "flexWrap": "wrap",
-                        "backgroundColor": "#fefefe"
-                      },
-                      "children": [
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position":[0,0],
-                            "style": {
-                              "flexBasis": "300px"
-                            },
-                            "children": [
-                              {
-                                "h1": {
-                                  "style": {
-                                    "fontSize": "26px",
-                                    "color": "#c3c3c3"
-                                  },
-                                  "position":[0,0],
-                                  "children": "Channel 40"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position":[0,1],
-                            "style": {
-                              "flexBasis": "250px"
-                            },
-                            "children": [
-                              {
-                                "p": {
-                                  "position":[0,0],
-                                  "children": "SITE LINKS",
-                                  "style": {
-                                    "fontWeight":600,
-                                    "color": "#777"
-                                  }
-                                }
-                              },
-                              {
-                                "ul":{
-                                 "style": {
-                                    "listStyleType": "none",
-                                    "padding":"0px",
-                                    "lineHeight": "1.7em",
-                                    "color": "#777",
-                                    "textDecoration": "underline"
-                                  },
-                                  "position": [0,0],
-                                  "children": [
-                                    {
-                                      "li": {
-                                        "children": "About Channel 40 "
-                                      }
-                                    },
-                                    { "li": { "children": "Drivers " } },
-                                    { "li": { "children": "Freight Owners" } },
-                                    { "li": { "children": "FAQ's " } },
-                                    { "li": { "children": "Media" } },
-                                    { "li": { "children": "Contact" } }
-
-                                  ]
-                                }
-                              }
-                            ]
-
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position":[0,2],
-                            "style": {
-                              "flexBasis": "250px"
-                            },
-                            "children": [
-                              {
-                                "p": {
-                                  "position":[0,0],
-                                  "children": "LEGALS",
-                                  "style": {
-                                    "fontWeight": 600,
-                                    "color": "#777"
-                                  }
-                                }
-                              },
-                              {
-                                "ul":{
-                                  "style": {
-                                    "listStyleType": "none",
-                                    "padding":"0px",
-                                    "lineHeight": "1.7em",
-                                    "color": "#777",
-                                    "textDecoration": "underline"
-                                  },
-                                  "position": [0,0],
-                                  "children": [
-                                    {"li": {"children": "Terms of Use"}},
-                                    { "li": { "children": "Privacy Policy " } },
-                                    { "li": { "children": "Policies" } }
-
-                                  ]
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "position":[0,3],
-                            "rows":1,
-                            "cols":1,
-                            "style": {
-                              "justifyContent":"flex-start",
-                              "alignItems": "flex-start",
-                              "flexBasis": "250px"
-
-                            },
-                            "children": [
-                              {
-                                "p": {
-                                  "position":[0,0],
-                                  "style": {
-                                    "fontWeight": 600,
-                                    "color": "#777"
-                                  },
-                                  "children": "NEWSLETTER"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "position":[0,4],
-                            "rows":1,
-                            "cols":1,
-                            "style": {
-                              "flexBasis": "250px"
-                            },
-                            "children":[
-                              {
-                                "p": {
-                                  "style": {
-                                    "fontWeight": 600,
-                                    "color": "#777"
-                                  },
-                                  "position":[0,0],
-                                  "children": "SOCIAL MEDIA"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "Device": {
-                "isMobile": true,
-                "position":[5,0],
-                "children": [
-                  {
-                    "Footer": {
-                      "rows":1,
-                      "cols":5,
-                      "style": {
-                        "height":"auto",
-                        "display":"flex",
-                        "flexDirection": "column",
-                        "justifyContent": "space-around",
-                        "alignItems":"center",
-                        "padding": "50px 0",
-                        "flexWrap": "wrap",
-                        "backgroundColor": "#fefefe"
-                      },
-                      "children": [
-                        {
-                          "div": {
-                            "style": {
-                              "justifyContent": "center",
-                              "alignItems":"center"
-                            },
-                            "children": [
-                              {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position":[0,0],
-                            "style": {
-                              "display":"flex",
-                              "justifyContent":"flex-start",
-                              "alignItems":"flex-start",
-                              "width":"100%"
-                            },
-                            "children": [
-                              {
-                                "h1": {
-                                  "style": {
-                                    "fontSize": "26px",
-                                    "color": "#c3c3c3"
-                                  },
-                                  "position":[0,0],
-                                  "children": "Channel 40"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position":[0,1],
-                            "style": {
-                              "display":"flex",
-                              "justifyContent":"flex-start",
-                              "alignItems":"flex-start",
-                              "width":"100%"
-
-                            },
-                            "children": [
-                              {
-                                "p": {
-                                  "position":[0,0],
-                                  "children": "SITE LINKS",
-                                  "style": {
-                                    "fontWeight":600,
-                                    "color": "#777"
-                                  }
-                                }
-                              },
-                              {
-                                "ul":{
-                                  "style": {
-                                    "alignItems": "none",
-                                    "padding": "0px",
-                                    "textDecoration": "underline",
-                                    "color": "#777"
-                                  },
-                                  "position": [0,0],
-                                  "children": [
-                                    {
-                                      "li": {
-                                        "children": "About Channel 40 "
-                                      }
-                                    },
-                                    { "li": { "children": "Drivers " } },
-                                    { "li": { "children": "Freight Owners" } },
-                                    { "li": { "children": "FAQ's " } },
-                                    { "li": { "children": "Media" } },
-                                    { "li": { "children": "Contact" } }
-
-                                  ]
-                                }
-                              }
-                            ]
-
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position":[0,2],
-                            "style": {
-                              "display":"flex",
-                              "justifyContent":"flex-start",
-                              "alignItems":"flex-start",
-                              "width":"100%"
-                            },
-                            "children": [
-                              {
-                                "p": {
-                                  "position":[0,0],
-                                  "style": {
-                                    "fontWeight":600,
-                                    "color": "#777"
-                                  },
-                                  "children": "LEGALS"
-                                
-                                }
-                              },
-                              {
-                                "ul":{
-                                  "position": [0,0],
-                                  "style": {
-                                    "padding":"0",
-                                    "textDecoration": "underline",
-                                    "color": "#777"
-                                  },
-                                  "children": [
-                                    {"li": {"children": "Terms of Use"}},
-                                    { "li": { "children": "Privacy Policy " } },
-                                    { "li": { "children": "Policies" } }
-
-                                  ]
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "position":[0,3],
-                            "rows":1,
-                            "cols":1,
-                            "style": {
-                              "display":"flex",
-                              "justifyContent":"flex-start",
-                              "alignItems":"flex-start",
-                              "width":"100%"
-
-                            },
-                            "children": [
-                              {
-                                "p": {
-                                  "position":[0,0],
-                                  "children": "NEWSLETTER",
-                                  "style": {
-                                    "fontWeight": 600,
-                                    "color": "#777"
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "position":[0,4],
-                            "rows":1,
-                            "cols":1,
-                            "style": {
-                              "display":"flex",
-                              "justifyContent":"flex-start",
-                              "alignItems":"flex-start",
-                              "width":"100%"
-                            },
-                            "children":[
-                              {
-                                "p": {
-                                  "position":[0,0],
-                                  "children": "SOCIAL MEDIA",
-                                  "style": {
-                                    "fontWeight": 600,
-                                    "color": "#777"
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        }
-                            ]
-                          }
+                          ]
                         }
                         
-                      ]
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":200,
+                            "width":150,
+                            "padding": "100px 0"
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-tom-e1503270711248.jpg"
+                        }}
+                    ]
+                  }
+                },
+                      {
+                  "Grid": {
+                    "position":[2,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
+                      {
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                  "h1": {"position": [0,0],"children": "Tom Cavanagh"}
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {
+                    "color":"#6a6a6a",
+                    "fontSize": "24px"
+                  },
+                    "children": "Founder"
+                  }
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color":"#6a6a6a",
+                        "lineHeight":"1.7em"
+                      },
+                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
                     }
                   }
+                          ]
+                        }
+                        
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":200,
+                            "width":150,
+                            "padding": "100px 0"
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-tom-e1503270711248.jpg"
+                        }}
+                      
+                       
+
+                    ]
+                  }
+                },
+                 {
+                  "Grid": {
+                    "position":[3,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
+                      {
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                  "h1": {"position": [0,0],"children": "Josh Mullens"}
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {
+                    "color":"#6a6a6a",
+                    "fontSize": "24px"
+                  },
+                    "children": "Founder"
+                  }
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color":"#6a6a6a",
+                        "lineHeight":"1.7em"
+                      },
+                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
+                    }
+                  }
+                          ]
+                        }
+                        
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":200,
+                            "width":150,
+                            "padding": "100px 0"
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/08/Josh-Mullens-Channel-40-4-e1508718045251.jpg"
+                        }}
+                      
+                       
+
+                    ]
+                  }
+                },
+                 {
+                  "Grid": {
+                    "position":[4,0],
+                    "rows":1,
+                    "cols":2,
+                    "style": {"height": "initial"},
+                    "children":[
+                      {
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":1,
+                          "children": [
+                            {
+                  "h1": {"position": [0,0],"children": "Drew Davis"}
+                },
+                {
+                  "p": {
+                    "position": [0,0],
+                    "style": {
+                    "color":"#6a6a6a",
+                    "fontSize": "24px"
+                  },
+                    "children": "Founder"
+                  }
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color":"#6a6a6a",
+                        "lineHeight":"1.7em"
+                      },
+                      "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
+                    }
+                  }
+                          ]
+                        }
+                        
+                      },
+                      {
+                        "ImageView":{
+                          "position":[0,1],
+                          "rows":1,
+                          "cols":1,
+                          "style": {
+                            "height":"200px",
+                            "width":"150px",
+                            "padding": "100px 0"
+                          },
+                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-drew-e1503271388868.jpg"
+                        }}
+                      
+                       
+
+                    ]
+                  }
+                },
+                 { "Grid": { "position": [5, 0], "rows": 1, "cols": 2, "style": { "height": "initial" }, "children": [{ "div": { "position": [0, 0], "rows": 1, "cols": 1, "children": [{ "h1": { "position": [0, 0], "children": "Evan Schmalz" } }, { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "fontSize": "24px" }, "children": "Founder" } }, { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "lineHeight": "1.7em" }, "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites." } }] } }, { "ImageView": { "position": [0, 1], "rows": 1, "cols": 1, "style": { "height": 200, "width": 150, "padding": "100px 0" }, "src": "https://channel40.com.au/wp-content/uploads/2017/12/Evan-Schmalz-Freight-Coordinator-Channel-40-3-1-e1513835810986.jpg" } }] } }
+
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "rows":1,
+                    "cols":1,
+                    "position":[0,1],
+                    "children": [
+                      {
+                        "Grid": {
+                          "children": [
+                            {
+                              "h1": {"position": [0,0],"children": "hello world"}
+                            }
+                          ]
+                        }
+                      }
+
+                    ]
+                  }
+                }
+               
+               
+               
+                        
                 ]
-              }
             }
-          
+          }
         ]
       }
     }

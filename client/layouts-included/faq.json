@@ -1,0 +1,745 @@
+{
+  "layout": [
+    {
+      "AppHolder": {
+        "cols": 1,
+        "rows": 6,
+        "style": {"height": "initial"},
+        "children": [
+          {
+            "Header": {
+              "position": [0, 0],
+              "style": {
+                "backgroundColor": "white",
+                "color": "black",
+                "width": "100%",
+                "margin": "0 auto",
+                "maxHeight": "80px"
+              },
+              "cols": [
+                {
+                  "style": {
+                    "flexGrow": 0,
+                    "display": "flex",
+                    "alignItems": "center"
+                  }
+                },
+                {
+                  "style": {
+                    "flexGrow": 1,
+                    "display": "flex",
+                    "alignItems": "center",
+                    "justifyContent": "space-around"
+                  }
+                }
+              ],
+              "rows": [{ "style": { "flexGrow": 1, "width": "100%" } }],
+              "rows":1,
+              "cols":6,
+              "children": [
+                {
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":1,
+                    "cols":1,
+                    "children": [
+                      {
+                        "h1": {
+                          "position":[0,0],
+                          "children": "Channel 40"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,1],
+                    "rows":1,
+                    "cols":1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                          "position":[0,0],
+                          "children": "for"
+                        }
+                      }
+                    ]
+                  }
+                },
+                
+                {
+                  "Grid": {
+                    "position":[0,2],
+                    "rows":1,
+                    "cols":1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                          "position":[0,0],
+                          "children": "Business Companies"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,3],
+                    "rows":1,
+                    "cols":1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                          "position":[0,0],
+                          "children": "Become a Driver"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,4],
+                    "rows":1,
+                    "cols":1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                          "position":[0,0],
+                          "children": "Register"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position": [0, 5],
+                    "rows": 1,
+                    "cols": 1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                           "position": [0, 0],
+                          "children": "Login" 
+                        }
+                      }
+                    ] 
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "div": {
+              "position": [0, 0],
+              "style": {
+                "backgroundColor": "white",
+                "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
+                "color": "white",
+                "height": "200px"
+              },
+              "children": [     
+                { "h1": 
+                  { "position": [0, 0],
+                    "children": "Frequently Asked Questions" ,
+                    "style": {
+                      "display": "flex",
+                      "textAlign": "center",
+                      "justifyContent":"center",
+                      "paddingTop": 80
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Grid":{
+              "rows": 5,
+              "cols":1,
+              "position": [2,0],
+              "style": {
+                "backgroundColor": "white",
+                "color": "black",
+                "padding": "60px 10%",
+                "height":"initial"
+              },
+              "children":[
+                {
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":1,
+                    "cols":1,
+                    "style": {
+                      "marginTop": "60px",
+                      "height":"auto"
+                },
+                    "children": [
+                      {
+                        "h3": { "position": [0,0], "children": "Why comission and not subscription like the others?"}
+                      },
+                      {
+                        "p": {"position": [0,0],
+                          "children": "The Commission based model is the only method that 100% guarantees that you can never lose out in being a Channel 40 user. It is totally free to download and create an account. You only ever pay a commission when you receive a job as a driver. With a subscription model, there is no guarantee that you will secure work and the only way you can find work is by rolling the dice and paying your monthly fee and hope that you can get a job. Our model is similar to that of Uber if you like – drivers lose a small clip on each job, but it is free to use otherwise and when you know you are getting paid on delivery, the value add in this case is huge.",
+                          "style": {
+                            "color": "#676767",
+                            "lineHeight": "1.6em"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                { "Grid": {
+                  "position": [1, 0],
+                  "rows": 1,
+                  "cols": 1,
+                  "style": {"marginTop": "30px","height":"initial"
+                  },
+                  "children": [
+                    { "h3":
+                      { "position": [0, 0],
+                        "children": "What is the commission amount, and where does this money go?" }
+                    },
+                    {
+                      "p": { "position": [0, 0], "children": "We are implementing a very lean commission model, with well over 50% of the commission going into the facilitation of the payment (merchant fees if you like) and cargo insurance – which we are sure you will agree makes life a lot easier and more secure for both parties. On average, Channel 40 will take less than 5% of the total job amount, and much less for the higher freight cost jobs.", "style": { "color": "#676767", "lineHeight": "1.6em" } } }] 
+                    } 
+                },
+                {
+                  "Grid": {
+                    "position": [2, 0],
+                    "rows": 1,
+                     "cols": 1,
+                      "style": {
+                        "marginTop": "30px",
+                        "height":"initial"
+
+                      },
+                     "children": [
+                       { 
+                        "h3": { "position": [0, 0], "children": "How do I know I can trust the driver or freight owner?" } },
+                         {
+                          "p": {
+                            "position": [0, 0],
+                             "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.",
+                              "style": { "color": "#676767", "lineHeight": "1.6em" }
+                          }
+                          }
+                      ] 
+                    } 
+                },
+                   {
+                  "Grid": {
+                    "position": [3, 0],
+                    "rows": 1,
+                    "cols": 1,
+                    "style": {
+                      "marginTop": "30px",
+                      "height":"initial"
+
+                    },
+                     "children": [
+                       { 
+                        "h3": { "position": [0, 0], "children": "What about high cost freight movements? Say, $10K or more. How do you transact payment?" } },
+                         {
+                          "p": {
+                            "position": [0, 0],
+                             "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.",
+                              "style": { "color": "#676767", "lineHeight": "1.6em" }
+                          }
+                          }
+                      ] 
+                    } 
+                },
+                 { 
+                  "Grid": {
+                  "position": [4, 0],
+                  "rows": 1,
+                  "cols": 1,
+                  "style": { "marginTop": "30px",
+                    "height":"initial"
+                   },
+                   "children": [
+                    {
+                      "h3":{
+                        "position": [0, 0],
+                        "children": "How do I know I can trust the driver or freight owner?" 
+                      }
+                    },
+                    {
+                      "p":{
+                        "position": [0, 0],
+                        "children": "Quality, transparency, trust and reliability are important to Channel 40. We are committed to supporting drivers and freight owners in collectively raising the industry standards. Like all of the other existing load shifting sites out there, it is very hard to have trust that either party is going to live up to their end of the deal. For drivers, Channel 40 reduces the risk of late payments (or worse, non-payments) by requiring pre-commitment from the freight owner, which is safely stored in escrow and released upon successful completion of the job. Freight owners have peace of mind about who’s moving their loads and how by viewing the driver’s profile, where they can see details of the vehicle, previous jobs completed, reviews and more.", "style": { "color": "#676767", "lineHeight": "1.6em" } } }] 
+                      } 
+                }
+              ]
+            }
+          },
+            {
+              "Grid": {
+                "position": [4,0],
+                "rows": 1,
+                "cols":1,
+                "style": {
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "padding": "40px",
+                  "backgroundColor": "#363636",
+                  "color": "#fff"
+                },
+                "children": [
+                  {
+                    "Grid": {
+                      "position": [0,0],
+                      "rows":1,
+                      "cols":1,
+                      "style": {"textAlign": "center"},
+                      "children": [
+                            {
+                    "h1": 
+                      {
+                        "position": [0,0],
+                        "children": "Seen Enough? ",
+                        "style": {
+                          "color": "#fff",
+                          "fontSize": "42px"
+                        }
+                      }
+                    
+                  },
+                  {
+                    "p": {
+                      "position": [0,0],
+                      "style": {
+                        "color": "#fff",
+                        "fontSize": "18px"
+                      },
+                      "children": "Time to get your account and get trucking smarter"
+                    }
+                  },
+                  {
+                    "GennyButton": {
+                      "position": [0,0],
+                      "className": "warning",
+                      "children": "Create an Account"
+                    }
+                  }
+
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Device": {
+                "isDesktop": true,
+                "position": [5, 0],
+                "children": [
+                  {
+                    "Footer": {
+                      "rows":1,
+                      "cols":5,
+                      "style": {
+                        "height":"auto",
+                        "display":"flex",
+                        "justifyContent": "center",
+                        "alignItems":"flex-start",
+                        "padding": "50px 10%",
+                        "flexWrap": "wrap",
+                        "backgroundColor": "#fefefe"
+                      },
+                      "children": [
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,0],
+                            "style": {
+                              "flexBasis": "300px"
+                            },
+                            "children": [
+                              {
+                                "h1": {
+                                  "style": {
+                                    "fontSize": "26px",
+                                    "color": "#c3c3c3"
+                                  },
+                                  "position":[0,0],
+                                  "children": "Channel 40"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,1],
+                            "style": {
+                              "flexBasis": "250px"
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "SITE LINKS",
+                                  "style": {
+                                    "fontWeight":600,
+                                    "color": "#777"
+                                  }
+                                }
+                              },
+                              {
+                                "ul":{
+                                 "style": {
+                                    "listStyleType": "none",
+                                    "padding":"0px",
+                                    "lineHeight": "1.7em",
+                                    "color": "#777",
+                                    "textDecoration": "underline"
+                                  },
+                                  "position": [0,0],
+                                  "children": [
+                                    {
+                                      "li": {
+                                        "children": "About Channel 40 "
+                                      }
+                                    },
+                                    { "li": { "children": "Drivers " } },
+                                    { "li": { "children": "Freight Owners" } },
+                                    { "li": { "children": "FAQ's " } },
+                                    { "li": { "children": "Media" } },
+                                    { "li": { "children": "Contact" } }
+
+                                  ]
+                                }
+                              }
+                            ]
+
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,2],
+                            "style": {
+                              "flexBasis": "250px"
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "LEGALS",
+                                  "style": {
+                                    "fontWeight": 600,
+                                    "color": "#777"
+                                  }
+                                }
+                              },
+                              {
+                                "ul":{
+                                  "style": {
+                                    "listStyleType": "none",
+                                    "padding":"0px",
+                                    "lineHeight": "1.7em",
+                                    "color": "#777",
+                                    "textDecoration": "underline"
+                                  },
+                                  "position": [0,0],
+                                  "children": [
+                                    {"li": {"children": "Terms of Use"}},
+                                    { "li": { "children": "Privacy Policy " } },
+                                    { "li": { "children": "Policies" } }
+
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "position":[0,3],
+                            "rows":1,
+                            "cols":1,
+                            "style": {
+                              "justifyContent":"flex-start",
+                              "alignItems": "flex-start",
+                              "flexBasis": "250px"
+
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "style": {
+                                    "fontWeight": 600,
+                                    "color": "#777"
+                                  },
+                                  "children": "NEWSLETTER"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "position":[0,4],
+                            "rows":1,
+                            "cols":1,
+                            "style": {
+                              "flexBasis": "250px"
+                            },
+                            "children":[
+                              {
+                                "p": {
+                                  "style": {
+                                    "fontWeight": 600,
+                                    "color": "#777"
+                                  },
+                                  "position":[0,0],
+                                  "children": "SOCIAL MEDIA"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Device": {
+                "isMobile": true,
+                "position":[5,0],
+                "children": [
+                  {
+                    "Footer": {
+                      "rows":1,
+                      "cols":5,
+                      "style": {
+                        "height":"auto",
+                        "display":"flex",
+                        "flexDirection": "column",
+                        "justifyContent": "space-around",
+                        "alignItems":"center",
+                        "padding": "50px 0",
+                        "flexWrap": "wrap",
+                        "backgroundColor": "#fefefe"
+                      },
+                      "children": [
+                        {
+                          "div": {
+                            "style": {
+                              "justifyContent": "center",
+                              "alignItems":"center"
+                            },
+                            "children": [
+                              {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,0],
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"flex-start",
+                              "alignItems":"flex-start",
+                              "width":"100%"
+                            },
+                            "children": [
+                              {
+                                "h1": {
+                                  "style": {
+                                    "fontSize": "26px",
+                                    "color": "#c3c3c3"
+                                  },
+                                  "position":[0,0],
+                                  "children": "Channel 40"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,1],
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"flex-start",
+                              "alignItems":"flex-start",
+                              "width":"100%"
+
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "SITE LINKS",
+                                  "style": {
+                                    "fontWeight":600,
+                                    "color": "#777"
+                                  }
+                                }
+                              },
+                              {
+                                "ul":{
+                                  "style": {
+                                    "alignItems": "none",
+                                    "padding": "0px",
+                                    "textDecoration": "underline",
+                                    "color": "#777"
+                                  },
+                                  "position": [0,0],
+                                  "children": [
+                                    {
+                                      "li": {
+                                        "children": "About Channel 40 "
+                                      }
+                                    },
+                                    { "li": { "children": "Drivers " } },
+                                    { "li": { "children": "Freight Owners" } },
+                                    { "li": { "children": "FAQ's " } },
+                                    { "li": { "children": "Media" } },
+                                    { "li": { "children": "Contact" } }
+
+                                  ]
+                                }
+                              }
+                            ]
+
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position":[0,2],
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"flex-start",
+                              "alignItems":"flex-start",
+                              "width":"100%"
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "style": {
+                                    "fontWeight":600,
+                                    "color": "#777"
+                                  },
+                                  "children": "LEGALS"
+                                
+                                }
+                              },
+                              {
+                                "ul":{
+                                  "position": [0,0],
+                                  "style": {
+                                    "padding":"0",
+                                    "textDecoration": "underline",
+                                    "color": "#777"
+                                  },
+                                  "children": [
+                                    {"li": {"children": "Terms of Use"}},
+                                    { "li": { "children": "Privacy Policy " } },
+                                    { "li": { "children": "Policies" } }
+
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "position":[0,3],
+                            "rows":1,
+                            "cols":1,
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"flex-start",
+                              "alignItems":"flex-start",
+                              "width":"100%"
+
+                            },
+                            "children": [
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "NEWSLETTER",
+                                  "style": {
+                                    "fontWeight": 600,
+                                    "color": "#777"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "position":[0,4],
+                            "rows":1,
+                            "cols":1,
+                            "style": {
+                              "display":"flex",
+                              "justifyContent":"flex-start",
+                              "alignItems":"flex-start",
+                              "width":"100%"
+                            },
+                            "children":[
+                              {
+                                "p": {
+                                  "position":[0,0],
+                                  "children": "SOCIAL MEDIA",
+                                  "style": {
+                                    "fontWeight": 600,
+                                    "color": "#777"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                            ]
+                          }
+                        }
+                        
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          
+        ]
+      }
+    }
+  ]
+}
