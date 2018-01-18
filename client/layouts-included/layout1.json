@@ -34,44 +34,113 @@
                 }
               ],
               "rows": [{ "style": { "flexGrow": 1, "width": "100%" } }],
+              "rows":1,
+              "cols":6,
               "children": [
                 {
-                  "h1": {
-                    "position": [0, 0],
+                  "Grid": {
+                    "position":[0,0],
+                    "rows":1,
+                    "cols":1,
+                    "children": [
+                      {
+                        "h1": {
+                          "position":[0,0],
+                          "children": "Channel 40"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Grid": {
+                    "position":[0,1],
+                    "rows":1,
+                    "cols":1,
                     "style": {
-                      "margin": 0
+                      "padding": "30px 0"
                     },
-                    "children": "CHANNEL40"
+                    "children": [
+                      {
+                        "span": {
+                          "position":[0,0],
+                          "children": "for"
+                        }
+                      }
+                    ]
+                  }
+                },
+                
+                {
+                  "Grid": {
+                    "position":[0,2],
+                    "rows":1,
+                    "cols":1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                          "position":[0,0],
+                          "children": "Business Companies"
+                        }
+                      }
+                    ]
                   }
                 },
                 {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "For"
+                  "Grid": {
+                    "position":[0,3],
+                    "rows":1,
+                    "cols":1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                          "position":[0,0],
+                          "children": "Become a Driver"
+                        }
+                      }
+                    ]
                   }
                 },
                 {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "Businesses Companies"
+                  "Grid": {
+                    "position":[0,4],
+                    "rows":1,
+                    "cols":1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                          "position":[0,0],
+                          "children": "Register"
+                        }
+                      }
+                    ]
                   }
                 },
                 {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "Become a Driver"
-                  }
-                },
-                {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "Register"
-                  }
-                },
-                {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "Log In"
+                  "Grid": {
+                    "position": [0, 5],
+                    "rows": 1,
+                    "cols": 1,
+                    "style": {
+                      "padding": "30px 0"
+                    },
+                    "children": [
+                      {
+                        "span": {
+                           "position": [0, 0],
+                          "children": "Login" 
+                        }
+                      }
+                    ] 
                   }
                 }
               ]
@@ -291,9 +360,9 @@
                       "style": {
                         "height":"auto",
                         "display":"flex",
-                        "justifyContent": "flex-start",
+                        "justifyContent": "center",
                         "alignItems":"flex-start",
-                        "padding": "50px 0",
+                        "padding": "50px 200px",
                         "flexWrap": "wrap",
                         "backgroundColor": "#fefefe"
                       },
@@ -331,11 +400,21 @@
                               {
                                 "p": {
                                   "position":[0,0],
-                                  "children": "SITE LINKS"
+                                  "children": "SITE LINKS",
+                                  "style": {
+                                    "fontWeight":500
+                                  }
                                 }
                               },
                               {
                                 "ul":{
+                                 "style": {
+                                    "listStyleType": "none",
+                                    "padding":"0px",
+                                    "lineHeight": "1.7em",
+                                    "color": "#777",
+                                    "textDecoration": "underline"
+                                  },
                                   "position": [0,0],
                                   "children": [
                                     {
@@ -368,11 +447,21 @@
                               {
                                 "p": {
                                   "position":[0,0],
-                                  "children": "LEGALS"
+                                  "children": "LEGALS",
+                                  "style": {
+                                    "fontWeight": 500
+                                  }
                                 }
                               },
                               {
                                 "ul":{
+                                  "style": {
+                                    "listStyleType": "none",
+                                    "padding":"0px",
+                                    "lineHeight": "1.7em",
+                                    "color": "#777",
+                                    "textDecoration": "underline"
+                                  },
                                   "position": [0,0],
                                   "children": [
                                     {"li": {"children": "Terms of Use"}},
@@ -400,6 +489,7 @@
                               {
                                 "p": {
                                   "position":[0,0],
+                                  "style": {"fontWeight": 500},
                                   "children": "NEWSLETTER"
                                 }
                               }
@@ -417,8 +507,11 @@
                             "children":[
                               {
                                 "p": {
+                                  "style": {
+                                    "fontWeight": 500
+                                  },
                                   "position":[0,0],
-                                  "children": "Social Media Goes Here"
+                                  "children": "SOCIAL MEDIA"
                                 }
                               }
                             ]
@@ -498,11 +591,20 @@
                               {
                                 "p": {
                                   "position":[0,0],
-                                  "children": "SITE LINKS"
+                                  "children": "SITE LINKS",
+                                  "style": {
+                                    "fontWeight":600
+                                  }
                                 }
                               },
                               {
                                 "ul":{
+                                  "style": {
+                                    "alignItems": "none",
+                                    "padding": "0px",
+                                    "textDecoration": "underline",
+                                    "color": "#777"
+                                  },
                                   "position": [0,0],
                                   "children": [
                                     {
@@ -538,12 +640,21 @@
                               {
                                 "p": {
                                   "position":[0,0],
+                                  "style": {
+                                    "fontWeight":600
+                                  },
                                   "children": "LEGALS"
+                                
                                 }
                               },
                               {
                                 "ul":{
                                   "position": [0,0],
+                                  "style": {
+                                    "padding":"0",
+                                    "textDecoration": "underline",
+                                    "color": "#777"
+                                  },
                                   "children": [
                                     {"li": {"children": "Terms of Use"}},
                                     { "li": { "children": "Privacy Policy " } },
@@ -571,7 +682,10 @@
                               {
                                 "p": {
                                   "position":[0,0],
-                                  "children": "NEWSLETTER"
+                                  "children": "NEWSLETTER",
+                                  "style": {
+                                    "fontWeight": 600
+                                  }
                                 }
                               }
                             ]
@@ -592,7 +706,10 @@
                               {
                                 "p": {
                                   "position":[0,0],
-                                  "children": "SOCIAL MEDIA"
+                                  "children": "SOCIAL MEDIA",
+                                  "style": {
+                                    "fontWeight": 600
+                                  }
                                 }
                               }
                             ]
