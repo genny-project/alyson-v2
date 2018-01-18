@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { string, object, array, number, bool } from 'prop-types';
 import { IconSmall, InputText } from 'views/components';
 import { geocodeByAddress } from 'react-places-autocomplete'
+//import { geocodeByAddress } from '@genny-project/react-places-autocomplete'
 
 class MapInput extends Component {
 
@@ -45,6 +46,9 @@ class MapInput extends Component {
 
       const { lat, lng, controls, zoom, address } = this.props;
       
+      console.log('lat', lat);
+      console.log('lng', lng);
+
       const mapOptions = {
         zoom,
         center: new google.maps.LatLng( lat, lng ),
