@@ -20,6 +20,8 @@ export default function reducer(state = initialState, action) {
                 ...state.data,
                 ...action.payload.items.reduce((existing, newItem) => {
 
+                    console.log("--------")
+
                     let baseEntityCode = newItem.code;
                     if(action.payload.delete) {
 
@@ -27,6 +29,7 @@ export default function reducer(state = initialState, action) {
                         delete existing[baseEntityCode];
                     }
                     else {
+
                         if(!newItem.baseEntityAttributes) {
 
                             existing[baseEntityCode] = {
@@ -53,6 +56,7 @@ export default function reducer(state = initialState, action) {
 
                                 }, {}),
                                 linkCode: action.payload.linkCode,
+                                weight: newItem.weight ? newItem.weight : 1
                             };
 
                             return existing;
@@ -96,8 +100,10 @@ export default function reducer(state = initialState, action) {
                                 return existingLinks;
 
                             }, {}),
+
                             linkCode: action.payload.linkCode,
-                            attributes: existingAttributes
+                            attributes: existingAttributes,
+                            weight: newItem.weight ? newItem.weight : 1,
                         };
 
                         delete existing[baseEntityCode].baseEntityAttributes;
@@ -294,7 +300,7 @@ export default function reducer(state = initialState, action) {
             if(state.data[newParentCode].links && state.data[newParentCode].links[newLinkCode]) {
 
                 if(state.data[newParentCode].links[newLinkCode].filter(x => x.targetCode == be_code).length == 0) {
-                     
+
                     state.data[newParentCode].links = {
                         ...state.data[newParentCode].links,
                         [newLinkCode]: [

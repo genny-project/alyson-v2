@@ -18,7 +18,7 @@ class BaseEntityQuery {
             if(item) {
 
                 // order by weight if found in links
-                let weight = 0;
+                let weight = item.weight;
                 if(rootEntity && rootEntity.originalLinks) {
 
                     let currentLinks = rootEntity.originalLinks.filter(x => {
