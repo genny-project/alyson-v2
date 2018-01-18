@@ -20,10 +20,11 @@ class ProgressBar extends Component {
   }
 
   render() {
-    const { className, progressCurrent, progressTotal, type } = this.props;
+    const { className, progressCurrent, progressTotal, type, style } = this.props;
+    const componentStyle = { ...style, };
     const progressPercent = progressCurrent / progressTotal * 100;
     return (
-      <div className={`progress-bar ${className} ${type === 1 ? 'one' : type === 2 ? 'two' : ''} `}>
+      <div className={`progress-bar ${className} ${type === 1 ? 'one' : type === 2 ? 'two' : ''} `} style={componentStyle}>
 
         { type === 1 ? (
           <div className="node-container one">

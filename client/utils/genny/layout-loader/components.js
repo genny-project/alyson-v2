@@ -27,6 +27,8 @@ import {
   Device,
   MapDisplay,
   MapInput,
+  ProgressBar,
+  Selector
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -59,4 +61,6 @@ export default new ComponentCollection({
   Device,
   MapDisplay,
   MapInput,
+  ProgressBar,
+  Selector
 });

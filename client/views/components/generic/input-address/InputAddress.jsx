@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
 import { Label, SubmitStatusIcon, Dropdown, MapInput, Button, } from 'views/components';
 import { Grid } from '@genny-project/layson';
-import PlacesAutocomplete from 'react-places-autocomplete'
 import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete'
+import PlacesAutocomplete from 'react-places-autocomplete'
+// import PlacesAutocomplete from '@genny-project/react-places-autocomplete'
+// import { geocodeByAddress, geocodeByPlaceId } from '@genny-project/react-places-autocomplete'
 
 class InputAddress extends Component {
 
@@ -36,8 +38,8 @@ class InputAddress extends Component {
 
                 this.setState({
                     coords: {
-                        lat: results[0].geometry.location.lat,
-                        lng: results[0].geometry.location.lng, 
+                        lat: results[0].geometry.location.lat(),
+                        lng: results[0].geometry.location.lng(), 
                     }
                 })
 
@@ -162,13 +164,6 @@ class InputAddress extends Component {
                 </Grid>
             )
         }    
-    }
-
-    getCoords = (address) => {
-        geocodeByAddress(address)
-        .then(results => {
-            return results;
-        })
     }
 
     render() {
