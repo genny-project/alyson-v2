@@ -20,8 +20,6 @@ export default function reducer(state = initialState, action) {
                 ...state.data,
                 ...action.payload.items.reduce((existing, newItem) => {
 
-                    console.log("--------")
-
                     let baseEntityCode = newItem.code;
                     if(action.payload.delete) {
 

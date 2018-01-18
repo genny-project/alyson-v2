@@ -35,6 +35,7 @@ class LayoutLoader extends Component {
           });
       }
       else if (layout instanceof Array) {
+
           layout.forEach(value => {
               let results = this.getLayoutValues(value);
               if(results instanceof Array) {
@@ -50,6 +51,7 @@ class LayoutLoader extends Component {
       else if (typeof layout == "string") {
           return [layout];
       }
+
       return layoutValues;
   }
 
