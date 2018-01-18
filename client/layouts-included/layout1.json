@@ -173,64 +173,16 @@
                                   "children": [
                                     { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "lineHeight": "1.6em", "fontWeight": 200 }, "children": "Channel 40 is Australia’s fastest and most advanced freight management platform that is changing the way that we move freight across the country. We connect freight owners to truck drivers like never before – offering the latest technology to assist with tracking your load, offering insurance and even to facilitating the payment transaction. Transport just got a whole lot simpler." } },
                                     { "p": { "position": [0, 1], "style": { "color": "#6a6a6a", "lineHeight": "1.6em", "fontWeight": 200 }, "children": "The founders of Channel 40 are active freight movers and have experienced the same frustrations as so many others from both sides of the industry. Channel 40 offers huge win-wins without either party losing out at all." } }
-
                                   ]
                                 }
-                              }                           ]
+                              }
+                            ]
                          }                        
                         }
                       ]
                     } 
-                  },
-                  {
-                    "Grid": {
-                      "position": [0,1],
-                      "rows":1,
-                      "cols":2,
-                      "style": {
-                        "marginLeft":"70px",
-                        "height":"auto",
-                        "backgroundColor": "#f26522",
-                        "padding":20,
-                        "display":"flex"
-                      },
-                      "children": [
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position": [0,0],
-                            "children": [
-                              {
-                                "h1": {
-                                  "position": [0,0],
-                                  "style": {"color": "#fff"},
-                                  "children": "Download the new App"
-                                }
-                              },
-                              {
-                                "p": {
-                                  "position": [0, 0],
-                                  "style": { "color": "#fff" },
-                                  "children": "The app is available for download from App Store and Play Store Today" 
-                                } 
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Grid": {
-                            "rows":1,
-                            "cols":1,
-                            "position": [0,1],
-                            "children": [
-                              
-                            ]
-                          }
-                        }
-                      ]
-                    }
                   }
+                  
               ]
             }
           },
@@ -267,6 +219,9 @@
                           "position":[0,0],
                           "rows":1,
                           "cols":1,
+                          "style": {
+                            
+                          },
                           "children": [
                             {
                               "h1": {
@@ -316,8 +271,7 @@
 
                     ]
                   }
-                },
-                { "Grid": { "position": [2, 0], "rows": 1, "cols": 2, "style": { "height": "initial" }, "children": [{ "div": { "position": [0, 0], "rows": 1, "cols": 1, "children": [{ "h1": { "position": [0, 0], "children": "Tom Cavanagh" } }, { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "fontSize": "24px" }, "children": "Founder" } }, { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "lineHeight": "1.7em", "flexGrow": 3 }, "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites." } }] } }, { "ImageView": { "position": [0, 1], "rows": 1, "cols": 1, "style": { "height": 200, "width": 150 }, "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-tom-e1503270711248.jpg" } }] } }
+                }
 
                     ]
                   }

@@ -1,0 +1,49 @@
+{
+                    "Grid": {
+                      "position": [0,1],
+                      "rows":1,
+                      "cols":2,
+                      "style": {
+                        "marginLeft":"70px",
+                        "height":"auto",
+                        "backgroundColor": "#f26522",
+                        "padding":20,
+                        "display":"flex"
+                      },
+                      "children": [
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position": [0,0],
+                            "children": [
+                              {
+                                "h1": {
+                                  "position": [0,0],
+                                  "style": {"color": "#fff"},
+                                  "children": "Download the new App"
+                                }
+                              },
+                              {
+                                "p": {
+                                  "position": [0, 0],
+                                  "style": { "color": "#fff" },
+                                  "children": "The app is available for download from App Store and Play Store Today" 
+                                } 
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Grid": {
+                            "rows":1,
+                            "cols":1,
+                            "position": [0,1],
+                            "children": [
+                              
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
