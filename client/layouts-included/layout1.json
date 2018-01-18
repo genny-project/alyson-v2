@@ -178,7 +178,7 @@
               "style": {
                 "backgroundColor": "white",
                 "color": "black",
-                "padding": "60px 100px",
+                "padding": "60px 10%",
                 "height":"initial"
               },
               "children":[
@@ -362,7 +362,7 @@
                         "display":"flex",
                         "justifyContent": "center",
                         "alignItems":"flex-start",
-                        "padding": "50px 200px",
+                        "padding": "50px 10%",
                         "flexWrap": "wrap",
                         "backgroundColor": "#fefefe"
                       },
@@ -373,13 +373,14 @@
                             "cols":1,
                             "position":[0,0],
                             "style": {
-                              "flexBasis": "20%"
+                              "flexBasis": "300px"
                             },
                             "children": [
                               {
                                 "h1": {
                                   "style": {
-                                    "fontSize": "18px"
+                                    "fontSize": "26px",
+                                    "color": "#c3c3c3"
                                   },
                                   "position":[0,0],
                                   "children": "Channel 40"
@@ -394,7 +395,7 @@
                             "cols":1,
                             "position":[0,1],
                             "style": {
-                              "flexBasis": "20%"
+                              "flexBasis": "250px"
                             },
                             "children": [
                               {
@@ -402,7 +403,8 @@
                                   "position":[0,0],
                                   "children": "SITE LINKS",
                                   "style": {
-                                    "fontWeight":500
+                                    "fontWeight":600,
+                                    "color": "#777"
                                   }
                                 }
                               },
@@ -441,7 +443,7 @@
                             "cols":1,
                             "position":[0,2],
                             "style": {
-                              "flexBasis": "20%"
+                              "flexBasis": "250px"
                             },
                             "children": [
                               {
@@ -449,7 +451,8 @@
                                   "position":[0,0],
                                   "children": "LEGALS",
                                   "style": {
-                                    "fontWeight": 500
+                                    "fontWeight": 600,
+                                    "color": "#777"
                                   }
                                 }
                               },
@@ -482,14 +485,17 @@
                             "style": {
                               "justifyContent":"flex-start",
                               "alignItems": "flex-start",
-                              "flexBasis": "20%"
+                              "flexBasis": "250px"
 
                             },
                             "children": [
                               {
                                 "p": {
                                   "position":[0,0],
-                                  "style": {"fontWeight": 500},
+                                  "style": {
+                                    "fontWeight": 600,
+                                    "color": "#777"
+                                  },
                                   "children": "NEWSLETTER"
                                 }
                               }
@@ -502,13 +508,14 @@
                             "rows":1,
                             "cols":1,
                             "style": {
-                              "flexBasis": "20%"
+                              "flexBasis": "250px"
                             },
                             "children":[
                               {
                                 "p": {
                                   "style": {
-                                    "fontWeight": 500
+                                    "fontWeight": 600,
+                                    "color": "#777"
                                   },
                                   "position":[0,0],
                                   "children": "SOCIAL MEDIA"
@@ -566,7 +573,8 @@
                               {
                                 "h1": {
                                   "style": {
-                                    "fontSize": "18px"
+                                    "fontSize": "26px",
+                                    "color": "#c3c3c3"
                                   },
                                   "position":[0,0],
                                   "children": "Channel 40"
@@ -593,7 +601,8 @@
                                   "position":[0,0],
                                   "children": "SITE LINKS",
                                   "style": {
-                                    "fontWeight":600
+                                    "fontWeight":600,
+                                    "color": "#777"
                                   }
                                 }
                               },
@@ -641,7 +650,8 @@
                                 "p": {
                                   "position":[0,0],
                                   "style": {
-                                    "fontWeight":600
+                                    "fontWeight":600,
+                                    "color": "#777"
                                   },
                                   "children": "LEGALS"
                                 
@@ -672,7 +682,7 @@
                             "rows":1,
                             "cols":1,
                             "style": {
-                                                            "display":"flex",
+                              "display":"flex",
                               "justifyContent":"flex-start",
                               "alignItems":"flex-start",
                               "width":"100%"
@@ -684,7 +694,8 @@
                                   "position":[0,0],
                                   "children": "NEWSLETTER",
                                   "style": {
-                                    "fontWeight": 600
+                                    "fontWeight": 600,
+                                    "color": "#777"
                                   }
                                 }
                               }
@@ -708,7 +719,8 @@
                                   "position":[0,0],
                                   "children": "SOCIAL MEDIA",
                                   "style": {
-                                    "fontWeight": 600
+                                    "fontWeight": 600,
+                                    "color": "#777"
                                   }
                                 }
                               }
