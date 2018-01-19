@@ -157,19 +157,6 @@
                           ]
                          
                         }
-                      },
-                      {
-                        "GennyButton": {
-                          "style": {
-                            "width": "250px",
-                            "top": "100px",
-                            "right": "100px",
-                            "position": "absolute"
-                          },
-                          "className": "warning",
-                        
-                          "children": "Move Freight. Online. Easy."
-                        }
                       }
                     ]
                   }
