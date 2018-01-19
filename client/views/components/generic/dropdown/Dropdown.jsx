@@ -27,6 +27,7 @@ class Dropdown extends Component {
   }
 
   handleBlur = () => {
+    console.log('blur');
     this.setState({
       isOpen: false,
       parentIsOpen: false,
@@ -35,6 +36,7 @@ class Dropdown extends Component {
 
 
   handleClick = (e) => {
+    console.log('click');
     this.setState({ isOpen: !this.state.isOpen});
   }
 
@@ -62,7 +64,7 @@ class Dropdown extends Component {
     if(open != undefined) isOpen = open; // open props overrides
 
     return (
-      <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={this.handleBlur}  tabIndex='-1' style={style} >
+      <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur}  tabIndex='-1' style={style} >
         <div className='dropdown-header' onClick={this.handleClick} style={isOpen ? { "transition": "all 0.1s", "transform": "rotate(180deg)" } : { "transition": "all 0.1s", "transform": "rotate(0deg)" }}>
           {this.renderHeader()}
         </div>

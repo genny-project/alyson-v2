@@ -86,9 +86,11 @@ class LayoutLoader extends Component {
         else {
             if(split.length == 2) {
                 attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
+                
                 if(!attribute) {
 
                     let baseEntity = BaseEntityQuery.getAlias(alias_code);
+                   
                     if(baseEntity) {
                         attribute = {
                             value: baseEntity.code

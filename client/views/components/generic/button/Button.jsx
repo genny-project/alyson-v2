@@ -39,7 +39,7 @@ class Button extends Component {
     );
 
     return href
-      ? <Link to={href}>{btn}</Link>
+      ? <Link to={href} target="_blank">{btn}</Link>
       : btn;
   }
 }

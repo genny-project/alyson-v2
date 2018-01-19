@@ -6,7 +6,7 @@ import moment from 'moment';
 class DateLabel extends Component {
 
   static defaultProps = {
-    text: '',
+    children: '',
     format: 'DD/MM/YYYY'
   }
 
@@ -19,6 +19,8 @@ class DateLabel extends Component {
   renderDate = (date) => {
     const { format } = this.props;
     
+    console.log(date, format);
+
     if (date) {
       const formattedDate = moment(date).format(format);
       return formattedDate;
@@ -28,12 +30,15 @@ class DateLabel extends Component {
   }
 
   render() {
- 	  const { className, text, style } = this.props;
+ 	  const { className, children, style } = this.props;
     const componentStyle = { ...style, };
+
+    console.log(children);
+
     return (
       <div className={`date-label ${className || ''}`} style={componentStyle}>
         <span className="date-label-text">
-          {this.renderDate(text)}
+          {this.renderDate(children)}
         </span>
       </div>
     );
