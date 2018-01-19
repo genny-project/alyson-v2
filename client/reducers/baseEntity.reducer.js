@@ -258,6 +258,7 @@ export default function reducer(state = initialState, action) {
             let newParentCode = item.sourceCode;
             let newLinkCode = item.attributeCode;
             let linkValue = item.linkValue;
+            let newLinkWeight = item.weight;
 
             let relationshipObject = {
                 ...state.relationships[oldParentCode]
@@ -306,12 +307,33 @@ export default function reducer(state = initialState, action) {
                             {
                                 value: linkValue,
                                 valueString: linkValue,
-                                weight: 1,
+                                weight: newLinkWeight,
                                 targetCode: be_code,
                                 linkValue: linkValue
                             }
                         ]
                     };
+                }
+                else {
+                    
+                    let links = state.data[newParentCode].links[newLinkCode];
+                    for(let i = 0; i < links.length; i++) {
+
+                        if(links[i].targetCode == be_code) {
+
+                            console.log("updating");
+                            links[i] = {
+                                ...links[i],
+                                ...{
+                                    value: linkValue,
+                                    valueString: linkValue,
+                                    weight: newLinkWeight,
+                                    targetCode: be_code,
+                                    linkValue: linkValue
+                                }
+                            }
+                        }
+                    }
                 }
             }
         });

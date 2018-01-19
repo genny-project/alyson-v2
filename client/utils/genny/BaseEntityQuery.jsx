@@ -69,7 +69,7 @@ class BaseEntityQuery {
 
             return be.links[linkCode].reduce((existingBes, link) => {
 
-                if(link.targetCode) {
+                if(link.targetCode && link.weight > 0) {
                     let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
                     if(targetBe) existingBes.push(targetBe);
                 }
