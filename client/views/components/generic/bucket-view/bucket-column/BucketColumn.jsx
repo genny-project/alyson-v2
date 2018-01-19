@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { string, object, any, bool } from 'prop-types';
 import { BucketElement } from './bucket-element';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { IconSmall, Button } from 'views/components';
 import { GennyBridge } from 'utils/genny';
+import { IconSmall, Status, Button } from 'views/components';
+import { Grid } from '@genny-project/layson';
 
 const getListStyle = isDraggingOver => ({
     // background: isDraggingOver ? 'lightblue' : "#a3a3a3",
@@ -132,6 +133,21 @@ class BucketColumn extends Component {
                     }
 
                 </Droppable>
+
+                <div className="bucket-legend sticky">
+                    <Grid
+                        style={{padding: '5px'}}
+                        cols={["20px", {style:{flexGrow: 1, display: 'flex', alignItems: 'center'}}]}
+                        rows={[{style: {flexGrow: 1, paddingBottom: "5px"}},{style: {flexGrow: 1, paddingBottom: "5px"}},1]}
+                    >
+                        <Status position={[0,0]} color='urgent' style={{height: '15px' }}/>
+                        <span position={[0,1]} >Overdue. Immediate action required.</span>
+                        <Status position={[1,0]} color='warning' style={{ height: '15px' }}/>
+                        <span position={[1,1]} >Update. Action required.</span>
+                        <Status position={[2,0]} color='success' style={{ height: '15px' }}/>
+                        <span position={[2,1]} >No action required.</span>
+                    </Grid>
+                </div>
             </div>
         );
     }

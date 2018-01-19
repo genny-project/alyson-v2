@@ -1,6 +1,7 @@
 export { default as Breadcrumbs } from './breadcrumbs';
 export { default as BucketView } from './bucket-view';
 export { default as Button } from './button';
+export { default as Carousel } from './carousel';
 export { default as ColorPicker } from './color-picker';
 export { default as CircleButton } from './circle-button';
 export { default as CompactList } from './compact-list';

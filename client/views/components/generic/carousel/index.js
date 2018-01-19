@@ -1,1 +1,1 @@
-export { default } from './Template.jsx';
+export { default } from './Carousel.jsx';

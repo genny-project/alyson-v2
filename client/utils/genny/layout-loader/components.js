@@ -32,6 +32,7 @@ import {
   SMSButton,
   PhoneButton,
   MapDirectionsButton,
+  Carousel,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -69,4 +70,5 @@ export default new ComponentCollection({
   SMSButton,
   PhoneButton,
   MapDirectionsButton,
+  Carousel,
 });
