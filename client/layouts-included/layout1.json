@@ -107,7 +107,7 @@
             }
           },
           {
-            "div": {
+            "Grid": {
               "position": [2,0],
               "rows":3,
               "cols":2,
@@ -177,112 +177,39 @@
                                 }
                               }
                             ]
-                         }                        
+                         }
                         }
                       ]
                     } 
-                  }
+                  },
+                   { "Grid": { "position": [1, 0], "rows": 1, "cols": 1, "style": { "marginTop": "100px", "padding": "0", "color": "#f26522", "backgroundColor": "#fff", "marginBottom": "100px", "height": "initial" }, "children": [{ "Grid": { "position": [0, 0], "rows": 4, "cols": 1, "children": [{ "Grid": { "position": [1, 0], "rows": 1, "cols": 2, "style": { "height": "initial" }, "children": [{ "div": { "position": [0, 0], "rows": 1, "cols": 1, "style": {}, "children": [{ "h1": { "position": [0, 0], "children": "Tom Cavanagh" } }, { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "fontSize": "24px" }, "children": "Founder" } }, { "p": { "position": [0, 0], "style": { "color": "#6a6a6a", "lineHeight": "1.7em", "flexGrow": 3 }, "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites." } }] } }, { "ImageView": { "position": [0, 1], "rows": 1, "cols": 1, "style": { "height": 200, "width": 150 }, "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-tom-e1503270711248.jpg" } }] } }] } }] } },
+                   {
+                     "Grid": {
+                       "rows":2,
+                       "cols":1,
+                       "position": [0,1],
+                       "children": [
+                        {
+                          "Grid": {
+                            "position":[0,0],
+                            "rows":1,
+                            "cols":1,
+                            "children": [
+                              {
+                                "h1": {"position":[0,0], "children": "Get mobile app banner goes here"}
+                              }
+                            ]
+
+                          }
+                        }
+                       ]
+                     }
+                   }
                   
               ]
             }
-          },
-          {
-            "Grid": {
-              "position":[2,0],
-              "rows":6,
-              "cols":1,
-              "style": {
-                "marginTop": "100px",
-                "padding": "0 200px",
-                "color": "#f26522",
-                "backgroundColor":"#fff",
-                "marginBottom":"100px",
-                "height": "initial"
-
-              },
-              "children": [
-                {
-                  "Grid": {
-                    "position":[0,0],
-                    "rows":4,
-                    "cols":1,
-                    "children": [
-                         {
-                  "Grid": {
-                    "position":[1,0],
-                    "rows":1,
-                    "cols":2,
-                    "style": {"height": "initial"},
-                    "children":[
-                      {
-                        "div": {
-                          "position":[0,0],
-                          "rows":1,
-                          "cols":1,
-                          "style": {
-                            
-                          },
-                          "children": [
-                            {
-                              "h1": {
-                                "position": [0,0],"children": "Tom Cavanagh"
-                              }
-                            },
-                            {
-                            "p": {
-                              "position": [0,0],
-                              "style":
-                               {
-                                "color":"#6a6a6a",
-                                "fontSize": "24px"
-                              },
-                              "children": "Founder"
-                            }
-                            },
-                            {
-                            "p": {
-                              "position": [0,0],
-                              "style": 
-                              {
-                                "color":"#6a6a6a",
-                                "lineHeight":"1.7em",
-                                "flexGrow":3
-                              },
-                              "children": "A diesel mechanic by trade, Dubbo-based Tom Cavanagh is a successful entrepreneur with a diverse business portfolio spanning mining, transport, technology, and retail. In 2010, Tom founded EMS Group supplying labour, machinery and equipment to the mining, earthmoving and civil construction industries. In 2016 Tom founded Channel 40 – Australia’s fastest and most advanced freight management platform – to meet the needs of both freight owners and truck drivers. As an active freight mover himself, Tom has experienced first-hand the pain points and shortfalls of other load shifting sites."
-                            }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "ImageView":{
-                          "position":[0,1],
-                          "rows":1,
-                          "cols":1,
-                          "style": {
-                            "height":200,
-                            "width":150
-                          },
-                          "src": "https://channel40.com.au/wp-content/uploads/2017/02/media-tom-e1503270711248.jpg"
-                        }
-                      }
-                      
-                       
-
-                    ]
-                  }
-                }
-
-                    ]
-                  }
-                }
-               
-               
-               
-                        
-                ]
-            }
           }
+          
         ]
       }
     }
