@@ -25,7 +25,7 @@ class GennyButton extends Component {
         //TODO: to be changed.
         if(this.props.buttonCode) {
 
-            let btnValue = JSON.stringify(this.props.value);
+            let btnValue = (this.props.value.constructor == String) ? this.props.value : JSON.stringify(this.props.value);
 
             GennyBridge.sendBtnClick("BTN_CLICK", {
                 //code: 'LOAD_EDIT',

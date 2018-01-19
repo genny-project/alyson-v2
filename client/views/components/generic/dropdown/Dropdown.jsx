@@ -27,7 +27,7 @@ class Dropdown extends Component {
   }
 
   handleBlur = () => {
-    console.log('blur');
+
     this.setState({
       isOpen: false,
       parentIsOpen: false,
@@ -36,7 +36,6 @@ class Dropdown extends Component {
 
 
   handleClick = (e) => {
-    console.log('click');
     this.setState({ isOpen: !this.state.isOpen});
   }
 

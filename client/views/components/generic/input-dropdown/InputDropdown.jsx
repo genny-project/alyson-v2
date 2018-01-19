@@ -34,6 +34,7 @@ class InputDropdown extends Component {
   }
 
   handleChange = selectedItem => {
+
     if (this.state.selectedItems.includes(selectedItem)) {
       this.removeItem(selectedItem)
     } else {
@@ -51,6 +52,7 @@ class InputDropdown extends Component {
       }
     })
   }
+
   removeItem = item => {
     this.setState(({selectedItems}) => {
       return {
@@ -65,28 +67,30 @@ class InputDropdown extends Component {
   }
 
   getDisplayText = () => {
+
     const { selectedItems } = this.state;
     if ( selectedItems) {
       if ( selectedItems.length == 1 && this.props.isSingleSelect ) {
         return selectedItems[0];
       }
-      else if ( selectedItems.length == 1 && !this.props.isSingleSelect ) {  
+      else if ( selectedItems.length == 1 && !this.props.isSingleSelect ) {
         return '1 item selected';
       } else if (selectedItems.length > 1) {
-        return `${selectedItems.length} items selected`; 
+        return `${selectedItems.length} items selected`;
       }
       return 'Select an item';
-    } 
+    }
   }
 
   onToggleMenu = () => {
+
     this.setState(({isOpen}) => ({
       isOpen: !isOpen,
-    }), () => { 
+    }), () => {
       if (!this.state.isOpen) {
         this.handleValidation();
       }
-    })    
+    })
   }
 
   handleStateChange = changes => {
@@ -94,12 +98,12 @@ class InputDropdown extends Component {
     const {isOpen, type} = changes;
 
     if (type === Downshift.stateChangeTypes.mouseUp) {
-      this.setState({isOpen}, () => {
-          if (!this.state.isOpen) {
 
+        this.setState({isOpen}, () => {
+          if (!this.state.isOpen) {
             this.handleValidation();
           }
-        })      
+        })
     }
     else if (type === Downshift.stateChangeTypes.keyDownSpaceButton) {
       this.setState({
@@ -120,8 +124,9 @@ class InputDropdown extends Component {
       currentValue: ''
     })
   }
-  
+
 handleValidation = () => {
+
     const { validationList, validation, identifier, isSingleSelect } = this.props;
     const { selectedItems, lastSentValue } = this.state;
 
@@ -133,10 +138,28 @@ handleValidation = () => {
       this.setState({
         lastSentValue: selectedItems
       })
-      
+
+      // we now get the code of the item to send by comparing the value
       if ( isSingleSelect && selectedItems.length == 1 ) {
-        if(validation) validation(selectedItems[0], identifier, validationList);
+
+        let itemCode = this.props.items.filter(x => x.name == selectedItems[0])[0].code;
+        if(validation) validation(itemCode, identifier, validationList);
+
       } else {
+
+        let answers = this.props.items.map((item, index) => {
+
+            return selectedItems.map(selectedItem => {
+
+                if(selectedItem == item.name) return item.code;
+                return false;
+            })
+
+            return false;
+        });
+
+        console.log("---------------")
+        console.log(answers);
         if(validation) validation(selectedItems, identifier, validationList);
       }
     }
@@ -147,11 +170,11 @@ handleValidation = () => {
     let list = items;
 
     list = list.filter(item => !inputValue || item.name.toUpperCase().includes(inputValue.toUpperCase()))
-    
-    list = list.sort((x, y) => 
+
+    list = list.sort((x, y) =>
       selectedItem.indexOf(x.name) == -1 && selectedItem.indexOf(y.name) > -1
     )
-    
+
     if (list.length > 0 ) {
 
       list = list.map((item, index) => {
@@ -187,9 +210,9 @@ handleValidation = () => {
     const componentStyle = { ...style, };
 
     let displayText = this.getDisplayText();
-    
+
     return (
-      <div className={`input input-dropdown ${className} ${validationStatus}` }>      
+      <div className={`input input-dropdown ${className} ${validationStatus}` }>
         {name ? <Label className="dropdown-label" text={name} /> : null }
         <Downshift
           isOpen={this.state.isOpen}
@@ -205,12 +228,12 @@ handleValidation = () => {
             getInputProps,
             isOpen,
             selectedItem,
-            inputValue,   
+            inputValue,
             highlightedIndex,
           }) => (
             <div className="dropdown-container">
               <div
-                {...getButtonProps({   
+                {...getButtonProps({
                   onClick: this.onToggleMenu
                 })}
                 type="button"
@@ -229,9 +252,9 @@ handleValidation = () => {
               </div>
               {isOpen ? (
                 <ul style={{display: 'block'}} className="dropdown-menu">
-                  { 
+                  {
                     this.getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps)
-                  } 
+                  }
                 </ul>
               ) : null}
             </div>

@@ -1,5 +1,5 @@
 import { Grid, Repeater, ComponentCollection } from '@genny-project/layson';
-import { 
+import {
   BucketView,
   Sidebar,
   ImageView,
@@ -29,6 +29,7 @@ import {
   MapInput,
   ProgressBar,
   Selector,
+  SMSButton,
   MapDirectionsButton,
 } from 'views/components';
 
@@ -64,5 +65,6 @@ export default new ComponentCollection({
   MapInput,
   ProgressBar,
   Selector,
+  SMSButton,
   MapDirectionsButton,
 });

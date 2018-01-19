@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: center;
   color: white;
-  
+  height: 60px;
 
   > div  {
     min-height: 20px;
@@ -40,7 +40,7 @@
     .spacer.prev, .spacer.next {
       width: 24px;
     }
-    
+
   }
 }
 
@@ -63,7 +63,7 @@
 }
 
 .bucket.size-md, .bucket.size-lg, .bucket.size-sm{
-  overflow-y: scroll;  
+  overflow-y: scroll;
 }
 
 .bucket.size-sm {

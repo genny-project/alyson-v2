@@ -91,7 +91,7 @@ class BucketElement extends Component {
             }, 500);
         }
     }
-    
+
     render() {
 
         const { className, item, style } = this.props;

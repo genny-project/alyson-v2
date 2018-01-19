@@ -70,50 +70,66 @@ class App extends Component {
       }
   }
 
+  refreshGPS = () => {
+
+      let destinations = [
+          {
+              latitude:  -37.7997902,
+              longitude: 144.9666907,
+              radius: 10,
+              enterCode: "ENTER_TEST",
+              exitCode: "EXIT_TEST",
+          }
+      ]
+
+      if(destinations) {
+
+          console.log("getting current location");
+          navigator.geolocation.getCurrentPosition(
+              (position) => {
+
+                  var lastPosition = JSON.stringify(position);
+                  this.setState({lastPosition});
+
+                  GennyBridge.sendGPSData([{
+                      position: position.coords
+                  }]);
+
+                  if(position && position.coords) {
+
+                      destinations.forEach(destination => {
+
+                          let distance_from_center = Math.sqrt(Math.pow((destination.latitude - position.coords.latitude), 2) + Math.pow((destination.longitude - position.coords.longitude), 2));
+                          if(distance_from_center < destination.radius) {
+
+                              if(destination.status == "out") {
+                                  this.onEnterGPSCircle(destination)
+                              }
+                          }
+                          else {
+
+                              if(destination.status == "in") {
+                                  this.onExitGPSCircle(destination)
+                              }
+                          }
+                      });
+                  }
+              },
+              (error) => console.log(error.message),
+              {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+          );
+      }
+  }
+
   setupGPS() {
 
-        setInterval(() => {
+        return;
+        if(this.gpsInterval) clearInterval(this.gpsInterval);
 
-            if(this.props.gps && this.props.gps.destinations) {
-
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-
-                        var lastPosition = JSON.stringify(position);
-                        this.setState({lastPosition});
-
-                        if(position && position.coords) {
-
-                            this.props.gps.destinations.forEach(destination => {
-
-                                GeoFencing.containsLocation({
-                                    x: position.coords.latitude,
-                                    y: position.coords.lontitude,
-                                }, destination.center, destination.radius)
-                                .then(() => {
-
-                                    if(destination.status == "out") {
-                                        this.onEnterGPSCircle(destination)
-                                    }
-                                })
-                                .catch(() => {
-
-                                    if(destination.status == "in") {
-                                        this.onExitGPSCircle(destination)
-                                    }
-                                    else if(destination.status == "out") {
-                                        this.onEnterGPSCircle(destination)
-                                    }
-                                })
-                            });
-                        }
-                    },
-                    (error) => console.log(error.message),
-                    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-                );
-            }
-
-        }, 5000);
+        this.refreshGPS()
+        this.gpsInterval = setInterval(() => {
+            this.refreshGPS()
+        }, 100000);
   }
 
   onExitGPSCircle = (destination) => {

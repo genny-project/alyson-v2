@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { string, object, any, bool } from 'prop-types';
 import { BucketElement } from './bucket-element';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { IconSmall } from 'views/components';
+import { IconSmall, Button } from 'views/components';
+import { GennyBridge } from 'utils/genny';
 
 const getListStyle = isDraggingOver => ({
     // background: isDraggingOver ? 'lightblue' : "#a3a3a3",
@@ -40,12 +41,20 @@ class BucketColumn extends Component {
         }
     }
 
+    onExpandColumn = (code) => {
+
+        GennyBridge.sendTVEvent('TV_SELECT', {
+          code: 'TV1',
+          value: code
+        }, code);
+    }
+
     render() {
 
         const { className, style, title, items, groupId, canAddItem, goToPreviousBucket, goToNextBucket } = this.props;
         const componentStyle = { ...style, };
-        console.log();
         let titleDiv = null;
+
         if(window.getScreenSize() == "sm") {
             titleDiv =
             <div>
@@ -80,6 +89,13 @@ class BucketColumn extends Component {
             <div className={`bucket-column ${className}`} style={style}>
                 <div className="bucket-title sticky">
                     {titleDiv}
+                    <Button
+                        style={ {"fontSize": "12px", "width": "65px", "cursor": "pointer" } }
+                        buttonStyle={{ "background": "transparent" }}
+                        onClick={() => this.onExpandColumn(this.props.groupId)}>
+                        See List
+                    </Button>
+                    <IconSmall name="keyboard_arrow_right" onClick={this.onExpandColumn} />
                 </div>
 
                 <Droppable droppableId={groupId}>
@@ -93,7 +109,7 @@ class BucketColumn extends Component {
 
                                 <div className={`bucket-content size-${window.getScreenSize()} no-select`}>
                                     {
-                                        items.map(child => {
+                                        items.map((child, index) => {
 
                                             return (
                                                 <BucketElement
@@ -102,7 +118,8 @@ class BucketColumn extends Component {
                                                 style={child.style}
                                                 moveBucket={this.moveBucket}
                                                 screenSize={window.getScreenSize()}
-                                                showMovingOptions={this.props.showMovingOptions} />
+                                                showMovingOptions={this.props.showMovingOptions}
+                                                index={index}/>
                                             )
                                         })
                                     }
