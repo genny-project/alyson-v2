@@ -25,7 +25,7 @@ class Status extends Component {
         switch(this.props.color) {
             case "success":
             case "warning":
-            case "error":
+            case "urgent":
             return { statusClass: this.props.color }
             break;
             default:

@@ -31,6 +31,7 @@ import {
   Selector,
   SMSButton,
   MapDirectionsButton,
+  Carousel,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -67,4 +68,5 @@ export default new ComponentCollection({
   Selector,
   SMSButton,
   MapDirectionsButton,
+  Carousel,
 });
