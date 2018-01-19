@@ -15,6 +15,7 @@ import bucketDropOutgoing from './bucket.events.outgoing';
 import cmdIncoming from './cmd.events.incoming';
 import cmdOutgoing from './cmd.events.outgoing';
 import cacheMissingOutgoing from './cachemissing.events.outgoing';
+import gpsIncoming from './gps.events.incoming';
 
 export default {
   incoming: {
@@ -28,6 +29,7 @@ export default {
     ...redirectIncoming,
     ...answerIncoming,
     ...cmdIncoming,
+    ...gpsIncoming,
   },
   outgoing: {
     ...authOutgoing,

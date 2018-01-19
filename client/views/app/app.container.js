@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 const mapStateToProps = state => ({
   keycloak: state.keycloak,
-  gps: state.gps
+  app: state.app
 });
 
 function mapDispatchToProps(dispatch) {

@@ -30,6 +30,7 @@ import {
   ProgressBar,
   Selector,
   SMSButton,
+  PhoneButton,
   MapDirectionsButton,
 } from 'views/components';
 
@@ -66,5 +67,6 @@ export default new ComponentCollection({
   ProgressBar,
   Selector,
   SMSButton,
+  PhoneButton,
   MapDirectionsButton,
 });

@@ -16,6 +16,10 @@ class App extends Component {
     gps: object,
   };
 
+  static defaultProps = {
+      gps: {}
+  }
+
   state = {
     gpsWatcher: null,
     lastPosition: null,
@@ -84,7 +88,6 @@ class App extends Component {
 
       if(destinations) {
 
-          console.log("getting current location");
           navigator.geolocation.getCurrentPosition(
               (position) => {
 
@@ -123,7 +126,6 @@ class App extends Component {
 
   setupGPS() {
 
-        return;
         if(this.gpsInterval) clearInterval(this.gpsInterval);
 
         this.refreshGPS()
@@ -136,7 +138,7 @@ class App extends Component {
 
         console.log("did exit destination: ");
         console.log(destination);
-        this.props.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = "out";
+        this.props.app.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = "out";
         // this.sendDataToWeb("GEOFENCE", {
         //     value: "GEOFENCE_EXIT",
         //     code: destination.exitCode,
@@ -147,7 +149,7 @@ class App extends Component {
 
         console.log("did enter destination: ");
         console.log(destination);
-        this.props.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = "in";
+        this.props.app.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = "in";
         // this.sendDataToWeb("GEOFENCE", {
         //     value: "GEOFENCE_ENTRY",
         //     code: destination.enterCode,
@@ -180,7 +182,12 @@ class App extends Component {
     }
 
     this.setupGoogleAPI();
-    this.setupGPS();
+
+    if(this.props.app.gps.monitor) {
+        this.setupGPS();
+        console.log("MONITORING")
+        console.log("================")
+    }
 
     return (
       <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>

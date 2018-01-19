@@ -40,6 +40,7 @@ export { default as ProgressBar } from './progress-bar';
 export { default as Selector } from './selector/';
 export { default as Sidebar } from './sidebar/';
 export { default as SMSButton } from './sms-button';
+export { default as PhoneButton } from './phone-button';
 export { default as SocialButton } from './social-button';
 export { default as Status } from './status/';
 export { default as SubmitStatusIcon } from './submit-status-icon';

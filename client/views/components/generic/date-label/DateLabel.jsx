@@ -18,22 +18,19 @@ class DateLabel extends Component {
 
   renderDate = (date) => {
     const { format } = this.props;
-    
-    console.log(date, format);
 
     if (date) {
       const formattedDate = moment(date).format(format);
       return formattedDate;
     } else {
       return null;
-    } 
+    }
   }
 
   render() {
- 	  const { className, children, style } = this.props;
-    const componentStyle = { ...style, };
 
-    console.log(children);
+    const { className, children, style } = this.props;
+    const componentStyle = { ...style, };
 
     return (
       <div className={`date-label ${className || ''}`} style={componentStyle}>

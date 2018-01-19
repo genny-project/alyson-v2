@@ -1,4 +1,4 @@
-import { REDIRECT, SOCIAL_REDIRECT, GPS_CMD } from 'constants';
+import { REDIRECT, SOCIAL_REDIRECT, GPS_CMD, GPS_MONITOR } from 'constants';
 import history from 'views/history.js';
 import { GennyBridge } from 'utils/genny';
 
@@ -9,10 +9,12 @@ const initialState = {
         initialPosition: 'unknown',
         lastPosition: 'unknown',
         destinations: [],
+        monitor: false,
     }
 };
 
 export default function reducer( state = initialState, action ) {
+
   switch ( action.type ) {
 
     case REDIRECT:
@@ -81,13 +83,21 @@ export default function reducer( state = initialState, action ) {
              "data": data
          }), "*"); // for the react native app to pick up
 
-         state.destinations = [{
+         state.gps.destinations = [{
              ...data
          }];
 
          return {
              ...state
          };
+     }
+
+     case GPS_MONITOR:
+
+     state.gps.monitor = true;
+
+     return {
+         ...state
      }
 
      return state;

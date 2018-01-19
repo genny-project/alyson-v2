@@ -46,6 +46,9 @@ export const ANSWER = 'Answer';
 /* GPS CMD */
 export const GPS_CMD = 'CMD_GPS';
 
+/* GPS MONITOR EVT */
+export const GPS_MONITOR = 'GPS_MONITOR';
+
 /* Sublayout */
 export const SUB_LAYOUT = 'SUB_LAYOUT';
 
