@@ -2,7 +2,7 @@ import './list.scss';
 import React, { Component } from 'react';
 import { Pagination } from 'views/components';
 import { ListItem } from './list-item';
-import { string, bool, number} from 'prop-types';
+import { string, bool, number, object, any, array } from 'prop-types';
 
 class List extends Component {
 
@@ -17,6 +17,7 @@ class List extends Component {
   static propTypes = {
     hideNav: bool,
     className: string,
+    style: object,
     itemsPerPage: number,
 
     itemHeight: number,
@@ -25,6 +26,9 @@ class List extends Component {
 
     hideCount: bool,
     countText: string,
+    countStyle: object,
+    header: any,
+    data: array,
   }
 
   state = {
@@ -61,7 +65,6 @@ class List extends Component {
   render() {
 
     const { className, style, data, itemsPerPage, header, hideNav, hideCount, countText, countStyle } = this.props;
-    const { } = this.state;
     const componentStyle = { ...style, };
 
     const renderMain = this.renderMain(data, itemsPerPage, hideNav);

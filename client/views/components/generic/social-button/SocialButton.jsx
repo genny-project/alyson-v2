@@ -1,6 +1,6 @@
 import './socialButton.scss';
 import React, { Component } from 'react';
-import { string, object, func, any } from 'prop-types';
+import { string, object, func, } from 'prop-types';
 import FacebookButton from './facebook-button';
 
 class SocialButton extends Component {
@@ -30,16 +30,16 @@ class SocialButton extends Component {
   renderSocialButton = (type) => {
 
       switch (type) {
-          case "facebook":
-          return <FacebookButton onClick={this.onClick} />
+          case 'facebook':
+          return <FacebookButton onClick={this.onClick} />;
           default:
-          return <p>Unknown button</p>
+          return <p>Unknown button</p>;
       }
   }
 
   render() {
 
-    const { style, type } = this.props;
+    const { type } = this.props;
 
     return (
       <div className="social-button">

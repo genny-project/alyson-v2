@@ -1,6 +1,6 @@
 import './inputDropdown.scss';
 import React, { Component } from 'react';
-import { string, object, func, any, bool } from 'prop-types';
+import { string, object, func, any, bool, array } from 'prop-types';
 import Downshift from 'downshift';
 import { Label, IconSmall } from 'views/components';
 
@@ -21,7 +21,12 @@ class InputDropdown extends Component {
     validation: func,
     identifier: any,
     validationStatus: string,
-    isSingleSelect: bool
+    isSingleSelect: bool,
+    ask: array,
+    default_value: string,
+    validationList: array,
+    items: array,
+    name: string,
   }
 
   state = {
@@ -147,19 +152,15 @@ handleValidation = () => {
 
       } else {
 
-        let answers = this.props.items.map((item, index) => {
+        this.props.items.map(item=> {
 
             return selectedItems.map(selectedItem => {
 
                 if(selectedItem == item.name) return item.code;
                 return false;
             });
-
-            return false;
         });
 
-        console.log('---------------');
-        console.log(answers);
         if(validation) validation(selectedItems, identifier, validationList);
       }
     }
@@ -204,15 +205,15 @@ handleValidation = () => {
 
   render() {
 
-    const { className, style, name, hint, validationStatus, ...rest } = this.props;
+    const { className, style, name, validationStatus } = this.props;
     let { items } = this.props;
-    const { value, selectedItems } = this.state;
+    const { selectedItems } = this.state;
     const componentStyle = { ...style, };
 
     let displayText = this.getDisplayText();
 
     return (
-      <div className={`input input-dropdown ${className} ${validationStatus}` }>
+      <div className={`input input-dropdown ${className} ${validationStatus}` } style={componentStyle}>
         {name ? <Label className="dropdown-label" text={name} /> : null }
         <Downshift
           isOpen={this.state.isOpen}

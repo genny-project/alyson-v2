@@ -1,6 +1,6 @@
 import './listItem.scss';
 import React, { Component } from 'react';
-import { string, object, number } from 'prop-types';
+import { string, any, number } from 'prop-types';
 import { } from 'views/components';
 
 class ListItem extends Component {
@@ -15,6 +15,7 @@ class ListItem extends Component {
     itemHeight: number,
     itemWidth: number,
     itemGap: number,
+    layout: any,
   }
 
   state = {

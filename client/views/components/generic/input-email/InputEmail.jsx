@@ -1,7 +1,7 @@
 import './inputEmail.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
-import { Label, SubmitStatusIcon, InputText } from 'views/components';
+import { string, object } from 'prop-types';
+import { InputText } from 'views/components';
 import emailMask from 'text-mask-addons/dist/emailMask';
 
 class InputEmail extends Component {
@@ -13,6 +13,7 @@ class InputEmail extends Component {
     static propTypes = {
         className: string,
         style: object,
+        value: string
     }
 
     state = {

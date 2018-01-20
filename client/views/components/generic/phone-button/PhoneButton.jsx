@@ -1,6 +1,6 @@
 import './PhoneButton.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object } from 'prop-types';
 import { IconSmall } from 'views/components';
 
 class PhoneButton extends Component {
@@ -10,19 +10,21 @@ class PhoneButton extends Component {
   }
 
   static propTypes = {
-    phoneNumber: string
+    phoneNumber: string,
+    style: object,
+    className: string,
   }
 
   render() {
 
-    const { phoneNumber  } = this.props;
-    const componentStyle = {  };
+    const { phoneNumber, style, className } = this.props;
+    const componentStyle = { ...style};
 
     if(!phoneNumber) return null;
 
     return (
-      <a className={`phone-button`} href={`tel:${phoneNumber}`} >
-          <IconSmall name={"phone"} />
+      <a className={`phone-button ${className}` } href={`tel:${phoneNumber}`} style={componentStyle}>
+          <IconSmall name='phone' />
       </a>
     );
   }

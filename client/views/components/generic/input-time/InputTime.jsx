@@ -1,7 +1,7 @@
 import './inputTime.scss';
 import React, { Component } from 'react';
-import { string, object, any, func, array } from 'prop-types';
-import moment from 'moment';
+import { string, bool, any, func, array, object } from 'prop-types';
+//import moment from 'moment';
 import { Label, Button } from 'views/components';
 import MaskedTextInput from 'react-text-mask';
 
@@ -16,12 +16,17 @@ class InputTime extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
-    children: any,
+    style: object,
+    name: string,
     validation: func,
     identifier: any,
     validationStatus: string,
-    inputMask: array
+    inputMask: array,
+    value: string,
+    validationList: array,
+    readOnly: bool,
+    mandatory: bool,
+    placeholder: string,
   }
 
   state = {
@@ -38,7 +43,7 @@ class InputTime extends Component {
   }
 
 
-  handleFocus = event => {
+  handleFocus = () => {
     this.setState({
       focused: true
     });
@@ -63,13 +68,13 @@ class InputTime extends Component {
   toggleFormat = () => {
     this.setState({
       format: this.state.format == 'AM' ? 'PM' : 'AM'
-    })
+    });
     this.handleBlur();
   }
 
   render() {
 
-    const { className, children, style, validationStatus, name, readOnly, placeholder, inputMask, mandatory } = this.props;
+    const { className, style, validationStatus, name, readOnly, placeholder, inputMask, mandatory } = this.props;
     const { focused, value, format } = this.state;
     const componentStyle = { ...style, };
 

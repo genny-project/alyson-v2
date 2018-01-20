@@ -1,8 +1,8 @@
 import './inputNumbers.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
-import { Label, SubmitStatusIcon, InputText } from 'views/components';
-import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import { string, object, bool, func } from 'prop-types';
+import { Label, InputText } from 'views/components';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 class InputNumbers extends Component {
 
@@ -15,6 +15,11 @@ class InputNumbers extends Component {
         className: string,
         prefix: string,
         style: object,
+        value: string,
+        mandatory: bool,
+        validation: func,
+        validationStatus: string,
+        name: string
     }
 
     state = {
@@ -36,7 +41,7 @@ class InputNumbers extends Component {
         const numberMask = createNumberMask({
             allowDecimal: true,
             prefix: this.props.prefix
-        })
+        });
 
         return (
             <div className="input input-numbers">
@@ -55,7 +60,7 @@ class InputNumbers extends Component {
                     validation={this.validateString}
                 />
             </div>
-        )
+        );
     }
 }
 

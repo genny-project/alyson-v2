@@ -100,6 +100,8 @@ class InputUpload extends Component {
 
     this.setState({ error: null });
 
+    console.log('Upload', files);
+
     const restructuredFiles = files.map( file => ({
       id: file.id,
       key: file.meta.key,
@@ -176,13 +178,15 @@ class InputUpload extends Component {
   render() {
     const { className, icon, label } = this.props;
     const { files, error } = this.state;
+    const convertedFiles = JSON.parse( files );
 
     return (
       <div className={classNames( 'input', 'input-file', className, {})}>
         {label && <label>{label}</label>}
+        {convertedFiles && convertedFiles.length > 0 && (
 
-        {files.length > 0 && (
-          files.map( file => {
+          
+          convertedFiles.map( file => {
             return (
               <article key={file.id}>
                 <button type="button" onClick={this.handleRemoveFile( file.id )}>

@@ -2,7 +2,7 @@ import './inputDatePicker.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import React, { Component } from 'react';
-import { string, object, any, func, bool } from 'prop-types';
+import { string, object, any, func, bool, array } from 'prop-types';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Label } from 'views/components';
@@ -20,17 +20,24 @@ class InputDatePicker extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
-    children: any,
+    style: object,
+    name: string,
     validation: func,
     identifier: any,
     validationStatus: string,
     showTimeSelect: bool,
     handleOnChange: func,
+    value: string,
+    defaultDateFormat: string,
+    defaultTimeFormat: string,
+    validationList: array,
+    type: string,
+    mandatory: bool
   }
 
   getStartDate() {
-    return this.props.value ? moment(this.props.value, this.props.defaultDateFormat).format(this.props.defaultDateFormat) : moment().format(this.props.defaultDateFormat);
+    const { value, defaultDateFormat} = this.s;
+    return value ? moment(value, defaultDateFormat).format(defaultDateFormat) : moment().format(defaultDateFormat);
   }
 
   getMobileValues = (type) => {
@@ -78,13 +85,15 @@ class InputDatePicker extends Component {
   }
 
   render() {
-    const { className, children, style, validationStatus, name, defaultDateFormat, type, defaultTimeFormat, mandatory, showTimeSelect } = this.props;
+    const { className, style, validationStatus, name, defaultDateFormat, type, defaultTimeFormat, mandatory, showTimeSelect } = this.props;
     const componentStyle = { ...style, };
     const startDate = this.getStartDate();
     const isMobile = window.getScreenSize() === 'sm';
 
+    console.log(startDate);
+
     return (
-      <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `}>
+      <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
         { name ? <div className='input-header'>
           { name && <Label className="input-date-picker-label" text={name} /> }
           { mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
@@ -118,8 +127,8 @@ class InputDatePicker extends Component {
             peekNextMonth
             showMonthDropdown
             showYearDropdown
-            minDate={moment().subtract(60, "years")}
-            maxDate={moment().add(5, "years")}
+            minDate={moment().subtract(60, 'years')}
+            maxDate={moment().add(5, 'years')}
             dropdownMode="select"
             showTimeSelect={showTimeSelect}
             timeIntervals={15}

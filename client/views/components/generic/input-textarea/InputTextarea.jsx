@@ -1,7 +1,7 @@
 import './inputTextarea.scss';
 import React, { Component } from 'react';
-import { string, bool, func, any } from 'prop-types';
-import { Label, SubmitStatusIcon } from 'views/components';
+import { string, func, any, array } from 'prop-types';
+import { Label } from 'views/components';
 
 class InputTextarea extends Component {
   static defaultProps = {
@@ -16,7 +16,10 @@ class InputTextarea extends Component {
     name: string,
     validation: func,
     identifier: any,
-    validationStatus: string
+    validationStatus: string,
+    validationList: array,
+    placeholder: string,
+    mask: any,
   }
 
   state = {
@@ -42,7 +45,7 @@ class InputTextarea extends Component {
     }
   }
 
-  handleFocus = event => {
+  handleFocus = () => {
     this.setState({
       focused: true
     });
@@ -63,7 +66,7 @@ class InputTextarea extends Component {
 
   render() {
     const { className, name, validationStatus } = this.props;
-    const { focused, value } = this.state;
+    const { value } = this.state;
     
     
     return (

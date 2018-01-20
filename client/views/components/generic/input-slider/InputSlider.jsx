@@ -1,7 +1,7 @@
 import './inputSlider.scss';
 import React, { Component } from 'react';
 import { string, object, any, func, array } from 'prop-types';
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import { Label } from 'views/components';
 
 class InputSlider extends Component {
@@ -19,7 +19,9 @@ class InputSlider extends Component {
     children: any,
     validation: func,
     identifier: any,
-    validationStatus: string
+    validationStatus: string,
+    validationList: array,
+    name: string,
   }
 
   state = {
@@ -43,16 +45,11 @@ class InputSlider extends Component {
   }
 
   render() {
- 	  const { className, children, style, name, validationStatus } = this.props;
+ 	  const { className, style, name, validationStatus } = this.props;
     const { active } = this.state;
     const componentStyle = { ...style, };
 
-
-    console.log(this.props);
-    console.log(active);
-
     let handleStyle = [ active ? {borderColor: componentStyle.color} : !validationStatus ? {borderColor: componentStyle.color} : {borderColor: null} ];
-    console.log(handleStyle);
 
     return (
       <div className={`input-slider ${className}`}>
