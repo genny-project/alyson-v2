@@ -1,7 +1,7 @@
 import './inputDropdown.scss';
 import React, { Component } from 'react';
 import { string, object, func, any, bool } from 'prop-types';
-import Downshift from 'downshift'
+import Downshift from 'downshift';
 import { Label, IconSmall } from 'views/components';
 
 class InputDropdown extends Component {
@@ -36,9 +36,9 @@ class InputDropdown extends Component {
   handleChange = selectedItem => {
 
     if (this.state.selectedItems.includes(selectedItem)) {
-      this.removeItem(selectedItem)
+      this.removeItem(selectedItem);
     } else {
-      this.addSelectedItem(selectedItem)
+      this.addSelectedItem(selectedItem);
     }
   }
 
@@ -50,7 +50,7 @@ class InputDropdown extends Component {
       if (this.props.isSingleSelect){
         this.handleValidation();
       }
-    })
+    });
   }
 
   removeItem = item => {
@@ -58,12 +58,12 @@ class InputDropdown extends Component {
       return {
         selectedItems: selectedItems.filter(i => i !== item),
         isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
-      }
+      };
     }, () => {
       if (this.props.isSingleSelect){
         this.handleValidation();
       }
-    })
+    });
   }
 
   getDisplayText = () => {
@@ -90,7 +90,7 @@ class InputDropdown extends Component {
       if (!this.state.isOpen) {
         this.handleValidation();
       }
-    })
+    });
   }
 
   handleStateChange = changes => {
@@ -103,26 +103,26 @@ class InputDropdown extends Component {
           if (!this.state.isOpen) {
             this.handleValidation();
           }
-        })
+        });
     }
     else if (type === Downshift.stateChangeTypes.keyDownSpaceButton) {
       this.setState({
         isOpen: true,
         currentValue: this.state.currentValue + ' '
-      })
+      });
     }
     else if (type === Downshift.stateChangeTypes.changeInput) {
       this.setState({
         isOpen: true,
         currentValue: changes.inputValue
-      })
+      });
     }
   }
 
   handleClearInput = () => {
     this.setState({
       currentValue: ''
-    })
+    });
   }
 
 handleValidation = () => {
@@ -137,7 +137,7 @@ handleValidation = () => {
 
       this.setState({
         lastSentValue: selectedItems
-      })
+      });
 
       // we now get the code of the item to send by comparing the value
       if ( isSingleSelect && selectedItems.length == 1 ) {
@@ -153,12 +153,12 @@ handleValidation = () => {
 
                 if(selectedItem == item.name) return item.code;
                 return false;
-            })
+            });
 
             return false;
         });
 
-        console.log("---------------")
+        console.log('---------------');
         console.log(answers);
         if(validation) validation(selectedItems, identifier, validationList);
       }
@@ -169,11 +169,11 @@ handleValidation = () => {
 
     let list = items;
 
-    list = list.filter(item => !inputValue || item.name.toUpperCase().includes(inputValue.toUpperCase()))
+    list = list.filter(item => !inputValue || item.name.toUpperCase().includes(inputValue.toUpperCase()));
 
     list = list.sort((x, y) =>
       selectedItem.indexOf(x.name) == -1 && selectedItem.indexOf(y.name) > -1
-    )
+    );
 
     if (list.length > 0 ) {
 
@@ -189,14 +189,14 @@ handleValidation = () => {
           >
             <span>{selectedItem.indexOf(item.name) > -1 ? `✓ ${item.name}` : item.name}</span>
           </li>
-        )
-      })
+        );
+      });
     } else {
       list = (
         <li className="dropdown-item no-items-found" style={{cursor: 'default'}}>
           <i>No Matches Found</i>
         </li>
-      )
+      );
     }
 
     return list;
@@ -237,7 +237,7 @@ handleValidation = () => {
                   onClick: this.onToggleMenu
                 })}
                 type="button"
-                className={`input-dropdown-field ${isOpen ? "selected" : ""}`}
+                className={`input-dropdown-field ${isOpen ? 'selected' : ''}`}
               >
                 <input
                   value={this.state.currentValue}
