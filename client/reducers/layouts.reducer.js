@@ -27,7 +27,7 @@ export default function reducer( state = initialState, action ) {
       }
 
       if (action.payload.data) {
-        loaded[action.payload.code] = action.payload.data;
+        loaded[action.payload.code] = JSON.parse(action.payload.data);
       }
 
       return {
@@ -55,7 +55,7 @@ export default function reducer( state = initialState, action ) {
     case SUBLAYOUT_CHANGE:
 
         const newSublayoutCode = action.payload.code;
-        const newSublayout = action.payload.items;
+        const newSublayout = JSON.parse(action.payload.items);
         if(newSublayoutCode) {
             return {
                 ...state,
@@ -71,7 +71,7 @@ export default function reducer( state = initialState, action ) {
     case SUB_LAYOUT:
 
         let sublayout_code = action.payload.code;
-        let layout = action.payload.items;
+        let layout = JSON.parse(action.payload.items);
         if(sublayout_code && layout) {
             return {
                 ...state,
