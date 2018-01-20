@@ -3,17 +3,21 @@ import { push } from 'react-router-redux';
 
 
 /**
- * @CAVEATS
+ * @BUGS KNOWN / POTENTIAL
  *
- * Be careful - this can potentially break the current view if the user refreshes the page, and
+ * This can potentially break the current view if the user refreshes the page, and
  * the view to be shown has not been loaded yet.
  *
+ * The url will continuously be appended to when switching between sub-layouts and layouts on the page.
+ *
  * TODO
- *  - Fix the above (potential, I haven't tested it) bug.
+ *  - Fix the above bugs!
  */
 
 const middleware = store => next => action => {
-  /* Capture actions that change the view. */
+  const currentRouterLocation = store.getState().router.location || window.location;
+
+  /* Update the URL upon layout change. */
   if ( action.type === CMD_VIEW ) {
     /* Create a new object out of the payload and delete the token from it. */
     const layout = { ...action.payload };
@@ -26,8 +30,8 @@ const middleware = store => next => action => {
     store.dispatch( push( stringifiedLayout ));
   }
 
+  /* Update the URL upon sub-layout change. */
   if ( action.type === SUBLAYOUT_CHANGE ) {
-    const currentLayoutPathname = store.getState().router.location || window.location;
     /* Create a new object out of the payload and delete the token from it. */
     const subLayout = { ...action.payload };
     delete subLayout.token;
@@ -35,20 +39,19 @@ const middleware = store => next => action => {
     /* Dispatch a push to the browser history so that the layout is saved in the URL. */
     store.dispatch(
       push({
-        state: { ...currentLayoutPathname.state, subLayout },
-        pathname: `${currentLayoutPathname.pathname.split( '/' )[1]}/${subLayout.code}`,
+        state: { ...currentRouterLocation.state, subLayout },
+        pathname: `${currentRouterLocation.pathname.split( '/' )[1]}/${subLayout.code}`,
       })
     );
   }
 
-  /* Capture when the page changes. */
+  /* Update the layout upon page change. */
   else if ( action.type === '@@router/LOCATION_CHANGE' ) {
-    const currentLocation = store.getState().router.location;
     const nextPathname = action.payload.pathname;
 
     /* Only attempt this if the location pathnames are different. This solves the issue of the view being
      * reverted when the location hash, search or state is updated. */
-    if ( currentLocation && currentLocation.pathname !== nextPathname ) {
+    if ( currentRouterLocation && currentRouterLocation.pathname !== nextPathname ) {
       try {
         /* Get the stringified layout from the payload, which is ultimately from the URL. */
         const stringifiedLayout = action.payload.pathname.split( '/' )[1];
@@ -64,7 +67,7 @@ const middleware = store => next => action => {
         });
       } catch ( e ) {
         /* Handle failed `JSON.parse`s. */
-        console.error( e );
+        console.error( 'Unable to decode layout from URL', e );
       }
     }
   }
