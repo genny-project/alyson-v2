@@ -1,246 +1,525 @@
 {
-  "layout": [
+  "layout":[
     {
-      "AppHolder": {
-        "cols": 1,
+      "AppHolder":{
+        "cols":1,
         "rows":3,
-        "children": [
+        "children":[
           {
-            "Header": {
-              "position": [0, 0],
-              "style": {
-                "backgroundColor": "white",
-                "color": "black",
-                "width": "900px",
-                "margin": "0 auto"
+            "Header":{
+              "position":[
+                0,
+                0
+              ],
+              "style":{
+                "backgroundColor":"white",
+                "color":"black",
+                "margin":"0 auto",
+                "height":"70px"
               },
-              "cols": [
+              "cols":[
                 {
-                  "style": {
-                    "flexGrow": 0,
-                    "flexBasis": "80px",
-                    "display": "flex",
-                    "alignItems": "center"
+                  "style":{
+                    "flexGrow":0,
+                    "flexBasis":"80px",
+                    "display":"flex",
+                    "alignItems":"center"
                   }
                 },
                 {
-                  "style": {
-                    "flexGrow": 1,
-                    "display": "flex",
-                    "alignItems": "center",
-                    "justifyContent": "space-around"
+                  "style":{
+                    "flexGrow":1,
+                    "display":"flex",
+                    "alignItems":"center",
+                    "justifyContent":"space-around"
                   }
                 }
               ],
-              "rows": [{ "style": { "flexGrow": 1, "width": "100%" } }],
-              "children": [
+              "rows":[
                 {
-                  "h1": {
-                    "position": [0, 0],
-                    "style": {
-                      "margin": 0
+                  "style":{
+                    "flexGrow":1,
+                    "width":"100%"
+                  }
+                }
+              ],
+              "children":[
+                {
+                  "h1":{
+                    "position":[
+                      0,
+                      0
+                    ],
+                    "style":{
+                      "margin":0
                     },
-                    "children": "CHANNEL40"
+                    "children":"CHANNEL40"
                   }
                 },
                 {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "For"
+                  "span":{
+                    "position":[
+                      0,
+                      1
+                    ],
+                    "children":"For"
                   }
                 },
                 {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "Businesses Companies"
+                  "span":{
+                    "position":[
+                      0,
+                      1
+                    ],
+                    "children":"Businesses Companies"
                   }
                 },
                 {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "Become a Driver"
+                  "span":{
+                    "position":[
+                      0,
+                      1
+                    ],
+                    "children":"Become a Driver"
                   }
                 },
                 {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "Register"
+                  "span":{
+                    "position":[
+                      0,
+                      1
+                    ],
+                    "children":"Register"
                   }
                 },
                 {
-                  "span": {
-                    "position": [0, 1],
-                    "children": "Log In"
+                  "span":{
+                    "position":[
+                      0,
+                      1
+                    ],
+                    "children":"Log In"
                   }
                 }
               ]
             }
           },
           {
-            "AppContent": {
+            "AppContent":{
               "rows":4,
               "cols":1,
-              "position": [1, 0],
-              "style": {
-                "overflowY": "scroll",
+              "position":[
+                1,
+                0
+              ],
+              "style":{
+                "overflowY":"scroll",
                 "width":"100vw"
               },
-              "children": [
+              "children":[
                 {
-                  "div": {
-                    "position":[0,0],
-                    "style": {
+                  "div":{
+                    "position":[
+                      0,
+                      0
+                    ],
+                    "style":{
+
                     },
-                    "children": [
+                    "children":[
                       {
-                        "div": {
-                          "position":[0,0],
-                          "style": {
-                            "margin": "0",
+                        "div":{
+                          "position":[
+                            0,
+                            0
+                          ],
+                          "style":{
+                            "margin":"0",
                             "width":"initial",
-                            "height": "620px",
-                            "overflow": "hidden",
-                            "backgroundImage": "url(https://i.imgur.com/BLslJdp.jpg)",
-                            "backgroundSize": "100%",
-                            "backgroundPosition": "center"
+                            "height":"620px",
+                            "overflow":"hidden",
+                            "backgroundImage":"url(https://i.imgur.com/BLslJdp.jpg)",
+                            "backgroundRepeat":"no-repeat",
+                            "backgroundSize":"cover",
+                            "backgroundPosition":"center"
                           },
-                          "children": [
+                          "children":[
                             {
-                              "Grid": {
+                              "Grid":{
                                 "rows":1,
                                 "cols":1,
-                                "position":[0,0],
-                                "display": "flex",
-                                "children": [
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "display":"flex",
+                                "children":[
                                   {
-                                    "div": {
-                                      "position":[0,0],
-                                      "style": {
-                                        "width": "700px",
-                                        "margin": "200px 600px",
-                                        "textAlign": "center",
-                                        "lineHeight": "4em"
-                                      },
-                                      "children": [
+                                    "Device":{
+                                      "isMobile":true,
+                                      "hideDesktop":true,
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":[
                                         {
-                                          "h1": {
-                                            "position": [0, 0],
-                                            "children": "The easiest way to find loads and get paid",
-                                            "style": {
-                                              "color": "#fff",
-                                              "fontSize": "60px"
-                                            }
-                                          } 
-                                        },
-                                        {
-                                          "div": {
-                                            "position":[0,0],
-                                            "rows":1,
-                                            "cols":1,
-                                            "style": {
-                                              "display": "flex",
-                                              "justifyContent":"center",
-                                              "alignItems": "center"
+                                          "div":{
+                                            "style":{
+                                              "width":"300px",
+                                              "margin":"200px 200px",
+                                              "textAlign":"center",
+                                              "lineHeight":"4em"
                                             },
-                                            "children": [
-                                              { "GennyButton": { "position": [0, 0], "style": {"width":160,"height":45, "margin": "0 10px", "fontSize":13},"className": "warning", "children": "Become a Driver" } },
-                                              { "GennyButton": { "position": [0, 0], "style": { "width": 160,"height":45, "fontSize":13 }, "className": "warning", "children": "Move Loads" } }
-
+                                            "children":[
+                                              {
+                                                "h1":{
+                                                  "position":[
+                                                    0,
+                                                    0
+                                                  ],
+                                                  "children":"The easiest way to find loads and get paid",
+                                                  "style":{
+                                                    "color":"#fff",
+                                                    "fontSize":"60px"
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "div":{
+                                                  "position":[
+                                                    0,
+                                                    0
+                                                  ],
+                                                  "rows":1,
+                                                  "cols":1,
+                                                  "style":{
+                                                    "display":"flex",
+                                                    "justifyContent":"center",
+                                                    "alignItems":"center"
+                                                  },
+                                                  "children":[
+                                                    {
+                                                      "GennyButton":{
+                                                        "position":[
+                                                          0,
+                                                          0
+                                                        ],
+                                                        "style":{
+                                                          "width":160,
+                                                          "height":45,
+                                                          "margin":"0 10px",
+                                                          "fontSize":13
+                                                        },
+                                                        "className":"warning",
+                                                        "children":"Become a Driver"
+                                                      }
+                                                    },
+                                                    {
+                                                      "GennyButton":{
+                                                        "position":[
+                                                          0,
+                                                          0
+                                                        ],
+                                                        "style":{
+                                                          "width":160,
+                                                          "height":45,
+                                                          "fontSize":13
+                                                        },
+                                                        "className":"warning",
+                                                        "children":"Move Loads"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
                                             ]
                                           }
                                         }
-
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "Device":{
+                                      "isDesktop":true,
+                                      "hideMobile":true,
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":[
+                                        {
+                                          "div":{
+                                            "position":[
+                                              0,
+                                              0
+                                            ],
+                                            "style":{
+                                              "flexBasis":"800px",
+                                              "margin":"200px 500px",
+                                              "textAlign":"center",
+                                              "lineHeight":"4em"
+                                            },
+                                            "children":[
+                                              {
+                                                "h1":{
+                                                  "position":[
+                                                    0,
+                                                    0
+                                                  ],
+                                                  "children":"The easiest way to find loads and get paid",
+                                                  "style":{
+                                                    "color":"#fff",
+                                                    "fontSize":"60px"
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "div":{
+                                                  "position":[
+                                                    0,
+                                                    0
+                                                  ],
+                                                  "rows":1,
+                                                  "cols":1,
+                                                  "style":{
+                                                    "display":"flex",
+                                                    "justifyContent":"center",
+                                                    "alignItems":"center"
+                                                  },
+                                                  "children":[
+                                                    {
+                                                      "GennyButton":{
+                                                        "position":[
+                                                          0,
+                                                          0
+                                                        ],
+                                                        "style":{
+                                                          "width":160,
+                                                          "height":45,
+                                                          "margin":"0 10px",
+                                                          "fontSize":13
+                                                        },
+                                                        "className":"warning",
+                                                        "children":"Become a Driver"
+                                                      }
+                                                    },
+                                                    {
+                                                      "GennyButton":{
+                                                        "position":[
+                                                          0,
+                                                          0
+                                                        ],
+                                                        "style":{
+                                                          "width":160,
+                                                          "height":45,
+                                                          "fontSize":13
+                                                        },
+                                                        "className":"warning",
+                                                        "children":"Move Loads"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
                                       ]
                                     }
                                   }
-                                  
                                 ]
                               }
                             }
                           ]
-                         
                         }
                       }
                     ]
                   }
                 },
                 {
-                  "Grid": {
-                    "position":[1,0],
+                  "Grid":{
+                    "position":[
+                      1,
+                      0
+                    ],
                     "rows":1,
                     "cols":4,
-                    "style": {
-                      "backgroundColor": "#f26522",
-                      "color": "#fff",
-                      "height": "150px",
-                      "flexShrink": "0",
+                    "style":{
+                      "backgroundColor":"#f26522",
+                      "color":"#fff",
+                      "height":"auto",
+                      "flexShrink":"0",
                       "width":"100%",
                       "display":"flex",
                       "justifyContent":"center",
                       "alignItems":"center",
-                      "padding": "20px"
+                      "padding":"20px"
                     },
-                    "children": [
+                    "children":[
                       {
-                        "div": {
+                        "div":{
                           "rows":1,
                           "cols":1,
-                          "position":[0,0],
-                          "style": {
+                          "position":[
+                            0,
+                            0
+                          ],
+                          "style":{
                             "padding":"0 40px"
                           },
-                          "children": [
+                          "children":[
                             {
-                              "h1": {"position":[0,0], "children": "1000"}
+                              "h1":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":"1000"
+                              }
                             },
                             {
-                              "p": {"position":[0,0], "children": "Customers"}
+                              "p":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":"Customers"
+                              }
                             }
                           ]
                         }
                       },
                       {
-                        "div": {
+                        "div":{
                           "rows":1,
                           "cols":1,
-                          "position":[0,1],
-                          "style": {
+                          "position":[
+                            0,
+                            1
+                          ],
+                          "style":{
                             "padding":"0 40px"
                           },
-                          "children": [
+                          "children":[
                             {
-                              "h1": {"position":[0,0], "children": "2000"}
+                              "h1":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":"2000"
+                              }
                             },
                             {
-                              "p": {"position":[0,0], "children": "Drivers "}
+                              "p":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":"Drivers "
+                              }
                             }
                           ]
                         }
                       },
-                      { "div": { "rows": 1, "cols": 1,"style": {
+                      {
+                        "div":{
+                          "rows":1,
+                          "cols":1,
+                          "style":{
                             "padding":"0 40px"
-                          }, "position": [0, 2], "children": [{ "h1": { "position": [0, 0], "children": "1.5M" } }, { "p": { "position": [0, 0], "children": "Customers " } }] } },
-                      { "div": { "rows": 1, "cols": 1, "position": [0, 3], "style": {
+                          },
+                          "position":[
+                            0,
+                            2
+                          ],
+                          "children":[
+                            {
+                              "h1":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":"1.5M"
+                              }
+                            },
+                            {
+                              "p":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":"Customers "
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "div":{
+                          "rows":1,
+                          "cols":1,
+                          "position":[
+                            0,
+                            3
+                          ],
+                          "style":{
                             "padding":"0 40px"
-                          },"children": [{ "h1": { "position": [0, 0], "children": "2M" } }, { "p": { "position": [0, 0], "children": "Jobs Paid " } }] } }
+                          },
+                          "children":[
+                            {
+                              "h1":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":"2M"
+                              }
+                            },
+                            {
+                              "p":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":"Jobs Paid "
+                              }
+                            }
+                          ]
+                        }
+                      }
                     ]
                   }
                 },
                 {
-                  "Grid": {
+                  "Grid":{
                     "rows":1,
                     "cols":1,
-                    "style": {
-                      "backgroundColor": "#fff",
-                      "color": "black",
-                      "height": "150px",
-                      "flexShrink": "0",
+                    "style":{
+                      "backgroundColor":"#fff",
+                      "color":"black",
+                      "height":"150px",
+                      "flexShrink":"0",
                       "display":"flex",
                       "justifyContent":"center",
-                      "padding": "20px"
+                      "padding":"20px"
                     },
-                    "children": [
-                      { "p": { "position": [0, 0], "style": { "textAlign": "center", "fontSize":40,"fontWeight":700}, "children": "How it Works?" } }
+                    "children":[
+                      {
+                        "p":{
+                          "position":[
+                            0,
+                            0
+                          ],
+                          "style":{
+                            "textAlign":"center",
+                            "fontSize":40,
+                            "fontWeight":700
+                          },
+                          "children":"How it Works?"
+                        }
+                      }
                     ]
                   }
                 },
@@ -248,76 +527,118 @@
                   "Grid":{
                     "rows":4,
                     "cols":1,
-                    "position":[2,0],
-                    "style": {
-                      "display": "flex",
-                      "justifyContent": "center",
-                      "alignItems": "space-around",
-                      "padding": "0 15%"
+                    "position":[
+                      2,
+                      0
+                    ],
+                    "style":{
+                      "display":"flex",
+                      "justifyContent":"center",
+                      "alignItems":"space-around",
+                      "padding":"0 15%",
+                      "minHeight":"fit-content"
                     },
                     "children":[
                       {
-                        "div": {
-                          "position":[0,0],
+                        "Grid":{
+                          "position":[
+                            0,
+                            0
+                          ],
                           "rows":1,
                           "cols":2,
-                          "style": {
+                          "style":{
                             "display":"flex",
-                            "justifyContent": "space-around",
+                            "justifyContent":"space-around",
                             "alignItems":"center",
-                            "flexWrap": "wrap"
+                            "flexWrap":"wrap"
                           },
-                          "children": [
+                          "children":[
                             {
-                              "div": {
-                              "position": [0, 0],
-                              "style": {"flexBasis":400},
-                              "children": [
-                                {
-                                  "div": {
-                                    "position":[0,0],
-                                    "style": {
-                                      "height":90,
-                                      "width":90,
-                                      "borderRadius": "50%",
-                                      "padding":" 4px 10px",
-                                      "backgroundColor":"#f26522",
-                                      "color":"#fff"
-                                    },
-                                    "children":[
-                                      {
-                                        "h3": {
-                                          "style": {
-                                            "marginLeft": "25px",
-                                            "marginTop":"25px",
-                                            "fontSize":30
-                                          },
-                                          "children": "1"
-                                        }
-                                      }
-                                    ]
-                                  }
+                              "div":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "style":{
+                                  "flexBasis":400
                                 },
-
-                                {
-                                  "h3": {
-                                    "position": [0, 0],
-                                    "children": "LOOK FOR JOBS NEAR YOU" } },
-                                    {
-                                      "p": {
-                                        "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
-                                      "position": [0, 0],
-                                    "children": "You can search express loads available for pickup right now in your area or maybe you are looking for a backload in a few days, either way searching is made easy." } }] } 
+                                "children":[
+                                  {
+                                    "div":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "style":{
+                                        "height":90,
+                                        "width":90,
+                                        "borderRadius":"50%",
+                                        "padding":" 4px 10px",
+                                        "backgroundColor":"#f26522",
+                                        "color":"#fff"
+                                      },
+                                      "children":[
+                                        {
+                                          "h3":{
+                                            "style":{
+                                              "marginLeft":"25px",
+                                              "marginTop":"25px",
+                                              "fontSize":30
+                                            },
+                                            "children":"1"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "h3":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"LOOK FOR JOBS NEAR YOU"
+                                    }
+                                  },
+                                  {
+                                    "p":{
+                                      "style":{
+                                        "color":"#6a6a6a",
+                                        "lineHeight":"1.7em"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"You can search express loads available for pickup right now in your area or maybe you are looking for a backload in a few days, either way searching is made easy."
+                                    }
+                                  }
+                                ]
+                              }
                             },
                             {
-                              "div": {
-                                "position":[0,1],
-                                "children": [
+                              "div":{
+                                "style":{
+                                  "flexShrink":0,
+                                  "minWidth":200
+                                },
+                                "position":[
+                                  0,
+                                  1
+                                ],
+                                "children":[
                                   {
-                                    "ImageView": {
-                                      "style": {"width": "initial", "height":200},
-                                      "position": [0,0],
-                                      "src": "https://i.imgur.com/5mbZZUK.jpg"
+                                    "ImageView":{
+                                      "style":{
+                                        "width":"initial",
+                                        "height":"100%"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "src":"https://i.imgur.com/5mbZZUK.jpg"
                                     }
                                   }
                                 ]
@@ -326,115 +647,592 @@
                           ]
                         }
                       },
-                       {
-                        "div": {
-                          "position":[0,0],
+                      {
+                        "Grid":{
+                          "position":[
+                            1,
+                            0
+                          ],
                           "rows":1,
                           "cols":2,
-                          "style": {
-                            "height":"600px",
+                          "style":{
                             "display":"flex",
-                            "justifyContent": "space-around",
+                            "marginTop":30,
+                            "justifyContent":"space-around",
                             "alignItems":"center",
-                            "flexWrap": "wrap",
-                            "flexDirection": "row-reverse"
+                            "flexWrap":"wrap"
                           },
-                          "children": [
-                             
+                          "children":[
                             {
-                              "div": {
-                              "position": [0, 1],
-                              "style": {"flexBasis":400},
-                              "children": [
-                                {
-                                  "div": {
-                                    "position":[0,0],
-                                    "style": {
-                                      "height":90,
-                                      "width":90,
-                                      "borderRadius": "50%",
-                                      "padding":" 4px 10px",
-                                      "backgroundColor":"#f26522",
-                                      "color":"#fff"
-                                    },
-                                    "children":[
-                                      {
-                                        "h3": {
-                                          "style": {
-                                            "marginLeft": "25px",
-                                            "marginTop": "25px",                                            
-                                            "fontSize":30
-                                          },
-                                          "children": "2"
-                                        }
-                                      }
-                                    ]
-                                  }
+                              "div":{
+                                "position":[
+                                  0,
+                                  1
+                                ],
+                                "style":{
+                                  "flexBasis":400,
+                                  "display":"flex",
+                                  "flexDirection":"column",
+                                  "paddingLeft":20
                                 },
-
-                                {
-                                  "h3": {
-                                    "position": [0, 0],
-                                    "children": "SUBMIT A QUOTE & ACCEPT LOADS" } },
-                                    { "p": { "position": [0, 0],
-                                      "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
-
-                                    "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } 
+                                "children":[
+                                  {
+                                    "div":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "style":{
+                                        "height":90,
+                                        "width":90,
+                                        "borderRadius":"50%",
+                                        "padding":" 4px 10px",
+                                        "backgroundColor":"#f26522",
+                                        "color":"#fff"
+                                      },
+                                      "children":[
+                                        {
+                                          "h3":{
+                                            "style":{
+                                              "marginLeft":"25px",
+                                              "marginTop":"25px",
+                                              "fontSize":30
+                                            },
+                                            "children":"2"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "h3":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"LOOK FOR JOBS NEAR YOU"
+                                    }
+                                  },
+                                  {
+                                    "p":{
+                                      "style":{
+                                        "color":"#6a6a6a",
+                                        "lineHeight":"1.7em"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"You can search express loads available for pickup right now in your area or maybe you are looking for a backload in a few days, either way searching is made easy."
+                                    }
+                                  }
+                                ]
+                              }
                             },
-                             {
-                               "div": {
-                                 "position": [0, 0],
-                                 "style": {},
-                                 "children": [{
-                                   "ImageView": {
-                                     "style": {
-                                       "width": "100%"
-                                     },
-                                     "position": [0, 0],
-                                     "src": "https://i.imgur.com/5mbZZUK.jpg"
-                                   }
-                                 }]
-                               }
-                             }
-                            
+                            {
+                              "div":{
+                                "style":{
+                                  "flexShrink":0,
+                                  "minWidth":200
+                                },
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":[
+                                  {
+                                    "ImageView":{
+                                      "style":{
+                                        "width":"initial",
+                                        "height":"100%"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "src":"https://i.imgur.com/5mbZZUK.jpg"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
                           ]
                         }
                       },
-                      { "div": { "position": [0, 0], "rows": 1, "cols": 2, "style": { "display": "flex", "justifyContent": "space-around", "alignItems": "center", "flexWrap": "wrap", "height":"600px" }, "children": [{ "div": { "position": [0, 0], "style": { "flexBasis": 400 }, "children": [{ "div": { "position": [0, 0], "style": { "height": 90, "width": 90, "borderRadius": "50%", "padding": " 4px 10px", "backgroundColor": "#f26522", "color": "#fff" }, "children": [{ "h3": { "style": { "marginLeft": "25px", "fontSize": 30, "marginTop": "25px" }, "children": "3" } }] } }, { "h3": { "position": [0, 0], "children": "Get Notified as soon as you've got the job" } }, { "p": { "position": [0, 0], "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
- "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } }, { "div": { "position": [0, 1], "children": [{ "ImageView": { "style": { "width": "100%" }, "position": [0, 0], "src": "https://i.imgur.com/5mbZZUK.jpg" } }] } }] } },
-                      { "div": { "position": [0, 0], "rows": 1, "cols": 2, "style": { "display": "flex", "justifyContent": "space-around", "alignItems": "center", "flexWrap": "wrap", "flexDirection": "row-reverse"}, "children": [{ "div": { "position": [0, 0], "style": { "flexBasis": 400 }, "children": [{ "div": { "position": [0, 0], "style": { "height": 90, "width": 90, "borderRadius": "50%", "padding": " 4px 10px", "backgroundColor": "#f26522", "color": "#fff" }, "children": [{ "h3": { "style": { "marginLeft": "25px", "fontSize": 30, "marginTop":"25px" }, "children": "4" } }] } }, { "h3": { "position": [0, 0], "children": "Drop the load and get Paid Instantly" } }, { "p": { "position": [0, 0],                                         "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
- "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } }, { "div": { "position": [0, 1], "children": [{ "ImageView": { "style": { "width": "100%" }, "position": [0, 0], "src": "https://i.imgur.com/5mbZZUK.jpg" } }] } }] } }
-                         
+                      {
+                        "Grid":{
+                          "position":[
+                            2,
+                            0
+                          ],
+                          "rows":1,
+                          "cols":2,
+                          "style":{
+                            "display":"flex",
+                            "marginTop":30,
+                            "justifyContent":"space-around",
+                            "alignItems":"center",
+                            "flexWrap":"wrap"
+                          },
+                          "children":[
+                            {
+                              "div":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "style":{
+                                  "flexBasis":400
+                                },
+                                "children":[
+                                  {
+                                    "div":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "style":{
+                                        "height":90,
+                                        "width":90,
+                                        "borderRadius":"50%",
+                                        "padding":" 4px 10px",
+                                        "backgroundColor":"#f26522",
+                                        "color":"#fff"
+                                      },
+                                      "children":[
+                                        {
+                                          "h3":{
+                                            "style":{
+                                              "marginLeft":"25px",
+                                              "marginTop":"25px",
+                                              "fontSize":30
+                                            },
+                                            "children":"3"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "h3":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"LOOK FOR JOBS NEAR YOU"
+                                    }
+                                  },
+                                  {
+                                    "p":{
+                                      "style":{
+                                        "color":"#6a6a6a",
+                                        "lineHeight":"1.7em"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"You can search express loads available for pickup right now in your area or maybe you are looking for a backload in a few days, either way searching is made easy."
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "div":{
+                                "position":[
+                                  0,
+                                  1
+                                ],
+                                "children":[
+                                  {
+                                    "ImageView":{
+                                      "style":{
+                                        "width":"initial",
+                                        "height":"100%"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "src":"https://i.imgur.com/5mbZZUK.jpg"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "Grid":{
+                          "position":[
+                            3,
+                            0
+                          ],
+                          "rows":1,
+                          "cols":2,
+                          "style":{
+                            "display":"flex",
+                            "marginTop":30,
+                            "justifyContent":"space-around",
+                            "alignItems":"center",
+                            "flexWrap":"wrap"
+                          },
+                          "children":[
+                            {
+                              "div":{
+                                "position":[
+                                  0,
+                                  1
+                                ],
+                                "style":{
+                                  "flexBasis":400,
+                                  "display":"flex",
+                                  "flexDirection":"column",
+                                  "paddingLeft":20
+                                },
+                                "children":[
+                                  {
+                                    "div":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "style":{
+                                        "height":90,
+                                        "width":90,
+                                        "borderRadius":"50%",
+                                        "padding":" 4px 10px",
+                                        "backgroundColor":"#f26522",
+                                        "color":"#fff"
+                                      },
+                                      "children":[
+                                        {
+                                          "h3":{
+                                            "style":{
+                                              "marginLeft":"25px",
+                                              "marginTop":"25px",
+                                              "fontSize":30
+                                            },
+                                            "children":"4"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "h3":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"LOOK FOR JOBS NEAR YOU"
+                                    }
+                                  },
+                                  {
+                                    "p":{
+                                      "style":{
+                                        "color":"#6a6a6a",
+                                        "lineHeight":"1.7em"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"You can search express loads available for pickup right now in your area or maybe you are looking for a backload in a few days, either way searching is made easy."
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "div":{
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "children":[
+                                  {
+                                    "ImageView":{
+                                      "style":{
+                                        "width":"initial",
+                                        "height":"100%"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "src":"https://i.imgur.com/5mbZZUK.jpg"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
                     ]
                   }
-                }
-
-
-               
-               
-               
-              ]
-            }
-          },
-          {
-            "div": {
-              "position": [2, 0],
-              "style": {
-                "backgroundColor": "white",
-                "color": "black",
-                "height": "100%",
-                "margin": "0 auto",
-                "width": "900px",
-                "display": "flex",
-                "alignItems": "center",
-                "justifyContent": "center"
-              },
-              "children": [
+                },
                 {
-                  "span": {
-                    "children": "copyright Channel 40 2018"
+                  "div": {
+                    "position":[3,0],
+                    "children": [
+                        {
+                  "Device":{
+                    "isDesktop":true,
+                    "position":[
+                      3,
+                      0
+                    ],
+                    "children":[
+                      {
+                        "Footer":{
+                          "rows":1,
+                          "cols":5,
+                          "style":{
+                            "height":"auto",
+                            "display":"flex",
+                            "justifyContent":"center",
+                            "alignItems":"flex-start",
+                            "padding":"50px 10%",
+                            "flexWrap":"wrap",
+                            "backgroundColor":"#fefefe"
+                          },
+                          "children":[
+                            {
+                              "Grid":{
+                                "rows":1,
+                                "cols":1,
+                                "position":[
+                                  0,
+                                  0
+                                ],
+                                "style":{
+                                  "flexBasis":"300px"
+                                },
+                                "children":[
+                                  {
+                                    "h1":{
+                                      "style":{
+                                        "fontSize":"26px",
+                                        "color":"#c3c3c3"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"Channel 40"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "Grid":{
+                                "rows":1,
+                                "cols":1,
+                                "position":[
+                                  0,
+                                  1
+                                ],
+                                "style":{
+                                  "flexBasis":"250px"
+                                },
+                                "children":[
+                                  {
+                                    "p":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"SITE LINKS",
+                                      "style":{
+                                        "fontWeight":600,
+                                        "color":"#777"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "ul":{
+                                      "style":{
+                                        "listStyleType":"none",
+                                        "padding":"0px",
+                                        "lineHeight":"1.7em",
+                                        "color":"#777",
+                                        "textDecoration":"underline"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":[
+                                        {
+                                          "li":{
+                                            "children":"About Channel 40 "
+                                          }
+                                        },
+                                        {
+                                          "li":{
+                                            "children":"Drivers "
+                                          }
+                                        },
+                                        {
+                                          "li":{
+                                            "children":"Freight Owners"
+                                          }
+                                        },
+                                        {
+                                          "li":{
+                                            "children":"FAQ's "
+                                          }
+                                        },
+                                        {
+                                          "li":{
+                                            "children":"Media"
+                                          }
+                                        },
+                                        {
+                                          "li":{
+                                            "children":"Contact"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "Grid":{
+                                "rows":1,
+                                "cols":1,
+                                "position":[
+                                  0,
+                                  2
+                                ],
+                                "style":{
+                                  "flexBasis":"250px"
+                                },
+                                "children":[
+                                  {
+                                    "p":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"LEGALS",
+                                      "style":{
+                                        "fontWeight":600,
+                                        "color":"#777"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "ul":{
+                                      "style":{
+                                        "listStyleType":"none",
+                                        "padding":"0px",
+                                        "lineHeight":"1.7em",
+                                        "color":"#777",
+                                        "textDecoration":"underline"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":[
+                                        {
+                                          "li":{
+                                            "children":"Terms of Use"
+                                          }
+                                        },
+                                        {
+                                          "li":{
+                                            "children":"Privacy Policy "
+                                          }
+                                        },
+                                        {
+                                          "li":{
+                                            "children":"Policies"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "Grid":{
+                                "position":[
+                                  0,
+                                  3
+                                ],
+                                "rows":1,
+                                "cols":1,
+                                "style":{
+                                  "justifyContent":"flex-start",
+                                  "alignItems":"flex-start",
+                                  "flexBasis":"250px"
+                                },
+                                "children":[
+                                  {
+                                    "p":{
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "style":{
+                                        "fontWeight":600,
+                                        "color":"#777"
+                                      },
+                                      "children":"NEWSLETTER"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "Grid":{
+                                "position":[
+                                  0,
+                                  4
+                                ],
+                                "rows":1,
+                                "cols":1,
+                                "style":{
+                                  "flexBasis":"250px"
+                                },
+                                "children":[
+                                  {
+                                    "p":{
+                                      "style":{
+                                        "fontWeight":600,
+                                        "color":"#777"
+                                      },
+                                      "position":[
+                                        0,
+                                        0
+                                      ],
+                                      "children":"SOCIAL MEDIA"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
                   }
-                }
+                },
+                { "Device": { "isMobile": true, "position": [3, 0], "children": [{ "Footer": { "rows": 1, "cols": 5, "style": { "height": "auto", "display": "flex", "flexDirection": "column", "justifyContent": "space-around", "alignItems": "center", "padding": "50px 0", "flexWrap": "wrap", "backgroundColor": "#fefefe" }, "children": [{ "div": { "style": { "justifyContent": "center", "alignItems": "center" }, "children": [{ "Grid": { "rows": 1, "cols": 1, "position": [0, 0], "style": { "display": "flex", "justifyContent": "flex-start", "alignItems": "flex-start", "width": "100%" }, "children": [{ "h1": { "style": { "fontSize": "26px", "color": "#c3c3c3" }, "position": [0, 0], "children": "Channel 40" } }] } }, { "Grid": { "rows": 1, "cols": 1, "position": [0, 1], "style": { "display": "flex", "justifyContent": "flex-start", "alignItems": "flex-start", "width": "100%" }, "children": [{ "p": { "position": [0, 0], "children": "SITE LINKS", "style": { "fontWeight": 600, "color": "#777" } } }, { "ul": { "style": { "alignItems": "none", "padding": "0px", "textDecoration": "underline", "color": "#777" }, "position": [0, 0], "children": [{ "li": { "children": "About Channel 40 " } }, { "li": { "children": "Drivers " } }, { "li": { "children": "Freight Owners" } }, { "li": { "children": "FAQ's " } }, { "li": { "children": "Media" } }, { "li": { "children": "Contact" } }] } }] } }, { "Grid": { "rows": 1, "cols": 1, "position": [0, 2], "style": { "display": "flex", "justifyContent": "flex-start", "alignItems": "flex-start", "width": "100%" }, "children": [{ "p": { "position": [0, 0], "style": { "fontWeight": 600, "color": "#777" }, "children": "LEGALS" } }, { "ul": { "position": [0, 0], "style": { "padding": "0", "textDecoration": "underline", "color": "#777" }, "children": [{ "li": { "children": "Terms of Use" } }, { "li": { "children": "Privacy Policy " } }, { "li": { "children": "Policies" } }] } }] } }, { "Grid": { "position": [0, 3], "rows": 1, "cols": 1, "style": { "display": "flex", "justifyContent": "flex-start", "alignItems": "flex-start", "width": "100%" }, "children": [{ "p": { "position": [0, 0], "children": "NEWSLETTER", "style": { "fontWeight": 600, "color": "#777" } } }] } }, { "Grid": { "position": [0, 4], "rows": 1, "cols": 1, "style": { "display": "flex", "justifyContent": "flex-start", "alignItems": "flex-start", "width": "100%" }, "children": [{ "p": { "position": [0, 0], "children": "SOCIAL MEDIA", "style": { "fontWeight": 600, "color": "#777" } } }] } }] } }] } }] } }
+                    ]
+                  }
+                }              
+                
               ]
             }
           }
