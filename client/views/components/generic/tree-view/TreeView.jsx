@@ -31,28 +31,29 @@ class TreeView extends Component {
   }
 
   renderList = (items) => {
+    return items.sort(( a, b ) => a.id - b.id ).map( item => {
+      const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
+      const canOpen = ( hasChildren && item.open );
 
-    let layout = [];
-    items.map((item, i) => {
+      return (
+        <li key={item.id}>
+          <div>
+            <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
+              { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
+              {item.name}
+            </span>
 
-        let canOpen = item.children && item.open;
-        layout.push(
-            <li key={i}>
-              <div>
-                <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
-                  { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
-                  {item.name}
-                </span>
-                <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? "expand_more" : 'chevron_right'} />
-              </div>
-              <ul className="child">
-                {canOpen ? this.renderList(item.children) : []}
-              </ul>
-            </li>
-        )
+            {( item.children && item.children.length > 0 ) && (
+              <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? "expand_more" : 'chevron_right'} />
+            )}
+          </div>
+
+          <ul className="child">
+            {canOpen ? this.renderList(item.children) : []}
+          </ul>
+        </li>
+      );
     });
-
-    return layout;
   }
 
   render() {
