@@ -1,5 +1,5 @@
 import './InputUpload.scss';
-import { string, bool, number, func, object, array } from 'prop-types';
+import { string, bool, number, func, object, array, any } from 'prop-types';
 import React, { Component } from 'react';
 import Uppy from 'uppy/lib/core';
 import AwsS3 from 'uppy/lib/plugins/AwsS3';
@@ -22,11 +22,13 @@ class InputUpload extends Component {
     maxNumberOfFiles: number,
     icon: string,
     autoProceed: bool,
-    showPhotoGalleryWithIndex: func,
     onChange: func,
     defaultValue: object,
     value: array,
     label: string,
+    validation: func,
+    validationList: array,
+    identifier: any,
   }
 
   state = {
@@ -81,14 +83,12 @@ class InputUpload extends Component {
   }
 
   handleComplete = result => {
-    console.log( result );
-
     this.setState( state => ({
       files: [
         ...state.files,
         ...result.successful.map( file => ({
           ...file,
-          uploaded: false,
+          uploaded: true,
           id: file.meta.key,
         })),
       ],
@@ -107,12 +107,12 @@ class InputUpload extends Component {
       type: file.type,
     }));
 
-    console.log( restructuredFiles );
+    const { validationList, validation, identifier } = this.props;
+
+    if(validation) validation(JSON.stringify( restructuredFiles ), identifier, validationList);
   }
 
   handleSuccess = success => {
-    console.log( success );
-
     const uploadedFiles = success.response.map(({ id }) => id );
 
     /* Update all the  */
@@ -129,8 +129,6 @@ class InputUpload extends Component {
   }
 
   handleError = error => {
-    console.error( error );
-
     this.setState({ error });
   }
 
@@ -163,24 +161,16 @@ class InputUpload extends Component {
   }
 
   handleRemoveFile = fileId => () => {
-    this.setState( state => ({ files: state.files.filter(({ id }) => id !== fileId ) }), this.handleRefreshUppy );
+    this.setState( state => ({ files: state.files.filter(({ id }) => id !== fileId ) }), () => {
+      this.handleRefreshUppy();
+      this.handleSaveToServer();
+    });
   }
 
   handleRefreshUppy = () => {
     this.uppy.setState({
       files: this.state.files,
     });
-  }
-
-  handleShowImage = imageToShow => event => {
-    event.preventDefault();
-
-    const images = this.state.files.filter(({ type }) => type.includes( 'image' ));
-    const index = images.findIndex( image => (( image.uploadURL === imageToShow.uploadURL ) || ( image.url === imageToShow.url )));
-
-    this.props.showPhotoGalleryWithIndex( index, ...images );
-
-    return false;
   }
 
   render() {
@@ -200,7 +190,7 @@ class InputUpload extends Component {
                 </button>
 
                 {( file.type.includes( 'image' ) && !!file.preview ) ? (
-                  <img src={file.preview} role="presentation" onClick={this.handleShowImage( file )} />
+                  <img src={file.preview} role="presentation" />
                 ) : (
                   <aside>
                     <i className="material-icons">{this.getIconByFileType( file.type )}</i>
@@ -212,7 +202,6 @@ class InputUpload extends Component {
                     href={file.uploadURL}
                     target="_blank"
                     rel="noopener"
-                    onClick={file.type.includes( 'image' ) && this.handleShowImage( file )}
                   >
                     {file.name} {file.uploaded ? ' (uploaded' : ' (not uploaded)'} {error && '(ERROR)'}
                   </a>
