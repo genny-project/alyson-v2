@@ -23,21 +23,18 @@ class Status extends Component {
     getRenderState = () => {
 
         switch(this.props.color) {
-            case "success":
-            case "warning":
-            case "urgent":
-            return { statusClass: this.props.color }
-            break;
+            case 'success':
+            case 'warning':
+            case 'urgent':
+            return { statusClass: this.props.color };
             default:
-            return { statusColor: { backgroundColor: this.props.color } }
-            break;
+            return { statusColor: { backgroundColor: this.props.color } };
         }
     }
 
     render() {
 
-        const { className, style, color } = this.props;
-        const { statusColor, statusClass } = this.state;
+        const { className, style } = this.props;
         let renderState = this.getRenderState();
         const componentStyle = { ...style, ...renderState.statusColor };
         

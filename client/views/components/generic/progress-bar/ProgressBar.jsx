@@ -1,6 +1,6 @@
 import './progressBar.scss';
 import React, { Component } from 'react';
-import { string, array, number } from 'prop-types';
+import { string, number, object } from 'prop-types';
 import { IconSmall } from 'views/components';
 
 class ProgressBar extends Component {
@@ -16,7 +16,8 @@ class ProgressBar extends Component {
     className: string,
     progressCurrent: number,
     progressTotal: number,
-    type: number
+    type: number,
+    style: object
   }
 
   render() {
@@ -30,7 +31,7 @@ class ProgressBar extends Component {
           <div className="node-container one">
             <div className="node start" />
             {
-              Array.from({ length: progressTotal }, (v, k) => <div className={`node ${ k + 1 < progressCurrent ? "complete" : k + 1 > progressCurrent ? "incomplete" : "current" } `} key={ k } ><div className="" /></div>)
+              Array.from({ length: progressTotal }, (v, k) => <div className={`node ${ k + 1 < progressCurrent ? 'complete' : k + 1 > progressCurrent ? 'incomplete' : 'current' } `} key={ k } ><div className='' /></div>)
             }
           </div>
         ) : null }

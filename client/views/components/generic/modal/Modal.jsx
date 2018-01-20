@@ -1,6 +1,6 @@
 import './modal.scss';
 import React, { Component } from 'react';
-import { string, object, any, func, bool } from 'prop-types';
+import { string, any, func, bool } from 'prop-types';
 import { IconSmall } from 'views/components';
 
 class Modal extends Component {
@@ -13,10 +13,10 @@ class Modal extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
     children: any,
     onClose: func,
     show: bool,
+    header: any
   }
 
   state = {
@@ -41,7 +41,7 @@ class Modal extends Component {
 
   close = () => {
 
-     if(document.body.classList.contains("modal-active")) {
+     if(document.body.classList.contains('modal-active')) {
 
          if(this.props.onClose) {
              this.props.onClose();
@@ -54,7 +54,7 @@ class Modal extends Component {
 
   render() {
 
-    const { className, children, style, show, header } = this.props;
+    const { className, children, show, header } = this.props;
 
     return (
       <div className={`modal-container ${className} ${show ? 'animate' : 'out' }`}>

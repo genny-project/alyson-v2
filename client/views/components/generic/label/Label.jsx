@@ -1,10 +1,13 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { string, func, object } from 'prop-types';
 import './label.scss';
 
 Label.propTypes = {
   className: string,
-  text: string
+  text: string,
+  onClick: func,
+  style: object,
+  textStyle: object
 };
 
 Label.defaultProps = {

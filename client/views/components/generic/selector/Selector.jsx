@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { any, array, bool } from 'prop-types';
+import { Component } from 'react';
+import { any, bool } from 'prop-types';
 
 class Selector extends Component {
   static propTypes = {

@@ -1,6 +1,6 @@
 import './SMSButton.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object } from 'prop-types';
 import { IconSmall } from 'views/components';
 
 class SMSButton extends Component {
@@ -10,19 +10,21 @@ class SMSButton extends Component {
   }
 
   static propTypes = {
-    phoneNumber: string
+    phoneNumber: string,
+    style: object,
+    className: string,
   }
 
   render() {
 
-    const { phoneNumber  } = this.props;
-    const componentStyle = {  };
+    const { phoneNumber, style, className  } = this.props;
+    const componentStyle = { ...style };
 
     if(!phoneNumber) return null;
 
     return (
-      <a className={`sms-button`} href={`tel:${phoneNumber}`} >
-          <IconSmall name={"message"} />
+      <a className={`sms-button ${className}`} href={`tel:${phoneNumber}`} style={componentStyle}>
+          <IconSmall name='message' />
       </a>
     );
   }

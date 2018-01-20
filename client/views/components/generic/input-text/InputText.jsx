@@ -1,6 +1,6 @@
 import './inputText.scss';
 import React, { Component } from 'react';
-import { string, bool, array, object, int, any, func } from 'prop-types';
+import { string, bool, array, object, any, func } from 'prop-types';
 import { Label, SubmitStatusIcon } from 'views/components';
 import MaskedTextInput from 'react-text-mask';
 
@@ -21,6 +21,7 @@ class InputText extends Component {
 
   static propTypes = {
     className: string,
+    style: object,
     validationList: array,
     mask: string,
     name: string,
@@ -31,8 +32,11 @@ class InputText extends Component {
     validation: func,
     identifier: any,
     validationStatus: string,
-
+    isHorizontal: bool,
     handleOnChange: func,
+    inputType: string,
+    inputMask: any,
+    hideHeader: bool
   }
 
   state = {
@@ -50,7 +54,7 @@ class InputText extends Component {
 
   }
 
-  handleFocus = event => {
+  handleFocus = () => {
     this.setState({
       focused: true
     });
@@ -79,9 +83,9 @@ class InputText extends Component {
 
   render() {
 
-    const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, value, ...rest } = this.props;
+    const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, value, } = this.props;
     const componentStyle = { ...style, };
-    const { date, focused } = this.state;
+    const { focused } = this.state;
 
     return <div className={`input input-text ${className} ${validationStatus || ''}`} style={componentStyle}>
       {
@@ -100,7 +104,7 @@ class InputText extends Component {
           mask={inputMask}
           guide={false}
           disabled={readOnly}
-          type={inputType || "text"}
+          type={inputType || 'text'}
           value={value}
           placeholder={placeholder}
           onChange={this.handleChange}
@@ -112,7 +116,7 @@ class InputText extends Component {
         <input
           ref={r => this.input = r}
           disabled={readOnly}
-          type={inputType || "text"}
+          type={inputType || 'text'}
           value={value}
           placeholder={placeholder}
           onChange={this.handleChange}

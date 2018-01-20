@@ -58,7 +58,7 @@ class MapDisplay extends Component {
             this.adjustBounds();
           }, 500);
         }
-      }
+      };
 
       this.checkAddressFormat(geocoder, center, (centerCoords) => { 
 
@@ -89,8 +89,8 @@ class MapDisplay extends Component {
             else {
               counterMarkers += 1;
             }
-          })
-        })
+          });
+        });
 
         let counterRoutes = 0;
         routes.forEach(route => {
@@ -189,7 +189,7 @@ class MapDisplay extends Component {
     if(bounds && this.map && this.locations) {
       this.locations.forEach(location => {
         bounds.extend(location);
-      })
+      });
     }
 
     this.map.fitBounds(bounds); 
@@ -202,7 +202,7 @@ class MapDisplay extends Component {
 
     return (
       <div className={`map-display ${className}`} style={componentStyle}>
-        <div className={`google-map`} ref={div => this.mapRef = div} />
+        <div className='google-map' ref={div => this.mapRef = div} />
       </div>
     );
   }

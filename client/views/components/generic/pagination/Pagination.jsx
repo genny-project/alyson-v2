@@ -1,6 +1,6 @@
 import './pagination.scss';
 import React, { Component } from 'react';
-import { string, object, number, bool } from 'prop-types';
+import { string, object, number, bool, any } from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import { IconSmall } from 'views/components';
 
@@ -13,12 +13,14 @@ class Pagination extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
+    children: any,
+    style: object,
     totalItems: number,
     perPage: number,
     marginPagesDisplayed: number,
     pageRangeDisplayed: number,
     hidePageNumbers: bool,
+    hideNav: bool,
   }
 
   state = {
@@ -44,7 +46,7 @@ class Pagination extends Component {
   render() {
 
     const { className, hideNav, children, style, perPage } = this.props;
-    const { childrenCurrent, pageCurrent, pageCount, offset } = this.state;
+    const { pageCount, offset } = this.state;
     const componentStyle = { ...style };
 
     let childrenCount = Object.keys(this.props.children).length;
@@ -53,12 +55,12 @@ class Pagination extends Component {
     let nav = hideNav || childrenCount <= perPage ? 'hide-nav' : '';
 
     return (
-      <div className={`pagination ${className} ${nav}`}>
+      <div className={`pagination ${className} ${nav}`} style={componentStyle}>
         <div className='pagination-content'>
           {childrenPageArray}
         </div>
         <ReactPaginate 
-          pageCount={this.state.pageCount}
+          pageCount={pageCount}
           marginPagesDisplayed={0}
           pageRangeDisplayed={3}
           onPageChange={this.handlePageClick}

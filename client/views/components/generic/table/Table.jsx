@@ -25,11 +25,12 @@ class Table extends Component {
     bodyHeight: any,
   }
 
-  createProps = key => (state, rowInfo, column) => {
-    const {bodyHeight} = this.props;
+  //createProps = key => (state, rowInfo, column) => {
+  createProps = key => () => {
+      const {bodyHeight} = this.props;
     const props = {
       tBodyStyle: { style: {height: bodyHeight, overflow: 'scroll'}},
-    }
+    };
     if (props[key] && bodyHeight) {
       return props[key];
     } else {
@@ -38,7 +39,7 @@ class Table extends Component {
   }
 
   render() {
-    const { className, columns, data, itemsPerPage, isList, } = this.props;
+    const { columns, data, itemsPerPage, isList, } = this.props;
 
     return (
       <ReactTable

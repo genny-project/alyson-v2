@@ -13,21 +13,23 @@ class MapDirectionsButton extends Component {
     className: string,
     style: object,
     children: any,
+    buttonComponentStyle: object,
+    buttonStyle: object,
+    addressPickup: string,
+    addressDropoff: string,
   }
 
   createMapURL = (addressPickup, addressDropoff) => {
 
-    const pickupURL = encodeURI(addressPickup)
-    const dropoffURL = encodeURI(addressDropoff)
+    const pickupURL = encodeURI(addressPickup);
+    const dropoffURL = encodeURI(addressDropoff);
 
-    const url = "https://www.google.com/maps/dir/?api=1&origin=" + pickupURL + "&destination=" + dropoffURL;
-
-    console.log(url);
+    const url = 'https://www.google.com/maps/dir/?api=1&origin=' + pickupURL + '&destination=' + dropoffURL;
     return url;
   }
   
   render() {
- 	  const { className, children, style, buttonComponentStyle, buttonStyle, addressPickup, addressDropoff, ...rest } = this.props;
+    const { className, children, style, buttonComponentStyle, buttonStyle, addressPickup, addressDropoff, ...rest } = this.props;
     const componentStyle = { ...style, };
 
     return (

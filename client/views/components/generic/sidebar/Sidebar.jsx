@@ -1,7 +1,7 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
-import { ImageView, IconSmall } from 'views/components'
-import { object, bool, string, any } from 'prop-types';
+import { ImageView, IconSmall } from 'views/components';
+import { object, string, any } from 'prop-types';
 import { Grid } from '@genny-project/layson';
 
 class Sidebar extends Component {
@@ -27,7 +27,7 @@ class Sidebar extends Component {
 
     render() {
 
-        const { style, src, caption, children, height, } = this.props;
+        const { style, src, caption, children, } = this.props;
         const { isOpen } = this.state;
 
         const componentStyle = {
@@ -38,22 +38,22 @@ class Sidebar extends Component {
         if ( src ) {
             image = (
                 <div className='sidebar-image' position={[0,0]}>
-                    <ImageView src={src} caption={caption} style={{ maxHeight: "100px", maxWidth: "200px" }}/>
+                    <ImageView src={src} caption={caption} style={{ maxHeight: '100px', maxWidth: '200px' }}/>
                 </div>
             );
         }
-        let icon = <IconSmall className={`sidebar-toggle-icon clickable`}
+        let icon = <IconSmall className='sidebar-toggle-icon clickable'
                 name="menu"
                 onClick={this.handleSidebarToggle}
                 position={[0,0]}
-            />
+            />;
 
         return (
             <div className={`sidebar ${window.getScreenSize()} ${isOpen ? '' : 'closed'}`}>
                 <Grid
                     className='sidebar-main'
                     style={componentStyle}
-                    rows={["200px", {"style": { "flex": "1, 1, auto", "overflow": "scroll"} }]}
+                    rows={['200px', {style: {  flex: '1, 1, auto', overflow: 'scroll'} }]}
                     cols={1}>
 
                     {icon}

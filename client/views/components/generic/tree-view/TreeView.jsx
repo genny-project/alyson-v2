@@ -1,8 +1,7 @@
 import './treeView.scss';
 import React, { Component } from 'react';
 import { object, array, func } from 'prop-types';
-import { IconSmall, SubmitStatusIcon } from 'views/components';
-import { BaseEntity, GennyBridge } from 'utils/genny/';
+import { IconSmall } from 'views/components';
 
 class TreeView extends Component {
 
@@ -10,6 +9,8 @@ class TreeView extends Component {
     style: object,
     items: array,
     data: object,
+    onClick: func,
+    onExpand: func
   };
 
   onClick = (item) => (event) => {
@@ -44,7 +45,7 @@ class TreeView extends Component {
             </span>
 
             {( item.children && item.children.length > 0 ) && (
-              <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? "expand_more" : 'chevron_right'} />
+              <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? 'expand_more' : 'chevron_right'} />
             )}
           </div>
 
@@ -58,7 +59,7 @@ class TreeView extends Component {
 
   render() {
 
-    const { items, baseEntity } = this.props;
+    const { items } = this.props;
 
     return (
       <div className="treeview">

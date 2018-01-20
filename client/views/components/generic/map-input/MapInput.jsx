@@ -1,8 +1,8 @@
 import './mapInput.scss';
 import React, { Component } from 'react';
-import { string, object, array, number, bool } from 'prop-types';
+import { string, object, number, bool, func } from 'prop-types';
 import { IconSmall, InputText } from 'views/components';
-import { geocodeByAddress } from 'react-places-autocomplete'
+import { geocodeByAddress } from 'react-places-autocomplete';
 //import { geocodeByAddress } from '@genny-project/react-places-autocomplete'
 
 class MapInput extends Component {
@@ -23,7 +23,10 @@ class MapInput extends Component {
     lng: number,
     controls: bool,
     zoom: number,
-    hideInput: bool
+    hideInput: bool,
+    value: string,
+    address: string,
+    handleUpdate: func,
   }
 
   state = {
@@ -45,9 +48,6 @@ class MapInput extends Component {
     if(typeof google == 'object') {
 
       const { lat, lng, controls, zoom, address } = this.props;
-      
-      console.log('lat', lat);
-      console.log('lng', lng);
 
       const mapOptions = {
         zoom,
@@ -62,7 +62,7 @@ class MapInput extends Component {
       let geocoder = new google.maps.Geocoder;
 
       if (address && address.length > 0) {
-        console.log('center');
+        //console.log('center');
         this.setCenter(address);
       }
 
@@ -85,7 +85,7 @@ class MapInput extends Component {
         }
       });
 
-      let markers = [];
+      //let markers = [];
       searchBox.addListener('places_changed', () => {
         
         if(!this.map) return;
@@ -121,7 +121,7 @@ class MapInput extends Component {
     this.setup();
   }
 
-  geocodeLatLng = (geocoder, map, infowindow) => {
+  geocodeLatLng = (geocoder, map) => {
 
       let coords = map.getCenter();
       var input = coords.toString();
@@ -157,7 +157,7 @@ class MapInput extends Component {
         if(this.map) {
           this.map.setCenter(new google.maps.LatLng( results[0].geometry.location.lat(), results[0].geometry.location.lng() ));
         }
-      })  
+      });
     }.bind(this), 500);
   }
 
@@ -187,7 +187,7 @@ class MapInput extends Component {
   render() {
     const { className, style, hideInput, address } = this.props;
     const { value } = this.state;
-    const componentStyle = { ...style, position: "relative" };
+    const componentStyle = { ...style, position: 'relative' };
 
     //const inputStyle = hideInput ? { visibility: 'hidden' } : {};
 

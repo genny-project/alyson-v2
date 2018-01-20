@@ -1,7 +1,7 @@
 import './submitStatusIcon.scss';
 import React, { Component } from 'react';
 import { IconSmall } from 'views/components';
-import { string } from 'prop-types';
+import { string, object } from 'prop-types';
 
 class SubmitStatusIcon extends Component {
   static defaultProps = {
@@ -11,7 +11,8 @@ class SubmitStatusIcon extends Component {
 
   static propTypes = {
     className: string,
-    status: string,
+		status: string,
+		style: object
   }
 
   render() {
@@ -19,7 +20,7 @@ class SubmitStatusIcon extends Component {
 		const componentStyle = { ...style, };
 
 		switch(status) {
-	    case "sending":
+			case 'sending':
 			return ( 
 				<div className="ellipsis-anim" style={componentStyle}>
 					<IconSmall name="brightness_1" size={4} />
@@ -27,16 +28,16 @@ class SubmitStatusIcon extends Component {
 					<IconSmall name="brightness_1" size={4} />
 				</div>
 			);
-	    case "success":
+			case 'success':
 			return ( 
 				<IconSmall className="success" name="check_circle" size={14} style={componentStyle}/>
 			);
-	    case "error":
+			case 'error':
 			return (
 				<IconSmall className="error" name="error" size={14} style={componentStyle}/>
 			);
-	    default:
-	        return null;
+			default:
+				return null;
     }
   }
 }
