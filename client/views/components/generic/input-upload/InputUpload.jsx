@@ -203,7 +203,7 @@ class InputUpload extends Component {
                     target="_blank"
                     rel="noopener"
                   >
-                    {file.name} {file.uploaded ? ' (uploaded' : ' (not uploaded)'} {error && '(ERROR)'}
+                    {file.name} {file.uploaded ? ' (uploaded)' : ' (not uploaded)'} {error && '(ERROR)'}
                   </a>
                   <small>{prettierBytes( file.size )}</small>
                 </div>
