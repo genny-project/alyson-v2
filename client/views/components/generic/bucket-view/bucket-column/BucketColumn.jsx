@@ -1,8 +1,8 @@
 import './BucketColumn.scss';
 import React, { Component } from 'react';
-import { string, object, any, bool } from 'prop-types';
+import { string, object, func, array, bool } from 'prop-types';
 import { BucketElement } from './bucket-element';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 import { GennyBridge } from 'utils/genny';
 import { IconSmall, Status, Button } from 'views/components';
 import { Grid } from '@genny-project/layson';
@@ -25,14 +25,20 @@ class BucketColumn extends Component {
         children: object,
         title: string,
         groupId: string,
+        goToPreviousBucket: func,
+        goToNextBucket: func,
+        addNewItem: func,
+        items: array,
+        canAddItem: bool,
+        showMovingOptions: func,
     }
 
     state = {
     }
 
     moveBucket = (notification) => {
-        if(notification == "previous") this.props.goToPreviousBucket()
-        if(notification == "next") this.props.goToNextBucket()
+        if(notification == 'previous') this.props.goToPreviousBucket();
+        if(notification == 'next') this.props.goToNextBucket();
     }
 
     addNewItem = () => {
@@ -52,11 +58,10 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, items, groupId, canAddItem, goToPreviousBucket, goToNextBucket } = this.props;
-        const componentStyle = { ...style, };
+        const { className, style, title, items, groupId, canAddItem, goToPreviousBucket, goToNextBucket, showMovingOptions } = this.props;
         let titleDiv = null;
 
-        if(window.getScreenSize() == "sm") {
+        if(window.getScreenSize() == 'sm') {
             titleDiv =
             <div>
                 {
@@ -74,7 +79,7 @@ class BucketColumn extends Component {
                         <IconSmall className="clickable bucket_action_next" name='chevron_right' onClick={this.props.goToNextBucket}/>
                     : <div className='spacer next'/>
                 }
-            </div>
+            </div>;
         }
         else {
             titleDiv =
@@ -91,8 +96,8 @@ class BucketColumn extends Component {
                 <div className="bucket-title sticky">
                     {titleDiv}
                     <Button
-                        style={ {"fontSize": "12px", "width": "65px", "cursor": "pointer" } }
-                        buttonStyle={{ "background": "white" }}
+                        style={ {'fontSize': '12px', 'width': '65px', 'cursor': 'pointer' } }
+                        buttonStyle={{ 'background': 'white' }}
                         onClick={() => this.onExpandColumn(this.props.groupId)}
                     >
                         <span style={{color: 'rgb(130, 130, 130' }} >Expand</span>
@@ -119,9 +124,9 @@ class BucketColumn extends Component {
                                                 style={child.style}
                                                 moveBucket={this.moveBucket}
                                                 screenSize={window.getScreenSize()}
-                                                showMovingOptions={this.props.showMovingOptions}
+                                                showMovingOptions={showMovingOptions}
                                                 index={index}/>
-                                            )
+                                            );
                                         })
                                     }
                                 </div>
@@ -137,8 +142,8 @@ class BucketColumn extends Component {
                 <div className="bucket-legend sticky">
                     <Grid
                         style={{padding: '5px'}}
-                        cols={["20px", {style:{flexGrow: 1, display: 'flex', alignItems: 'center'}}]}
-                        rows={[{style: {flexGrow: 1, paddingBottom: "5px"}},{style: {flexGrow: 1, paddingBottom: "5px"}},1]}
+                        cols={['20px', {style:{flexGrow: 1, display: 'flex', alignItems: 'center'}}]}
+                        rows={[{style: {flexGrow: 1, paddingBottom: '5px'}},{style: {flexGrow: 1, paddingBottom: '5px'}},1]}
                     >
                         <Status position={[0,0]} color='urgent' style={{height: '15px' }}/>
                         <span position={[0,1]} >Overdue. Immediate action required.</span>

@@ -1,12 +1,12 @@
 import './bucketElement.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, any, func } from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import ReactDOM from 'react-dom';
 import { BucketCard } from './bucket-card';
 
 const gridPadding = 5;
-const getItemStyle = (draggableStyle, isDragging) => ({
+const getItemStyle = draggableStyle => ({
 
     userSelect: 'none',
     padding: gridPadding,
@@ -25,9 +25,10 @@ class BucketElement extends Component {
     static propTypes = {
         className: string,
         children: any,
-    }
-
-    state = {
+        moveBucket: func,
+        item: object,
+        style: object,
+        showMovingOptions: func,
     }
 
     componentDidUpdate() {
@@ -43,11 +44,11 @@ class BucketElement extends Component {
             if(card) {
 
                 let cardCss = window.getComputedStyle(card);
-                var transformMatrix = cardCss.getPropertyValue("transform") ||
-                cardCss.getPropertyValue("-moz-transform")    ||
-                cardCss.getPropertyValue("-ms-transform")     ||
-                cardCss.getPropertyValue("-o-transform")      ||
-                cardCss.getPropertyValue("-webkit-transform");
+                var transformMatrix = cardCss.getPropertyValue('transform') ||
+                cardCss.getPropertyValue('-moz-transform')    ||
+                cardCss.getPropertyValue('-ms-transform')     ||
+                cardCss.getPropertyValue('-o-transform')      ||
+                cardCss.getPropertyValue('-webkit-transform');
                 var matrix = transformMatrix.replace(/[^0-9\-.,]/g, '').split(',');
                 var x = matrix[12] || matrix[4];//translate x
                 return x; // y ?
@@ -61,10 +62,10 @@ class BucketElement extends Component {
         let width = cardNode.getBoundingClientRect().width;
         let currentX = this.getCurrentPosition();
         if(currentX < 0) {
-            return "previous";
+            return 'previous';
         }
         else if(currentX > width / 4.0) {
-            return "next";
+            return 'next';
         }
 
         return null;
@@ -94,10 +95,10 @@ class BucketElement extends Component {
 
     render() {
 
-        const { className, item, style } = this.props;
+        const { item, style, showMovingOptions } = this.props;
         return (
 
-            <Draggable key={item.id} draggableId={item.id} isDragDisabled={window.getScreenSize() == "sm"} >
+            <Draggable key={item.id} draggableId={item.id} isDragDisabled={window.getScreenSize() == 'sm'} >
                 {
                     (provided, snapshot) => (
                         <div>
@@ -113,7 +114,7 @@ class BucketElement extends Component {
                                 {...provided.dragHandleProps}
                                 className="bucket-contents"
                             >
-                                <BucketCard {...item.content} showMovingOptions={this.props.showMovingOptions} />
+                                <BucketCard {...item.content} showMovingOptions={showMovingOptions} />
                             </div>
                             {provided.placeholder}
                         </div>

@@ -8,7 +8,6 @@ import keycloakAdapter from 'keycloak-js';
 import { GennyBridge } from 'utils/genny';
 
 class App extends Component {
-
   static propTypes = {
     appStart: func,
     authLoggedIn: func,
@@ -38,13 +37,13 @@ class App extends Component {
 
               let event = message.detail;
               switch (event.id) {
-                  case "GEOFENCE":
+                  case 'GEOFENCE':
                   GennyBridge.sendGeofenceData(event.data.value, event.data);
                   break;
-                  default: console.log("received unknown event [" + event.id + "]");
+                  default: console.log('received unknown event [' + event.id + ']');
               }
           }
-      })
+      });
     }
   }
 
@@ -61,15 +60,15 @@ class App extends Component {
 
   setupGoogleAPI() {
 
-      let googleScript = document.getElementById("google-api");
+      let googleScript = document.getElementById('google-api');
       if(!googleScript) {
 
           // load google api
           //TODO: move the API key to config file
-          const script = document.createElement("script");
-          script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6Te7CSJZvfTITavnAijxdkqN-Viugpg&libraries=places";
+          const script = document.createElement('script');
+          script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6Te7CSJZvfTITavnAijxdkqN-Viugpg&libraries=places';
           script.async = true;
-          script.id = "google-api";
+          script.id = 'google-api';
           document.body.appendChild(script);
       }
   }
@@ -81,10 +80,10 @@ class App extends Component {
               latitude:  -37.7997902,
               longitude: 144.9666907,
               radius: 10,
-              enterCode: "ENTER_TEST",
-              exitCode: "EXIT_TEST",
+              enterCode: 'ENTER_TEST',
+              exitCode: 'EXIT_TEST',
           }
-      ]
+      ];
 
       if(destinations) {
 
@@ -105,14 +104,14 @@ class App extends Component {
                           let distance_from_center = Math.sqrt(Math.pow((destination.latitude - position.coords.latitude), 2) + Math.pow((destination.longitude - position.coords.longitude), 2));
                           if(distance_from_center < destination.radius) {
 
-                              if(destination.status == "out") {
-                                  this.onEnterGPSCircle(destination)
+                              if(destination.status == 'out') {
+                                  this.onEnterGPSCircle(destination);
                               }
                           }
                           else {
 
-                              if(destination.status == "in") {
-                                  this.onExitGPSCircle(destination)
+                              if(destination.status == 'in') {
+                                  this.onExitGPSCircle(destination);
                               }
                           }
                       });
@@ -128,17 +127,17 @@ class App extends Component {
 
         if(this.gpsInterval) clearInterval(this.gpsInterval);
 
-        this.refreshGPS()
+        this.refreshGPS();
         this.gpsInterval = setInterval(() => {
-            this.refreshGPS()
+            this.refreshGPS();
         }, 100000);
   }
 
   onExitGPSCircle = (destination) => {
 
-        console.log("did exit destination: ");
+        console.log('did exit destination: ');
         console.log(destination);
-        this.props.app.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = "out";
+        this.props.app.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = 'out';
         // this.sendDataToWeb("GEOFENCE", {
         //     value: "GEOFENCE_EXIT",
         //     code: destination.exitCode,
@@ -147,9 +146,9 @@ class App extends Component {
 
     onEnterGPSCircle = (destination) => {
 
-        console.log("did enter destination: ");
+        console.log('did enter destination: ');
         console.log(destination);
-        this.props.app.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = "in";
+        this.props.app.gps.destinations.filter(x => x.latitude == destination.latitude && x.longitude == destination.longitude)[0].status = 'in';
         // this.sendDataToWeb("GEOFENCE", {
         //     value: "GEOFENCE_ENTRY",
         //     code: destination.enterCode,
@@ -185,8 +184,8 @@ class App extends Component {
 
     if(this.props.app.gps.monitor) {
         this.setupGPS();
-        console.log("MONITORING")
-        console.log("================")
+        console.log('MONITORING');
+        console.log('================');
     }
 
     return (
@@ -195,8 +194,8 @@ class App extends Component {
           {keycloak.logout && <KeycloakLogout />}
           {keycloak.accounts && <KeycloakAccount force />}
           <KeycloakLoggedIn>
-            <main style={{ "height" : "100%" }}>
-              <content style={{ "height" : "100%" }}>
+            <main style={{ 'height' : '100%' }}>
+              <content style={{ 'height' : '100%' }}>
                 <Routes />
               </content>
             </main>

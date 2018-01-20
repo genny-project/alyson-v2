@@ -1,11 +1,9 @@
 import './bucketCard.scss';
 import React, { Component } from 'react';
-import { string, bool, array, number } from 'prop-types';
-import { Button, IconSmall, ProgressBar, Status, Dropdown } from 'views/components';
-import { BaseEntityQuery } from 'utils/genny';
+import { string, bool, number, func, object, any } from 'prop-types';
+import { IconSmall, ProgressBar, Dropdown } from 'views/components';
 
 class BucketCard extends Component {
-
   static defaultProps = {
     className: '',
     title: '',
@@ -26,6 +24,11 @@ class BucketCard extends Component {
     showProgress: bool,
     progressTotal: number,
     progressCurrent: number,
+    showMovingOptions: func,
+    style: object,
+    layout: any,
+    backgroundColor: string,
+    onClick: func,
   }
 
   state = {
@@ -38,7 +41,7 @@ class BucketCard extends Component {
       isOpen: !this.state.isOpen
     });
   }
- 
+
 
   toggleOptions = () => {
 
@@ -50,7 +53,7 @@ class BucketCard extends Component {
   moveItem = () => {
 
       // hide option menu
-      this.toggleOptions()
+      this.toggleOptions();
 
       // show options
       if(this.props.showMovingOptions) {
@@ -60,37 +63,35 @@ class BucketCard extends Component {
 
   render() {
 
-    const { className, title, description, level, style, showProgress, progressCurrent, progressTotal, children, backgroundColor  } = this.props;
-    const { isShowingOptions, isOpen } = this.state;
-    
+    const { className, style, showProgress, progressCurrent, progressTotal, backgroundColor, layout, onClick  } = this.props;
+    const { isShowingOptions } = this.state;
+
     const componentStyle = { ...style, backgroundColor: backgroundColor || '' };
 
-    const collapseArrow = isOpen ? 'expand_more' : 'expand_less';
-
     let dropDownStyle = {
-        float: "left",
+        float: 'left',
     };
 
     let dropDownContentStyle = {
-        background: "white",
-        boxShadow: "0px 0px 5px 1px rgba(0,0,0,0.4)",
-        padding: "0px",
+        background: 'white',
+        boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.4)',
+        padding: '0px',
     };
 
     let dropDownTagStyle = {
-        left: "10%",
-        transform: `translate(10%)`,
-        WebkitTransform: `translate(10%)`,
-        msTransform: `translate(10%)`,
-        WebKitFilter: "drop-shadow(0px -3px 2px rgba(0,0,0, 0.3))",
-        filter: "drop-shadow(0px -3px 2px rgba(0,0,0, 0.3))",
-        borderColor: "transparent transparent white",
+        left: '10%',
+        transform: 'translate(10%)',
+        WebkitTransform: 'translate(10%)',
+        msTransform: 'translate(10%)',
+        WebKitFilter: 'drop-shadow(0px -3px 2px rgba(0,0,0, 0.3))',
+        filter: 'drop-shadow(0px -3px 2px rgba(0,0,0, 0.3))',
+        borderColor: 'transparent transparent white',
     };
 
     return (
-      <div className={`bucket-card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => this.props.onClick(this)} >   
+      <div className={`bucket-card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => onClick(this)} >
         {
-          window.getScreenSize() == "sm" ? 
+          window.getScreenSize() == 'sm' ?
           <Dropdown
               style={dropDownStyle}
               tagStyle={dropDownTagStyle}
@@ -103,7 +104,7 @@ class BucketCard extends Component {
               </ul>
           </Dropdown> : null
         }
-        { this.props.layout || null }
+        {layout}
         {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
       </div>
     );
