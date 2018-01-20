@@ -36,7 +36,7 @@ class InputDatePicker extends Component {
   }
 
   getStartDate() {
-    const { value, defaultDateFormat} = this.s;
+    const { value, defaultDateFormat} = this.props;
     return value ? moment(value, defaultDateFormat).format(defaultDateFormat) : moment().format(defaultDateFormat);
   }
 
@@ -89,8 +89,6 @@ class InputDatePicker extends Component {
     const componentStyle = { ...style, };
     const startDate = this.getStartDate();
     const isMobile = window.getScreenSize() === 'sm';
-
-    console.log(startDate);
 
     return (
       <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
