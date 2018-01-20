@@ -68,6 +68,7 @@
     "node-sass": "^4.5.3",
     "path": "^0.12.7",
     "postcss-uncss": "^0.15.0",
+    "prettier-bytes": "^1.0.4",
     "query-string": "^4.3.4",
     "raw-body": "^2.3.2",
     "rc-slider": "^8.3.5",
@@ -94,6 +95,7 @@
     "s3": "^4.4.0",
     "text-mask-addons": "^3.6.0",
     "uncss": "^0.15.0",
+    "uppy": "^0.22.1",
     "vertx3-eventbus-client": "^3.4.2",
     "webpack-dashboard": "^0.4.0"
   }
