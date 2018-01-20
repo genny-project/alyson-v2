@@ -1,6 +1,6 @@
 import './InputUpload.scss';
 import React, { Component } from 'react';
-import { string, bool, array, object, int, any, func } from 'prop-types';
+import { string, bool, array, any, func } from 'prop-types';
 import { Label, SubmitStatusIcon } from 'views/components';
 import { Grid } from '@genny-project/layson';
 
@@ -30,7 +30,10 @@ class InputUpload extends Component {
     optional: bool,
     validation: func,
     identifier: any,
-    validationStatus: string
+    validationStatus: string,
+    mandatory: bool,
+    isHorizontal: bool,
+    value: string,
   }
 
   state = {
@@ -41,7 +44,6 @@ class InputUpload extends Component {
   }
 
   handleChange = event => {
-
     // we consider for now we can only upload 1 file at a time. this could change.
     if(event.target.files && event.target.files.length > 0) {
 
@@ -59,16 +61,13 @@ class InputUpload extends Component {
 
             this.setState({
               value: uploadedfile.name
-            })
-        }
+            });
+        };
     }
   }
 
   render() {
-
-    const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, } = this.props;
-    const componentStyle = { ...style, };
-    const { date, focused, value } = this.state;
+    const { className, name, mandatory, placeholder, validationStatus, isHorizontal } = this.props;
 
     return <div className={`input input-file-upload ${className} ${validationStatus || ''}`}>
       {!isHorizontal ? <div className="input-header">
@@ -76,8 +75,8 @@ class InputUpload extends Component {
           {mandatory ? <Label className='input-label-required' textStyle={{color: '#cc0000'}} text="*  required" /> : null}
           <SubmitStatusIcon status={validationStatus} />
         </div> : null}
-      <Grid rows={1} cols={[{ style: { flexGrow: 4, marginRight: "10px" }},1]}>
-        <input position={[0,0]} className="file-name-display" type='text' readOnly placeholder={placeholder || 'No file chosen'} value={value} />
+      <Grid rows={1} cols={[{ style: { flexGrow: 4, marginRight: '10px' }},1]}>
+        <input position={[0,0]} className="file-name-display" type='text' readOnly placeholder={placeholder || 'No file chosen'} value={this.props.value} />
         <div position={[0,1]} className="fileUpload">
           <span>+ Upload</span>
           <input className="upload" id='fileUpload' type='file' onChange={this.handleChange} />

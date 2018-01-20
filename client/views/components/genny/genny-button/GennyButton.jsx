@@ -5,48 +5,41 @@ import { Button } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
 class GennyButton extends Component {
+  static defaultProps = {
+    buttonCode: null,
+    value: null,
+  }
 
-    static defaultProps = {
-        buttonCode: null,
-        value: null,
+  static propTypes = {
+    buttonCode: string,
+    value: object,
+    children: any,
+    buttonComponentStyle: object,
+    style: object,
+  };
+
+  handleClick = () => {
+    if(this.props.buttonCode) {
+      let btnValue = (this.props.value && this.props.value.constructor == String) ? this.props.value : JSON.stringify(this.props.value);
+      GennyBridge.sendBtnClick('BTN_CLICK', {
+        code: this.props.buttonCode,
+        value: btnValue || null,
+      });
     }
+  }
 
-    static propTypes = {
-        buttonCode: string,
-        value: object,
+  render() {
+    const { children, style, buttonComponentStyle, ...rest } = this.props;
+    const componentStyle = { ...style, };
 
-    };
-
-    state = {
-    }
-
-    handleClick = () => {
-
-        //TODO: to be changed.
-        if(this.props.buttonCode) {
-
-            let btnValue = (this.props.value.constructor == String) ? this.props.value : JSON.stringify(this.props.value);
-
-            GennyBridge.sendBtnClick("BTN_CLICK", {
-                //code: 'LOAD_EDIT',
-                code: this.props.buttonCode,
-                value: btnValue || null,
-            });
-        }
-    }
-
-    render() {
-        const { children, hint, style, buttonComponentStyle, ...rest } = this.props;
-        const componentStyle = { ...style, };
-
-        return (
-            <div className="genny-button" style={componentStyle}>
-                <Button {...rest} onClick={this.handleClick} style={ {...buttonComponentStyle, height: componentStyle.height }}>
-                    {children}
-                </Button>
-            </div>
-        );
-    }
+    return (
+      <div className="genny-button" style={componentStyle}>
+        <Button {...rest} onClick={this.handleClick} style={ {...buttonComponentStyle, height: componentStyle.height }}>
+          {children}
+        </Button>
+      </div>
+    );
+  }
 }
 
 export default GennyButton;
