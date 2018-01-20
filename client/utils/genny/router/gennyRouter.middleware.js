@@ -18,22 +18,29 @@ const middleware = store => next => action => {
 
   /* Capture when the page changes. */
   else if ( action.type === '@@router/LOCATION_CHANGE' ) {
-    try {
-      /* Get the stringified layout from the payload, which is ultimately from the URL. */
-      const stringifiedLayout = action.payload.pathname.replace( '/', '' );
-      /* Convert the layout from the URL to JSON so we can reconstruct the original CMD_VIEW payload. */
-      const layout = JSON.parse( stringifiedLayout );
+    const currentLocation = store.getState().router.location;
+    const nextPathname = action.payload.pathname;
 
-      /* Dispatch an altered CMD_VIEW action with the layout. The reason it is altered
-       * is so that the above function (the one that pushes the layout the URL) does not
-       * get triggered and send us into an infinite loop of pushing and page changing. */
-      store.dispatch({
-        type: CMD_VIEW_PAGE_CHANGE,
-        payload: layout,
-      });
-    } catch ( e ) {
-      /* Handle failed `JSON.parse`s. */
-      console.error( e );
+    /* Only attempt this if the location pathnames are different. This solves the issue of the view being
+     * reverted when the location hash, search or state is updated. */
+    if ( currentLocation && currentLocation.pathname !== nextPathname ) {
+      try {
+        /* Get the stringified layout from the payload, which is ultimately from the URL. */
+        const stringifiedLayout = action.payload.pathname.replace( '/', '' );
+        /* Convert the layout from the URL to JSON so we can reconstruct the original CMD_VIEW payload. */
+        const layout = JSON.parse( stringifiedLayout );
+
+        /* Dispatch an altered CMD_VIEW action with the layout. The reason it is altered
+         * is so that the above function (the one that pushes the layout the URL) does not
+         * get triggered and send us into an infinite loop of pushing and page changing. */
+        store.dispatch({
+          type: CMD_VIEW_PAGE_CHANGE,
+          payload: layout,
+        });
+      } catch ( e ) {
+        /* Handle failed `JSON.parse`s. */
+        console.error( e );
+      }
     }
   }
 
