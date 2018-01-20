@@ -246,13 +246,14 @@
                 },
                 {
                   "Grid":{
-                    "rows":2,
+                    "rows":4,
                     "cols":1,
                     "position":[2,0],
                     "style": {
                       "display": "flex",
                       "justifyContent": "center",
-                      "alignItems": "space-around"
+                      "alignItems": "space-around",
+                      "padding": "0 15%"
                     },
                     "children":[
                       {
@@ -288,6 +289,7 @@
                                         "h3": {
                                           "style": {
                                             "marginLeft": "25px",
+                                            "marginTop":"25px",
                                             "fontSize":30
                                           },
                                           "children": "1"
@@ -313,7 +315,7 @@
                                 "children": [
                                   {
                                     "ImageView": {
-                                      "style": {"width": "100%"},
+                                      "style": {"width": "initial", "height":200},
                                       "position": [0,0],
                                       "src": "https://i.imgur.com/5mbZZUK.jpg"
                                     }
@@ -330,15 +332,18 @@
                           "rows":1,
                           "cols":2,
                           "style": {
+                            "height":"600px",
                             "display":"flex",
                             "justifyContent": "space-around",
                             "alignItems":"center",
-                            "flexWrap": "wrap"
+                            "flexWrap": "wrap",
+                            "flexDirection": "row-reverse"
                           },
                           "children": [
+                             
                             {
                               "div": {
-                              "position": [0, 0],
+                              "position": [0, 1],
                               "style": {"flexBasis":400},
                               "children": [
                                 {
@@ -357,6 +362,7 @@
                                         "h3": {
                                           "style": {
                                             "marginLeft": "25px",
+                                            "marginTop": "25px",                                            
                                             "fontSize":30
                                           },
                                           "children": "2"
@@ -375,26 +381,28 @@
 
                                     "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } 
                             },
-                            {
-                              "div": {
-                                "position":[0,1],
-                                "children": [
-                                  {
-                                    "ImageView": {
-                                      "style": {"width": "100%"},
-                                      "position": [0,0],
-                                      "src": "https://i.imgur.com/5mbZZUK.jpg"
-                                    }
-                                  }
-                                ]
-                              }
-                            }
+                             {
+                               "div": {
+                                 "position": [0, 0],
+                                 "style": {},
+                                 "children": [{
+                                   "ImageView": {
+                                     "style": {
+                                       "width": "100%"
+                                     },
+                                     "position": [0, 0],
+                                     "src": "https://i.imgur.com/5mbZZUK.jpg"
+                                   }
+                                 }]
+                               }
+                             }
+                            
                           ]
                         }
                       },
-                      { "div": { "position": [0, 0], "rows": 1, "cols": 2, "style": { "display": "flex", "justifyContent": "space-around", "alignItems": "center", "flexWrap": "wrap" }, "children": [{ "div": { "position": [0, 0], "style": { "flexBasis": 400 }, "children": [{ "div": { "position": [0, 0], "style": { "height": 90, "width": 90, "borderRadius": "50%", "padding": " 4px 10px", "backgroundColor": "#f26522", "color": "#fff" }, "children": [{ "h3": { "style": { "marginLeft": "25px", "fontSize": 30 }, "children": "3" } }] } }, { "h3": { "position": [0, 0], "children": "Get Notified as soon as you've got the job" } }, { "p": { "position": [0, 0], "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
+                      { "div": { "position": [0, 0], "rows": 1, "cols": 2, "style": { "display": "flex", "justifyContent": "space-around", "alignItems": "center", "flexWrap": "wrap", "height":"600px" }, "children": [{ "div": { "position": [0, 0], "style": { "flexBasis": 400 }, "children": [{ "div": { "position": [0, 0], "style": { "height": 90, "width": 90, "borderRadius": "50%", "padding": " 4px 10px", "backgroundColor": "#f26522", "color": "#fff" }, "children": [{ "h3": { "style": { "marginLeft": "25px", "fontSize": 30, "marginTop": "25px" }, "children": "3" } }] } }, { "h3": { "position": [0, 0], "children": "Get Notified as soon as you've got the job" } }, { "p": { "position": [0, 0], "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
  "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } }, { "div": { "position": [0, 1], "children": [{ "ImageView": { "style": { "width": "100%" }, "position": [0, 0], "src": "https://i.imgur.com/5mbZZUK.jpg" } }] } }] } },
-                      { "div": { "position": [0, 0], "rows": 1, "cols": 2, "style": { "display": "flex", "justifyContent": "space-around", "alignItems": "center", "flexWrap": "wrap" }, "children": [{ "div": { "position": [0, 0], "style": { "flexBasis": 400 }, "children": [{ "div": { "position": [0, 0], "style": { "height": 90, "width": 90, "borderRadius": "50%", "padding": " 4px 10px", "backgroundColor": "#f26522", "color": "#fff" }, "children": [{ "h3": { "style": { "marginLeft": "25px", "fontSize": 30 }, "children": "4" } }] } }, { "h3": { "position": [0, 0], "children": "Drop the load and get Paid Instantly" } }, { "p": { "position": [0, 0],                                         "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
+                      { "div": { "position": [0, 0], "rows": 1, "cols": 2, "style": { "display": "flex", "justifyContent": "space-around", "alignItems": "center", "flexWrap": "wrap", "flexDirection": "row-reverse"}, "children": [{ "div": { "position": [0, 0], "style": { "flexBasis": 400 }, "children": [{ "div": { "position": [0, 0], "style": { "height": 90, "width": 90, "borderRadius": "50%", "padding": " 4px 10px", "backgroundColor": "#f26522", "color": "#fff" }, "children": [{ "h3": { "style": { "marginLeft": "25px", "fontSize": 30, "marginTop":"25px" }, "children": "4" } }] } }, { "h3": { "position": [0, 0], "children": "Drop the load and get Paid Instantly" } }, { "p": { "position": [0, 0],                                         "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
  "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } }, { "div": { "position": [0, 1], "children": [{ "ImageView": { "style": { "width": "100%" }, "position": [0, 0], "src": "https://i.imgur.com/5mbZZUK.jpg" } }] } }] } }
                          
                     ]
