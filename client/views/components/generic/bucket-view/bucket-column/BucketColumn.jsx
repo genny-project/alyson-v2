@@ -92,11 +92,11 @@ class BucketColumn extends Component {
                     {titleDiv}
                     <Button
                         style={ {"fontSize": "12px", "width": "65px", "cursor": "pointer" } }
-                        buttonStyle={{ "background": "transparent" }}
-                        onClick={() => this.onExpandColumn(this.props.groupId)}>
-                        See List
+                        buttonStyle={{ "background": "white" }}
+                        onClick={() => this.onExpandColumn(this.props.groupId)}
+                    >
+                        <span style={{color: 'rgb(130, 130, 130' }} >Expand</span>
                     </Button>
-                    <IconSmall name="keyboard_arrow_right" onClick={this.onExpandColumn} />
                 </div>
 
                 <Droppable droppableId={groupId}>
