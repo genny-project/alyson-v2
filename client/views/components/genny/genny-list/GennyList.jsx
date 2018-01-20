@@ -1,6 +1,6 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
-import { object, string, number, bool } from 'prop-types';
+import { string, number, bool, array } from 'prop-types';
 import { List, GennyForm } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -22,6 +22,8 @@ class GennyList extends Component {
         rowsVisible: number,
         showLinks: bool,
         hideHeader: bool,
+        sublayout: array,
+        headerRoot: string
     };
 
     state = {
@@ -34,7 +36,7 @@ class GennyList extends Component {
             let linkToParent = BaseEntityQuery.getLinkToParent(this.props.root, item.code);
             if(linkToParent) {
 
-                let layout_code = linkToParent.linkValue || "listLayout";
+                let layout_code = linkToParent.linkValue || 'listLayout';
                 let sublayout = this.props.sublayout[layout_code];
                 item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: this.props.root, ITEMCODE: item.code}}/>;
                 return item;
@@ -46,14 +48,14 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, hideHeader, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, ...rest } = this.props;
 
         let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root) : BaseEntityQuery.getEntityChildren(root);
 
         return (
             <div className="genny-list">
                 <List
-                    header={ hideHeader ? null : <GennyForm root='' isHorizontal /> }
+                    header={ headerRoot && !hideHeader ? <GennyForm root={headerRoot} isHorizontal /> : null }
                     data={ this.generateListItems(data) }
                     {...rest}
                 />
