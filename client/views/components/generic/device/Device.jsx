@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { any, bool } from 'prop-types';
 
 class Device extends Component {
-
     static propTypes = {
         children: any,
         isMobile: bool,
@@ -13,14 +12,11 @@ class Device extends Component {
         hideDesktop: bool,
     }
 
-    state = {
-    }
-
     renderChildren() {
 
         const { children } = this.props;
         if(children.constructor === Array) {
-            return <div>{children}</div>
+            return <div>{children}</div>;
         }
 
         return children;
@@ -28,7 +24,7 @@ class Device extends Component {
 
     render() {
 
-        const { isMobile, isTablet, isDesktop, hideMobile, hideTablet, hideDesktop, children } = this.props;
+        const { isMobile, isTablet, isDesktop, hideMobile, hideTablet, hideDesktop } = this.props;
 
         if ( window.getScreenSize() == 'sm' ) {
 

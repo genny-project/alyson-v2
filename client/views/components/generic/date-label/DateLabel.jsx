@@ -1,6 +1,6 @@
 import './dateLabel.scss';
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+import { string, any, object } from 'prop-types';
 import moment from 'moment';
 
 class DateLabel extends Component {
@@ -14,6 +14,8 @@ class DateLabel extends Component {
     className: string,
     date: string,
     format: string,
+    children: any,
+    style: object,
   }
 
   renderDate = (date) => {

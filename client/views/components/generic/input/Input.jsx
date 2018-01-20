@@ -1,12 +1,11 @@
 import './input.scss';
 import React, { Component } from 'react';
-import { string, func } from 'prop-types';
+import { string, func, array, object, any, bool } from 'prop-types';
 import {
     InputAddress,
     InputButton,
     InputCheckbox,
     InputNumbers,
-    InputDate,
     InputDatePicker,
     InputDropdown,
     InputEmail,
@@ -33,6 +32,13 @@ class Input extends Component {
         value: string,
         onValidation: func,
         onValidationFailure: func,
+        validationList: array,
+        onClick: func,
+        onClickEvent: func,
+        style: object,
+        options: object,
+        data: any,
+        mandatory: bool,
     }
 
     state = {
@@ -81,7 +87,7 @@ class Input extends Component {
 
             this.setState({
                 value: newProps.value
-            })
+            });
         }
     }
 
@@ -134,7 +140,7 @@ class Input extends Component {
 
     renderInput() {
 
-        const { onClick, onClickEvent, style, ...rest } = this.props;
+        const { ...rest } = this.props;
         const { validationStatus } = this.state;
         let items = this.props.options;
 
@@ -269,7 +275,7 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     value={this.state.value}
-                    prefix={this.props.type == "Currency" ? "$" : ''}
+                    prefix={this.props.type == 'Currency' ? '$' : ''}
                 />
             );
             case 'Email':

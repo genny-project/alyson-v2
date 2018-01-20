@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, number, bool } from 'prop-types';
+import { string, number, bool, object, func } from 'prop-types';
 import './iconsmall.scss';
 
 class IconSmall extends Component {
@@ -18,6 +18,9 @@ class IconSmall extends Component {
     fontSize: number,
     text: string,
     fa: bool,
+    size: string,
+    onClick: func,
+    style: object,
   }
 
   render() {

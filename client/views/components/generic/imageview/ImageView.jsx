@@ -1,6 +1,6 @@
 import './ImageView.scss';
 import React, { Component } from 'react';
-import { string, any, bool} from 'prop-types';
+import { string, any, bool, func, object } from 'prop-types';
 
 class ImageView extends Component {
 
@@ -9,6 +9,8 @@ class ImageView extends Component {
     src: string,
     placeholder: string,
     rounded: bool,
+    onClick: func,
+    style: object,
   };
 
   state = {

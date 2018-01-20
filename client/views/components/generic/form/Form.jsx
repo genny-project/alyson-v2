@@ -1,7 +1,7 @@
 import './form.scss';
 import React, { Component } from 'react';
-import { Pagination, Input } from 'views/components';
-import { string, bool, number, array, object } from 'prop-types';
+import { Pagination } from 'views/components';
+import { string, bool, number, object } from 'prop-types';
 import { FormGroup } from './form-group';
 
 class Form extends Component {
@@ -17,6 +17,9 @@ class Form extends Component {
     itemsPerPage: number,
     showProgress: bool,
     data: object,
+    style: object,
+    isHorizontal: bool,
+    hideNav: bool,
   }
 
   state = {
@@ -38,7 +41,7 @@ class Form extends Component {
   onFormSubmit = (formGroup, next) => {
 
     const validated = this.formGroupRefs.map(formGroup => {
-        return formGroup ? formGroup.isFormGroupValid() : true
+        return formGroup ? formGroup.isFormGroupValid() : true;
     });
 
     const validate = function(inputs) {
@@ -51,7 +54,7 @@ class Form extends Component {
                 else {
                     return validate(x);
                 }
-            })
+            });
         }
         else {
             return inputs === true;
@@ -92,11 +95,11 @@ class Form extends Component {
 
   render() {
 
-    const { className, style, itemsPerPage, showProgress, isHorizontal, hideNav, data } = this.props;
-    const componentStyle = { ...style, };
+    const { style, itemsPerPage, isHorizontal, hideNav, data } = this.props;
+    const componentStyle = { ...style };
 
     let questionGroup = this.renderGroup( data );
-    
+
     return (
       <div className={`form-container ${isHorizontal ? 'horizontal' : null }`} style={componentStyle}>
         <div className="form-main">

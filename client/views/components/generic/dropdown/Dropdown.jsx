@@ -20,6 +20,9 @@ class Dropdown extends Component {
     header: any,
     showTag: bool,
     inline: bool,
+    contentStyle: object,
+    tagStyle: object,
+    noDropdownStyle: string,
   }
 
   state = {
@@ -34,8 +37,7 @@ class Dropdown extends Component {
     });
   }
 
-
-  handleClick = (e) => {
+  handleClick = () => {
     this.setState({ isOpen: !this.state.isOpen});
   }
 
@@ -48,7 +50,7 @@ class Dropdown extends Component {
         return header;
       } else if (Array.isArray(header)) {
         let layout = {layout: header};
-        return <JSONLoader layout={layout} componentCollection={components} />
+        return <JSONLoader layout={layout} componentCollection={components} />;
       } else {
         return null;
       }
@@ -58,13 +60,13 @@ class Dropdown extends Component {
   }
 
   render() {
-    const { className, children, style, contentStyle, tagStyle, header, open, noDropdownStyle, showTag, inline,  } = this.props;
+    const { className, children, style, contentStyle, tagStyle, open, noDropdownStyle, showTag, inline,  } = this.props;
     let { isOpen, } = this.state;
     if(open != undefined) isOpen = open; // open props overrides
 
     return (
       <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur}  tabIndex='-1' style={style} >
-        <div className='dropdown-header' onClick={this.handleClick} style={isOpen ? { "transition": "all 0.1s", "transform": "rotate(180deg)" } : { "transition": "all 0.1s", "transform": "rotate(0deg)" }}>
+        <div className='dropdown-header' onClick={this.handleClick} style={isOpen ? { 'transition': 'all 0.1s', 'transform': 'rotate(180deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' }}>
           {this.renderHeader()}
         </div>
         { isOpen ?

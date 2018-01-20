@@ -1,7 +1,7 @@
 import './compactList.scss';
 import React, { Component } from 'react';
 import { List, IconSmall } from 'views/components';
-import { string, array,} from 'prop-types';
+import { string, array, object } from 'prop-types';
 
 class CompactList extends Component {
 
@@ -26,6 +26,7 @@ class CompactList extends Component {
   static propTypes = {
     className: string,
     items: array,
+    style: object,
   }
 
   state = {
@@ -35,7 +36,7 @@ class CompactList extends Component {
   onClick = () => {
     this.setState({
       isOpen : !this.state.isOpen
-    })
+    });
   }
 
   render() {
@@ -52,9 +53,9 @@ class CompactList extends Component {
 
               if ( isOpen || !isOpen && index === 0) {
               let array = [];
-              Object.keys(item).map((attribute, index) => {
-                array.push(<span>{item[attribute]}</span>)
-              })
+              Object.keys(item).map( attribute => {
+                array.push(<span>{item[attribute]}</span>);
+              });
               return (
                 <div className='compact-list-item'>
                   {array}
