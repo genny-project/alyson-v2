@@ -2,6 +2,16 @@ import { CMD_VIEW_PAGE_CHANGE, CMD_VIEW, SUBLAYOUT_CHANGE } from 'constants';
 import { push } from 'react-router-redux';
 
 
+/**
+ * @CAVEATS
+ *
+ * Be careful - this can potentially break the current view if the user refreshes the page, and
+ * the view to be shown has not been loaded yet.
+ *
+ * TODO
+ *  - Fix the above (potential, I haven't tested it) bug.
+ */
+
 const middleware = store => next => action => {
   /* Capture actions that change the view. */
   if ( action.type === CMD_VIEW ) {
@@ -22,7 +32,6 @@ const middleware = store => next => action => {
     const subLayout = { ...action.payload };
     delete subLayout.token;
 
-    console.log( currentLayoutPathname, store.getState().router );
     /* Dispatch a push to the browser history so that the layout is saved in the URL. */
     store.dispatch(
       push({
@@ -36,8 +45,6 @@ const middleware = store => next => action => {
   else if ( action.type === '@@router/LOCATION_CHANGE' ) {
     const currentLocation = store.getState().router.location;
     const nextPathname = action.payload.pathname;
-
-    console.log( action.payload );
 
     /* Only attempt this if the location pathnames are different. This solves the issue of the view being
      * reverted when the location hash, search or state is updated. */
