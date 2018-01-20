@@ -104,7 +104,7 @@ class GennyBucketView extends PureComponent {
 
             let color = this.getBaseEntityColor(linkToParent.link);
 
-            let layout_code = 'cardLayout';
+            let layout_code = 'card';
 
             let sublayout = this.props.sublayout[layout_code];
 
