@@ -2,17 +2,19 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
-import { browserHistory } from 'react-router-dom';
+import history from './history';
 import { createEpicMiddleware } from 'redux-observable';
+import gennyRouterMiddleware from 'utils/genny/router/gennyRouter.middleware';
 import reducers from './reducers';
 import epics from '../epics';
 
 const epicMiddleware = createEpicMiddleware( epics );
 
 const middleware = applyMiddleware(
-  routerMiddleware( browserHistory ),
+  routerMiddleware( history ),
   thunk,
   epicMiddleware,
+  gennyRouterMiddleware,
   logger()
 );
 const store = createStore( reducers, middleware );
