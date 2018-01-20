@@ -1,7 +1,7 @@
 import './button.scss';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { string, any, func } from 'prop-types';
+import { string, any, func, object, bool } from 'prop-types';
 
 class Button extends Component {
 
@@ -17,7 +17,10 @@ class Button extends Component {
     className: string,
     href: string,
     type: string,
-    onClick: func
+    onClick: func,
+    style: object,
+    buttonStyle: object,
+    disabled: bool,
   }
 
   onClick = (e) => {
@@ -29,7 +32,7 @@ class Button extends Component {
 
   render() {
 
-    const { children, type, className, href, onClick, style, buttonStyle, disabled } = this.props;
+    const { children, type, className, href, style, buttonStyle, disabled } = this.props;
     const componentStyle = { ...style, };
 
     const btn = (

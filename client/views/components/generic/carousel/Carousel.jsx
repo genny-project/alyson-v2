@@ -1,8 +1,7 @@
 import './carousel.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, any } from 'prop-types';
 import { Carousel as ReactCarousel} from 'react-responsive-carousel';
-import { ImageView } from 'views/components';
 
 class Carousel extends Component {
 
@@ -18,23 +17,20 @@ class Carousel extends Component {
     height: string,
   }
 
-  state = {
-  }
-
   renderItems = (items) => {
 
-    const {style, height} = this.props
+    const {style, height} = this.props;
 
     const elementHeight = style && style.background ? style.background : height;
 
     let content = [];
 
     if (items && items.length > 0) {
-      items.map((item, index) => {
+      items.map( item  => {
         content.push(
           <div style={{ height: elementHeight }}>
             <div style={{ backgroundImage: `url("${item.img}")`, backgroundSize: 'cover', height: '100%' }}/>
-            { item.text ? 
+            { item.text ?
               <span className='legend'>{item.text}</span>
             : null }
           </div>
@@ -45,8 +41,7 @@ class Carousel extends Component {
   }
 
   render() {
- 	  const { className, children, style } = this.props;
-    const {  } = this.state;
+    const { className, style } = this.props;
     const componentStyle = { ...style, };
 
     let items = [
@@ -59,9 +54,7 @@ class Carousel extends Component {
       {
         img: 'http://c8.alamy.com/comp/DYCDEC/stacks-of-bags-of-rice-sold-at-a-grocery-shop-in-ealing-road-in-north-DYCDEC.jpg',
       }
-    ]
-
-    console.log(this.renderItems(items));
+    ];
 
     return (
       <div className={`carousel ${className}`} style={componentStyle}>

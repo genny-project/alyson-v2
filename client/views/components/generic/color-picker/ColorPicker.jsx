@@ -1,13 +1,15 @@
 import './colorPicker.scss';
 import React, { Component } from 'react';
-import { string } from 'prop-types';
-import { CircleButton, } from 'views/components';
+import { string, func, object } from 'prop-types';
+import { CircleButton } from 'views/components';
 import { TwitterPicker as ReactColor } from 'react-color';
 
 class ColorPicker extends Component {
 
   static propTypes = {
       primaryColor: string,
+      onColorChange: func,
+      style: object,
   };
 
   state = {
@@ -15,24 +17,20 @@ class ColorPicker extends Component {
   }
 
   onColorChange = (color) => {
-
     if(this.props.onColorChange) {
         this.props.onColorChange(color.hex);
     }
   }
 
-  toggleColorPicker = () => { 
+  toggleColorPicker = () => {
     this.setState({
         showColorPicker: !this.state.showColorPicker
       });
   }
 
   render() {
-
-    const { primaryColor, hoverColor, style } = this.props;
+    const { style } = this.props;
     const { showColorPicker } = this.state;
-
-    //console.log(showColorPicker);
 
     return (
       <div className='color-picker'>
