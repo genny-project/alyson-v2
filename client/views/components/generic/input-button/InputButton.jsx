@@ -1,10 +1,9 @@
 import './inputButton.scss';
 import React, { Component } from 'react';
-import { string, func } from 'prop-types';
-import { Button, IconSmall, Label } from 'views/components';
+import { string, func, bool, any } from 'prop-types';
+import { Button } from 'views/components';
 
 class InputButton extends Component {
-
   static defaultProps = {
     className: '',
     onClick: () => {},
@@ -13,20 +12,20 @@ class InputButton extends Component {
   static propTypes = {
     className: string,
     onClick: func,
+    name: string,
+    disabled: bool,
+    data: any,
   }
 
   state = {
   }
 
   clickHandler = () => {
-      this.props.onClick(this, this.props.data);
+      this.props.onClick(this, this.props.data );
   }
 
   render() {
-
-      const { className, style, name, optional, readOnly, placeholder, validationStatus, isHorizontal, disabled } = this.props;
-      const componentStyle = { ...style, };
-      const { date, focused } = this.state;
+      const { className, name, disabled } = this.props;
 
       return (
         <div className={`input input-button ${className}`}>

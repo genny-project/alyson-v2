@@ -1,6 +1,6 @@
 import './inputDate.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, array, func } from 'prop-types';
 import { Label, InputDropdown } from 'views/components';
 
 class InputDate extends Component {
@@ -12,6 +12,10 @@ class InputDate extends Component {
   static propTypes = {
     className: string,
     style: object,
+    validationList: array,
+    onValidation: func,
+    name: string,
+    identifier: string,
   }
 
   state = {
@@ -22,7 +26,6 @@ class InputDate extends Component {
   }
 
   onDropdownChange = (newValue, identifier) => {
-    console.log(newValue, identifier);
     switch (identifier) {
       case 'day' :
         this.setState({ day: newValue }, () => {
@@ -39,30 +42,23 @@ class InputDate extends Component {
         this.dropdownPrevalidation();
       });
       break;
-      default:
-        console.log("unknown identifier");
     }
   }
 
   dropdownPrevalidation = () => {
     const { validationList } = this.props;
-    ///console.log(validationList);
 
     const { day, month, year } = this.state;
-  
+
     if (day && month && year) {
       //TODO load date format from ask
-      const newDate = day + "/" + month + "/" + year;
+      const newDate = day + '/' + month + '/' + year;
 
       if ( validationList.length > 0 ) {
         const valResult = validationList.every( validation => new RegExp(validation.regex).test( newDate ));
-        console.log(valResult)
         this.validateValue(valResult, newDate);
       } else {
-        //window.alert("No regex supplied");
-        //this.sendAnswer(event.target.value);
         const valResult = new RegExp(/.*/).test( newDate );
-        console.log(valResult);
         this.validateValue(valResult, newDate);
       }
     }
@@ -87,10 +83,8 @@ class InputDate extends Component {
   }
 
   render() {
- 	  const { className, style, items, name, } = this.props;
-    const { day, month, year, validationStatus } = this.state;
-    const componentStyle = { ...style, };
-    
+    const { className, name, } = this.props;
+    const { validationStatus } = this.state;
 
     return (
       <div className={`input-date ${className} ${validationStatus}`}>

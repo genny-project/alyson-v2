@@ -1,12 +1,10 @@
 import './inputAddress.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, array, func, bool } from 'prop-types';
 import { Label, SubmitStatusIcon, Dropdown, MapInput, Button, } from 'views/components';
 import { Grid } from '@genny-project/layson';
-import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete'
-import PlacesAutocomplete from 'react-places-autocomplete'
-// import PlacesAutocomplete from '@genny-project/react-places-autocomplete'
-// import { geocodeByAddress, geocodeByPlaceId } from '@genny-project/react-places-autocomplete'
+import { geocodeByAddress } from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 class InputAddress extends Component {
 
@@ -17,6 +15,14 @@ class InputAddress extends Component {
     static propTypes = {
         className: string,
         style: object,
+        value: string,
+        validationList: array,
+        identifier: string,
+        name: string,
+        validation: func,
+        placeholder: string,
+        mandatory: bool,
+        validationStatus: string,
     }
 
     state = {
@@ -39,9 +45,9 @@ class InputAddress extends Component {
                 this.setState({
                     coords: {
                         lat: results[0].geometry.location.lat(),
-                        lng: results[0].geometry.location.lng(), 
+                        lng: results[0].geometry.location.lng(),
                     }
-                })
+                });
 
                 let requiredFields = ['street_number','route','locality','administrative_area_level_1','postal_code','country'];
 
@@ -87,7 +93,7 @@ class InputAddress extends Component {
 
                 // send answer
                 this.onBlur(resultObj);
-            })
+            });
         }
     }
 
@@ -115,14 +121,11 @@ class InputAddress extends Component {
 
         this.setState({
             showMap: !this.state.showMap
-        })
+        });
     }
 
     renderInput() {
-
-        const { style, name, optional } = this.props;
         const { showMap } = this.state;
-        const componentStyle = { ...style, };
 
         const inputProps = {
             value: this.state.value,
@@ -131,7 +134,7 @@ class InputAddress extends Component {
         };
 
         const classes = {
-            root: "input-address-search",
+            root: 'input-address-search',
         };
 
         if (window.getScreenSize() == 'sm') {
@@ -139,7 +142,7 @@ class InputAddress extends Component {
                 <Grid cols={1} rows={1}>
                     <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
                 </Grid>
-            )
+            );
         } else {
             return (
                 <Grid cols={
@@ -160,17 +163,17 @@ class InputAddress extends Component {
                     rows="1"
                 >
                     <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
-                    <Button position={[0, 1]} onClick={this.showMap}>{showMap ? "Hide Map" : "Show on Map"}</Button>
+                    <Button position={[0, 1]} onClick={this.showMap}>{showMap ? 'Hide Map' : 'Show on Map'}</Button>
                 </Grid>
-            )
-        }    
+            );
+        }
     }
 
     render() {
 
         const { name, mandatory, validationStatus } = this.props;
         const { showMap, address, coords  } = this.state;
-        
+
         return (
             <div className="input input-address">
                 <div className="input-header">
@@ -179,13 +182,13 @@ class InputAddress extends Component {
                     <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
                 </div>
                 {window.google ? this.renderInput() : <p>Loading...</p>}
-                { window.getScreenSize() == 'sm' && <Button onClick={this.showMap} style={{marginTop: '10px'}}>{showMap ? "Hide Map" : "Show on Map"}</Button> }
+                { window.getScreenSize() == 'sm' && <Button onClick={this.showMap} style={{marginTop: '10px'}}>{showMap ? 'Hide Map' : 'Show on Map'}</Button> }
                 <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
                     <MapInput
                         handleUpdate={this.onSelect}
                         style={{
-                            "height": "300px",
-                            "width": "100%"
+                            'height': '300px',
+                            'width': '100%'
                         }}
                         address={address}
                         lat={coords && coords.lat}
@@ -194,7 +197,7 @@ class InputAddress extends Component {
                     />
                 </Dropdown>
             </div>
-        )
+        );
     }
 }
 
