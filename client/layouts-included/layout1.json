@@ -3,7 +3,7 @@
     {
       "AppHolder": {
         "cols": 1,
-        "rows": ["100px", "auto", "30px"],
+        "rows":3,
         "children": [
           {
             "Header": {
@@ -78,15 +78,18 @@
           },
           {
             "AppContent": {
+              "rows":4,
+              "cols":1,
               "position": [1, 0],
               "style": {
-                "overflowY": "scroll"
+                "overflowY": "scroll",
+                "width":"100vw"
               },
               "children": [
                 {
                   "div": {
+                    "position":[0,0],
                     "style": {
-                      "position": "relative"
                     },
                     "children": [
                       {
@@ -163,6 +166,7 @@
                 },
                 {
                   "Grid": {
+                    "position":[1,0],
                     "rows":1,
                     "cols":4,
                     "style": {
@@ -194,7 +198,8 @@
                             }
                           ]
                         }
-                      },{
+                      },
+                      {
                         "div": {
                           "rows":1,
                           "cols":1,
@@ -223,240 +228,183 @@
                 },
                 {
                   "Grid": {
-                    "cols": 1,
-                    "rows": [
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "height": "300px",
-                          "flexShrink": 0
-                        }
-                      },
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "height": "300px",
-                          "flexShrink": 0
-                        }
-                      },
-                      {
-                        "style": {
-                          "flexGrow": 1,
-                          "height": "300px",
-                          "flexShrink": 0
-                        }
-                      }
-                    ],
+                    "rows":1,
+                    "cols":1,
                     "style": {
-                      "width": "900px",
-                      "margin": "0 auto 20px"
+                      "backgroundColor": "#fff",
+                      "color": "black",
+                      "height": "150px",
+                      "flexShrink": "0",
+                      "display":"flex",
+                      "justifyContent":"center",
+                      "padding": "20px"
                     },
                     "children": [
+                      { "p": { "position": [0, 0], "style": { "textAlign": "center", "fontSize":40,"fontWeight":700}, "children": "How it Works?" } }
+                    ]
+                  }
+                },
+                {
+                  "Grid":{
+                    "rows":2,
+                    "cols":1,
+                    "position":[2,0],
+                    "style": {
+                      "display": "flex",
+                      "justifyContent": "center",
+                      "alignItems": "space-around"
+                    },
+                    "children":[
                       {
-                        "Grid": {
-                          "cols": [
-                            {
-                              "style": {
-                                "flexGrow": 1,
-                                "padding": "10px 20px 10px 0",
-                                "position": "relative"
-                              }
-                            },
-                            {
-                              "style": {
-                                "flexGrow": 1,
-                                "padding": "10px 0 10px 20px",
-                                "position": "relative"
-                              }
-                            }
-                          ],
-                          "rows": 1,
-                          "position": [0, 0],
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":2,
+                          "style": {
+                            "display":"flex",
+                            "justifyContent": "space-around",
+                            "alignItems":"center",
+                            "flexWrap": "wrap"
+                          },
                           "children": [
                             {
-                              "ImageView": {
-                                "position": [0, 0],
-                                "style": {
-                                  "width": "100%",
-                                  "height": "100%",
-                                  "overflow": "hidden"
+                              "div": {
+                              "position": [0, 0],
+                              "style": {"flexBasis":400},
+                              "children": [
+                                {
+                                  "div": {
+                                    "position":[0,0],
+                                    "style": {
+                                      "height":90,
+                                      "width":90,
+                                      "borderRadius": "50%",
+                                      "padding":" 4px 10px",
+                                      "backgroundColor":"#f26522",
+                                      "color":"#fff"
+                                    },
+                                    "children":[
+                                      {
+                                        "h3": {
+                                          "style": {
+                                            "marginLeft": "25px",
+                                            "fontSize":30
+                                          },
+                                          "children": "1"
+                                        }
+                                      }
+                                    ]
+                                  }
                                 },
-                                "src":
-                                  "https://channel40.com.au/wp-content/uploads/2017/01/Y2C5972-1.png"
-                              }
+
+                                {
+                                  "h3": {
+                                    "position": [0, 0],
+                                    "children": "LOOK FOR JOBS NEAR YOU" } },
+                                    {
+                                      "p": {
+                                        "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
+                                      "position": [0, 0],
+                                    "children": "You can search express loads available for pickup right now in your area or maybe you are looking for a backload in a few days, either way searching is made easy." } }] } 
                             },
                             {
                               "div": {
-                                "position": [0, 1],
-                                "children": "Move freight with Channel 40"
-                              }
-                            },
-                            {
-                              "div": {
-                                "position": [0, 1],
-                                "children":
-                                  "GET QUOTES, SELECT DRIVER + TRACK YOUR LOAD"
-                              }
-                            },
-                            {
-                              "Button": {
-                                "position": [0, 1],
-                                "style": {
-                                  "width": "150px",
-                                  "position": "absolute",
-                                  "bottom": "20px",
-                                  "right": "30px"
-                                },
-                                "buttonStyle": {
-                                  "color": "black",
-                                  "background": "white",
-                                  "border": "2px solid black",
-                                  "borderRadius": "0px"
-                                },
-                                "children": "FREE QUOTE"
+                                "position":[0,1],
+                                "children": [
+                                  {
+                                    "ImageView": {
+                                      "style": {"width": "100%"},
+                                      "position": [0,0],
+                                      "src": "https://i.imgur.com/5mbZZUK.jpg"
+                                    }
+                                  }
+                                ]
                               }
                             }
                           ]
                         }
                       },
-
-                      {
-                        "Grid": {
-                          "cols": [
-                            {
-                              "style": {
-                                "flexGrow": 1,
-                                "padding": "10px 0 10px 20px",
-                                "position": "relative"
-                              }
-                            },
-                            {
-                              "style": {
-                                "flexGrow": 1,
-                                "padding": "10px 20px 10px 0",
-                                "position": "relative"
-                              }
-                            }
-                          ],
-                          "rows": 1,
-                          "position": [1, 0],
+                       {
+                        "div": {
+                          "position":[0,0],
+                          "rows":1,
+                          "cols":2,
+                          "style": {
+                            "display":"flex",
+                            "justifyContent": "space-around",
+                            "alignItems":"center",
+                            "flexWrap": "wrap"
+                          },
                           "children": [
                             {
                               "div": {
-                                "position": [0, 0],
-                                "children": "Find loads with Channel 40"
-                              }
+                              "position": [0, 0],
+                              "style": {"flexBasis":400},
+                              "children": [
+                                {
+                                  "div": {
+                                    "position":[0,0],
+                                    "style": {
+                                      "height":90,
+                                      "width":90,
+                                      "borderRadius": "50%",
+                                      "padding":" 4px 10px",
+                                      "backgroundColor":"#f26522",
+                                      "color":"#fff"
+                                    },
+                                    "children":[
+                                      {
+                                        "h3": {
+                                          "style": {
+                                            "marginLeft": "25px",
+                                            "fontSize":30
+                                          },
+                                          "children": "2"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+
+                                {
+                                  "h3": {
+                                    "position": [0, 0],
+                                    "children": "SUBMIT A QUOTE & ACCEPT LOADS" } },
+                                    { "p": { "position": [0, 0],
+                                      "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
+
+                                    "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } 
                             },
                             {
                               "div": {
-                                "position": [0, 0],
-                                "children": "AND GET PAID"
-                              }
-                            },
-                            {
-                              "Button": {
-                                "position": [0, 0],
-                                "style": {
-                                  "width": "150px",
-                                  "position": "absolute",
-                                  "bottom": "20px",
-                                  "right": "30px"
-                                },
-                                "buttonStyle": {
-                                  "color": "black",
-                                  "background": "white",
-                                  "border": "2px solid black",
-                                  "borderRadius": "0px"
-                                },
-                                "children": "FIND JOBS"
-                              }
-                            },
-                            {
-                              "ImageView": {
-                                "position": [0, 1],
-                                "style": {
-                                  "width": "100%",
-                                  "height": "100%",
-                                  "overflow": "hidden"
-                                },
-                                "src":
-                                  "https://channel40.com.au/wp-content/uploads/2017/01/Y2C5972-1.png"
+                                "position":[0,1],
+                                "children": [
+                                  {
+                                    "ImageView": {
+                                      "style": {"width": "100%"},
+                                      "position": [0,0],
+                                      "src": "https://i.imgur.com/5mbZZUK.jpg"
+                                    }
+                                  }
+                                ]
                               }
                             }
                           ]
                         }
                       },
-
-                      {
-                        "Grid": {
-                          "cols": [
-                            {
-                              "style": {
-                                "flexGrow": 1,
-                                "padding": "10px 20px 10px 0",
-                                "position": "relative"
-                              }
-                            },
-                            {
-                              "style": {
-                                "flexGrow": 1,
-                                "padding": "10px 0 10px 20px",
-                                "position": "relative"
-                              }
-                            }
-                          ],
-                          "rows": 1,
-                          "position": [2, 0],
-                          "children": [
-                            {
-                              "ImageView": {
-                                "position": [0, 0],
-                                "style": {
-                                  "width": "100%",
-                                  "height": "100%",
-                                  "overflow": "hidden"
-                                },
-                                "src":
-                                  "https://channel40.com.au/wp-content/uploads/2017/01/Y2C5972-1.png"
-                              }
-                            },
-                            {
-                              "div": {
-                                "position": [0, 1],
-                                "children": "manage freight with Channel 40"
-                              }
-                            },
-                            {
-                              "div": {
-                                "position": [0, 1],
-                                "children":
-                                  "TRACK ALL YOUR SHIPMENTS, COMMUNICATE WITH AND INVOICE DRIVERS "
-                              }
-                            },
-                            {
-                              "Button": {
-                                "position": [0, 1],
-                                "style": {
-                                  "width": "150px",
-                                  "position": "absolute",
-                                  "bottom": "20px",
-                                  "right": "30px"
-                                },
-                                "buttonStyle": {
-                                  "color": "black",
-                                  "background": "white",
-                                  "border": "2px solid black",
-                                  "borderRadius": "0px"
-                                },
-                                "children": "FOR BUSINESS"
-                              }
-                            }
-                          ]
-                        }
-                      }
+                      { "div": { "position": [0, 0], "rows": 1, "cols": 2, "style": { "display": "flex", "justifyContent": "space-around", "alignItems": "center", "flexWrap": "wrap" }, "children": [{ "div": { "position": [0, 0], "style": { "flexBasis": 400 }, "children": [{ "div": { "position": [0, 0], "style": { "height": 90, "width": 90, "borderRadius": "50%", "padding": " 4px 10px", "backgroundColor": "#f26522", "color": "#fff" }, "children": [{ "h3": { "style": { "marginLeft": "25px", "fontSize": 30 }, "children": "3" } }] } }, { "h3": { "position": [0, 0], "children": "Get Notified as soon as you've got the job" } }, { "p": { "position": [0, 0], "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
+ "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } }, { "div": { "position": [0, 1], "children": [{ "ImageView": { "style": { "width": "100%" }, "position": [0, 0], "src": "https://i.imgur.com/5mbZZUK.jpg" } }] } }] } },
+                      { "div": { "position": [0, 0], "rows": 1, "cols": 2, "style": { "display": "flex", "justifyContent": "space-around", "alignItems": "center", "flexWrap": "wrap" }, "children": [{ "div": { "position": [0, 0], "style": { "flexBasis": 400 }, "children": [{ "div": { "position": [0, 0], "style": { "height": 90, "width": 90, "borderRadius": "50%", "padding": " 4px 10px", "backgroundColor": "#f26522", "color": "#fff" }, "children": [{ "h3": { "style": { "marginLeft": "25px", "fontSize": 30 }, "children": "4" } }] } }, { "h3": { "position": [0, 0], "children": "Drop the load and get Paid Instantly" } }, { "p": { "position": [0, 0],                                         "style": {"color": "#6a6a6a", "lineHeight":"1.7em"},
+ "children": "You can submit quotes for jobs or accept jobs that have a fixed cost. You can also communicate with freight owners through chat to discuss the job further." } }] } }, { "div": { "position": [0, 1], "children": [{ "ImageView": { "style": { "width": "100%" }, "position": [0, 0], "src": "https://i.imgur.com/5mbZZUK.jpg" } }] } }] } }
+                         
                     ]
                   }
                 }
+
+
+               
+               
+               
               ]
             }
           },
