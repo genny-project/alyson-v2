@@ -9,9 +9,10 @@ import {
 class Routes extends Component {
 
 	render() {
-
 		return (
 			<Switch>
+				<Route path="/:layout/:subLayout" exact component={Home} />
+				<Route path="/:layout" exact component={Home} />
 				<Route component={Home} />
 			</Switch>
 		);

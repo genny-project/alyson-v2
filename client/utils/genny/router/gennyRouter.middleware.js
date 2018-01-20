@@ -1,4 +1,4 @@
-import { CMD_VIEW_PAGE_CHANGE, CMD_VIEW } from 'constants';
+import { CMD_VIEW_PAGE_CHANGE, CMD_VIEW, SUBLAYOUT_CHANGE } from 'constants';
 import { push } from 'react-router-redux';
 
 
@@ -16,17 +16,35 @@ const middleware = store => next => action => {
     store.dispatch( push( stringifiedLayout ));
   }
 
+  if ( action.type === SUBLAYOUT_CHANGE ) {
+    const currentLayoutPathname = store.getState().router.location || window.location;
+    /* Create a new object out of the payload and delete the token from it. */
+    const subLayout = { ...action.payload };
+    delete subLayout.token;
+
+    console.log( currentLayoutPathname, store.getState().router );
+    /* Dispatch a push to the browser history so that the layout is saved in the URL. */
+    store.dispatch(
+      push({
+        state: { ...currentLayoutPathname.state, subLayout },
+        pathname: `${currentLayoutPathname.pathname.split( '/' )[1]}/${subLayout.code}`,
+      })
+    );
+  }
+
   /* Capture when the page changes. */
   else if ( action.type === '@@router/LOCATION_CHANGE' ) {
     const currentLocation = store.getState().router.location;
     const nextPathname = action.payload.pathname;
+
+    console.log( action.payload );
 
     /* Only attempt this if the location pathnames are different. This solves the issue of the view being
      * reverted when the location hash, search or state is updated. */
     if ( currentLocation && currentLocation.pathname !== nextPathname ) {
       try {
         /* Get the stringified layout from the payload, which is ultimately from the URL. */
-        const stringifiedLayout = action.payload.pathname.replace( '/', '' );
+        const stringifiedLayout = action.payload.pathname.split( '/' )[1];
         /* Convert the layout from the URL to JSON so we can reconstruct the original CMD_VIEW payload. */
         const layout = JSON.parse( stringifiedLayout );
 
