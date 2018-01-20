@@ -10,6 +10,7 @@ class Dropdown extends Component {
     opened: null,
     showTag: true,
     inline: false,
+    isSlide: true,
   }
 
   static propTypes = {
@@ -23,6 +24,7 @@ class Dropdown extends Component {
     contentStyle: object,
     tagStyle: object,
     noDropdownStyle: string,
+    isSlide: bool,
   }
 
   state = {
@@ -41,40 +43,44 @@ class Dropdown extends Component {
     this.setState({ isOpen: !this.state.isOpen});
   }
 
-  renderHeader = () => {
+  renderHeader = (isOpen) => {
 
-    const { header } = this.props;
+    const { header, } = this.props;
 
-    if (header ){
-      if (header.$$typeof ) {
-        return header;
-      } else if (Array.isArray(header)) {
-        let layout = {layout: header};
-        return <JSONLoader layout={layout} componentCollection={components} />;
-      } else {
-        return null;
-      }
+    let headerContent;
+    
+    if (header.$$typeof ) {
+      headerContent = header;
+    } else if (Array.isArray(header)) {
+      let layout = {layout: header};
+      headerContent = <JSONLoader layout={layout} componentCollection={components} />;
     } else {
-      return null;
+      headerContent =  null;
     }
+
+    return (
+      <div className='dropdown-header' onClick={this.handleClick} style={isOpen ? { 'transition': 'all 0.1s', 'transform': 'rotate(180deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' }}>
+        {headerContent}
+      </div>
+    );
   }
 
   render() {
-    const { className, children, style, contentStyle, tagStyle, open, noDropdownStyle, showTag, inline,  } = this.props;
+    const { className, children, style, contentStyle, tagStyle, open, noDropdownStyle, showTag, inline, isSlide } = this.props;
     let { isOpen, } = this.state;
     if(open != undefined) isOpen = open; // open props overrides
 
     return (
       <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur}  tabIndex='-1' style={style} >
-        <div className='dropdown-header' onClick={this.handleClick} style={isOpen ? { 'transition': 'all 0.1s', 'transform': 'rotate(180deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' }}>
-          {this.renderHeader()}
-        </div>
+        {!isSlide ? this.renderHeader(isOpen) : null }   
         { isOpen ?
           <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : ''}`} style={contentStyle} >
+            {isSlide && inline ? <div className='line-break' />: null }   
             { showTag && !inline ? <div className='dropdown-tag' style={tagStyle}></div> : null }
             {children}
           </div>
         : null }
+        {isSlide ? this.renderHeader(isOpen) : null}
       </div>
     );
   }
