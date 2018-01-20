@@ -56,7 +56,7 @@ export const SUB_LAYOUT = 'SUB_LAYOUT';
 export const ALIAS = 'Alias';
 
 /* Attribute */
-export const ATTRIBUTE = 'Attributschmide';
+export const ATTRIBUTE = 'Attribute';
 
 /* Notifications */
 export const NOTIFICATION = 'Notification';

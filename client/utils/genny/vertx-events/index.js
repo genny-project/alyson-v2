@@ -16,6 +16,7 @@ import cmdIncoming from './cmd.events.incoming';
 import cmdOutgoing from './cmd.events.outgoing';
 import cacheMissingOutgoing from './cachemissing.events.outgoing';
 import gpsIncoming from './gps.events.incoming';
+import gpsOutgoing from './gps.events.outgoing';
 
 export default {
   incoming: {
@@ -38,6 +39,7 @@ export default {
     ...btnOutgoing,
     ...bucketDropOutgoing,
     ...cmdOutgoing,
-    ...cacheMissingOutgoing
+    ...cacheMissingOutgoing,
+    ...gpsOutgoing,
   }
 };

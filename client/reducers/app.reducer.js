@@ -84,10 +84,6 @@ export default function reducer( state = initialState, action ) {
              'data': data
          }), '*'); // for the react native app to pick up
 
-         state.gps.destinations = [{
-             ...data
-         }];
-
          return {
              ...state
          };
@@ -97,7 +93,12 @@ export default function reducer( state = initialState, action ) {
 
      case GPS_MONITOR:
 
-     state.gps.monitor = true;
+         window.postMessage(JSON.stringify({
+             "id": action.payload.code,
+             "data": {
+                 "monitor": true,
+             }
+         }), "*"); // for the react native app to pick up
 
      return {
          ...state
