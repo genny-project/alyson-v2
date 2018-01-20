@@ -1,6 +1,5 @@
 import { REDIRECT, SOCIAL_REDIRECT, GPS_CMD, GPS_MONITOR } from 'constants';
 import history from 'views/history.js';
-import { GennyBridge } from 'utils/genny';
 
 const initialState = {
     lastRedirect: null,
@@ -36,7 +35,7 @@ export default function reducer( state = initialState, action ) {
         let redirectUrl = action.payload.items.redirectUrl;
 
         if(action.payload.items.clientId) {
-            redirectUrl += "&client_id=" + action.payload.items.clientId;
+            redirectUrl += '&client_id=' + action.payload.items.clientId;
         }
 
         if(action.payload.items.redirectUrl) {
@@ -53,18 +52,20 @@ export default function reducer( state = initialState, action ) {
 
             if(json) {
                 // url += "?state=" + json;
-                localStorage.setItem("socialredirect", json);
+                localStorage.setItem('socialredirect', json);
             }
 
-            redirectUrl += "&redirect_uri=" + url;
+            redirectUrl += '&redirect_uri=' + url;
         }
 
         window.location.href = redirectUrl;
 
         return {
             ...state,
-        }
+        };
      }
+
+     break;
 
      case GPS_CMD:
 
@@ -79,9 +80,9 @@ export default function reducer( state = initialState, action ) {
          };
 
          window.postMessage(JSON.stringify({
-             "id": action.payload.code,
-             "data": data
-         }), "*"); // for the react native app to pick up
+             'id': action.payload.code,
+             'data': data
+         }), '*'); // for the react native app to pick up
 
          state.gps.destinations = [{
              ...data
@@ -92,15 +93,15 @@ export default function reducer( state = initialState, action ) {
          };
      }
 
+     break;
+
      case GPS_MONITOR:
 
      state.gps.monitor = true;
 
      return {
          ...state
-     }
-
-     return state;
+     };
 
     default:
       return state;

@@ -1,7 +1,12 @@
 import './layoutNotFound.scss';
 import React, { Component } from 'react';
+import { string } from 'prop-types';
 
 class LayoutNotFound extends Component {
+  static propTypes = {
+    layout: string,
+  };
+
   render() {
     const { layout } = this.props;
 

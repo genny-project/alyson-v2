@@ -5,7 +5,7 @@ function mapStateToProps(state) {
   return {
       baseEntity: state.baseEntity,
       asks: state.ask.data
-  }
+  };
 }
 
 export default connect( mapStateToProps, null )( GennyForm );

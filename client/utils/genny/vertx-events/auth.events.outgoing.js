@@ -21,7 +21,7 @@ export const REDIRECT_RETURN = token => ({
 export const SEND_CODE = (event, data, token) => ({
 
     event_type: event,
-    msg_type: "EVT_MSG",
+    msg_type: 'EVT_MSG',
     token: token,
     data: data
 });
@@ -29,7 +29,7 @@ export const SEND_CODE = (event, data, token) => ({
 export const LOGOUT = (event, data, token) => ({
 
     event_type: event,
-    msg_type: "EVT_MSG",
+    msg_type: 'EVT_MSG',
     token: token,
     data: data
 });
@@ -37,7 +37,7 @@ export const LOGOUT = (event, data, token) => ({
 export const ACCOUNTS = (event, data, token) => ({
 
     event_type: event,
-    msg_type: "EVT_MSG",
+    msg_type: 'EVT_MSG',
     token: token,
     data: data
 });

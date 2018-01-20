@@ -1,17 +1,15 @@
 import _ from 'lodash';
 
 Array.prototype.swap = function(a, b) {
-
     let originalItem = this[a];
     let secondItem = this[b];
     this[a] = secondItem;
     this[b] = originalItem;
 
     return this;
-}
+};
 
 Array.prototype.differences = function(array) {
-
     let deleted = [];
     let added = [];
 
@@ -38,8 +36,8 @@ Array.prototype.differences = function(array) {
     return {
         added: added,
         deleted: deleted,
-    }
-}
+    };
+};
 
 Array.prototype.compare = function(array) {
     if (!array) {
@@ -59,18 +57,17 @@ Array.prototype.compare = function(array) {
       }
     }
     return true;
-  }
+  };
 
 window.getQueryString = function ( field, url ) {
     var href = url ? url : window.location.href;
     var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
     var string = reg.exec(href);
     return string ? string[1] : null;
-}
+};
 
 const SMALL_SCREEN = 768;
 const MEDIUM_SCREEN = 992;
-const LARGE_SCREEN = 1400;
 
 window.getScreenSize = function() {
 
@@ -86,4 +83,4 @@ window.getScreenSize = function() {
     }
 
     return screenSize;
-}
+};

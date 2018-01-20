@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
 import store from 'views/store';
-
 class AskQuery {
-
     static getQuestionGroup(groupCode) {
         return store.getState().ask.data[groupCode];
     }

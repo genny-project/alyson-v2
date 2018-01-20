@@ -3,7 +3,7 @@ import { LAYOUT_CHANGE, CMD_VIEW, SUB_LAYOUT, SUBLAYOUT_CHANGE } from 'constants
 import config from 'config/config';
 
 const initialState = {
-    current: config.backendLayouts ? null : "layout1",
+    current: config.backendLayouts ? null : 'layout1',
     loaded: {
       ...layoutsIncluded,
     },
@@ -65,7 +65,7 @@ export default function reducer( state = initialState, action ) {
                     root: action.payload.root,
                     layout: [newSublayout]
                 }
-            }
+            };
         }
 
     case SUB_LAYOUT:

@@ -18,7 +18,7 @@ const middleware = applyMiddleware(
 const store = createStore( reducers, middleware );
 
 // grabbing component state from local storage
-store.getState().app.componentState = JSON.parse(localStorage.getItem("componentState")) || {};
+store.getState().app.componentState = JSON.parse(localStorage.getItem('componentState')) || {};
 
 // storing method
 store.storeState = (identifier, newState) => {
@@ -28,7 +28,7 @@ store.storeState = (identifier, newState) => {
 
     // stringifying the componentstate and storing it.
     let updatedState = JSON.stringify(store.getState().app.componentState);
-    localStorage.setItem("componentState", updatedState);
+    localStorage.setItem('componentState', updatedState);
 };
 
 export default store;

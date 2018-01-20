@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
 
@@ -9,7 +8,7 @@ class BaseEntityQuery {
         const relationships = store.getState().baseEntity.relationships;
         const grp = relationships[code];
 
-        let items = grp ? Object.keys(grp).filter(x => x != "DUMMY").map(code => store.getState().baseEntity.data[code]) : [];
+        let items = grp ? Object.keys(grp).filter(x => x != 'DUMMY').map(code => store.getState().baseEntity.data[code]) : [];
 
         let rootEntity = BaseEntityQuery.getBaseEntity(code);
 
@@ -22,7 +21,7 @@ class BaseEntityQuery {
                 if(rootEntity && rootEntity.originalLinks) {
 
                     let currentLinks = rootEntity.originalLinks.filter(x => {
-                        return x.link.targetCode == item.code
+                        return x.link.targetCode == item.code;
                     });
 
                     weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
@@ -40,16 +39,16 @@ class BaseEntityQuery {
 
         if(items.length == 0) {
 
-            if(!grp && code.indexOf("GRP") == 0) {
-                relationships[code] = {}
+            if(!grp && code.indexOf('GRP') == 0) {
+                relationships[code] = {};
             }
 
-            if(relationships[code] && !relationships[code]["DUMMY"]) {
+            if(relationships[code] && !relationships[code]['DUMMY']) {
 
                 // set dummy value so we wont call this again
-                relationships[code]["DUMMY"] = {
+                relationships[code]['DUMMY'] = {
                     hidden: true
-                }
+                };
 
                 GennyBridge.sendTVEvent('TV_EXPAND', {
                   code: 'TV1',
@@ -76,10 +75,10 @@ class BaseEntityQuery {
 
                 return existingBes.sort((x,y) => x.weight > y.weight);
 
-            }, [])
+            }, []);
         }
 
-        return []
+        return [];
     }
 
     static getLinkToParent(parentCode, childCode) {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { object, array } from 'prop-types';
-import LayoutNotFound from './layout-not-found';
+import { object } from 'prop-types';
 import components from './components';
 import { JSONLoader } from '@genny-project/layson';
 import { BaseEntityQuery } from 'utils/genny';
@@ -48,7 +47,7 @@ class LayoutLoader extends Component {
               }
           });
       }
-      else if (typeof layout == "string") {
+      else if (typeof layout == 'string') {
           return [layout];
       }
 
@@ -60,14 +59,14 @@ class LayoutLoader extends Component {
       let aliases = this.getLayoutValues(layout);
       aliases.forEach(alias => {
 
-        let split = alias.split(".");
+        let split = alias.split('.');
         let alias_code = split[0];
         let attribute_code = split[1];
-        let attribute = {}
+        let attribute = {};
 
         if (localAliases) {
 
-           Object.keys(localAliases).forEach((alias_key, index) => {
+           Object.keys(localAliases).forEach((alias_key) => {
 
                let localAliasCode = localAliases[alias_key];
                if(alias_key == alias_code) {
@@ -86,11 +85,11 @@ class LayoutLoader extends Component {
         else {
             if(split.length == 2) {
                 attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
-                
+
                 if(!attribute) {
 
                     let baseEntity = BaseEntityQuery.getAlias(alias_code);
-                   
+
                     if(baseEntity) {
                         attribute = {
                             value: baseEntity.code
@@ -110,8 +109,7 @@ class LayoutLoader extends Component {
   }
 
   render() {
-
-    const { layout, baseEntity, aliases } = this.props;
+    const { layout, aliases } = this.props;
 
     let finalLayout = this.replaceAliasesIn(layout, aliases);
     return <JSONLoader layout={finalLayout} componentCollection={components} />;

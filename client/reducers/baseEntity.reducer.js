@@ -41,7 +41,7 @@ export default function reducer(state = initialState, action) {
                                     if(!linkCode) return [];
 
                                     if(!existingLinks[linkCode]) {
-                                        existingLinks[linkCode] = []
+                                        existingLinks[linkCode] = [];
                                     }
 
                                     existingLinks[linkCode].push({
@@ -86,7 +86,7 @@ export default function reducer(state = initialState, action) {
                                 if(!linkCode) return [];
 
                                 if(!existingLinks[linkCode]) {
-                                    existingLinks[linkCode] = []
+                                    existingLinks[linkCode] = [];
                                 }
 
                                 existingLinks[linkCode].push({
@@ -247,7 +247,7 @@ export default function reducer(state = initialState, action) {
 
         return {
             ...state
-        }
+        };
 
         case LINK_CHANGE:
 
@@ -315,13 +315,11 @@ export default function reducer(state = initialState, action) {
                     };
                 }
                 else {
-                    
+
                     let links = state.data[newParentCode].links[newLinkCode];
                     for(let i = 0; i < links.length; i++) {
 
                         if(links[i].targetCode == be_code) {
-
-                            console.log("updating");
                             links[i] = {
                                 ...links[i],
                                 ...{
@@ -331,7 +329,7 @@ export default function reducer(state = initialState, action) {
                                     targetCode: be_code,
                                     linkValue: linkValue
                                 }
-                            }
+                            };
                         }
                     }
                 }
