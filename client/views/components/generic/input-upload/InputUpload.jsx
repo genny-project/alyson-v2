@@ -32,7 +32,7 @@ class InputUpload extends Component {
   }
 
   state = {
-    files: this.props.value || this.props.defaultValue,
+    files: ( this.props.value && this.props.value != 'null' ) ? JSON.parse( this.props.value ) : this.props.defaultValue,
     error: null,
   }
 
@@ -102,12 +102,7 @@ class InputUpload extends Component {
 
     console.log('Upload', files);
 
-    const restructuredFiles = files.map( file => ({
-      id: file.id,
-      key: file.meta.key,
-      name: file.name,
-      type: file.type,
-    }));
+    const restructuredFiles = files;
 
     const { validationList, validation, identifier } = this.props;
 
@@ -175,26 +170,58 @@ class InputUpload extends Component {
     });
   }
 
+  isValidFile = file => {
+    if ( !file.type ) {
+      return false;
+    }
+
+    if ( !file.id ) {
+      return false;
+    }
+
+    if ( !file.preview ) {
+      return false;
+    }
+
+    if ( !file.uploadURL ) {
+      return false;
+    }
+
+    if ( !file.name ) {
+      return false;
+    }
+
+    if ( !file.uploaded ) {
+      return false;
+    }
+
+    if ( !file.size ) {
+      return false;
+    }
+
+    return true;
+  }
+
   render() {
     const { className, icon, label } = this.props;
     const { files, error } = this.state;
-    const convertedFiles = JSON.parse( files );
+    const validFiles = files.filter( file => this.isValidFile( file ));
 
     return (
       <div className={classNames( 'input', 'input-file', className, {})}>
         {label && <label>{label}</label>}
-        {convertedFiles && convertedFiles.length > 0 && (
+        {validFiles && validFiles.length > 0 && (
 
-          
-          convertedFiles.map( file => {
+
+          validFiles.map( file => {
             return (
               <article key={file.id}>
                 <button type="button" onClick={this.handleRemoveFile( file.id )}>
                   <i className="material-icons">close</i>
                 </button>
 
-                {( file.type.includes( 'image' ) && !!file.preview ) ? (
-                  <img src={file.preview} role="presentation" />
+                {( file.type.includes( 'image' ) && ( !!file.preview || !!file.uploadURL )) ? (
+                  <img src={file.uploadURL || file.preview} role="presentation" />
                 ) : (
                   <aside>
                     <i className="material-icons">{this.getIconByFileType( file.type )}</i>
