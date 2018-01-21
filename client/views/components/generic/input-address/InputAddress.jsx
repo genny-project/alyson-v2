@@ -83,11 +83,12 @@ class InputAddress extends Component {
                         if (streetAddress.street_number && streetAddress.street_name) {
                             resultObj['street_address'] = streetAddress['street_number'] + ' ' + streetAddress['street_name'];
                         }
-
-                        resultObj['full_address'] = results[0].formatted_address;
-
                     });
                 });
+
+                resultObj['full_address'] = results[0].formatted_address;
+                resultObj['latitude'] = results[0].geometry.location.lat();
+                resultObj['longitude'] = results[0].geometry.location.lng();
 
                 this.updateAddressProp(results[0].formatted_address);
 
