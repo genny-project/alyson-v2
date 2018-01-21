@@ -1,5 +1,5 @@
 import layoutsIncluded from '../layouts-included';
-import { LAYOUT_CHANGE, CMD_VIEW, SUB_LAYOUT, SUBLAYOUT_CHANGE } from 'constants';
+import { LAYOUT_CHANGE, CMD_VIEW, SUB_LAYOUT, SUBLAYOUT_CHANGE, CMD_VIEW_PAGE_CHANGE } from 'constants';
 import config from 'config/config';
 
 const initialState = {
@@ -38,6 +38,7 @@ export default function reducer( state = initialState, action ) {
         loaded
       };
 
+    case CMD_VIEW_PAGE_CHANGE:
     case CMD_VIEW:
 
         const newLayoutCode = action.payload.code;

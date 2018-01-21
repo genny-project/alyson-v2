@@ -30,6 +30,9 @@ export const SUBLAYOUT_CHANGE = 'SUBLAYOUT_CHANGE';
 /* Command View */
 export const CMD_VIEW = 'CMD_VIEW';
 
+/* Command View on Page Change */
+export const CMD_VIEW_PAGE_CHANGE = 'CMD_VIEW_PAGE_CHANGE';
+
 /* Base entities */
 export const BASE_ENTITY = 'BaseEntity';
 export const LINK_CHANGE = 'LINK_CHANGE';
