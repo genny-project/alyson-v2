@@ -1,15 +1,15 @@
 import './BucketColumn.scss';
 import React, { Component } from 'react';
-import { string, object, func, array, bool } from 'prop-types';
+import { string, object, func, array, bool, any } from 'prop-types';
 import { BucketElement } from './bucket-element';
 import { Droppable } from 'react-beautiful-dnd';
 import { GennyBridge } from 'utils/genny';
 import { IconSmall, Status, Button } from 'views/components';
 import { Grid } from '@genny-project/layson';
 
-const getListStyle = isDraggingOver => ({
-    // background: isDraggingOver ? 'lightblue' : "#a3a3a3",
-});
+// const getListStyle = isDraggingOver => ({
+//     // background: isDraggingOver ? 'lightblue' : "#a3a3a3",
+// });
 
 class BucketColumn extends Component {
 
@@ -25,8 +25,8 @@ class BucketColumn extends Component {
         children: object,
         title: string,
         groupId: string,
-        goToPreviousBucket: func,
-        goToNextBucket: func,
+        goToPreviousBucket: any,
+        goToNextBucket: any,
         addNewItem: func,
         items: array,
         canAddItem: bool,
@@ -56,12 +56,46 @@ class BucketColumn extends Component {
         }, code);
     }
 
+    renderContent = (provided) => {
+        const { title, items, showMovingOptions } = this.props;
+        
+        return (
+            <div ref={provided && provided.innerRef}
+                //style={getListStyle(snapshot.isDraggingOver)}
+                className={`bucket size-${window.getScreenSize()}`}
+                key={title} >
+
+                <div className={`bucket-content size-${window.getScreenSize()} no-select`}>
+                    {
+                        items.map((child, index) => {
+
+                            return (
+                                <BucketElement
+                                key={child.id}
+                                item={child}
+                                style={child.style}
+                                moveBucket={this.moveBucket}
+                                screenSize={window.getScreenSize()}
+                                showMovingOptions={showMovingOptions}
+                                index={index}/>
+                            );
+                        })
+                    }
+                </div>
+
+                { provided && provided.placeholder}
+
+            </div>
+        );
+    }
+
     render() {
 
-        const { className, style, title, items, groupId, canAddItem, goToPreviousBucket, goToNextBucket, showMovingOptions } = this.props;
+        const { className, style, title, groupId, canAddItem, goToPreviousBucket, goToNextBucket, } = this.props;
         let titleDiv = null;
+        let isMobile = window.getScreenSize() == 'sm';
 
-        if(window.getScreenSize() == 'sm') {
+        if(isMobile) {
             titleDiv =
             <div>
                 {
@@ -138,40 +172,16 @@ class BucketColumn extends Component {
                     {titleDiv}
                 </div>
 
-                <Droppable droppableId={groupId}>
-                    {
-                        (provided, snapshot) => (
-
-                            <div ref={provided.innerRef}
-                                style={getListStyle(snapshot.isDraggingOver)}
-                                className={`bucket size-${window.getScreenSize()}`}
-                                key={title} >
-
-                                <div className={`bucket-content size-${window.getScreenSize()} no-select`}>
-                                    {
-                                        items.map((child, index) => {
-
-                                            return (
-                                                <BucketElement
-                                                key={child.id}
-                                                item={child}
-                                                style={child.style}
-                                                moveBucket={this.moveBucket}
-                                                screenSize={window.getScreenSize()}
-                                                showMovingOptions={showMovingOptions}
-                                                index={index}/>
-                                            );
-                                        })
-                                    }
-                                </div>
-
-                                {provided.placeholder}
-
-                            </div>
-                        )
-                    }
-
-                </Droppable>
+                { 
+                    isMobile ?
+                    this.renderContent() :
+                    <Droppable droppableId={groupId}>
+                        {(provided) => (
+                            this.renderContent(provided)
+                        )}
+                    </Droppable>
+                }
+                
 
                 <div className="bucket-legend sticky">
                     <Grid

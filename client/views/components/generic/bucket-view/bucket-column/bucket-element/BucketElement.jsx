@@ -93,35 +93,47 @@ class BucketElement extends Component {
         }
     }
 
-    render() {
-
+    renderContent = (provided, snapshot) => {
         const { item, style, showMovingOptions } = this.props;
-        return (
 
-            <Draggable key={item.id} draggableId={item.id} isDragDisabled={window.getScreenSize() == 'sm'} >
-                {
-                    (provided, snapshot) => (
-                        <div>
-                            <div
-                                ref={provided.innerRef}
-                                style={{
-                                    ...style,
-                                    ...getItemStyle(
-                                        provided.draggableStyle,
-                                        snapshot.isDragging
-                                    )
-                                }}
-                                {...provided.dragHandleProps}
-                                className="bucket-contents"
-                            >
-                                <BucketCard {...item.content} showMovingOptions={showMovingOptions} />
-                            </div>
-                            {provided.placeholder}
-                        </div>
-                    )
-                }
-            </Draggable>
+        return (
+            <div>
+                <div
+                    ref={provided && provided.innerRef}
+                    style={{
+                        ...style,
+                        ...getItemStyle(
+                            provided && provided.draggableStyle,
+                            snapshot && snapshot.isDragging
+                        )
+                    }}
+                    {...( provided && provided.dragHandleProps)}
+                    className="bucket-contents"
+                >
+                    <BucketCard {...item.content} showMovingOptions={showMovingOptions} />
+                </div>
+                { provided && provided.placeholder}
+            </div>
         );
+    }
+
+    render() {
+        const { item, } = this.props;
+        let isMobile = window.getScreenSize() == 'sm';
+
+        if (isMobile) {
+            return (
+                this.renderContent()
+            );
+        } else {
+            return (
+                <Draggable key={item.id} draggableId={item.id} isDragDisabled={window.getScreenSize() == 'sm'} >
+                    {(provided, snapshot) => (
+                        this.renderContent(provided, snapshot)
+                    )}
+                </Draggable>
+            );
+        }
     }
 }
 
