@@ -7,7 +7,7 @@ class ProgressBar extends Component {
 
   static defaultProps = {
     className: '',
-    progressPercent: 0,
+    progressCurrent: 0,
     iconStart: 'exposure_zero',
     iconProgress: 'local_shipping',
     iconEnd: 'place',
@@ -16,7 +16,7 @@ class ProgressBar extends Component {
   static propTypes = {
     className: string,
     style: object,
-    progressPercent: number,
+    progressCurrent: number,
     iconStart: string,
     iconProgress: string,
     iconEnd: string,
@@ -24,7 +24,7 @@ class ProgressBar extends Component {
 
   render() {
 
-    const { className, progressCurrent, progressTotal, type, style } = this.props;
+    const { className, progressCurrent, iconStart, iconProgress, iconEnd, style } = this.props;
     const componentStyle = { ...style, };
 
     const progressPercent = progressCurrent <= 100 ? progressCurrent : 100;
