@@ -9,11 +9,11 @@ import {
 class Routes extends Component {
 
 	render() {
-
 		return (
 			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route component={NotFound} />
+				<Route path="/:layout/:subLayout" exact component={Home} />
+				<Route path="/:layout" exact component={Home} />
+				<Route component={Home} />
 			</Switch>
 		);
 	}

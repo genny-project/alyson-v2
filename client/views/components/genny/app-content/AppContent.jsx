@@ -1,7 +1,7 @@
 import './appContent.scss';
 import React, { Component } from 'react';
 import { GennyBucketView, GennyForm, GennyTable, GennyList } from 'views/components';
-import { any } from 'prop-types';
+import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class AppContent extends Component {
@@ -11,7 +11,9 @@ class AppContent extends Component {
 
     static propTypes = {
       children: any,
-    };
+      layout: object,
+      history: object,
+    }
 
     state = {
     }
