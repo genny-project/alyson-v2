@@ -7,17 +7,19 @@ class ProgressBar extends Component {
 
   static defaultProps = {
     className: '',
-    progressCurrent: 0,
-    progressTotal: 0,
-    type: 0,
+    progressPercent: 0,
+    iconStart: 'exposure_zero',
+    iconProgress: 'local_shipping',
+    iconEnd: 'place',
   }
 
   static propTypes = {
     className: string,
-    progressCurrent: number,
-    progressTotal: number,
-    type: number,
-    style: object
+    style: object,
+    progressPercent: number,
+    iconStart: string,
+    iconProgress: string,
+    iconEnd: string,
   }
 
   render() {
@@ -29,34 +31,22 @@ class ProgressBar extends Component {
 
 
     return (
-      <div className={`progress-bar ${className} ${type === 1 ? 'one' : type === 2 ? 'two' : ''} `} style={componentStyle}>
-
-        { type === 1 ? (
-          <div className="node-container one">
-            <div className="node start" />
+      <div className={`progress-bar ${className} `} style={componentStyle}>
+        <div className="point-container">
+          <div className="end-points">
+            <IconSmall className='start-point' name={iconStart} />
+            <IconSmall className='end-point' name={iconEnd} />
+          </div>
+          <div className="mid-points">
             {
-              Array.from({ length: progressTotal }, (v, k) => <div className={`node ${ k + 1 < progressCurrent ? 'complete' : k + 1 > progressCurrent ? 'incomplete' : 'current' } `} key={ k } ><div className='' /></div>)
+              Array.from({ length: 11 }, (v, k) => <IconSmall key={ k } name="brightness_1" size={4} />)
             }
           </div>
-        ) : null }
-
-        { type === 2 ? (
-          <div className="node-container two">
-            <div className="end-points">
-              <IconSmall name="exposure_zero" />
-              <IconSmall name="place" />
-            </div>
-            <div className="mid-points">
-              {
-                Array.from({ length: 11 }, (v, k) => <IconSmall key={ k } name="brightness_1" size={4} />)
-              }
-            </div>
-            <div className="current-point">
-              <div className="current-point-spacer" style={{ width: `calc(${progressPercent + '%'} - ( 24px / 100 * ${progressPercent}  )` }} />
-              <IconSmall name="local_shipping" />
-            </div>
+          <div className="current-point">
+            <div className="current-point-spacer" style={{ width: `calc(${progressPercent + '%'} - ( 24px / 100 * ${progressPercent}  )` }} />
+            <IconSmall name={iconProgress} />
           </div>
-        ) : null }
+          </div>
 
         <div className="progress-bar-container">
           <div className="progress-bar-fill" style={{ width: `${progressPercent + '%'}` }} />
