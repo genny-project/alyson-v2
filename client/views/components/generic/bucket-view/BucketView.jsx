@@ -21,7 +21,7 @@ class BucketView extends Component {
     buckets: this.props.buckets || [],
     currentlySelectedItem: false,
     touch: {},
-    currentBucket: 0,
+    currentBucket: 1,
   }
 
   getBucketColumnContentNode(bucket) {
@@ -363,18 +363,54 @@ class BucketView extends Component {
 
   renderDots = () => {
     const { buckets, currentBucket} = this.state;
-    let count = -1;
+    let count = 0;
     let columns = buckets.map((c, index )=> {
       count = count + 1;
       return <IconSmall key={index} name={count == currentBucket ? 'lens' : 'panorama_fish_eye'} style={ count < buckets.length ? { marginRight: '5px'} : null }/>;
     });
 
     return columns;
-}
+  }
+
+  renderContent = (columns) => {
+    const { currentlySelectedItem } = this.state;
+
+    return (
+      <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
+        <Device isMobile>
+          <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+          </Modal>
+        </Device>
+        {columns}
+        <Device isMobile>
+          <div 
+            className='bucket-mobile-dots' 
+            style={{
+              height: 'fit-content',
+              position: 'fixed',
+              bottom: '115px',
+              right: '50vw',
+              transform: 'translate(50%)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-end',
+              zIndex: '10',
+              padding: '5px',
+              borderRadius: '10px',
+              backgroundColor: 'rgba(0,0,0,0.5)'
+            }}
+          >
+            {this.renderDots()}
+          </div>
+        </Device>
+      </div>
+    );
+  }
 
   render() {
-    const { buckets, currentlySelectedItem } = this.state;
-
+    const { buckets } = this.state;
+    let isMobile = window.getScreenSize() == 'sm';
     let columns = buckets.map((bucket, index) => {
 
       return (
@@ -395,32 +431,17 @@ class BucketView extends Component {
       );
     });
 
-    return (
-
-      <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-        <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
-          <Device isMobile>
-            <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
-              <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
-            </Modal>
-          </Device>
-          {columns}
-          <Device isMobile>
-            <div className='bucket-mobile-dots' style={{
-              position: 'fixed',
-              bottom: '115px',
-              right: '50vw',
-              transform: 'translate(50%)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'flex-end'}}
-            >
-              {this.renderDots()}
-            </div>
-          </Device>
-        </div>
-      </DragDropContext>
-    );
+    if (isMobile){
+      return (
+          this.renderContent(columns)
+        );
+    } else {
+      return (
+        <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+          {this.renderContent(columns)}
+        </DragDropContext>
+      );
+    }
   }
 }
 
