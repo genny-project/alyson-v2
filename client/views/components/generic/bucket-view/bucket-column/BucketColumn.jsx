@@ -66,7 +66,14 @@ class BucketColumn extends Component {
             <div>
                 {
                     goToPreviousBucket ?
-                        <IconSmall className="clickable bucket_action_previous" name='chevron_left' onClick={this.props.goToPreviousBucket}/>
+                        <IconSmall
+                            className="clickable bucket_action_previous"
+                            name='chevron_left'
+                            onClick={this.props.goToPreviousBucket}
+                            style={{
+                                padding: '5px 0'
+                            }}
+                        />
                     : <div className='spacer prev'/>
                 }
                 {
@@ -74,9 +81,29 @@ class BucketColumn extends Component {
                         <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} />
                     : `${title}`
                 }
+                <Button
+                    style={{
+                        marginLeft: 'auto',
+                        fontSize: '12px',
+                        width: '65px',
+                        cursor: 'pointer',
+                        height: '30px'
+                    }}
+                    buttonStyle={{ 'background': 'white' }}
+                    onClick={() => this.onExpandColumn(this.props.groupId)}
+                >
+                    <span style={{color: 'rgb(130, 130, 130' }} >Expand</span>
+                </Button>
                 {
                     goToNextBucket ?
-                        <IconSmall className="clickable bucket_action_next" name='chevron_right' onClick={this.props.goToNextBucket}/>
+                        <IconSmall
+                            className="clickable bucket_action_next"
+                            name='chevron_right'
+                            onClick={this.props.goToNextBucket}
+                            style={{
+                                padding: '5px 0'
+                            }}
+                        />
                     : <div className='spacer next'/>
                 }
             </div>;
@@ -84,9 +111,23 @@ class BucketColumn extends Component {
         else {
             titleDiv =
             <div>
+                <div className='spacer prev'/>
                 {
                     canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} /> : `${title}`
                 }
+                <Button
+                    style={{
+                        marginLeft: 'auto',
+                        fontSize: '12px',
+                        width: '65px',
+                        cursor: 'pointer',
+                        height: '30px'
+                    }}
+                    buttonStyle={{ 'background': 'white' }}
+                    onClick={() => this.onExpandColumn(this.props.groupId)}
+                >
+                    <span style={{color: 'rgb(130, 130, 130' }} >Expand</span>
+                </Button>
             </div>;
         }
 
@@ -95,13 +136,6 @@ class BucketColumn extends Component {
             <div className={`bucket-column ${className}`} style={style}>
                 <div className="bucket-title sticky">
                     {titleDiv}
-                    <Button
-                        style={ {'fontSize': '12px', 'width': '65px', 'cursor': 'pointer' } }
-                        buttonStyle={{ 'background': 'white' }}
-                        onClick={() => this.onExpandColumn(this.props.groupId)}
-                    >
-                        <span style={{color: 'rgb(130, 130, 130' }} >Expand</span>
-                    </Button>
                 </div>
 
                 <Droppable droppableId={groupId}>
