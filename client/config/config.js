@@ -1,3 +1,3 @@
-import developmentConfig from './config.development.json';
-import productionConfig from './config.production.json';
+import developmentConfig from './config.development.js';
+import productionConfig from './config.production.js';
 export default ( process.env.NODE_ENV === 'production' ) ? productionConfig :  developmentConfig;

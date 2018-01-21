@@ -2,4 +2,13 @@
 
 .carousel {
 
+
+    > div {
+        height: 100%;
+
+        > .carousel-slider {
+            height: 100%;
+        }
+    }
+
 }

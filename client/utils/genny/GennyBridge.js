@@ -131,7 +131,7 @@ class GennyBridge {
     getKeycloakConfig() {
 
         return this.ajaxCall({
-            url: `${config.genny.bridge.endpoints.events}/init?url=${window.location.origin}`,
+            url: `${config.genny.bridge.endpoints.events}/init?url=${( process.env.NODE_ENV !== 'production' ) ? 'http://localhost:3000' : window.location.origin}`,
         });
     }
 
