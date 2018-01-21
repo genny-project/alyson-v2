@@ -112,6 +112,7 @@ class GennyHeader extends Component {
           rows={[ { style: { flexGrow: "1", paddingLeft: "50px", height: "100%" } } ]}
         >
           <Label position={[0,0]} text={projectTitle} />
+          <ImageView position={[0,1]} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
           <Label position={[0,1]} text={`${userName}`} />
           <Dropdown
             style={ customStyle.dropdown }
@@ -130,14 +131,6 @@ class GennyHeader extends Component {
               <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
             </ul>
           </Dropdown>
-
-          {/*}
-          <Device isDesktop position={[0,1]}>
-            <ImageView src={userImage} onClick={this.handleClickImage} style={{ width: '40px', minWidth: '40px'}}/>
-          </Device>
-          <Device isDesktop position={[0,1]}>
-            <IconSmall className="help" name="help"/>
-            </Device>*/}
         </Header>
         { !hideSubheader ?
         <Grid className='sub-header' cols={[1]} rows={1} style={ customStyle.subHeader }>
