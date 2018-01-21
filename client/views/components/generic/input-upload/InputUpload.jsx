@@ -260,7 +260,7 @@ class InputUpload extends Component {
             <i className="material-icons">{icon}</i>
           </div>
 
-          <p>Upload a{files.length > 0 && 'nother'} file or image</p>
+          <p>Upload a{validFiles.length > 0 && 'nother'} file or image</p>
         </button>
       </div>
     );
