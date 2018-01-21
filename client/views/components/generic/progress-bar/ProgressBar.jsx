@@ -4,7 +4,7 @@ import { string, number, object } from 'prop-types';
 import { IconSmall } from 'views/components';
 
 class ProgressBar extends Component {
-  
+
   static defaultProps = {
     className: '',
     progressCurrent: 0,
@@ -21,9 +21,13 @@ class ProgressBar extends Component {
   }
 
   render() {
+
     const { className, progressCurrent, progressTotal, type, style } = this.props;
     const componentStyle = { ...style, };
-    const progressPercent = progressCurrent / progressTotal * 100;
+
+    const progressPercent = progressCurrent <= 100 ? progressCurrent : 100;
+
+
     return (
       <div className={`progress-bar ${className} ${type === 1 ? 'one' : type === 2 ? 'two' : ''} `} style={componentStyle}>
 
