@@ -1,7 +1,6 @@
 import './mapDisplay.scss';
 import React, { Component } from 'react';
 import { string, object, array, number, bool, any, } from 'prop-types';
-import { IconSmall } from 'views/components';
 
 class MapDisplay extends Component {
 
@@ -10,10 +9,7 @@ class MapDisplay extends Component {
     controls: false,
     zoom: 11,
     center: { lat: -33.8688, lng: 151.2093},
-    markers: [{
-      lat: -36.1460,
-      lng: 144.7448
-    }],
+    markers: [],
     routes: []
   }
 

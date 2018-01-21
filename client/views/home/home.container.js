@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux';
 import Home from './Home.jsx';
 
 const mapStateToProps = state => ({
-  layouts: state.layouts
+  layouts: state.layouts,
+  alias: state.baseEntity.aliases,
 });
 
 

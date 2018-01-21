@@ -130,10 +130,10 @@ class GennyForm extends Component {
                                     inputMask = ask.question.attribute.dataType.inputmask.split(',').map(x => {
 
                                         if(x.indexOf('d') == 1 || x.indexOf('w') == 1) {
-                                            return new RegExp(x)
+                                            return new RegExp(x);
                                         }
 
-                                        return x
+                                        return x;
                                     });
                                 }
 

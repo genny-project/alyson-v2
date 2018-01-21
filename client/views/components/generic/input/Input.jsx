@@ -205,6 +205,7 @@ class Input extends Component {
                     isSingleSelect
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    value={this.state.value}
                 />
             );
             case 'dropdownmultiple':

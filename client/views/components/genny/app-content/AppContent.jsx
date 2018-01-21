@@ -1,6 +1,6 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList } from 'views/components';
+import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
@@ -10,9 +10,10 @@ class AppContent extends Component {
     }
 
     static propTypes = {
-      children: any,
-      layout: object,
-      history: object,
+        style: object,
+        children: any,
+        layout: object,
+        history: object,
     }
 
     state = {
@@ -27,22 +28,25 @@ class AppContent extends Component {
         if(layout.currentView && layout.currentView.dataCode) {
 
             // we need to show the table view
-            if(layout.currentView.code == "TABLE_VIEW") {
-                layoutContent = <GennyTable root={layout.currentView.dataCode}/>
+            if(layout.currentView.code == 'TABLE_VIEW') {
+                layoutContent = <GennyTable root={layout.currentView.dataCode}/>;
             }
             // we need to show the bucket view
-            else if (layout.currentView.code == "BUCKET_VIEW") {
-                layoutContent = <GennyBucketView root={layout.currentView.dataCode} />
+            else if (layout.currentView.code == 'BUCKET_VIEW') {
+                layoutContent = <GennyBucketView root={layout.currentView.dataCode} />;
             }
-            else if (layout.currentView.code == "LIST_VIEW") {
-                layoutContent = <GennyList root={layout.currentView.dataCode} />
+            else if (layout.currentView.code == 'LIST_VIEW') {
+                layoutContent = <GennyList root={layout.currentView.dataCode} />;
             }
-            else if (layout.currentView.code == "FORM_VIEW") {
-                layoutContent = <GennyForm root={layout.currentView.dataCode} showProgress={true}/>
+            else if (layout.currentView.code == 'FORM_VIEW') {
+                layoutContent = <GennyForm root={layout.currentView.dataCode}/>;
+            }
+            else if (layout.currentView.code == 'MAP_VIEW') {
+                layoutContent = <GennyMap root={layout.currentView.dataCode}/>;
             }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
         }
 
         layoutContent = layoutContent || children;
