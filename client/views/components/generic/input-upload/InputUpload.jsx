@@ -217,7 +217,7 @@ class InputUpload extends Component {
   render() {
     const { className, icon, label } = this.props;
     const { files, error } = this.state;
-    const validFiles = files.filter( file => this.isValidFile( file ));
+    const validFiles = files && files.length ? files.filter( file => this.isValidFile( file )) : [];
 
     return (
       <div className={classNames( 'input', 'input-file', className, {})}>
