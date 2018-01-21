@@ -42,6 +42,11 @@ class BucketCard extends Component {
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+
+    nextState.isOpen = this.state.isOpen;
+    return true;
+ }
 
   toggleOptions = () => {
 
