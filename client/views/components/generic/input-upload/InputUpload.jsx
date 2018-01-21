@@ -33,11 +33,10 @@ class InputUpload extends Component {
 
   state = {
     error: null,
+    files: [],
   }
 
-  constructor() {
-    super();
-
+  componentDidMount() {
     let files = [];
     try {
       files = ( this.props.value && this.props.value != 'null' ) ? JSON.parse( this.props.value ) : this.props.defaultValue;
@@ -45,6 +44,21 @@ class InputUpload extends Component {
 
     this.setState({
       files,
+    }, () => {
+      console.log( this.state );
+    });
+  }
+
+  componentDidReceiveProps( nextProps ) {
+    let files = [];
+    try {
+      files = ( nextProps.value && nextProps.value != 'null' ) ? JSON.parse( nextProps.value ) : nextProps.defaultValue;
+    } catch ( e ) {}
+
+    this.setState({
+      files,
+    }, () => {
+      console.log( this.state );
     });
   }
 
@@ -95,6 +109,7 @@ class InputUpload extends Component {
   }
 
   handleComplete = result => {
+    console.log( this.state, result );
     this.setState( state => ({
       files: [
         ...state.files,
@@ -109,6 +124,7 @@ class InputUpload extends Component {
 
   handleSaveToServer = () => {
     const { files } = this.state;
+    console.log( files );
 
     this.setState({ error: null });
 
@@ -188,10 +204,6 @@ class InputUpload extends Component {
     }
 
     if ( !file.id ) {
-      return false;
-    }
-
-    if ( !file.preview ) {
       return false;
     }
 
