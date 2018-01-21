@@ -32,8 +32,20 @@ class InputUpload extends Component {
   }
 
   state = {
-    files: ( this.props.value && this.props.value != 'null' ) ? JSON.parse( this.props.value ) : this.props.defaultValue,
     error: null,
+  }
+
+  constructor() {
+    super();
+
+    let files = [];
+    try {
+      files = ( this.props.value && this.props.value != 'null' ) ? JSON.parse( this.props.value ) : this.props.defaultValue;
+    } catch ( e ) {}
+
+    this.setState({
+      files,
+    });
   }
 
   componentWillMount() {
