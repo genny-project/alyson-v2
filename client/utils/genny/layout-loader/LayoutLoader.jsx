@@ -108,10 +108,21 @@ class LayoutLoader extends Component {
       return layout;
   }
 
+  hideAliasesIn(layout) {
+    if ( layout ) {
+      const layoutString = JSON.stringify( layout ).replace( /\"PROJECT\.[^\"]*\"/g, '\"\"' ).replace( /\"USER\.[^\"]*\"/g, '\"\"' ).replace( /\"BE\.[^\"]*\"/g, '\"\"' );
+      layout = JSON.parse( layoutString );
+    }
+
+    return layout;
+    //return JSON.parse(JSON.stringify( layout ).replace(/\"BE\..*\"/g, ''));
+  }
+
   render() {
     const { layout, aliases } = this.props;
 
     let finalLayout = this.replaceAliasesIn(layout, aliases);
+    finalLayout = this.hideAliasesIn( finalLayout );
     return <JSONLoader layout={finalLayout} componentCollection={components} />;
   }
 }
