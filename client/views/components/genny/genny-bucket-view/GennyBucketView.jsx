@@ -102,7 +102,7 @@ class GennyBucketView extends PureComponent {
 
             let linkToParent = BaseEntityQuery.getLinkToParent(group.code, be.code);
 
-            let color = this.getBaseEntityColor(linkToParent.link);
+            let color = linkToParent ? his.getBaseEntityColor(linkToParent.link) : null;
 
             let layout_code = 'card';
 
@@ -152,7 +152,7 @@ class GennyBucketView extends PureComponent {
     getBaseEntityColor = (link) => {
 
         if(!link) return;
-        
+
         if( link.rule == 'override:parent' || !link.rule ) {
             return link.parentColor;
         } else if ( link.rule == 'override:child' ) {
