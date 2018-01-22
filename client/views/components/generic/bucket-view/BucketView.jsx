@@ -387,17 +387,17 @@ class BucketView extends Component {
           <div 
             className='bucket-mobile-dots' 
             style={{
-              height: 'fit-content',
+              height: '20px',
+              width: '100vw',
               position: 'fixed',
-              bottom: '115px',
+              bottom: '30px',
               right: '50vw',
               transform: 'translate(50%)',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'flex-end',
+              alignItems: 'center',
               zIndex: '10',
               padding: '5px',
-              borderRadius: '10px',
               backgroundColor: 'rgba(0,0,0,0.5)'
             }}
           >
@@ -425,7 +425,7 @@ class BucketView extends Component {
           showMovingOptions={this.toggleMovingOptions}
           addNewItem={this.addNewItem}
           canAddItem={bucket.canAddItem}
-          style={{ flexBasis: `calc(100vw / ${buckets.length})` }}
+          style={{ flexBasis: `calc(100vw / ${buckets.length})`, maxWidth: isMobile ? '100vw' : `calc(100% / ${buckets.length})` }}
           className={(index % 2 == 0) ? '' : 'alt-style'}
         />
       );

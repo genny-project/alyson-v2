@@ -136,6 +136,7 @@ class InputAddress extends Component {
 
         const classes = {
             root: 'input-address-search',
+            autocompleteContainer: 'address-results-container'
         };
 
         if (window.getScreenSize() == 'sm') {

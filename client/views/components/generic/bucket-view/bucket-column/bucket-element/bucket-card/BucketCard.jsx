@@ -68,13 +68,16 @@ class BucketCard extends Component {
 
   render() {
 
-    const { className, style, showProgress, progressCurrent, progressTotal, backgroundColor, layout, onClick  } = this.props;
+    const { className, style, backgroundColor, layout, onClick  } = this.props;
     const { isShowingOptions } = this.state;
 
     const componentStyle = { ...style, backgroundColor: backgroundColor || '' };
 
     let dropDownStyle = {
-        float: 'left',
+      float: 'left',
+      padding: '5px 0',
+      transform: 'translateX(-5px)',
+      width: 'fit-content'
     };
 
     let dropDownContentStyle = {
@@ -110,7 +113,6 @@ class BucketCard extends Component {
           </Dropdown> : null
         }
         {layout}
-        {showProgress ? <ProgressBar progressTotal={progressTotal} progressCurrent={progressCurrent} type={2} /> : null}
       </div>
     );
   }

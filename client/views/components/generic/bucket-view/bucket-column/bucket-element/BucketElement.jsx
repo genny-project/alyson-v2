@@ -35,6 +35,10 @@ class BucketElement extends Component {
         this.onDragging();
     }
 
+    shouldComponentUpdate() {
+        return true;
+    }
+
     getCurrentPosition = () => {
 
         let cardNode = ReactDOM.findDOMNode(this);

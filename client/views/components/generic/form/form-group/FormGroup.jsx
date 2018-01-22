@@ -53,7 +53,7 @@ class FormGroup extends Component {
             key={index} {...child}
             style={isHorizontal && !this.state.isMobile ?
               { 'marginLeft': '5px', 'marginRight': '5px', 'marginBottom': '10px', 'width': 'calc(50% - 10px)' } :
-              { 'marginBottom': '5px' }}
+              { 'marginBottom': '10px' }}
             />
           );
         }

@@ -12,7 +12,11 @@
 .input-address-search {
   position:relative;
   width: 100%;
-  z-index: 11;
+  
+  .address-results-container {
+	position:absolute;
+	z-index: 15;
+  }
 
   > input {
 
@@ -45,5 +49,7 @@
 	        color: black;
 	    }
 	}
+
+	
 
 }
