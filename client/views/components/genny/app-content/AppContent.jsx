@@ -44,6 +44,14 @@ class AppContent extends Component {
             else if (layout.currentView.code == 'MAP_VIEW') {
                 layoutContent = <GennyMap root={layout.currentView.dataCode}/>;
             }
+            // else if (layout.currentView.code == 'MAP_VIEW') {
+            //     layoutContent = (
+            //         <div style={{ display: 'flex', height: '100%', weight: '100%'}}>
+            //             <GennyMap root={layout.currentView.dataCode}/>
+            //             <GennyList root={layout.currentView.dataCode} />
+            //         </div>
+            //     );
+            // }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
             layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;

@@ -134,7 +134,7 @@ class GennyBucketView extends PureComponent {
 
             let canAddItem = false;
             if(group.attributes) {
-                canAddItem = Object.keys(group.attributes).filter(x => x == "ADD_ITEM").length > 0;
+                canAddItem = Object.keys(group.attributes).filter(x => x == 'ADD_ITEM').length > 0;
             }
 
             buckets.push({

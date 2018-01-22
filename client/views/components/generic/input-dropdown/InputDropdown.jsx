@@ -23,19 +23,40 @@ class InputDropdown extends Component {
     validationStatus: string,
     isSingleSelect: bool,
     ask: array,
-    default_value: string,
     validationList: array,
     items: array,
     name: string,
+    value: any
   }
 
   state = {
     ask: this.props.ask ? this.props.ask : false,
-    value: this.props.default_value,
     selectedItems: [],
     isOpen: false,
     currentValue: '',
     lastSentValue: null
+  }
+
+  componentDidMount() {
+    
+    //TODO works only with singleselected
+
+    let filter = this.props.items.filter(item => item.code == this.props.value)[0];
+    this.setState({
+      selectedItems: filter && filter.name ? [filter.name] : []
+    });    
+  }
+
+  componentWillReceiveProps( nextProps) {
+
+    //TODO works only with singleselected
+
+    if (nextProps.value != this.props.value) {
+      let filter = this.props.items.filter(item => item.code == nextProps.value)[0];
+      this.setState({
+        selectedItems: filter && filter.name ? [filter.name] : []
+      });
+    }
   }
 
   handleChange = selectedItem => {
@@ -130,8 +151,7 @@ class InputDropdown extends Component {
     });
   }
 
-handleValidation = () => {
-
+  handleValidation = () => {
     const { validationList, validation, identifier, isSingleSelect } = this.props;
     const { selectedItems, lastSentValue } = this.state;
 
