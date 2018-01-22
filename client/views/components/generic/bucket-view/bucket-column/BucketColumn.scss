@@ -71,12 +71,16 @@
 }
 
 .bucket.size-md, .bucket.size-lg, .bucket.size-sm{
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .bucket.size-sm {
   min-width: 100vw;
-  touch-action: none;
+  -webkit-overflow-scrolling: touch;
+
+  .bucket-content {
+    height: calc(100% + 1px);
+  }
 
   .bucket_action_previous .bucket_action_next {
    visibility:hidden;
