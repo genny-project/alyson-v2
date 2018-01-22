@@ -109,7 +109,7 @@ class LayoutLoader extends Component {
   }
 
   hideAliasesIn(layout) {
-    if ( layout ) {
+    if ( layout && process.env.NODE_ENV === 'production' ) {
       const layoutString = JSON.stringify( layout ).replace( /\"PROJECT\.[^\"]*\"/g, '\"\"' ).replace( /\"USER\.[^\"]*\"/g, '\"\"' ).replace( /\"BE\.[^\"]*\"/g, '\"\"' );
       layout = JSON.parse( layoutString );
     }
