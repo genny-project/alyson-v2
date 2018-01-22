@@ -1,11 +1,17 @@
 import './inputPayment.scss';
 import React, { Component } from 'react';
+import { array } from 'prop-types';
 import PaymentType from './payment-type';
+import PaymentMethod from './payment-method';
 
 class InputPayment extends Component {
   state = {
     selectedPaymentType: null,
     stage: 0,
+  };
+
+  static propTypes = {
+    accounts: array,
   };
 
   static defaultProps = {
@@ -16,6 +22,13 @@ class InputPayment extends Component {
         name: 'NAB Business',
         bsb: '833023',
         accountNumber: '126456432'
+      },
+      {
+        id: 2,
+        type: 'BANK_ACCOUNT',
+        name: 'Westpac Personal',
+        bsb: '133663',
+        accountNumber: '832534723'
       }
     ]
   };
@@ -36,6 +49,16 @@ class InputPayment extends Component {
     });
   }
 
+  onGoBack = () => {
+    if ( this.state.stage === 0 ) {
+      return;
+    }
+
+    this.setState({
+      stage: this.state.stage - 1,
+    });
+  }
+
   renderSelectType() {
     const { selectedPaymentType } = this.state;
 
@@ -52,10 +75,40 @@ class InputPayment extends Component {
   }
 
   renderSelectAccount() {
+    const { accounts } = this.props;
+
     return (
       <div>
-        <h2>Select account</h2>
+        <h2>{this.renderBackButton()} Select account {this.renderAddButton()}</h2>
         <p>Please select a account from below</p>
+        <div className='payment-methods'>
+          { accounts.map( account => <PaymentMethod account={account} /> )}
+        </div>
+      </div>
+    );
+  }
+
+  renderNextButton() {
+    return (
+      <div className={`next-step-btn ${!this.isPaymentTypeSelected() ? 'disabled' : ''}`} onClick={this.onGoNext}>
+        <span>NEXT</span>
+        <i className='material-icons'>chevron_right</i>
+      </div>
+    );
+  }
+
+  renderBackButton() {
+    return (
+      <div className={`back-step-btn ${!this.isPaymentTypeSelected() ? 'disabled' : ''}`} onClick={this.onGoBack}>
+        <i className='material-icons'>chevron_left</i>
+      </div>
+    );
+  }
+
+  renderAddButton() {
+    return (
+      <div className='add-btn'>
+        <i className='material-icons'>add</i>
       </div>
     );
   }
@@ -66,10 +119,7 @@ class InputPayment extends Component {
       <div className='input-payment'>
         { stage === 0 && this.renderSelectType() }
         { stage === 1 && this.renderSelectAccount() }
-        <div className={`next-step-btn ${!this.isPaymentTypeSelected() ? 'disabled' : ''}`} onClick={this.onGoNext}>
-          <span>NEXT</span>
-          <i className='material-icons'>chevron_right</i>
-        </div>
+        {this.renderNextButton()}
       </div>
     );
   }

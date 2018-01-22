@@ -8,6 +8,11 @@
     display: flex;
   }
 
+  h2 {
+    display: flex;
+    align-items: center;
+  }
+
   .next-step-btn {
     margin-top: 15px;
     background: lighten(#000, 20%);
@@ -30,5 +35,34 @@
     &:hover {
       background: #000;
     }
+  }
+
+  .back-step-btn, .add-btn {
+    background: lighten(#000, 20%);
+    height: 40px;
+    width: 40px;
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    border-radius: 50%;
+    transition: 300ms ease background;
+    margin-right: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background: #000;
+    }
+
+    i {
+      color: #FFF;
+    }
+  }
+
+  .add-btn {
+    background: green;
+    margin-right: 0;
+    margin-left: auto;
   }
 }

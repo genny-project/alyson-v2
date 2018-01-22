@@ -1,0 +1,15 @@
+.payment-method {
+  min-width: 300px;
+  padding: 25px;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+
+  &:hover {
+    background: #000;
+    color: #FFF;
+
+    small {
+      color: #FFF;
+    }
+  }
+}

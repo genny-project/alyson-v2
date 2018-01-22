@@ -2,6 +2,7 @@ import './paymentType.scss';
 import React, { Component } from 'react';
 import { string, bool, func } from 'prop-types';
 
+
 class PaymentType extends Component {
   static propTypes = {
     type: string.isRequired,
