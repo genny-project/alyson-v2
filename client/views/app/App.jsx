@@ -26,6 +26,10 @@ class App extends Component {
 
   componentDidMount() {
 
+    document.ontouchmove = function(event) {
+      event.preventDefault();
+    };
+
     if (config.backendEnabled) {
 
       /* Start the app */
