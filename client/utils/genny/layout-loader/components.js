@@ -33,6 +33,7 @@ import {
   PhoneButton,
   MapDirectionsButton,
   Carousel,
+  InputPayment,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -71,4 +72,5 @@ export default new ComponentCollection({
   PhoneButton,
   MapDirectionsButton,
   Carousel,
+  InputPayment,
 });

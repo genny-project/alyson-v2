@@ -23,6 +23,7 @@ export { default as InputDatePicker } from './input-date-picker';
 export { default as InputDropdown } from './input-dropdown';
 export { default as InputEmail } from './input-email';
 export { default as InputSlider } from './input-slider';
+export { default as InputPayment } from './input-payment';
 export { default as InputText } from './input-text';
 export { default as InputUpload } from './input-upload';
 export { default as InputTextarea } from './input-textarea';

@@ -1,0 +1,34 @@
+.input-payment {
+  margin-left: 50px;
+  margin-top: 50px;
+  padding: 50px;
+  display: inline-block;
+
+  .payment-type-select {
+    display: flex;
+  }
+
+  .next-step-btn {
+    margin-top: 15px;
+    background: lighten(#000, 20%);
+    color: #FFF;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 300ms ease color, 300ms ease background;
+
+    i {
+      color: #FFF;
+    }
+
+    &.disabled {
+      background: lighten(#000, 80%);
+    }
+
+    &:hover {
+      background: #000;
+    }
+  }
+}

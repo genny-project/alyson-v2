@@ -6,7 +6,7 @@
         "rows": 1,
         "children": [
           {
-            "PaymentInput": {
+            "InputPayment": {
               "position": [0,0]
             }
           }
