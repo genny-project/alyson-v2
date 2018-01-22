@@ -98,7 +98,7 @@ class GennyTreeView extends PureComponent {
       let parentCode = item.parentCode;
       let bes = store.getState().baseEntity.data;
 
-      let path = "/" + item.code;
+      let path = '/' + item.code;
       let currentPath = item.name;
 
       // we lookup for the Be corresponding to the parentCode and check if it has a parent.
@@ -108,7 +108,7 @@ class GennyTreeView extends PureComponent {
 
           if(bes[parentCode]) {
 
-              path = "/" + bes[parentCode].code + path;
+              path = '/' + bes[parentCode].code + path;
               parentCode = bes[parentCode].parentCode;
           }
           else {
@@ -118,7 +118,7 @@ class GennyTreeView extends PureComponent {
       }
 
       // update the current path
-      store.getState().app.currentPath = path
+      store.getState().app.currentPath = path;
 
       this.sendData('TV_SELECT', {
           code: 'TV1',
@@ -135,7 +135,7 @@ class GennyTreeView extends PureComponent {
     const relationships = store.getState().baseEntity.relationships;
     const grp = relationships[code];
 
-    let items = grp ? Object.keys(grp).filter(x => x != "DUMMY").map(code => store.getState().baseEntity.data[code]) : [];
+    let items = grp ? Object.keys(grp).filter(x => x != 'DUMMY').map(code => store.getState().baseEntity.data[code]) : [];
 
     let rootEntity = BaseEntityQuery.getBaseEntity(code);
 
@@ -148,7 +148,7 @@ class GennyTreeView extends PureComponent {
             if(rootEntity && rootEntity.originalLinks) {
 
                 let currentLinks = rootEntity.originalLinks.filter(x => {
-                    return x.link.targetCode == item.code
+                    return x.link.targetCode == item.code;
                 });
 
                 weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
@@ -170,16 +170,16 @@ class GennyTreeView extends PureComponent {
 
   generatePath = (baseEntityPath) => {
 
-      if(!baseEntityPath) return "";
+      if(!baseEntityPath) return '';
 
-      let finalPath = "";
+      let finalPath = '';
       let besCode = baseEntityPath.split('/');
       besCode.forEach((be_code) => {
 
           if(be_code && be_code.length > 0) {
 
               let be = this.props.baseEntity.data[be_code];
-              finalPath += "/" + be.name;
+              finalPath += '/' + be.name;
               this.state.horizontalItems[be.name] = be;
           }
       });
