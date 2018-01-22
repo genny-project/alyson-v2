@@ -114,7 +114,7 @@ class BucketElement extends Component {
                     {...( provided && provided.dragHandleProps)}
                     className="bucket-contents"
                 >
-                    <BucketCard {...item.content} showMovingOptions={showMovingOptions} />
+                    <BucketCard {...item.content} />
                 </div>
                 { provided && provided.placeholder}
             </div>
