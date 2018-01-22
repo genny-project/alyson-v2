@@ -124,7 +124,7 @@ class GennyHeader extends Component {
             <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
               <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
               <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
-              <Selector checkValues={roles} showValues={['uma_authorization']}>
+              <Selector checkValues={roles} showValues={['admin']}>
                 <li style={ customStyle.dropdownLi } onClick={this.handleMessages}><IconSmall name="email" /><span>Test Message</span></li>
               </Selector>
               <br/>
