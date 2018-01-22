@@ -99,7 +99,7 @@ class LayoutLoader extends Component {
             }
         }
 
-        if(attribute && attribute.value) {
+        if(attribute && attribute.value != null ) {
             layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
         }
 
