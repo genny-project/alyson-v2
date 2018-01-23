@@ -72,8 +72,6 @@ class GennyTreeView extends PureComponent {
                 [item.code]: true,
             }
         });
-
-        console.log( this.state.tree )
     }
 
     closeItem = (item) => {

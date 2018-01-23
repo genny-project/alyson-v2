@@ -18,7 +18,7 @@ class BaseEntityQuery {
 
                 // order by weight if found in links
                 let weight = item.weight;
-                if(rootEntity && rootEntity.originalLinks) {
+                if(rootEntity != null && rootEntity.originalLinks) {
 
                     let currentLinks = rootEntity.originalLinks.filter(x => {
                         return x.link.targetCode == item.code;
@@ -97,6 +97,8 @@ class BaseEntityQuery {
 
                         const link = links[j];
                         if(link.targetCode == childCode) {
+                            console.log('FOUND')
+                            console.log(link);
                             return link;
                        }
                     }

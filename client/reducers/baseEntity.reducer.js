@@ -117,7 +117,7 @@ export default function reducer(state = initialState, action) {
                     ...state.relationships[action.payload.parentCode],
                     ...action.payload.items.reduce((existingItem, newItem) => {
 
-                        existingItem[newItem.code] = !action.payload.delete ? { type: BASE_ENTITY } : false;
+                        existingItem[newItem.code] = !action.payload.delete ? { type: BASE_ENTITY, weight: newItem.weight ? newItem.weight : 1 } : false;
 
                         return existingItem;
                     }, {})

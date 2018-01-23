@@ -73,15 +73,9 @@ class LayoutLoader extends Component {
 
                let localAliasCode = localAliases[alias_key];
 
-               if(showLog) console.log('localAliases', localAliases);
-               if(showLog) console.log('alias_code', alias_code);
-               if(showLog) console.log('baseEntityCode', localAliasCode);
-
                if(alias_key == alias_code) {
 
                    let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
-
-                   if(showLog) console.log('baseEntity', baseEntity);
 
                    if(baseEntity) {
 
@@ -93,9 +87,11 @@ class LayoutLoader extends Component {
                 }
             });
         }
-        else {
+
+        if(!localAliases || alias_code == "USER" || alias_code == "PROJECT") {
 
             if(split.length == 2) {
+
                 attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
 
                 if(attribute == null) {
@@ -134,7 +130,7 @@ class LayoutLoader extends Component {
     const { layout, aliases } = this.props;
 
     let finalLayout = this.replaceAliasesIn(layout, aliases);
-    finalLayout = this.hideAliasesIn( finalLayout );
+    // finalLayout = this.hideAliasesIn( finalLayout );
     return <JSONLoader layout={finalLayout} componentCollection={components} />;
   }
 }
