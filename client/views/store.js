@@ -14,7 +14,7 @@ const middleware = applyMiddleware(
   routerMiddleware( history ),
   thunk,
   epicMiddleware,
-  gennyRouterMiddleware,
+  // gennyRouterMiddleware,
   logger()
 );
 const store = createStore( reducers, middleware );
