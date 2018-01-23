@@ -3,7 +3,7 @@
 .input-textarea {
 
 	> textarea {
-		height: 50px;
+		min-height: 150px;
 	    width: 100%;
 	    max-width: 100%;
 	    border-radius: 5px;
@@ -12,7 +12,7 @@
 	    font-size: 1em;
 	    padding: 10px;
 	    box-sizing: border-box;
-	    text-align: center;
+	    text-align: left;
 	    transition: 300ms ease;
 	    border: 1px solid #DDD;
 

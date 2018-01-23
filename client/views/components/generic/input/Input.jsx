@@ -165,6 +165,8 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
+                    defaultDateFormat='YYYY-MM-DD HH:mm'
+                    displayDateFormat='DD-MM-YYYY HH:mm'
                 />
             );
             case 'java.time.LocalDate':
@@ -177,6 +179,7 @@ class Input extends Component {
                     handleOnChange={this.handleOnChange}
                     showTimeSelect={false}
                     defaultDateFormat='YYYY-MM-DD'
+                    displayDateFormat='DD-MM-YYYY'
                 />
             );
             case 'TextArea':
@@ -198,6 +201,7 @@ class Input extends Component {
                 />
             );
             case 'dropdown':
+            //console.log(this.props.value);
             return (
                 <InputDropdown
                     {...rest}

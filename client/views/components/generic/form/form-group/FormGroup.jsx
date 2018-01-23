@@ -51,9 +51,9 @@ class FormGroup extends Component {
           <Input
             ref={inputRef => this.inputRefs.push(inputRef)}
             key={index} {...child}
-            style={isHorizontal && !this.state.isMobile ?
-              { 'marginLeft': '5px', 'marginRight': '5px', 'marginBottom': '10px', 'width': 'calc(50% - 10px)' } :
-              { 'marginBottom': '10px' }}
+            style={isHorizontal && !this.state.isMobile && data.length > 1 ?
+              { marginLeft: '5px', marginRight: '5px', marginBottom: '10px', width: 'calc(50% - 10px)' } :
+              { marginBottom: '10px', width: '100%' }}
             />
           );
         }

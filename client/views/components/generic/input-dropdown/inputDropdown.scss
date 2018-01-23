@@ -1,9 +1,16 @@
 @import 'client/styles/colors';
 
 .input-dropdown {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+
+    .input-header {
+    	display: flex;
+    	align-items: center;
+    	justify-content: flex-start;
+    	margin-bottom: 3px;
+    }
 
     &.success > .dropdown-container > .input-dropdown-button{
     	color: $success;
@@ -20,7 +27,6 @@
     }
     .dropdown-container {
         position: relative;
-        max-width: 400px;
         width: 100%;
         
         .input-dropdown-field {

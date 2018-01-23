@@ -2,7 +2,7 @@ import './inputDropdown.scss';
 import React, { Component } from 'react';
 import { string, object, func, any, bool, array } from 'prop-types';
 import Downshift from 'downshift';
-import { Label, IconSmall } from 'views/components';
+import { Label, IconSmall, SubmitStatusIcon } from 'views/components';
 
 class InputDropdown extends Component {
 
@@ -26,7 +26,10 @@ class InputDropdown extends Component {
     validationList: array,
     items: array,
     name: string,
-    value: any
+    value: any,
+    isHorizontal: bool,
+    hideHeader: bool,
+    mandatory: bool,
   }
 
   state = {
@@ -53,6 +56,8 @@ class InputDropdown extends Component {
 
     if (nextProps.value != this.props.value) {
       let filter = this.props.items.filter(item => item.code == nextProps.value)[0];
+
+      //console.log(filter);
       this.setState({
         selectedItems: filter && filter.name ? [filter.name] : []
       });
@@ -225,7 +230,7 @@ class InputDropdown extends Component {
 
   render() {
 
-    const { className, style, name, validationStatus } = this.props;
+    const { className, style, name, validationStatus, hideHeader, isHorizontal, mandatory } = this.props;
     let { items } = this.props;
     const { selectedItems } = this.state;
     const componentStyle = { ...style, };
@@ -234,7 +239,15 @@ class InputDropdown extends Component {
 
     return (
       <div className={`input input-dropdown ${className} ${validationStatus}` } style={componentStyle}>
-        {name ? <Label className="dropdown-label" text={name} /> : null }
+        {
+        !isHorizontal && !hideHeader ? 
+          <div className="input-header">
+            {name ? <Label text={name} /> : null}
+            {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : ''} text="*  required" /> : null}
+            <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
+          </div> :
+        null
+      }
         <Downshift
           isOpen={this.state.isOpen}
           selectedItem={selectedItems}

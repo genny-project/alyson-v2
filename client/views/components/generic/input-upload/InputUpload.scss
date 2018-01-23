@@ -2,6 +2,29 @@
 
 .input-file {
 
+  .input-file-main {
+    display: flex;
+    align-items: center;
+
+
+    min-height: 50px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 5px;
+    color: #999;
+    background-color: #DDD;
+    font-size: 1em;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+    transition: 300ms ease;
+    border: 1px solid #DDD;
+
+    .input-file-icon {
+      padding-right: 20px;
+    }
+  }
+
   > button {
     display: flex;
     align-items: center;
