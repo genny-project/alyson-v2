@@ -33,7 +33,7 @@ class TreeView extends Component {
 
   renderList = (items) => {
 
-    return items.sort(( a, b ) => a.id - b.id ).map( item => {
+    return items.map( item => {
 
       const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
       const canOpen = ( hasChildren && item.open );

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import { BaseEntityQuery } from 'utils/genny';
 
 class AppContent extends Component {
 
@@ -54,7 +55,11 @@ class AppContent extends Component {
             // }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
+
+            const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
+            const parentCode = parent ? parent.code : null;
+            console.log(parentCode);
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
         }
 
         layoutContent = layoutContent || children;

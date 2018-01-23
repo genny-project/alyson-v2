@@ -47,7 +47,9 @@ class BaseEntityQuery {
 
                 // set dummy value so we wont call this again
                 relationships[code]['DUMMY'] = {
-                    hidden: true
+                    hidden: true,
+                    weight: 0,
+                    type: "BaseEntity" // do not remove
                 };
 
                 GennyBridge.sendTVEvent('TV_EXPAND', {
@@ -97,11 +99,39 @@ class BaseEntityQuery {
 
                         const link = links[j];
                         if(link.targetCode == childCode) {
-                            console.log('FOUND')
-                            console.log(link);
                             return link;
                        }
                     }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    static getBaseEntityParent(childCode, group) {
+
+        const relationships = group || store.getState().baseEntity.relationships;
+
+        const groupKeys = Object.keys(relationships);
+        for (var i = 0; i < groupKeys.length; i++) {
+
+            const groupKey = groupKeys[i]
+            const group = relationships[groupKey];
+
+            let childKeys = Object.keys(group);
+            for (var j = 0; j < childKeys.length; j++) {
+
+                const childKey = childKeys[j]
+                const child = group[childKey];
+
+                if(child.type == "BaseEntity") {
+                    if(childKey == childCode) {
+                        return BaseEntityQuery.getBaseEntity(groupKey);
+                    }
+                }
+                else {
+                    return BaseEntityQuery.getBaseEntityParent(childCode, group);
                 }
             }
         }

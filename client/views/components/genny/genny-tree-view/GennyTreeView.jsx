@@ -171,11 +171,11 @@ class GennyTreeView extends PureComponent {
 
         const { root, baseEntity, isHorizontal } = this.props;
         const relationships = baseEntity.relationships[root];
-        const items = root ? BaseEntityQuery.getEntityChildren(root).map(item => { return { ...item, open: !!this.state.tree[item.code] }}) : [];
-
-
+        let items = root ? BaseEntityQuery.getEntityChildren(root).map(item => { return { ...item, open: !!this.state.tree[item.code] }}) : [];
+        items = items.sort((x, y) => y.name.toLowerCase().includes('dashboard'));
+        //
         // items.forEach(item => {
-        //     item.icon = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL');
+        //     item.icon = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL') || '';
         // });
 
         if(isHorizontal) {

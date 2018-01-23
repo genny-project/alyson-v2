@@ -32,7 +32,7 @@ class MapDisplay extends Component {
   }
 
   setup = () => {
-    
+
     if(typeof google == 'object') {
 
       const { center, controls, zoom, markers, routes } = this.props;
@@ -58,7 +58,7 @@ class MapDisplay extends Component {
         }
       };
 
-      this.checkAddressFormat(geocoder, center, (centerCoords) => { 
+      this.checkAddressFormat(geocoder, center, (centerCoords) => {
 
         let counterMarkers = 0;
         markers.forEach(marker => {
@@ -68,12 +68,12 @@ class MapDisplay extends Component {
             if (markerCoords.lat && markerCoords.lng) {
 
               let map = this.map;
-              
+
               new google.maps.Marker({
                 position: {
                   lat: markerCoords.lat,
                   lng: markerCoords.lng,
-                  
+
                 },
                 icon: 'https://i.imgur.com/V8EhEJD.png',
                 map
@@ -83,7 +83,7 @@ class MapDisplay extends Component {
               if(counterMarkers == markers.length - 1) {
                 adjustMapBounds();
               }
-              
+
               counterMarkers += 1;
             }
             else {
@@ -100,12 +100,12 @@ class MapDisplay extends Component {
             let originCoords = new google.maps.LatLng( routeOriginCoords.lat, routeOriginCoords.lng );
 
             this.locations.push(originCoords);
-            
+
             this.checkAddressFormat(geocoder, route.dest, (routeDestCoords) => {
 
               let destCoords = new google.maps.LatLng( routeDestCoords.lat, routeDestCoords.lng );
               this.locations.push(destCoords);
-              
+
               this.calcRoute(originCoords, destCoords, () => {
                 if(counterRoutes == routes.length - 1) {
                   adjustMapBounds();
@@ -125,35 +125,35 @@ class MapDisplay extends Component {
   }
 
   checkAddressFormat = (geocoder, value, callback) => {
-    
+
     let address = value;
-    
+
     if (typeof address == 'string') {
-      
+
       geocoder.geocode({'address': address}, (results, status) => {
-        
+
         if (status === 'OK' && results.length > 0) {
-          
+
           let input = results[0].geometry.location.toString();
           input = input.substr(1, input.length-1);
-          
+
           let latlngStr = input.split(',', 2);
           if (latlngStr.length == 2) {
-            
-            let latlng = { 
+
+            let latlng = {
               lat: parseFloat(latlngStr[0]),
               lng: parseFloat(latlngStr[1])
-            };  
+            };
 
             callback(latlng);
             return;
           }
-        } 
+        }
         else {
           alert('Geocode was not successful for the following reason: ' + status);
         }
       });
-    } 
+    }
     else if (typeof address == 'object') {
       callback(address);
       return;
@@ -161,9 +161,9 @@ class MapDisplay extends Component {
   }
 
   calcRoute = (originCoords, destCoords, callback) => {
-    
+
     let directionsService = new google.maps.DirectionsService();
-    
+
     let request = {
         origin: originCoords,
         //waypoints: waypointCoords
@@ -184,7 +184,7 @@ class MapDisplay extends Component {
   }
 
   adjustBounds = () => {
-    
+
     let bounds = new google.maps.LatLngBounds();
     if(bounds && this.map && this.locations) {
       this.locations.forEach(location => {
@@ -192,8 +192,9 @@ class MapDisplay extends Component {
       });
     }
 
-    this.map.fitBounds(bounds); 
+    this.map.fitBounds(bounds);
     this.map.panToBounds(bounds);
+    this.map.setZoom(this.props.zoom);
   }
 
   render() {
