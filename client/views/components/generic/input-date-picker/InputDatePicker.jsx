@@ -90,6 +90,8 @@ class InputDatePicker extends Component {
     const startDate = this.getStartDate();
     const isMobile = window.getScreenSize() === 'sm';
 
+    console.log(startDate);
+
     return (
       <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
         { name ? <div className='input-header'>
