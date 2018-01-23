@@ -384,8 +384,8 @@ class BucketView extends Component {
         </Device>
         {columns}
         <Device isMobile>
-          <div 
-            className='bucket-mobile-dots' 
+          <div
+            className='bucket-mobile-dots'
             style={{
               height: '20px',
               width: '100vw',
@@ -431,7 +431,8 @@ class BucketView extends Component {
       );
     });
 
-    if (isMobile){
+    // TODO: 23/01/2018 - disable drag & drop for CH40 for now.
+    if (isMobile || false){
       return (
           this.renderContent(columns)
         );
