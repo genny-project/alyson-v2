@@ -32,11 +32,14 @@ class TreeView extends Component {
   }
 
   renderList = (items) => {
+
     return items.sort(( a, b ) => a.id - b.id ).map( item => {
+
       const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
       const canOpen = ( hasChildren && item.open );
 
       return (
+
         <li key={item.id}>
           <div>
             <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
@@ -47,6 +50,7 @@ class TreeView extends Component {
             {( item.children && item.children.length > 0 ) && (
               <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? 'expand_more' : 'chevron_right'} />
             )}
+
           </div>
 
           <ul className="child">

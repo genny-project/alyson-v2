@@ -130,44 +130,6 @@ class GennyTreeView extends PureComponent {
     GennyBridge.sendTVEvent(event, data);
   }
 
-  getEntityChildren(code) {
-
-    const relationships = store.getState().baseEntity.relationships;
-    const grp = relationships[code];
-
-    let items = grp ? Object.keys(grp).filter(x => x != 'DUMMY').map(code => store.getState().baseEntity.data[code]) : [];
-
-    let rootEntity = BaseEntityQuery.getBaseEntity(code);
-
-    items = items.map(item => {
-
-        if(item) {
-
-            // order by weight if found in links
-            let weight = 0;
-            if(rootEntity && rootEntity.originalLinks) {
-
-                let currentLinks = rootEntity.originalLinks.filter(x => {
-                    return x.link.targetCode == item.code;
-                });
-
-                weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
-            }
-
-            const children = this.getEntityChildren(item.code);
-            item.children = children;
-            item.open = !!this.state.tree[item.code];
-            item.parentCode = code;
-            return item;
-        }
-
-        return false;
-
-    });
-
-    return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true);
-  }
-
   generatePath = (baseEntityPath) => {
 
       if(!baseEntityPath) return '';
@@ -191,7 +153,11 @@ class GennyTreeView extends PureComponent {
 
     const { root, baseEntity, isHorizontal } = this.props;
     const relationships = baseEntity.relationships[root];
-    const items = this.getEntityChildren(root);
+    const items = root ? BaseEntityQuery.getEntityChildren(root) : [];
+
+    // items.forEach(item => {
+    //     item.icon = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL');
+    // });
 
     if(isHorizontal) {
 
@@ -204,7 +170,7 @@ class GennyTreeView extends PureComponent {
 
         return (
           <div className="genny-tree-view">
-            <TreeView root={root} {...this.props} items={items} onExpand={this.onExpand} onClick={this.onClick} />
+            <TreeView root={root} {...this.props} items={items.sort((x, y) => { return x.weight > y.weight } )} onExpand={this.onExpand} onClick={this.onClick} />
           </div>
         );
     }

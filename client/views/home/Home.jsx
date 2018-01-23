@@ -1,17 +1,17 @@
 import './home.scss';
 import React, { Component } from 'react';
 import { LayoutLoader } from 'utils/genny/layout-loader';
-import { BaseEntityQuery } from 'utils/genny';
+import { BaseEntityQuery } from 'utils/genny/'
 
 class Home extends Component {
 
     setupGoogleAPI() {
 
         let googleScript = document.getElementById('google-api');
-        let apiKey = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_GOOGLE_API_KEY');    
-            
+        let apiKey = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_GOOGLE_API_KEY');
+
         if(!googleScript && apiKey && apiKey.value) {
-  
+
             let apiString = 'https://maps.googleapis.com/maps/api/js?key=' + apiKey.value + '&libraries=places';
             // load google api
             //TODO: move the API key to config file
@@ -38,7 +38,7 @@ class Home extends Component {
         }
 
         if ( loaded[current] == null ) {
-            return <LayoutNotFound layout={current} />;
+            return <div>Layout not found./</div>
         }
 
         return (

@@ -62,6 +62,9 @@ class LayoutLoader extends Component {
         let split = alias.split('.');
         let alias_code = split[0];
         let attribute_code = split[1];
+
+        let showLog = attribute_code ? (attribute_code.includes('PRI_DRIVER') || attribute_code.includes('PRI_OWNER')) : false;
+
         let attribute = {};
 
         if (localAliases) {
@@ -69,13 +72,21 @@ class LayoutLoader extends Component {
            Object.keys(localAliases).forEach((alias_key) => {
 
                let localAliasCode = localAliases[alias_key];
+
+               if(showLog) console.log('localAliases', localAliases);
+               if(showLog) console.log('alias_code', alias_code);
+               if(showLog) console.log('baseEntityCode', localAliasCode);
+
                if(alias_key == alias_code) {
 
                    let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
+
+                   if(showLog) console.log('baseEntity', baseEntity);
+
                    if(baseEntity) {
 
                        attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
-                       if(!attribute) {
+                       if(attribute == null) {
                            layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
                        }
                    }
@@ -83,10 +94,11 @@ class LayoutLoader extends Component {
             });
         }
         else {
+
             if(split.length == 2) {
                 attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
 
-                if(!attribute) {
+                if(attribute == null) {
 
                     let baseEntity = BaseEntityQuery.getAlias(alias_code);
 
