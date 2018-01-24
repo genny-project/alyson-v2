@@ -2,6 +2,7 @@ import './treeView.scss';
 import React, { Component } from 'react';
 import { object, array, func } from 'prop-types';
 import { IconSmall } from 'views/components';
+import { BaseEntityQuery } from 'utils/genny';
 
 class TreeView extends Component {
 
@@ -37,23 +38,28 @@ class TreeView extends Component {
 
       const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
       const canOpen = ( hasChildren && item.open );
+      let icon = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL' );
+      icon = icon && icon.value;
 
-      return (
+        return (
 
-        <li key={item.id}>
-          <div>
+        <li key={item.id} className='tree-view-item'>
+          <div className='tree-view-item-content'>
             <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
-              { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
+              { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
               {item.name}
+              { ( item.children && item.children.length > 0 ) && (
+                <span className='tree-view-item-count'>({item.children.length})</span>
+              )}
             </span>
 
             {( item.children && item.children.length > 0 ) && (
-              <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? 'expand_more' : 'chevron_right'} />
+              <IconSmall className='tree-view-icon arrow clickable' onClick={this.onExpand(item)} name={canOpen ? 'expand_more' : 'chevron_right'} />
             )}
 
           </div>
 
-          <ul className="child">
+          <ul className="tree-view-child">
             {canOpen ? this.renderList(item.children) : []}
           </ul>
         </li>

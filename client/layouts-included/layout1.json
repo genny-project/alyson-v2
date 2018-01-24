@@ -1,18 +1,31 @@
 {
   "layout": [
     {
-      "div" : {
-        "style" : {
-          "width": "100vw",
-          "height": "100vh"
-        },
+      "AppHolder": {
+        "cols": 2,
+        "rows": 1,
         "children": [
           {
-            "h1":{
-              "style": {
-                "color" : "red"
+            "div" : {
+              "position": [0,0],
+              "style" : {
+                "width": "100%",
+                "height": "100%",
+                "backgroundColor": "white",
+                "display": "flex",
+                "alignItems": "center",
+                "justifyContent": "center"
               },
-              "children": "Layout Not Found"
+              "children": [
+                {
+                  "span":{
+                    "style": {
+                      "color" : "red"
+                    },
+                    "children": "Layout Not Foundsdasd"
+                  }
+                }
+              ]
             }
           }
         ]

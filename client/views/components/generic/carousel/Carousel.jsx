@@ -2,6 +2,7 @@ import './carousel.scss';
 import React, { Component } from 'react';
 import { string, any } from 'prop-types';
 import { Carousel as ReactCarousel} from 'react-responsive-carousel';
+import { ImageView } from 'views/components';
 
 class Carousel extends Component {
 
@@ -29,7 +30,7 @@ class Carousel extends Component {
       items.map( item  => {
         content.push(
           <div style={{ height: elementHeight }}>
-            <div style={{ backgroundImage: `url("${item.img}")`, backgroundSize: 'cover', height: '100%' }}/>
+            <img src={item.img} />
             { item.text ?
               <span className='legend'>{item.text}</span>
             : null }
@@ -58,7 +59,7 @@ class Carousel extends Component {
 
     return (
       <div className={`carousel ${className}`} style={componentStyle}>
-        <ReactCarousel
+        <ReactCarousel showThumbs
         >
           {this.renderItems(items)}
         </ReactCarousel>

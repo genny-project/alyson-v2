@@ -149,34 +149,41 @@ class GennyTreeView extends PureComponent {
         return finalPath;
     }
 
-    getEntityChildren(code) {
+    // getEntityChildren(code) {
 
-        const { baseEntity } = this.props;
-        const relationships = baseEntity.relationships[code];
-        let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code]) : [];
+    //     const { baseEntity } = this.props;
+    //     const relationships = baseEntity.relationships[code];
+    //     let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code]) : [];
 
-        items = items.map(item => {
-            /* Get the children for this item */
-            const children = this.getEntityChildren(item.code);
-            item.children = children;
-            item.open = !!this.state.tree[item.code];
-            item.parentCode = code;
-            return item;
-        });
+    //     console.log('========================');
+    //     items = items.map(item => {
+    //         /* Get the children for this item */
+    //         console.log(item);
+    //         // add item.icon from item.attributes.PRI_IMAGE_URL.value
+    //         const children = this.getEntityChildren(item.code);
+    //         item.children = children;
+    //         item.open = !!this.state.tree[item.code];
+    //         item.parentCode = code;
+    //         console.log(item);
+    //         return item;
+    //     });
 
-        return items;
-    }
+    //     return items;
+    // }
 
     render() {
 
-        const { root, baseEntity, isHorizontal } = this.props;
-        const relationships = baseEntity.relationships[root];
-        let items = root ? BaseEntityQuery.getEntityChildren(root).map(item => { return { ...item, open: !!this.state.tree[item.code] }}) : [];
+        const { root, isHorizontal } = this.props;
+        let items = root ? 
+            BaseEntityQuery.getEntityChildren(root).map(item => { 
+                console.log('item', item);
+                return {
+                    ...item,
+                    open: !!this.state.tree[item.code]
+                };
+            }) :
+            [];
         items = items.sort((x, y) => y.name.toLowerCase().includes('dashboard'));
-        //
-        // items.forEach(item => {
-        //     item.icon = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL') || '';
-        // });
 
         if(isHorizontal) {
 

@@ -38,6 +38,7 @@ export { default as NotificationItem } from './notification-item';
 export { default as Notifications } from './notifications';
 export { default as Pagination } from './pagination';
 export { default as ProgressBar } from './progress-bar';
+export { default as RatingDisplay } from './rating-display/';
 export { default as Selector } from './selector/';
 export { default as Sidebar } from './sidebar/';
 export { default as SMSButton } from './sms-button';

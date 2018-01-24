@@ -2,6 +2,13 @@
 
 .input-file {
 
+  .input-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 3px;
+  }
+
   .input-file-main {
     display: flex;
     align-items: center;
