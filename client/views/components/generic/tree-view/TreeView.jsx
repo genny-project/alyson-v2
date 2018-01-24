@@ -38,8 +38,18 @@ class TreeView extends Component {
 
       const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
       const canOpen = ( hasChildren && item.open );
+
       let icon = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL' );
       icon = icon && icon.value;
+
+      let childNumber = null;
+      
+      if (item.childCount ) {
+        childNumber = item.childCount; 
+      }
+      else if (item.children && item.children.length > 0) {
+        childNumber = item.children.length;
+      }
 
         return (
 
@@ -48,8 +58,8 @@ class TreeView extends Component {
             <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
               { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
               {item.name}
-              { ( item.children && item.children.length > 0 ) && (
-                <span className='tree-view-item-count'>({item.children.length})</span>
+              { childNumber && (
+                <span className='tree-view-item-count'>({childNumber})</span>
               )}
             </span>
 

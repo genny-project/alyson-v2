@@ -49,7 +49,7 @@ class Breadcrumbs extends Component {
   }
 
   render() {
-    const breadcrumbsCss = { height: 40, width: '100%', display: 'flex', alignItems: 'center' };
+    const breadcrumbsCss = { height: '100%', width: '100%', display: 'flex', alignItems: 'center' };
     const breadcrumbsMain = { display: 'flex', marginTop: 0, marginBottom: 0, padding: 0 };
     const li = { display: 'flex', alignItems: 'center', paddingRight: 10, cursor: 'pointer' };
     const span = {paddingLeft: '5px'};

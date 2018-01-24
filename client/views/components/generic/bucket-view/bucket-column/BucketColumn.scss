@@ -34,8 +34,7 @@
     }
 
     .bucket_action_next, .spacer.next {
-      //margin-left: auto;
-      margin-left: 5px;
+      margin-left: auto;
     }
 
     .spacer.prev, .spacer.next {
@@ -46,10 +45,25 @@
 }
 
 .bucket-legend {
+
   width: 100%;
   font-size: 0.75em;
   padding: 5px;
-  background: rgba(0,0,0,0.2);
+  //background: rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+
+  .bucket-legend-content {
+    background: white;
+    border-radius: 5px;
+    width: 100%;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+    
+    h3 {
+      margin: 0;
+      text-align: center;
+    }
+  }
 }
 
 .bucket {

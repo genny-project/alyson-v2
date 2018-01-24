@@ -175,11 +175,18 @@ class GennyTreeView extends PureComponent {
 
         const { root, isHorizontal } = this.props;
         let items = root ? 
-            BaseEntityQuery.getEntityChildren(root).map(item => { 
-                console.log('item', item);
+            BaseEntityQuery.getEntityChildren(root).map(item => {
+                let childCount = 0;
+                if (item && item.children) {
+                    item.children.map(child => {
+                        childCount = childCount + child.children.length;
+                    });
+                }
+
                 return {
                     ...item,
-                    open: !!this.state.tree[item.code]
+                    open: !!this.state.tree[item.code],
+                    childCount: childCount,
                 };
             }) :
             [];

@@ -134,7 +134,7 @@ class GennyHeader extends Component {
         </Header>
         { !hideSubheader ?
         <Grid className='sub-header' cols={[1]} rows={1} style={ customStyle.subHeader }>
-          <GennyTreeView isHorizontal={true} style={{ backgroundColor: componentStyle.backgroundColor }} position={[0,0]}/>
+          <GennyTreeView isHorizontal={true} style={{ backgroundColor: '#555' }} position={[0,0]}/>
         </Grid> : null }
       </div>
     );

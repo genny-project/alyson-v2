@@ -29,7 +29,7 @@ class InputEmail extends Component {
             <div className="input input-email">
                 <InputText {...rest} style={{ width: '100%' }} inputMask={emailMask} value={value} />
             </div>
-        )
+        );
     }
 }
 
