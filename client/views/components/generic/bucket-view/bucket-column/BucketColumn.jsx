@@ -58,7 +58,7 @@ class BucketColumn extends Component {
 
     renderContent = (provided) => {
         const { title, items, showMovingOptions } = this.props;
-        
+
         return (
             <div ref={provided && provided.innerRef}
                 //style={getListStyle(snapshot.isDraggingOver)}
@@ -98,7 +98,7 @@ class BucketColumn extends Component {
         if(isMobile) {
             titleDiv =
             <div>
-                {   
+                {
                     goToPreviousBucket ?
                         <IconSmall
                             className="clickable bucket_action_previous"
@@ -176,7 +176,7 @@ class BucketColumn extends Component {
                     {titleDiv}
                 </div>
 
-                { 
+                {
                     isMobile ?
                     this.renderContent() :
                     <Droppable droppableId={groupId}>
@@ -185,7 +185,7 @@ class BucketColumn extends Component {
                         )}
                     </Droppable>
                 }
-                
+
 
                 <div className="bucket-legend sticky">
                     <div className="bucket-legend-content">
