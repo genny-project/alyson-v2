@@ -20,6 +20,7 @@
 
   &.size-lg, &.size-md, &.size-sm {
     .bucket-column {
+      padding-top: 60px;
       display: flex;
       flex-direction: column;
 

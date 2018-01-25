@@ -5,7 +5,7 @@ import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyNotification
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import store from 'views/store';
-import { GennyBridge } from 'utils/genny';
+import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 import decode_token from 'jwt-decode';
 
 class GennyHeader extends Component {
@@ -76,13 +76,18 @@ class GennyHeader extends Component {
 
   render() {
 
-    const { style, className, projectTitle, projectGreeting, userName, userImage, hideSubheader, token } = this.props;
-    const { } = this.state;
+    const { style, className, projectTitle, projectGreeting, userName, userImage, hideSubheader, token, currentUser } = this.props;
     const componentStyle = {
       ...style,
       ...customStyle.gennyHeader
     };
 
+    // if(currentUser) {
+    //   const isOwner = BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
+    //   const isDriver = BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
+    //   console.log(isOwner, isDriver);
+    // }
+    
     let session_data = decode_token(token);
     let roles = session_data.realm_access.roles;
 
@@ -109,9 +114,9 @@ class GennyHeader extends Component {
               paddingRight: "5px"
             }}
           ]}
-          rows={[ { style: { flexGrow: "1", paddingLeft: "50px", height: "100%" } } ]}
+          rows={[ { style: { flexGrow: "1", paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: "100%" } } ]}
         >
-          <Label position={[0,0]} text={projectTitle} />
+          <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3 >
           <ImageView position={[0,1]} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
           <Label position={[0,1]} text={`${userName}`} />
           <Dropdown
@@ -134,7 +139,7 @@ class GennyHeader extends Component {
         </Header>
         { !hideSubheader ?
         <Grid className='sub-header' cols={[1]} rows={1} style={ customStyle.subHeader }>
-          <GennyTreeView isHorizontal={true} style={{ backgroundColor: '#555' }} position={[0,0]}/>
+          <GennyTreeView isHorizontal={true} style={{ backgroundColor: '#333' }} position={[0,0]}/>
         </Grid> : null }
       </div>
     );

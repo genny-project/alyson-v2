@@ -8,7 +8,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
 
     switch (action.type) {
-
         case ASK:
         return {
             ...state,
@@ -29,20 +28,9 @@ export default function reducer(state = initialState, action) {
                                   ...(ask.question.attribute.dataType.validationList ? ask.question.attribute.dataType.validationList : [])
                               ],
                               type: ask.question.attribute.dataType.className,
-                              attributeCode: ask.question.attribute.code
+                              attributeCode: ask.question.attribute.code,
+                              name: ask.question.html ? ask.question.html : ask.question.name
                           }
-                        //   answerList: {
-                        //       ...(state.data[code] ? state.data[code].answerList : {}),
-                        //       ...ask.answerList,
-                        //       answerList: [
-                        //           ...(state.data[code] ? (state.data[code].answerList ? state.data[code].answerList : {}).answerList : []),
-                        //           ...ask.answerList.answerList.map((existing, newAnswer) => {
-
-                        //              existing.value = grabValue(existing);
-                        //              return existing;
-                        //           })
-                        //       ]
-                        //   }
                         };
                     }
 

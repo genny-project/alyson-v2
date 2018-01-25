@@ -41,12 +41,12 @@ class BucketColumn extends Component {
         if(notification == 'next') this.props.goToNextBucket();
     }
 
-    addNewItem = () => {
+    // addNewItem = () => {
 
-        if(this.props.addNewItem) {
-            this.props.addNewItem(this);
-        }
-    }
+    //     if(this.props.addNewItem) {
+    //         this.props.addNewItem(this);
+    //     }
+    // }
 
     onExpandColumn = (code) => {
 
@@ -91,14 +91,14 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, groupId, canAddItem, goToPreviousBucket, goToNextBucket, items} = this.props;
+        const { className, style, title, groupId, goToPreviousBucket, goToNextBucket, items} = this.props;
         let titleDiv = null;
         let isMobile = window.getScreenSize() == 'sm';
 
         if(isMobile) {
             titleDiv =
             <div>
-                {
+                {   
                     goToPreviousBucket ?
                         <IconSmall
                             className="clickable bucket_action_previous"
@@ -110,24 +110,23 @@ class BucketColumn extends Component {
                         />
                     : <div className='spacer prev'/>
                 }
-                <div style={{display: 'flex', alignItems: 'center'}} >
-                    {
-                        canAddItem ? 
-                        <IconSmall className="clickable bucket_add" name='add_circle' onClick={this.addNewItem}  style={{ marginRight: '10px'}} /> : 
-                        <div style={{ marginRight: '10px'}} />
-                    }
-                    <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
-                    <IconSmall
-                        style={{
-                            marginLeft: '10px',
-                            fontSize: '12px',
-                            cursor: 'pointer',
-                        }}
-                        name='list'
-                        onClick={() => this.onExpandColumn(this.props.groupId)}
-                    />
-                </div>
-                
+                <IconSmall
+                    style={{
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                    }}
+                    name='list'
+                    onClick={() => this.onExpandColumn(this.props.groupId)}
+                />
+                <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
+                <IconSmall
+                    style={{
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                    }}
+                    fa
+                    name='sort-amount-desc'
+                />
                 {
                     goToNextBucket ?
                         <IconSmall
@@ -145,18 +144,27 @@ class BucketColumn extends Component {
         else {
             titleDiv =
             <div style={{ justifyContent: 'space-between'}}>
-                {
-                    canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' onClick={this.addNewItem} /> : <div style={{ marginRight: '5px'}} />
-                }
-                <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
+                <IconSmall
+                    style={{
+                        marginRight: 'auto',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                    }}
+                    fa
+                    name='list'
+                    onClick={() => this.onExpandColumn(this.props.groupId)}
+                />
+                <div style={{display: 'flex', alignItems: 'center'}} >
+                    <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
+                </div>
                 <IconSmall
                     style={{
                         marginLeft: 'auto',
                         fontSize: '12px',
                         cursor: 'pointer',
                     }}
-                    name='list'
-                    onClick={() => this.onExpandColumn(this.props.groupId)}
+                    fa
+                    name='sort-amount-desc'
                 />
             </div>;
         }
