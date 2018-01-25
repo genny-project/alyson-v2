@@ -80,6 +80,7 @@ class LayoutLoader extends Component {
                    if(baseEntity) {
 
                        attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
+
                        if(attribute == null) {
                            layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
                        }

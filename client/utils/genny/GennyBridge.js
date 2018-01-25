@@ -14,6 +14,10 @@ class GennyBridge {
         return token;
     }
 
+    getUserCode() {
+        return store.getState().baseEntity.aliases["USER"];
+    }
+
     sendMessage(event, data) {
         let token = this.getToken();
         if(token)
@@ -87,7 +91,7 @@ class GennyBridge {
             let answers = items.map(item => {
 
                 if(!item.sourceCode) {
-                    item.sourceCode = store.getState().baseEntity.aliases["USER"];
+                    item.sourceCode = this.getUserCode();
                 }
 
                 return item;
