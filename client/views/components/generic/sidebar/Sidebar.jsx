@@ -38,22 +38,24 @@ class Sidebar extends Component {
         if ( src ) {
             image = (
                 <div className='sidebar-image' position={[0,0]}>
-                    <ImageView src={src} caption={caption} style={{ maxHeight: '100px', maxWidth: '200px' }}/>
+                    <ImageView src={src} caption={caption} style={{ maxHeight: '100px', width: '200px' }}/>
                 </div>
             );
         }
         let icon = <IconSmall className='sidebar-toggle-icon clickable'
                 name="menu"
+                size={32}
                 onClick={this.handleSidebarToggle}
                 position={[0,0]}
             />;
 
+            
         return (
             <div className={`sidebar ${window.getScreenSize()} ${isOpen ? '' : 'closed'}`}>
                 <Grid
                     className='sidebar-main'
                     style={componentStyle}
-                    rows={['200px', {style: {  flex: '1, 1, auto', overflow: 'scroll'} }]}
+                    rows={['200px', {style: {  flex: '1, 1, auto', overflow: 'scroll', justifyContent: `${!isOpen && window.getScreenSize() == 'sm' ? 'flex-start' : 'initial' }` } }]}
                     cols={1}>
 
                     {icon}

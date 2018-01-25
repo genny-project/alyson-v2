@@ -53,6 +53,11 @@
 
   .tree-view-item-content {
 
+    .tree-view-text {
+      transition: 300ms ease;
+      opacity: 100;
+    }
+    
     .tree-view-icon {
       
       &.main {
