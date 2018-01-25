@@ -22,7 +22,7 @@
     max-height: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
 
     i {
@@ -30,11 +30,11 @@
     }
 
     .bucket_action_previous, .spacer.prev {
-      margin-right: auto;
+      //margin-right: auto;
     }
 
     .bucket_action_next, .spacer.next {
-      margin-left: auto;
+      //margin-left: auto;
     }
 
     .spacer.prev, .spacer.next {

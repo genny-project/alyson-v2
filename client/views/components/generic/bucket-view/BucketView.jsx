@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { array, func, string } from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
-import { Modal, Device, IconSmall } from 'views/components';
+import { Modal, Device, IconSmall, Button } from 'views/components';
 import _ from 'lodash';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -271,6 +271,8 @@ class BucketView extends Component {
 
   addNewItem = (selectedColumn) => {
     let groupId = selectedColumn.props.groupId;
+    console.log(selectedColumn);
+
     if(this.props.addNewItem) {
       this.props.addNewItem(groupId);
     }
@@ -377,6 +379,24 @@ class BucketView extends Component {
 
     return (
       <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
+        <div style={{
+          backgroundColor: '#555',
+          width: '100%',
+          position: 'fixed',
+          height: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 10px',
+          justifyContent: `${window.getScreenSize() == 'sm' ? 'center' : 'flex-start' }`
+        }}>
+          <Button
+            type='confirm'
+            style={{ width: `${window.getScreenSize() == 'sm' ? '100vw' : '200px' }`, height:'40px'}}
+            onClick={() => this.addNewItem( { props: { groupId : 'GRP_NEW_ITEMS'}} )}
+          >
+            Add Load
+          </Button>
+        </div>
         <Device isMobile>
           <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
             <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>

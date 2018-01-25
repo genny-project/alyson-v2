@@ -57,7 +57,7 @@ class TreeView extends Component {
           <div className='tree-view-item-content'>
             <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
               { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
-              {item.name}
+              <span className='tree-view-text'>{item.name}</span>
               { childNumber && (
                 <span className='tree-view-item-count'>({childNumber})</span>
               )}

@@ -23,6 +23,7 @@ class InputCheckbox extends Component {
     handleOnChange: func,
     validationList: array,
     name: string,
+    html: string,
   }
 
   state = {
@@ -42,12 +43,13 @@ class InputCheckbox extends Component {
   }
 
   render() {
-    const { className, name, checked } = this.props;
+    const { className, name, checked, html } = this.props;
 
     return (
-      <div className={`input-checkbox ${className}`}>
+      <div className={`input input-checkbox ${className}`}>
         <input type="checkbox" onChange={this.handleChange}/>
-        {name ? <Label className="checkbox-label" text={name} checked={checked} /> : null }
+        { html && ( <div className="checkbox-label label-html" dangerouslySetInnerHTML={{ __html: html }} /> ) }
+        { !html && name && ( <Label className="checkbox-label" text={name} checked={checked} /> ) }
       </div>
     );
   }
