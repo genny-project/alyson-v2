@@ -452,7 +452,7 @@ class BucketView extends Component {
     });
 
     // TODO: 23/01/2018 - disable drag & drop for CH40 for now.
-    if (isMobile || false){
+    if (isMobile || false) {
       return (
           this.renderContent(columns)
         );
