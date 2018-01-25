@@ -91,7 +91,7 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, groupId, canAddItem, goToPreviousBucket, goToNextBucket, } = this.props;
+        const { className, style, title, groupId, canAddItem, goToPreviousBucket, goToNextBucket, items} = this.props;
         let titleDiv = null;
         let isMobile = window.getScreenSize() == 'sm';
 
@@ -111,20 +111,21 @@ class BucketColumn extends Component {
                     : <div className='spacer prev'/>
                 }
                 <div style={{display: 'flex', alignItems: 'center'}} >
-                {
-                    canAddItem ?
-                        <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} />
-                    : `${title}`
-                }
-                <IconSmall
-                    style={{
-                        marginLeft: '10px',
-                        fontSize: '12px',
-                        cursor: 'pointer',
-                    }}
-                    name='list'
-                    onClick={() => this.onExpandColumn(this.props.groupId)}
-                />
+                    {
+                        canAddItem ? 
+                        <IconSmall className="clickable bucket_add" name='add_circle' onClick={this.addNewItem}  style={{ marginRight: '10px'}} /> : 
+                        <div style={{ marginRight: '10px'}} />
+                    }
+                    <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
+                    <IconSmall
+                        style={{
+                            marginLeft: '10px',
+                            fontSize: '12px',
+                            cursor: 'pointer',
+                        }}
+                        name='list'
+                        onClick={() => this.onExpandColumn(this.props.groupId)}
+                    />
                 </div>
                 
                 {
@@ -147,7 +148,7 @@ class BucketColumn extends Component {
                 {
                     canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' onClick={this.addNewItem} /> : <div style={{ marginRight: '5px'}} />
                 }
-                <span>{title}</span>
+                <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
                 <IconSmall
                     style={{
                         marginLeft: 'auto',
