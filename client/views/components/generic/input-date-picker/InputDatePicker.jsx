@@ -47,7 +47,7 @@ class InputDatePicker extends Component {
     shouldValidate: true,
     isMobile: window.getScreenSize() == 'sm',
     currentValue: null,
-    lateSentTime: null,
+    lateSentValue: null,
   }
 
   //setInitial Value
@@ -63,16 +63,15 @@ class InputDatePicker extends Component {
       initialValue = moment().toISOString();
       initialValue = this.convertToDisplayFormat(initialValue);
     }
-    const time = this.convertToDisplayFormat(initialValue, 'time');
     this.setState({
       currentValue: initialValue,
-      lastSentTime: time
+      lastSentValue: initialValue
     });
   }
 
   componentWillReceiveProps( nextProps) {
     if (nextProps.value != this.props.value) {
-      let newValue = this.convertToDisplayFormat(nextProps.value);
+      let newValue = this.convertToDisplayFormat(nextProps.value, 'dateTime');
       this.setState({
         currentValue: newValue
       });
@@ -100,7 +99,6 @@ class InputDatePicker extends Component {
   convertToDataFormat = (date) => {
     const { type } = this.props;
     let dataFormat;
-
     switch (type) {
       case 'java.time.LocalDate' :
         dataFormat = moment(date).format('YYYY-MM-DD');
@@ -172,21 +170,20 @@ class InputDatePicker extends Component {
   }
 
   changeValueProp = (value) => {
-    const { handleOnChange, validation, type } = this.props;
-    const { shouldValidate, lastSentTime, isMobile } = this.state;
+    const { handleOnChange, validation } = this.props;
+    const { shouldValidate, lastSentValue, isMobile } = this.state;
     let sentValue = this.convertToDataFormat(value);
-    const time = this.convertToDisplayFormat(value, 'time');    
-    
+
     handleOnChange(sentValue);
 
     if (validation && shouldValidate) {
-      if (time != lastSentTime || isMobile || type == 'java.time.LocalDate') {
+      if (sentValue != lastSentValue || isMobile ) {
         this.validateDate(sentValue);
       }
     }
 
     this.setState({
-      lastSentTime: time
+      lastSentValue: sentValue
     });
   }
 
@@ -200,7 +197,7 @@ class InputDatePicker extends Component {
     const { currentValue, isMobile } = this.state;
     const componentStyle = { ...style, };
 
-    const dateTimeWeb = this.convertToDisplayFormat(currentValue, 'dateTime');
+    const dateTime = this.convertToDisplayFormat(currentValue, 'dateTime');
     const dateWeb = this.convertToDisplayFormat(currentValue, 'date');
     const dateMobile = this.convertToDisplayFormat(currentValue, 'date');
     const timeMobile = this.convertToDisplayFormat(currentValue, 'time');
@@ -236,10 +233,9 @@ class InputDatePicker extends Component {
 
             dateFormat={(type == 'java.time.LocalDateTime') ? dateTimeDisplayFormat : dateDisplayFormat }
             timeFormat={timeDisplayFormat}
-            selected={(type == 'java.time.LocalDateTime') ? moment(dateTimeWeb) : moment(dateWeb) }
+            selected={(type == 'java.time.LocalDateTime') ? moment(dateTime) : moment(dateWeb) }
             
             onChange={this.changeValueProp}
-            onBlur={this.handleBlur}
 
             peekNextMonth
             showMonthDropdown
