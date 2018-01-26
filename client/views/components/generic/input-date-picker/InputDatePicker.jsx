@@ -15,11 +15,9 @@ class InputDatePicker extends Component {
     validationStatus: null,
     showTimeSelect: true,
 
-    dateDataFormat: 'YYYY-MM-DD',
-    timeDataFormat: 'HH:mm',
-    dateDisplayFormat: 'DD-MM-YYYY',
+    dateTimeDisplayFormat: 'YYYY-MM-DD HH:mm',
+    dateDisplayFormat: 'YYYY-MM-DD',
     timeDisplayFormat: 'HH:mm',
-
 
   }
 
@@ -37,8 +35,7 @@ class InputDatePicker extends Component {
 
     type: string,
 
-    dateDataFormat: string,
-    timeDataFormat: string,
+    dateTimeDisplayFormat: string,
     dateDisplayFormat: string,
     timeDisplayFormat: string,
 
@@ -48,23 +45,28 @@ class InputDatePicker extends Component {
 
   state = {
     shouldValidate: true,
-    displayValue: null,
+    isMobile: window.getScreenSize() == 'sm',
+    currentValue: null,
+    lateSentTime: null,
   }
 
   //setInitial Value
-  componentDidMount() {
+  componentWillMount() {
     const { value } = this.props;
 
     let initialValue;
     if (typeof value == string) {
+      initialValue = moment().toISOString();
       initialValue = this.convertToDisplayFormat(value);
     }
     else {
       initialValue = moment().toISOString();
       initialValue = this.convertToDisplayFormat(initialValue);
     }
+    const time = this.convertToDisplayFormat(initialValue, 'time');
     this.setState({
-      displayValue: initialValue
+      currentValue: initialValue,
+      lastSentTime: time
     });
   }
 
@@ -72,69 +74,47 @@ class InputDatePicker extends Component {
     if (nextProps.value != this.props.value) {
       let newValue = this.convertToDisplayFormat(nextProps.value);
       this.setState({
-        displayValue: newValue
+        currentValue: newValue
       });
     }
   }
 
-  convertToDisplayFormat = (date) => {
-    const { type, dateDisplayFormat } = this.props;
+  convertToDisplayFormat = (date, format) => {
+    const { dateTimeDisplayFormat, timeDisplayFormat, dateDisplayFormat } = this.props;
     let displayFormat;
 
-    switch (type) {
-      case 'java.time.LocalDate' :
+    switch (format) {
+      case 'time' :
+        displayFormat = moment(date).format(timeDisplayFormat);
+      break;
+      case 'date':
         displayFormat = moment(date).format(dateDisplayFormat);
       break;
-      case 'java.time.LocalDateTime':
+      case 'dateTime':
       default :
-        displayFormat = moment(date).format('DD-MM-YYYY HH:mm');
+        displayFormat = moment(date).format(dateTimeDisplayFormat);
     }
     return displayFormat;
   }
 
-  getMobileValues = (type) => {
-
-    const { dateDisplayFormat, timeDisplayFormat} = this.props;
-    const { displayValue } = this.state;
-
-    if (type == 'date') {
-
-      let date = moment(displayValue, dateDisplayFormat).format(dateDisplayFormat);
-      return date;
-    }
-    if (type == 'time') {
-      let time = moment(displayValue, timeDisplayFormat ).format(timeDisplayFormat);
-      return time;
-    }
-  }
-
   convertToDataFormat = (date) => {
-    const { type, dateDataFormat, timeDataFormat} = this.props;
+    const { type } = this.props;
     let dataFormat;
-    const dataTimeFormat = dateDataFormat + ' ' + timeDataFormat;
 
     switch (type) {
       case 'java.time.LocalDate' :
-        dataFormat = moment(date).format(dateDataFormat);
+        dataFormat = moment(date).format('YYYY-MM-DD');
       break;
       case 'java.time.LocalDateTime' :
       default :
-        dataFormat = moment(date, dataTimeFormat).toISOString();
+        dataFormat = moment(date).format();
     }
-
     return dataFormat;
-  }
-
-  handleChangeWeb = (value) => {
-    const { handleOnChange } = this.props;
-
-    if (handleOnChange) {
-      this.changeValueProp(value);
-    }
   }
 
   handleChangeMobile = (event) => {
     const {type} = this.props;
+    const {currentValue} = this.state;
 
     let date;
     let time;
@@ -144,7 +124,7 @@ class InputDatePicker extends Component {
       if (event.target.type == 'date') {
 
         date = event.target.value;
-        time = this.getMobileValues('time');
+        time = this.convertToDisplayFormat(currentValue, 'time');
         let dateTime = date + ' ' + time;
         this.setState({
           shouldValidate: false
@@ -155,7 +135,7 @@ class InputDatePicker extends Component {
 
       else if (event.target.type == 'time') {
 
-        date = this.getMobileValues('date');
+        date = this.convertToDisplayFormat(currentValue, 'date');
         time = event.target.value;
         let dateTime = date + ' ' + time;
 
@@ -178,42 +158,53 @@ class InputDatePicker extends Component {
       }
     }
     else {
-
       date = event.target.value;
       this.changeValueProp(date );
     }
   }
 
+  handleBlur = (value) => {
+    this.setState({
+      lastSentTime: null
+    }, () => {
+      this.changeValueProp(value);
+    });
+  }
+
   changeValueProp = (value) => {
-    const { handleOnChange, validation } = this.props;
-    const { shouldValidate } = this.state;
-
+    const { handleOnChange, validation, type } = this.props;
+    const { shouldValidate, lastSentTime, isMobile } = this.state;
     let sentValue = this.convertToDataFormat(value);
-
+    const time = this.convertToDisplayFormat(value, 'time');    
+    
     handleOnChange(sentValue);
 
-    if (validation && shouldValidate ) {
-      this.validateDate(sentValue);
+    if (validation && shouldValidate) {
+      if (time != lastSentTime || isMobile || type == 'java.time.LocalDate') {
+        this.validateDate(sentValue);
+      }
     }
+
+    this.setState({
+      lastSentTime: time
+    });
   }
 
   validateDate = (value) => {
     const { validation, identifier, validationList} = this.props;
-
     validation(value, identifier, validationList);
   }
 
   render() {
-    const { className, style, validationStatus, name, dateDisplayFormat, type, timeDisplayFormat, mandatory, showTimeSelect } = this.props;
-    const { displayValue } = this.state;
+    const { className, style, validationStatus, name, type, mandatory, showTimeSelect, dateTimeDisplayFormat, dateDisplayFormat, timeDisplayFormat,  } = this.props;
+    const { currentValue, isMobile } = this.state;
     const componentStyle = { ...style, };
 
-    const isMobile = window.getScreenSize() === 'sm';
-
-    const dateMobile = this.getMobileValues('date');
-    const timeMobile = this.getMobileValues('time');
-    const dateTimeFormat = (type == 'java.time.LocalDateTime') ? dateDisplayFormat + ' ' + timeDisplayFormat : dateDisplayFormat;
-
+    const dateTimeWeb = this.convertToDisplayFormat(currentValue, 'dateTime');
+    const dateWeb = this.convertToDisplayFormat(currentValue, 'date');
+    const dateMobile = this.convertToDisplayFormat(currentValue, 'date');
+    const timeMobile = this.convertToDisplayFormat(currentValue, 'time');
+  
     return (
       <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
         { name ? <div className='input-header'>
@@ -226,7 +217,6 @@ class InputDatePicker extends Component {
               <input
                 type='date'
                 onChange={this.handleChangeMobile}
-
                 value={dateMobile}
               />
               { type == 'java.time.LocalDate' ? null :
@@ -244,11 +234,12 @@ class InputDatePicker extends Component {
             className={`${validationStatus} input-date-picker-main`}
             calendarClassName=""
 
-            dateFormat={dateTimeFormat}
+            dateFormat={(type == 'java.time.LocalDateTime') ? dateTimeDisplayFormat : dateDisplayFormat }
             timeFormat={timeDisplayFormat}
-
-            selected={moment(displayValue, dateTimeFormat)}
-            onChange={this.handleChangeWeb}
+            selected={(type == 'java.time.LocalDateTime') ? moment(dateTimeWeb) : moment(dateWeb) }
+            
+            onChange={this.changeValueProp}
+            onBlur={this.handleBlur}
 
             peekNextMonth
             showMonthDropdown
