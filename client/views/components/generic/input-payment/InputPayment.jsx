@@ -73,6 +73,13 @@ class InputPayment extends Component {
 
     this.setState({
       stage: this.state.stage + 1,
+    }, () => {
+      if (this.state.stage === 1) {
+        /* Reset the selected payment method */
+        this.setState({
+          selectedPaymentMethod: null,
+        });
+      }
     });
   }
 
