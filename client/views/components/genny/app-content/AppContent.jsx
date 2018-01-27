@@ -1,6 +1,6 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap } from 'views/components';
+import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { BaseEntityQuery } from 'utils/genny';
@@ -44,6 +44,9 @@ class AppContent extends Component {
             }
             else if (layout.currentView.code == 'MAP_VIEW') {
                 layoutContent = <GennyMap root={layout.currentView.dataCode}/>;
+            }
+            else if (layout.currentView.code == "LOADING") {
+                layoutContent = <Spinner text={layout.currentView.dataCode} />
             }
             // else if (layout.currentView.code == 'MAP_VIEW') {
             //     layoutContent = (

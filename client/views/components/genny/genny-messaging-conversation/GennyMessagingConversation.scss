@@ -1,0 +1,56 @@
+@import 'client/styles/colors';
+
+.genny-messaging-conversation-container {
+    width: 100%;
+    height: 100%;
+}
+
+.conversation-messages-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+
+    > div {
+
+        height: 50px;
+        background: blue;
+    }
+}
+
+.empty {
+
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.conversation-message-title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: lightgray 1px solid;
+}
+
+.conversation-message-input {
+
+    height: 100%;
+
+
+    > input {
+
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-top: lightgray 1px solid;
+        font-family: 'system-ui';
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    > input:focus { outline: none; }
+}

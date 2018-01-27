@@ -1,5 +1,36 @@
 @import 'client/styles/colors';
 
-.genny-messaging {
+.genny-messaging-container {
+    height: 100%;
+}
 
+.genny-messaging-container {
+
+    .genny-list {
+
+        height: 100%;
+        border-right: lightgray 2px solid;
+        padding: 0px;
+    }
+
+    .list {
+        padding: 0px;
+    }
+
+    .list-count {
+        display: none;
+    }
+
+    .list-main {
+        background: transparent;
+        padding: 0px;
+        border-radius: 0px;
+    }
+
+    .list-item {
+        border-radius: 3px;
+        padding: 0px;
+        border-top: lightgray 1px solid;
+        border-bottom: lightgray 1px solid;
+    }
 }

@@ -42,6 +42,7 @@ export { default as ProgressBar } from './progress-bar';
 export { default as RatingDisplay } from './rating-display/';
 export { default as Selector } from './selector/';
 export { default as Sidebar } from './sidebar/';
+export { default as Spinner } from './spinner';
 export { default as SocialButton } from './social-button';
 export { default as Status } from './status/';
 export { default as SubmitStatusIcon } from './submit-status-icon';

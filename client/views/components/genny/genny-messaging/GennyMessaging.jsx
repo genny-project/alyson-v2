@@ -1,12 +1,12 @@
 import './GennyMessaging.scss';
 import React, { Component } from 'react';
 import { string, number, bool, array } from 'prop-types';
-import { List, GennyForm } from 'views/components';
+import { GennyList, GennyMessagingConversation } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { Grid } from '@genny-project/layson';
 
-class GennyList extends Component {
+class GennyMessaging extends Component {
 
     static defaultProps = {
     }
@@ -20,17 +20,17 @@ class GennyList extends Component {
 
     render() {
 
-        const { root } = this.props;
+        const { root, messagesRoot } = this.props;
 
         return (
             <div className="genny-messaging-container">
                 <Grid rows={1} cols={[1, 2]}>
                     <GennyList position={[0, 0]} root={root}/>
-                    <GennyList position={[0, 1]} />
+                    <GennyMessagingConversation position={[0, 1]} root={messagesRoot} />
                 </Grid>
             </div>
         );
     }
 }
 
-export default GennyList;
+export default GennyMessaging;
