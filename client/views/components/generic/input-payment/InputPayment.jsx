@@ -7,6 +7,7 @@ import PaymentMethod from './payment-method';
 class InputPayment extends Component {
   state = {
     selectedPaymentType: null,
+    selectedPaymentMethod: null,
     stage: 0,
   };
 
@@ -44,6 +45,10 @@ class InputPayment extends Component {
   }
 
   onGoNext = () => {
+    if ( this.state.stage === 1 ) {
+      return;
+    }
+
     this.setState({
       stage: this.state.stage + 1,
     });
@@ -56,6 +61,12 @@ class InputPayment extends Component {
 
     this.setState({
       stage: this.state.stage - 1,
+    });
+  }
+
+  handleSelectPaymentMethod = account => () => {
+    this.setState({
+      selectedPaymentMethod: account.id,
     });
   }
 
@@ -75,6 +86,7 @@ class InputPayment extends Component {
   }
 
   renderSelectAccount() {
+    const { selectedPaymentType, selectedPaymentMethod } = this.state;
     const { accounts } = this.props;
 
     return (
@@ -82,7 +94,13 @@ class InputPayment extends Component {
         <h2>{this.renderBackButton()} Select account {this.renderAddButton()}</h2>
         <p>Please select a account from below</p>
         <div className='payment-methods'>
-          { accounts.map( account => <PaymentMethod account={account} /> )}
+          { accounts.filter( account => account.type === selectedPaymentType ).map( account => (
+            <PaymentMethod
+              account={account}
+              onClick={this.handleSelectPaymentMethod( account )}
+              selected={selectedPaymentMethod === account.id}
+            />
+          ))}
         </div>
       </div>
     );
