@@ -265,6 +265,7 @@ export default function reducer(state = initialState, action) {
             };
 
             delete relationshipObject[be_code];
+            delete state.relationships[oldParentCode];
 
             state.relationships[oldParentCode] = relationshipObject; // delete the old relationship
             state.relationships[newParentCode] = {  // create the new relationship
