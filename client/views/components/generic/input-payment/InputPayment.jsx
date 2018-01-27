@@ -30,6 +30,12 @@ class InputPayment extends Component {
         name: 'Westpac Personal',
         bsb: '133663',
         accountNumber: '832534723'
+      },
+      {
+        id: 3,
+        type: 'CARD',
+        name: 'Business Credit',
+        number: 'XXXX-XXXX-XXXX-1111'
       }
     ]
   };

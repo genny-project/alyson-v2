@@ -23,7 +23,12 @@ class PaymentMethod extends Component {
           {account.name}
           {account.type === 'BANK_ACCOUNT' && (
             <div>
-              <small><b>BSB: </b>{account.bsb}<br /><b> Account Number: </b>{account.accountNumber}</small>
+              <small><b>BSB: </b>{account.bsb}<br /><b> Account Number: </b><span className='monospace'>{account.accountNumber}</span></small>
+            </div>
+          )}
+          {account.type === 'CARD' && (
+            <div>
+              <small className='monospace'>{account.number}</small>
             </div>
           )}
         </div>
