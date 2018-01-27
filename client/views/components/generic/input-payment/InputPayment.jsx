@@ -44,6 +44,22 @@ class InputPayment extends Component {
     return this.state.selectedPaymentType != null;
   }
 
+  isPaymentMethodSelected() {
+    return this.state.selectedPaymentMethod != null;
+  }
+
+  canGoNext() {
+    if ( this.state.stage === 0 && this.isPaymentTypeSelected() ) {
+      return true;
+    }
+
+    if ( this.state.stage === 1 && this.isPaymentMethodSelected() ) {
+      return true;
+    }
+
+    return false;
+  }
+
   onGoNext = () => {
     if ( this.state.stage === 1 ) {
       return;
@@ -108,7 +124,7 @@ class InputPayment extends Component {
 
   renderNextButton() {
     return (
-      <div className={`next-step-btn ${!this.isPaymentTypeSelected() ? 'disabled' : ''}`} onClick={this.onGoNext}>
+      <div className={`next-step-btn ${!this.canGoNext() ? 'disabled' : ''}`} onClick={this.onGoNext}>
         <span>NEXT</span>
         <i className='material-icons'>chevron_right</i>
       </div>
@@ -117,7 +133,7 @@ class InputPayment extends Component {
 
   renderBackButton() {
     return (
-      <div className={`back-step-btn ${!this.isPaymentTypeSelected() ? 'disabled' : ''}`} onClick={this.onGoBack}>
+      <div className={'back-step-btn'} onClick={this.onGoBack}>
         <i className='material-icons'>chevron_left</i>
       </div>
     );
@@ -126,7 +142,7 @@ class InputPayment extends Component {
   renderAddButton() {
     return (
       <div className='add-btn'>
-        <i className='material-icons'>add</i>
+        ADD
       </div>
     );
   }

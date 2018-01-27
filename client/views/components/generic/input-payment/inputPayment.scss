@@ -37,7 +37,7 @@
     }
   }
 
-  .back-step-btn, .add-btn {
+  .back-step-btn {
     background: lighten(#000, 20%);
     height: 40px;
     width: 40px;
@@ -61,8 +61,11 @@
   }
 
   .add-btn {
-    background: green;
+    background: #5cb85c;
     margin-right: 0;
     margin-left: auto;
+    color: #FFF;
+    font-size: 0.8em;
+    padding: 15px 20px;
   }
 }
