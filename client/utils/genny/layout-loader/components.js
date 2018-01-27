@@ -1,6 +1,6 @@
-import { 
+import {
   Grid,
-  Repeater, 
+  Repeater,
   ComponentCollection
 } from '@genny-project/layson';
 
@@ -40,6 +40,7 @@ import {
   SMSButton,
   Status,
   TreeView,
+  GennyMessaging,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -80,4 +81,5 @@ export default new ComponentCollection({
   SMSButton,
   Status,
   TreeView,
+  GennyMessaging,
 });
