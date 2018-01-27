@@ -392,7 +392,7 @@ class BucketView extends Component {
         }}>
           <Button
             type='confirm'
-            style={{ width: `${window.getScreenSize() == 'sm' ? '100vw' : '200px' }`, height:'40px'}}
+            style={{ width: `${window.getScreenSize() == 'sm' ? 'calc(100vw - 5px)' : '200px' }`, height:'40px'}}
             onClick={() => this.addNewItem( { props: { groupId : 'GRP_NEW_ITEMS'}} )}
           >
             Add Load
@@ -446,7 +446,7 @@ class BucketView extends Component {
           showMovingOptions={this.toggleMovingOptions}
           addNewItem={this.addNewItem}
           canAddItem={bucket.canAddItem}
-          style={{ flexBasis: `calc(100vw / ${buckets.length})`, maxWidth: isMobile ? '100vw' : `calc(100% / ${buckets.length})` }}
+          style={{ flexBasis: `calc(100vw / ${buckets.length})`, minWidth: isMobile ? '100vw' : '300px' , maxWidth: isMobile ? '100vw' : `calc(100vw / ${buckets.length})` }}
           className={(index % 2 == 0) ? '' : 'alt-style'}
         />
       );

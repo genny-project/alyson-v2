@@ -58,7 +58,6 @@ class AppContent extends Component {
 
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;
-            console.log(parentCode);
             layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
         }
 
