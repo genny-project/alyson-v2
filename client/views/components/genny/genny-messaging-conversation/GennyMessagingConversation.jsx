@@ -1,37 +1,83 @@
 import './GennyMessagingConversation.scss';
 import React, { Component } from 'react';
 import { string, number, bool, array } from 'prop-types';
-import { BaseEntityQuery } from 'utils/genny';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { Grid } from '@genny-project/layson';
+import { GennyButton } from 'views/components';
 
 class GennyMessagingConversation extends Component {
 
     static defaultProps = {
+        title: '',
+        messages: []
     }
 
     static propTypes = {
+        title: string,
+        messages: array,
     };
 
     state = {
+        canSendMessage: false,
+        messageText: ''
+    }
 
+    onTextChange = (e) => {
+
+        this.setState({
+            messageText: e.target.value
+        })
+    }
+
+    onButtonClick = (e) => {
+
+        this.setState({
+            messageText: ''
+        })
     }
 
     renderTextInput() {
-        return <input placeholder="Type your message..."/>
+        return <div>
+            <input onChange={this.onTextChange} placeholder="Type your message..."/>
+            {
+                this.state.messageText.length > 0 ?
+                <GennyButton
+                    onClick={this.onButtonClick}
+                    disabled={this.state.canSendMessage}
+                    buttonCode={"BTN_SEND_MESSAGE"}
+                    value={{ "itemCode": this.props.root, "value": this.state.messageText }}
+                    buttonStyle={ { background: "none", border: "1px solid black" }}>
+                    <p>Send</p>
+                </GennyButton>
+                : null
+            }
+        </div>
     }
 
     renderMessage(message) {
 
-        console.log( message )
-
         let messageCode = message.code;
-        let messageText = BaseEntityQuery.getBaseEntityAttribute(messageCode, "PRI_MESSAGE").value;
 
-        return <div style={{ "textAlign": "right"}}>{messageText}</div>
+        let style = { "textAlign": "left" };
+        let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, "PRI_CREATOR");
+        let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, "PRI_MESSAGE");
+
+        if(messageTextAttribute && creatorAttribute) {
+
+            let creator = creatorAttribute.value;
+            if(creator == GennyBridge.getUser()) {
+                style = { "textAlign": "right" }
+            }
+
+            let messageText = messageTextAttribute.value;
+            return <div style={style}>{messageText}</div>
+        }
+
+        return null;
     }
 
-    renderLayout(messages) {
+    renderLayout(title, messages) {
 
         return (
         <Grid
@@ -39,7 +85,7 @@ class GennyMessagingConversation extends Component {
             rows={[{ "style": { "flexGrow": 1 }}, { "style": { "flexGrow": 12 }}, { "style": { "flexGrow": 0.5 }}]}
             cols={1}>
 
-            <div className="conversation-message-title" position={[0, 0]}> - {"Conversation title"} - </div>
+            <div className="conversation-message-title" position={[0, 0]}>{title}</div>
             <div className="conversation-messages-container" position={[1, 0]}>
                 {
                     messages.map(message => this.renderMessage(message))
@@ -60,14 +106,10 @@ class GennyMessagingConversation extends Component {
 
     render() {
 
-        const { root } = this.props;
-
-        const conversationTitle = BaseEntityQuery.getBaseEntityAttribute(root, "PRI_TITLE");
-        const link = "LNK_MESSAGES";
-        const messages = BaseEntityQuery.getLinkedBaseEntities(root, link);
+        const { root, title, messages } = this.props;
 
         if(messages.length == 0) return this.renderEmpty()
-        else return this.renderLayout(messages)
+        else return this.renderLayout(title, messages)
     }
 }
 

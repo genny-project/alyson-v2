@@ -22,11 +22,19 @@ class GennyMessaging extends Component {
 
         const { root, messagesRoot } = this.props;
 
+        const conversationTitle = BaseEntityQuery.getBaseEntityAttribute(messagesRoot, "PRI_TITLE").value;
+        let messages = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, "LNK_MESSAGES");
+
+        console.log(" updating ");
+        console.log(messages.sort((x, y) => x.created < y.created));
+
+        messages = messages.sort((x, y) => x.created < y.created);
+
         return (
             <div className="genny-messaging-container">
                 <Grid rows={1} cols={[1, 2]}>
                     <GennyList position={[0, 0]} root={root}/>
-                    <GennyMessagingConversation position={[0, 1]} root={messagesRoot} />
+                    <GennyMessagingConversation position={[0, 1]} title={conversationTitle} messages={messages} root={messagesRoot} />
                 </Grid>
             </div>
         );

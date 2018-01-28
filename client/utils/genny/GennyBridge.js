@@ -14,7 +14,7 @@ class GennyBridge {
         return token;
     }
 
-    getUserCode() {
+    getUser() {
         return store.getState().baseEntity.aliases["USER"];
     }
 
@@ -91,7 +91,7 @@ class GennyBridge {
             let answers = items.map(item => {
 
                 if(!item.sourceCode) {
-                    item.sourceCode = this.getUserCode();
+                    item.sourceCode = this.getUser();
                 }
 
                 return item;
@@ -99,6 +99,8 @@ class GennyBridge {
 
             Vertx.sendMessage(events.outgoing.ANSWER('Answer', answers, token));
         }
+
+        if(items[0].attributeCode.includes('ADDRESS_FULL')) { return; }
 
         let payload = {
 

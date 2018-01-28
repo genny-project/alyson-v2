@@ -6,6 +6,7 @@
 }
 
 .conversation-messages-container {
+
     width: 100%;
     height: 100%;
     display: flex;
@@ -14,8 +15,9 @@
 
     > div {
 
-        height: 50px;
-        background: blue;
+        height: fit-content;
+        border-top: 1px lightgray solid;
+        padding: 10px;
     }
 }
 
@@ -28,6 +30,7 @@
 }
 
 .conversation-message-title {
+
     display: flex;
     width: 100%;
     justify-content: center;
@@ -40,17 +43,34 @@
 
     height: 100%;
 
+    > div {
 
-    > input {
+        border-top: 1px solid lightgray;
+        display: flex;
+        height: 100%;
+    }
+
+    input {
 
         width: 100%;
         height: 100%;
         border: none;
-        border-top: lightgray 1px solid;
         font-family: 'system-ui';
         font-size: 20px;
         padding: 10px;
+        align-self: center;
+        flex: 5;
+
     }
 
-    > input:focus { outline: none; }
+    input:focus { outline: none; }
+
+    button:after {
+        content: 'Send';
+    }
+
+    .genny-button {
+        align-self: center;
+        flex: 1;
+    }
 }
