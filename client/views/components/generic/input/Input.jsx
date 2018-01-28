@@ -294,7 +294,6 @@ class Input extends Component {
                 />
             );
             case 'Rating':
-            default:
             return (
                 <InputRating
                     {...rest}
@@ -304,16 +303,16 @@ class Input extends Component {
                     value={this.state.value}
                 />
             );
-            // default:
-            // return (
-            //     <InputText
-            //         {...rest}
-            //         validation={this.validateInput}
-            //         validationStatus={validationStatus}
-            //         handleOnChange={this.handleOnChange}
-            //         value={this.state.value}
-            //     />
-            // );
+            default:
+            return (
+                <InputText
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    handleOnChange={this.handleOnChange}
+                    value={this.state.value}
+                />
+            );
         }
     }
 
