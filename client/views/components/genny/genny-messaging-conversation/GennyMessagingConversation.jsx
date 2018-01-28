@@ -98,9 +98,9 @@ class GennyMessagingConversation extends Component {
 
     renderEmpty() {
 
-        return (<Grid className="genny-messaging-conversation-container" rows={1} cols={1}>
+        return (<Grid className="genny-messaging-conversation-container" rows={[{ "style": { "flexGrow": 20 }}, { "style": { "flexGrow": 1 }}]} cols={1}>
             <div className="empty" position={[0, 0]}>No messages</div>
-            {/* <div className="conversation-message-input" position={[1, 0]}>{this.renderTextInput()}</div> */}
+            <div className="conversation-message-input" position={[1, 0]}>{this.renderTextInput()}</div>
         </Grid>)
     }
 
