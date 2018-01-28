@@ -24,10 +24,6 @@ class GennyMessaging extends Component {
 
         const conversationTitle = BaseEntityQuery.getBaseEntityAttribute(messagesRoot, "PRI_TITLE").value;
         let messages = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, "LNK_MESSAGES");
-
-        console.log(" updating ");
-        console.log(messages.sort((x, y) => x.created < y.created));
-
         messages = messages.sort((x, y) => x.created < y.created);
 
         return (

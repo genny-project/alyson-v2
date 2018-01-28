@@ -267,6 +267,7 @@ export default function reducer(state = initialState, action) {
             delete relationshipObject[be_code];
             delete state.relationships[oldParentCode];
 
+
             state.relationships[oldParentCode] = relationshipObject; // delete the old relationship
             state.relationships[newParentCode] = {  // create the new relationship
                 ...state.relationships[newParentCode],
@@ -278,9 +279,11 @@ export default function reducer(state = initialState, action) {
             }
 
             if(state.data[oldParentCode] && state.data[oldParentCode].children.length > 0) {
-                state.data[oldParentCode].children = state.data[oldParentCode].children.filter(child => { // remove be from old parent's children
-                    return child.code != be_code;
-                });
+                for (var i = 0; i < state.data[oldParentCode].children.length; i++) {
+                    if(state.data[oldParentCode].children[i].code == be_code) {
+                        delete state.data[oldParentCode].children[i];
+                    }
+                }
             }
 
             // if(!state.data[newParentCode]) {
