@@ -52,6 +52,9 @@ class InputRating extends Component {
   handleClick = (event, value) => {
     const { handleOnChange } = this.props;
     if(handleOnChange) handleOnChange(value);
+    this.setState({
+      clicked: value
+    });
   }
 
   handleHover = (event, value) => {
@@ -62,7 +65,7 @@ class InputRating extends Component {
 
   renderIcons = () => {
     const {value, total, iconFull, iconNone, size } = this.props;
-    const {currentHover} = this.state;
+    const {currentHover, clicked} = this.state;
   
     let icons = [];
 
@@ -70,10 +73,9 @@ class InputRating extends Component {
       
       icons.push( 
         <IconSmall
-          style={ currentHover && currentHover >= i ? { color: '#555'} : null}
           name={value >= i ? iconFull : iconNone}
           size={size}
-          className={`input-rating-icon clickable ${currentHover && currentHover >= i ? 'hover' : ''}`}
+          className={`input-rating-icon clickable ${currentHover && currentHover >= i ? 'hover' : ''}  ${clicked == i ? 'clicked' : '' }`}
           onClick={() => this.handleClick(event, i)}
           onMouseOver={() => this.handleHover(event, i)}
           onMouseOut={() => this.handleHover(event, i)}
