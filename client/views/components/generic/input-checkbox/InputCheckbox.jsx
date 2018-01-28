@@ -1,6 +1,6 @@
 import './inputCheckbox.scss';
 import React, { Component } from 'react';
-import { string, any, bool, func, array } from 'prop-types';
+import { string, any, bool, func, array, object } from 'prop-types';
 import { Label } from 'views/components';
 
 class InputCheckbox extends Component {
@@ -14,7 +14,7 @@ class InputCheckbox extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
+    style: object,
     children: any,
     checked: bool,
     validation: func,

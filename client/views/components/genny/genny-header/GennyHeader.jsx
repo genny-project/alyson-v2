@@ -123,7 +123,7 @@ class GennyHeader extends Component {
             style={ customStyle.dropdown }
             position={[0,1]}
             header={
-              <span style={ customStyle.dropdownSpan }><IconSmall name="expand_more" /></span>
+              <span style={ customStyle.dropdownSpan }><IconSmall name="arrow_drop_down" /></span>
             }
           >
             <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>

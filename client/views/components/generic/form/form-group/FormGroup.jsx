@@ -83,6 +83,7 @@ class FormGroup extends Component {
     }
 
     renderFormButtons(buttons) {
+      
       const { animatedButtons } = this.state;
 
       return (
@@ -92,13 +93,13 @@ class FormGroup extends Component {
               return (
                 <Button
                   key={index}
-                  style={{ 'margin' : '10px' }}
+                  style={{ margin : '10px 0' }}
                   position={[0, index]}
                   disabled={animatedButtons[button]}
                   className={`form-button ${button} ${animatedButtons[button] ? 'animate' : ''}`}
                   onClick={() => this.onSubmitClick(button)}>
                   {
-                    <div className={'spinner'} />
+                    <div className={'button-spinner'} />
                   }
                 </Button>
               );

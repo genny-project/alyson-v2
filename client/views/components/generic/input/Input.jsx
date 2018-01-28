@@ -9,6 +9,7 @@ import {
     InputDatePicker,
     InputDropdown,
     InputEmail,
+    InputRating,
     InputSlider,
     InputText,
     InputTextarea,
@@ -36,7 +37,7 @@ class Input extends Component {
         onClick: func,
         onClickEvent: func,
         style: object,
-        options: object,
+        options: array,
         data: any,
         mandatory: bool,
     }
@@ -294,7 +295,7 @@ class Input extends Component {
             );
             default:
             return (
-                <InputText
+                <InputRating
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
@@ -302,6 +303,15 @@ class Input extends Component {
                     value={this.state.value}
                 />
             );
+            // return (
+            //     <InputText
+            //         {...rest}
+            //         validation={this.validateInput}
+            //         validationStatus={validationStatus}
+            //         handleOnChange={this.handleOnChange}
+            //         value={this.state.value}
+            //     />
+            // );
         }
     }
 

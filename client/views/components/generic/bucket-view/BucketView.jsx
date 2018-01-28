@@ -341,6 +341,10 @@ class BucketView extends Component {
 
       let touch = e.touches[0];
 
+      let deltaY = touch.clientY - this.state.touch.clientY;
+      this.state.touch.clientY = touch.clientY;
+      this.state.touch.deltaY = deltaY;
+
       let deltaX = touch.clientX - this.state.touch.clientX;
       this.state.touch.clientX = touch.clientX;
       this.state.touch.deltaX = deltaX;
@@ -351,14 +355,19 @@ class BucketView extends Component {
   onTouchEnd = () => {
 
     if(this.state.touch.isMoving) {
-
+      let deltaY = this.state.touch.deltaY;
       let deltaX = this.state.touch.deltaX;
+      
+      console.log('X', deltaX, 'Y', deltaY);
+
       this.state.touch = {};
-      if(deltaX < 0) {
-        this.goToNextBucket();
-      }
-      else {
-        this.goToPreviousBucket();
+      if (deltaY >= Math.abs(deltaX)) {
+        if(deltaX < 0) {
+          this.goToNextBucket();
+        }
+        else if (deltaX > 0) {
+          this.goToPreviousBucket();
+        }
       }
     }
   }

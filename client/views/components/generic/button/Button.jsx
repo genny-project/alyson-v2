@@ -36,7 +36,7 @@ class Button extends Component {
     const componentStyle = { ...style, };
 
     const btn = (
-      <div className={`button ${className} ${type}`} style={componentStyle}>
+      <div className={`button ${className} ${type} ${disabled || ''}`} style={componentStyle}>
         <button disabled={disabled} onClick={this.onClick} style={{ ...buttonStyle }}>{children ? children : null}</button>
       </div>
     );

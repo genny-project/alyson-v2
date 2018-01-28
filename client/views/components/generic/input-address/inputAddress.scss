@@ -7,6 +7,22 @@
     	align-items: center;
     	justify-content: flex-start;
     	margin-bottom: 3px;
+	}
+	
+	&.success .input-address-search  {
+        
+        > input {
+			color: $success;
+			border: 1px solid $success;
+        }
+    }
+
+    &.error .input-address-search  {
+        
+        > input {
+			color: $error;
+			border: 1px solid $error
+        }
     }
 }
 

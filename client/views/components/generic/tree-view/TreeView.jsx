@@ -64,7 +64,13 @@ class TreeView extends Component {
             </span>
 
             {( item.children && item.children.length > 0 ) && (
-              <IconSmall className='tree-view-icon arrow clickable' onClick={this.onExpand(item)} name={canOpen ? 'expand_more' : 'chevron_right'} />
+              <IconSmall
+                className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
+                size={32}
+                style={canOpen ? { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(-90deg)' }}
+                onClick={this.onExpand(item)}
+                name='arrow_drop_down'
+              />
             )}
 
           </div>
