@@ -44,6 +44,11 @@ class InputTime extends Component {
 
 
   handleFocus = () => {
+
+      if(this.props.onFocus) {
+          this.props.onFocus()
+      }
+      
     this.setState({
       focused: true
     });
@@ -56,6 +61,10 @@ class InputTime extends Component {
   }
 
   handleBlur = () => {
+
+      if(this.props.onBlur) {
+          this.props.onBlur()
+      }
 
     const { validationList, validation, identifier } = this.props;
     const { format, value } = this.state;

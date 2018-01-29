@@ -106,6 +106,11 @@ class InputAddress extends Component {
     }
 
     onChange = (newAddress) => {
+
+        if(this.props.onFocus) {
+            this.props.onFocus()
+        }
+
         this.setState({
             value: newAddress,
             hasChanges: true
@@ -113,6 +118,11 @@ class InputAddress extends Component {
     }
 
     onBlur = (address) => {
+
+        if(this.props.onBlur) {
+            this.props.onBlur()
+        }
+
         const { validationList, validation, identifier } = this.props;
         const value = JSON.stringify(address);
         if(validation) validation(value, identifier, validationList);

@@ -46,6 +46,11 @@ class InputTextarea extends Component {
   }
 
   handleFocus = () => {
+
+      if(this.props.onFocus) {
+          this.props.onFocus()
+      }
+
     this.setState({
       focused: true
     });
@@ -58,6 +63,11 @@ class InputTextarea extends Component {
   }
 
   handleBlur = (event) => {
+
+      if(this.props.onBlur) {
+          this.props.onBlur()
+      }
+
     const { validationList, validation, identifier,  } = this.props;
     const value = event.target.value;
     this.setState({ focused: false });
@@ -67,12 +77,12 @@ class InputTextarea extends Component {
   render() {
     const { className, name, validationStatus } = this.props;
     const { value } = this.state;
-    
-    
+
+
     return (
       <div className={`input-textarea ${className} ${validationStatus}`}>
          {name ? <Label>{name}</Label> : null }
-        <textarea 
+        <textarea
           value={value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
