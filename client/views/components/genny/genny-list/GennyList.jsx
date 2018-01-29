@@ -35,7 +35,7 @@ class GennyList extends Component {
 
             let linkToParent = BaseEntityQuery.getLinkToParent(this.props.root, item.code);
             if(linkToParent) {
-                
+
                 const isSelected = this.props.selectedItem == item.code ? true : false;
                 let layout_code = linkToParent.linkValue || 'list_item';
                 let sublayout = this.props.sublayout[layout_code];
@@ -51,9 +51,9 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, hideLinks, ...rest } = this.props;
 
-        let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root) : BaseEntityQuery.getEntityChildren(root);
+        let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
 
         return (
             <div className="genny-list">
