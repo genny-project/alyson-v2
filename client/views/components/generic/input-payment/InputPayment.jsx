@@ -156,6 +156,7 @@ class InputPayment extends Component {
     return (
       <div className='add-btn'>
         ADD
+        <i className='material-icons'>add</i>
       </div>
     );
   }
