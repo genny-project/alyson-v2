@@ -271,7 +271,7 @@ export default function reducer(state = initialState, action) {
             state.relationships[oldParentCode] = relationshipObject; // delete the old relationship
             state.relationships[newParentCode] = {  // create the new relationship
                 ...state.relationships[newParentCode],
-                [be_code]: { type: BASE_ENTITY }
+                [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
             };
 
             if(state.data[be_code]) {
