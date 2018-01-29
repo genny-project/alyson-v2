@@ -38,8 +38,6 @@ class ListItem extends Component {
       margin: `${itemGap}px`,
     };
 
-    console.log(this.props);
- 
     return (
       <div className={`list-item ${className} ${isSelected ? 'selected' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null}>
         { this.props.layout || null }

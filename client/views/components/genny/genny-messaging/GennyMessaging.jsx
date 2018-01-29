@@ -52,9 +52,11 @@ class GennyMessaging extends Component {
         const { isOpen, isMobile, selectedItem } = this.state;
 
         const conversationTitle = BaseEntityQuery.getBaseEntityAttribute(messagesRoot, 'PRI_TITLE').value;
+        //const conversations = BaseEntityQuery.getChildren(root);
         let messages = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_MESSAGES');
-
         messages = messages.sort((x, y) => x.created < y.created);
+
+        //console.log(conversations);
         
         return (
             <div className="genny-messaging-container">
@@ -65,6 +67,7 @@ class GennyMessaging extends Component {
                         { className: `col message-detail ${isOpen ? 'open' : 'closed'} ${isMobile ? 'mobile' : '' }` }
                     ]}
                 >
+                    <div className='genny-messaging-list-header' position={[0, 0]} >1 Conversation</div>
                     <GennyList position={[0, 0]} root={root} onItemClick={this.handleClickConversation} selectedItem={selectedItem}/>
                     <GennyMessagingConversation position={[0, 1]} title={conversationTitle} messages={messages} root={messagesRoot} onClick={this.handleClickBack}/>
                 </Grid>
