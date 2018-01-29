@@ -131,7 +131,7 @@ class BucketElement extends Component {
             );
         } else {
             return (
-                <Draggable key={item.id} draggableId={item.id} isDragDisabled={window.getScreenSize() == 'sm'} >
+                <Draggable key={item.id} draggableId={item.id} isDragDisabled={true} >
                     {(provided, snapshot) => (
                         this.renderContent(provided, snapshot)
                     )}

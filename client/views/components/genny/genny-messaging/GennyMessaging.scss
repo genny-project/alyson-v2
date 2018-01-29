@@ -1,5 +1,70 @@
 @import 'client/styles/colors';
 
-.genny-messaging {
+.genny-messaging-container {
+    height: 100%;
+}
 
+.genny-messaging-container {
+
+    .row > .col {
+        transition: all 0.5s ease;
+        flex-grow: 1;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &.message-list {
+            &.open {
+                &.mobile {
+                }
+            }
+            &.closed{
+
+                &.mobile {
+                    flex-grow: 0;
+                    width: 0;
+                }
+            }
+        }
+
+        &.message-detail {
+            flex-grow: 2;
+            &.open {
+                &.mobile {
+                    flex-grow: 0;
+                    width: 0;
+                }
+            }
+            &.closed{
+
+                &.mobile {
+                flex-grow: 1;    
+                }
+            }
+        }
+    }
+
+    .genny-list {
+
+        height: 100%;
+        border-right: lightgray 2px solid;
+        padding: 0px;
+    }
+
+    .list {
+        padding: 0px;
+    }
+
+    .list-count {
+        display: none;
+    }
+
+    .list-main {
+        background: transparent;
+        padding: 0px;
+        border-radius: 0px;
+    }
+
+    .list-item.selected {
+        background-color: lightblue;
+    }
 }

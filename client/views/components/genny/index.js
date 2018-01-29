@@ -14,3 +14,4 @@ export { default as GennyModal } from './genny-modal';
 export { default as GennyMap } from './genny-map';
 export { default as GennyDropdown } from './genny-dropdown';
 export { default as GennyMessaging } from './genny-messaging';
+export { default as GennyMessagingConversation } from './genny-messaging-conversation';

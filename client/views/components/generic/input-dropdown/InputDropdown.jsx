@@ -41,13 +41,13 @@ class InputDropdown extends Component {
   }
 
   componentDidMount() {
-    
+
     //TODO works only with singleselected
 
     let filter = this.props.items.filter(item => item.code == this.props.value)[0];
     this.setState({
       selectedItems: filter && filter.name ? [filter.name] : []
-    });    
+    });
   }
 
   componentWillReceiveProps( nextProps) {
@@ -114,6 +114,17 @@ class InputDropdown extends Component {
   }
 
   onToggleMenu = () => {
+
+    if(this.state.isOpen) {
+        if(this.props.onBlur) {
+            this.props.onBlur()
+        }
+    }
+    else {
+        if(this.props.onFocus) {
+            this.props.onFocus()
+        }
+    }
 
     this.setState(({isOpen}) => ({
       isOpen: !isOpen,
@@ -240,10 +251,10 @@ class InputDropdown extends Component {
     return (
       <div className={`input input-dropdown ${className} ${validationStatus}` } style={componentStyle}>
         {
-        !isHorizontal && !hideHeader ? 
+        !isHorizontal && !hideHeader ?
           <div className="input-header">
             {name ? <Label text={name} /> : null}
-            {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : ''} text="*  required" /> : null}
+            {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : null} text="*  required" /> : null}
             <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
           </div> :
         null

@@ -117,7 +117,7 @@ export default function reducer(state = initialState, action) {
                     ...state.relationships[action.payload.parentCode],
                     ...action.payload.items.reduce((existingItem, newItem) => {
 
-                        existingItem[newItem.code] = !action.payload.delete ? { type: BASE_ENTITY, weight: newItem.weight ? newItem.weight : 1 } : false;
+                        existingItem[newItem.code] = !action.payload.delete ? { type: BASE_ENTITY, weight: newItem.weight == 0 ? 0 : 1 } : false;
 
                         return existingItem;
                     }, {})
@@ -267,10 +267,11 @@ export default function reducer(state = initialState, action) {
             delete relationshipObject[be_code];
             delete state.relationships[oldParentCode];
 
+
             state.relationships[oldParentCode] = relationshipObject; // delete the old relationship
             state.relationships[newParentCode] = {  // create the new relationship
                 ...state.relationships[newParentCode],
-                [be_code]: { type: BASE_ENTITY }
+                [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
             };
 
             if(state.data[be_code]) {
@@ -278,9 +279,11 @@ export default function reducer(state = initialState, action) {
             }
 
             if(state.data[oldParentCode] && state.data[oldParentCode].children.length > 0) {
-                state.data[oldParentCode].children = state.data[oldParentCode].children.filter(child => { // remove be from old parent's children
-                    return child.code != be_code;
-                });
+                for (var i = 0; i < state.data[oldParentCode].children.length; i++) {
+                    if(state.data[oldParentCode].children[i].code == be_code) {
+                        delete state.data[oldParentCode].children[i];
+                    }
+                }
             }
 
             // if(!state.data[newParentCode]) {

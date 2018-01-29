@@ -23,8 +23,12 @@ class GennyForm extends Component {
         }]);
     }
 
-    shouldComponentUpdate() {
-        return true;
+    shouldComponentUpdate(nextProps, nextState) {
+
+        // we only re-render if the number of gorm groups has changed. otherwise inputs can take care of themselves. :)
+        const newQuestionGroups = AskQuery.getQuestionGroup(nextProps.root);
+        const oldQuestionGroups = AskQuery.getQuestionGroup(this.props.root);
+        return this.getNumberOfQuestions(newQuestionGroups) != this.getNumberOfQuestions(oldQuestionGroups);
     }
 
     onClickEvent = (clickedButton) => {
@@ -64,6 +68,20 @@ class GennyForm extends Component {
 
             GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
         }
+    }
+
+    getNumberOfQuestions = (askGroup, counter) => {
+
+        if(counter == null) counter = 0;
+
+        if(askGroup && askGroup.childAsks) {
+            askGroup.childAsks.forEach(childask => counter += this.getNumberOfQuestions(childask, counter));
+        }
+        else if (askGroup && !askGroup.childAsks) {
+            counter += 1;
+        }
+
+        return counter;
     }
 
     generateFormData(askGroup) {

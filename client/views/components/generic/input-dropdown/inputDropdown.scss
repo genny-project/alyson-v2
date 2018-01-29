@@ -12,14 +12,26 @@
     	margin-bottom: 3px;
     }
 
-    &.success > .dropdown-container > .input-dropdown-button{
-    	color: $success;
-	    border: 1px solid $success;
+    &.success > .dropdown-container {
+        
+        > .input-dropdown-field input {
+    	    border: 1px solid $success;
+        }
+
+        > .input-dropdown-button{
+            color: $success;
+        }
     }
 
-    &.error > .dropdown-container > .input-dropdown-buttont{
-    	color: $error;
-	    border: 1px solid $error;
+    &.error > .dropdown-container {
+        
+        > .input-dropdown-field input {
+            border: 1px solid $error
+        }
+        
+        > .input-dropdown-button{
+            color: $error;
+        }
     }
 
     .dropdown-label {

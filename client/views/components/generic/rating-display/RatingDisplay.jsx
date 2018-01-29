@@ -7,7 +7,6 @@ class RatingDisplay extends Component {
 
   static defaultProps = {
     children: '',
-    label: null,
 
     iconFull: 'star',
     iconHalf: 'star_half',
@@ -38,17 +37,24 @@ class RatingDisplay extends Component {
     let icons = [];
 
     for(let i = 1; i < (total + 1); i++) {
+      let iconType;
       if (value >= i ) {
-        icons.push( <IconSmall name={iconFull} size={size} style={{padding: `${size / 7 }px 0`}} /> );
+        iconType = iconFull;
       }
       else if (value < i ){
         if (value >= (i - 0.5) ) {
-          icons.push( <IconSmall name={iconHalf} size={size} /> );
+          iconType = iconHalf;
         }
         else {
-          icons.push( <IconSmall name={iconNone} size={size} /> );
+          iconType = iconNone;
         }
       }
+      icons.push(
+        <IconSmall
+          name={iconType}
+          size={size}
+        />
+      );
     }
     return icons;
   }
