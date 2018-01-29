@@ -94,12 +94,12 @@ class GennyMessagingConversation extends Component {
                 { style: { flexGrow: 0.5 }}]}
             cols={1}>
 
-            { 
-                messages ? 
+            {
+                messages ?
                     <div className="conversation-message-title" position={[0,0]}>
                         { window.getScreenSize() == 'sm' ? <span onClick={this.handleClickBack}>Back</span> : null }
                         {title}
-                    </div> 
+                    </div>
                 : null
             }
             {
@@ -109,10 +109,10 @@ class GennyMessagingConversation extends Component {
                             messages.map((message, index) => this.renderMessage(message, index))
                         }
                     </div>
-                : null 
+                : null
             }
             {
-                !messages || messages.length <= 0 ? 
+                !messages || messages.length <= 0 ?
                     <div className="empty" position={[1,0]}>
                         No messages
                     </div>
@@ -131,7 +131,7 @@ class GennyMessagingConversation extends Component {
             return (
                 <div className="empty" >
                     No Conversations
-                </div>  
+                </div>
             );
         }
         else { return this.renderLayout(title, messages);

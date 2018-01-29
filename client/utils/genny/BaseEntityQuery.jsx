@@ -34,7 +34,6 @@ class BaseEntityQuery {
             }
 
             return false;
-
         });
 
         if(items.length == 0) {
@@ -62,15 +61,15 @@ class BaseEntityQuery {
         return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
     }
 
-    static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
+    static getLinkedBaseEntities = (baseEntityCode, linkCode, excludingLinks) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
 
         if(be && be.links && be.links[linkCode]) {
 
             return be.links[linkCode].reduce((existingBes, link) => {
-                
-                if(link.targetCode && link.weight > 0) {
+
+                if(link.targetCode && link.weight > 0 && !excludingLinks.includes(link.linkValue)) {
                     let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
                     if(targetBe) existingBes.push(targetBe);
                 }
@@ -139,11 +138,11 @@ class BaseEntityQuery {
         return null;
     }
 
-    static getBaseEntitiesForLinkCode = (baseEntityCode) => {
+    static getBaseEntitiesForLinkCode = (baseEntityCode, excludingLinks) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         if(be && be.links) {
-            return Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link))[0];
+            return Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, excludingLinks))[0];
         }
 
         return [];
