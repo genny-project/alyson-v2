@@ -36,10 +36,14 @@ class GennyList extends Component {
             let linkToParent = BaseEntityQuery.getLinkToParent(this.props.root, item.code);
             if(linkToParent) {
 
+                console.log(this.props);
+                console.log(item.code, this.props.selectedItem);
+
                 let layout_code = linkToParent.linkValue || 'list_item';
                 let sublayout = this.props.sublayout[layout_code];
                 item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: this.props.root, ITEMCODE: item.code}}/>;
                 item['rootCode'] = this.props.root;
+                item['selectedItem'] = this.props.selectedItem == item.code ? true : false;
                 return item;
             }
 

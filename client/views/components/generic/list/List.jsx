@@ -29,20 +29,20 @@ class List extends Component {
     countStyle: object,
     header: any,
     data: array,
-    onClick: func
+    onItemClick: func
   }
 
   state = {
   }
 
   renderMain = (data, itemsPerPage, hideNav) => {
-    const { itemHeight, itemWidth, itemGap, onClick } = this.props;
+    const { itemHeight, itemWidth, itemGap, onItemClick } = this.props;
 
     if (data && data.length > 0) {
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {
-            return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onClick}/>;
+            return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick}/>;
           })}
         </Pagination>
       );

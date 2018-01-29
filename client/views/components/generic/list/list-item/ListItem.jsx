@@ -1,12 +1,13 @@
 import './listItem.scss';
 import React, { Component } from 'react';
-import { string, any, number, func } from 'prop-types';
+import { string, any, number, func, bool } from 'prop-types';
 import { } from 'views/components';
 
 class ListItem extends Component {
 
   static defaultProps = {
     className: '',
+    isSelected: false
   }
 
   static propTypes = {
@@ -17,6 +18,7 @@ class ListItem extends Component {
     itemGap: number,
     layout: any,
     onClick: func,
+    isSelected: bool
   }
 
   state = {
@@ -27,7 +29,7 @@ class ListItem extends Component {
   }
 
   render() {
-    const { className, style, itemHeight, itemWidth, itemGap, onClick } = this.props;
+    const { className, style, itemHeight, itemWidth, itemGap, onClick, isSelected } = this.props;
 
     const componentStyle = {
       ...style,
@@ -35,9 +37,11 @@ class ListItem extends Component {
       width: `${itemWidth}px`,
       margin: `${itemGap}px`,
     };
+
+    console.log(this.props);
  
     return (
-      <div className={`list-item ${className}`} style={componentStyle} onClick={onClick ? this.handleClick : null}>
+      <div className={`list-item ${className} ${isSelected ? 'selected' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null}>
         { this.props.layout || null }
       </div>
     );

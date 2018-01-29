@@ -1,8 +1,7 @@
 import './GennyMessagingConversation.scss';
 import React, { Component } from 'react';
-import { string, number, bool, array } from 'prop-types';
+import { string, func, array } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
-import { LayoutLoader } from 'utils/genny/layout-loader';
 import { Grid } from '@genny-project/layson';
 import { GennyButton } from 'views/components';
 
@@ -16,6 +15,8 @@ class GennyMessagingConversation extends Component {
     static propTypes = {
         title: string,
         messages: array,
+        handleClickBack: func,
+        root: string
     };
 
     state = {
@@ -35,6 +36,11 @@ class GennyMessagingConversation extends Component {
         this.setState({
             messageText: ''
         });
+    }
+
+    handleClickBack = () => {
+        const { handleClickBack } = this.props;
+        if (handleClickBack) handleClickBack();
     }
 
     renderTextInput() {
@@ -83,44 +89,53 @@ class GennyMessagingConversation extends Component {
         <Grid
             className="genny-messaging-conversation-container"
             rows={[
-                { style: { flexGrow: 1 }},
+                '30px',
                 { style: { flexGrow: 12 }},
                 { style: { flexGrow: 0.5 }}]}
             cols={1}>
 
-            <div className="conversation-message-title" position={[0, 0]}>{title}</div>
-            <div className="conversation-messages-container" position={[1, 0]}>
-                {
-                    messages.map((message, index) => this.renderMessage(message, index))
-                }
-            </div>
-            <div className="conversation-message-input" position={[2, 0]}>{this.renderTextInput()}</div>
+            { 
+                messages ? 
+                    <div className="conversation-message-title" position={[0,0]}>
+                        { window.getScreenSize() == 'sm' ? <span onClick={this.handleClickBack}>Back</span> : null }
+                        {title}
+                    </div> 
+                : null
+            }
+            {
+                messages && messages.length > 0 ?
+                    <div className="conversation-messages-container" position={[1,0]}>
+                        {
+                            messages.map((message, index) => this.renderMessage(message, index))
+                        }
+                    </div>
+                : null 
+            }
+            {
+                !messages || messages.length <= 0 ? 
+                    <div className="empty" position={[1,0]}>
+                        No messages
+                    </div>
+                : null
+            }
+            <div className="conversation-message-input" position={[2,0]}>{this.renderTextInput()}</div>
 
         </Grid>);
-    }
-
-    renderEmpty() {
-
-        return (
-            <Grid 
-                className="genny-messaging-conversation-container"
-                rows={[
-                    { style: { flexGrow: 20 }},
-                    { style: { flexGrow: 1 }}
-                ]}
-                cols={1}
-            >
-                <div className="empty" position={[0, 0]}>No messages</div>
-                <div className="conversation-message-input" position={[1, 0]}>{this.renderTextInput()}</div>
-            </Grid>);
     }
 
     render() {
 
         const { root, title, messages } = this.props;
 
-        if(messages.length == 0) return this.renderEmpty();
-        else return this.renderLayout(title, messages);
+        if(!root) {
+            return (
+                <div className="empty" >
+                    No Conversations
+                </div>  
+            );
+        }
+        else { return this.renderLayout(title, messages);
+        }
     }
 }
 
