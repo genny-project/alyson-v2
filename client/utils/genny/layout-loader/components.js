@@ -32,13 +32,12 @@ import {
   MapDirectionsButton,
   MapDisplay,
   MapInput,
-  PhoneButton,
   ProgressBar,
   RatingDisplay,
   Selector,
   Sidebar,
-  SMSButton,
   Status,
+  SublayoutLoader,
   TreeView,
   GennyMessaging,
 } from 'views/components';
@@ -78,6 +77,7 @@ export default new ComponentCollection({
   Selector,
   Sidebar,
   Status,
+  SublayoutLoader,
   TreeView,
   GennyMessaging,
 });

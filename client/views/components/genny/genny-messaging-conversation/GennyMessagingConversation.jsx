@@ -27,14 +27,14 @@ class GennyMessagingConversation extends Component {
 
         this.setState({
             messageText: e.target.value
-        })
+        });
     }
 
     onButtonClick = (e) => {
 
         this.setState({
             messageText: ''
-        })
+        });
     }
 
     renderTextInput() {
@@ -45,33 +45,33 @@ class GennyMessagingConversation extends Component {
                 <GennyButton
                     onClick={this.onButtonClick}
                     disabled={this.state.canSendMessage}
-                    buttonCode={"BTN_SEND_MESSAGE"}
-                    value={{ "itemCode": this.props.root, "value": this.state.messageText }}
-                    buttonStyle={ { background: "none", border: "1px solid black" }}>
+                    buttonCode='BTN_SEND_MESSAGE'
+                    value={{ itemCode: this.props.root, value: this.state.messageText }}
+                    buttonStyle={ { background: 'none', border: '1px solid black' }}>
                     <p>Send</p>
                 </GennyButton>
                 : null
             }
-        </div>
+        </div>;
     }
 
-    renderMessage(message) {
+    renderMessage(message, index) {
 
         let messageCode = message.code;
 
-        let style = { "textAlign": "left" };
-        let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, "PRI_CREATOR");
-        let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, "PRI_MESSAGE");
+        let style = { textAlign: 'left' };
+        let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR');
+        let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE');
 
         if(messageTextAttribute && creatorAttribute) {
 
             let creator = creatorAttribute.value;
             if(creator == GennyBridge.getUser()) {
-                style = { "textAlign": "right" }
+                style = { textAlign: 'right' };
             }
 
             let messageText = messageTextAttribute.value;
-            return <div style={style}>{messageText}</div>
+            return <div style={style} key={index}>{messageText}</div>;
         }
 
         return null;
@@ -82,34 +82,45 @@ class GennyMessagingConversation extends Component {
         return (
         <Grid
             className="genny-messaging-conversation-container"
-            rows={[{ "style": { "flexGrow": 1 }}, { "style": { "flexGrow": 12 }}, { "style": { "flexGrow": 0.5 }}]}
+            rows={[
+                { style: { flexGrow: 1 }},
+                { style: { flexGrow: 12 }},
+                { style: { flexGrow: 0.5 }}]}
             cols={1}>
 
             <div className="conversation-message-title" position={[0, 0]}>{title}</div>
             <div className="conversation-messages-container" position={[1, 0]}>
                 {
-                    messages.map(message => this.renderMessage(message))
+                    messages.map((message, index) => this.renderMessage(message, index))
                 }
             </div>
             <div className="conversation-message-input" position={[2, 0]}>{this.renderTextInput()}</div>
 
-        </Grid>)
+        </Grid>);
     }
 
     renderEmpty() {
 
-        return (<Grid className="genny-messaging-conversation-container" rows={[{ "style": { "flexGrow": 20 }}, { "style": { "flexGrow": 1 }}]} cols={1}>
-            <div className="empty" position={[0, 0]}>No messages</div>
-            <div className="conversation-message-input" position={[1, 0]}>{this.renderTextInput()}</div>
-        </Grid>)
+        return (
+            <Grid 
+                className="genny-messaging-conversation-container"
+                rows={[
+                    { style: { flexGrow: 20 }},
+                    { style: { flexGrow: 1 }}
+                ]}
+                cols={1}
+            >
+                <div className="empty" position={[0, 0]}>No messages</div>
+                <div className="conversation-message-input" position={[1, 0]}>{this.renderTextInput()}</div>
+            </Grid>);
     }
 
     render() {
 
         const { root, title, messages } = this.props;
 
-        if(messages.length == 0) return this.renderEmpty()
-        else return this.renderLayout(title, messages)
+        if(messages.length == 0) return this.renderEmpty();
+        else return this.renderLayout(title, messages);
     }
 }
 
