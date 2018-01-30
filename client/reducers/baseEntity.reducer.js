@@ -47,7 +47,7 @@ export default function reducer(state = initialState, action) {
                                     existingLinks[linkCode].push({
                                         ...newLink,
                                         targetCode: newLink.pk.targetCode,
-                                        linkValue: newLink.valueString,
+                                        linkValue: newLink.link.linkValue || newLink.valueString,
                                     });
 
                                     return existingLinks;
@@ -92,7 +92,7 @@ export default function reducer(state = initialState, action) {
                                 existingLinks[linkCode].push({
                                     ...newLink,
                                     targetCode: newLink.pk.targetCode,
-                                    linkValue: newLink.valueString,
+                                    linkValue: newLink.link.linkValue || newLink.valueString,
                                 });
 
                                 return existingLinks;
@@ -271,6 +271,7 @@ export default function reducer(state = initialState, action) {
             delete relationshipObject[be_code];
             delete state.relationships[oldParentCode];
 
+            console.log(item);
 
             state.relationships[oldParentCode] = relationshipObject; // delete the old relationship
             state.relationships[newParentCode] = {  // create the new relationship
@@ -283,6 +284,7 @@ export default function reducer(state = initialState, action) {
             }
 
             if(state.data[oldParentCode] && state.data[oldParentCode].children.length > 0) {
+
                 for (var i = 0; i < state.data[oldParentCode].children.length; i++) {
                     if(state.data[oldParentCode].children[i].code == be_code) {
                         delete state.data[oldParentCode].children[i];

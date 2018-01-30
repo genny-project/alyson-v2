@@ -12,7 +12,7 @@ class RatingDisplay extends Component {
     iconHalf: 'star_half',
     iconNone: 'star_border',
     total: 5,
-    value: 2,
+    value: 0,
     size: 24
   }
 

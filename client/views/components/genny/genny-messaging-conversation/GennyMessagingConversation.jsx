@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { string, func, array } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { Grid } from '@genny-project/layson';
-import { GennyButton } from 'views/components';
+import { GennyButton, ImageView, Button, IconSmall} from 'views/components';
+import { GennyButton, Button, IconSmall } from 'views/components';
 
 class GennyMessagingConversation extends Component {
 
@@ -40,12 +41,22 @@ class GennyMessagingConversation extends Component {
 
     handleClickBack = () => {
         const { handleClickBack } = this.props;
+
+        console.log('click', handleClickBack)
         if (handleClickBack) handleClickBack();
     }
 
     renderTextInput() {
         return <div>
             <input onChange={this.onTextChange} placeholder="Type your message..."/>
+            <GennyButton
+                onClick={this.onButtonClick}
+                disabled={this.state.canSendMessage}
+                buttonCode='BTN_SEND_MESSAGE'
+                value={{ itemCode: this.props.root, value: this.state.messageText }}
+                type='confirm'>
+                <p>Send</p>
+            </GennyButton>
             {
                 this.state.messageText.length > 0 ?
                 <GennyButton
@@ -53,7 +64,8 @@ class GennyMessagingConversation extends Component {
                     disabled={this.state.canSendMessage}
                     buttonCode='BTN_SEND_MESSAGE'
                     value={{ itemCode: this.props.root, value: this.state.messageText }}
-                    buttonStyle={ { background: 'none', border: '1px solid black' }}>
+                    type='confirm'
+                >
                     <p>Send</p>
                 </GennyButton>
                 : null
@@ -63,48 +75,102 @@ class GennyMessagingConversation extends Component {
 
     renderMessage(message, index) {
 
+        const {users} = this.props;
+
+        const currentUserCode = GennyBridge.getUser();
+        const currentUser = users && users.filter(x => x.code == currentUserCode)[0];
+        const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
+
+
         let messageCode = message.code;
 
         let style = { textAlign: 'left' };
         let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR');
         let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE');
 
+        console.log(creatorAttribute);
+        console.log(message);
+
         if(messageTextAttribute && creatorAttribute) {
 
             let creator = creatorAttribute.value;
-            if(creator == GennyBridge.getUser()) {
-                style = { textAlign: 'right' };
-            }
 
             let messageText = messageTextAttribute.value;
-            return <div style={style} key={index}>{messageText}</div>;
+            return (
+                <div className={`conversation-message ${creator == GennyBridge.getUser() ? 'sent' : 'received' }`}>
+                    {
+                        creator != GennyBridge.getUser() && otherUser ?
+                            <ImageView className='conversation-message-image' src={otherUser.attributes.PRI_IMAGE_URL} />
+                        : null
+                    }
+                    <div className='conversation-message-text' style={style} key={index}>{messageText}</div>
+
+                </div>
+            );
         }
 
         return null;
     }
 
-    renderLayout(title, messages) {
+    renderMobileLayout(title, messages) {
 
         return (
         <Grid
-            className="genny-messaging-conversation-container"
+            className="messaging-conversation-main"
             rows={[
-                '30px',
+                '40px',
                 { style: { flexGrow: 12 }},
                 { style: { flexGrow: 0.5 }}]}
-            cols={1}>
-
+            cols={1}
+        >
             {
-                messages ?
+                messages && window.getScreenSize() == 'sm' ?
                     <div className="conversation-message-title" position={[0,0]}>
-                        { window.getScreenSize() == 'sm' ? <span onClick={this.handleClickBack}>Back</span> : null }
+                        <span onClick={this.handleClickBack}>Back</span>
+                        { window.getScreenSize() == 'sm' ?
+                            <div className='conversation-back-button' onClick={this.handleClickBack}>
+                                <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(-90deg)' }}/>
+                                <span>Back</span>
+                            </div>
+                        : null }
                         {title}
                     </div>
                 : null
             }
             {
                 messages && messages.length > 0 ?
-                    <div className="conversation-messages-container" position={[1,0]}>
+                    <div className="conversation-messages-container" position={[ 1,0]}>
+                        {
+                            messages.map((message, index) => this.renderMessage(message, index))
+                        }
+                    </div>
+                : null
+            }
+            {
+
+                !messages || messages.length <= 0 ?
+                    <div className="conversation-messages-empty" position={[1,0]}>
+                        No messages
+                    </div>
+                : null
+            }
+            <div className="conversation-message-input" position={[ 2 ,0]}>{this.renderTextInput()}</div>
+        </Grid>);
+    }
+
+    renderWebLayout(title, messages) {
+
+        return (
+        <Grid
+            className="messaging-conversation-main"
+            rows={[
+                { style: { flexGrow: 12 }},
+                { style: { flexGrow: 0.5 }}]}
+            cols={1}
+        >
+            {
+                messages && messages.length > 0 ?
+                    <div className="conversation-messages-container" position={[0 ,0]}>
                         {
                             messages.map((message, index) => this.renderMessage(message, index))
                         }
@@ -113,13 +179,12 @@ class GennyMessagingConversation extends Component {
             }
             {
                 !messages || messages.length <= 0 ?
-                    <div className="empty" position={[1,0]}>
+                    <div className="empty" position={[ 0 ,0]}>
                         No messages
                     </div>
                 : null
             }
-            <div className="conversation-message-input" position={[2,0]}>{this.renderTextInput()}</div>
-
+            <div className="conversation-message-input" position={[ 1 ,0]}>{this.renderTextInput()}</div>
         </Grid>);
     }
 
@@ -129,12 +194,16 @@ class GennyMessagingConversation extends Component {
 
         if(!root) {
             return (
-                <div className="empty" >
+                <div className="conversation-messages-empty" >
                     No Conversations
                 </div>
             );
         }
-        else { return this.renderLayout(title, messages);
+        else if (window.getScreenSize() == 'sm') {
+            return this.renderMobileLayout(title, messages);
+        }
+        else {
+            return this.renderWebLayout(title, messages);
         }
     }
 }
