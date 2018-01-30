@@ -57,7 +57,11 @@ class GennyMessaging extends Component {
         messages = messages.sort((x, y) => x.created < y.created);
 
         let users = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_USER');
-        
+        const currentUserCode = GennyBridge.getUser();
+        const currentUser = users && users.filter(x => x.code == currentUserCode)[0];
+        const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
+
+
         return (
             <div className="genny-messaging-container">
                 <Grid
@@ -67,7 +71,7 @@ class GennyMessaging extends Component {
                         { className: `col message-detail ${isOpen ? 'open' : 'closed'} ${isMobile ? 'mobile' : '' }` }
                     ]}
                 >
-                    <div 
+                    <div
                         className='genny-messaging-list-header'
                         position={[0, 0]}
                     >
@@ -76,13 +80,15 @@ class GennyMessaging extends Component {
                     <GennyList
                         position={[0, 0]}
                         root={root}
+                        localAliases={{ CONTACT: otherUser.code }}
                         onItemClick={this.handleClickConversation}
                         selectedItem={selectedItem}
                     />
                     <GennyMessagingConversation
                         position={[0, 1]}
                         title={conversationTitle}
-                        users={users}
+                        currentUser={currentUser}
+                        otherUser={otherUser}
                         messages={messages}
                         root={messagesRoot}
                         onClick={this.handleClickBack}

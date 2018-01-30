@@ -4,7 +4,6 @@ import { string, func, array } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { Grid } from '@genny-project/layson';
 import { GennyButton, ImageView, Button, IconSmall} from 'views/components';
-import { GennyButton, Button, IconSmall } from 'views/components';
 
 class GennyMessagingConversation extends Component {
 
@@ -57,30 +56,12 @@ class GennyMessagingConversation extends Component {
                 type='confirm'>
                 <p>Send</p>
             </GennyButton>
-            {
-                this.state.messageText.length > 0 ?
-                <GennyButton
-                    onClick={this.onButtonClick}
-                    disabled={this.state.canSendMessage}
-                    buttonCode='BTN_SEND_MESSAGE'
-                    value={{ itemCode: this.props.root, value: this.state.messageText }}
-                    type='confirm'
-                >
-                    <p>Send</p>
-                </GennyButton>
-                : null
-            }
         </div>;
     }
 
     renderMessage(message, index) {
 
-        const {users} = this.props;
-
-        const currentUserCode = GennyBridge.getUser();
-        const currentUser = users && users.filter(x => x.code == currentUserCode)[0];
-        const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
-
+        const {currentUser, otherUser} = this.props;
 
         let messageCode = message.code;
 

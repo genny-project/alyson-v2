@@ -35,7 +35,7 @@
             &.closed{
 
                 &.mobile {
-                flex-grow: 2;    
+                flex-grow: 2;
                 }
             }
         }
@@ -44,8 +44,8 @@
     .genny-list {
 
         height: 100%;
-        //border-right: lightgray 2px solid;
-        background: #BBB;
+        border-right: 1px solid #333;
+        background: white;
         padding: 0px;
     }
 
@@ -64,28 +64,35 @@
     }
 
     .list-item {
-        background: #BBB;
+        background: #fff;
         border-radius: 0px;
-        border-bottom: 1px solid #888;
+        border-bottom: 1px solid #333;
 
         &:first-child {
-            border-top: 1px solid #888;
-        }
-
-        &.selected {
-            background-color: lightblue;
-        }
-
-        &:hover {
-            background-color: red;
+            border-top: 1px solid #333;
         }
 
         .list-item-conversation {
 
-            p, i {
+            div, p, i {
+                color: black;
+            }
+        }
+
+        &.selected {
+            background-color: #333;
+        }
+
+        &:hover {
+            background-color: #555;
+        }
+
+        &.selected, &:hover {
+            div, p, i {
                 color: white;
             }
         }
+
     }
 }
 

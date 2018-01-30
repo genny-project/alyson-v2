@@ -4,7 +4,7 @@
     width: 100%;
     height: 100%;
     //background: #b6b6b6;
-    
+
     .conversation-message-title {
 
         display: flex;
@@ -21,8 +21,9 @@
             width: 100%;
         }
     }
-    
+
     .conversation-message-title {
+    }
 
     .conversation-messages-container {
 
@@ -31,13 +32,13 @@
         display: flex;
         flex-direction: column;
         flex-direction: column-reverse;
-    
+
         > .conversation-message {
 
             display: flex;
             align-items: center;
             margin-bottom: 10px;
-    
+
             .conversation-message-image {
                 width: 40px;
                 margin-right: 10px;
@@ -73,16 +74,16 @@
     .conversation-message-input {
 
         height: 100%;
-    
+
         > div {
-    
+
             border-top: 1px solid lightgray;
             display: flex;
             height: 100%;
         }
-    
+
         input {
-    
+
             width: 100%;
             height: 100%;
             border: none;
@@ -91,19 +92,19 @@
             padding: 10px;
             align-self: center;
             flex: 5;
-    
+
         }
-    
-        input:focus { 
+
+        input:focus {
             outline: none;
         }
-    
+
         .genny-button {
             align-self: center;
             flex: 1;
         }
     }
-    
+
 }
 
 .conversation-messages-empty {
