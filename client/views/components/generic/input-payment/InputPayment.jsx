@@ -13,7 +13,8 @@ class InputPayment extends Component {
     tokens: {
       bank: null,
       card: null,
-    }
+    },
+    accounts: [],
   };
 
   static propTypes = {
@@ -49,12 +50,15 @@ class InputPayment extends Component {
     const user = GennyBridge.getUser();
     const bankTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' );
     const cardTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' );
+    const accountsAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_PAYMENT_METHODS' );
+
     this.setState({
       tokens: {
         ...this.state.tokens,
         bank: bankTokenAttribute ? bankTokenAttribute.value : null,
         card: cardTokenAttribute ? cardTokenAttribute.value : null,
-      }
+      },
+      accounts: accountsAttribute ? JSON.parse(accountsAttribute.value) : ( this.props.accounts ? this.props.accounts : []),
     });
   }
 
