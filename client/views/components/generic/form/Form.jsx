@@ -40,7 +40,7 @@ class Form extends Component {
 
   onFormSubmit = (formGroup, next) => {
 
-    const validated = this.formGroupRefs.every(formGroup => {
+    const validated = this.formGroupRefs.map(formGroup => {
         return formGroup ? formGroup.isFormGroupValid() : true;
     });
 
@@ -86,7 +86,6 @@ class Form extends Component {
                   title={questionGroup.title}
                   isHorizontal={questionGroup.isHorizontal}
                   submitButtons={questionGroup.submitButtons}
-                  onValidation={ (next) => this.onFormSubmit(questionGroup, next)}
                   onSubmit={(action) => this.onFormSubmit(questionGroup, (validated) => questionGroup.onSubmit(action))}
                   data={this.renderGroup(questionGroup.content)}/>);
       }

@@ -67,10 +67,9 @@ class Input extends Component {
 
         let isValid = false;
         if (validationList.length > 0) {
+
             isValid = validationList.every( validation => {
-
-                if(validation.regex == ".*") { return value != null && value.length > 0 }
-
+                // if(validation.regex == ".*") { return value != null && value.length > 0 }
                 return new RegExp(validation.regex).test( value )
             });
         }
