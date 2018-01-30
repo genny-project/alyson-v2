@@ -116,7 +116,7 @@ class FormGroup extends Component {
 
     isFormGroupValid = (showError) => {
 
-        return this.inputRefs.every(input => {
+        return this.inputRefs.map(input => {
           return input ? input.isValid(showError) : true;
         });
     }
@@ -134,7 +134,7 @@ class FormGroup extends Component {
                   key={index}
                   style={{ margin : `10px ${index < buttons.length - 1 ? '10px' : '0'} 10px 0` }}
                   position={[0, index]}
-                  disabled={animatedButtons[button] || !isFormValidated}
+                  disabled={animatedButtons[button]}
                   className={`form-button ${button} ${animatedButtons[button] ? 'animate' : ''}`}
                   onClick={() => this.onSubmitClick(button)}>
                   {
