@@ -71,12 +71,6 @@ class GennyMessaging extends Component {
                         { className: `col message-detail ${isOpen ? 'open' : 'closed'} ${isMobile ? 'mobile' : '' }` }
                     ]}
                 >
-                    <div
-                        className='genny-messaging-list-header'
-                        position={[0, 0]}
-                    >
-                        {conversations.length} Conversation{conversations.length != 1 ? 's' : null}
-                    </div>
                     <GennyList
                         position={[0, 0]}
                         root={root}

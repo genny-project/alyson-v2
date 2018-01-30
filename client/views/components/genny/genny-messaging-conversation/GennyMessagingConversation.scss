@@ -74,6 +74,7 @@
     .conversation-message-input {
 
         height: 100%;
+        padding: 10px;
 
         > div {
 
@@ -102,6 +103,12 @@
         .genny-button {
             align-self: center;
             flex: 1;
+
+
+            > .button > button {
+                background-color: #333;
+
+            }
         }
     }
 

@@ -49,11 +49,12 @@ class GennyMessagingConversation extends Component {
         return <div>
             <input onChange={this.onTextChange} placeholder="Type your message..."/>
             <GennyButton
+                className='conversation-button'
                 onClick={this.onButtonClick}
                 disabled={this.state.canSendMessage}
                 buttonCode='BTN_SEND_MESSAGE'
                 value={{ itemCode: this.props.root, value: this.state.messageText }}
-                type='confirm'>
+                >
                 <p>Send</p>
             </GennyButton>
         </div>;
