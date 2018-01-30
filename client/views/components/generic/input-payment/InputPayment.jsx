@@ -22,6 +22,7 @@ class InputPayment extends Component {
     addingAccount: false,
     addingAccountType: '',
     form: {
+      nickname: '',
       number: '',
       name: '',
       expiry: '',
@@ -190,6 +191,30 @@ class InputPayment extends Component {
     });
   }
 
+  canAddPaymentMethod() {
+    const { addingAccountType, form } = this.state;
+
+    if ( addingAccountType === 'CARD' ) {
+      if ( form.number === '' || form.name === '' || form.expiry === '' || form.cvc === '' || form.nickname === '' ) {
+        return false;
+      }
+
+      if ( !form.number.match( /[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}/g )) {
+        return false;
+      }
+
+      if ( !form.expiry.match( /[0-9]{2}\/[0-9]{2}/g )) {
+        return false;
+      }
+
+      if ( !form.cvc.match( /[0-9]{3}/g )) {
+        return false;
+      }
+
+      return true;
+    }
+  }
+
   renderSelectType() {
     const { selectedPaymentType } = this.state;
 
@@ -254,6 +279,16 @@ class InputPayment extends Component {
     );
   }
 
+  renderAddPaymentMethodButton() {
+    const disabledClass = !this.canAddPaymentMethod() ? 'disabled' : '';
+    return (
+      <div className={`add-payment-method-btn ${disabledClass}`}>
+        <span>ADD PAYMENT METHOD</span>
+        <i className='material-icons'>chevron_right</i>
+      </div>
+    );
+  }
+
   renderNextButton() {
     return (
       <div className={`next-step-btn ${!this.canGoNext() ? 'disabled' : ''}`} onClick={this.onGoNext}>
@@ -294,7 +329,7 @@ class InputPayment extends Component {
 
         <div className='input-field'>
           <label>Card Nickname</label>
-          <input type='text' />
+          <input type='text' onChange={this.handleInputChange( 'nickname' )} />
         </div>
 
         <div className='input-field'>
@@ -318,6 +353,8 @@ class InputPayment extends Component {
             <MaskedInput mask={[/[0-9]/,/[0-9]/,/[0-9]/]} type='text' onChange={this.handleInputChange( 'cvc' )} onFocus={this.handleInputFocus( 'cvc' )} />
           </div>
         </div>
+        <br /><br />
+        {this.renderAddPaymentMethodButton()}
       </div>
     );
   }

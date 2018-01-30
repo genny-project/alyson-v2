@@ -128,13 +128,43 @@
 
     .input-field {
       flex-grow: 1;
-    
+
       &:first-child {
         margin-right: 5px;
       }
 
       &:last-child {
         margin-left: 5px;
+      }
+    }
+  }
+
+  .add-payment-method-btn {
+    background: #5cb85c;
+    margin-right: 0;
+    margin-left: auto;
+    color: #FFF;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 300ms ease background;
+
+    .material-icons {
+      color: #FFF;
+      margin-left: 15px;
+    }
+
+    &.disabled {
+      background: #F2F2F2;
+    }
+
+    &:hover {
+      background: #5cb85c;
+
+      &.disabled {
+        background: #F2F2F2;
       }
     }
   }
