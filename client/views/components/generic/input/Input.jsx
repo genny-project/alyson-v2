@@ -60,31 +60,38 @@ class Input extends Component {
         this.state.validationStatus = 'normal';
     }
 
-    isValid = () => {
+    isValid = (showError) => {
 
         const { validationList } = this.props;
         const { value } = this.state;
 
         let isValid = false;
         if (validationList.length > 0) {
-            isValid = validationList.every( validation => new RegExp(validation.regex).test( value ));
+            isValid = validationList.every( validation => {
+
+                if(validation.regex == ".*") { return value != null && value.length > 0 }
+
+                return new RegExp(validation.regex).test( value )
+            });
         }
         else {
-            isValid = new RegExp(/.*/).test( value );
+            isValid = value != null && value.length > 0; //new RegExp(/.*/).test( value );
         }
 
-        if(isValid) {
-            this.validationStyle('success');
-        }
-        else {
-            this.validationStyle('error');
+        if(showError == true || showError == null) {
+
+            if(isValid) {
+                this.validationStyle('success');
+            }
+            else {
+                this.validationStyle('error');
+            }
         }
 
         return isValid;
     }
 
     componentWillReceiveProps(newProps) {
-
         if(this._ismounted && !this.state.isFocused) {
 
             this.setState({
@@ -305,6 +312,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     prefix={this.props.type == 'Currency' ? '$' : ''}
+                    handleOnChange={this.handleOnChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                 />

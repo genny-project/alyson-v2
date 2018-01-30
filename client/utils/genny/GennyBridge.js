@@ -18,6 +18,10 @@ class GennyBridge {
         return store.getState().baseEntity.aliases["USER"];
     }
 
+    getProject() {
+        return store.getState().baseEntity.aliases["PROJECT"];
+    }
+
     sendMessage(event, data) {
         let token = this.getToken();
         if(token)

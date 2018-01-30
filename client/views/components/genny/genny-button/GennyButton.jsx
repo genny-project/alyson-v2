@@ -23,8 +23,12 @@ class GennyButton extends Component {
 
     if(this.props.buttonCode) {
 
-      this.props.value.userCode = GennyBridge.getUser();
-      let btnValue = (this.props.value && this.props.value.constructor == String) ? this.props.value : JSON.stringify(this.props.value);
+        const isString = (this.props.value && this.props.value.constructor == String)
+        if(isString == false) {
+            this.props.value.userCode = GennyBridge.getUser();
+        }
+
+        let btnValue = (this.props.value && this.props.value.constructor == String) ? this.props.value : JSON.stringify(this.props.value);
 
       GennyBridge.sendBtnClick('BTN_CLICK', {
         code: this.props.buttonCode,

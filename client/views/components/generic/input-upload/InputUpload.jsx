@@ -8,7 +8,7 @@ import Dashboard from 'uppy/lib/plugins/Dashboard';
 import prettierBytes from 'prettier-bytes';
 import classNames from 'classnames';
 import { Label, SubmitStatusIcon, IconSmall } from 'views/components';
-
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 
 class InputUpload extends Component {
   static defaultProps = {
@@ -49,6 +49,7 @@ class InputUpload extends Component {
   }
 
   componentDidMount() {
+
     let files = [];
     try {
       files = ( this.props.value && this.props.value != 'null' ) ? JSON.parse( this.props.value ) : this.props.defaultValue;
@@ -75,6 +76,7 @@ class InputUpload extends Component {
   }
 
   componentWillMount() {
+
     const { autoProceed } = this.props;
 
     this.uppy = new Uppy({
@@ -87,7 +89,7 @@ class InputUpload extends Component {
       .use( Dashboard, {
         closeModalOnClickOutside: true,
       })
-      .use( AwsS3, { host: 'http://localhost:3020' })
+      .use( AwsS3, { host: BaseEntityQuery.getBaseEntityAttribute(GennyBridge.getProject(), "PRI_UPPY_URL").value })
       .use( Webcam, { target: Dashboard })
       .run();
 
@@ -247,7 +249,7 @@ class InputUpload extends Component {
     return (
       <div className={classNames( 'input', 'input-file', className, {})}>
         {
-          !isHorizontal && !hideHeader ? 
+          !isHorizontal && !hideHeader ?
             <div className="input-header">
               {name ? <Label text={name} /> : null}
               {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : null} text="*  required" /> : null}

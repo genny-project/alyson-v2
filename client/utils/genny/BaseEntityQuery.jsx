@@ -69,7 +69,11 @@ class BaseEntityQuery {
 
             return be.links[linkCode].reduce((existingBes, link) => {
 
-                if(link.targetCode && link.weight > 0 && !excludingLinks.includes(link.linkValue)) {
+                if(excludingLinks && excludingLinks.includes(link.linkValue)) {
+                    return existingBes.sort((x,y) => x.weight > y.weight);
+                }
+
+                if(link.targetCode && link.weight > 0) {
                     let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
                     if(targetBe) existingBes.push(targetBe);
                 }
