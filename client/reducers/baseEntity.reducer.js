@@ -47,7 +47,7 @@ export default function reducer(state = initialState, action) {
                                     existingLinks[linkCode].push({
                                         ...newLink,
                                         targetCode: newLink.pk.targetCode,
-                                        linkValue: newLink.valueString,
+                                        linkValue: newLink.link.linkValue,
                                     });
 
                                     return existingLinks;
@@ -92,7 +92,7 @@ export default function reducer(state = initialState, action) {
                                 existingLinks[linkCode].push({
                                     ...newLink,
                                     targetCode: newLink.pk.targetCode,
-                                    linkValue: newLink.valueString,
+                                    linkValue: newLink.link.linkValue,
                                 });
 
                                 return existingLinks;
@@ -290,8 +290,10 @@ export default function reducer(state = initialState, action) {
                     console.log("comparing ");
                     console.log(state.data[oldParentCode].children[i].code)
                     console.log(be_code)
-                    
+                    console.log(state.data[oldParentCode].children[i].code == be_code)
+
                     if(state.data[oldParentCode].children[i].code == be_code) {
+                        console.
                         delete state.data[oldParentCode].children[i];
                     }
                 }
