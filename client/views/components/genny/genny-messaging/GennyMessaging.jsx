@@ -4,6 +4,7 @@ import { string, number, bool, array } from 'prop-types';
 import { GennyList, GennyMessagingConversation } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { Grid } from '@genny-project/layson';
+import moment from 'moment';
 
 class GennyMessaging extends Component {
 
@@ -46,6 +47,50 @@ class GennyMessaging extends Component {
         });
     }
 
+    orderMessages = (messages) => {
+
+        let messageArray = [];
+        let tempArray = [];
+
+        console.log(messages);
+
+        messageArray.map((message, index) => {
+
+            console.log('====================');
+            console.log('message', message);
+            
+
+            if (tempArray.length > 0) {
+                const last = tempArray.length;
+                //   message.attributes.creator.value
+                if (tempArray[last].attributes.value != message.created) {
+
+                    //  messageArray.push({
+                    //      creator: value,
+                    //      imageURL: value,
+                    //      datetime: value,
+                    //      children: tempArray
+                    //  })
+
+                    messageArray.push(tempArray);
+                }
+                else {
+                    const lastDateTime = moment(tempArray[last].created).format('YYYY-MM-DD HH');
+                    const thisDateTIme = moment(message.created).format('YYYY-MM-DD HH');
+
+                    if (lastDateTime == thisDateTIme) {
+                        messageArray.push(tempArray);
+                    }
+                }
+            }
+            tempArray.push(message);
+            console.log('messageArray', messageArray);
+            console.log('tempArray', tempArray);
+        });
+
+        return messageArray;
+    }
+
     render() {
 
         const { root, messagesRoot } = this.props;
@@ -55,6 +100,10 @@ class GennyMessaging extends Component {
         const conversations = BaseEntityQuery.getEntityChildren(root);
         let messages = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_MESSAGES');
         messages = messages.sort((x, y) => x.created < y.created);
+        
+        //const orderedMessages = this.orderMessages(messages);
+
+        //console.log('orderedMessages', orderedMessages);
 
         let users = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_USER');
         const currentUserCode = GennyBridge.getUser();
