@@ -57,7 +57,6 @@ class GennyMessagingConversation extends Component {
                 type='confirm'>
                 <p>Send</p>
             </GennyButton>
-=======
             {
                 this.state.messageText.length > 0 ?
                 <GennyButton
@@ -71,7 +70,6 @@ class GennyMessagingConversation extends Component {
                 </GennyButton>
                 : null
             }
->>>>>>> Stashed changes
         </div>;
     }
 
@@ -100,7 +98,7 @@ class GennyMessagingConversation extends Component {
             let messageText = messageTextAttribute.value;
             return (
                 <div className={`conversation-message ${creator == GennyBridge.getUser() ? 'sent' : 'received' }`}>
-                    { 
+                    {
                         creator != GennyBridge.getUser() && otherUser ?
                             <ImageView className='conversation-message-image' src={otherUser.attributes.PRI_IMAGE_URL} />
                         : null
@@ -150,7 +148,7 @@ class GennyMessagingConversation extends Component {
             }
             {
 
-                !messages || messages.length <= 0 ? 
+                !messages || messages.length <= 0 ?
                     <div className="conversation-messages-empty" position={[1,0]}>
                         No messages
                     </div>
@@ -201,7 +199,7 @@ class GennyMessagingConversation extends Component {
                 </div>
             );
         }
-        else if (window.getScreenSize() == 'sm') { 
+        else if (window.getScreenSize() == 'sm') {
             return this.renderMobileLayout(title, messages);
         }
         else {
