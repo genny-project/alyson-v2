@@ -1,3 +1,4 @@
+/* globals promisepay */
 import './inputPayment.scss';
 import React, { Component } from 'react';
 import { array, object, string } from 'prop-types';
@@ -63,6 +64,19 @@ class InputPayment extends Component {
       },
       amount: amount ? amount.value : ( this.props.amount ? this.props.amount :  null ),
       accounts: accountsAttribute ? JSON.parse(accountsAttribute.value) : ( this.props.accounts ? this.props.accounts : []),
+    });
+
+    /* Generate a device ID and grab IP address for the user */
+    promisepay.captureDeviceId( data => {
+      this.setState({
+        deviceID: data,
+      });
+    })
+
+    promisepay.getIPAddress( data => {
+      this.setState({
+        ipAddress: data,
+      })
     });
   }
 
