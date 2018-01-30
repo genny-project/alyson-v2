@@ -34,6 +34,11 @@
 
     &:hover {
       background: #000;
+
+      &.disabled {
+        background: lighten(#000, 80%);
+        cursor: not-allowed;
+      }
     }
   }
 
@@ -80,6 +85,28 @@
     .material-icons {
       color: #FFF;
       margin-left: 15px;
+    }
+  }
+
+  .confirm-btn {
+    background: #5cb85c;
+    margin-right: 0;
+    margin-left: auto;
+    color: #FFF;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 300ms ease background;
+
+    .material-icons {
+      color: #FFF;
+      margin-left: 15px;
+    }
+
+    &:hover {
+      background: lighten(#5cb85c, 10%);
     }
   }
 }
