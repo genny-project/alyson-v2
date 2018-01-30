@@ -24,7 +24,7 @@ class ProgressBar extends Component {
 
   render() {
 
-    const { className, progressCurrent, iconStart, iconProgress, iconEnd, style } = this.props;
+    const { className, progressCurrent, progressTotal, type, style, iconStart, iconEnd, iconProgress } = this.props;
     const componentStyle = { ...style, };
 
     const progressPercent = progressCurrent <= 100 ? progressCurrent : 100;

@@ -113,7 +113,7 @@ class LayoutLoader extends Component {
         }
 
       });
-
+     
       return layout;
   }
 
@@ -128,6 +128,7 @@ class LayoutLoader extends Component {
   }
 
   render() {
+
     const { layout, aliases } = this.props;
 
     let finalLayout = this.replaceAliasesIn(layout, aliases);

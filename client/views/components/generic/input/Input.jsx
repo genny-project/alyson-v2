@@ -304,6 +304,7 @@ class Input extends Component {
             );
             case 'Double':
             case 'Currency':
+            case 'org.javamoney.moneta.Money':
             return (
                 <InputNumbers
                     {...rest}
