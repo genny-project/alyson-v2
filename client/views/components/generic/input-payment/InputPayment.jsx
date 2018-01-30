@@ -1,6 +1,6 @@
 import './inputPayment.scss';
 import React, { Component } from 'react';
-import { array } from 'prop-types';
+import { array, object, string } from 'prop-types';
 import PaymentType from './payment-type';
 import PaymentMethod from './payment-method';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
@@ -19,6 +19,8 @@ class InputPayment extends Component {
 
   static propTypes = {
     accounts: array,
+    data: object,
+    amount: string,
   };
 
   static defaultProps = {
@@ -51,6 +53,7 @@ class InputPayment extends Component {
     const bankTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' );
     const cardTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' );
     const accountsAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_PAYMENT_METHODS' );
+    const amount = this.props.data ? BaseEntityQuery.getBaseEntityAttribute( this.props.data.targetCode, 'PRI_OWNER_INCGST' ) : null;
 
     this.setState({
       tokens: {
@@ -58,6 +61,7 @@ class InputPayment extends Component {
         bank: bankTokenAttribute ? bankTokenAttribute.value : null,
         card: cardTokenAttribute ? cardTokenAttribute.value : null,
       },
+      amount: amount ? amount.value : ( this.props.amount ? this.props.amount :  null ),
       accounts: accountsAttribute ? JSON.parse(accountsAttribute.value) : ( this.props.accounts ? this.props.accounts : []),
     });
   }
