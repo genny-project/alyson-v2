@@ -41,12 +41,12 @@ class BucketColumn extends Component {
         if(notification == 'next') this.props.goToNextBucket();
     }
 
-    addNewItem = () => {
+    // addNewItem = () => {
 
-        if(this.props.addNewItem) {
-            this.props.addNewItem(this);
-        }
-    }
+    //     if(this.props.addNewItem) {
+    //         this.props.addNewItem(this);
+    //     }
+    // }
 
     onExpandColumn = (code) => {
 
@@ -58,7 +58,7 @@ class BucketColumn extends Component {
 
     renderContent = (provided) => {
         const { title, items, showMovingOptions } = this.props;
-        
+
         return (
             <div ref={provided && provided.innerRef}
                 //style={getListStyle(snapshot.isDraggingOver)}
@@ -91,7 +91,7 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, groupId, canAddItem, goToPreviousBucket, goToNextBucket, } = this.props;
+        const { className, style, title, groupId, goToPreviousBucket, goToNextBucket, items} = this.props;
         let titleDiv = null;
         let isMobile = window.getScreenSize() == 'sm';
 
@@ -110,24 +110,23 @@ class BucketColumn extends Component {
                         />
                     : <div className='spacer prev'/>
                 }
-                {
-                    canAddItem ?
-                        <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} />
-                    : `${title}`
-                }
-                <Button
+                <IconSmall
                     style={{
-                        marginLeft: 'auto',
                         fontSize: '12px',
-                        width: '65px',
                         cursor: 'pointer',
-                        height: '30px'
                     }}
-                    buttonStyle={{ 'background': 'white' }}
+                    name='list'
                     onClick={() => this.onExpandColumn(this.props.groupId)}
-                >
-                    <span style={{color: 'rgb(130, 130, 130' }} >Expand</span>
-                </Button>
+                />
+                <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
+                <IconSmall
+                    style={{
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                    }}
+                    fa
+                    name='sort-amount-desc'
+                />
                 {
                     goToNextBucket ?
                         <IconSmall
@@ -144,24 +143,29 @@ class BucketColumn extends Component {
         }
         else {
             titleDiv =
-            <div>
-                <div className='spacer prev'/>
-                {
-                    canAddItem ? <IconSmall className="clickable bucket_add" name='add_circle' text={title} onClick={this.addNewItem} /> : `${title}`
-                }
-                <Button
+            <div style={{ justifyContent: 'space-between'}}>
+                <IconSmall
+                    style={{
+                        marginRight: 'auto',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                    }}
+                    fa
+                    name='list'
+                    onClick={() => this.onExpandColumn(this.props.groupId)}
+                />
+                <div style={{display: 'flex', alignItems: 'center'}} >
+                    <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
+                </div>
+                <IconSmall
                     style={{
                         marginLeft: 'auto',
                         fontSize: '12px',
-                        width: '65px',
                         cursor: 'pointer',
-                        height: '30px'
                     }}
-                    buttonStyle={{ 'background': 'white' }}
-                    onClick={() => this.onExpandColumn(this.props.groupId)}
-                >
-                    <span style={{color: 'rgb(130, 130, 130' }} >Expand</span>
-                </Button>
+                    fa
+                    name='sort-amount-desc'
+                />
             </div>;
         }
 
@@ -172,7 +176,7 @@ class BucketColumn extends Component {
                     {titleDiv}
                 </div>
 
-                { 
+                {
                     isMobile ?
                     this.renderContent() :
                     <Droppable droppableId={groupId}>
@@ -181,21 +185,24 @@ class BucketColumn extends Component {
                         )}
                     </Droppable>
                 }
-                
+
 
                 <div className="bucket-legend sticky">
-                    <Grid
-                        style={{padding: '5px'}}
-                        cols={['20px', {style:{flexGrow: 1, display: 'flex', alignItems: 'center'}}]}
-                        rows={[{style: {flexGrow: 1, paddingBottom: '5px'}},{style: {flexGrow: 1, paddingBottom: '5px'}},1]}
-                    >
-                        <Status position={[0,0]} color='urgent' style={{height: '15px' }}/>
-                        <span position={[0,1]} >Overdue. Immediate action required.</span>
-                        <Status position={[1,0]} color='warning' style={{ height: '15px' }}/>
-                        <span position={[1,1]} >Update. Action required.</span>
-                        <Status position={[2,0]} color='success' style={{ height: '15px' }}/>
-                        <span position={[2,1]} >No action required.</span>
-                    </Grid>
+                    <div className="bucket-legend-content">
+                        <h3>Action Legend</h3>
+                        <Grid
+                            style={{padding: '5px'}}
+                            cols={['20px', {style:{flexGrow: 1, display: 'flex', alignItems: 'center'}}]}
+                            rows={[{style: {flexGrow: 1, paddingBottom: '5px'}},{style: {flexGrow: 1, paddingBottom: '5px'}},1]}
+                        >
+                            <Status position={[0,0]} color='urgent' style={{height: '15px' }}/>
+                            <span position={[0,1]} >Overdue. Immediate action required.</span>
+                            <Status position={[1,0]} color='warning' style={{ height: '15px' }}/>
+                            <span position={[1,1]} >Update. Action required.</span>
+                            <Status position={[2,0]} color='success' style={{ height: '15px' }}/>
+                            <span position={[2,1]} >No action required.</span>
+                        </Grid>
+                    </div>
                 </div>
             </div>
         );

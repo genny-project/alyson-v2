@@ -13,9 +13,12 @@ class InputDatePicker extends Component {
     className: '',
     identifier: null,
     validationStatus: null,
-    defaultDateFormat: 'YYYY-MM-DD HH:mm',
-    defaultTimeFormat: 'HH:mm',
-    showTimeSelect: true
+    showTimeSelect: true,
+
+    dateTimeDisplayFormat: 'YYYY-MM-DD HH:mm',
+    dateDisplayFormat: 'YYYY-MM-DD',
+    timeDisplayFormat: 'HH:mm',
+
   }
 
   static propTypes = {
@@ -25,76 +28,186 @@ class InputDatePicker extends Component {
     validation: func,
     identifier: any,
     validationStatus: string,
-    showTimeSelect: bool,
-    handleOnChange: func,
-    value: string,
-    defaultDateFormat: string,
-    defaultTimeFormat: string,
     validationList: array,
+    value: string,
+    mandatory: bool,
+    showTimeSelect: bool,
+
     type: string,
-    mandatory: bool
+
+    dateTimeDisplayFormat: string,
+    dateDisplayFormat: string,
+    timeDisplayFormat: string,
+
+    handleOnChange: func,
+
   }
 
-  getStartDate() {
-    const { value, defaultDateFormat} = this.props;
-    return value ? moment(value, defaultDateFormat).format(defaultDateFormat) : moment().format(defaultDateFormat);
+  state = {
+    shouldValidate: true,
+    isMobile: window.getScreenSize() == 'sm',
+    currentValue: null,
+    lateSentValue: null,
   }
 
-  getMobileValues = (type) => {
-    if (type == 'date') return moment(this.getStartDate()).format('YYYY-MM-DD');
-    if (type == 'time') return moment(this.getStartDate()).format('HH:mm');
-  }
+  //setInitial Value
+  componentWillMount() {
+    const { value } = this.props;
 
-  handleChange = (date, noValidate) => {
-    const { validationList, validation, identifier, type, defaultDateFormat, handleOnChange } = this.props;
-    const value = ( type === 'java.time.LocalDate' ) ? moment(date).format( defaultDateFormat ) : moment(date).toISOString();
-    if (value) {
-      if(handleOnChange) handleOnChange(date);
-      if(validation && !noValidate) validation(value, identifier, validationList);
-    }    
-  }
-
-  handleChangeMobile = (event) => {
-    let date;
-    let time;
-
-    if (this.props.type != 'java.time.LocalDate' ) {
-      if (event.target.type == 'date') {
-        date = event.target.value;
-        time = this.getMobileValues('time');
-        let dateTime = date + ' ' + time;
-        this.handleChange(dateTime);
-      }
-      
-      if (event.target.type == 'time') {
-        date = this.getMobileValues('date');
-        time = event.target.value;
-        let dateTime = date + ' ' + time;
-
-        if (event.type == 'blur' || event.keyCode == '13') {
-          this.handleChange(dateTime);
-        } else {
-          this.handleChange(dateTime, true);
-        }
-      } 
-    } 
+    let initialValue;
+    if (typeof value == string) {
+      initialValue = moment().toISOString();
+      initialValue = this.convertToDisplayFormat(value);
+    }
     else {
-      date = event.target.value;
-      this.handleChange(date);
+      initialValue = moment().toISOString();
+      initialValue = this.convertToDisplayFormat(initialValue);
+    }
+    this.setState({
+      currentValue: initialValue,
+      lastSentValue: initialValue
+    });
+  }
+
+  componentWillReceiveProps( nextProps) {
+    if (nextProps.value != this.props.value) {
+      let newValue = this.convertToDisplayFormat(nextProps.value, 'dateTime');
+      this.setState({
+        currentValue: newValue
+      });
     }
   }
 
-  render() {
-    const { className, style, validationStatus, name, defaultDateFormat, type, defaultTimeFormat, mandatory, showTimeSelect } = this.props;
-    const componentStyle = { ...style, };
-    const startDate = this.getStartDate();
-    const isMobile = window.getScreenSize() === 'sm';
+  convertToDisplayFormat = (date, format) => {
+    const { dateTimeDisplayFormat, timeDisplayFormat, dateDisplayFormat } = this.props;
+    let displayFormat;
 
+    switch (format) {
+      case 'time' :
+        displayFormat = moment(date).format(timeDisplayFormat);
+      break;
+      case 'date':
+        displayFormat = moment(date).format(dateDisplayFormat);
+      break;
+      case 'dateTime':
+      default :
+        displayFormat = moment(date).format(dateTimeDisplayFormat);
+    }
+    return displayFormat;
+  }
+
+  convertToDataFormat = (date) => {
+    const { type } = this.props;
+    let dataFormat;
+    switch (type) {
+      case 'java.time.LocalDate' :
+        dataFormat = moment(date).format('YYYY-MM-DD');
+      break;
+      case 'java.time.LocalDateTime' :
+      default :
+        dataFormat = moment(date).format();
+    }
+    return dataFormat;
+  }
+
+  handleChangeMobile = (event) => {
+    const {type} = this.props;
+    const {currentValue} = this.state;
+
+    let date;
+    let time;
+
+    if (type != 'java.time.LocalDate' ) {
+
+      if (event.target.type == 'date') {
+
+        date = this.convertToDisplayFormat(event.target.value, 'date');
+        time = this.convertToDisplayFormat(currentValue, 'time');
+        let dateTime = date + ' ' + time;
+
+        this.setState({
+          shouldValidate: false
+        }, () => {
+          this.changeValueProp(dateTime);
+        });
+      }
+
+      else if (event.target.type == 'time') {
+
+        date = this.convertToDisplayFormat(currentValue, 'date');
+        time = this.convertToDisplayFormat(event.target.value, 'time');
+        let dateTime = date + ' ' + time;
+        
+        if (event.type == 'blur' || event.keyCode == '13') {
+
+          this.setState({
+            shouldValidate: true
+          }, () => {
+            this.changeValueProp(dateTime);
+          });
+        } else {
+
+          this.setState({
+            shouldValidate: false
+          }, () => {
+            this.changeValueProp(dateTime);
+          });
+
+        }
+      }
+    }
+    else {
+      date = this.convertToDisplayFormat(event.target.value, 'date');
+      this.changeValueProp(date );
+    }
+  }
+
+  handleBlur = (value) => {
+    this.setState({
+      lastSentTime: null
+    }, () => {
+      this.changeValueProp(value);
+    });
+  }
+
+  changeValueProp = (value) => {
+    const { handleOnChange, validation } = this.props;
+    const { shouldValidate, lastSentValue, isMobile } = this.state;
+    let sentValue = this.convertToDataFormat(value);
+
+    handleOnChange(sentValue);
+
+    if (validation && shouldValidate) {
+      if (sentValue != lastSentValue || isMobile ) {
+        this.validateDate(sentValue);
+      }
+    }
+
+    this.setState({
+      lastSentValue: sentValue
+    });
+  }
+
+  validateDate = (value) => {
+    const { validation, identifier, validationList} = this.props;
+    validation(value, identifier, validationList);
+  }
+
+  render() {
+    const { className, style, validationStatus, name, type, mandatory, showTimeSelect, dateTimeDisplayFormat, dateDisplayFormat, timeDisplayFormat,  } = this.props;
+    const { currentValue, isMobile } = this.state;
+    const componentStyle = { ...style, };
+
+    const dateTime = this.convertToDisplayFormat(currentValue, 'dateTime');
+    const dateWeb = this.convertToDisplayFormat(currentValue, 'date');
+    const dateMobile = this.convertToDisplayFormat(currentValue, 'date');
+    const timeMobile = this.convertToDisplayFormat(currentValue, 'time');
+  
     return (
       <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
         { name ? <div className='input-header'>
           { name && <Label className="input-date-picker-label" text={name} /> }
-          { mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
+          { mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : null} text="*  required" /> : null}
         </div> : null }
         {
           isMobile ?
@@ -102,26 +215,29 @@ class InputDatePicker extends Component {
               <input
                 type='date'
                 onChange={this.handleChangeMobile}
-                value={this.getMobileValues('date')}
+                value={dateMobile}
               />
-              { type == 'java.time.LocalDate' ? null : 
+              { type == 'java.time.LocalDate' ? null :
                 <input
                   type='time'
                   onChange={this.handleChangeMobile}
                   onBlur={this.handleChangeMobile}
                   onKeyDown={this.handleChangeMobile}
-                  value={this.getMobileValues('time')}
-                /> 
+                  value={timeMobile}
+                />
               }
             </div>
-          
+
           : (<DatePicker
             className={`${validationStatus} input-date-picker-main`}
             calendarClassName=""
-            dateFormat={defaultDateFormat}
-            timeFormat={defaultTimeFormat}
-            selected={startDate ? moment(startDate, defaultDateFormat): null}
-            onChange={this.handleChange}
+
+            dateFormat={(type == 'java.time.LocalDateTime') ? dateTimeDisplayFormat : dateDisplayFormat }
+            timeFormat={timeDisplayFormat}
+            selected={(type == 'java.time.LocalDateTime') ? moment(dateTime) : moment(dateWeb) }
+            
+            onChange={this.changeValueProp}
+
             peekNextMonth
             showMonthDropdown
             showYearDropdown

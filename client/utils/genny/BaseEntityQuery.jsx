@@ -18,7 +18,7 @@ class BaseEntityQuery {
 
                 // order by weight if found in links
                 let weight = item.weight;
-                if(rootEntity && rootEntity.originalLinks) {
+                if(rootEntity != null && rootEntity.originalLinks) {
 
                     let currentLinks = rootEntity.originalLinks.filter(x => {
                         return x.link.targetCode == item.code;
@@ -34,7 +34,6 @@ class BaseEntityQuery {
             }
 
             return false;
-
         });
 
         if(items.length == 0) {
@@ -47,7 +46,9 @@ class BaseEntityQuery {
 
                 // set dummy value so we wont call this again
                 relationships[code]['DUMMY'] = {
-                    hidden: true
+                    hidden: true,
+                    weight: 0,
+                    type: "BaseEntity" // do not remove
                 };
 
                 GennyBridge.sendTVEvent('TV_EXPAND', {
@@ -60,13 +61,17 @@ class BaseEntityQuery {
         return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
     }
 
-    static getLinkedBaseEntities = (baseEntityCode, linkCode) => {
+    static getLinkedBaseEntities = (baseEntityCode, linkCode, excludingLinks) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
 
         if(be && be.links && be.links[linkCode]) {
 
             return be.links[linkCode].reduce((existingBes, link) => {
+
+                if(excludingLinks && excludingLinks.includes(link.linkValue)) {
+                    return existingBes.sort((x,y) => x.weight > y.weight);
+                }
 
                 if(link.targetCode && link.weight > 0) {
                     let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
@@ -107,11 +112,41 @@ class BaseEntityQuery {
         return null;
     }
 
-    static getBaseEntitiesForLinkCode = (baseEntityCode) => {
+    static getBaseEntityParent(childCode, group) {
+
+        const relationships = group || store.getState().baseEntity.relationships;
+
+        const groupKeys = Object.keys(relationships);
+        for (var i = 0; i < groupKeys.length; i++) {
+
+            const groupKey = groupKeys[i]
+            const group = relationships[groupKey];
+
+            let childKeys = Object.keys(group);
+            for (var j = 0; j < childKeys.length; j++) {
+
+                const childKey = childKeys[j]
+                const child = group[childKey];
+
+                if(child.type == "BaseEntity") {
+                    if(childKey == childCode) {
+                        return BaseEntityQuery.getBaseEntity(groupKey);
+                    }
+                }
+                else {
+                    return BaseEntityQuery.getBaseEntityParent(childCode, group);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    static getBaseEntitiesForLinkCode = (baseEntityCode, excludingLinks) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         if(be && be.links) {
-            return Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link))[0];
+            return Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, excludingLinks))[0];
         }
 
         return [];

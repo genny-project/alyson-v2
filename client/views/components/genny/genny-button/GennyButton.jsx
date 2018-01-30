@@ -5,6 +5,7 @@ import { Button } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
 class GennyButton extends Component {
+
   static defaultProps = {
     buttonCode: null,
     value: null,
@@ -19,12 +20,20 @@ class GennyButton extends Component {
   };
 
   handleClick = () => {
+
     if(this.props.buttonCode) {
+
+      this.props.value.userCode = GennyBridge.getUser();
       let btnValue = (this.props.value && this.props.value.constructor == String) ? this.props.value : JSON.stringify(this.props.value);
+
       GennyBridge.sendBtnClick('BTN_CLICK', {
         code: this.props.buttonCode,
         value: btnValue || null,
       });
+
+      if(this.props.onClick) {
+          this.props.onClick(this);
+      }
     }
   }
 

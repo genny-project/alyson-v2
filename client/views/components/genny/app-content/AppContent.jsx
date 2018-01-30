@@ -1,8 +1,9 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap } from 'views/components';
+import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import { BaseEntityQuery } from 'utils/genny';
 
 class AppContent extends Component {
 
@@ -44,9 +45,23 @@ class AppContent extends Component {
             else if (layout.currentView.code == 'MAP_VIEW') {
                 layoutContent = <GennyMap root={layout.currentView.dataCode}/>;
             }
+            else if (layout.currentView.code == "LOADING") {
+                layoutContent = <Spinner text={layout.currentView.dataCode} />
+            }
+            // else if (layout.currentView.code == 'MAP_VIEW') {
+            //     layoutContent = (
+            //         <div style={{ display: 'flex', height: '100%', weight: '100%'}}>
+            //             <GennyMap root={layout.currentView.dataCode}/>
+            //             <GennyList root={layout.currentView.dataCode} />
+            //         </div>
+            //     );
+            // }
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
+
+            const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
+            const parentCode = parent ? parent.code : null;
+            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
         }
 
         layoutContent = layoutContent || children;

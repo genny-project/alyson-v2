@@ -106,6 +106,11 @@ class InputAddress extends Component {
     }
 
     onChange = (newAddress) => {
+
+        if(this.props.onFocus) {
+            this.props.onFocus()
+        }
+
         this.setState({
             value: newAddress,
             hasChanges: true
@@ -113,6 +118,11 @@ class InputAddress extends Component {
     }
 
     onBlur = (address) => {
+
+        if(this.props.onBlur) {
+            this.props.onBlur()
+        }
+
         const { validationList, validation, identifier } = this.props;
         const value = JSON.stringify(address);
         if(validation) validation(value, identifier, validationList);
@@ -136,6 +146,7 @@ class InputAddress extends Component {
 
         const classes = {
             root: 'input-address-search',
+            autocompleteContainer: 'address-results-container'
         };
 
         if (window.getScreenSize() == 'sm') {
@@ -172,14 +183,14 @@ class InputAddress extends Component {
 
     render() {
 
-        const { name, mandatory, validationStatus } = this.props;
+        const { name, mandatory, validationStatus, className } = this.props;
         const { showMap, address, coords  } = this.state;
 
         return (
-            <div className="input input-address">
+            <div className={`input input-address ${className} ${validationStatus}` }>
                 <div className="input-header">
                     {name ? <Label text={name} /> : null }
-                    {mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
+                    {mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : null} text="*  required" /> : null}
                     <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
                 </div>
                 {window.google ? this.renderInput() : <p>Loading...</p>}

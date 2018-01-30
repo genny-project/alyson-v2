@@ -1,18 +1,39 @@
 @import 'client/styles/colors';
 
 .input-address {
+	
 	.input-header {
     	display: flex;
     	align-items: center;
     	justify-content: flex-start;
     	margin-bottom: 3px;
+	}
+	
+	&.success .input-address-search  {
+        
+        > input {
+			color: $success;
+			border: 1px solid $success;
+        }
+    }
+
+    &.error .input-address-search  {
+        
+        > input {
+			color: $error;
+			border: 1px solid $error
+        }
     }
 }
 
 .input-address-search {
   position:relative;
   width: 100%;
-  z-index: 11;
+  
+  .address-results-container {
+	position:absolute;
+	z-index: 15;
+  }
 
   > input {
 
@@ -45,5 +66,7 @@
 	        color: black;
 	    }
 	}
+
+	
 
 }

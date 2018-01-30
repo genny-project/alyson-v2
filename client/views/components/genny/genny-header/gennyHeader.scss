@@ -2,6 +2,14 @@
 
 .genny-header {
 
+    .dropdown-content {
+        left: -50%;
+
+        .dropdown-tag {
+            left: 75% !important;
+        }
+    }
+
     .dropdown-profile {
 
         > li {

@@ -2,7 +2,7 @@ import './list.scss';
 import React, { Component } from 'react';
 import { Pagination } from 'views/components';
 import { ListItem } from './list-item';
-import { string, bool, number, object, any, array } from 'prop-types';
+import { string, bool, number, object, any, array, func } from 'prop-types';
 
 class List extends Component {
 
@@ -29,19 +29,20 @@ class List extends Component {
     countStyle: object,
     header: any,
     data: array,
+    onItemClick: func
   }
 
   state = {
   }
 
   renderMain = (data, itemsPerPage, hideNav) => {
-    const { itemHeight, itemWidth, itemGap } = this.props;
+    const { itemHeight, itemWidth, itemGap, onItemClick } = this.props;
 
     if (data && data.length > 0) {
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
           {data.map((item, index) => {
-            return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} />
+            return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick}/>;
           })}
         </Pagination>
       );

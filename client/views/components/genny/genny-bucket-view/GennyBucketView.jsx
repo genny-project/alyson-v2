@@ -95,17 +95,13 @@ class GennyBucketView extends PureComponent {
         bes.forEach(be => {
 
             // we get the sublayout code from the BE
-
-            //TODO : get layout code from BE
-            //let layout_code = BaseEntityQuery.getBaseEntityAttribute(be, "PRI_LAYOUT");
-            //layout_code = layout_code ? layout_code.value : null;
-
             let linkToParent = BaseEntityQuery.getLinkToParent(group.code, be.code);
-
-            let color = this.getBaseEntityColor(linkToParent.link);
+            let color = linkToParent ? this.getBaseEntityColor(linkToParent.link) : "#5cb85c";
+            // be.attributes["STATUS_COLOR"] = {
+            //     value: color ? color : "#5cb85c"
+            // };
 
             let layout_code = 'card';
-
             let sublayout = this.props.sublayout[layout_code];
 
             children.push(
@@ -134,7 +130,7 @@ class GennyBucketView extends PureComponent {
 
             let canAddItem = false;
             if(group.attributes) {
-                canAddItem = Object.keys(group.attributes).filter(x => x == "ADD_ITEM").length > 0;
+                canAddItem = Object.keys(group.attributes).filter(x => x == 'ADD_ITEM').length > 0;
             }
 
             buckets.push({
@@ -152,7 +148,7 @@ class GennyBucketView extends PureComponent {
     getBaseEntityColor = (link) => {
 
         if(!link) return;
-        
+
         if( link.rule == 'override:parent' || !link.rule ) {
             return link.parentColor;
         } else if ( link.rule == 'override:child' ) {

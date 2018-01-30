@@ -22,6 +22,9 @@ export function grabValue(item) {
     else if (item.valueString) {
         value = item.valueString;
     }
+    else if(item.valueBoolean != null) {
+        value = item.valueBoolean;
+    }
 
     return value;
 }

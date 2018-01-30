@@ -1,15 +1,12 @@
 @import 'client/styles/colors';
 
 .input-numbers {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+
 
 	.input-header {
     	display: flex;
     	align-items: center;
 		justify-content: flex-start;
-		flex-shrink: 0;
-		margin-right: 10px;
+		margin-bottom: 3px;
 	}
 }

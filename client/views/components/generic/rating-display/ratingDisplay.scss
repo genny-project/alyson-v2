@@ -1,0 +1,12 @@
+@import 'client/styles/colors';
+
+.rating-display{
+
+    height: fit-content;
+    width: fit-content;
+    padding: 5px;
+
+    .rating-display-container {
+        display: flex;
+    }
+}

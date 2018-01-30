@@ -19,92 +19,115 @@ class GennyMap extends Component {
     state = {
     }
 
-    getMarkers = (baseEntities) => {
-        console.log('==================');
-        // map baseEntities
+    getDataFromCode = (root) => {
         
-        let markers = [];
-        baseEntities.map(be => {
-
-            //for each baseEntity
-            let attributes = be.attributes;
-            //get attributes
-            Object.keys(attributes).map(attribute_key => {
-
-                if (attribute_key == 'PRI_CURRENT_POSITION') {
-
-                    console.log(attribute_key, attributes[attribute_key]);
-                    markers.push({
-                        lat: attributes[attribute_key].lat,
-                        lng: attributes[attribute_key].lng
-                    });
-                }
-            });
-        });
-
-        return markers;
+        let data = BaseEntityQuery.getEntityChildren(root);
+        if(!data || data.length == 0) { return []; }
+        
+        const doEntitiesHaveAttribute = this.checkChildrenForAttributes(data);
+        
+        console.log(doEntitiesHaveAttribute);
+        if (doEntitiesHaveAttribute) {
+            let mapData = this.getMapData(data);
+            console.log(mapData);
+            return mapData;
+        }
+        else {
+            return this.getDataFromCode(data);
+        }
     }
 
-    getRoutes = (baseEntities) => {
-        console.log('==================');
-        // map baseEntities
+    checkChildrenForAttributes = (data) => {
         
-        let routes = [];
-        baseEntities.map(be => {
-
-            //for each baseEntity
-            let attributes = be.attributes;
-            //get attributes
-
-            let origin = {};
-            let dest = {};
-
-            console.log(Object.keys(attributes));
-            
-            Object.keys(attributes).map(attribute_key => {
-
-                console.log(attribute_key, attributes[attribute_key]);
-                    
-
-                //PRI_PICKUP_ADDRESS_SUBURB + PRI_PICKUP_ADDRESS_STATE
-                // OR
-                //PRI_PICKUP_ADDRESS_FULL
-
-                // AND
-
-                //PRI_DROPOFF_ADDRESS_SUBURB + PRI_DROPOFF_ADDRESS_STATE
-                // OR
-                //PRI_DROPOFF_ADDRESS_FULL
-
-                if (attribute_key == 'PRI_PICKUP_ADDRESS_SUBURB') {
-                    
-                }
-            });
-
-            routes.push({
-                lat: attributes[attribute_key].lat,
-                lng: attributes[attribute_key].lng
-            });
+        let hasAttributes = false;
+        
+        data.map(baseEntity => {
+            let attributes = baseEntity.attributes;
+            if (attributes) {
+                Object.keys(attributes).map(attribute_key => {
+                    switch(attribute_key) {
+                        case 'PRI_PICKUP_ADDRESS_SUBURB':
+                        case 'PRI_PICKUP_ADDRESS_STATE':
+                        case 'PRI_DROPOFF_ADDRESS_SUBURB':
+                        case 'PRI_DROPOFF_ADDRESS_STATE':
+                        case 'PRI_CURRENT_POSITION':
+                            hasAttributes = true;
+                            break;
+                        default:
+                            return null;
+                    }
+                });
+            }
         });
 
-        return routes;
+        return hasAttributes;
+    }
+
+    getMapData = (baseEntities) => {
+        let markers = [];
+        let routes = [];
+        baseEntities.map(baseEntity => {
+            
+            let attributes = baseEntity.attributes;
+
+            let originSuburb;
+            let originState;
+            let destSuburb;
+            let destState;
+            
+            if (attributes){
+                Object.keys(attributes).map(attribute_key => {
+
+                    switch(attribute_key) {
+                        case 'PRI_PICKUP_ADDRESS_SUBURB':
+                            originSuburb = attributes[attribute_key].value;
+                            break;
+                        case 'PRI_PICKUP_ADDRESS_STATE':
+                            originState = attributes[attribute_key].value;
+                            break;
+                        case 'PRI_DROPOFF_ADDRESS_SUBURB':
+                            destSuburb = attributes[attribute_key].value;
+                            break;
+                        case 'PRI_DROPOFF_ADDRESS_STATE':
+                            destState = attributes[attribute_key].value;
+                            break;
+                        case 'PRI_CURRENT_POSITION':
+                            markers.push({
+                                lat: attributes[attribute_key].lat,
+                                lng: attributes[attribute_key].lng
+                            });
+                            break;
+                        default:
+                            return null;
+                    }
+                });
+                let originAddress = originSuburb + ', ' + originState;
+                let destAddress = destSuburb + ', ' + destState;
+
+                routes.push({
+                    origin: originAddress,
+                    dest: destAddress
+                });
+            }
+        });
+
+        return {markers: markers, routes: routes};
     }
 
     render() {
 
         const { root, style, mapStyle, ...rest } = this.props;
         const componentStyle = { ...style};
-        let data = BaseEntityQuery.getEntityChildren(root);
-        let markers = this.getMarkers(data);
-        let routes = this.getRoutes(data);
+        let mapData = this.getDataFromCode(root);
+        console.log(mapData);
         
         return (
             <div className="genny-map" style={componentStyle}>
                 <MapDisplay
                     {...rest}
                     style={mapStyle}
-                    markers={markers}
-                    routes={routes}
+                    markers={mapData && mapData.markers}
+                    routes={mapData && mapData.routes}
                 />
             </div>
         );

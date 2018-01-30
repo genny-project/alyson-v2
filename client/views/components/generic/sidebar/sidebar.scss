@@ -18,21 +18,46 @@
 		justify-content: center;
 		align-items: center;
 		transition-delay: 2s;
+		
+		.imageView {
+			opacity: 100;
+			transition: 300ms ease;
+		}
 	}
 
 	.sidebar-toggle-icon {
-		left: 260px;
-		top: 10px;
+		left: 252px;
+		top: 14px;
 		position: absolute;
 		transition: 300ms ease;
+		i {
+			color: white;
+		}
 	}
 
 	&.closed:not(.sm) {
-		width: 0;
+		width: 64px;
 		overflow: hidden;
+
+		.tree-view-child {
+			display: none;
+		}
 	
+		.tree-view-item-content {
+
+			.tree-view-text {
+				opacity: 0;
+			}
+		}
+
 		.sidebar-toggle-icon {
-			left: 15px;
+			left: 16px;
+		}
+
+		.sidebar-image {
+			.imageView {
+				opacity: 0;
+			}
 		}
 	}
 
@@ -41,7 +66,15 @@
 		overflow: hidden;
 	
 		.sidebar-toggle-icon {
-			left: 15px;
+			left: 16px;
+		}
+	}
+
+	&.sm {
+		.grid {
+			.row:nth-child(2){
+				-webkit-overflow-scrolling: touch;
+			}
 		}
 	}
 }

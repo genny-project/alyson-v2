@@ -24,12 +24,12 @@ class InputEmail extends Component {
     render() {
 
         const { value, ...rest } = this.props;
-        
+
         return (
             <div className="input input-email">
                 <InputText {...rest} style={{ width: '100%' }} inputMask={emailMask} value={value} />
             </div>
-        )
+        );
     }
 }
 

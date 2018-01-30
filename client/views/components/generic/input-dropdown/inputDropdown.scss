@@ -1,18 +1,37 @@
 @import 'client/styles/colors';
 
 .input-dropdown {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
 
-    &.success > .dropdown-container > .input-dropdown-button{
-    	color: $success;
-	    border: 1px solid $success;
+    .input-header {
+    	display: flex;
+    	align-items: center;
+    	justify-content: flex-start;
+    	margin-bottom: 3px;
     }
 
-    &.error > .dropdown-container > .input-dropdown-buttont{
-    	color: $error;
-	    border: 1px solid $error;
+    &.success > .dropdown-container {
+        
+        > .input-dropdown-field input {
+    	    border: 1px solid $success;
+        }
+
+        > .input-dropdown-button{
+            color: $success;
+        }
+    }
+
+    &.error > .dropdown-container {
+        
+        > .input-dropdown-field input {
+            border: 1px solid $error
+        }
+        
+        > .input-dropdown-button{
+            color: $error;
+        }
     }
 
     .dropdown-label {
@@ -20,7 +39,6 @@
     }
     .dropdown-container {
         position: relative;
-        max-width: 400px;
         width: 100%;
         
         .input-dropdown-field {

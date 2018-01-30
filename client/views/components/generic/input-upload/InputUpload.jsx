@@ -7,14 +7,20 @@ import Webcam from 'uppy/lib/plugins/Webcam';
 import Dashboard from 'uppy/lib/plugins/Dashboard';
 import prettierBytes from 'prettier-bytes';
 import classNames from 'classnames';
+import { Label, SubmitStatusIcon, IconSmall } from 'views/components';
+
 
 class InputUpload extends Component {
   static defaultProps = {
     className: '',
     maxNumberOfFiles: 0,
     autoProceed: true,
-    icon: 'add',
+    icon: 'add_circle',
     defaultValue: [],
+    name: '',
+    mandatory: false,
+    identifier: null,
+    validationStatus: null,
   }
 
   static propTypes = {
@@ -29,6 +35,12 @@ class InputUpload extends Component {
     validation: func,
     validationList: array,
     identifier: any,
+    style: object,
+    mandatory: bool,
+    isHorizontal: bool,
+    hideHeader: bool,
+    validationStatus: string,
+    name: string,
   }
 
   state = {
@@ -227,13 +239,22 @@ class InputUpload extends Component {
   }
 
   render() {
-    const { className, icon, label } = this.props;
+    const { className, style, icon, name, mandatory, validationStatus, isHorizontal, hideHeader, } = this.props;
+    const componentStyle = { ...style, };
     const { files, error } = this.state;
     const validFiles = files && files.length ? files.filter( file => this.isValidFile( file )) : [];
 
     return (
       <div className={classNames( 'input', 'input-file', className, {})}>
-        {label && <label>{label}</label>}
+        {
+          !isHorizontal && !hideHeader ? 
+            <div className="input-header">
+              {name ? <Label text={name} /> : null}
+              {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : null} text="*  required" /> : null}
+              <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
+            </div> :
+          null
+        }
         {validFiles && validFiles.length > 0 && (
 
 
@@ -267,13 +288,11 @@ class InputUpload extends Component {
           })
         )}
 
-        <button type="button" onClick={this.handleOpenModal}>
-          <div>
-            <i className="material-icons">{icon}</i>
-          </div>
+        <div className='input-file-main' type="button" onClick={this.handleOpenModal}>
+            <IconSmall className='input-file-icon' name={icon} />
 
-          <p>Upload a{validFiles.length > 0 && 'nother'} file or image</p>
-        </button>
+          <span>Upload a{validFiles.length > 0 && 'nother'} file or image</span>
+        </div>
       </div>
     );
   }

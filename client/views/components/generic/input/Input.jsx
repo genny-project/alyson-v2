@@ -9,6 +9,7 @@ import {
     InputDatePicker,
     InputDropdown,
     InputEmail,
+    InputRating,
     InputSlider,
     InputText,
     InputTextarea,
@@ -36,7 +37,7 @@ class Input extends Component {
         onClick: func,
         onClickEvent: func,
         style: object,
-        options: object,
+        options: array,
         data: any,
         mandatory: bool,
     }
@@ -44,6 +45,7 @@ class Input extends Component {
     state = {
         validationStatus: this.props.value ? 'success' : null,
         value: this.props.value || '',
+        isFocused: false,
     }
 
     componentDidMount() {
@@ -51,7 +53,7 @@ class Input extends Component {
     }
 
     shouldComponentUpdate() {
-        return true;
+        return !this.state.isFocused;
     }
 
     componentWillUpdate() {
@@ -82,8 +84,7 @@ class Input extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-
-        if(this._ismounted) {
+        if(this._ismounted && !this.state.isFocused) {
 
             this.setState({
                 value: newProps.value
@@ -138,6 +139,14 @@ class Input extends Component {
         }
     }
 
+    onFocus = () => {
+        this.state.onFocus = true;
+    }
+
+    onBlur = () => {
+        this.state.onFocus = false;
+    }
+
     renderInput() {
 
         const { ...rest } = this.props;
@@ -165,6 +174,10 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
+                    defaultDateFormat='YYYY-MM-DD HH:mm'
+                    displayDateFormat='DD-MM-YYYY HH:mm'
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             case 'java.time.LocalDate':
@@ -177,6 +190,9 @@ class Input extends Component {
                     handleOnChange={this.handleOnChange}
                     showTimeSelect={false}
                     defaultDateFormat='YYYY-MM-DD'
+                    displayDateFormat='DD-MM-YYYY'
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             case 'TextArea':
@@ -185,6 +201,8 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             case 'java.lang.Boolean':
@@ -198,6 +216,7 @@ class Input extends Component {
                 />
             );
             case 'dropdown':
+            //console.log(this.props.value);
             return (
                 <InputDropdown
                     {...rest}
@@ -206,6 +225,8 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     value={this.state.value}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             case 'dropdownmultiple':
@@ -215,6 +236,8 @@ class Input extends Component {
                     items={items}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             case 'slider':
@@ -258,6 +281,8 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             case 'Address':
@@ -266,6 +291,8 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             case 'Double':
@@ -277,6 +304,9 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     prefix={this.props.type == 'Currency' ? '$' : ''}
+                    handleOnChange={this.handleOnChange}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             case 'Email':
@@ -285,6 +315,18 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    value={this.state.value}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                />
+            );
+            case 'Rating':
+            return (
+                <InputRating
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    handleOnChange={this.handleOnChange}
                     value={this.state.value}
                 />
             );
@@ -305,6 +347,8 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     handleOnChange={this.handleOnChange}
                     value={this.state.value}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
         }

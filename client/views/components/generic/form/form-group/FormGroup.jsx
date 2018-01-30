@@ -51,9 +51,9 @@ class FormGroup extends Component {
           <Input
             ref={inputRef => this.inputRefs.push(inputRef)}
             key={index} {...child}
-            style={isHorizontal && !this.state.isMobile ?
-              { 'marginLeft': '5px', 'marginRight': '5px', 'marginBottom': '10px', 'width': 'calc(50% - 10px)' } :
-              { 'marginBottom': '5px' }}
+            style={isHorizontal && !this.state.isMobile && data.length > 1 ?
+              { marginLeft: '5px', marginRight: '5px', marginBottom: '10px', width: 'calc(50% - 10px)' } :
+              { marginBottom: '10px', width: '100%' }}
             />
           );
         }
@@ -83,6 +83,7 @@ class FormGroup extends Component {
     }
 
     renderFormButtons(buttons) {
+      
       const { animatedButtons } = this.state;
 
       return (
@@ -92,13 +93,13 @@ class FormGroup extends Component {
               return (
                 <Button
                   key={index}
-                  style={{ 'margin' : '10px' }}
+                  style={{ margin : `10px ${index < buttons.length - 1 ? '10px' : '0'} 10px 0` }}
                   position={[0, index]}
                   disabled={animatedButtons[button]}
                   className={`form-button ${button} ${animatedButtons[button] ? 'animate' : ''}`}
                   onClick={() => this.onSubmitClick(button)}>
                   {
-                    <div className={'spinner'} />
+                    <div className={'button-spinner'} />
                   }
                 </Button>
               );

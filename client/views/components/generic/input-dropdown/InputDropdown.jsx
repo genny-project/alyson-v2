@@ -2,7 +2,7 @@ import './inputDropdown.scss';
 import React, { Component } from 'react';
 import { string, object, func, any, bool, array } from 'prop-types';
 import Downshift from 'downshift';
-import { Label, IconSmall } from 'views/components';
+import { Label, IconSmall, SubmitStatusIcon } from 'views/components';
 
 class InputDropdown extends Component {
 
@@ -23,19 +23,45 @@ class InputDropdown extends Component {
     validationStatus: string,
     isSingleSelect: bool,
     ask: array,
-    default_value: string,
     validationList: array,
     items: array,
     name: string,
+    value: any,
+    isHorizontal: bool,
+    hideHeader: bool,
+    mandatory: bool,
   }
 
   state = {
     ask: this.props.ask ? this.props.ask : false,
-    value: this.props.default_value,
     selectedItems: [],
     isOpen: false,
     currentValue: '',
     lastSentValue: null
+  }
+
+  componentDidMount() {
+
+    //TODO works only with singleselected
+
+    let filter = this.props.items.filter(item => item.code == this.props.value)[0];
+    this.setState({
+      selectedItems: filter && filter.name ? [filter.name] : []
+    });
+  }
+
+  componentWillReceiveProps( nextProps) {
+
+    //TODO works only with singleselected
+
+    if (nextProps.value != this.props.value) {
+      let filter = this.props.items.filter(item => item.code == nextProps.value)[0];
+
+      //console.log(filter);
+      this.setState({
+        selectedItems: filter && filter.name ? [filter.name] : []
+      });
+    }
   }
 
   handleChange = selectedItem => {
@@ -89,6 +115,17 @@ class InputDropdown extends Component {
 
   onToggleMenu = () => {
 
+    if(this.state.isOpen) {
+        if(this.props.onBlur) {
+            this.props.onBlur()
+        }
+    }
+    else {
+        if(this.props.onFocus) {
+            this.props.onFocus()
+        }
+    }
+
     this.setState(({isOpen}) => ({
       isOpen: !isOpen,
     }), () => {
@@ -130,8 +167,7 @@ class InputDropdown extends Component {
     });
   }
 
-handleValidation = () => {
-
+  handleValidation = () => {
     const { validationList, validation, identifier, isSingleSelect } = this.props;
     const { selectedItems, lastSentValue } = this.state;
 
@@ -205,7 +241,7 @@ handleValidation = () => {
 
   render() {
 
-    const { className, style, name, validationStatus } = this.props;
+    const { className, style, name, validationStatus, hideHeader, isHorizontal, mandatory } = this.props;
     let { items } = this.props;
     const { selectedItems } = this.state;
     const componentStyle = { ...style, };
@@ -214,7 +250,15 @@ handleValidation = () => {
 
     return (
       <div className={`input input-dropdown ${className} ${validationStatus}` } style={componentStyle}>
-        {name ? <Label className="dropdown-label" text={name} /> : null }
+        {
+        !isHorizontal && !hideHeader ?
+          <div className="input-header">
+            {name ? <Label text={name} /> : null}
+            {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : null} text="*  required" /> : null}
+            <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
+          </div> :
+        null
+      }
         <Downshift
           isOpen={this.state.isOpen}
           selectedItem={selectedItems}

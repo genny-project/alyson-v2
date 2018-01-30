@@ -7,208 +7,207 @@ import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 
 class GennyTreeView extends PureComponent {
 
-  constructor(props) {
-    super(props);
-  }
-
-  static propTypes = {
-    items: array,
-    baseEntity: object,
-    isHorizontal: bool,
-  };
-
-  state = {
-    tree: {},
-    horizontalItems: {}
-  }
-
-  componentDidUpdate() {
-      //let identifier = this.props.key || this.props.root;
-      //store.storeState(identifier, this.state);
-  }
-
-  componentDidMount() {
-
-      // let identifier = this.props.key || this.props.root;
-      // if(identifier && this.props.componentState) {
-      //
-      //   if(this.props.componentState[identifier]) {
-      //
-      //       // ask for all the bes
-      //       // this.getNeededDataFor(this.props.componentState[identifier]);
-      //
-      //       // update state
-      //       this.setState(this.props.componentState[identifier]);
-      //   }
-      // }
-  }
-
-  onExpand = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
-
-    const { tree } = this.state;
-
-    /* Now check whether this item is opened or closed in the tree */
-    if (!tree[item.code]) {
-      /* Item is closed */
-      this.openItem(item);
-    } else {
-      /* Item is open */
-      this.closeItem(item);
+    constructor(props) {
+        super(props);
     }
-  }
 
-  openItem = (item) => {
+    static propTypes = {
+        items: array,
+        baseEntity: object,
+        isHorizontal: bool,
+    };
 
-    /* Send the Genny event */
-    this.sendData('TV_EXPAND', {
-      code: 'TV1',
-      value: item.code
-    }, item.code);
+    state = {
+        tree: {},
+        horizontalItems: {}
+    }
 
-    /* Set this item to be open in the tree */
-    this.setState({
-      tree: {
-        ...this.state.tree,
-        [item.code]: true,
-      }
-    });
-  }
+    componentDidUpdate() {
+        //let identifier = this.props.key || this.props.root;
+        //store.storeState(identifier, this.state);
+    }
 
-  closeItem = (item) => {
-    /* Close the item */
-    this.setState({
-      tree: {
-        ...this.state.tree,
-        [item.code]: false,
-      }
-    });
-  }
+    componentDidMount() {
 
-  onClick = (clickedItem) => {
+        // let identifier = this.props.key || this.props.root;
+        // if(identifier && this.props.componentState) {
+        //
+        //   if(this.props.componentState[identifier]) {
+        //
+        //       // ask for all the bes
+        //       // this.getNeededDataFor(this.props.componentState[identifier]);
+        //
+        //       // update state
+        //       this.setState(this.props.componentState[identifier]);
+        //   }
+        // }
+    }
 
-      let item = null;
-      if(this.props.isHorizontal) {
-          item = this.state.horizontalItems[clickedItem];
-      }
-      else {
-          item = clickedItem;
-      }
+    onExpand = (item) => {    /* Determine whether we need to open or close, first get the state of the tree */
 
-      // update the current path within the store.
-      let parentCode = item.parentCode;
-      let bes = store.getState().baseEntity.data;
+        const { tree } = this.state;
 
-      let path = '/' + item.code;
-      let currentPath = item.name;
+        /* Now check whether this item is opened or closed in the tree */
+        if (!tree[item.code]) {
+            /* Item is closed */
+            this.openItem(item);
+        } else {
+            /* Item is open */
+            this.closeItem(item);
+        }
+    }
 
-      // we lookup for the Be corresponding to the parentCode and check if it has a parent.
-      // for each parent we find we keep looping through the parent codes.
-      // effectively, we are building the current path starting from the end.
-      while(parentCode != null) {
+    openItem = (item) => {
 
-          if(bes[parentCode]) {
+        /* Send the Genny event */
+        this.sendData('TV_EXPAND', {
+            code: 'TV1',
+            value: item.code
+        }, item.code);
 
-              path = '/' + bes[parentCode].code + path;
-              parentCode = bes[parentCode].parentCode;
-          }
-          else {
-
-              parentCode = null; // force exit as parent was not found.
-          }
-      }
-
-      // update the current path
-      store.getState().app.currentPath = path;
-
-      this.sendData('TV_SELECT', {
-          code: 'TV1',
-          value: item.code
-      }, item.code);
-  }
-
-  sendData(event, data) {
-    GennyBridge.sendTVEvent(event, data);
-  }
-
-  getEntityChildren(code) {
-
-    const relationships = store.getState().baseEntity.relationships;
-    const grp = relationships[code];
-
-    let items = grp ? Object.keys(grp).filter(x => x != 'DUMMY').map(code => store.getState().baseEntity.data[code]) : [];
-
-    let rootEntity = BaseEntityQuery.getBaseEntity(code);
-
-    items = items.map(item => {
-
-        if(item) {
-
-            // order by weight if found in links
-            let weight = 0;
-            if(rootEntity && rootEntity.originalLinks) {
-
-                let currentLinks = rootEntity.originalLinks.filter(x => {
-                    return x.link.targetCode == item.code;
-                });
-
-                weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
+        /* Set this item to be open in the tree */
+        this.setState({
+            tree: {
+                ...this.state.tree,
+                [item.code]: true,
             }
+        });
+    }
 
-            const children = this.getEntityChildren(item.code);
-            item.children = children;
-            item.open = !!this.state.tree[item.code];
-            item.parentCode = code;
-            return item;
+    closeItem = (item) => {
+        /* Close the item */
+        this.setState({
+            tree: {
+                ...this.state.tree,
+                [item.code]: false,
+            }
+        });
+    }
+
+    onClick = (clickedItem) => {
+
+        let item = null;
+        if(this.props.isHorizontal) {
+            item = this.state.horizontalItems[clickedItem];
+        }
+        else {
+            item = clickedItem;
         }
 
-        return false;
+        // update the current path within the store.
+        let parentCode = item.parentCode;
+        let bes = store.getState().baseEntity.data;
 
-    });
+        let path = '/' + item.code;
+        let currentPath = item.name;
 
-    return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true);
-  }
+        // we lookup for the Be corresponding to the parentCode and check if it has a parent.
+        // for each parent we find we keep looping through the parent codes.
+        // effectively, we are building the current path starting from the end.
+        while(parentCode != null) {
 
-  generatePath = (baseEntityPath) => {
+            if(bes[parentCode]) {
 
-      if(!baseEntityPath) return '';
+                path = '/' + bes[parentCode].code + path;
+                parentCode = bes[parentCode].parentCode;
+            }
+            else {
 
-      let finalPath = '';
-      let besCode = baseEntityPath.split('/');
-      besCode.forEach((be_code) => {
+                parentCode = null; // force exit as parent was not found.
+            }
+        }
 
-          if(be_code && be_code.length > 0) {
+        // update the current path
+        store.getState().app.currentPath = path;
 
-              let be = this.props.baseEntity.data[be_code];
-              finalPath += '/' + be.name;
-              this.state.horizontalItems[be.name] = be;
-          }
-      });
-
-      return finalPath;
-  }
-
-  render() {
-
-    const { root, baseEntity, isHorizontal } = this.props;
-    const relationships = baseEntity.relationships[root];
-    const items = this.getEntityChildren(root);
-
-    if(isHorizontal) {
-
-        let bePath = this.generatePath(this.props.currentPath);
-        return (
-            <Breadcrumbs {...this.props} currentPath={ bePath } onClick={ this.onClick } />
-        );
+        this.sendData('TV_SELECT', {
+            code: 'TV1',
+            value: item.code
+        }, item.code);
     }
-    else {
 
-        return (
-          <div className="genny-tree-view">
-            <TreeView root={root} {...this.props} items={items} onExpand={this.onExpand} onClick={this.onClick} />
-          </div>
-        );
+    sendData(event, data) {
+        GennyBridge.sendTVEvent(event, data);
     }
-  }
+
+    generatePath = (baseEntityPath) => {
+
+        if(!baseEntityPath) return '';
+
+        let finalPath = '';
+        let besCode = baseEntityPath.split('/');
+        besCode.forEach((be_code) => {
+
+            if(be_code && be_code.length > 0) {
+
+                let be = this.props.baseEntity.data[be_code];
+                finalPath += '/' + be.name;
+                this.state.horizontalItems[be.name] = be;
+            }
+        });
+
+        return finalPath;
+    }
+
+    // getEntityChildren(code) {
+
+    //     const { baseEntity } = this.props;
+    //     const relationships = baseEntity.relationships[code];
+    //     let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code]) : [];
+
+    //     console.log('========================');
+    //     items = items.map(item => {
+    //         /* Get the children for this item */
+    //         console.log(item);
+    //         // add item.icon from item.attributes.PRI_IMAGE_URL.value
+    //         const children = this.getEntityChildren(item.code);
+    //         item.children = children;
+    //         item.open = !!this.state.tree[item.code];
+    //         item.parentCode = code;
+    //         console.log(item);
+    //         return item;
+    //     });
+
+    //     return items;
+    // }
+
+    render() {
+
+        const { root, isHorizontal } = this.props;
+        let items = root ? 
+            BaseEntityQuery.getEntityChildren(root).map(item => {
+                let childCount = 0;
+                if (item && item.children) {
+                    item.children.map(child => {
+                        childCount = childCount + child.children.length;
+                    });
+                }
+
+                return {
+                    ...item,
+                    open: !!this.state.tree[item.code],
+                    childCount: childCount,
+                };
+            }) :
+            [];
+        items = items.sort((x, y) => y.name.toLowerCase().includes('dashboard'));
+
+        if(isHorizontal) {
+
+            let bePath = this.generatePath(this.props.currentPath);
+            return (
+                <Breadcrumbs {...this.props} currentPath={ bePath } onClick={ this.onClick } />
+            );
+        }
+        else {
+
+            return (
+                <div className="genny-tree-view">
+                    <TreeView root={root} {...this.props} items={items} onExpand={this.onExpand} onClick={this.onClick} />
+                </div>
+            );
+        }
+    }
 }
 
 export default GennyTreeView;

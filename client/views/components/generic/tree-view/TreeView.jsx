@@ -2,6 +2,7 @@ import './treeView.scss';
 import React, { Component } from 'react';
 import { object, array, func } from 'prop-types';
 import { IconSmall } from 'views/components';
+import { BaseEntityQuery } from 'utils/genny';
 
 class TreeView extends Component {
 
@@ -32,24 +33,49 @@ class TreeView extends Component {
   }
 
   renderList = (items) => {
-    return items.sort(( a, b ) => a.id - b.id ).map( item => {
+
+    return items.map( item => {
+
       const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
       const canOpen = ( hasChildren && item.open );
 
-      return (
-        <li key={item.id}>
-          <div>
+      let icon = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL' );
+      icon = icon && icon.value;
+
+      let childNumber = null;
+      
+      if (item.childCount ) {
+        childNumber = item.childCount; 
+      }
+      else if (item.children && item.children.length > 0) {
+        childNumber = item.children.length;
+      }
+
+        return (
+
+        <li key={item.id} className='tree-view-item'>
+          <div className='tree-view-item-content'>
             <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
-              { item.icon ? <IconSmall name={item.icon} onClick={this.onExpand(item)} /> : null }
-              {item.name}
+              { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
+              <span className='tree-view-text'>{item.name}</span>
+              { childNumber && (
+                <span className='tree-view-item-count'>({childNumber})</span>
+              )}
             </span>
 
             {( item.children && item.children.length > 0 ) && (
-              <IconSmall className='clickable' onClick={this.onExpand(item)} name={canOpen ? 'expand_more' : 'chevron_right'} />
+              <IconSmall
+                className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
+                size={32}
+                style={canOpen ? { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(-90deg)' }}
+                onClick={this.onExpand(item)}
+                name='arrow_drop_down'
+              />
             )}
+
           </div>
 
-          <ul className="child">
+          <ul className="tree-view-child">
             {canOpen ? this.renderList(item.children) : []}
           </ul>
         </li>

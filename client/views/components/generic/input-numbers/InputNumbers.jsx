@@ -48,7 +48,7 @@ class InputNumbers extends Component {
                 { name ?
                     <div className='input-header'>
                         { name ? <Label text={name} /> : null }
-                        { mandatory ? <Label className='input-label-required' textStyle={ !this.props.validationStatus ? {color: '#cc0000'} : ''} text="*  required" /> : null}
+                        { mandatory ? <Label className='input-label-required' textStyle={ !this.props.validationStatus ? {color: '#cc0000'} : null} text="*  required" /> : null}
                     </div> :
                 null }
                 <InputText

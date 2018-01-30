@@ -11,6 +11,7 @@ class Dropdown extends Component {
     showTag: true,
     inline: false,
     isSlide: true,
+    noAnimation: false
   }
 
   static propTypes = {
@@ -25,6 +26,7 @@ class Dropdown extends Component {
     tagStyle: object,
     noDropdownStyle: string,
     isSlide: bool,
+    noAnimation: bool
   }
 
   state = {
@@ -45,7 +47,7 @@ class Dropdown extends Component {
 
   renderHeader = (isOpen) => {
 
-    const { header, } = this.props;
+    const { header, noAnimation } = this.props;
 
     let headerContent;
 
@@ -60,7 +62,7 @@ class Dropdown extends Component {
       }
 
       return (
-        <div className='dropdown-header' onClick={this.handleClick} style={isOpen ? { 'transition': 'all 0.1s', 'transform': 'rotate(180deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' }}>
+        <div className='dropdown-header' onClick={this.handleClick} style={isOpen && !noAnimation ? { 'transition': 'all 0.1s', 'transform': 'rotate(180deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' }}>
           {headerContent}
         </div>
       );

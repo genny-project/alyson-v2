@@ -46,6 +46,12 @@ class Vertx {
           console.error( 'no session state found' );
       }
     };
+
+    this.eventBus.onclose = () => {
+
+        this.connected = false;
+        document.location.reload();
+    };
   }
 
   onIncomingMessage( message ) {

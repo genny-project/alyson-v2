@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { array, func, string } from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { BucketColumn } from './bucket-column';
-import { Modal, Device, IconSmall } from 'views/components';
+import { Modal, Device, IconSmall, Button } from 'views/components';
 import _ from 'lodash';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -271,6 +271,8 @@ class BucketView extends Component {
 
   addNewItem = (selectedColumn) => {
     let groupId = selectedColumn.props.groupId;
+    console.log(selectedColumn);
+
     if(this.props.addNewItem) {
       this.props.addNewItem(groupId);
     }
@@ -339,6 +341,10 @@ class BucketView extends Component {
 
       let touch = e.touches[0];
 
+      let deltaY = touch.clientY - this.state.touch.clientY;
+      this.state.touch.clientY = touch.clientY;
+      this.state.touch.deltaY = deltaY;
+
       let deltaX = touch.clientX - this.state.touch.clientX;
       this.state.touch.clientX = touch.clientX;
       this.state.touch.deltaX = deltaX;
@@ -349,14 +355,19 @@ class BucketView extends Component {
   onTouchEnd = () => {
 
     if(this.state.touch.isMoving) {
-
+      let deltaY = this.state.touch.deltaY;
       let deltaX = this.state.touch.deltaX;
+      
+      console.log('X', deltaX, 'Y', deltaY);
+
       this.state.touch = {};
-      if(deltaX < 0) {
-        this.goToNextBucket();
-      }
-      else {
-        this.goToPreviousBucket();
+      if (deltaY >= Math.abs(deltaX)) {
+        if(deltaX < 0) {
+          this.goToNextBucket();
+        }
+        else if (deltaX > 0) {
+          this.goToPreviousBucket();
+        }
       }
     }
   }
@@ -377,6 +388,24 @@ class BucketView extends Component {
 
     return (
       <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
+        <div style={{
+          backgroundColor: '#555',
+          width: '100%',
+          position: 'fixed',
+          height: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 10px',
+          justifyContent: `${window.getScreenSize() == 'sm' ? 'center' : 'flex-start' }`
+        }}>
+          <Button
+            type='confirm'
+            style={{ width: `${window.getScreenSize() == 'sm' ? 'calc(100vw - 5px)' : '200px' }`, height:'40px'}}
+            onClick={() => this.addNewItem( { props: { groupId : 'GRP_NEW_ITEMS'}} )}
+          >
+            Add Load
+          </Button>
+        </div>
         <Device isMobile>
           <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
             <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
@@ -384,20 +413,20 @@ class BucketView extends Component {
         </Device>
         {columns}
         <Device isMobile>
-          <div 
-            className='bucket-mobile-dots' 
+          <div
+            className='bucket-mobile-dots'
             style={{
-              height: 'fit-content',
+              height: '20px',
+              width: '100vw',
               position: 'fixed',
-              bottom: '115px',
+              bottom: '30px',
               right: '50vw',
               transform: 'translate(50%)',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'flex-end',
+              alignItems: 'center',
               zIndex: '10',
               padding: '5px',
-              borderRadius: '10px',
               backgroundColor: 'rgba(0,0,0,0.5)'
             }}
           >
@@ -425,13 +454,13 @@ class BucketView extends Component {
           showMovingOptions={this.toggleMovingOptions}
           addNewItem={this.addNewItem}
           canAddItem={bucket.canAddItem}
-          style={{ flexBasis: `calc(100vw / ${buckets.length})` }}
+          style={{ flexBasis: `calc(100vw / ${buckets.length})`, minWidth: isMobile ? '100vw' : '300px' , maxWidth: isMobile ? '100vw' : `calc(100vw / ${buckets.length})` }}
           className={(index % 2 == 0) ? '' : 'alt-style'}
         />
       );
     });
 
-    if (isMobile){
+    if (isMobile) {
       return (
           this.renderContent(columns)
         );

@@ -26,10 +26,13 @@ class Selector extends Component {
   render() {
 
     const { checkValues, showValues, hideValues, showOverride } = this.props;
+
     // checkValues : the values that will be compared to other values
     // showValues : array of values. if checkValues matches any of these values, return true
     // hideValues : array of values. if checkValues matches any of these values, return false
     // showOverride: if conflict between show and hide results, then return true. default return false.
+
+    if(checkValues == null || showValues == null) return null;
 
     if (typeof checkValues === 'string') {
 
@@ -42,7 +45,7 @@ class Selector extends Component {
         return null;
       }
       return this.renderChildren();
-      
+
     } else {
 
         for (var i = 0; i < checkValues.length; i++) {

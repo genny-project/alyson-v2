@@ -50,4 +50,27 @@
       margin-right: 10px;
     }
   }
+
+  .tree-view-item-content {
+
+    .tree-view-text {
+      transition: 300ms ease;
+      opacity: 100;
+    }
+    
+    .tree-view-icon {
+      
+      &.main {
+        margin-right: 10px;
+      }
+
+      .icon {
+        color: white;
+      }
+    }
+
+    .tree-view-item-count {
+      margin-left: 10px;
+    }
+  }
 }

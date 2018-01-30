@@ -1,4 +1,14 @@
-$primary-font: "Roboto Condensed";
+@font-face {
+    font-family: Akkurat;
+    src: url(./fonts/Akkurat.ttf);
+}
+
+@font-face {
+    font-family: Akkurat-Bold;
+    src: url(./fonts/Akkurat-Bold.ttf);
+}
+
+$primary-font: "Akkurat";
 $primary-font-backup: "Helvetica";
-$secondary-font: "Roboto Condensed";
+$secondary-font: "Akkurat-Bold";
 $secondary-font-backup: "sans-serif";

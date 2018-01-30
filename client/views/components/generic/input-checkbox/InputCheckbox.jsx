@@ -1,6 +1,6 @@
 import './inputCheckbox.scss';
 import React, { Component } from 'react';
-import { string, any, bool, func, array } from 'prop-types';
+import { string, any, bool, func, array, object } from 'prop-types';
 import { Label } from 'views/components';
 
 class InputCheckbox extends Component {
@@ -14,7 +14,7 @@ class InputCheckbox extends Component {
 
   static propTypes = {
     className: string,
-    style: string,
+    style: object,
     children: any,
     checked: bool,
     validation: func,
@@ -23,6 +23,7 @@ class InputCheckbox extends Component {
     handleOnChange: func,
     validationList: array,
     name: string,
+    html: string,
   }
 
   state = {
@@ -42,12 +43,13 @@ class InputCheckbox extends Component {
   }
 
   render() {
-    const { className, name, checked } = this.props;
+    const { className, name, checked, html } = this.props;
 
     return (
-      <div className={`input-checkbox ${className}`}>
+      <div className={`input input-checkbox ${className}`}>
         <input type="checkbox" onChange={this.handleChange}/>
-        {name ? <Label className="checkbox-label" text={name} checked={checked} /> : null }
+        { html && ( <div className="checkbox-label label-html" dangerouslySetInnerHTML={{ __html: html }} /> ) }
+        { !html && name && ( <Label className="checkbox-label" text={name} checked={checked} /> ) }
       </div>
     );
   }

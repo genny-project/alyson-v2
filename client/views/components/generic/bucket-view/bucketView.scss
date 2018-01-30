@@ -10,13 +10,17 @@
   -webkit-touch-callout: none;
   background-color: #a3a3a3;
 
+  &.size-sm > div{
+    height: calc(100% - 20px);
+  }
+
   > div {
-    height: 100%;
     flex-grow: 1;
   }
 
   &.size-lg, &.size-md, &.size-sm {
     .bucket-column {
+      padding-top: 60px;
       display: flex;
       flex-direction: column;
 

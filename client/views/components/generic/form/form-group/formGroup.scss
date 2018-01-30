@@ -1,15 +1,40 @@
 @import 'client/styles/colors';
 
 .form-group {
-  margin-bottom: 40px;
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
 
- .form-group-title {
+  .form-group-title {
     text-align: center;
     font-size: 24px;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
 
   > .input:not(:last-child) {
     margin-bottom: 10px;
+  }
+
+  .button {
+    
+    .button-spinner {
+      width: 34px;
+      height: 34px;
+      top: 8px;
+      margin:0 auto;
+      left:0;
+      right:0;
+      background: transparent;
+      box-sizing: border-box;
+      border-top: 4px solid white;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-radius: 100%;
+      animation-delay:0.5s;
+      animation: rotate360 0.6s ease-out infinite;
+      transition:all ease 0.5s;
+      display: none;
+    }
   }
 }
