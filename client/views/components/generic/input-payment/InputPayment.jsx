@@ -3,12 +3,17 @@ import React, { Component } from 'react';
 import { array } from 'prop-types';
 import PaymentType from './payment-type';
 import PaymentMethod from './payment-method';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 
 class InputPayment extends Component {
   state = {
     selectedPaymentType: null,
     selectedPaymentMethod: null,
     stage: 0,
+    tokens: {
+      bank: null,
+      card: null,
+    }
   };
 
   static propTypes = {
@@ -39,6 +44,19 @@ class InputPayment extends Component {
       }
     ]
   };
+
+  componentDidMount() {
+    const user = GennyBridge.getUser();
+    const bankToken = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' ).value;
+    const cardToken = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' ).value;
+    this.setState({
+      tokens: {
+        ...this.state.tokens,
+        bank: bankToken,
+        card: cardToken,
+      }
+    });
+  }
 
   onSelectPaymentType = type => () => {
     this.setState({
