@@ -113,6 +113,10 @@
 			background: $success;
 		}
 
+		> button[disabled] {
+			background: lightgray;
+		}
+
 		> button:after {
 			content: "Submit";
 		}

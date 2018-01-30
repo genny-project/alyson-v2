@@ -254,6 +254,10 @@ export default function reducer(state = initialState, action) {
         action.payload.items.forEach(item => {
 
             let be_code = item.targetCode;
+
+            // it means we dont have this base entity locally
+            if(!state.data[be_code]) { return; }
+
             let oldParentCode = state.data[be_code].parentCode;
             let newParentCode = item.sourceCode;
             let newLinkCode = item.attributeCode;
@@ -295,7 +299,7 @@ export default function reducer(state = initialState, action) {
             state.data[newParentCode] = {
                 ...state.data[newParentCode],
                 children: [
-                    ...state.data[newParentCode].children,
+                    ...(state.data[newParentCode] ? state.data[newParentCode].children : {}),
                     state.data[be_code], // add be as new children of target code
                 ]
             };

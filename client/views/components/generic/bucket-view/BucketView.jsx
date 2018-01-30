@@ -357,7 +357,7 @@ class BucketView extends Component {
     if(this.state.touch.isMoving) {
       let deltaY = this.state.touch.deltaY;
       let deltaX = this.state.touch.deltaX;
-      
+
       console.log('X', deltaX, 'Y', deltaY);
 
       this.state.touch = {};
@@ -388,24 +388,6 @@ class BucketView extends Component {
 
     return (
       <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
-        <div style={{
-          backgroundColor: '#555',
-          width: '100%',
-          position: 'fixed',
-          height: '60px',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 10px',
-          justifyContent: `${window.getScreenSize() == 'sm' ? 'center' : 'flex-start' }`
-        }}>
-          <Button
-            type='confirm'
-            style={{ width: `${window.getScreenSize() == 'sm' ? 'calc(100vw - 5px)' : '200px' }`, height:'40px'}}
-            onClick={() => this.addNewItem( { props: { groupId : 'GRP_NEW_ITEMS'}} )}
-          >
-            Add Load
-          </Button>
-        </div>
         <Device isMobile>
           <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
             <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
