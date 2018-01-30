@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { string, func, array } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { Grid } from '@genny-project/layson';
-import { GennyButton, ImageView, Button, IconSmall} from 'views/components';
+import { GennyButton, ImageView, DateLabel, IconSmall} from 'views/components';
 
 class GennyMessagingConversation extends Component {
 
@@ -15,7 +15,7 @@ class GennyMessagingConversation extends Component {
     static propTypes = {
         title: string,
         messages: array,
-        handleClickBack: func,
+        onClick: func,
         root: string
     };
 
@@ -39,10 +39,9 @@ class GennyMessagingConversation extends Component {
     }
 
     handleClickBack = () => {
-        const { handleClickBack } = this.props;
+        const { onClick } = this.props;
 
-        console.log('click', handleClickBack)
-        if (handleClickBack) handleClickBack();
+        if (onClick) onClick();
     }
 
     renderTextInput() {
@@ -70,9 +69,6 @@ class GennyMessagingConversation extends Component {
         let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR');
         let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE');
 
-        console.log(creatorAttribute);
-        console.log(message);
-
         if(messageTextAttribute && creatorAttribute) {
 
             let creator = creatorAttribute.value;
@@ -80,13 +76,22 @@ class GennyMessagingConversation extends Component {
             let messageText = messageTextAttribute.value;
             return (
                 <div className={`conversation-message ${creator == GennyBridge.getUser() ? 'sent' : 'received' }`}>
-                    {
-                        creator != GennyBridge.getUser() && otherUser ?
-                            <ImageView className='conversation-message-image' src={otherUser.attributes.PRI_IMAGE_URL} />
-                        : null
-                    }
-                    <div className='conversation-message-text' style={style} key={index}>{messageText}</div>
-
+                    <div className='message-detail'>
+                        <DateLabel className='time-stamp' format="MMM Do, YYYY HH:mm a">{message.created}</DateLabel>
+                        {
+                            creator != GennyBridge.getUser() && otherUser ?
+                                <span>{otherUser.attributes.PRI_FIRSTNAME.value} {otherUser.attributes.PRI_LASTNAME.value}</span>
+                            : null
+                        }
+                    </div>
+                    <div  className='conversation-message-content'>
+                        {
+                            creator != GennyBridge.getUser() && otherUser ?
+                                <ImageView className='conversation-message-image' src={otherUser.attributes.PRI_IMAGE_URL.value} />
+                            : null
+                        }
+                        <div className='conversation-message-text' style={style} key={index}>{messageText}</div>
+                    </div>
                 </div>
             );
         }
@@ -106,15 +111,12 @@ class GennyMessagingConversation extends Component {
             cols={1}
         >
             {
-                messages && window.getScreenSize() == 'sm' ?
+                messages ?
                     <div className="conversation-message-title" position={[0,0]}>
-                        <span onClick={this.handleClickBack}>Back</span>
-                        { window.getScreenSize() == 'sm' ?
-                            <div className='conversation-back-button' onClick={this.handleClickBack}>
-                                <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(-90deg)' }}/>
-                                <span>Back</span>
-                            </div>
-                        : null }
+                        <div className='conversation-back-button' onClick={this.handleClickBack}>
+                            <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(-90deg)' }}/>
+                            <span>Back</span>
+                        </div>
                         {title}
                     </div>
                 : null
@@ -161,7 +163,7 @@ class GennyMessagingConversation extends Component {
             }
             {
                 !messages || messages.length <= 0 ?
-                    <div className="empty" position={[ 0 ,0]}>
+                    <div className="conversation-messages-empty" position={[ 0 ,0]}>
                         No messages
                     </div>
                 : null
