@@ -11,6 +11,7 @@ class ImageView extends Component {
     rounded: bool,
     onClick: func,
     style: object,
+    className: string
   };
 
   state = {
@@ -25,7 +26,7 @@ class ImageView extends Component {
 
   render() {
 
-    const { caption, src, onClick, style, placeholder, rounded } = this.props;
+    const { caption, src, onClick, style, placeholder, rounded, className } = this.props;
     const { error } = this.state;
 
     const componentStyle = {
@@ -33,7 +34,7 @@ class ImageView extends Component {
     };
 
     return (
-      <div className={`imageView ${rounded ? 'rounded' : ''}`} style={componentStyle}>
+      <div className={`imageView ${rounded ? 'rounded' : ''} ${className}`} style={componentStyle}>
         <img src={ error === true ? 'https://i.imgur.com/FKJV3fp.jpg' : (src || placeholder)} onError={this.onError} onClick={onClick} />
         { caption ? <span>{caption}</span> : null }
       </div>

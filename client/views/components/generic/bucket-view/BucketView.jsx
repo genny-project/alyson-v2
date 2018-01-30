@@ -361,7 +361,7 @@ class BucketView extends Component {
       console.log('X', deltaX, 'Y', deltaY);
 
       this.state.touch = {};
-      if (deltaY >= Math.abs(deltaX)) {
+      if (Math.abs(deltaY) < Math.abs(deltaX)) {
         if(deltaX < 0) {
           this.goToNextBucket();
         }
@@ -437,7 +437,7 @@ class BucketView extends Component {
           showMovingOptions={this.toggleMovingOptions}
           addNewItem={this.addNewItem}
           canAddItem={bucket.canAddItem}
-          style={{ flexBasis: `calc(100vw / ${buckets.length})`, minWidth: isMobile ? '100vw' : '300px' , maxWidth: isMobile ? '100vw' : `calc(100vw / ${buckets.length})` }}
+          style={{ flexBasis: `calc(100vw / ${buckets.length})`, minWidth: isMobile ? '100vw' : '270px' , maxWidth: isMobile ? '100vw' : `calc(100vw / ${buckets.length})` }}
           className={(index % 2 == 0) ? '' : 'alt-style'}
         />
       );

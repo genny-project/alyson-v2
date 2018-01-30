@@ -55,7 +55,7 @@ class Sidebar extends Component {
                 <Grid
                     className='sidebar-main'
                     style={componentStyle}
-                    rows={['200px', {style: {  flex: '1, 1, auto', overflow: 'scroll', justifyContent: `${!isOpen && window.getScreenSize() == 'sm' ? 'flex-start' : 'initial' }` } }]}
+                    rows={['200px', {style: {  flex: '1, 1, auto', overflowY: 'auto', overflowX: 'hidden', justifyContent: `${!isOpen && window.getScreenSize() == 'sm' ? 'flex-start' : 'initial' }` } }]}
                     cols={1}>
 
                     {icon}
