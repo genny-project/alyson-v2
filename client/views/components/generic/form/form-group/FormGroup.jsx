@@ -93,7 +93,7 @@ class FormGroup extends Component {
               return (
                 <Button
                   key={index}
-                  style={{ margin : '10px 0' }}
+                  style={{ margin : `10px ${index < buttons.length - 1 ? '10px' : '0'} 10px 0` }}
                   position={[0, index]}
                   disabled={animatedButtons[button]}
                   className={`form-button ${button} ${animatedButtons[button] ? 'animate' : ''}`}

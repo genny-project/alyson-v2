@@ -84,7 +84,6 @@ class Input extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-
         if(this._ismounted && !this.state.isFocused) {
 
             this.setState({
@@ -305,6 +304,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     prefix={this.props.type == 'Currency' ? '$' : ''}
+                    handleOnChange={this.handleOnChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                 />
