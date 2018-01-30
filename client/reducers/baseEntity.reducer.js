@@ -293,7 +293,6 @@ export default function reducer(state = initialState, action) {
                     console.log(state.data[oldParentCode].children[i].code == be_code)
 
                     if(state.data[oldParentCode].children[i].code == be_code) {
-                        console.
                         delete state.data[oldParentCode].children[i];
                     }
                 }

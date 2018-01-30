@@ -174,7 +174,7 @@ class GennyTreeView extends PureComponent {
     render() {
 
         const { root, isHorizontal } = this.props;
-        let items = root ? 
+        let items = root ?
             BaseEntityQuery.getEntityChildren(root).map(item => {
                 let childCount = 0;
                 if (item && item.children) {
@@ -190,7 +190,7 @@ class GennyTreeView extends PureComponent {
                 };
             }) :
             [];
-        items = items.sort((x, y) => y.name.toLowerCase().includes('dashboard'));
+        items = items.sort((x, y) => y.name.toLowerCase().includes('loads') && !y.name.toLowerCase().includes("pending"));
 
         if(isHorizontal) {
 
