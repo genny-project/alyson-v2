@@ -8,6 +8,8 @@ import PaymentType from './payment-type';
 import PaymentMethod from './payment-method';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import MaskedInput from 'react-text-mask';
+import { Spinner } from 'views/components/generic';
+import Dropdown from 'react-dropdown';
 
 class InputPayment extends Component {
   state = {
@@ -27,8 +29,15 @@ class InputPayment extends Component {
       name: '',
       expiry: '',
       cvc: '',
+      bankName: '',
+      bsb: '',
+      accountNumber: '',
+      accountType: '',
+      holderType: '',
     },
     focusedField: '',
+    error: null,
+    submitting: false,
   };
 
   static propTypes = {
@@ -146,6 +155,7 @@ class InputPayment extends Component {
         /* Reset the selected payment method */
         this.setState({
           selectedPaymentMethod: null,
+          error: null,
         });
       }
     });
@@ -167,14 +177,14 @@ class InputPayment extends Component {
   }
 
   onHandleDone = () => {
-    alert( 'Done' );
+    /* TODO SUBMIT ANSWER HERE */
   }
 
   handleInputChange = field => event => {
     this.setState({
       form: {
         ...this.state.form,
-        [field]: event.target.value,
+        [field]: event.target ? event.target.value : event ,
       }
     });
   }
@@ -188,6 +198,86 @@ class InputPayment extends Component {
   handleSelectPaymentMethod = account => () => {
     this.setState({
       selectedPaymentMethod: account.id,
+    });
+  }
+
+  submitAddPayment = () => {
+    const { addingAccountType } = this.state;
+
+    this.setState({
+      error: null,
+      submitting: true,
+    });
+
+    if ( addingAccountType === 'CARD' ) {
+      this.submitCreditCard();
+    }
+
+    if ( addingAccountType === 'BANK_ACCOUNT' ) {
+      this.submitBankAccount();
+    }
+  }
+
+  niceAssemblyError( error ) {
+    const output = [];
+    Object.keys( error.errors ).forEach( key => {
+      error.errors[key].forEach( e => {
+        output.push( `${key.split( '_' ).join( '' )} ${e}` );
+      });
+    });
+
+    const outputString = output.join( ', ' );
+
+    return outputString.charAt( 0 ).toUpperCase() + outputString.slice( 1 );
+  }
+
+  submitCreditCard() {
+    const { tokens, form } = this.state;
+    const { nickname, name, number, expiry, cvc } = form;
+    promisepay.createCardAccount( tokens.card, {
+      full_name: name,
+      number: number.split( ' ' ).join( '' ),
+      expiry_month: expiry.split( '/' )[0],
+      expiry_year: `20${expiry.split( '/' )[1]}`,
+      cvv: cvc,
+    }, success => {
+      /* TODO SUBMIT ANSWER HERE */
+      console.log( success );
+      this.setState({
+        submitting: false,
+        error: 'Success',
+      });
+    }, error => {
+      this.setState({
+        submitting: false,
+        error: this.niceAssemblyError( error.responseJSON ),
+      });
+    });
+  }
+
+  submitBankAccount() {
+    const { tokens, form } = this.state;
+    promisepay.createBankAccount( tokens.bank, {
+      bank_name: form.bankName,
+      account_name: form.accountName,
+      routing_number: form.bsb,
+      account_number: form.accountNumber,
+      account_type: form.accountType,
+      holder_type: form.holder_type,
+      country: 'AUS',
+      payout_currency: 'AUD',
+    }, success => {
+      /* TODO SUBMIT ANSWER HERE */
+      console.log( success );
+      this.setState({
+        submitting: false,
+        error: 'Success',
+      });
+    }, error => {
+      this.setState({
+        submitting: false,
+        error: this.niceAssemblyError( error.responseJSON ),
+      });
     });
   }
 
@@ -208,6 +298,14 @@ class InputPayment extends Component {
       }
 
       if ( !form.cvc.match( /[0-9]{3}/g )) {
+        return false;
+      }
+
+      return true;
+    }
+
+    if ( addingAccountType === 'BANK_ACCOUNT' ) {
+      if ( form.nickname === '' || form.bankName === '' || form.name === '' || form.bsb === '' || form.accountNumber === '' || form.accountType === '' || form.accountType.value === '' || form.holderType === '' || form.holderType.value === '' ) {
         return false;
       }
 
@@ -282,7 +380,7 @@ class InputPayment extends Component {
   renderAddPaymentMethodButton() {
     const disabledClass = !this.canAddPaymentMethod() ? 'disabled' : '';
     return (
-      <div className={`add-payment-method-btn ${disabledClass}`}>
+      <div className={`add-payment-method-btn ${disabledClass}`} onClick={this.submitAddPayment}>
         <span>ADD PAYMENT METHOD</span>
         <i className='material-icons'>chevron_right</i>
       </div>
@@ -316,7 +414,7 @@ class InputPayment extends Component {
   }
 
   renderAddCard() {
-    const { form, focusedField } = this.state;
+    const { form, focusedField, error, submitting } = this.state;
     return (
       <div className='add-card'>
         <Cards
@@ -326,6 +424,12 @@ class InputPayment extends Component {
           cvc={form.cvc}
           focused={focusedField}
         />
+
+        { error && (
+          <div className='error-box'>
+            {error}
+          </div>
+        )}
 
         <div className='input-field'>
           <label>Card Nickname</label>
@@ -354,13 +458,61 @@ class InputPayment extends Component {
           </div>
         </div>
         <br /><br />
-        {this.renderAddPaymentMethodButton()}
+        {!submitting && this.renderAddPaymentMethodButton()}
+        {submitting && <Spinner />}
       </div>
     );
   }
 
   renderAddBank() {
+    const { error, submitting, form } = this.state;
+    return (
+      <div className='add-bank'>
+        { error && (
+          <div className='error-box'>
+            {error}
+          </div>
+        )}
 
+        <div className='input-field'>
+          <label>Account Nickname</label>
+          <input type='text' onChange={this.handleInputChange( 'nickname' )} value={form.nickname} />
+        </div>
+
+        <div className='input-field'>
+          <label>Bank Name</label>
+          <input type='text' onChange={this.handleInputChange( 'bankName' )} onFocus={this.handleInputFocus( 'bankName' )} value={form.bankName} />
+        </div>
+
+        <div className='input-field'>
+          <label>Account Name</label>
+          <input type='text' onChange={this.handleInputChange( 'name' )} onFocus={this.handleInputFocus( 'name' )} value={form.name} />
+        </div>
+
+        <div className='input-field'>
+          <label>BSB</label>
+          <MaskedInput mask={[/[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/]} onChange={this.handleInputChange( 'bsb' )} onFocus={this.handleInputFocus( 'bsb' )} value={form.bsb} />
+        </div>
+
+        <div className='input-field'>
+          <label>Account Number</label>
+          <input type='text' onChange={this.handleInputChange( 'accountNumber' )} onFocus={this.handleInputFocus( 'accountNumber' )} value={form.accountNumber} />
+        </div>
+
+        <div className='input-field'>
+          <label>Account Type</label>
+          <Dropdown options={[{ value: 'checking', label: 'Checking' }, { value: 'savings', label: 'Savings' }]} onChange={this.handleInputChange( 'accountType' )} value={form.accountType} />
+        </div>
+
+        <div className='input-field'>
+          <label>Holder Type</label>
+          <Dropdown options={[{ value: 'personal', label: 'Personal' }, { value: 'business', label: 'Business' }]} onChange={this.handleInputChange( 'holderType' )} value={form.holderType} />
+        </div>
+        <br /><br />
+        {!submitting && this.renderAddPaymentMethodButton()}
+        {submitting && <Spinner />}
+      </div>
+    );
   }
 
   render() {
@@ -371,7 +523,7 @@ class InputPayment extends Component {
         <div className='input-payment'>
           <h2>{this.renderBackButton()} Add account</h2>
           { addingAccountType === 'CARD' && this.renderAddCard() }
-          { addingAccountType === 'BANK' && this.renderAddBank() }
+          { addingAccountType === 'BANK_ACCOUNT' && this.renderAddBank() }
         </div>
       )
     }
