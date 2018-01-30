@@ -121,9 +121,10 @@ class InputDatePicker extends Component {
 
       if (event.target.type == 'date') {
 
-        date = event.target.value;
+        date = this.convertToDisplayFormat(event.target.value, 'date');
         time = this.convertToDisplayFormat(currentValue, 'time');
         let dateTime = date + ' ' + time;
+
         this.setState({
           shouldValidate: false
         }, () => {
@@ -134,9 +135,9 @@ class InputDatePicker extends Component {
       else if (event.target.type == 'time') {
 
         date = this.convertToDisplayFormat(currentValue, 'date');
-        time = event.target.value;
+        time = this.convertToDisplayFormat(event.target.value, 'time');
         let dateTime = date + ' ' + time;
-
+        
         if (event.type == 'blur' || event.keyCode == '13') {
 
           this.setState({
@@ -156,7 +157,7 @@ class InputDatePicker extends Component {
       }
     }
     else {
-      date = event.target.value;
+      date = this.convertToDisplayFormat(event.target.value, 'date');
       this.changeValueProp(date );
     }
   }
