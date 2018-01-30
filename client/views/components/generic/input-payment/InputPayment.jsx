@@ -1,10 +1,13 @@
 /* globals promisepay */
 import './inputPayment.scss';
+import 'react-credit-cards/lib/styles.scss';
 import React, { Component } from 'react';
 import { array, object, string } from 'prop-types';
+import Cards from 'react-credit-cards';
 import PaymentType from './payment-type';
 import PaymentMethod from './payment-method';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+import MaskedInput from 'react-text-mask';
 
 class InputPayment extends Component {
   state = {
@@ -16,6 +19,15 @@ class InputPayment extends Component {
       card: null,
     },
     accounts: [],
+    addingAccount: false,
+    addingAccountType: '',
+    form: {
+      number: '',
+      name: '',
+      expiry: '',
+      cvc: '',
+    },
+    focusedField: '',
   };
 
   static propTypes = {
@@ -90,6 +102,13 @@ class InputPayment extends Component {
     });
   }
 
+  onClickAddAccount = type => () => {
+    this.setState({
+      addingAccount: true,
+      addingAccountType: type,
+    });
+  }
+
   isPaymentTypeSelected() {
     return this.state.selectedPaymentType != null;
   }
@@ -132,6 +151,11 @@ class InputPayment extends Component {
   }
 
   onGoBack = () => {
+    if ( this.state.addingAccount ) {
+      this.setState({ addingAccount: false });
+      return;
+    }
+
     if ( this.state.stage === 0 ) {
       return;
     }
@@ -143,6 +167,21 @@ class InputPayment extends Component {
 
   onHandleDone = () => {
     alert( 'Done' );
+  }
+
+  handleInputChange = field => event => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [field]: event.target.value,
+      }
+    });
+  }
+
+  handleInputFocus = field => () => {
+    this.setState({
+      focusedField: field,
+    });
   }
 
   handleSelectPaymentMethod = account => () => {
@@ -172,7 +211,7 @@ class InputPayment extends Component {
 
     return (
       <div>
-        <h2>{this.renderBackButton()} Select account {this.renderAddButton()}</h2>
+        <h2>{this.renderBackButton()} Select account {this.renderAddButton( selectedPaymentType )}</h2>
         <p>Please select a account from below</p>
         <div className='payment-methods'>
           { accounts.filter( account => account.type === selectedPaymentType ).map( account => (
@@ -232,17 +271,75 @@ class InputPayment extends Component {
     );
   }
 
-  renderAddButton() {
+  renderAddButton( type ) {
     return (
-      <div className='add-btn'>
+      <div className='add-btn' onClick={this.onClickAddAccount( type )}>
         ADD
         <i className='material-icons'>add</i>
       </div>
     );
   }
 
+  renderAddCard() {
+    const { form, focusedField } = this.state;
+    return (
+      <div className='add-card'>
+        <Cards
+          number={form.number}
+          name={form.name}
+          expiry={form.expiry}
+          cvc={form.cvc}
+          focused={focusedField}
+        />
+
+        <div className='input-field'>
+          <label>Card Nickname</label>
+          <input type='text' />
+        </div>
+
+        <div className='input-field'>
+          <label>Card Number</label>
+          <MaskedInput mask={[/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/ ]} type='text' onChange={this.handleInputChange( 'number' )} onFocus={this.handleInputFocus( 'number' )} />
+        </div>
+
+        <div className='input-field'>
+          <label>Full Name</label>
+          <input type='text' onChange={this.handleInputChange( 'name' )} onFocus={this.handleInputFocus( 'name' )}/>
+        </div>
+
+        <div className='input-split'>
+          <div className='input-field'>
+            <label>Expiry</label>
+            <MaskedInput mask={[/[0-9]/, /[0-9]/, '/', /[0-9]/, /[0-9]/]} onChange={this.handleInputChange( 'expiry' )} onFocus={this.handleInputFocus( 'expiry' )} />
+          </div>
+
+          <div className='input-field'>
+            <label>CVC</label>
+            <MaskedInput mask={[/[0-9]/,/[0-9]/,/[0-9]/]} type='text' onChange={this.handleInputChange( 'cvc' )} onFocus={this.handleInputFocus( 'cvc' )} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderAddBank() {
+
+  }
+
   render() {
-    const { stage } = this.state;
+    const { stage, addingAccount, addingAccountType } = this.state;
+
+    if ( addingAccount ) {
+      return (
+        <div className='input-payment'>
+          <h2>{this.renderBackButton()} Add account</h2>
+          { addingAccountType === 'CARD' && this.renderAddCard() }
+          { addingAccountType === 'BANK' && this.renderAddBank() }
+        </div>
+      )
+    }
+
+
     return (
       <div className='input-payment'>
         { stage === 0 && this.renderSelectType() }
