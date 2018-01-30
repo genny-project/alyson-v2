@@ -47,13 +47,13 @@ class InputPayment extends Component {
 
   componentDidMount() {
     const user = GennyBridge.getUser();
-    const bankToken = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' ).value;
-    const cardToken = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' ).value;
+    const bankTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' );
+    const cardTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' );
     this.setState({
       tokens: {
         ...this.state.tokens,
-        bank: bankToken,
-        card: cardToken,
+        bank: bankTokenAttribute ? bankTokenAttribute.value : null,
+        card: cardTokenAttribute ? cardTokenAttribute.value : null,
       }
     });
   }
@@ -143,6 +143,7 @@ class InputPayment extends Component {
         <div className='payment-methods'>
           { accounts.filter( account => account.type === selectedPaymentType ).map( account => (
             <PaymentMethod
+              key={account.id}
               account={account}
               onClick={this.handleSelectPaymentMethod( account )}
               selected={selectedPaymentMethod === account.id}
