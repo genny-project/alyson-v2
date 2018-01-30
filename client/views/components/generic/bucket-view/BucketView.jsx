@@ -384,6 +384,7 @@ class BucketView extends Component {
   }
 
   renderContent = (columns) => {
+
     const { currentlySelectedItem } = this.state;
 
     return (
