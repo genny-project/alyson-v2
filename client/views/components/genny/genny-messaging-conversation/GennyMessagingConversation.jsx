@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { string, func, array } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { Grid } from '@genny-project/layson';
-import { GennyButton, ImageView, } from 'views/components';
+import { GennyButton, ImageView, Button, IconSmall} from 'views/components';
+import { GennyButton, Button, IconSmall } from 'views/components';
 
 class GennyMessagingConversation extends Component {
 
@@ -40,6 +41,8 @@ class GennyMessagingConversation extends Component {
 
     handleClickBack = () => {
         const { handleClickBack } = this.props;
+
+        console.log('click', handleClickBack)
         if (handleClickBack) handleClickBack();
     }
 
@@ -54,6 +57,21 @@ class GennyMessagingConversation extends Component {
                 type='confirm'>
                 <p>Send</p>
             </GennyButton>
+=======
+            {
+                this.state.messageText.length > 0 ?
+                <GennyButton
+                    onClick={this.onButtonClick}
+                    disabled={this.state.canSendMessage}
+                    buttonCode='BTN_SEND_MESSAGE'
+                    value={{ itemCode: this.props.root, value: this.state.messageText }}
+                    type='confirm'
+                >
+                    <p>Send</p>
+                </GennyButton>
+                : null
+            }
+>>>>>>> Stashed changes
         </div>;
     }
 
@@ -78,9 +96,6 @@ class GennyMessagingConversation extends Component {
         if(messageTextAttribute && creatorAttribute) {
 
             let creator = creatorAttribute.value;
-            if(creator == GennyBridge.getUser()) {
-                style = { textAlign: 'right' };
-            }
 
             let messageText = messageTextAttribute.value;
             return (
@@ -91,6 +106,7 @@ class GennyMessagingConversation extends Component {
                         : null
                     }
                     <div className='conversation-message-text' style={style} key={index}>{messageText}</div>
+
                 </div>
             );
         }
@@ -104,7 +120,7 @@ class GennyMessagingConversation extends Component {
         <Grid
             className="messaging-conversation-main"
             rows={[
-                '30px',
+                '40px',
                 { style: { flexGrow: 12 }},
                 { style: { flexGrow: 0.5 }}]}
             cols={1}
@@ -113,6 +129,12 @@ class GennyMessagingConversation extends Component {
                 messages && window.getScreenSize() == 'sm' ?
                     <div className="conversation-message-title" position={[0,0]}>
                         <span onClick={this.handleClickBack}>Back</span>
+                        { window.getScreenSize() == 'sm' ?
+                            <div className='conversation-back-button' onClick={this.handleClickBack}>
+                                <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(-90deg)' }}/>
+                                <span>Back</span>
+                            </div>
+                        : null }
                         {title}
                     </div>
                 : null
@@ -127,8 +149,9 @@ class GennyMessagingConversation extends Component {
                 : null
             }
             {
-                !messages || messages.length <= 0 ?
-                    <div className="empty" position={[1 ,0]}>
+
+                !messages || messages.length <= 0 ? 
+                    <div className="conversation-messages-empty" position={[1,0]}>
                         No messages
                     </div>
                 : null
@@ -173,7 +196,7 @@ class GennyMessagingConversation extends Component {
 
         if(!root) {
             return (
-                <div className="empty" >
+                <div className="conversation-messages-empty" >
                     No Conversations
                 </div>
             );
