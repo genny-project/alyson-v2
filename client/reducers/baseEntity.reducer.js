@@ -47,7 +47,7 @@ export default function reducer(state = initialState, action) {
                                     existingLinks[linkCode].push({
                                         ...newLink,
                                         targetCode: newLink.pk.targetCode,
-                                        linkValue: newLink.link.linkValue,
+                                        linkValue: newLink.valueString,
                                     });
 
                                     return existingLinks;
@@ -92,7 +92,7 @@ export default function reducer(state = initialState, action) {
                                 existingLinks[linkCode].push({
                                     ...newLink,
                                     targetCode: newLink.pk.targetCode,
-                                    linkValue: newLink.link.linkValue,
+                                    linkValue: newLink.valueString,
                                 });
 
                                 return existingLinks;
