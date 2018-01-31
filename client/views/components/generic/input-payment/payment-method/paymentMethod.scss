@@ -1,0 +1,31 @@
+.payment-method {
+  padding: 25px;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 300ms ease background, 300ms ease color;
+  cursor: pointer;
+
+  i.material-icons {
+    font-size: 30px;
+  }
+
+  &.selected {
+    color: #FFF;
+    background: #000;
+    i.material-icons {
+      color: #FFF;
+    }
+  }
+
+  &:hover {
+    background: #000;
+    color: #FFF;
+
+    small {
+      color: #FFF;
+    }
+  }
+}
