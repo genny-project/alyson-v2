@@ -17,22 +17,19 @@ class GennyForm extends Component {
 
     onInputValidation = (newValue, data, mandatory) =>  {
 
-        console.log(data);
-        console.log(" ------------------------ ")
-        
         GennyBridge.sendAnswer([{
             ...data,
             value: newValue
         }]);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-
-        // we only re-render if the number of gorm groups has changed. otherwise inputs can take care of themselves. :)
-        const newQuestionGroups = AskQuery.getQuestionGroup(nextProps.root);
-        const oldQuestionGroups = AskQuery.getQuestionGroup(this.props.root);
-        return this.getNumberOfQuestions(newQuestionGroups) != this.getNumberOfQuestions(oldQuestionGroups);
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //
+    //     // we only re-render if the number of gorm groups has changed. otherwise inputs can take care of themselves. :)
+    //     const newQuestionGroups = AskQuery.getQuestionGroup(nextProps.root);
+    //     const oldQuestionGroups = AskQuery.getQuestionGroup(this.props.root);
+    //     return this.getNumberOfQuestions(newQuestionGroups) != this.getNumberOfQuestions(oldQuestionGroups);
+    // }
 
     onClickEvent = (clickedButton) => {
 
