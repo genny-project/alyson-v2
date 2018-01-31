@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, object } from 'prop-types';
+import { string, object, any } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class SublayoutLoader extends Component {
@@ -8,19 +8,31 @@ class SublayoutLoader extends Component {
         style: object,
         className: string,
         aliases: object,
+        sublayouts: any
     }
 
     render() {
 
         const { layoutCode, sublayouts, style, className, aliases } = this.props;
         const componentStyle = { ...style };
-        const sublayout = sublayouts[layoutCode];
 
-        return (
-            <div className={`sublayout-loader ${className}`} style={componentStyle} >
-                <LayoutLoader layout={sublayout} aliases={aliases}/>;
-            </div>
-        );
+        if (sublayouts) {
+            const sublayout = sublayouts[layoutCode];
+
+            if (sublayout) {
+                return (
+                    <div className={`sublayout-loader ${className}`} style={componentStyle} >
+                        <LayoutLoader layout={sublayout} aliases={aliases}/>
+                    </div>
+                );
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
     }
 }
 

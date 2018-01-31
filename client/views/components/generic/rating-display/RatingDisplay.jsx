@@ -37,7 +37,7 @@ class RatingDisplay extends Component {
     let icons = [];
 
     for(let i = 1; i < (total + 1); i++) {
-      let iconType;
+      let iconType = iconNone;
       if (value >= i ) {
         iconType = iconFull;
       }

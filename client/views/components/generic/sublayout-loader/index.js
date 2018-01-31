@@ -1,1 +1,1 @@
-export { default } from './SublayoutLoader.jsx';
+export { default } from './SublayoutLoader.container.js';
