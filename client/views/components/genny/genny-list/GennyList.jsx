@@ -11,6 +11,7 @@ class GennyList extends Component {
         root: '',
         showLinks: false,
         hideHeader: false,
+        showEmpty: false,
     }
 
     static propTypes = {
@@ -21,6 +22,7 @@ class GennyList extends Component {
         listGap: number,
         rowsVisible: number,
         showLinks: bool,
+        showEmpty: bool,
         hideHeader: bool,
         sublayout: object,
         headerRoot: string
@@ -51,19 +53,24 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideLinks, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, hideLinks, showEmpty, ...rest } = this.props;
 
         let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
 
-        return (
-            <div className="genny-list">
-                <List
-                    header={ headerRoot && !hideHeader ? <GennyForm root={headerRoot} isHorizontal /> : null }
-                    data={ this.generateListItems(data) }
-                    {...rest}
-                />
-            </div>
-        );
+        if (showEmpty || !showEmpty && data.length > 0 ) {
+            return (
+                <div className="genny-list">
+                    <List
+                        header={ headerRoot && !hideHeader ? <GennyForm root={headerRoot} isHorizontal /> : null }
+                        data={ this.generateListItems(data) }
+                        {...rest}
+                    />
+                </div>
+            );
+        }
+        else {
+            return null;
+        }
     }
 }
 
