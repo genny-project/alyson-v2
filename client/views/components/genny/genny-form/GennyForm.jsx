@@ -17,6 +17,9 @@ class GennyForm extends Component {
 
     onInputValidation = (newValue, data, mandatory) =>  {
 
+        console.log(data);
+        console.log(" ------------------------ ")
+        
         GennyBridge.sendAnswer([{
             ...data,
             value: newValue
@@ -132,7 +135,7 @@ class GennyForm extends Component {
                     let inputMask = null;
 
                     if(be_code && attributeCode) {
-                        let att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
+                        const att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
                         if(att) {
                             default_value = att.value;
                         }

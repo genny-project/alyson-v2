@@ -32,7 +32,6 @@ class GennyMessagingConversation extends Component {
     }
 
     onButtonClick = (e) => {
-
         this.setState({
             messageText: ''
         });
@@ -46,66 +45,24 @@ class GennyMessagingConversation extends Component {
 
     renderTextInput() {
         return <div>
-            <input onChange={this.onTextChange} placeholder="Type your message..."/>
-            <GennyButton
-                className='conversation-button'
-                onClick={this.onButtonClick}
-                disabled={this.state.canSendMessage}
-                buttonCode='BTN_SEND_MESSAGE'
-                value={{ itemCode: this.props.root, value: this.state.messageText }}
-                >
-                <p>Send</p>
-            </GennyButton>
+            <textarea value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
+                <GennyButton
+                    className={`conversation-button ${this.state.messageText == '' ? 'disabled' : ''}`}
+                    onClick={this.onButtonClick}
+                    disabled={this.state.messageText != ''}
+                    buttonCode='BTN_SEND_MESSAGE'
+                    value={{ itemCode: this.props.root, value: this.state.messageText }}
+                    >
+                    <p>Send</p>
+                </GennyButton>
         </div>;
-    }
-
-    renderMessage(message, index) {
-
-        const {currentUser, otherUser} = this.props;
-
-        let messageCode = message.code;
-
-        let style = { textAlign: 'left' };
-        let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR');
-        let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE');
-
-        if(messageTextAttribute && creatorAttribute) {
-
-            let creator = creatorAttribute.value;
-
-            let messageText = messageTextAttribute.value;
-            return (
-                <div className={`conversation-message ${creator == GennyBridge.getUser() ? 'sent' : 'received' }`}>
-                    <div className='message-detail'>
-                        <DateLabel className='time-stamp' format="MMM Do, YYYY HH:mm a">{message.created}</DateLabel>
-                        {
-                            creator != GennyBridge.getUser() && otherUser ?
-                                <span>{otherUser.attributes.PRI_FIRSTNAME.value} {otherUser.attributes.PRI_LASTNAME.value}</span>
-                            : null
-                        }
-                    </div>
-                    <div  className='conversation-message-content'>
-                        {
-                            creator != GennyBridge.getUser() && otherUser ?
-                                <ImageView className='conversation-message-image' src={otherUser.attributes.PRI_IMAGE_URL.value} />
-                            : null
-                        }
-                        <div className='conversation-message-text' style={style} key={index}>{messageText}</div>
-                    </div>
-                </div>
-            );
-        }
-
-        return null;
     }
 
     renderMessages = (messages) => {
 
-        console.log(messages);
-
         const {currentUser, otherUser} = this.props;
         
-        return messages.map((group, index) => {
+        return messages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
 
@@ -114,9 +71,9 @@ class GennyMessagingConversation extends Component {
 
             return (
 
-                <div className={`conversation-message-group ${createdBy == GennyBridge.getUser() ? 'sent' : 'received' }`} key={index} >
+                <div className={`conversation-message-group ${createdBy == GennyBridge.getUser() ? 'sent' : 'received' }`} key={groupIndex} >
                     {
-                        group.map((message, index) => {
+                        group.map((message, messageIndex) => {
 
                             let messageCode = message.code;
             
@@ -129,9 +86,10 @@ class GennyMessagingConversation extends Component {
                                 let creator = creatorAttribute.value;
                     
                                 let messageText = messageTextAttribute.value;
+
                                 return (
                                     <div className='conversation-message'>
-                                        { index == 0 ?
+                                        { messageIndex == 0 ?
                                             <div className='message-detail'>
                                                 <DateLabel className='time-stamp' format="MMM Do, YYYY HH:mm a">{message.created}</DateLabel>
                                                 {
@@ -143,18 +101,18 @@ class GennyMessagingConversation extends Component {
                                         : null }
                                         <div  className='conversation-message-content'>
                                             {
-                                                creator != GennyBridge.getUser() && otherUser && index == 0 ?
+                                                creator != GennyBridge.getUser() && otherUser && messageIndex == 0 ?
                                                     <ImageView className='conversation-message-image' src={otherUser.attributes.PRI_IMAGE_URL.value} />
                                                 : null
                                             }
 
                                             {
-                                                creator != GennyBridge.getUser() && otherUser && index != 0 ?
+                                                creator != GennyBridge.getUser() && otherUser && messageIndex != 0 ?
                                                 <div className='conversation-message-spacer' />
                                                 : null
                                             }
                                             
-                                            <div className='conversation-message-text' style={style} key={index}>{messageText}</div>
+                                            <div className={`conversation-message-text ${group.length == 1 ? 'single-message' : '' }`} style={style} key={messageIndex}>{messageText}</div>
                                         </div>
                                     </div>
                                 );
@@ -181,7 +139,7 @@ class GennyMessagingConversation extends Component {
                 messages ?
                     <div className="conversation-message-title" position={[0,0]}>
                         <div className='conversation-back-button' onClick={this.handleClickBack}>
-                            <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(-90deg)' }}/>
+                            <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
                             <span>Back</span>
                         </div>
                         {title}
@@ -190,10 +148,8 @@ class GennyMessagingConversation extends Component {
             }
             {
                 messages && messages.length > 0 ?
-                    <div className="conversation-messages-container" position={[ 1,0]}>
-                        {
-                            messages.map((message, index) => this.renderMessage(message, index))
-                        }
+                    <div className={`conversation-messages-container ${window.getScreenSize()}`} position={[ 1,0]}>
+                         {this.renderMessages(messages)}
                     </div>
                 : null
             }
@@ -223,9 +179,7 @@ class GennyMessagingConversation extends Component {
                 messages && messages.length > 0 ?
                     <div className="conversation-messages-container" position={[0 ,0]}>
                         {this.renderMessages(messages)}
-                        {/* {
-                            messages.map((message, index) => this.renderMessage(message, index))
-                        } */}
+                        
                     </div>
                 : null
             }

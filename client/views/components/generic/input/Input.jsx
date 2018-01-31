@@ -16,7 +16,7 @@ import {
     InputTime,
     InputUpload,
     InputUploadPhoto,
-
+    InputPayment,
 } from 'views/components';
 
 class Input extends Component {
@@ -106,8 +106,8 @@ class Input extends Component {
     }
 
     validateInput = (value, identifier, validationList) => {
-
-        if(value == this.props.value) return;
+        
+        if(value == this.props.value && value.constructor != Boolean) return;
 
         if ( validationList.length > 0) {
 
@@ -174,7 +174,6 @@ class Input extends Component {
                 />
             );
             case 'java.time.LocalDateTime':
-            console.log('values', this.props.value, this.state.value);
             return (
                 <InputDatePicker
                     {...rest}
@@ -189,7 +188,6 @@ class Input extends Component {
                 />
             );
             case 'java.time.LocalDate':
-            console.log('values', this.props.value, this.state.value);
             return (
                 <InputDatePicker
                     {...rest}
@@ -339,6 +337,15 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     handleOnChange={this.handleOnChange}
                     value={this.state.value}
+                />
+            );
+            case 'Payment':
+            return (
+                <InputPayment
+                  {...rest}
+                  validation={this.validateInput}
+                  validationStatus={validationStatus}
+                  value={this.state.value}
                 />
             );
             default:

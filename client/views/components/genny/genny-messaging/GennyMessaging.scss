@@ -5,8 +5,9 @@
     height: 100%;
 
     .row > .col {
-        transition: flex-grow 0.5s ease;
+        transition: flex-grow 0.3s ease, opacity 0.3s ease;
         flex-grow: 1;
+        opacity: 1;
         overflow-x: hidden;
         overflow-y: auto;
 
@@ -20,6 +21,7 @@
                 &.mobile {
                     flex-grow: 0;
                     width: 0;
+                    opacity: 0;
                 }
             }
         }
@@ -30,12 +32,14 @@
                 &.mobile {
                     flex-grow: 0;
                     width: 0;
+                    opacity: 0;
                 }
             }
             &.closed{
 
                 &.mobile {
-                flex-grow: 2;
+                    flex-grow: 2;
+                    opacity: 1;
                 }
             }
         }
@@ -45,6 +49,7 @@
 
         height: 100%;
         border-right: 1px solid #333;
+        //border-top: 1px solid #555;
         background: white;
         padding: 0px;
     }
@@ -70,7 +75,7 @@
         height: 90px;
 
         &:first-child {
-            border-top: 1px solid #333;
+            border-top: 1px solid #555;
         }
 
         .list-item-conversation {

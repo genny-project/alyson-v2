@@ -6,6 +6,7 @@ import events from './vertx-events';
 import store from 'views/store';
 import { ATTRIBUTE } from 'constants';
 import axios from 'axios';
+import decode_token from 'jwt-decode';
 
 class GennyBridge {
 
@@ -20,6 +21,17 @@ class GennyBridge {
 
     getProject() {
         return store.getState().baseEntity.aliases["PROJECT"];
+    }
+
+    getKeycloakRoles() {
+
+        const token = this.getToken();
+        const session_data = decode_token(token);
+        if(session_data && session_data.realm_access && session_data.realm_access.roles) {
+            return session_data.realm_access.roles;
+        }
+
+        return [];
     }
 
     sendMessage(event, data) {

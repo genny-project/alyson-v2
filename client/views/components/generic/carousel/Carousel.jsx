@@ -8,7 +8,6 @@ class Carousel extends Component {
 
   static defaultProps = {
     className: '',
-    height: '300px'
   }
 
   static propTypes = {

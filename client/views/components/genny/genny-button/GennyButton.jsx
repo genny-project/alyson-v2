@@ -17,6 +17,7 @@ class GennyButton extends Component {
     children: any,
     buttonComponentStyle: object,
     style: object,
+    className: string,
   };
 
   handleClick = () => {
@@ -42,11 +43,11 @@ class GennyButton extends Component {
   }
 
   render() {
-    const { children, style, buttonComponentStyle, ...rest } = this.props;
+    const { children, className, style, buttonComponentStyle, ...rest } = this.props;
     const componentStyle = { ...style, };
 
     return (
-      <div className="genny-button" style={componentStyle}>
+      <div className={`genny-button ${className}`} style={componentStyle}>
         <Button {...rest} onClick={this.handleClick} style={ {...buttonComponentStyle, height: componentStyle.height }}>
           {children}
         </Button>

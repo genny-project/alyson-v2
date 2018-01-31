@@ -166,6 +166,10 @@ class InputDatePicker extends Component {
     }
     else {
       date = this.convertToDisplayFormat(event.target.value, 'date');
+      console.log('date',date);
+      date = this.convertToDataFormat(date);
+      console.log('data',date);
+        
       this.changeValueProp(date );
     }
   }

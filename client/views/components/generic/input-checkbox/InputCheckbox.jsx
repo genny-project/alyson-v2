@@ -36,9 +36,9 @@ class InputCheckbox extends Component {
     if(handleOnChange) handleOnChange(value);
     if(validation) {
       clearTimeout(this.state.timer);
-      this.state.timer = setTimeout(function(){
+      this.state.timer = setTimeout(() => {
         validation(value, identifier, validationList);
-      }.bind(this), 1000);
+      }, 1000);
     }
   }
 
@@ -47,9 +47,9 @@ class InputCheckbox extends Component {
 
     return (
       <div className={`input input-checkbox ${className}`}>
-        <input type="checkbox" onChange={this.handleChange}/>
+        <input type="checkbox" checked={checked} onChange={this.handleChange}/>
         { html && ( <div className="checkbox-label label-html" dangerouslySetInnerHTML={{ __html: html }} /> ) }
-        { !html && name && ( <Label className="checkbox-label" text={name} checked={checked} /> ) }
+        { !html && name && ( <Label className="checkbox-label" text={name}/> ) }
       </div>
     );
   }

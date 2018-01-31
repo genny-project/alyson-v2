@@ -19,6 +19,15 @@ class GennyMessaging extends Component {
         isMobile: window.getScreenSize() == 'sm'
     }
 
+    componentDidMount() {
+
+        const value = { 
+            rootCode: this.props.root,
+            code: this.props.messagesRoot
+        };
+        if (window.getScreenSize() != 'sm') this.handleClickConversation(value);
+    }
+
     handleClickConversation = (listItemProps) => {
 
         let btnValue = {

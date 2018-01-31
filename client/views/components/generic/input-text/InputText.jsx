@@ -82,6 +82,7 @@ class InputText extends Component {
         this.setState({
             focused: false
         });
+
         if(validation) validation(value, identifier, validationList);
     }
 
