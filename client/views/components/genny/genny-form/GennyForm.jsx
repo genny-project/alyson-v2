@@ -17,6 +17,9 @@ class GennyForm extends Component {
 
     onInputValidation = (newValue, data, mandatory) =>  {
 
+        console.log(data);
+        console.log(" ------------------------ ")
+        
         GennyBridge.sendAnswer([{
             ...data,
             value: newValue

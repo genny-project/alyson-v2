@@ -13,7 +13,7 @@ class InputRating extends Component {
     mandatory: false,
     identifier: null,
     validationStatus: null,
-    
+
     iconFull: 'star',
     iconNone: 'star_border',
     total: 5,
@@ -34,15 +34,15 @@ class InputRating extends Component {
     handleOnChange: func,
     hideHeader: bool,
     isHorizontal: bool,
-    
+
     size: number,
     color: string,
-    
+
     iconFull: string,
     iconHalf: string,
     iconNone: string,
     total: number,
-    value: number, 
+    value: number,
   }
 
   state = {
@@ -50,11 +50,19 @@ class InputRating extends Component {
   }
 
   handleClick = (event, value) => {
+
     const { handleOnChange } = this.props;
     if(handleOnChange) handleOnChange(value);
+
     this.setState({
       clicked: value
     });
+
+    if(this.props.onValidation) {
+        console.log(this.props.data);
+
+        this.props.onValidation(value, this.props.data);
+    }
   }
 
   handleHover = (event, value) => {
@@ -66,12 +74,12 @@ class InputRating extends Component {
   renderIcons = () => {
     const {value, total, iconFull, iconNone, size } = this.props;
     const {currentHover, clicked} = this.state;
-  
+
     let icons = [];
 
     for(let i = 1; i < (total + 1); i++) {
-      
-      icons.push( 
+
+      icons.push(
         <IconSmall
           name={value >= i ? iconFull : iconNone}
           size={size}
@@ -92,7 +100,7 @@ class InputRating extends Component {
 
     return <div className={`input input-rating ${className} ${validationStatus || ''}`} style={componentStyle}>
       {
-        !isHorizontal && !hideHeader ? 
+        !isHorizontal && !hideHeader ?
           <div className="input-header">
             {name ? <Label text={name} /> : null}
             {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : ''} text="*  required" /> : null}
