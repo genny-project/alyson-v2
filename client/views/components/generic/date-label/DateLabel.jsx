@@ -1,13 +1,15 @@
 import './dateLabel.scss';
 import React, { Component } from 'react';
-import { string, any, object } from 'prop-types';
+import { string, any, object, bool } from 'prop-types';
 import moment from 'moment';
+import { BaseEntityQuery } from 'utils/genny';
 
 class DateLabel extends Component {
 
   static defaultProps = {
     children: '',
-    format: 'DD/MM/YYYY'
+    format: 'DD/MM/YYYY',
+    fromNow: false,
   }
 
   static propTypes = {
@@ -16,6 +18,7 @@ class DateLabel extends Component {
     format: string,
     children: any,
     style: object,
+    fromNow: bool,
   }
 
   renderDate = (date) => {
@@ -29,15 +32,38 @@ class DateLabel extends Component {
     }
   }
 
+  renderFromNow = (code) => {
+    
+    if (code) {
+      let createdAt = BaseEntityQuery.getBaseEntity(code);
+      if (createdAt && createdAt.created){
+        let date = moment(createdAt.created);
+        let now = moment();
+        return date.from(now);
+      }
+      else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+    
+
+  }
+
   render() {
 
-    const { className, children, style } = this.props;
+    const { className, fromNow, children, style } = this.props;
     const componentStyle = { ...style, };
 
     return (
       <div className={`date-label ${className || ''}`} style={componentStyle}>
         <span className="date-label-text">
-          {this.renderDate(children)}
+          { 
+            fromNow ? 
+            this.renderFromNow(children) :
+            this.renderDate(children)
+          }
         </span>
       </div>
     );
