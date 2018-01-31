@@ -16,7 +16,7 @@ import {
     InputTime,
     InputUpload,
     InputUploadPhoto,
-
+    InputPayment,
 } from 'views/components';
 
 class Input extends Component {
@@ -336,6 +336,15 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     handleOnChange={this.handleOnChange}
                     value={this.state.value}
+                />
+            );
+            case 'Payment':
+            return (
+                <InputPayment
+                  {...rest}
+                  validation={this.validateInput}
+                  validationStatus={validationStatus}
+                  value={this.state.value}
                 />
             );
             default:
