@@ -98,7 +98,7 @@ class BucketCard extends Component {
 
     return (
       <div className={`bucket-card ${className} clickable ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => onClick(this)} >
-        {
+        {/* {
           window.getScreenSize() == 'sm' ?
           <Dropdown
               style={dropDownStyle}
@@ -111,7 +111,7 @@ class BucketCard extends Component {
                 <li onClick={this.toggleOptions}>Cancel</li>
               </ul>
           </Dropdown> : null
-        }
+        } */}
         {layout}
       </div>
     );

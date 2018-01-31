@@ -16,13 +16,18 @@ class SublayoutLoader extends Component {
         const { layoutCode, sublayouts, style, className, aliases } = this.props;
         const componentStyle = { ...style };
 
+        const localAliases = {
+            ...aliases,
+            ROOT: aliases.GROUP,
+        };
+
         if (sublayouts) {
             const sublayout = sublayouts[layoutCode];
 
             if (sublayout) {
                 return (
                     <div className={`sublayout-loader ${className}`} style={componentStyle} >
-                        <LayoutLoader layout={sublayout} aliases={aliases}/>
+                        <LayoutLoader layout={sublayout} aliases={localAliases}/>
                     </div>
                 );
             }

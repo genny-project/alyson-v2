@@ -196,7 +196,7 @@ class BucketColumn extends Component {
                             rows={[{style: {flexGrow: 1, paddingBottom: '5px'}},{style: {flexGrow: 1, paddingBottom: '5px'}},1]}
                         >
                             <Status position={[0,0]} color='urgent' style={{height: '15px' }}/>
-                            <span position={[0,1]} >Overdue. Immediate action required.</span>
+                            <span position={[0,1]} >Immediate action required.</span>
                             <Status position={[1,0]} color='warning' style={{ height: '15px' }}/>
                             <span position={[1,1]} >Update. Action required.</span>
                             <Status position={[2,0]} color='success' style={{ height: '15px' }}/>
