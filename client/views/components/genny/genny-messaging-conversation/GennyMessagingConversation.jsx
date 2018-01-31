@@ -99,6 +99,73 @@ class GennyMessagingConversation extends Component {
         return null;
     }
 
+    renderMessages = (messages) => {
+
+        console.log(messages);
+
+        const {currentUser, otherUser} = this.props;
+        
+        return messages.map((group, index) => {
+
+            let groupCode = group[0].code;
+
+            let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, 'PRI_CREATOR');
+            createdBy = createdBy.value;
+
+            return (
+
+                <div className={`conversation-message-group ${createdBy == GennyBridge.getUser() ? 'sent' : 'received' }`} key={index} >
+                    {
+                        group.map((message, index) => {
+
+                            let messageCode = message.code;
+            
+                            let style = { textAlign: 'left' };
+                            let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR');
+                            let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE');
+            
+                            if(messageTextAttribute && creatorAttribute) {
+            
+                                let creator = creatorAttribute.value;
+                    
+                                let messageText = messageTextAttribute.value;
+                                return (
+                                    <div className='conversation-message'>
+                                        { index == 0 ?
+                                            <div className='message-detail'>
+                                                <DateLabel className='time-stamp' format="MMM Do, YYYY HH:mm a">{message.created}</DateLabel>
+                                                {
+                                                    creator != GennyBridge.getUser() && otherUser ?
+                                                        <span>{otherUser.attributes.PRI_FIRSTNAME.value} {otherUser.attributes.PRI_LASTNAME.value}</span>
+                                                    : null
+                                                }
+                                            </div>
+                                        : null }
+                                        <div  className='conversation-message-content'>
+                                            {
+                                                creator != GennyBridge.getUser() && otherUser && index == 0 ?
+                                                    <ImageView className='conversation-message-image' src={otherUser.attributes.PRI_IMAGE_URL.value} />
+                                                : null
+                                            }
+
+                                            {
+                                                creator != GennyBridge.getUser() && otherUser && index != 0 ?
+                                                <div className='conversation-message-spacer' />
+                                                : null
+                                            }
+                                            
+                                            <div className='conversation-message-text' style={style} key={index}>{messageText}</div>
+                                        </div>
+                                    </div>
+                                );
+                            } 
+                        })
+                    }
+                </div>
+            );
+        });
+    }
+
     renderMobileLayout(title, messages) {
 
         return (
@@ -155,9 +222,10 @@ class GennyMessagingConversation extends Component {
             {
                 messages && messages.length > 0 ?
                     <div className="conversation-messages-container" position={[0 ,0]}>
-                        {
+                        {this.renderMessages(messages)}
+                        {/* {
                             messages.map((message, index) => this.renderMessage(message, index))
-                        }
+                        } */}
                     </div>
                 : null
             }

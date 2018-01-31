@@ -174,6 +174,7 @@ class Input extends Component {
                 />
             );
             case 'java.time.LocalDateTime':
+            console.log('values', this.props.value, this.state.value);
             return (
                 <InputDatePicker
                     {...rest}
@@ -188,6 +189,7 @@ class Input extends Component {
                 />
             );
             case 'java.time.LocalDate':
+            console.log('values', this.props.value, this.state.value);
             return (
                 <InputDatePicker
                     {...rest}
@@ -220,6 +222,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
+                    checked={this.state.value == true ? true : false}
                 />
             );
             case 'dropdown':

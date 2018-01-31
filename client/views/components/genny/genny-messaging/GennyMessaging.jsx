@@ -52,41 +52,33 @@ class GennyMessaging extends Component {
         let messageArray = [];
         let tempArray = [];
 
-        console.log(messages);
-
-        messageArray.map((message, index) => {
-
-            console.log('====================');
-            console.log('message', message);
-            
+         messages.map((message, index) => {
 
             if (tempArray.length > 0) {
-                const last = tempArray.length;
-                //   message.attributes.creator.value
-                if (tempArray[last].attributes.value != message.created) {
-
-                    //  messageArray.push({
-                    //      creator: value,
-                    //      imageURL: value,
-                    //      datetime: value,
-                    //      children: tempArray
-                    //  })
-
+                const last = tempArray.length - 1;
+                const lastCreator = tempArray[last].attributes.PRI_CREATOR.value;
+                const thisCreator = message.attributes.PRI_CREATOR.value;
+                
+                if (lastCreator != thisCreator) {
                     messageArray.push(tempArray);
+                    tempArray = [];
                 }
                 else {
                     const lastDateTime = moment(tempArray[last].created).format('YYYY-MM-DD HH');
                     const thisDateTIme = moment(message.created).format('YYYY-MM-DD HH');
 
-                    if (lastDateTime == thisDateTIme) {
+                    if (lastDateTime != thisDateTIme) {
                         messageArray.push(tempArray);
+                        tempArray = [];
                     }
                 }
             }
             tempArray.push(message);
-            console.log('messageArray', messageArray);
-            console.log('tempArray', tempArray);
+            if (index == messages.length - 1) {
+                messageArray.push(tempArray);
+            }
         });
+        
 
         return messageArray;
     }
@@ -101,9 +93,7 @@ class GennyMessaging extends Component {
         let messages = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_MESSAGES');
         messages = messages.sort((x, y) => x.created < y.created);
         
-        //const orderedMessages = this.orderMessages(messages);
-
-        //console.log('orderedMessages', orderedMessages);
+        const orderedMessages = this.orderMessages(messages);
 
         let users = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_USER');
         const currentUserCode = GennyBridge.getUser();
@@ -132,7 +122,7 @@ class GennyMessaging extends Component {
                         title={conversationTitle}
                         currentUser={currentUser}
                         otherUser={otherUser}
-                        messages={messages}
+                        messages={orderedMessages}
                         root={messagesRoot}
                         onClick={this.handleClickBack}
                     />

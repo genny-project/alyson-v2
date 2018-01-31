@@ -123,8 +123,12 @@ class InputDatePicker extends Component {
 
         date = this.convertToDisplayFormat(event.target.value, 'date');
         time = this.convertToDisplayFormat(currentValue, 'time');
+        
         let dateTime = date + ' ' + time;
-
+        console.log('dateTime',dateTime);
+        dateTime = this.convertToDataFormat(dateTime);
+        console.log('data',dateTime);
+        
         this.setState({
           shouldValidate: false
         }, () => {
@@ -136,7 +140,11 @@ class InputDatePicker extends Component {
 
         date = this.convertToDisplayFormat(currentValue, 'date');
         time = this.convertToDisplayFormat(event.target.value, 'time');
+        
         let dateTime = date + ' ' + time;
+        console.log('dateTime',dateTime);
+        dateTime = this.convertToDataFormat(dateTime);
+        console.log('data',dateTime);
         
         if (event.type == 'blur' || event.keyCode == '13') {
 

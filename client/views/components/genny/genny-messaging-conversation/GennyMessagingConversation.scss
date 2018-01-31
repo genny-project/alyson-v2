@@ -32,44 +32,76 @@
         display: flex;
         flex-direction: column-reverse;
 
-        > .conversation-message {
+        .conversation-message-group {
 
             margin-bottom: 10px;
-            
 
-            .conversation-message-content {
+            .conversation-message {
 
                 display: flex;
-                align-items: center;
+                flex-direction: column;
 
-                .conversation-message-image {
-                    width: 40px;
-                    margin-right: 10px;
+                &:not(:last-child) {
+                    margin-bottom: 5px;
                 }
+    
+                .conversation-message-content {
+    
+                    display: flex;
+                    align-items: center;
+    
+                    .conversation-message-image {
+                        width: 40px;
+                        margin-right: 10px;
+                    }
 
-                .conversation-message-text  {
+                    .conversation-message-spacer {
+                        width: 40px;
+                        margin-right: 10px;
+                    }
+    
+                    .conversation-message-text  {
+    
+                        height: fit-content;
+                        width: fit-content;
+                        border-radius: 15px;
+                        padding: 10px;
+                        background: #333;
+                        color: white;
 
-                    height: fit-content;
-                    width: fit-content;
-                    border-radius: 15px;
-                    padding: 10px;
-                    background: #333;
-                    color: white;
+                    }
+                }
+    
+                .message-detail {
+                    font-size: 0.75em;
+                    margin-bottom: 5px;
                 }
             }
-
-            .message-detail {
-                font-size: 0.75em;
-                margin-bottom: 5px;
-            }
-
-
             &.received {
                 margin-left: 10px;
                 margin-right: auto;
-                
-                .conversation-message-text  {
-                    background: #BBB;
+
+                .conversation-message-content {
+                    
+                    .conversation-message {
+
+                        margin-right: auto;
+                    
+                        .conversation-message-text  {
+                            background: #BBB;
+                            border-radius: 0 15px 15px 0;
+                        }
+                    }
+                    &:first-of-type {
+                        .conversation-message-text  {
+                            border-radius: 15px 15px 15px 0;                            
+                        }
+                    }
+                    &:last-of-type {
+                        .conversation-message-text  {
+                            border-radius: 0 15px 15px 15px;
+                        }
+                    }
                 }
             }
 
@@ -77,6 +109,28 @@
                 text-align: right;
                 margin-left: auto;
                 margin-right: 10px;
+
+                .conversation-message-content {
+
+                    .conversation-message {
+                        margin-left: auto;
+
+                        .conversation-message-text  {
+                            border-radius: 15px 0 0 15px;
+                        }
+                    }
+
+                    &:first-of-type {
+                        .conversation-message-text  {
+                            border-radius: 15px 15px 0 15px;
+                        }
+                    }
+                    &:last-of-type {
+                        .conversation-message-text  {
+                            border-radius: 15px 0 15px 15px;
+                        }
+                    }
+                }
             }
         }
    }
