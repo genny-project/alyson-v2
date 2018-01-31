@@ -21,7 +21,7 @@ class GennyMessaging extends Component {
 
     componentDidMount() {
 
-        const value = { 
+        const value = {
             rootCode: this.props.root,
             code: this.props.messagesRoot
         };
@@ -67,7 +67,7 @@ class GennyMessaging extends Component {
                 const last = tempArray.length - 1;
                 const lastCreator = tempArray[last].attributes.PRI_CREATOR.value;
                 const thisCreator = message.attributes.PRI_CREATOR.value;
-                
+
                 if (lastCreator != thisCreator) {
                     messageArray.push(tempArray);
                     tempArray = [];
@@ -87,7 +87,7 @@ class GennyMessaging extends Component {
                 messageArray.push(tempArray);
             }
         });
-        
+
 
         return messageArray;
     }
@@ -97,18 +97,18 @@ class GennyMessaging extends Component {
         const { root, messagesRoot } = this.props;
         const { isOpen, isMobile, selectedItem } = this.state;
 
-        const conversationTitle = BaseEntityQuery.getBaseEntityAttribute(messagesRoot, 'PRI_TITLE').value;
+        const titleAtt = BaseEntityQuery.getBaseEntityAttribute(messagesRoot, 'PRI_TITLE');
+        const conversationTitle = titleAtt ? titleAtt.value : '';
         const conversations = BaseEntityQuery.getEntityChildren(root);
         let messages = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_MESSAGES');
         messages = messages.sort((x, y) => x.created < y.created);
-        
+
         const orderedMessages = this.orderMessages(messages);
 
         let users = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_USER');
         const currentUserCode = GennyBridge.getUser();
         const currentUser = users && users.filter(x => x.code == currentUserCode)[0];
         const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
-
 
         return (
             <div className="genny-messaging-container">
@@ -122,7 +122,7 @@ class GennyMessaging extends Component {
                     <GennyList
                         position={[0, 0]}
                         root={root}
-                        localAliases={{ CONTACT: otherUser.code }}
+                        localAliases={{ CONTACT: otherUser ? otherUser.code : null }}
                         onItemClick={this.handleClickConversation}
                         selectedItem={selectedItem}
                     />

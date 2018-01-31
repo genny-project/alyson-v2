@@ -12,6 +12,9 @@
         overflow-y: auto;
 
         &.message-list {
+
+            border-right: 1px solid lightgray;
+            
             &.open {
                 &.mobile {
                 }
