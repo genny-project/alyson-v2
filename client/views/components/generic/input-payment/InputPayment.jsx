@@ -47,37 +47,40 @@ class InputPayment extends Component {
   };
 
   static defaultProps = {
-    accounts: [
-      {
-        id: 1,
-        type: 'BANK_ACCOUNT',
-        name: 'NAB Business',
-        bsb: '833023',
-        accountNumber: '126456432'
-      },
-      {
-        id: 2,
-        type: 'BANK_ACCOUNT',
-        name: 'Westpac Personal',
-        bsb: '133663',
-        accountNumber: '832534723'
-      },
-      {
-        id: 3,
-        type: 'CARD',
-        name: 'Business Credit',
-        number: 'XXXX-XXXX-XXXX-1111'
-      }
-    ]
+    // accounts: [
+    //   {
+    //     id: 1,
+    //     type: 'BANK_ACCOUNT',
+    //     name: 'NAB Business',
+    //     bsb: '833023',
+    //     accountNumber: '126456432'
+    //   },
+    //   {
+    //     id: 2,
+    //     type: 'BANK_ACCOUNT',
+    //     name: 'Westpac Personal',
+    //     bsb: '133663',
+    //     accountNumber: '832534723'
+    //   },
+    //   {
+    //     id: 3,
+    //     type: 'CARD',
+    //     name: 'Business Credit',
+    //     number: 'XXXX-XXXX-XXXX-1111'
+    //   }
+    // ]
+
+    accounts: []
   };
 
   componentDidMount() {
+
     const user = GennyBridge.getUser();
     const project = GennyBridge.getProject ? GennyBridge.getProject() : null;
     const bankTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' );
     const cardTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' );
-    const accountsAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_PAYMENT_METHODS' );
-    const amount = this.props.data ? BaseEntityQuery.getBaseEntityAttribute( this.props.data.targetCode, 'PRI_OWNER_INCGST' ) : null;
+    const accountsAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_USER_PAYMENT_METHODS' );
+    const amount = this.props.data ? BaseEntityQuery.getBaseEntityAttribute( this.props.data.targetCode, 'PRI_OWNER_PRICE_INC_GST' ) : null;
     const descriptionAttribute = BaseEntityQuery.getBaseEntityAttribute( project, 'PRI_PAYMENT_CONFIRM_TEXT' );
     const description = descriptionAttribute ? descriptionAttribute.value : 'will be charged / debited from the below account to escrow for the payment of this job.';
 
@@ -177,7 +180,15 @@ class InputPayment extends Component {
   }
 
   onHandleDone = () => {
-    /* TODO SUBMIT ANSWER HERE */
+
+    GennyBridge.sendAnswer([{
+        ...this.props.data,
+        value: JSON.stringify({
+            ipAddress: this.state.ipAddress,
+            accountID: this.state.selectedPaymentMethod,
+            deviceID: this.state.deviceID
+        })
+    }]);
   }
 
   handleInputChange = field => event => {
@@ -231,7 +242,16 @@ class InputPayment extends Component {
     return outputString.charAt( 0 ).toUpperCase() + outputString.slice( 1 );
   }
 
+  submitNewPaymentMethod(jsonObject) {
+
+      GennyBridge.sendBtnClick('PAYMENT_SUBMIT', {
+          code: "USER_ADD_NEW_PAYMENT_METHOD",
+          value: JSON.stringify(jsonObject)
+      });
+  }
+
   submitCreditCard() {
+
     const { tokens, form } = this.state;
     const { nickname, name, number, expiry, cvc } = form;
     promisepay.createCardAccount( tokens.card, {
@@ -241,8 +261,28 @@ class InputPayment extends Component {
       expiry_year: `20${expiry.split( '/' )[1]}`,
       cvv: cvc,
     }, success => {
-      /* TODO SUBMIT ANSWER HERE */
-      console.log( success );
+
+        console.log( success );
+
+      this.submitNewPaymentMethod({
+        id: success.id,
+        type: 'CARD',
+        name: name,
+        number: number
+      });
+
+      this.setState({
+          accounts: [
+              ...this.state.accounts,
+              {
+                id: success.id,
+                type: 'CARD',
+                name: name,
+                number: number
+              }
+          ]
+      })
+
       this.setState({
         submitting: false,
         error: 'Success',
@@ -256,19 +296,43 @@ class InputPayment extends Component {
   }
 
   submitBankAccount() {
+
     const { tokens, form } = this.state;
+
     promisepay.createBankAccount( tokens.bank, {
       bank_name: form.bankName,
-      account_name: form.accountName,
-      routing_number: form.bsb,
+      account_name: form.name,
+      routing_number: form.bsb.replace("-", ""),
       account_number: form.accountNumber,
-      account_type: form.accountType,
-      holder_type: form.holder_type,
+      account_type: form.accountType.value,
+      holder_type: form.holderType.value,
       country: 'AUS',
       payout_currency: 'AUD',
     }, success => {
-      /* TODO SUBMIT ANSWER HERE */
-      console.log( success );
+
+        console.log( success );
+
+        this.submitNewPaymentMethod({
+            id: success.id,
+            type: 'BANK_ACCOUNT',
+            name: form.accountName,
+            bsb: form.bsb,
+            accountNumber: form.accountNumber
+        });
+
+        this.setState({
+            accounts: [
+                ...this.state.accounts,
+                {
+                    id: success.id,
+                    type: 'BANK_ACCOUNT',
+                    name: form.accountName,
+                    bsb: form.bsb,
+                    accountNumber: form.accountNumber
+                }
+            ]
+        })
+
       this.setState({
         submitting: false,
         error: 'Success',
@@ -329,15 +393,15 @@ class InputPayment extends Component {
   }
 
   renderSelectAccount() {
-    const { selectedPaymentType, selectedPaymentMethod } = this.state;
-    const { accounts } = this.props;
+
+    const { selectedPaymentType, selectedPaymentMethod, accounts } = this.state;
 
     return (
       <div>
         <h2>{this.renderBackButton()} Select account {this.renderAddButton( selectedPaymentType )}</h2>
         <p>Please select a account from below</p>
         <div className='payment-methods'>
-          { accounts.filter( account => account.type === selectedPaymentType ).map( account => (
+          { accounts.filter( account => account.type == selectedPaymentType ).map( account => (
             <PaymentMethod
               key={account.id}
               account={account}
