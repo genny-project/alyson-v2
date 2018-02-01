@@ -181,8 +181,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
-                    defaultDateFormat='YYYY-MM-DD HH:mm'
-                    displayDateFormat='DD-MM-YYYY HH:mm'
+                    dateDisplayFormat={window.getScreenSize() == 'sm' ? 'yyyy-MM-dd' : 'YYYY-MM-DD'}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                 />
@@ -196,8 +195,7 @@ class Input extends Component {
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
                     showTimeSelect={false}
-                    defaultDateFormat='YYYY-MM-DD'
-                    displayDateFormat='DD-MM-YYYY'
+                    dateDisplayFormat={window.getScreenSize() == 'sm' ? 'yyyy-MM-dd' : 'YYYY-MM-DD'}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                 />
