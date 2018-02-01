@@ -82,11 +82,11 @@ class GennyHeader extends Component {
       ...customStyle.gennyHeader
     };
 
-    // if(currentUser) {
-    //   const isOwner = BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
-    //   const isDriver = BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
-    //   console.log(isOwner, isDriver);
-    // }
+    if(currentUser) {
+      const isOwner = BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
+      const isDriver = BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
+      console.log(isOwner, isDriver);
+    }
     
     let session_data = decode_token(token);
     let roles = session_data.realm_access.roles;
