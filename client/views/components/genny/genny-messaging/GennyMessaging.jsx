@@ -25,6 +25,7 @@ class GennyMessaging extends Component {
             rootCode: this.props.root,
             code: this.props.messagesRoot
         };
+
         if (window.getScreenSize() != 'sm') this.handleClickConversation(value);
     }
 
@@ -46,7 +47,8 @@ class GennyMessaging extends Component {
 
         this.setState({
             isOpen: false,
-            selectedItem: listItemProps.code
+            selectedItem: listItemProps.code,
+            messagesRoot: listItemProps.code,
         });
     }
 
@@ -94,7 +96,8 @@ class GennyMessaging extends Component {
 
     render() {
 
-        const { root, messagesRoot } = this.props;
+        const { root } = this.props;
+        const { messagesRoot } = this.state;
         const { isOpen, isMobile, selectedItem } = this.state;
 
         const titleAtt = BaseEntityQuery.getBaseEntityAttribute(messagesRoot, 'PRI_TITLE');
