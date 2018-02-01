@@ -49,7 +49,7 @@ class GennyMessagingConversation extends Component {
                 <GennyButton
                     className={`conversation-button ${this.state.messageText == '' ? 'disabled' : ''}`}
                     onClick={this.onButtonClick}
-                    disabled={this.state.messageText != ''}
+                    disabled={this.state.messageText == ''}
                     buttonCode='BTN_SEND_MESSAGE'
                     value={{ itemCode: this.props.root, value: this.state.messageText }}
                     >
@@ -61,7 +61,7 @@ class GennyMessagingConversation extends Component {
     renderMessages = (messages) => {
 
         const {currentUser, otherUser} = this.props;
-        
+
         return messages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
@@ -76,15 +76,15 @@ class GennyMessagingConversation extends Component {
                         group.map((message, messageIndex) => {
 
                             let messageCode = message.code;
-            
+
                             let style = { textAlign: 'left' };
                             let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR');
                             let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE');
-            
+
                             if(messageTextAttribute && creatorAttribute) {
-            
+
                                 let creator = creatorAttribute.value;
-                    
+
                                 let messageText = messageTextAttribute.value;
 
                                 return (
@@ -111,12 +111,12 @@ class GennyMessagingConversation extends Component {
                                                 <div className='conversation-message-spacer' />
                                                 : null
                                             }
-                                            
+
                                             <div className={`conversation-message-text ${group.length == 1 ? 'single-message' : '' }`} style={style} key={messageIndex}>{messageText}</div>
                                         </div>
                                     </div>
                                 );
-                            } 
+                            }
                         })
                     }
                 </div>
@@ -179,7 +179,7 @@ class GennyMessagingConversation extends Component {
                 messages && messages.length > 0 ?
                     <div className="conversation-messages-container" position={[0 ,0]}>
                         {this.renderMessages(messages)}
-                        
+
                     </div>
                 : null
             }
