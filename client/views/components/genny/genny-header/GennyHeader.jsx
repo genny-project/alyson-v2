@@ -82,11 +82,8 @@ class GennyHeader extends Component {
       ...customStyle.gennyHeader
     };
 
-    if(currentUser) {
-      const isOwner = BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
-      const isDriver = BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
-      console.log(isOwner, isDriver);
-    }
+    let isOwner = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
+    let isDriver = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
     
     let session_data = decode_token(token);
     let roles = session_data.realm_access.roles;
@@ -117,6 +114,17 @@ class GennyHeader extends Component {
           rows={[ { style: { flexGrow: "1", paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: "100%" } } ]}
         >
           <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3 >
+          <Label
+            position={[0,1]}
+            text={`${isOwner ? 'OWNER' : ''} ${isDriver ? 'DRIVER' : ''}`}
+            style={{
+              marginRight: '5px',
+              fontSize: '0.75em',
+              border: 'solid 1px #BBB',
+              borderRadius: '5px',
+              padding: '2.5px 5px'
+            }}
+          />
           <ImageView position={[0,1]} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
           <Label position={[0,1]} text={`${userName}`} />
           <Dropdown

@@ -10,6 +10,7 @@ class Button extends Component {
     href: '',
     type: '',
     onClick: null,
+    disabled: false
   }
 
   static propTypes = {
@@ -36,7 +37,7 @@ class Button extends Component {
     const componentStyle = { ...style, };
 
     const btn = (
-      <div className={`button ${className} ${type} ${disabled || ''}`} style={componentStyle}>
+      <div className={`button ${className} ${type} ${disabled ? 'disabled' : ''}`} style={componentStyle}>
         <button disabled={disabled} onClick={this.onClick} style={{ ...buttonStyle }}>{children ? children : null}</button>
       </div>
     );

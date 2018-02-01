@@ -164,11 +164,15 @@
 		}
 	}
 
-	&:not(:last-child){
-		//margin-right: 5px
-	}
+	&.disabled { 
 
-	&:not(:first-child){
-		//margin-left: 5px
-	}
+        button {
+            background-color: #BBB;
+            cursor: not-allowed !important;
+
+            &:hover {
+                box-shadow: none; 
+            }
+        }
+    }
 }
