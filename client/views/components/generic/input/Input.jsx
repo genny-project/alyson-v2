@@ -66,6 +66,7 @@ class Input extends Component {
         const { value } = this.state;
 
         let isValid = false;
+        //console.log(validationList, value);
 
         // if there is validation required
         if ( mandatory || !mandatory && value != null && value.length > 0) {
@@ -100,7 +101,7 @@ class Input extends Component {
                 this.validationStyle('error');
             }
         }
-
+        //console.log(isValid);
         return isValid;
     }
 
@@ -122,6 +123,8 @@ class Input extends Component {
     validateInput = (value, identifier, validationList) => {
         
         if(value == this.props.value && value.constructor != Boolean) return;
+
+        this.state.value = value;
 
         if ( validationList.length > 0) {
 
