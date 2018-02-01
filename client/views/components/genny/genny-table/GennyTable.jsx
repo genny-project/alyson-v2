@@ -8,15 +8,20 @@ import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCel
 class GennyTable extends Component {
 
     static defaultProps = {
-        showBaseEntity: false
+        showBaseEntity: false,
+        columns: [{
+            PRI_FIRSTNAME: 'First Name',
+            PRI_LASTNAME: 'Last Name'
+        }]
       }
 
       static propTypes = {
         showBaseEntity: bool,
+        columns: []
       }
 
     state = {
-        columns: [],
+
         data: [],
         width: null,
         height: null,
@@ -191,47 +196,49 @@ class GennyTable extends Component {
             // data_key: value
             let value = data[data_key];
 
-            if (value.constructor == Object) {
-                this.formatColumns(value);
-            }
-            else {
-                cols.push({
-                    'Header': <span className="header">{value}</span>,
-                    'accessor': data[data_key]
-                });
-            }
+            console.log(data_key, value);
+
+            cols.push({
+                'Header': <span className="header">{value}</span>,
+                'accessor': data_key
+            });
+            
+            // if (value.constructor == Object) {
+            //     this.formatColumns(value);
+            // }
+            // else {
+            //     cols.push({
+            //         'Header': <span className="header">{value}</span>,
+            //         'accessor': data[data_key]
+            //     });
+            // }
         });
         return cols;
     }
 
     render() {
 
-        const { root, showBaseEntity, linkCode, style, } = this.props;
+        const { root, showBaseEntity, linkCode, style, columns} = this.props;
 
-        let columns = [];
+        //let columns = [];
         let data = [];
 
         let children = BaseEntityQuery.getEntityChildren(root);
 
-        if(showBaseEntity) {
+        // if(showBaseEntity) {
 
-            let be = BaseEntityQuery.getBaseEntity(root);
-            if(be) {
-                children = [be];
-            }
-        }
-        else if(linkCode) {
-            children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
-        }
+        //     let be = BaseEntityQuery.getBaseEntity(root);
+        //     if(be) {
+        //         children = [be];
+        //     }
+        // }
+        // else if(linkCode) {
+        //     children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
+        // }
 
-        columns = this.generateHeadersFor(children);
+        // columns = this.generateHeadersFor(children);
 
         //   PROP column DATA FORMAT
-        
-        // {
-        //     'First Name': 'PRI_FIRSTNAME',
-        //     'Last Name': 'PRI_LASTNAME'
-        // }
 
         //   CONVERT TO THIS FORMAT
 
@@ -246,12 +253,12 @@ class GennyTable extends Component {
         //     }
         // }
         
-        //formattedColumns = this.formatColumns(columns);
+        let newColumns = this.formatColumns(columns);
         data = this.generateDataFor(children);
 
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
-                <Table {...this.props} data={data} columns={columns}/>
+                <Table {...this.props} data={data} columns={newColumns}/>
             </div>
         );
     }

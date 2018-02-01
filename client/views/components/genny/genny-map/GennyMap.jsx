@@ -119,8 +119,7 @@ class GennyMap extends Component {
         const { root, style, mapStyle, ...rest } = this.props;
         const componentStyle = { ...style};
         let mapData = this.getDataFromCode(root);
-        console.log(mapData);
-        
+
         return (
             <div className="genny-map" style={componentStyle}>
                 <MapDisplay

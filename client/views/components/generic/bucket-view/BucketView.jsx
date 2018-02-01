@@ -22,6 +22,7 @@ class BucketView extends Component {
     currentlySelectedItem: false,
     touch: {},
     currentBucket: 1,
+    isSafari: navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1
   }
 
   getBucketColumnContentNode(bucket) {
@@ -230,28 +231,46 @@ class BucketView extends Component {
     let new_position = currentScrollPosition;
 
     if(positionBucket == 'next') {
-
-      if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
-        new_position = currentScrollPosition + bucketPageWidth;
-        this.setState(prevState => ({
-          currentBucket: prevState.currentBucket + 1
-        }));
+      if (this.state.isSafari) {
+        if(this.state.currentBucket < this.props.buckets.length) {
+          this.setState(prevState => ({
+            currentBucket: prevState.currentBucket + 1
+          }));
+        }
+      }
+      else {
+        if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
+          new_position = currentScrollPosition + bucketPageWidth;
+          this.setState(prevState => ({
+            currentBucket: prevState.currentBucket + 1
+          }));
+        }
       }
     }
     else if(positionBucket == 'previous') {
-
-      if(currentScrollPosition - bucketPageWidth >= 0) {
-        new_position = currentScrollPosition - bucketPageWidth;
-        this.setState(prevState => ({
-          currentBucket: prevState.currentBucket - 1
-        }));
+      if (this.state.isSafari) {
+        if(this.state.currentBucket > 1 ) {
+          this.setState(prevState => ({
+            currentBucket: prevState.currentBucket - 1
+          }));
+        }
       }
+      else {
+        if(currentScrollPosition - bucketPageWidth >= 0) {
+          new_position = currentScrollPosition - bucketPageWidth;
+          this.setState(prevState => ({
+            currentBucket: prevState.currentBucket - 1
+          }));
+        }
+      }      
     }
 
-    bucket.scrollTo({
-      'behavior': 'smooth',
-      'left': new_position
-    });
+    if (!this.state.isSafari) {
+      bucket.scrollTo({
+        'behavior': 'smooth',
+        'left': new_position
+      });
+    }
   }
 
   goToNextBucket = () => {
@@ -358,8 +377,6 @@ class BucketView extends Component {
       let deltaY = this.state.touch.deltaY;
       let deltaX = this.state.touch.deltaX;
 
-      console.log('X', deltaX, 'Y', deltaY);
-
       this.state.touch = {};
       if (Math.abs(deltaY) < Math.abs(deltaX)) {
         if(deltaX < 0) {
@@ -437,8 +454,13 @@ class BucketView extends Component {
           showMovingOptions={this.toggleMovingOptions}
           addNewItem={this.addNewItem}
           canAddItem={bucket.canAddItem}
-          style={{ flexBasis: `calc(100vw / ${buckets.length})`, minWidth: isMobile ? '100vw' : '270px' , maxWidth: isMobile ? '100vw' : `calc(100vw / ${buckets.length})` }}
-          className={(index % 2 == 0) ? '' : 'alt-style'}
+          style={{
+            flexBasis: `calc(100vw / ${buckets.length})`,
+            minWidth: isMobile ? '100vw' : '270px',
+            maxWidth: isMobile ? '100vw' : `calc(100vw / ${buckets.length})`,
+            transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
+          }}
+          className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}
         />
       );
     });
