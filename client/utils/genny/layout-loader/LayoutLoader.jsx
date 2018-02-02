@@ -63,8 +63,6 @@ class LayoutLoader extends Component {
         let alias_code = split[0];
         let attribute_code = split[1];
 
-        let showLog = attribute_code ? (attribute_code.includes('PRI_DRIVER') || attribute_code.includes('PRI_OWNER')) : false;
-
         let attribute = {};
 
         if (localAliases) {
@@ -77,19 +75,24 @@ class LayoutLoader extends Component {
 
                    let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
 
-                   if(baseEntity) {
+                    if(baseEntity) {
 
-                       attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
+                        if(attribute_code.startsWith('PRI_')) {
+                            attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
+                        }
+                        else {
+                            attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityField(localAliasCode, attribute_code) : null;
+                        }
 
-                       if(attribute == null) {
-                           layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
-                       }
+                        if(attribute == null) {
+                            layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
+                        }
                    }
                 }
             });
         }
 
-        if(!localAliases || alias_code == "USER" || alias_code == "PROJECT") {
+        if(!localAliases || alias_code == 'USER' || alias_code == 'PROJECT') {
 
             if(split.length == 2) {
 

@@ -192,6 +192,16 @@ class BaseEntityQuery {
 
         return null;
     }
+
+    static getBaseEntityField = (baseEntityCode, field) => {
+
+        let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        return be ? be[field] : null;
+    }
+
+    static getBaseEntityCreationDate = (baseEntityCode) => {
+        return BaseEntityQuery.getBaseEntityField(baseEntityCode, "created");
+    }
 }
 
 export default BaseEntityQuery;
