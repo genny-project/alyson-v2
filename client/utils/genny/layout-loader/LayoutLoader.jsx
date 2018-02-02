@@ -77,7 +77,7 @@ class LayoutLoader extends Component {
 
                     if(baseEntity) {
 
-                        if(attribute_code.startsWith('PRI_')) {
+                        if(attribute_code && attribute_code.startsWith('PRI_')) {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }
                         else {
@@ -116,7 +116,7 @@ class LayoutLoader extends Component {
         }
 
       });
-     
+
       return layout;
   }
 
