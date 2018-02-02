@@ -14,22 +14,20 @@ class Carousel extends Component {
     className: string,
     style: string,
     children: any,
-    height: string,
+    imageHeight: string,
   }
 
   renderItems = (items) => {
 
-    const {style, height} = this.props;
-
-    const elementHeight = style && style.background ? style.background : height;
+    const {style, imageHeight} = this.props;
 
     let content = [];
 
     if (items && items.length > 0) {
       items.map( item  => {
         content.push(
-          <div style={{ height: elementHeight }}>
-            <img src={item.img} />
+          <div style={{ height: imageHeight }}>
+            <img src={item.img} style={{ height: '100%' }}/>
             { item.text ?
               <span className='legend'>{item.text}</span>
             : null }
@@ -38,6 +36,10 @@ class Carousel extends Component {
       });
     }
     return(content);
+  }
+
+  handleClick = (event) => {
+    console.log(event);
   }
 
   render() {
@@ -53,12 +55,24 @@ class Carousel extends Component {
       },
       {
         img: 'http://c8.alamy.com/comp/DYCDEC/stacks-of-bags-of-rice-sold-at-a-grocery-shop-in-ealing-road-in-north-DYCDEC.jpg',
+      },
+      {
+        img: 'http://investorsking.com/wp-content/uploads/2016/09/rice.jpg'
+      },
+      {
+        img: 'http://thenationonlineng.net/wp-content/uploads/2017/10/Bags-of-Rice.jpg',
+      },
+      {
+        img: 'http://c8.alamy.com/comp/DYCDEC/stacks-of-bags-of-rice-sold-at-a-grocery-shop-in-ealing-road-in-north-DYCDEC.jpg',
       }
     ];
 
     return (
-      <div className={`carousel ${className}`} style={componentStyle}>
-        <ReactCarousel showThumbs
+      <div className={`carousel-main ${className}`} style={componentStyle}>
+        <ReactCarousel
+          showThumbs
+          onClickItem={this.handleClick}
+          onClickThumb={this.handleClick}
         >
           {this.renderItems(items)}
         </ReactCarousel>

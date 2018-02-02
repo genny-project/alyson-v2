@@ -83,8 +83,10 @@ class GennyHeader extends Component {
     };
 
     let isOwner = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
+    isOwner = isOwner && isOwner.value;
     let isDriver = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
-    
+    isDriver = isDriver && isDriver.value;
+
     let session_data = decode_token(token);
     let roles = session_data.realm_access.roles;
 
