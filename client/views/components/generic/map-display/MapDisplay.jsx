@@ -121,7 +121,10 @@ class MapDisplay extends Component {
   }
 
   componentDidMount() {
-    this.setup();
+
+      console.log("------------------------------")
+      console.log(this.props);
+      this.setup();
   }
 
   checkAddressFormat = (geocoder, value, callback) => {

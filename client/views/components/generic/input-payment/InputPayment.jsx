@@ -262,8 +262,6 @@ class InputPayment extends Component {
       cvv: cvc,
     }, success => {
 
-        console.log( success );
-
       this.submitNewPaymentMethod({
         id: success.id,
         type: 'CARD',
