@@ -9,10 +9,7 @@ class GennyTable extends Component {
 
     static defaultProps = {
         showBaseEntity: false,
-        columns: [{
-            PRI_FIRSTNAME: 'First Name',
-            PRI_LASTNAME: 'Last Name'
-        }]
+        columns: null
       }
 
       static propTypes = {
@@ -38,7 +35,7 @@ class GennyTable extends Component {
         let headers = [];
 
         baseEntities.map(baseEntity => {
-            
+
             let cols = this.generateColumns(baseEntity);
             cols.map(c => {
 
@@ -202,7 +199,7 @@ class GennyTable extends Component {
                 'Header': <span className="header">{value}</span>,
                 'accessor': data_key
             });
-            
+
             // if (value.constructor == Object) {
             //     this.formatColumns(value);
             // }
@@ -252,7 +249,7 @@ class GennyTable extends Component {
         //         accessor: 'PRI_LASTNAME'
         //     }
         // }
-        
+
         let newColumns = this.formatColumns(columns);
         data = this.generateDataFor(children);
 
