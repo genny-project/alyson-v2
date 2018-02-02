@@ -59,7 +59,7 @@ class Sidebar extends Component {
                 position={[0,0]}
             />;
 
-        let openStatus = window.getScreenSize() ? isOpen : !isOpen;
+        let openStatus = window.getScreenSize() == 'sm' ? isOpen : !isOpen;
             
         return (
             <div className={`sidebar ${window.getScreenSize()} ${openStatus ? '' : 'closed'}`}>
