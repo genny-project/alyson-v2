@@ -63,20 +63,33 @@ export default function reducer(state = initialState, action) {
                             return existing;
                         }
 
-                        let newAttributes = newItem.baseEntityAttributes;
-                        let existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
+                        let existingAttributes = state.data[baseEntityCode] ? state.data[baseEntityCode].attributes : {};
+                        if(newItem.baseEntityAttributes.length > 0) {
 
-                        newAttributes.forEach(newAttribute => {
+                            let newAttributes = newItem.baseEntityAttributes;
+                            existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
 
-                            existingAttributes[newAttribute.attributeCode] = {
-                                ...existingAttributes[newAttribute.attributeCode],
-                                ...newAttribute,
-                                ... {
-                                    value: grabValue(newAttribute),
-                                    baseEntityCode: baseEntityCode
-                                }
-                            };
-                        });
+                            // here we should instead merge attributes instead of override
+                            console.log(baseEntityCode)
+                            console.log(existing[baseEntityCode])
+
+                            if(newAttributes.length > 0) {
+
+                                console.log(newAttributes)
+
+                                newAttributes.forEach(newAttribute => {
+
+                                    existingAttributes[newAttribute.attributeCode] = {
+                                        ...existingAttributes[newAttribute.attributeCode],
+                                        ...newAttribute,
+                                        ... {
+                                            value: grabValue(newAttribute),
+                                            baseEntityCode: baseEntityCode
+                                        }
+                                    };
+                                });
+                            }
+                        }
 
                         existing[baseEntityCode] = {
                             ...state.data[baseEntityCode],
@@ -107,6 +120,8 @@ export default function reducer(state = initialState, action) {
                             attributes: existingAttributes,
                             weight: newItem.weight ? newItem.weight : 1,
                         };
+
+                        console.log(existing[baseEntityCode]);
 
                         delete existing[baseEntityCode].baseEntityAttributes;
                     }
