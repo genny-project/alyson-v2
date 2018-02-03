@@ -80,7 +80,7 @@ class LayoutLoader extends Component {
                         if(attribute_code && attribute_code.startsWith('PRI_')) {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }
-                        else {
+                        else if(attribute_code) {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityField(localAliasCode, attribute_code) : null;
                         }
 

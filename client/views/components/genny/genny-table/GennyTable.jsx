@@ -215,25 +215,25 @@ class GennyTable extends Component {
 
     render() {
 
-        const { root, showBaseEntity, linkCode, style, columns} = this.props;
+        const { root, showBaseEntity, linkCode, style } = this.props;
 
-        //let columns = [];
+        let columns = [];
         let data = [];
 
         let children = BaseEntityQuery.getEntityChildren(root);
 
-        // if(showBaseEntity) {
+        if(showBaseEntity) {
 
-        //     let be = BaseEntityQuery.getBaseEntity(root);
-        //     if(be) {
-        //         children = [be];
-        //     }
-        // }
-        // else if(linkCode) {
-        //     children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
-        // }
+            let be = BaseEntityQuery.getBaseEntity(root);
+            if(be) {
+                children = [be];
+            }
+        }
+        else if(linkCode) {
+            children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
+        }
 
-        // columns = this.generateHeadersFor(children);
+        columns = this.generateHeadersFor(children);
 
         //   PROP column DATA FORMAT
 
@@ -250,12 +250,12 @@ class GennyTable extends Component {
         //     }
         // }
 
-        let newColumns = this.formatColumns(columns);
+        // let newColumns = this.formatColumns(columns);
         data = this.generateDataFor(children);
 
         return (
             <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
-                <Table {...this.props} data={data} columns={newColumns}/>
+                <Table {...this.props} data={data} columns={columns}/>
             </div>
         );
     }
