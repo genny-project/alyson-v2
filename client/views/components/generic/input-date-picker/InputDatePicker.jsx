@@ -16,7 +16,7 @@ class InputDatePicker extends Component {
     showTimeSelect: true,
 
     dateTimeDisplayFormat: 'YYYY-MM-DD HH:mm',
-    dateDisplayFormat: 'YYYY-MM-DD',
+    dateDisplayFormat: 'yyyy-MM-dd',
     timeDisplayFormat: 'HH:mm',
 
   }
@@ -54,6 +54,18 @@ class InputDatePicker extends Component {
   componentWillMount() {
     const { value } = this.props;
 
+    if ( value ) {
+      // const initialValue = 
+      // this.setState({
+        // currentValue: 
+      // });
+      const date = new Date( value );
+      this.setState({
+        currentValue: date,
+        lastSentValue: date
+      });
+    }
+    /*
     let initialValue;
     if (typeof value == string) {
       initialValue = moment().toISOString();
@@ -67,13 +79,13 @@ class InputDatePicker extends Component {
       currentValue: initialValue,
       lastSentValue: initialValue
     });
+    */
   }
 
   componentWillReceiveProps( nextProps) {
     if (nextProps.value != this.props.value) {
-      let newValue = this.convertToDisplayFormat(nextProps.value, 'dateTime');
       this.setState({
-        currentValue: newValue
+        currentValue: new Date( nextProps.value ),
       });
     }
   }
@@ -110,13 +122,28 @@ class InputDatePicker extends Component {
     return dataFormat;
   }
 
-  handleChangeMobile = (event) => {
-    const {type} = this.props;
-    const {currentValue} = this.state;
-
+  handleChangeMobile = field => (event) => {
+    const { value } = event.target;
+    const { currentValue } = this.state;
     let date;
-    let time;
 
+    if ( field === 'time' ) {
+      const hours = value.split( ':' )[0];
+      const minutes = value.split( ':' )[1];
+
+      date = currentValue ? new Date( currentValue ) : new Date();
+      date.setHours( hours, minutes );
+    } else {
+      date = new Date( value );
+    }
+
+    this.setState({ currentValue: new Date( date ) }, () => {
+      const formatted = this.convertToDataFormat( this.state.currentValue );
+
+      this.changeValueProp( formatted );
+    });
+
+    /*
     if (type != 'java.time.LocalDate' ) {
 
       if (event.target.type == 'date') {
@@ -172,6 +199,7 @@ class InputDatePicker extends Component {
         
       this.changeValueProp(date );
     }
+    */
   }
 
   handleBlur = (value) => {
@@ -210,11 +238,11 @@ class InputDatePicker extends Component {
     const { currentValue, isMobile } = this.state;
     const componentStyle = { ...style, };
 
-    const dateTime = this.convertToDisplayFormat(currentValue, 'dateTime');
-    const dateWeb = this.convertToDisplayFormat(currentValue, 'date');
-    const dateMobile = this.convertToDisplayFormat(currentValue, 'date');
-    const timeMobile = this.convertToDisplayFormat(currentValue, 'time');
-  
+    // const dateTime = this.convertToDisplayFormat(currentValue, 'dateTime');
+    // const dateWeb = this.convertToDisplayFormat(currentValue, 'date');
+    // const dateMobile = this.convertToDisplayFormat(currentValue, 'date');
+    // const timeMobile = this.convertToDisplayFormat(currentValue, 'time');
+
     return (
       <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
         { name ? <div className='input-header'>
@@ -226,16 +254,16 @@ class InputDatePicker extends Component {
             <div className='input-date-picker-mobile' style={{display: 'flex'}}>
               <input
                 type='date'
-                onChange={this.handleChangeMobile}
-                value={dateMobile}
+                onChange={this.handleChangeMobile( 'date' )}
+                value={currentValue ? moment( currentValue ).format( 'YYYY-MM-DD' ) : null}
               />
               { type == 'java.time.LocalDate' ? null :
                 <input
                   type='time'
-                  onChange={this.handleChangeMobile}
-                  onBlur={this.handleChangeMobile}
-                  onKeyDown={this.handleChangeMobile}
-                  value={timeMobile}
+                  onChange={this.handleChangeMobile( 'time' )}
+                  // onBlur={this.handleChangeMobile}
+                  // onKeyDown={this.handleChangeMobile}
+                  value={currentValue ? moment( currentValue ).format( 'HH:mm' ) : null}
                 />
               }
             </div>
@@ -246,7 +274,7 @@ class InputDatePicker extends Component {
 
             dateFormat={(type == 'java.time.LocalDateTime') ? dateTimeDisplayFormat : dateDisplayFormat }
             timeFormat={timeDisplayFormat}
-            selected={(type == 'java.time.LocalDateTime') ? moment(dateTime) : moment(dateWeb) }
+            selected={currentValue ? moment( currentValue ) : null}
             
             onChange={this.changeValueProp}
 

@@ -1,6 +1,6 @@
 @import 'client/styles/colors';
 
-.carousel {
+.carousel-main {
 
 
     > div {
@@ -10,13 +10,36 @@
             height: 100%;
 
             img {
-                background-size: cover;
+                object-fit: cover;
+                //width: initial;
             }
         }
 
         .control-arrow {
-            background: rgba(0,0,0,0.4) !important;
+            //background: rgba(0,0,0,0.4) !important;
+
+            &::before {
+                font-size: 2em;
+                // background: white;
+                // border-radius: 50%;
+                // padding: 5px;
+            }
+
+            &:hover{ 
+                //background: none;
+            }
         }
     }
 
+    .carousel {
+        .thumbs-wrapper{
+            overflow-x: auto;
+        }
+        .carousel-slider {
+
+            .slider-wrapper{
+
+            }
+        }
+    }
 }

@@ -24,19 +24,19 @@ class FormGroup extends Component {
   }
 
   state = {
-    isFormValidated: true,
+    isFormValidated: false,
     animatedButtons: {},
     isMobile: window.getScreenSize() == 'sm',
   }
 
   componentWillMount() {
-    this.inputRefs = [];
+    this.inputRefs = {};
   }
 
   componentDidMount() {
 
       this._ismounted = true;
-      // this.checkIfFormIsValid()
+      this.checkIfFormIsValid();
   }
 
   componentWillUnmount() {
@@ -44,40 +44,44 @@ class FormGroup extends Component {
   }
 
   componentWillUpdate() {
-    this.inputRefs = [];
+    this.inputRefs = {};
     this.state.animatedButtons = {};
   }
 
   checkIfFormIsValid() {
 
-      if(this._ismounted) {
+    if(this._ismounted) {
 
-          const isFormValid = this.isFormGroupValid(false)
-          console.log("---------------")
-          console.log(isFormValid)
-          if(isFormValid && this.state.isFormValidated == false) {
+      //console.log('===========');
+      
+      const isInputValid = this.isFormGroupValid(false);
+      //console.log('inputs', isInputValid);
+      const isFormValid = isInputValid.every(input => {return input;});
+      //console.log('isFormValid', isFormValid);
+      //console.log('isFormValidated', this.state.isFormValidated);
 
-              this.setState({
-                  isFormValidated: true
-              })
-          }
-          else {
-
-              if(this.state.isFormValidated == true) {
-
-                  if(isFormValid) {
-                      this.setState({
-                          isFormValidated: false
-                      })
-                  }
-              }
-          }
+      if(isFormValid) {
+        if(this.state.isFormValidated == false){
+          this.setState({
+              isFormValidated: true
+          });
+        }
       }
+      else {
+        if(this.state.isFormValidated == true) {
+          this.setState({
+              isFormValidated: false
+          });  
+        }
+      }
+    }
   }
 
   renderData = (data) => {
 
     const { isHorizontal } = this.props;
+
+    this.inputRefs = {};
 
     return data.map((child, index) => {
 
@@ -86,9 +90,9 @@ class FormGroup extends Component {
       } else {
         return (
           <Input
-            ref={inputRef => this.inputRefs.push(inputRef)}
             {...child}
-            // onValidation={(argument1, argument2, argument3) => { console.log("checking"); this.checkIfFormIsValid(); child.onValidation(argument1, argument2, argument3); }}
+            ref={ inputRef => this.inputRefs[child.identifier] == null ? this.inputRefs[child.identifier] = inputRef : null}
+            onValidation={(argument1, argument2, argument3) => { console.log('checking'); this.checkIfFormIsValid(); child.onValidation(argument1, argument2, argument3); }}
             key={index}
             style={isHorizontal && !this.state.isMobile && data.length > 1 ?
               { marginLeft: '5px', marginRight: '5px', marginBottom: '10px', width: 'calc(50% - 10px)' } :
@@ -114,27 +118,40 @@ class FormGroup extends Component {
       }
     }
 
-    isFormGroupValid = (showError) => {
+    isFormGroupValid = (showStyle) => {
+      // return this.inputRefs.map(input => {
+      //   return input ? input.isValid(showStyle) : true;
+      // });
 
-        return this.inputRefs.map(input => {
-          return input ? input.isValid(showError) : true;
-        });
+      return Object.keys(this.inputRefs).map(ref => {
+        let input = this.inputRefs[ref];
+        return input ? input.isValid(showStyle) : true;
+      });
     }
 
     renderFormButtons(buttons) {
 
       const { animatedButtons, isFormValidated } = this.state;
 
+
+
       return (
         <Grid rows={1} cols={buttons.length}>
           {
             buttons.map((button, index) => {
+
+              //console.log(isFormValidated);
+             
+              //console.log('====================');
+              const isDisabled = button == 'form-submit' && !isFormValidated;
+              //console.log(isDisabled);
+
               return (
                 <Button
                   key={index}
                   style={{ margin : `10px ${index < buttons.length - 1 ? '10px' : '0'} 10px 0` }}
                   position={[0, index]}
-                  disabled={animatedButtons[button]}
+                  disabled={ isDisabled || animatedButtons[button]}
                   className={`form-button ${button} ${animatedButtons[button] ? 'animate' : ''}`}
                   onClick={() => this.onSubmitClick(button)}>
                   {

@@ -47,7 +47,7 @@ class GennyMessagingConversation extends Component {
         return <div>
             <textarea value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
                 <GennyButton
-                    className={`conversation-button ${this.state.messageText == '' ? 'disabled' : ''}`}
+                    className='conversation-button'
                     onClick={this.onButtonClick}
                     disabled={this.state.messageText == ''}
                     buttonCode='BTN_SEND_MESSAGE'

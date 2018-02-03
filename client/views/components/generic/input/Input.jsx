@@ -60,24 +60,39 @@ class Input extends Component {
         this.state.validationStatus = 'normal';
     }
 
-    isValid = (showError) => {
+    isValid = (showStyle) => {
 
-        const { validationList } = this.props;
+        const { validationList, mandatory } = this.props;
         const { value } = this.state;
 
         let isValid = false;
-        if (validationList.length > 0) {
+        //console.log(validationList, value);
 
-            isValid = validationList.every( validation => {
-                // if(validation.regex == ".*") { return value != null && value.length > 0 }
-                return new RegExp(validation.regex).test( value )
-            });
+        // if there is validation required
+        if ( mandatory || !mandatory && value != null && value.length > 0) {
+            if (validationList.length > 0) {
+
+                // check against all validation
+                isValid = validationList.every( validation => {
+                    
+                    // if passes all, return true, otherwise, return false.
+                    return new RegExp(validation.regex).test( value );
+                });
+            }
+            //if there is no validation
+            else {
+                // check if value is not null, and if value is greater than 0
+                isValid = value != null && value.length > 0;
+            }                
         }
         else {
-            isValid = value != null && value.length > 0; //new RegExp(/.*/).test( value );
+
+            //if(showStyle) this.validationStyle('success');
+
+            return true;
         }
 
-        if(showError == true || showError == null) {
+        if(showStyle == true || showStyle == null) {
 
             if(isValid) {
                 this.validationStyle('success');
@@ -86,7 +101,7 @@ class Input extends Component {
                 this.validationStyle('error');
             }
         }
-
+        //console.log(isValid);
         return isValid;
     }
 
@@ -108,6 +123,8 @@ class Input extends Component {
     validateInput = (value, identifier, validationList) => {
         
         if(value == this.props.value && value.constructor != Boolean) return;
+
+        this.state.value = value;
 
         if ( validationList.length > 0) {
 
@@ -181,8 +198,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
-                    defaultDateFormat='YYYY-MM-DD HH:mm'
-                    displayDateFormat='DD-MM-YYYY HH:mm'
+                    dateDisplayFormat={window.getScreenSize() == 'sm' ? 'yyyy-MM-dd' : 'YYYY-MM-DD'}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                 />
@@ -196,8 +212,7 @@ class Input extends Component {
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
                     showTimeSelect={false}
-                    defaultDateFormat='YYYY-MM-DD'
-                    displayDateFormat='DD-MM-YYYY'
+                    dateDisplayFormat={window.getScreenSize() == 'sm' ? 'yyyy-MM-dd' : 'YYYY-MM-DD'}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                 />

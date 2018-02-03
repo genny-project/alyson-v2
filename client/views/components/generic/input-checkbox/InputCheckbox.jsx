@@ -24,6 +24,7 @@ class InputCheckbox extends Component {
     validationList: array,
     name: string,
     html: string,
+    mandatory: bool
   }
 
   state = {
@@ -43,13 +44,14 @@ class InputCheckbox extends Component {
   }
 
   render() {
-    const { className, name, checked, html } = this.props;
+    const { className, name, checked, html, mandatory } = this.props;
 
     return (
       <div className={`input input-checkbox ${className}`}>
         <input type="checkbox" checked={checked} onChange={this.handleChange}/>
         { html && ( <div className="checkbox-label label-html" dangerouslySetInnerHTML={{ __html: html }} /> ) }
         { !html && name && ( <Label className="checkbox-label" text={name}/> ) }
+        { mandatory ? <Label className='input-label-required' textStyle={ !this.props.validationStatus ? {color: '#cc0000'} : null} text="*  required" /> : null}
       </div>
     );
   }

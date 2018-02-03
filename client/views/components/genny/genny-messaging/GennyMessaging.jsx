@@ -25,6 +25,7 @@ class GennyMessaging extends Component {
             rootCode: this.props.root,
             code: this.props.messagesRoot
         };
+
         if (window.getScreenSize() != 'sm') this.handleClickConversation(value);
     }
 
@@ -46,7 +47,8 @@ class GennyMessaging extends Component {
 
         this.setState({
             isOpen: false,
-            selectedItem: listItemProps.code
+            selectedItem: listItemProps.code,
+            messagesRoot: listItemProps.code,
         });
     }
 
@@ -94,8 +96,12 @@ class GennyMessaging extends Component {
 
     render() {
 
-        const { root, messagesRoot } = this.props;
+        const { root } = this.props;
+        const { messagesRoot } = this.state;
         const { isOpen, isMobile, selectedItem } = this.state;
+
+        console.log("----------------")
+        console.log( messagesRoot )
 
         const titleAtt = BaseEntityQuery.getBaseEntityAttribute(messagesRoot, 'PRI_TITLE');
         const conversationTitle = titleAtt ? titleAtt.value : '';
@@ -103,7 +109,11 @@ class GennyMessaging extends Component {
         let messages = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_MESSAGES');
         messages = messages.sort((x, y) => x.created < y.created);
 
+        console.log( messages )
+
         const orderedMessages = this.orderMessages(messages);
+
+        console.log( orderedMessages )
 
         let users = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_USER');
         const currentUserCode = GennyBridge.getUser();

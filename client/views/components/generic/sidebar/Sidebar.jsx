@@ -25,6 +25,10 @@ class Sidebar extends Component {
         }));
     }
 
+    handleClick = () => {
+        window.location.reload();
+    }
+
     render() {
 
         const { style, src, caption, children, } = this.props;
@@ -38,7 +42,13 @@ class Sidebar extends Component {
         if ( src ) {
             image = (
                 <div className='sidebar-image' position={[0,0]}>
-                    <ImageView src={src} caption={caption} style={{ maxHeight: '100px', width: '200px' }}/>
+                    <ImageView
+                    className='clickable'
+                        src={src}
+                        caption={caption}
+                        style={{ maxHeight: '100px', width: '200px' }}
+                        onClick={this.handleClick}    
+                    />
                 </div>
             );
         }
@@ -49,9 +59,10 @@ class Sidebar extends Component {
                 position={[0,0]}
             />;
 
+        let openStatus = window.getScreenSize() == 'sm' ? isOpen : !isOpen;
             
         return (
-            <div className={`sidebar ${window.getScreenSize()} ${isOpen ? '' : 'closed'}`}>
+            <div className={`sidebar ${window.getScreenSize()} ${openStatus ? '' : 'closed'}`}>
                 <Grid
                     className='sidebar-main'
                     style={componentStyle}

@@ -34,7 +34,6 @@ class Selector extends Component {
 
     if(checkValues == null || showValues == null && hideValues == null) return null;
 
-    console.log(this.props);
     if (typeof checkValues === 'string' || typeof checkValues === 'number') {
 
       if ( showValues && showValues != checkValues) {

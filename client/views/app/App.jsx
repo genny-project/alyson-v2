@@ -28,6 +28,7 @@ class App extends Component {
 
     // document.ontouchmove = function(event) {
     //   event.preventDefault();
+    //   event.stopPropagation();
     // };
 
     if (config.backendEnabled) {
