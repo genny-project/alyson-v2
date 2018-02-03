@@ -70,6 +70,7 @@ export default function reducer(state = initialState, action) {
 
                             if(newAttributes.length > 0) {
 
+                                //console.log(newAttributes)
                                 newAttributes.forEach(newAttribute => {
 
                                     existingAttributes[newAttribute.attributeCode] = {

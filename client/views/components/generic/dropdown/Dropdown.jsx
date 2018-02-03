@@ -1,6 +1,6 @@
 import './dropdown.scss';
 import React, { Component } from 'react';
-import { string, any, bool, object } from 'prop-types';
+import { string, any, bool, object, func } from 'prop-types';
 import components from 'utils/genny/layout-loader/components.js';
 import { JSONLoader } from '@genny-project/layson';
 
@@ -26,19 +26,25 @@ class Dropdown extends Component {
     tagStyle: object,
     noDropdownStyle: string,
     isSlide: bool,
-    noAnimation: bool
+    noAnimation: bool,
+    onBlur: func
   }
 
   state = {
     isOpen: false
   }
 
-  handleBlur = () => {
+  handleBlur = (event) => {
 
-    this.setState({
-      isOpen: false,
-      parentIsOpen: false,
-    });
+    if (this.props.onBlur) {
+      this.props.onBlur(event);
+    }
+    else {
+      this.setState({
+        isOpen: false,
+        parentIsOpen: false,
+      });
+    }
   }
 
   handleClick = () => {
@@ -72,10 +78,10 @@ class Dropdown extends Component {
   render() {
     const { className, children, style, contentStyle, tagStyle, open, noDropdownStyle, showTag, inline, isSlide } = this.props;
     let { isOpen, } = this.state;
-    if(open != undefined) isOpen = open; // open props overrides
+    if(open != undefined || open != null) isOpen = open; // open props overrides
         
     return (
-      <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur}  tabIndex='-1' style={style} >
+      <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur} tabIndex='-1' style={style} >
         {!isSlide ? this.renderHeader(isOpen) : null }   
         { isOpen ?
           <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : ''}`} style={contentStyle} >
