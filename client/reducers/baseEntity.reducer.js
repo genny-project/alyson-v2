@@ -31,7 +31,6 @@ export default function reducer(state = initialState, action) {
                     else {
 
                         if(!newItem.baseEntityAttributes) {
-
                             existing[baseEntityCode] = {
                                 ...state.data[baseEntityCode],
                                 ...existing[baseEntityCode],
@@ -50,7 +49,7 @@ export default function reducer(state = initialState, action) {
                                     existingLinks[linkCode].push({
                                         ...newLink,
                                         targetCode: newLink.link.targetCode,
-                                        linkValue: newLink.link.linkValue || newLink.valueString,
+                                        linkValue: newLink.valueString || newLink.link.linkValue,
                                     });
 
                                     return existingLinks;
@@ -69,13 +68,7 @@ export default function reducer(state = initialState, action) {
                             let newAttributes = newItem.baseEntityAttributes;
                             existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
 
-                            // here we should instead merge attributes instead of override
-                            console.log(baseEntityCode)
-                            console.log(existing[baseEntityCode])
-
                             if(newAttributes.length > 0) {
-
-                                console.log(newAttributes)
 
                                 newAttributes.forEach(newAttribute => {
 
@@ -109,7 +102,7 @@ export default function reducer(state = initialState, action) {
                                 existingLinks[linkCode].push({
                                     ...newLink,
                                     targetCode: newLink.link.targetCode,
-                                    linkValue: newLink.link.linkValue || newLink.valueString,
+                                    linkValue: newLink.valueString || newLink.link.linkValue,
                                 });
 
                                 return existingLinks;
@@ -120,8 +113,6 @@ export default function reducer(state = initialState, action) {
                             attributes: existingAttributes,
                             weight: newItem.weight ? newItem.weight : 1,
                         };
-
-                        console.log(existing[baseEntityCode]);
 
                         delete existing[baseEntityCode].baseEntityAttributes;
                     }
