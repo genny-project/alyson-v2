@@ -57,6 +57,7 @@ export default function reducer( state = initialState, action ) {
 
         const newSublayoutCode = action.payload.code;
         const newSublayout = JSON.parse(action.payload.items);
+
         if(newSublayoutCode) {
             return {
                 ...state,
@@ -81,7 +82,9 @@ export default function reducer( state = initialState, action ) {
                 let layout = JSON.parse(sublayout.data);
 
                 if(sublayout_code && layout) {
-                    newLayouts[sublayout_code] = layout;
+                    newLayouts[sublayout_code] = {
+                        layout: [layout]
+                    };
                 }
             });
 
