@@ -24,6 +24,19 @@ class GennyHeader extends Component {
   };
 
   state = {
+    isOpen: false
+  }
+
+  handleClick = () => {
+    this.setState(prevState => ({
+      isOpen: !prevState.isOpen
+    }));
+  }
+
+  handleBlur = () => {
+    this.setState({
+      isOpen: false
+    });
   }
 
   handleLogout = () => {
@@ -36,11 +49,17 @@ class GennyHeader extends Component {
     this.sendData('ACCOUNTS', {
       code: 'ACCOUNTS',
     });
+    this.setState({
+      isOpen: false
+    });
   }
 
   handleProfile = () => {
     this.sendData('PROFILE', {
       code: 'PROFILE',
+    });
+    this.setState({
+      isOpen: false
     });
   }
 
@@ -48,7 +67,10 @@ class GennyHeader extends Component {
     this.sendData('TV_SELECT', {
       code: 'TV1',
       value: 'GRP_COMMS_TEST'
-  }, 'GRP_COMMS_TEST');
+    }, 'GRP_COMMS_TEST');
+    this.setState({
+      isOpen: false
+    });
   }
 
   sendEvent(event, data) {
@@ -77,6 +99,7 @@ class GennyHeader extends Component {
   render() {
 
     const { style, className, projectTitle, projectGreeting, userName, userImage, hideSubheader, token, currentUser } = this.props;
+    const { isOpen } = this.state;
     const componentStyle = {
       ...style,
       ...customStyle.gennyHeader
@@ -96,24 +119,24 @@ class GennyHeader extends Component {
           className='main-header'
           cols={[
             { style: {
-              flexGrow: "1",
-              color: "white",
-              display: "flex",
-              alignItems: "center",
-              paddingLeft: "5px",
-              paddingRight: "5px"
+              flexGrow: '1',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              paddingLeft: '5px',
+              paddingRight: '5px'
             }},
             { style: {
-              flexGrow: "1",
-              justifyContent: "flex-end",
-              color: "white",
-              display: "flex",
-              alignItems: "center",
-              paddingLeft: "5px",
-              paddingRight: "5px"
+              flexGrow: '1',
+              justifyContent: 'flex-end',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              paddingLeft: '5px',
+              paddingRight: '5px'
             }}
           ]}
-          rows={[ { style: { flexGrow: "1", paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: "100%" } } ]}
+          rows={[ { style: { flexGrow: '1', paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: '100%' } } ]}
         >
           <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3 >
           <Label
@@ -132,8 +155,16 @@ class GennyHeader extends Component {
           <Dropdown
             style={ customStyle.dropdown }
             position={[0,1]}
+            open={isOpen}
+            onBlur={this.handleBlur}
+            tabIndex='-1'
             header={
-              <span style={ customStyle.dropdownSpan }><IconSmall name="arrow_drop_down" /></span>
+              <span style={ customStyle.dropdownSpan }>
+                <IconSmall
+                  name="arrow_drop_down"
+                  onClick={this.handleClick}
+                />
+              </span>
             }
           >
             <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>

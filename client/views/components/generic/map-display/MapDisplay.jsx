@@ -7,7 +7,7 @@ class MapDisplay extends Component {
   static defaultProps = {
     className: '',
     controls: false,
-    zoom: 11,
+    zoom: 6,
     center: { lat: -33.8688, lng: 151.2093},
     markers: [],
     routes: []
@@ -122,8 +122,8 @@ class MapDisplay extends Component {
 
   componentDidMount() {
 
-      console.log("------------------------------")
-      console.log(this.props);
+      //console.log("------------------------------")
+      //console.log(this.props);
       this.setup();
   }
 
@@ -197,7 +197,7 @@ class MapDisplay extends Component {
 
     this.map.fitBounds(bounds);
     this.map.panToBounds(bounds);
-    this.map.setZoom(this.props.zoom);
+    //this.map.setZoom(this.props.zoom);
   }
 
   render() {

@@ -31,7 +31,6 @@ export default function reducer(state = initialState, action) {
                     else {
 
                         if(!newItem.baseEntityAttributes) {
-
                             existing[baseEntityCode] = {
                                 ...state.data[baseEntityCode],
                                 ...existing[baseEntityCode],
@@ -50,7 +49,7 @@ export default function reducer(state = initialState, action) {
                                     existingLinks[linkCode].push({
                                         ...newLink,
                                         targetCode: newLink.link.targetCode,
-                                        linkValue: newLink.link.linkValue || newLink.valueString,
+                                        linkValue: newLink.valueString || newLink.link.linkValue,
                                     });
 
                                     return existingLinks;
@@ -63,20 +62,28 @@ export default function reducer(state = initialState, action) {
                             return existing;
                         }
 
-                        let newAttributes = newItem.baseEntityAttributes;
-                        let existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
+                        let existingAttributes = state.data[baseEntityCode] ? state.data[baseEntityCode].attributes : {};
+                        if(newItem.baseEntityAttributes.length > 0) {
 
-                        newAttributes.forEach(newAttribute => {
+                            let newAttributes = newItem.baseEntityAttributes;
+                            existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
 
-                            existingAttributes[newAttribute.attributeCode] = {
-                                ...existingAttributes[newAttribute.attributeCode],
-                                ...newAttribute,
-                                ... {
-                                    value: grabValue(newAttribute),
-                                    baseEntityCode: baseEntityCode
-                                }
-                            };
-                        });
+                            if(newAttributes.length > 0) {
+
+                                //console.log(newAttributes)
+                                newAttributes.forEach(newAttribute => {
+
+                                    existingAttributes[newAttribute.attributeCode] = {
+                                        ...existingAttributes[newAttribute.attributeCode],
+                                        ...newAttribute,
+                                        ... {
+                                            value: grabValue(newAttribute),
+                                            baseEntityCode: baseEntityCode
+                                        }
+                                    };
+                                });
+                            }
+                        }
 
                         existing[baseEntityCode] = {
                             ...state.data[baseEntityCode],
@@ -96,7 +103,7 @@ export default function reducer(state = initialState, action) {
                                 existingLinks[linkCode].push({
                                     ...newLink,
                                     targetCode: newLink.link.targetCode,
-                                    linkValue: newLink.link.linkValue || newLink.valueString,
+                                    linkValue: newLink.valueString || newLink.link.linkValue,
                                 });
 
                                 return existingLinks;

@@ -21,20 +21,152 @@ class GennyMap extends Component {
 
     getDataFromCode = (root) => {
         
-        let data = BaseEntityQuery.getEntityChildren(root);
-        if(!data || data.length == 0) { return []; }
+        let data = BaseEntityQuery.getBaseEntity(root);
+        if(!data || data.length == 0) {
+            let children = BaseEntityQuery.getEntityChildren(root);
+            if(!children || children.length == 0) { return []; }
+            
+            const childAttributes = this.checkChildrenForAttributes(children);
+            
+            if (childAttributes) {
+                let mapData = this.getChildrenMapData(children);
+                return mapData;
+            }
+            else {
+                let markers = [];
+                let routes = [];
+                children.map( child => {
+                    if (child && child.code) {
+                        let result = this.getDataFromCode(child.code);
+                        if (result.markers && result.markers.length > 0) {
+                            result.markers.map(marker => {
+                                markers.push(marker);    
+                            });
+                        }
+                        if (result.routes && result.routes.length > 0) {
+                            result.routes.map(route => {
+                                routes.push(route);    
+                            });
+                        }
+                    }
+                });
+                let mapData = { markers: markers, routes: routes };
+                return mapData;
+            }
+        }
         
-        const doEntitiesHaveAttribute = this.checkChildrenForAttributes(data);
+        const entityAttribute = this.checkEntityForAttributes(data);
         
-        console.log(doEntitiesHaveAttribute);
-        if (doEntitiesHaveAttribute) {
-            let mapData = this.getMapData(data);
-            console.log(mapData);
+        if (entityAttribute) {
+            let mapData = this.getEntityMapData(data);
             return mapData;
         }
         else {
-            return this.getDataFromCode(data);
+            
+            let children = BaseEntityQuery.getEntityChildren(root);
+            if(!children || children.length == 0) { return []; }
+            
+            const childAttributes = this.checkChildrenForAttributes(children);
+            
+            if (childAttributes) {
+                let mapData = this.getChildrenMapData(children);
+                return mapData;
+            }
+            else {
+                let markers = [];
+                let routes = [];
+                children.map( child => {
+                    if (child && child.code) {
+                        let result = this.getDataFromCode(child.code);
+                        if (result.markers && result.markers.length > 0) {
+                            result.markers.map(marker => {
+                                markers.push(marker);    
+                            });
+                        }
+                        if (result.routes && result.routes.length > 0) {
+                            result.routes.map(route => {
+                                routes.push(route);    
+                            });
+                        }
+                    }
+                });
+                let mapData = { markers: markers, routes: routes };
+                return mapData;
+            }
         }
+    }
+
+    checkEntityForAttributes = (data) => {
+        
+        let hasAttributes = false;
+        
+        let attributes = data.attributes;
+        if (attributes) {
+            Object.keys(attributes).map(attribute_key => {
+                switch(attribute_key) {
+                    case 'PRI_PICKUP_ADDRESS_SUBURB':
+                    case 'PRI_PICKUP_ADDRESS_STATE':
+                    case 'PRI_DROPOFF_ADDRESS_SUBURB':
+                    case 'PRI_DROPOFF_ADDRESS_STATE':
+                    case 'PRI_CURRENT_POSITION':
+                        hasAttributes = true;
+                        break;
+                    default:
+                        return null;
+                }
+            });
+            }
+
+        return hasAttributes;
+    }
+
+    getEntityMapData = (baseEntity) => {
+        let markers = [];
+        let routes = [];
+            
+        let attributes = baseEntity.attributes;
+
+        let originSuburb;
+        let originState;
+        let destSuburb;
+        let destState;
+        
+        if (attributes){
+            Object.keys(attributes).map(attribute_key => {
+
+                switch(attribute_key) {
+                    case 'PRI_PICKUP_ADDRESS_SUBURB':
+                        originSuburb = attributes[attribute_key].value;
+                        break;
+                    case 'PRI_PICKUP_ADDRESS_STATE':
+                        originState = attributes[attribute_key].value;
+                        break;
+                    case 'PRI_DROPOFF_ADDRESS_SUBURB':
+                        destSuburb = attributes[attribute_key].value;
+                        break;
+                    case 'PRI_DROPOFF_ADDRESS_STATE':
+                        destState = attributes[attribute_key].value;
+                        break;
+                    case 'PRI_CURRENT_POSITION':
+                        markers.push({
+                            lat: attributes[attribute_key].lat,
+                            lng: attributes[attribute_key].lng
+                        });
+                        break;
+                    default:
+                        return null;
+                }
+            });
+            let originAddress = originSuburb + ', ' + originState;
+            let destAddress = destSuburb + ', ' + destState;
+
+            routes.push({
+                origin: originAddress,
+                dest: destAddress
+            });
+        }
+
+        return {markers: markers, routes: routes};
     }
 
     checkChildrenForAttributes = (data) => {
@@ -63,7 +195,7 @@ class GennyMap extends Component {
         return hasAttributes;
     }
 
-    getMapData = (baseEntities) => {
+    getChildrenMapData = (baseEntities) => {
         let markers = [];
         let routes = [];
         baseEntities.map(baseEntity => {
@@ -119,7 +251,7 @@ class GennyMap extends Component {
         const { root, style, mapStyle, ...rest } = this.props;
         const componentStyle = { ...style};
         let mapData = this.getDataFromCode(root);
-
+        
         return (
             <div className="genny-map" style={componentStyle}>
                 <MapDisplay
