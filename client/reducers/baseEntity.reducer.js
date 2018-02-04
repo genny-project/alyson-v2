@@ -270,11 +270,12 @@ export default function reducer(state = initialState, action) {
                 if(!state.data[be_code]) { console.log("WE DONT HAVE THE DATA FOR " + be_code); return; }
 
                 let oldParentCode = state.data[be_code].parentCode;
-                console.log("OLD PARENT CODE: " + oldParentCode);
                 let newParentCode = item.sourceCode;
                 let newLinkCode = item.attributeCode;
                 let linkValue = item.linkValue;
                 let newLinkWeight = item.weight;
+
+                if(oldParentCode == newParentCode) { console.log("TRYING TO MOVE " + be_code + " FROM " + oldParentCode + " TO " + newParentCode + ". Aborted."); }
 
                 // we delete the old data
                 if(state.data[oldParentCode] && state.data[oldParentCode].children.length > 0) {

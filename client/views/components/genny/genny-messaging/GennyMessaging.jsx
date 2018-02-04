@@ -43,8 +43,6 @@ class GennyMessaging extends Component {
             value: btnValue
         });
 
-        console.log(listItemProps);
-
         this.setState({
             isOpen: false,
             selectedItem: listItemProps.code,
@@ -66,15 +64,24 @@ class GennyMessaging extends Component {
          messages.map((message, index) => {
 
             if (tempArray.length > 0) {
+
                 const last = tempArray.length - 1;
-                const lastCreator = tempArray[last].attributes.PRI_CREATOR.value;
-                const thisCreator = message.attributes.PRI_CREATOR.value;
+                const creatorAttr = tempArray[last].attributes.PRI_CREATOR;
+                const thisCreatorAttr =  message.attributes.PRI_CREATOR;
+
+                if(!creatorAttr || !thisCreatorAttr) {
+                    return false;
+                }
+
+                const lastCreator = creatorAttr.value;
+                const thisCreator = thisCreatorAttr.value;
 
                 if (lastCreator != thisCreator) {
                     messageArray.push(tempArray);
                     tempArray = [];
                 }
                 else {
+
                     const lastDateTime = moment(tempArray[last].created).format('YYYY-MM-DD HH');
                     const thisDateTIme = moment(message.created).format('YYYY-MM-DD HH');
 
@@ -84,12 +91,14 @@ class GennyMessaging extends Component {
                     }
                 }
             }
+
             tempArray.push(message);
+
             if (index == messages.length - 1) {
                 messageArray.push(tempArray);
             }
-        });
 
+        });
 
         return messageArray;
     }
@@ -100,20 +109,14 @@ class GennyMessaging extends Component {
         const { messagesRoot } = this.state;
         const { isOpen, isMobile, selectedItem } = this.state;
 
-        console.log("----------------")
-        console.log( messagesRoot )
-
         const titleAtt = BaseEntityQuery.getBaseEntityAttribute(messagesRoot, 'PRI_TITLE');
         const conversationTitle = titleAtt ? titleAtt.value : '';
         const conversations = BaseEntityQuery.getEntityChildren(root);
         let messages = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_MESSAGES');
         messages = messages.sort((x, y) => x.created < y.created);
 
-        console.log( messages )
-
         const orderedMessages = this.orderMessages(messages);
-
-        console.log( orderedMessages )
+        console.log(orderedMessages);
 
         let users = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_USER');
         const currentUserCode = GennyBridge.getUser();
