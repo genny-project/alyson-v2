@@ -37,11 +37,7 @@ class Selector extends Component {
 
         if (typeof checkValues === 'string' || typeof checkValues === 'number') {
 
-            if(showValues.constructor == Array) {
-
-                console.log("------")
-                console.log( checkValues )
-                console.log( showValues )
+            if(showValues != null && showValues.constructor == Array) {
 
                 if( showValues && showValues.includes(checkValues)) {
 
@@ -49,7 +45,6 @@ class Selector extends Component {
 
                         const value = showValues[i];
                         if( value && value === checkValues) {
-                            console.log("children")
                             return this.renderChildren();
                         }
                     }

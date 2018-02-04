@@ -77,12 +77,7 @@ class LayoutLoader extends Component {
 
                     if(baseEntity) {
 
-                        if(attribute_code != null && attribute_code.startsWith('PRI_')) {
-                            attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
-                        }
-                        else if(attribute_code != null) {
-                            attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityField(localAliasCode, attribute_code) : null;
-                        }
+                        attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
 
                         if(attribute == null) {
                             layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));

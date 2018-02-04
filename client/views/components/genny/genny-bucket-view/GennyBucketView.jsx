@@ -104,6 +104,9 @@ class GennyBucketView extends PureComponent {
 
             let layout_code = 'card';
             let sublayout = this.props.sublayout[layout_code];
+            console.log("-------------------------");
+            console.log(group);
+            console.log( group.code )
 
             children.push(
                 {
