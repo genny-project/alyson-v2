@@ -116,7 +116,6 @@ class GennyMessaging extends Component {
         messages = messages.sort((x, y) => x.created < y.created);
 
         const orderedMessages = this.orderMessages(messages);
-        console.log(orderedMessages);
 
         let users = BaseEntityQuery.getLinkedBaseEntities(messagesRoot, 'LNK_USER');
         const currentUserCode = GennyBridge.getUser();

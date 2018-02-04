@@ -77,10 +77,10 @@ class LayoutLoader extends Component {
 
                     if(baseEntity) {
 
-                        if(attribute_code && attribute_code.startsWith('PRI_')) {
+                        if(attribute_code != null && attribute_code.startsWith('PRI_')) {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }
-                        else if(attribute_code) {
+                        else if(attribute_code != null) {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityField(localAliasCode, attribute_code) : null;
                         }
 
@@ -101,7 +101,6 @@ class LayoutLoader extends Component {
                 if(attribute == null) {
 
                     let baseEntity = BaseEntityQuery.getAlias(alias_code);
-
                     if(baseEntity) {
                         attribute = {
                             value: baseEntity.code
@@ -111,7 +110,7 @@ class LayoutLoader extends Component {
             }
         }
 
-        if(attribute && attribute.value != null ) {
+        if(attribute != null && attribute.value != null ) {
             layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
         }
 
@@ -135,7 +134,7 @@ class LayoutLoader extends Component {
     const { layout, aliases } = this.props;
 
     let finalLayout = this.replaceAliasesIn(layout, aliases);
-    // finalLayout = this.hideAliasesIn( finalLayout );
+    finalLayout = this.hideAliasesIn( finalLayout );
     return <JSONLoader layout={finalLayout} componentCollection={components} />;
   }
 }

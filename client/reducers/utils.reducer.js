@@ -26,7 +26,7 @@ export function grabValue(item) {
         value = item.valueBoolean;
     }
     else if(item.valueMoney != null) {
-        value = item.valueMoney.amount;
+        value = item.valueMoney.amount.toString();
     }
 
     return value;
