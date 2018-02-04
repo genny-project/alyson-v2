@@ -235,7 +235,7 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
-                    checked={this.state.value == true ? true : false}
+                    checked={this.state.value != null && this.state.value == 'true' || this.state.value != null && this.state.value == true ? true : false}
                 />
             );
             case 'dropdown':

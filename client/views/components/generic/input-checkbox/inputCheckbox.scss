@@ -1,8 +1,12 @@
 @import 'client/styles/colors';
 
 .input-checkbox {
-    display: flex;
-    align-items: center;
+
+    .checkbox-main {
+        display: flex;
+        align-items: center;
+    
+    }
 
     .checkbox-label {
         margin-left: 10px;
@@ -18,5 +22,12 @@
                 }
             }
         }
+    }
+
+    .input-header {
+    	display: flex;
+    	align-items: center;
+    	justify-content: flex-start;
+    	margin-bottom: 3px;
     }
 }
