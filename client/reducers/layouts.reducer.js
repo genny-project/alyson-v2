@@ -1,5 +1,5 @@
 import layoutsIncluded from '../layouts-included';
-import { LAYOUT_CHANGE, CMD_VIEW, CMD_POPUP, SUB_LAYOUT, SUBLAYOUT_CHANGE, CMD_VIEW_PAGE_CHANGE } from 'constants';
+import { LAYOUT_CHANGE, CMD_VIEW, CMD_POPUP, CMD_NOTIFICATION, SUB_LAYOUT, SUBLAYOUT_CHANGE, CMD_VIEW_PAGE_CHANGE } from 'constants';
 import config from 'config/config';
 
 const initialState = {
@@ -10,7 +10,8 @@ const initialState = {
     sublayout: {},
     currentView: null,
     currentSublayout: null,
-    currentModal: null
+    currentModal: null,
+    currentNotification: null,
 };
 
 export default function reducer( state = initialState, action ) {
@@ -53,6 +54,7 @@ export default function reducer( state = initialState, action ) {
                 },
                 currentSublayout: null,
                 currentModal: null,
+                currentNotification: null,
             };
         }
     break;
@@ -66,9 +68,29 @@ export default function reducer( state = initialState, action ) {
                 currentModal: {
                     code: newModalCode,
                     dataCode: action.payload.root
-                }
+                },
+                currentNotification: null,
             };
         }
+
+    break;
+
+    case CMD_NOTIFICATION:
+
+        const text = action.payload.text;
+        const style = action.payload.style;
+        if(text && style) {
+
+            return {
+                ...state,
+                currentNotification: {
+                    text: text,
+                    style: style,
+                }
+            }
+        }
+
+    break;
 
     case SUBLAYOUT_CHANGE:
 
@@ -80,6 +102,7 @@ export default function reducer( state = initialState, action ) {
                 ...state,
                 currentView: null,
                 currentModal: null,
+                currentNotification: null,
                 currentSublayout: {
                     code: newSublayoutCode,
                     root: action.payload.root,

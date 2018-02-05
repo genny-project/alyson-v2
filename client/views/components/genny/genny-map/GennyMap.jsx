@@ -20,14 +20,16 @@ class GennyMap extends Component {
     }
 
     getDataFromCode = (root) => {
-        
+
         let data = BaseEntityQuery.getBaseEntity(root);
+
         if(!data || data.length == 0) {
+
             let children = BaseEntityQuery.getEntityChildren(root);
             if(!children || children.length == 0) { return []; }
-            
+
             const childAttributes = this.checkChildrenForAttributes(children);
-            
+
             if (childAttributes) {
                 let mapData = this.getChildrenMapData(children);
                 return mapData;
@@ -40,12 +42,12 @@ class GennyMap extends Component {
                         let result = this.getDataFromCode(child.code);
                         if (result.markers && result.markers.length > 0) {
                             result.markers.map(marker => {
-                                markers.push(marker);    
+                                markers.push(marker);
                             });
                         }
                         if (result.routes && result.routes.length > 0) {
                             result.routes.map(route => {
-                                routes.push(route);    
+                                routes.push(route);
                             });
                         }
                     }
@@ -54,20 +56,20 @@ class GennyMap extends Component {
                 return mapData;
             }
         }
-        
+
         const entityAttribute = this.checkEntityForAttributes(data);
-        
+
         if (entityAttribute) {
             let mapData = this.getEntityMapData(data);
             return mapData;
         }
         else {
-            
+
             let children = BaseEntityQuery.getEntityChildren(root);
             if(!children || children.length == 0) { return []; }
-            
+
             const childAttributes = this.checkChildrenForAttributes(children);
-            
+
             if (childAttributes) {
                 let mapData = this.getChildrenMapData(children);
                 return mapData;
@@ -80,12 +82,12 @@ class GennyMap extends Component {
                         let result = this.getDataFromCode(child.code);
                         if (result.markers && result.markers.length > 0) {
                             result.markers.map(marker => {
-                                markers.push(marker);    
+                                markers.push(marker);
                             });
                         }
                         if (result.routes && result.routes.length > 0) {
                             result.routes.map(route => {
-                                routes.push(route);    
+                                routes.push(route);
                             });
                         }
                     }
@@ -97,9 +99,9 @@ class GennyMap extends Component {
     }
 
     checkEntityForAttributes = (data) => {
-        
+
         let hasAttributes = false;
-        
+
         let attributes = data.attributes;
         if (attributes) {
             Object.keys(attributes).map(attribute_key => {
@@ -121,17 +123,19 @@ class GennyMap extends Component {
     }
 
     getEntityMapData = (baseEntity) => {
+
         let markers = [];
         let routes = [];
-            
+
         let attributes = baseEntity.attributes;
 
         let originSuburb;
         let originState;
         let destSuburb;
         let destState;
-        
-        if (attributes){
+
+        if (attributes) {
+
             Object.keys(attributes).map(attribute_key => {
 
                 switch(attribute_key) {
@@ -147,16 +151,19 @@ class GennyMap extends Component {
                     case 'PRI_DROPOFF_ADDRESS_STATE':
                         destState = attributes[attribute_key].value;
                         break;
-                    case 'PRI_CURRENT_POSITION':
-                        markers.push({
-                            lat: attributes[attribute_key].lat,
-                            lng: attributes[attribute_key].lng
-                        });
-                        break;
                     default:
                         return null;
                 }
             });
+
+            // live position
+            if(attributes.PRI_POSITION_LON != null && attributes.PRI_POSITION_LAT != null) {
+                markers.push({
+                    lat: attributes.PRI_POSITION_LAT,
+                    lng: attributes.PRI_POSITION_LON
+                })
+            }
+
             let originAddress = originSuburb + ', ' + originState;
             let destAddress = destSuburb + ', ' + destState;
 
@@ -170,9 +177,9 @@ class GennyMap extends Component {
     }
 
     checkChildrenForAttributes = (data) => {
-        
+
         let hasAttributes = false;
-        
+
         data.map(baseEntity => {
             let attributes = baseEntity.attributes;
             if (attributes) {
@@ -199,14 +206,14 @@ class GennyMap extends Component {
         let markers = [];
         let routes = [];
         baseEntities.map(baseEntity => {
-            
+
             let attributes = baseEntity.attributes;
 
             let originSuburb;
             let originState;
             let destSuburb;
             let destState;
-            
+
             if (attributes){
                 Object.keys(attributes).map(attribute_key => {
 
@@ -251,7 +258,7 @@ class GennyMap extends Component {
         const { root, style, mapStyle, ...rest } = this.props;
         const componentStyle = { ...style};
         let mapData = this.getDataFromCode(root);
-        
+
         return (
             <div className="genny-map" style={componentStyle}>
                 <MapDisplay

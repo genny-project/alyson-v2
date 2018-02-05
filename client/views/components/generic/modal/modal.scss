@@ -17,6 +17,7 @@
    &.animate {
 
     transform:scale(1);
+
     .modal-background {
       background: rgba(0,0,0,.0);
       position: fixed;
@@ -59,6 +60,7 @@
     font-weight:300;
     position:relative;
     width: 60%;
+    min-height: 45%;
 
     h2 {
       font-size:25px;
