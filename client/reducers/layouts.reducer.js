@@ -53,19 +53,21 @@ export default function reducer( state = initialState, action ) {
                 currentSublayout: null
             };
         }
+    break;
 
     case CMD_POPUP:
 
-        const newLayoutCode = action.payload.code;
-        if(newLayoutCode) {
+        const newModalCode = action.payload.code;
+        if(newModalCode) {
             return {
                 ...state,
                 currentModal: {
-                    code: newLayoutCode,
+                    code: newModalCode,
                     dataCode: action.payload.root
                 }
             };
         }
+    break;
 
     case SUBLAYOUT_CHANGE:
 
@@ -83,6 +85,7 @@ export default function reducer( state = initialState, action ) {
                 }
             };
         }
+    break;
 
     case SUB_LAYOUT:
 
@@ -110,6 +113,7 @@ export default function reducer( state = initialState, action ) {
                 }
             };
         }
+    break;
 
     default:
       return state;

@@ -69,10 +69,6 @@ class Sidebar extends Component {
 
         let openStatus = window.getScreenSize() == 'sm' ? isOpen : !isOpen;
 
-        console.log(" ------------------ ")
-        console.log(" OPEN STATUS ")
-        console.log(openStatus);
-
         return (
             <div className={`sidebar ${window.getScreenSize()} ${openStatus ? '' : 'closed'}`}>
                 <Grid
