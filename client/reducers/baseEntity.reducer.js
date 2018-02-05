@@ -283,7 +283,7 @@ export default function reducer(state = initialState, action) {
                 }
 
                 // we delete the old relationship
-                if(state.relationships && state.relationships[oldParentCode] != null && state.data[oldParentCode][be_code] != null) {
+                if(state.relationships && state.relationships[oldParentCode] != null && state.data[oldParentCode] != null && state.data[oldParentCode][be_code] != null) {
                     delete state.relationships[oldParentCode][be_code];
                 }
 
