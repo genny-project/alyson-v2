@@ -1,9 +1,10 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner } from 'views/components';
+import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner, Modal } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { BaseEntityQuery } from 'utils/genny';
+import store from 'views/store';
 
 class AppContent extends Component {
 
@@ -18,61 +19,75 @@ class AppContent extends Component {
     }
 
     state = {
+        showModal: false
+    }
+
+    renderContent = (commandType, commandData) => {
+
+        if(commandType && commandData.dataCode) {
+
+            // we need to show the table view
+            if(commandData.code == 'TABLE_VIEW') {
+                return <GennyTable root={commandData.dataCode}/>;
+            }
+            // we need to show the bucket view
+            else if (commandData.code == 'BUCKET_VIEW') {
+                return <GennyBucketView root={commandData.dataCode} />;
+            }
+            else if (commandData.code == 'LIST_VIEW') {
+                return <GennyList root={commandData.dataCode} />;
+            }
+            else if (commandData.code == 'FORM_VIEW') {
+                return <GennyForm root={commandData.dataCode}/>;
+            }
+            else if (commandData.code == 'MAP_VIEW') {
+                return <GennyMap root={commandData.dataCode}/>;
+            }
+            else if (commandData.code == 'LOADING') {
+                return <Spinner text={commandData.dataCode} />;
+            }
+            else if (commandData.code == 'MAP_VIEW') {
+                return <GennyMap root={commandData.dataCode}/>;
+            }
+        }
+    }
+
+    toggleModal = () => {
+       
+        if(store && store.getState()) {
+            store.getState().layouts.currentModal = null;
+            console.log('cancel');
+        }
     }
 
     render() {
 
-        const { layout, children, style } = this.props;
+        const { layout, style, children } = this.props;
+        const componentStyle = {...style};
 
         let layoutContent = null;
+        let modalContent = null;
 
-        if(layout.currentView && layout.currentView.dataCode) {
+        console.log('modal center', modalContent);
 
-            // we need to show the table view
-            if(layout.currentView.code == 'TABLE_VIEW') {
-                layoutContent = <GennyTable root={layout.currentView.dataCode}/>;
-            }
-            // we need to show the bucket view
-            else if (layout.currentView.code == 'BUCKET_VIEW') {
-                layoutContent = <GennyBucketView root={layout.currentView.dataCode} />;
-            }
-            else if (layout.currentView.code == 'LIST_VIEW') {
-                layoutContent = <GennyList root={layout.currentView.dataCode} />;
-            }
-            else if (layout.currentView.code == 'FORM_VIEW') {
-                layoutContent = <GennyForm root={layout.currentView.dataCode}/>;
-            }
-            else if (layout.currentView.code == 'MAP_VIEW') {
-                layoutContent = <GennyMap root={layout.currentView.dataCode}/>;
-            }
-            else if (layout.currentView.code == "LOADING") {
-                layoutContent = <Spinner text={layout.currentView.dataCode} />
-            }
-            // else if (layout.currentView.code == 'MAP_VIEW') {
-            //     layoutContent = (
-            //         <div style={{ display: 'flex', height: '100%', weight: '100%'}}>
-            //             <GennyMap root={layout.currentView.dataCode}/>
-            //             <GennyList root={layout.currentView.dataCode} />
-            //         </div>
-            //     );
-            // }
+        if (layout != null && layout.currentView) {
+            layoutContent = this.renderContent('view', layout.currentView);
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
 
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;
-            layoutContent = <LayoutLoader layout={layout.currentSublayout} aliases={{ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
+            layoutContent =  <LayoutLoader layout={layout.currentSublayout} aliases={{ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
         }
-
-        layoutContent = layoutContent || children;
-
-        const componentStyle = {
-            ...style,
-        };
+        
+        if (layout != null && layout.currentModal) {
+            modalContent = this.renderContent('popup', layout.currentModal);
+        }
 
         return (
             <div className="app-content" style={componentStyle}>
-                {layoutContent}
+                {modalContent ? <Modal show={true} onClick={this.toggleModal} >{modalContent}</Modal> : null}
+                {layoutContent || children}
             </div>
         );
     }

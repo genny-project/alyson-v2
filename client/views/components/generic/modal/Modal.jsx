@@ -22,50 +22,49 @@ class Modal extends Component {
   state = {
   }
 
-  componentWillUpdate(newProps) {
+  // componentWillUpdate(newProps) {
 
-      const { show } = newProps;
+  //     const { show } = newProps;
 
-      if(show) {
-          this.open();
-      }
-      else {
-         this.close();
-      }
-  }
+  //     if(show) {
+  //         this.open();
+  //     }
+  //     else {
+  //        this.close();
+  //     }
+  // }
 
   open = () => {
-      document.body.classList.add('modal-active');
-      document.body.classList.remove('modal-closing');
+      // document.body.classList.add('modal-active');
+      // document.body.classList.remove('modal-closing');
   }
 
   close = () => {
 
-     if(document.body.classList.contains('modal-active')) {
+    console.log('close');
 
-         if(this.props.onClose) {
-             this.props.onClose();
-         }
+    this.props.onClick();
+    //  if(document.body.classList.contains('modal-active')) {
 
-         document.body.classList.remove('modal-active');
-         document.body.classList.add('modal-closing');
-     }
+    //      if(this.props.onClose) {
+    //          this.props.onClose();
+    //      }
+
+    //      document.body.classList.remove('modal-active');
+    //      document.body.classList.add('modal-closing');
+    //  }
   }
 
   render() {
 
-    const { className, children, show, header } = this.props;
+    const { className, children, show } = this.props;
 
     return (
       <div className={`modal-container ${className} ${show ? 'animate' : 'out' }`}>
-        <div className='modal-background'>
-          <div className="modal">
-            <div className="modal-header">
-                {header}
-                <IconSmall className='modal-close' onClick={this.close} name='clear' />
-            </div>
-            {children}
-          </div>
+        <div className='modal-background' />
+        <div className="modal">
+          <IconSmall className='modal-close clickable' onClick={this.close} name='clear' />
+          {children}
         </div>
       </div>
     );
