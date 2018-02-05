@@ -48,7 +48,7 @@ class BaseEntityQuery {
                 relationships[code]['DUMMY'] = {
                     hidden: true,
                     weight: 0,
-                    type: "BaseEntity" // do not remove
+                    type: 'BaseEntity' // do not remove
                 };
 
                 GennyBridge.sendTVEvent('TV_EXPAND', {
