@@ -28,11 +28,11 @@ class GennyTableEditableCell extends Component {
 
         switch (dataType) {
 
-            case "Image": {
-                return <ImageView src={value} style={{ "width": "50px", "height": "50px", "borderRadius": "25px" }} />
+            case 'Image': {
+                return <ImageView src={value} style={{ width: '50p', height: '50px', borderRadius: '25px' }} />;
             }
 
-            case "link": {
+            case 'link': {
 
                 return <a href={value}>Click Here</a>;
             }
@@ -41,14 +41,12 @@ class GennyTableEditableCell extends Component {
 
                 this.state.canEdit = true;
                 return (
-                    <span>
-                        {value}
-                    </span>
+                    value
                 );
             }
         }
 
-        return null
+        return null;
     }
 
     render() {
@@ -58,7 +56,6 @@ class GennyTableEditableCell extends Component {
                 contentEditable={this.state.canEdit}
                 suppressContentEditableWarning
                 onBlur={e => {
-
                     let newValue = e.target.innerHTML;
                     if(newValue && newValue != this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value) {
 
@@ -79,7 +76,7 @@ class GennyTableEditableCell extends Component {
                             // we validate and then send the answer if OK
 
                             let valResult = null;
-                            if (validationList.length > 0 ) {
+                            if (validationList != null && validationList.length > 0 ) {
                                 valResult = validationList.every( validation => {
                                     console.log(validation);
                                     return new RegExp(validation.regex).test( newValue )

@@ -117,6 +117,7 @@ class GennyTable extends Component {
                             newCol.Header = <GennyTableHeader title={attribute.attributeCode}/>;
                             newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
                             newCol.accessor = attribute.attributeCode;
+                            newCol.width= 200;
                         }
                         else {
                             newCol.name = attribute.attributeCode;
@@ -254,7 +255,7 @@ class GennyTable extends Component {
         data = this.generateDataFor(children);
 
         return (
-            <div className={`genny-table ${data.length ? null : 'empty'}`} style={style}>
+            <div className={`genny-table ${data.length > 0 ? '' : 'empty'}`} style={style}>
                 <Table {...this.props} data={data} columns={columns}/>
             </div>
         );

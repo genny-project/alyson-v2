@@ -5,7 +5,7 @@
     padding-left: 10px;
     padding-right: 10px;
     //height:100%;
-    overflow: scroll;
+    //overflow: scroll;
 
     &.empty {
         > div {
@@ -19,6 +19,10 @@
 
     .header-single {
      font-size: 18px;
+    }
+
+    span, p, div {
+        font-size: 0.5em;   
     }
 }
 
@@ -84,5 +88,14 @@
         position: absolute;
         top: 0;
         right: 0;
+    }
+}
+
+.rt-td > div {
+    &:focus {
+        outline: none;
+        background: white;
+        box-shadow: 0px 0px 5px #888;
+        color: black;
     }
 }
