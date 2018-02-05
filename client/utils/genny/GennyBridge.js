@@ -120,7 +120,7 @@ class GennyBridge {
 
         let value = items[0].value;
         if(items[0].attributeCode.includes('PRICE')) {
-            value = value.amount;
+            value = JSON.parse(value).amount;
         }
 
         let payload = {
