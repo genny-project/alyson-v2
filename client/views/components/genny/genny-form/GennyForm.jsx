@@ -20,10 +20,10 @@ class GennyForm extends Component {
         let finalValue = newValue;
 
         if(data.attributeCode.indexOf('PRICE') != -1 || data.attributeCode.indexOf('FEE') != -1) {
-            finalValue = JSON.stringify{
+            finalValue = JSON.stringify({
                 amount: newValue,
                 currency: "AUD"
-            }
+            })
         }
 
         GennyBridge.sendAnswer([{
