@@ -1,6 +1,6 @@
 import './gennyButton.scss';
 import React, { Component } from 'react';
-import { string, any, object} from 'prop-types';
+import { string, any, object, func } from 'prop-types';
 import { Button } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
@@ -9,6 +9,7 @@ class GennyButton extends Component {
   static defaultProps = {
     buttonCode: null,
     value: null,
+    confirmation: null,
   }
 
   static propTypes = {
@@ -18,13 +19,15 @@ class GennyButton extends Component {
     buttonComponentStyle: object,
     style: object,
     className: string,
+    confirmation: string,
+    onClick: func
   };
 
   handleClick = () => {
 
     if(this.props.buttonCode) {
 
-        const isString = (this.props.value && this.props.value.constructor == String)
+        const isString = (this.props.value && this.props.value.constructor == String);
         if(isString == false) {
             this.props.value.userCode = GennyBridge.getUser();
         }
@@ -35,20 +38,28 @@ class GennyButton extends Component {
         code: this.props.buttonCode,
         value: btnValue || null,
       });
-
+      
       if(this.props.onClick) {
           this.props.onClick(this);
       }
     }
   }
 
+  handleConfirmation = (confirmation) => {    
+    let shouldFire = confirm(confirmation);
+    if (shouldFire == true) {
+      this.handleClick();
+    }
+  }
+
   render() {
-    const { children, className, style, buttonComponentStyle, disabled, ...rest } = this.props;
+    const { children, className, style, buttonComponentStyle, disabled, confirmation, ...rest } = this.props;
     const componentStyle = { ...style, };
+    const clickEvent = confirmation ? () => this.handleConfirmation(confirmation) : this.handleClick;
 
     return (
       <div className={`genny-button ${className}`} style={componentStyle}>
-        <Button {...rest} disabled={disabled} onClick={this.handleClick} style={ {...buttonComponentStyle, height: componentStyle.height }}>
+        <Button {...rest} disabled={disabled} onClick={clickEvent} style={ {...buttonComponentStyle, height: componentStyle.height }}>
           {children}
         </Button>
       </div>
