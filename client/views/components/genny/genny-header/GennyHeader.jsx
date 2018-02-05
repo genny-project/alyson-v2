@@ -1,7 +1,7 @@
 import './gennyHeader.scss';
 import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
-import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyNotification, ColorPicker, Device, Header, Selector } from 'views/components';
+import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyButton, GennyNotification, ColorPicker, Device, Header, Selector } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import store from 'views/store';
@@ -66,8 +66,8 @@ class GennyHeader extends Component {
   handleMessages = () => {
     this.sendData('TV_SELECT', {
       code: 'TV1',
-      value: 'GRP_COMMS_TEST'
-    }, 'GRP_COMMS_TEST');
+      value: 'GRP_MESSAGES'
+    }, 'GRP_MESSAGES');
     this.setState({
       isOpen: false
     });
@@ -106,9 +106,9 @@ class GennyHeader extends Component {
     };
 
     let isOwner = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
-    isOwner = isOwner && isOwner.value;
+    isOwner = isOwner != null && isOwner.value === true;
     let isDriver = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
-    isDriver = isDriver && isDriver.value;
+    isDriver = isDriver != null && isDriver.value === true;
 
     let session_data = decode_token(token);
     let roles = session_data.realm_access.roles;
@@ -139,6 +139,13 @@ class GennyHeader extends Component {
           rows={[ { style: { flexGrow: '1', paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: '100%' } } ]}
         >
           <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3 >
+          <div className='header-messages clickable'
+            position={[0,1]}
+            onClick={this.handleMessages}
+          >
+            <IconSmall name="message" />
+          </div>
+
           <Label
             position={[0,1]}
             text={`${isOwner ? 'OWNER' : ''} ${isDriver ? 'DRIVER' : ''}`}
@@ -147,11 +154,11 @@ class GennyHeader extends Component {
               fontSize: '0.75em',
               border: 'solid 1px #BBB',
               borderRadius: '5px',
-              padding: '2.5px 5px'
+              padding: '2.5px 5px',
             }}
           />
           <ImageView position={[0,1]} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
-          <Label position={[0,1]} text={`${userName}`} />
+          <Label position={[0,1]} text={`${userName}`}/>
           <Dropdown
             style={ customStyle.dropdown }
             position={[0,1]}
@@ -163,6 +170,7 @@ class GennyHeader extends Component {
                 <IconSmall
                   name="arrow_drop_down"
                   onClick={this.handleClick}
+                  style={{color: 'white'}}
                 />
               </span>
             }
@@ -170,9 +178,9 @@ class GennyHeader extends Component {
             <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
               <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
               <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
-              <Selector checkValues={roles} showValues={['admin']}>
+              {/* {<Selector checkValues={roles} showValues={['admin']}>
                 <li style={ customStyle.dropdownLi } onClick={this.handleMessages}><IconSmall name="email" /><span>Test Message</span></li>
-              </Selector>
+              </Selector>} */}
               <br/>
               <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
             </ul>

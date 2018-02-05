@@ -1,7 +1,7 @@
 import './inputCheckbox.scss';
 import React, { Component } from 'react';
 import { string, any, bool, func, array, object } from 'prop-types';
-import { Label } from 'views/components';
+import { Label, SubmitStatusIcon } from 'views/components';
 
 class InputCheckbox extends Component {
 
@@ -44,14 +44,23 @@ class InputCheckbox extends Component {
   }
 
   render() {
-    const { className, name, checked, html, mandatory } = this.props;
+    const { className, name, checked, html, mandatory, isHorizontal, hideHeader, validationStatus } = this.props;
 
     return (
       <div className={`input input-checkbox ${className}`}>
-        <input type="checkbox" checked={checked} onChange={this.handleChange}/>
-        { html && ( <div className="checkbox-label label-html" dangerouslySetInnerHTML={{ __html: html }} /> ) }
-        { !html && name && ( <Label className="checkbox-label" text={name}/> ) }
-        { mandatory ? <Label className='input-label-required' textStyle={ !this.props.validationStatus ? {color: '#cc0000'} : null} text="*  required" /> : null}
+        {
+          !isHorizontal && !hideHeader ?
+          <div className="input-header">
+              {name ? <Label text={name} /> : null}
+              {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : null } text="*  required" /> : null}
+              <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
+          </div> :
+          null
+        }
+        <div className='checkbox-main'>
+          <input type="checkbox" checked={checked} onChange={this.handleChange}/>
+          { html && ( <div className="checkbox-label label-html" dangerouslySetInnerHTML={{ __html: html }} /> ) }
+        </div>
       </div>
     );
   }

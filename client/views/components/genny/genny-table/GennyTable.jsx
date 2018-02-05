@@ -114,12 +114,12 @@ class GennyTable extends Component {
                         };
 
                         if(!isMobile) {
-                            newCol.Header = <GennyTableHeader title={attribute.attribute.name}/>;
+                            newCol.Header = <GennyTableHeader title={attribute.attributeCode}/>;
                             newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
-                            newCol.accessor = attribute.attribute.name;
+                            newCol.accessor = attribute.attributeCode;
                         }
                         else {
-                            newCol.name = attribute.attribute.name;
+                            newCol.name = attribute.attributeCode;
                         }
 
                         cols.push(newCol);
@@ -162,7 +162,7 @@ class GennyTable extends Component {
                     }
                     else {
 
-                        newData[attribute.attribute.name] = {
+                        newData[attribute.attributeCode] = {
                             value: attribute.value,
                             type: (attribute.attribute && attribute.attribute.dataType) ? attribute.attribute.dataType.className : null,
                         };

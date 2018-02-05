@@ -67,7 +67,8 @@ class GennyMessagingConversation extends Component {
             let groupCode = group[0].code;
 
             let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, 'PRI_CREATOR');
-            createdBy = createdBy.value;
+            createdBy = createdBy ? createdBy.value : "-";
+            group.sort((x, y) => x.created > y.created);
 
             return (
 

@@ -26,7 +26,14 @@ export function grabValue(item) {
         value = item.valueBoolean;
     }
     else if(item.valueMoney != null) {
-        value = item.valueMoney.amount;
+
+        var formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: item.valueMoney.currency,
+          minimumFractionDigits: 2,
+        });
+
+        value = formatter.format(item.valueMoney.amount);
     }
 
     return value;
