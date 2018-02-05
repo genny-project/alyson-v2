@@ -58,10 +58,26 @@ a {
 }
 
 .badge {
-  border: 1px solid $error;
-  border-radius: 5px;
+  background-color: #BBB;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
-  padding: 0 5px;
+  justify-content: center;
   margin-left: 5px;
+  color: white;
+
+  &.success {
+    background-color: $success;
+  
+  }
+  &.error {
+    background-color: $error;
+  
+  }
+  &.warning {
+    background-color: $warning;
+  
+  }
 }
