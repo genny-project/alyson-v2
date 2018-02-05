@@ -74,8 +74,6 @@ class AppContent extends Component {
         let layoutContent = null;
         let modalContent = null;
 
-        console.log('modal center', modalContent);
-
         if (layout != null && layout.currentView) {
             layoutContent = this.renderContent('view', layout.currentView);
         }
