@@ -113,6 +113,8 @@ class GennyHeader extends Component {
     let session_data = decode_token(token);
     let roles = session_data.realm_access.roles;
 
+    let isAdmin = roles.includes('admin');
+
     return (
       <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
         <Header
@@ -148,7 +150,7 @@ class GennyHeader extends Component {
 
           <Label
             position={[0,1]}
-            text={`${isOwner ? 'OWNER' : ''} ${isDriver ? 'DRIVER' : ''}`}
+            text={`${isAdmin ? 'ADMIN' : ''} ${isOwner ? 'OWNER' : ''} ${isDriver ? 'DRIVER' : ''}`}
             style={{
               marginRight: '5px',
               fontSize: '0.75em',
@@ -157,15 +159,27 @@ class GennyHeader extends Component {
               padding: '2.5px 5px',
             }}
           />
-          <ImageView position={[0,1]} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
-          <Label position={[0,1]} text={`${userName}`}/>
+          { window.getScreenSize() == 'sm' ? null : 
+            <ImageView position={[0,1]} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
+          }
+          { window.getScreenSize() == 'sm' ? null :
+            <Label position={[0,1]} text={`${userName}`}/>
+          }
           <Dropdown
             style={ customStyle.dropdown }
             position={[0,1]}
             open={isOpen}
             onBlur={this.handleBlur}
             tabIndex='-1'
+            noAnimation={ window.getScreenSize() == 'sm' ? true : false}
             header={
+              window.getScreenSize() == 'sm' ? 
+              <ImageView
+                src={userImage}
+                onClick={this.handleClick}
+                style={{ padding: '5px', width: '40px', minWidth: '40px'}}
+              /> 
+              :
               <span style={ customStyle.dropdownSpan }>
                 <IconSmall
                   name="arrow_drop_down"

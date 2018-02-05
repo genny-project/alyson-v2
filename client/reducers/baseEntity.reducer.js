@@ -280,13 +280,23 @@ export default function reducer(state = initialState, action) {
 
                 if(oldParentCode == newParentCode) { console.log("TRYING TO MOVE " + be_code + " FROM " + oldParentCode + " TO " + newParentCode + ". Aborted."); }
 
+                console.log("LOGGING - ")
+                console.log(state.data[oldParentCode].children)
+
                 // we delete the old data
                 if(state.data[oldParentCode] && state.data[oldParentCode].children.length > 0) {
                     state.data[oldParentCode].children = state.data[oldParentCode].children.filter(child => child.code != be_code);
                 }
 
+                console.log("AFTER")
+                console.log(state.data[oldParentCode].children)
+
+                console.log("NEW PARENT CODE: " + newParentCode);
+
+
                 // we delete the old relationship
                 if(state.relationships && state.relationships[oldParentCode] != null && state.data[oldParentCode] != null && state.data[oldParentCode][be_code] != null) {
+                    state.relationships[oldParentCode][be_code] = null;
                     delete state.relationships[oldParentCode][be_code];
                 }
 

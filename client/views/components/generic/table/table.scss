@@ -1,7 +1,9 @@
 @import 'client/styles/colors';
 
 .rt-td {
-    margin: 1px;
+    border: solid 2px white;
+    border-top: solid 1px white;
+    border-bottom: solid 1px white;
     background: #ddd;
 	color: rgb(69, 69, 69);
 }

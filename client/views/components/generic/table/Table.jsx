@@ -11,7 +11,6 @@ class Table extends Component {
     className: '',
     columns: [],
     data: [],
-    list: false,
     itemsPerPage: 20,
     tBodyStyle: false,
   }
@@ -21,7 +20,6 @@ class Table extends Component {
     columns: array,
     data: array,
     itemsPerPage: number,
-    isList: bool,
     bodyHeight: any,
   }
 
@@ -39,7 +37,7 @@ class Table extends Component {
   }
 
   render() {
-    const { columns, data, itemsPerPage, isList, } = this.props;
+    const { columns, data, itemsPerPage, } = this.props;
 
     return (
       <ReactTable
@@ -62,7 +60,8 @@ class Table extends Component {
         data={data}
         columns={columns}
         defaultPageSize={itemsPerPage}
-        className={`table -striped -highlight ${isList ? 'table-list' : null } `}
+        className='table -striped -highlight'
+        resizable={false}
         showPagination={ data.length > itemsPerPage ? true : false}
        
       />

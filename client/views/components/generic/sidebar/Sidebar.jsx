@@ -15,14 +15,22 @@ class Sidebar extends Component {
     };
 
     state = {
-        isOpen: true,
+        isOpen: false
+    }
+
+    componentWillMount() {
+        this.state.isOpen = window.getScreenSize() != 'sm' && localStorage.getItem("sidebar_open") == "true";
     }
 
     handleSidebarToggle = (event) => {
+
         event.preventDefault();
+
         this.setState(prevState => ({
             isOpen: !prevState.isOpen
-        }));
+        }), () => {
+            localStorage.setItem("sidebar_open", this.state.isOpen);
+        });
     }
 
     handleClick = () => {
@@ -47,7 +55,7 @@ class Sidebar extends Component {
                         src={src}
                         caption={caption}
                         style={{ maxHeight: '100px', width: '200px' }}
-                        onClick={this.handleClick}    
+                        onClick={this.handleClick}
                     />
                 </div>
             );
@@ -59,10 +67,8 @@ class Sidebar extends Component {
                 position={[0,0]}
             />;
 
-        let openStatus = window.getScreenSize() == 'sm' ? isOpen : !isOpen;
-            
         return (
-            <div className={`sidebar ${window.getScreenSize()} ${openStatus ? '' : 'closed'}`}>
+            <div className={`sidebar ${window.getScreenSize()} ${!isOpen ? '' : 'closed'}`}>
                 <Grid
                     className='sidebar-main'
                     style={componentStyle}

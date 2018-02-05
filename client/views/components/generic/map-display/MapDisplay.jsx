@@ -131,7 +131,11 @@ class MapDisplay extends Component {
 
     let address = value;
 
-    if (typeof address == 'string') {
+    if (typeof address == 'string' || typeof address == 'object' && address.suburb && address.state ) {
+
+      if (typeof address == 'object') {
+        address = address.suburb + ', ' + address.state;
+      }
 
       geocoder.geocode({'address': address}, (results, status) => {
 

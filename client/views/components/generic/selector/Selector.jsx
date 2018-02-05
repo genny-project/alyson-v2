@@ -48,23 +48,30 @@ class Selector extends Component {
                             return this.renderChildren();
                         }
                     }
-
                     return null;
                 }
             }
-            else {
+            else if ( showValues != null && showValues != checkValues) {
+                return null;
+            }
+            else if ( hideValues != null && hideValues.constructor == Array ) {
+                if( hideValues && hideValues.includes(checkValues)) {
 
-                if ( showValues && showValues != checkValues) {
-                    return null;
+                    for (var i = 0; i < hideValues.length; i++) {
+
+                        const value = hideValues[i];
+                        if( value && value === checkValues) {
+                            return null;
+                        }
+                    }
+                    return this.renderChildren();
                 }
-
             }
 
             // if hideValues includes checkValue, AND showOverride is false
             if ( hideValues && hideValues == checkValues && !showOverride) {
                 return null;
             }
-
             return this.renderChildren();
 
         } else {

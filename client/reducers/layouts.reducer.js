@@ -1,5 +1,5 @@
 import layoutsIncluded from '../layouts-included';
-import { LAYOUT_CHANGE, CMD_VIEW, SUB_LAYOUT, SUBLAYOUT_CHANGE, CMD_VIEW_PAGE_CHANGE } from 'constants';
+import { LAYOUT_CHANGE, CMD_VIEW, CMD_POPUP, SUB_LAYOUT, SUBLAYOUT_CHANGE, CMD_VIEW_PAGE_CHANGE } from 'constants';
 import config from 'config/config';
 
 const initialState = {
@@ -9,7 +9,8 @@ const initialState = {
     },
     sublayout: {},
     currentView: null,
-    currentSublayout: null
+    currentSublayout: null,
+    currentModal: null
 };
 
 export default function reducer( state = initialState, action ) {
@@ -35,6 +36,7 @@ export default function reducer( state = initialState, action ) {
         current: action.payload.code,
         currentSublayout: null,
         currentView: null,
+        currentModal: null,
         loaded
       };
 
@@ -49,7 +51,22 @@ export default function reducer( state = initialState, action ) {
                     code: newLayoutCode,
                     dataCode: action.payload.root
                 },
-                currentSublayout: null
+                currentSublayout: null,
+                currentModal: null,
+            };
+        }
+    break;
+
+    case CMD_POPUP:
+
+        const newModalCode = action.payload.code;
+        if(newModalCode) {
+            return {
+                ...state,
+                currentModal: {
+                    code: newModalCode,
+                    dataCode: action.payload.root
+                }
             };
         }
 
@@ -62,6 +79,7 @@ export default function reducer( state = initialState, action ) {
             return {
                 ...state,
                 currentView: null,
+                currentModal: null,
                 currentSublayout: {
                     code: newSublayoutCode,
                     root: action.payload.root,
@@ -69,6 +87,7 @@ export default function reducer( state = initialState, action ) {
                 }
             };
         }
+    break;
 
     case SUB_LAYOUT:
 
@@ -96,6 +115,7 @@ export default function reducer( state = initialState, action ) {
                 }
             };
         }
+    break;
 
     default:
       return state;

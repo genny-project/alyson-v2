@@ -27,8 +27,6 @@ class SublayoutLoader extends Component {
 
             if (sublayout) {
 
-                console.log(localAliases)
-                
                 return (
                     <div className={`sublayout-loader ${className}`} style={componentStyle} >
                         <LayoutLoader layout={sublayout} aliases={localAliases}/>
