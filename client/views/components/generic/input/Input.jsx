@@ -74,7 +74,7 @@ class Input extends Component {
 
                 // check against all validation
                 isValid = validationList.every( validation => {
-                    
+
                     // if passes all, return true, otherwise, return false.
                     return new RegExp(validation.regex).test( value );
                 });
@@ -83,7 +83,7 @@ class Input extends Component {
             else {
                 // check if value is not null, and if value is greater than 0
                 isValid = value != null && value.length > 0;
-            }                
+            }
         }
         else {
 
@@ -121,7 +121,7 @@ class Input extends Component {
     }
 
     validateInput = (value, identifier, validationList) => {
-        
+
         if(value == this.props.value && value.constructor != Boolean) return;
 
         this.state.value = value;
