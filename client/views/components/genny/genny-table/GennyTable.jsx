@@ -1,20 +1,24 @@
 import './gennyTable.scss';
 import React, { Component } from 'react';
-import { object, array, bool } from 'prop-types';
+import { object, array, bool, string } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { IconSmall, Table } from 'views/components';
-import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile } from './genny-table-components';
+import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile, GennyActionTableCell } from './genny-table-components';
 
 class GennyTable extends Component {
 
     static defaultProps = {
         showBaseEntity: false,
-        columns: null
+        columns: null,
+        root: null,
+        buttonActions: [],
       }
 
       static propTypes = {
         showBaseEntity: bool,
-        columns: []
+        columns: [],
+        root: string,
+        buttonActions: array,
       }
 
     state = {
@@ -72,28 +76,40 @@ class GennyTable extends Component {
 
         if(showBaseEntity) {
 
-            cols.push({
-                'Header': <span className="header-single-table">{baseEntity.name}</span>,
-                'columns': [
-                    {
-                        'Header': <span className="header-single">ATTRIBUTE CODE</span>,
-                        'accessor': 'code',
-                        'Cell': ({row, original}) => <GennyTableCell original={original} value={row.code} />
-                    },
-                    {
-                        'Header': <span className="header-single">VALUE</span>,
-                        'accessor': 'value',
-                        'Cell': ({row, original}) => <GennyTableCell original={original} dataType={original.type} value={row.value} />
-                    },
-                    {
-                        'Header': <span className="header-single">WEIGHT</span>,
-                        'accessor': 'weight',
-                        'Cell': ({row, original}) => <GennyTableCell original={original} value={row.weight} />
-                    }
-                ]
+            let c = [];
+            if(this.props.buttonActions.length > 0) {
+                c.push({
+                    'Header': <span className="header-single">Actions</span>,
+                    'accessor': 'actions',
+                    'Cell': ({row, original}) => <GennyActionTableCell original={original} value={row.code} />
+                })
+            }
+
+            c.push({
+                'Header': <span className="header-single">ATTRIBUTE CODE</span>,
+                'accessor': 'code',
+                'Cell': ({row, original}) => <GennyTableCell original={original} value={row.code} />
             });
 
-        } else {
+            c.push({
+                'Header': <span className="header-single">VALUE</span>,
+                'accessor': 'value',
+                'Cell': ({row, original}) => <GennyTableCell original={original} dataType={original.type} value={row.value} />
+            });
+
+            c.push({
+                'Header': <span className="header-single">WEIGHT</span>,
+                'accessor': 'weight',
+                'Cell': ({row, original}) => <GennyTableCell original={original} value={row.weight} />
+            });
+
+            cols.push({
+                'Header': <span className="header-single-table">{baseEntity.name}</span>,
+                'columns': c
+            });
+
+        }
+        else {
 
             let attributes = baseEntity.attributes;
 
@@ -117,7 +133,7 @@ class GennyTable extends Component {
                             newCol.Header = <GennyTableHeader title={attribute.attributeCode}/>;
                             newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
                             newCol.accessor = attribute.attributeCode;
-                            newCol.width= 200;
+                            newCol.width = 200;
                         }
                         else {
                             newCol.name = attribute.attributeCode;
@@ -126,9 +142,17 @@ class GennyTable extends Component {
                         cols.push(newCol);
                     }
                 });
-            }
 
+                if(this.props.buttonActions.length > 0) {
+                    cols.splice(0, 0, {
+                        'Header': <span className="header-single">Actions</span>,
+                        'accessor': 'actions',
+                        'Cell': ({row, original}) => <GennyActionTableCell original={original} value={row.code} />
+                    });
+                }
+            }
         }
+
         return cols;
     }
 
@@ -176,7 +200,17 @@ class GennyTable extends Component {
                 });
 
                 if(!showBaseEntity) {
+
+                    newData["actions"] = {
+                        value: this.props.buttonActions
+                    };
+
                     data.push(newData);
+                }
+                else {
+                    data.push({
+                        actions: this.props.buttonActions
+                    })
                 }
             }
         });
@@ -194,22 +228,10 @@ class GennyTable extends Component {
             // data_key: value
             let value = data[data_key];
 
-            console.log(data_key, value);
-
             cols.push({
                 'Header': <span className="header">{value}</span>,
                 'accessor': data_key
             });
-
-            // if (value.constructor == Object) {
-            //     this.formatColumns(value);
-            // }
-            // else {
-            //     cols.push({
-            //         'Header': <span className="header">{value}</span>,
-            //         'accessor': data[data_key]
-            //     });
-            // }
         });
         return cols;
     }
@@ -235,23 +257,6 @@ class GennyTable extends Component {
         }
 
         columns = this.generateHeadersFor(children);
-
-        //   PROP column DATA FORMAT
-
-        //   CONVERT TO THIS FORMAT
-
-        // {
-        //     {
-        //         Header: 'First Name',
-        //         accessor: 'PRI_FIRSTNAME'
-        //     },
-        //     {
-        //         Header: 'Last Name',
-        //         accessor: 'PRI_LASTNAME'
-        //     }
-        // }
-
-        // let newColumns = this.formatColumns(columns);
         data = this.generateDataFor(children);
 
         return (

@@ -1,4 +1,10 @@
-import { LAYOUT_CHANGE, CMD_VIEW as VIEW_CHANGE, CMD_POPUP as POPUP_CHANGE, SUB_LAYOUT as SUBLAYOUT_CODE, SUBLAYOUT_CHANGE } from 'constants';
+import {
+    LAYOUT_CHANGE,
+    CMD_VIEW as VIEW_CHANGE,
+    CMD_POPUP as POPUP_CHANGE,
+    SUB_LAYOUT as SUBLAYOUT_CODE,
+    SUBLAYOUT_CHANGE,
+} from 'constants';
 
 export const CMD_LAYOUT = message => ({
   type: LAYOUT_CHANGE,
@@ -14,6 +20,7 @@ export const CMD_POPUP = message => ({
   type: POPUP_CHANGE,
   payload: message,
 });
+
 
 export const SUB_LAYOUT = message => ({
   type: SUBLAYOUT_CODE,

@@ -55,20 +55,6 @@ export default function reducer( state = initialState, action ) {
         }
     break;
 
-    case CMD_POPUP:
-
-        const newModalCode = action.payload.code;
-        if(newModalCode) {
-            return {
-                ...state,
-                currentModal: {
-                    code: newModalCode,
-                    dataCode: action.payload.root
-                }
-            };
-        }
-    break;
-
     case SUBLAYOUT_CHANGE:
 
         const newSublayoutCode = action.payload.code;
