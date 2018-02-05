@@ -5,6 +5,7 @@ import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { BaseEntityQuery } from 'utils/genny';
 import store from 'views/store';
+import { ToastContainer, toast } from 'react-toastify';
 
 class AppContent extends Component {
 
@@ -60,6 +61,8 @@ class AppContent extends Component {
         }
     }
 
+    notify = () => toast("Wow so easy !");
+
     render() {
 
         const { layout, style, children } = this.props;
@@ -86,6 +89,8 @@ class AppContent extends Component {
 
         return (
             <div className="app-content" style={componentStyle}>
+                {/* <span onClick={this.notify} >TOAST</span> */}
+                <ToastContainer />
                 {modalContent ? <Modal show={true} onClick={this.toggleModal} >{modalContent}</Modal> : null}
                 {layoutContent || children}
             </div>
