@@ -54,10 +54,13 @@ class AppContent extends Component {
     }
 
     toggleModal = () => {
-       
+
+        // re render
         if(store && store.getState()) {
             store.getState().layouts.currentModal = null;
-            console.log('cancel');
+            this.setState({
+                showModal: true
+            })
         }
     }
 
@@ -82,7 +85,7 @@ class AppContent extends Component {
             const parentCode = parent ? parent.code : null;
             layoutContent =  <LayoutLoader layout={layout.currentSublayout} aliases={{ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
         }
-        
+
         if (layout != null && layout.currentModal) {
             modalContent = this.renderContent('popup', layout.currentModal);
         }

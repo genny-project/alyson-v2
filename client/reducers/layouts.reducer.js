@@ -36,6 +36,7 @@ export default function reducer( state = initialState, action ) {
         current: action.payload.code,
         currentSublayout: null,
         currentView: null,
+        currentModal: null,
         loaded
       };
 
@@ -50,10 +51,24 @@ export default function reducer( state = initialState, action ) {
                     code: newLayoutCode,
                     dataCode: action.payload.root
                 },
-                currentSublayout: null
+                currentSublayout: null,
+                currentModal: null,
             };
         }
     break;
+
+    case CMD_POPUP:
+
+        const newModalCode = action.payload.code;
+        if(newModalCode) {
+            return {
+                ...state,
+                currentModal: {
+                    code: newModalCode,
+                    dataCode: action.payload.root
+                }
+            };
+        }
 
     case SUBLAYOUT_CHANGE:
 
@@ -64,6 +79,7 @@ export default function reducer( state = initialState, action ) {
             return {
                 ...state,
                 currentView: null,
+                currentModal: null,
                 currentSublayout: {
                     code: newSublayoutCode,
                     root: action.payload.root,
