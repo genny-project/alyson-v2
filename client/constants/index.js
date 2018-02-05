@@ -33,6 +33,9 @@ export const CMD_VIEW = 'CMD_VIEW';
 /* Command View - Popup */
 export const CMD_POPUP = 'CMD_POPUP';
 
+/* Command View - NOTIFICATION */
+export const CMD_NOTIFICATION = 'CMD_NOTIFICATION';
+
 /* Command View on Page Change */
 export const CMD_VIEW_PAGE_CHANGE = 'CMD_VIEW_PAGE_CHANGE';
 

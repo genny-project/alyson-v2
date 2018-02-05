@@ -3,6 +3,7 @@ import {
     CMD_VIEW as VIEW_CHANGE,
     CMD_POPUP as POPUP_CHANGE,
     SUB_LAYOUT as SUBLAYOUT_CODE,
+    CMD_NOTIFICATION as NOTIFICATION_MESSAGE,
     SUBLAYOUT_CHANGE,
 } from 'constants';
 
@@ -21,6 +22,10 @@ export const CMD_POPUP = message => ({
   payload: message,
 });
 
+export const CMD_NOTIFICATION = message => ({
+  type: NOTIFICATION_MESSAGE,
+  payload: message,
+});
 
 export const SUB_LAYOUT = message => ({
   type: SUBLAYOUT_CODE,

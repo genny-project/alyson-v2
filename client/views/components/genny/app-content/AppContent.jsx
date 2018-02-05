@@ -64,7 +64,26 @@ class AppContent extends Component {
         }
     }
 
-    notify = () => toast("Wow so easy !");
+    notify = (text, style) => {
+
+        switch(style) {
+
+            case 'success':
+                toast.success(text);
+            break;
+
+            case 'error':
+                toast.success(text);
+            break;
+
+            case 'info':
+                toast.success(text);
+            break;
+
+            default:
+            toast(text)
+        }
+    };
 
     render() {
 
@@ -86,6 +105,15 @@ class AppContent extends Component {
 
         if (layout != null && layout.currentModal) {
             modalContent = this.renderContent('popup', layout.currentModal);
+        }
+
+        if(layout != null && layout.currentNotification) {
+
+            const style = layout.currentNotification.style;
+            const text = layout.currentNotification.text;
+            if(style && text) {
+                this.notify(text, style);
+            }
         }
 
         return (
