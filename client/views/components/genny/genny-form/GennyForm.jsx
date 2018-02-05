@@ -17,9 +17,18 @@ class GennyForm extends Component {
 
     onInputValidation = (newValue, data, mandatory) =>  {
 
+        let finalValue = newValue;
+
+        if(data.attributeCode.indexOf('PRICE') != -1 || data.attributeCode.indexOf('FEE') != -1) {
+            finalValue = {
+                amount: newValue,
+                currency: "AUD"
+            }
+        }
+
         GennyBridge.sendAnswer([{
             ...data,
-            value: newValue
+            value: finalValue
         }]);
     }
 

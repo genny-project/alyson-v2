@@ -116,7 +116,7 @@ class GennyBridge {
             Vertx.sendMessage(events.outgoing.ANSWER('Answer', answers, token));
         }
 
-        if(items[0].attributeCode.includes('ADDRESS_FULL')) { return; }
+        if(items[0].attributeCode.includes('ADDRESS_FULL') || items[0].attributeCode.includes('PRICE')) { return; }
 
         let payload = {
 

@@ -205,6 +205,9 @@ export default function reducer(state = initialState, action) {
         newAnswers.forEach(newAnswer => {
 
             let be_code = newAnswer.targetCode;
+            let newValue = newAnswer.value;
+            if(typeof newValue != 'string' ) { return; }
+
             let attributeCode = newAnswer.attributeCode;
             if(be_code && attributeCode) {
 
