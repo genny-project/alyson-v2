@@ -210,7 +210,7 @@ class BucketColumn extends Component {
                         noAnimation={true}
                         inline={true}
                         header={
-                            <span style={{display: 'flex', alignItems: 'center', padding: '5px'}}>
+                            <span style={{display: 'flex', alignItems: 'center', padding: `5px ${this.state.isOpen ? '5px 0' : ''}` }}>
                                 <h3>Status Legend</h3>
                                 <IconSmall
                                     name='arrow_drop_down'
