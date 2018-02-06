@@ -433,7 +433,7 @@ class InputPayment extends Component {
     const { amount } = this.state;
     return (
       <div className='confirm-btn' onClick={this.onHandleDone}>
-        <span>CONFIRM PAYMENT OF ${amount}</span>
+        <span>CONFIRM PAYMENT OF {amount}</span>
         <i className='material-icons'>check</i>
       </div>
     );

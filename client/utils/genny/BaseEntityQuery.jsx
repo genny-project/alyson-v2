@@ -128,13 +128,16 @@ class BaseEntityQuery {
                 const childKey = childKeys[j]
                 const child = group[childKey];
 
-                if(child.type == "BaseEntity") {
-                    if(childKey == childCode) {
-                        return BaseEntityQuery.getBaseEntity(groupKey);
+                if(child) {
+
+                    if(child.type == "BaseEntity") {
+                        if(childKey == childCode) {
+                            return BaseEntityQuery.getBaseEntity(groupKey);
+                        }
                     }
-                }
-                else {
-                    return BaseEntityQuery.getBaseEntityParent(childCode, group);
+                    else {
+                        return BaseEntityQuery.getBaseEntityParent(childCode, group);
+                    }
                 }
             }
         }

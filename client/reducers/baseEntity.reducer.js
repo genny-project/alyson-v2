@@ -265,106 +265,119 @@ export default function reducer(state = initialState, action) {
 
         case LINK_CHANGE:
 
-            action.payload.items.forEach(item => {
+        //TODO: use reduce to handle multiple link change
+        if(action.payload.items.length > 0) {
 
-                let be_code = item.targetCode;
+            const item = action.payload.items[0];
+            let be_code = item.targetCode;
+            if(state.data[be_code] != null) {
 
-                if(state.data[be_code]) {
+                const oldParentCode = state.data[be_code].parentCode;
+                const newParentCode = item.sourceCode;
+                const newLinkCode = item.attributeCode;
+                const linkValue = item.linkValue;
+                const newLinkWeight = item.weight;
 
-                    let oldParentCode = state.data[be_code].parentCode;
-                    let newParentCode = item.sourceCode;
-                    let newLinkCode = item.attributeCode;
-                    let linkValue = item.linkValue;
-                    let newLinkWeight = item.weight;
+                let newParentLinks = state.data[newParentCode] ? state.data[newParentCode].links : { [newLinkCode]: [] };
 
-                    if(oldParentCode != newParentCode) {
+                if(newParentLinks && newParentLinks[newLinkCode]) {
 
-                        console.log("LOGGING - ")
-                        console.log(state.data[oldParentCode].children)
+                    if(newParentLinks[newLinkCode].filter(x => x.targetCode == be_code).length == 0) {
 
-                        // we delete the old data
-                        if(state.data[oldParentCode] && state.data[oldParentCode].children != null && state.data[oldParentCode].children.length > 0) {
-
-                            state.data[oldParentCode] = {
-                                ...state.data[oldParentCode],
-                                children: [
-                                    ...state.data[oldParentCode].children.filter(child => child.code != be_code)
-                                ]
-                            }
-                            // state.data[oldParentCode].children = state.data[oldParentCode].children.filter(child => child.code != be_code);
-                        }
-
-                        console.log("AFTER")
-                        console.log("NEW PARENT CODE: " + newParentCode);
-
-                        // we delete the old relationship
-                        if(state.relationships && state.relationships[oldParentCode] != null && state.data[oldParentCode] != null && state.data[oldParentCode][be_code] != null) {
-                            state.relationships[oldParentCode][be_code] = null;
-                            delete state.relationships[oldParentCode][be_code];
-                        }
-
-                        state.relationships[newParentCode] = {  // create the new relationship
-                            ...state.relationships[newParentCode],
-                            [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
-                        };
-
-                        if(state.data[be_code]) {
-                            state.data[be_code].parentCode = newParentCode; // set new parent
-                        }
-
-                        state.data[newParentCode] = {
-                            ...state.data[newParentCode],
-                            children: [
-                                ...(state.data[newParentCode] ? state.data[newParentCode].children : {}),
-                                state.data[be_code], // add be as new children of target code
+                        newParentLinks = {
+                            ...newParentLinks,
+                            [newLinkCode]: [
+                                ...newParentLinks[newLinkCode],
+                                {
+                                    value: linkValue,
+                                    valueString: linkValue,
+                                    weight: newLinkWeight,
+                                    targetCode: be_code,
+                                    linkValue: linkValue
+                                }
                             ]
                         };
+                    }
+                    else {
 
-                        if(state.data[newParentCode].links && state.data[newParentCode].links[newLinkCode]) {
+                        if(newParentLinks[newLinkCode].length == 0) {
+                            newParentLinks[newLinkCode] = [
+                                ...{
+                                    value: linkValue,
+                                    valueString: linkValue,
+                                    weight: newLinkWeight,
+                                    targetCode: be_code,
+                                    linkValue: linkValue
+                                }
+                            ]
+                        }
+                        else {
 
-                            if(state.data[newParentCode].links[newLinkCode].filter(x => x.targetCode == be_code).length == 0) {
+                            for(let i = 0; i < newParentLinks[newLinkCode].length; i++) {
 
-                                state.data[newParentCode].links = {
-                                    ...state.data[newParentCode].links,
-                                    [newLinkCode]: [
-                                        ...state.data[newParentCode].links[newLinkCode],
-                                        {
+                                if(newParentLinks[newLinkCode][i].targetCode == be_code) {
+                                    newParentLinks[newLinkCode][i] = {
+                                        ...newParentLinks[newLinkCode][i],
+                                        ...{
                                             value: linkValue,
                                             valueString: linkValue,
                                             weight: newLinkWeight,
                                             targetCode: be_code,
                                             linkValue: linkValue
                                         }
-                                    ]
-                                };
-                            }
-                            else {
-
-                                let links = state.data[newParentCode].links[newLinkCode];
-                                for(let i = 0; i < links.length; i++) {
-
-                                    if(links[i].targetCode == be_code) {
-                                        links[i] = {
-                                            ...links[i],
-                                            ...{
-                                                value: linkValue,
-                                                valueString: linkValue,
-                                                weight: newLinkWeight,
-                                                targetCode: be_code,
-                                                linkValue: linkValue
-                                            }
-                                        };
-                                    }
+                                    };
                                 }
                             }
                         }
                     }
                 }
-            });
 
-            return {
-                ...state
-            };
+                console.log("-------------------")
+                console.log(oldParentCode)
+
+                return {
+                    ...state,
+                    data: {
+                        ...state.data,
+                        [oldParentCode]: {
+                            ...state.data[oldParentCode],
+                            children: [
+                                ...(state.data[oldParentCode].children ? state.data[oldParentCode].children.filter(child => child.code != be_code) : [])
+                            ]
+                        },
+                        [be_code]: {
+                            ...state.data[be_code],
+                            parentCode: newParentCode
+                        },
+                        [newParentCode]: {
+                            ...state.data[newParentCode],
+                            children: [
+                                ...((state.data[newParentCode] && state.data[newParentCode].children) ? state.data[newParentCode].children : []),
+                                state.data[be_code],
+                            ]
+                        },
+                        [newParentCode]: {
+                            ...state.data[newParentCode],
+                            links: newParentLinks
+                        }
+                    },
+                    relationships: {
+                        ...state.relationships,
+                        [oldParentCode]: {
+                            ...state.relationships[oldParentCode],
+                            [be_code]: null
+                        },
+                        [newParentCode]: {
+                            ...state.relationships[newParentCode],
+                            [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
+                        },
+                    }
+                };
+            }
+        }
+
+        return state;
+
 
         default:
         return state;

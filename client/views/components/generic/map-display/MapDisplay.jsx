@@ -157,7 +157,7 @@ class MapDisplay extends Component {
           }
         }
         else {
-          alert('Geocode was not successful for the following reason: ' + status);
+          // alert('Geocode was not successful for the following reason: ' + status);
         }
       });
     }
