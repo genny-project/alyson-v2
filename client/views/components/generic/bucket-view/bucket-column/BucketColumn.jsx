@@ -4,7 +4,7 @@ import { string, object, func, array, bool, any } from 'prop-types';
 import { BucketElement } from './bucket-element';
 import { Droppable } from 'react-beautiful-dnd';
 import { GennyBridge } from 'utils/genny';
-import { IconSmall, Status, Button } from 'views/components';
+import { IconSmall, Status, Dropdown } from 'views/components';
 import { Grid } from '@genny-project/layson';
 
 // const getListStyle = isDraggingOver => ({
@@ -34,6 +34,7 @@ class BucketColumn extends Component {
     }
 
     state = {
+        isOpen: false
     }
 
     moveBucket = (notification) => {
@@ -89,6 +90,19 @@ class BucketColumn extends Component {
         );
     }
 
+    handleClick = () => {
+        this.setState(prevState => ({
+            isOpen: !prevState.isOpen
+        }));
+    }
+    
+    
+    handleBlur = () => {
+        this.setState({
+            isOpen: false
+        });
+    }
+
     render() {
 
         const { className, style, title, groupId, goToPreviousBucket, goToNextBucket, items} = this.props;
@@ -112,7 +126,6 @@ class BucketColumn extends Component {
                 }
                 <IconSmall
                     style={{
-                        fontSize: '12px',
                         cursor: 'pointer',
                     }}
                     name='list'
@@ -121,8 +134,8 @@ class BucketColumn extends Component {
                 <span>{title}{ items && items.length ? ` (${items.length})` : null }</span>
                 <IconSmall
                     style={{
-                        fontSize: '12px',
                         cursor: 'pointer',
+                        fontSize: '16px'
                     }}
                     fa
                     name='sort-amount-desc'
@@ -147,7 +160,7 @@ class BucketColumn extends Component {
                 <IconSmall
                     style={{
                         marginRight: 'auto',
-                        fontSize: '12px',
+                        fontSize: '16px',
                         cursor: 'pointer',
                     }}
                     fa
@@ -160,7 +173,7 @@ class BucketColumn extends Component {
                 <IconSmall
                     style={{
                         marginLeft: 'auto',
-                        fontSize: '12px',
+                        fontSize: '16px',
                         cursor: 'pointer',
                     }}
                     fa
@@ -187,22 +200,44 @@ class BucketColumn extends Component {
                 }
 
 
-                <div className="bucket-legend sticky">
-                    <div className="bucket-legend-content">
-                        <h3>Action Legend</h3>
+                <div className="bucket-legend sticky" onClick={this.handleClick} >
+                    <Dropdown
+                        className="bucket-legend-content"
+                        open={this.state.isOpen}
+                        isSlide={false}
+                        onBlur={this.handleBlur}
+                        tabIndex='-1'
+                        noAnimation={true}
+                        inline={true}
+                        header={
+                            <span style={{display: 'flex', alignItems: 'center', padding: `5px ${this.state.isOpen ? '5px 0' : ''}` }}>
+                                <h3>Status Legend</h3>
+                                <IconSmall
+                                    name='arrow_drop_down'
+                                    style={ this.state.isOpen ? { transform: 'rotate(180deg)' } : { transform: 'rotate(0deg)' }}
+                                />
+                            </span>
+                        }
+                    >
                         <Grid
                             style={{padding: '5px'}}
-                            cols={['20px', {style:{flexGrow: 1, display: 'flex', alignItems: 'center'}}]}
-                            rows={[{style: {flexGrow: 1, paddingBottom: '5px'}},{style: {flexGrow: 1, paddingBottom: '5px'}},1]}
+                            cols={[
+                                {style:{flexGrow: 1, display: 'flex', alignItems: 'center', marginRight: '10px',  justifyContent: 'center'}},
+                                '10px'
+                            ]}
+                            rows={[
+                                {style: {flexGrow: 1, paddingBottom: '5px'}},{style: {flexGrow: 1, paddingBottom: '5px'}},
+                                1
+                            ]}
                         >
-                            <Status position={[0,0]} color='urgent' style={{height: '15px' }}/>
-                            <span position={[0,1]} >Immediate action required.</span>
-                            <Status position={[1,0]} color='warning' style={{ height: '15px' }}/>
-                            <span position={[1,1]} >Update. Action required.</span>
-                            <Status position={[2,0]} color='success' style={{ height: '15px' }}/>
-                            <span position={[2,1]} >No action required.</span>
+                            <span position={[0,0]} >Immediate action required.</span>
+                            <Status position={[0,1]} color='urgent' style={{height: '15px' }}/>
+                            <span position={[1,0]} >Update. Action required.</span>
+                            <Status position={[1,1]} color='warning' style={{ height: '15px' }}/>
+                            <span position={[2,0]} >No action required.</span>
+                            <Status position={[2,1]} color='success' style={{ height: '15px' }}/>
                         </Grid>
-                    </div>
+                    </Dropdown>
                 </div>
             </div>
         );
