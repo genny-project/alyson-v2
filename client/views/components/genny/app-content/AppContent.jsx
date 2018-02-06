@@ -50,6 +50,12 @@ class AppContent extends Component {
             else if (commandData.code == 'MAP_VIEW') {
                 return <GennyMap root={commandData.dataCode}/>;
             }
+            else if(commandData.layout != null) {
+
+                const parent = BaseEntityQuery.getBaseEntityParent(commandData.dataCode);
+                const parentCode = parent ? parent.code : null;
+                return <LayoutLoader layout={commandData} aliases={{ROOT: parentCode, BE: commandData.dataCode, ITEMCODE: commandData.dataCode}} />;
+            }
         }
     }
 

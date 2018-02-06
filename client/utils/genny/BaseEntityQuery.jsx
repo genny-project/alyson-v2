@@ -142,6 +142,26 @@ class BaseEntityQuery {
         return null;
     }
 
+    static getLinkedBaseEntity = (baseEntityCode, linkValue) => {
+
+        let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        if(be && be.links) {
+            return Object.keys(be.links).map(link => {
+
+                const links = be.links[link];
+                for(let i = 0; i < links.length; i++) {
+
+                    let currentLink = links[i];
+                    if(currentLink.linkValue == linkValue) { return currentLink.targetCode; }
+                    else return false;
+                }
+
+            })[0];
+        }
+
+        return null;
+    }
+
     static getBaseEntitiesForLinkCode = (baseEntityCode, excludingLinks) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);

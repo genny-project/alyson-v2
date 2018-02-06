@@ -67,7 +67,8 @@ export default function reducer( state = initialState, action ) {
                 ...state,
                 currentModal: {
                     code: newModalCode,
-                    dataCode: action.payload.root
+                    dataCode: action.payload.root,
+                    layout: action.payload.items ? [JSON.parse(action.payload.items)] : null
                 },
                 currentNotification: null,
             };

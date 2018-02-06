@@ -418,7 +418,7 @@ class InputPayment extends Component {
     return (
       <div>
         <h2>{this.renderBackButton()} Confirm payment</h2>
-        <p>Click CONFIRM below to confirm that <b>${amount}</b> (including GST) {confirmDescription}</p>
+        <p>Click CONFIRM below to confirm that <b>{amount}</b> (including GST) {confirmDescription}</p>
         <PaymentMethod
           key={account.id}
           account={account}

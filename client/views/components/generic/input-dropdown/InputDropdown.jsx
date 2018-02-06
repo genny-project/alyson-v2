@@ -168,6 +168,7 @@ class InputDropdown extends Component {
   }
 
   handleValidation = () => {
+
     const { validationList, validation, identifier, isSingleSelect } = this.props;
     const { selectedItems, lastSentValue } = this.state;
 
@@ -211,6 +212,11 @@ class InputDropdown extends Component {
     list = list.sort((x, y) =>
       selectedItem.indexOf(x.name) == -1 && selectedItem.indexOf(y.name) > -1
     );
+
+    list = list.sort((x, y) => {
+        if(x.name > y.name) return -1;
+        else return 1;
+    });
 
     if (list.length > 0 ) {
 

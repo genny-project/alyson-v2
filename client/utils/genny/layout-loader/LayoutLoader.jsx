@@ -83,9 +83,24 @@ class LayoutLoader extends Component {
                                 value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'created')
                             };
                         }
+                        else if(attribute_code == "links") {
+
+                            const linkValue = split[2];
+                            const be_attribute = split[3];
+
+                            if(linkValue != null && be_attribute != null) {
+
+                                const linkedBaseEntityCode = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue) || null;
+
+                                if(linkedBaseEntityCode != null) {
+                                    attribute = BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntityCode, be_attribute);
+                                }
+                            }
+                        }
                         else {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }
+
                         if(attribute == null) {
                             layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
                         }
