@@ -39,7 +39,7 @@ class ProgressBar extends Component {
           </div>
           <div className="mid-points">
             {
-              Array.from({ length: 11 }, (v, k) => <IconSmall key={ k } name="brightness_1" size={4} />)
+              Array.from({ length: 11 }, (v, k) => <IconSmall key={ k } name="brightness_1" fontSize='4px' size={4} />)
             }
           </div>
           <div className="current-point">

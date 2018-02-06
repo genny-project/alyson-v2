@@ -394,7 +394,7 @@ class BucketView extends Component {
     let count = 0;
     let columns = buckets.map((c, index )=> {
       count = count + 1;
-      return <IconSmall key={index} name={count == currentBucket ? 'lens' : 'panorama_fish_eye'} style={ count < buckets.length ? { marginRight: '5px'} : null }/>;
+      return <IconSmall key={index} fontSize='12px' name={count == currentBucket ? 'lens' : 'panorama_fish_eye'} style={ count < buckets.length ? { marginRight: '5px'} : null }/>;
     });
 
     return columns;
