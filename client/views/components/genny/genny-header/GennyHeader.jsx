@@ -1,10 +1,9 @@
 import './gennyHeader.scss';
 import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
-import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, GennyButton, GennyNotification, ColorPicker, Device, Header, Selector } from 'views/components';
+import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, Header, GennyNotifications } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
-import store from 'views/store';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 import decode_token from 'jwt-decode';
 
@@ -27,11 +26,18 @@ class GennyHeader extends Component {
     isOpen: false
   }
 
-  handleClick = () => {
+  handleProfileClick = () => {
     this.setState(prevState => ({
-      isOpen: !prevState.isOpen
+      isOpen: prevState.isOpen == 'profile' ? false : 'profile'
     }));
   }
+
+  handleNotificationsClick = () => {
+    this.setState(prevState => ({
+      isOpen: prevState.isOpen == 'notifications' ? false : 'notifications'
+    }));
+  }
+
 
   handleBlur = () => {
     this.setState({
@@ -148,6 +154,15 @@ class GennyHeader extends Component {
             <IconSmall name="message" />
           </div>
 
+          <GennyNotifications 
+            position={[0,1]}
+            isOpen={isOpen == 'notifications'}
+            onBlur={this.handleBlur}
+            onHeaderClick={this.handleNotificationsClick}
+            iconName='notifications'
+            root='GRP_NOTIFICATIONS'
+          />
+
           <Label
             position={[0,1]}
             text={`${isAdmin ? 'ADMIN' : ''} ${isOwner ? 'OWNER' : ''} ${isDriver ? 'DRIVER' : ''}`}
@@ -168,22 +183,22 @@ class GennyHeader extends Component {
           <Dropdown
             style={ customStyle.dropdown }
             position={[0,1]}
-            open={isOpen}
+            open={isOpen == 'profile'}
             onBlur={this.handleBlur}
             tabIndex='-1'
-            noAnimation={ window.getScreenSize() == 'sm' ? true : false}
+            noAnimation={window.getScreenSize() == 'sm'}
             header={
               window.getScreenSize() == 'sm' ? 
               <ImageView
                 src={userImage}
-                onClick={this.handleClick}
+                onClick={this.handleProfileClick}
                 style={{ padding: '5px', width: '40px', minWidth: '40px'}}
               /> 
               :
               <span style={ customStyle.dropdownSpan }>
                 <IconSmall
                   name="arrow_drop_down"
-                  onClick={this.handleClick}
+                  onClick={this.handleProfileClick}
                   style={{color: 'white'}}
                 />
               </span>
@@ -192,9 +207,6 @@ class GennyHeader extends Component {
             <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
               <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
               <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
-              {/* {<Selector checkValues={roles} showValues={['admin']}>
-                <li style={ customStyle.dropdownLi } onClick={this.handleMessages}><IconSmall name="email" /><span>Test Message</span></li>
-              </Selector>} */}
               <br/>
               <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
             </ul>

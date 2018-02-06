@@ -1,6 +1,6 @@
 import './gennyButton.scss';
 import React, { Component } from 'react';
-import { string, any, object, func } from 'prop-types';
+import { string, any, object, func, number } from 'prop-types';
 import { Button } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
@@ -10,6 +10,7 @@ class GennyButton extends Component {
     buttonCode: null,
     value: null,
     confirmation: null,
+    animationDelay: 3000
   }
 
   static propTypes = {
@@ -20,10 +21,22 @@ class GennyButton extends Component {
     style: object,
     className: string,
     confirmation: string,
-    onClick: func
+    onClick: func,
+    animationDelay: number
+  };
+
+  state = {
+    isAnimated: false
   };
 
   handleClick = () => {
+    this.setState({
+      isAnimated: true
+    }, () => {
+      setTimeout(() => {
+        this.setAnimationStop();
+      }, this.props.animationDelay);
+    });
 
     if(this.props.buttonCode) {
 
@@ -45,11 +58,32 @@ class GennyButton extends Component {
     }
   }
 
-  handleConfirmation = (confirmation) => {    
+  handleConfirmation = (confirmation) => {
+    
+    this.setState({
+      isAnimated: true
+    }, () => {
+      setTimeout(() => {
+        this.setAnimationStop();
+      }, this.props.animationDelay);
+    });
+
     let shouldFire = confirm(confirmation);
+
     if (shouldFire == true) {
       this.handleClick();
-    }
+    } else {
+      this.setState({
+        isAnimated: false
+      });
+    }  
+  }
+
+  setAnimationStop = () => {
+    
+    this.setState({
+      isAnimated: false
+    }); 
   }
 
   render() {
@@ -58,9 +92,14 @@ class GennyButton extends Component {
     const clickEvent = confirmation ? () => this.handleConfirmation(confirmation) : this.handleClick;
 
     return (
-      <div className={`genny-button ${className}`} style={componentStyle}>
+      <div className={`genny-button ${className} ${this.state.isAnimated ? 'animate' : ''}`} style={componentStyle}>
         <Button {...rest} disabled={disabled} onClick={clickEvent} style={ {...buttonComponentStyle, height: componentStyle.height }}>
-          {children}
+        {
+          this.state.isAnimated ?
+            <div className={'button-spinner'} />
+          :
+            children
+        }
         </Button>
       </div>
     );

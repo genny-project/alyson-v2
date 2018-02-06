@@ -6,7 +6,7 @@ class IconSmall extends Component {
 
   static defaultProps = {
     className: '',
-    fontSize: 18,
+    size: 24,
     name: 'android',
     text: null,
     fa: false,
@@ -26,13 +26,15 @@ class IconSmall extends Component {
   }
 
   render() {
-    const { className, size, name, onClick, onMouseOver, onMouseOut, text, fa,style } = this.props;
+    const { className, size, name, onClick, onMouseOver, onMouseOut, text, fa, style } = this.props;
 
     let iconStyle = {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
     };
+
+    let iconPadding = `${size / 6 }px 0`;
 
     return (
         <span style={text ? iconStyle : null} className={`icon-small ${className}`}>
@@ -41,7 +43,7 @@ class IconSmall extends Component {
               onClick={onClick}
               onMouseOver={onMouseOver}
               onMouseOut={onMouseOut}
-              style={{ padding: `${size / 7 }px 0`, ...style, fontSize: size, }}
+              style={{ padding: iconPadding, ...style, fontSize: size, }}
             >
               {fa ? null : name}
             </i>

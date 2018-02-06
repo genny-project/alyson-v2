@@ -8,7 +8,7 @@ export { default as GennyTable } from './genny-table';
 export { default as GennyTreeView } from './genny-tree-view';
 export { default as GennyImageView } from './genny-image-view';
 export { default as GennyHeader } from './genny-header';
-export { default as GennyNotification } from './genny-notification';
+export { default as GennyNotifications } from './genny-notifications';
 export { default as GennySocialButton } from './genny-social-button';
 export { default as GennyModal } from './genny-modal';
 export { default as GennyMap } from './genny-map';

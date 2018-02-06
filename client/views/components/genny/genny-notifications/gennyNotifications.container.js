@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import GennyNotification from './GennyNotification.jsx';
+import GennyNotifications from './GennyNotifications.jsx';
 
 function mapStateToProps(state) {
   return { notifications: state.notification.data };
 }
 
-export default connect( mapStateToProps )( GennyNotification );
+export default connect( mapStateToProps )( GennyNotifications );
