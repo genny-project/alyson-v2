@@ -35,8 +35,8 @@ class Selector extends Component {
 
         if(checkValues == null || showValues == null && hideValues == null) return null;
 
-        if (typeof checkValues === 'string' || typeof checkValues === 'number') {
-
+        if (typeof checkValues === 'string' || typeof checkValues === 'number' || typeof checkValues === 'boolean'  ) {
+            
             if(showValues != null && showValues.constructor == Array) {
 
                 if( showValues && showValues.includes(checkValues)) {

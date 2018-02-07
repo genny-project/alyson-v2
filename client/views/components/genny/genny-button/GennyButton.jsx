@@ -94,7 +94,7 @@ class GennyButton extends Component {
   render() {
     const { children, className, style, buttonComponentStyle, buttonStyle, disabled, confirmation, ...rest } = this.props;
     const componentStyle = { ...style };
-    console.log(componentStyle);
+    
     const clickEvent = confirmation ? () => this.handleConfirmation(confirmation) : this.handleClick;
 
     let buttonWidth = buttonStyle && buttonStyle.width ? buttonStyle.width : '100%';
