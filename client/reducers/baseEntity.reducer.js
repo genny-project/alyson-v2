@@ -79,9 +79,6 @@ export default function reducer(state = initialState, action) {
                             });
                         }
 
-                        console.log("ATTRIBUTES: ")
-                        console.log( existingAttributes )
-
                         existing[baseEntityCode] = {
                             ...state.data[baseEntityCode],
                             ...existing[baseEntityCode],
