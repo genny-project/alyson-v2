@@ -10,7 +10,7 @@ class GennyButton extends Component {
     buttonCode: null,
     value: null,
     confirmation: null,
-    animationDelay: 500000
+    animationDelay: 3000
   }
 
   static propTypes = {

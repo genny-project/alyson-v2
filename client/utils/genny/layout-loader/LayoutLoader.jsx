@@ -107,7 +107,7 @@ class LayoutLoader extends Component {
                         }
 
                         if(attribute == null) {
-                            layout = JSON.parse(JSON.stringify(layout).replace(alias, '-' ));
+                            layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code ));
                         }
                    }
                 }
