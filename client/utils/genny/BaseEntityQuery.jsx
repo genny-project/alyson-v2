@@ -3,38 +3,14 @@ import { GennyBridge } from 'utils/genny';
 
 class BaseEntityQuery {
 
-    static getEntityChildren(code) {
+    static getEntityChildren(code, recursive) {
 
         const relationships = store.getState().baseEntity.relationships;
         const grp = relationships[code];
 
-        let items = grp ? Object.keys(grp).filter(x => x != 'DUMMY').map(code => store.getState().baseEntity.data[code]) : [];
+        let items = grp ? Object.keys(grp).filter(x => x != 'DUMMY').map(code => Object.assign({}, store.getState().baseEntity.data[code])) : [];
 
         let rootEntity = BaseEntityQuery.getBaseEntity(code);
-
-        items = items.map(item => {
-
-            if(item) {
-
-                // order by weight if found in links
-                let weight = item.weight;
-                if(rootEntity != null && rootEntity.originalLinks) {
-
-                    let currentLinks = rootEntity.originalLinks.filter(x => {
-                        return x.link.targetCode == item.code;
-                    });
-
-                    weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
-                }
-
-                const children = this.getEntityChildren(item.code);
-                item.children = children;
-                item.weight = weight;
-                return item;
-            }
-
-            return false;
-        });
 
         if(items.length == 0) {
 
@@ -56,7 +32,32 @@ class BaseEntityQuery {
                   value: code
                 }, code);
             }
+
+            return [];
         }
+
+        items = items.map(item => {
+
+            if(item) {
+
+                // order by weight if found in links
+                let weight = item.weight;
+                if(rootEntity != null && rootEntity.originalLinks) {
+
+                    let currentLinks = rootEntity.originalLinks.filter(x => {
+                        return x.link.targetCode == item.code;
+                    });
+
+                    weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
+                }
+
+                item.children = this.getEntityChildren(item.code);
+                item.weight = weight;
+                return item;
+            }
+
+            return false;
+        });
 
         return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
     }

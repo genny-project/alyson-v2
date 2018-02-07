@@ -274,110 +274,121 @@ export default function reducer(state = initialState, action) {
 
                 const oldParentCode = state.data[be_code].parentCode;
                 const newParentCode = item.sourceCode;
-                const newLinkCode = item.attributeCode;
-                const linkValue = item.linkValue;
-                const newLinkWeight = item.weight;
 
-                let newParentLinks = state.data[newParentCode] ? state.data[newParentCode].links : { [newLinkCode]: [] };
+                if(oldParentCode != newParentCode) {
 
-                if(newParentLinks && newParentLinks[newLinkCode]) {
+                    const newLinkCode = item.attributeCode;
+                    const linkValue = item.linkValue;
+                    const newLinkWeight = item.weight;
 
-                    if(newParentLinks[newLinkCode].filter(x => x.targetCode == be_code).length == 0) {
+                    let newParentLinks = state.data[newParentCode] ? state.data[newParentCode].links : { [newLinkCode]: [] };
 
-                        newParentLinks = {
-                            ...newParentLinks,
-                            [newLinkCode]: [
-                                ...newParentLinks[newLinkCode],
-                                {
-                                    value: linkValue,
-                                    valueString: linkValue,
-                                    weight: newLinkWeight,
-                                    targetCode: be_code,
-                                    linkValue: linkValue
-                                }
-                            ]
-                        };
-                    }
-                    else {
+                    if(newParentLinks && newParentLinks[newLinkCode]) {
 
-                        if(newParentLinks[newLinkCode].length == 0) {
-                            newParentLinks[newLinkCode] = [
-                                ...{
-                                    value: linkValue,
-                                    valueString: linkValue,
-                                    weight: newLinkWeight,
-                                    targetCode: be_code,
-                                    linkValue: linkValue
-                                }
-                            ]
+                        if(newParentLinks[newLinkCode].filter(x => x.targetCode == be_code).length == 0) {
+
+                            newParentLinks = {
+                                ...newParentLinks,
+                                [newLinkCode]: [
+                                    ...newParentLinks[newLinkCode],
+                                    {
+                                        value: linkValue,
+                                        valueString: linkValue,
+                                        weight: newLinkWeight,
+                                        targetCode: be_code,
+                                        linkValue: linkValue
+                                    }
+                                ]
+                            };
                         }
                         else {
 
-                            for(let i = 0; i < newParentLinks[newLinkCode].length; i++) {
+                            if(newParentLinks[newLinkCode].length == 0) {
+                                newParentLinks[newLinkCode] = [
+                                    ...{
+                                        value: linkValue,
+                                        valueString: linkValue,
+                                        weight: newLinkWeight,
+                                        targetCode: be_code,
+                                        linkValue: linkValue
+                                    }
+                                ]
+                            }
+                            else {
 
-                                if(newParentLinks[newLinkCode][i].targetCode == be_code) {
-                                    newParentLinks[newLinkCode][i] = {
-                                        ...newParentLinks[newLinkCode][i],
-                                        ...{
-                                            value: linkValue,
-                                            valueString: linkValue,
-                                            weight: newLinkWeight,
-                                            targetCode: be_code,
-                                            linkValue: linkValue
-                                        }
-                                    };
+                                for(let i = 0; i < newParentLinks[newLinkCode].length; i++) {
+
+                                    if(newParentLinks[newLinkCode][i].targetCode == be_code) {
+                                        newParentLinks[newLinkCode][i] = {
+                                            ...newParentLinks[newLinkCode][i],
+                                            ...{
+                                                value: linkValue,
+                                                valueString: linkValue,
+                                                weight: newLinkWeight,
+                                                targetCode: be_code,
+                                                linkValue: linkValue
+                                            }
+                                        };
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                console.log("-------------------")
-                console.log(oldParentCode)
+                    return {
+                        ...state,
+                        data: {
+                            ...state.data,
+                            [be_code]: {
+                                ...state.data[be_code],
+                                parentCode: newParentCode
+                            },
+                            [oldParentCode]: {
+                                ...state.data[oldParentCode],
+                                children: [
+                                    ...(state.data[oldParentCode].children ? state.data[oldParentCode].children.reduce((existing, child) => {
 
-                return {
-                    ...state,
-                    data: {
-                        ...state.data,
-                        [oldParentCode]: {
-                            ...state.data[oldParentCode],
-                            children: [
-                                ...(state.data[oldParentCode].children ? state.data[oldParentCode].children.filter(child => child.code != be_code) : [])
-                            ]
+                                        if(child.code != be_code) existing.push(child);
+
+                                        return existing;
+
+                                    }, {}) : [])
+                                ],
+                            },
+                            [newParentCode]: {
+                                ...state.data[newParentCode],
+                                children: [
+                                    ...((state.data[newParentCode] && state.data[newParentCode].children) ? state.data[newParentCode].children : []),
+                                    {
+                                        ...state.data[be_code],
+                                    }
+                                ],
+                                links: newParentLinks
+                            }
                         },
-                        [be_code]: {
-                            ...state.data[be_code],
-                            parentCode: newParentCode
-                        },
-                        [newParentCode]: {
-                            ...state.data[newParentCode],
-                            children: [
-                                ...((state.data[newParentCode] && state.data[newParentCode].children) ? state.data[newParentCode].children : []),
-                                state.data[be_code],
-                            ]
-                        },
-                        [newParentCode]: {
-                            ...state.data[newParentCode],
-                            links: newParentLinks
+                        relationships: {
+                            ...state.relationships,
+                            [oldParentCode]: Object.keys(state.relationships[oldParentCode]).reduce((existing, key) => {
+
+                                if (key !== be_code) {
+                                    existing[key] = state.relationships[key];
+                                }
+                                return existing;
+
+                            }, {}),
+                            [newParentCode]: {
+                                ...state.relationships[newParentCode],
+                                [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
+                            },
                         }
-                    },
-                    relationships: {
-                        ...state.relationships,
-                        [oldParentCode]: {
-                            ...state.relationships[oldParentCode],
-                            [be_code]: null
-                        },
-                        [newParentCode]: {
-                            ...state.relationships[newParentCode],
-                            [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
-                        },
-                    }
-                };
+                    };
+                }
             }
         }
 
         return state;
 
+        break;
 
         default:
         return state;
