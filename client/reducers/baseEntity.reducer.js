@@ -66,24 +66,21 @@ export default function reducer(state = initialState, action) {
                         if(newItem.baseEntityAttributes.length > 0) {
 
                             let newAttributes = newItem.baseEntityAttributes;
-                            existingAttributes = (existing[baseEntityCode] ? existing[baseEntityCode].attributes : {});
+                            newAttributes.forEach(newAttribute => {
 
-                            if(newAttributes.length > 0) {
-
-                                //console.log(newAttributes)
-                                newAttributes.forEach(newAttribute => {
-
-                                    existingAttributes[newAttribute.attributeCode] = {
-                                        ...existingAttributes[newAttribute.attributeCode],
-                                        ...newAttribute,
-                                        ... {
-                                            value: grabValue(newAttribute),
-                                            baseEntityCode: baseEntityCode
-                                        }
-                                    };
-                                });
-                            }
+                                existingAttributes[newAttribute.attributeCode] = {
+                                    ...existingAttributes[newAttribute.attributeCode],
+                                    ...newAttribute,
+                                    ... {
+                                        value: grabValue(newAttribute),
+                                        baseEntityCode: baseEntityCode
+                                    }
+                                };
+                            });
                         }
+
+                        console.log("ATTRIBUTES: ")
+                        console.log( existingAttributes )
 
                         existing[baseEntityCode] = {
                             ...state.data[baseEntityCode],
@@ -147,57 +144,57 @@ export default function reducer(state = initialState, action) {
                 }, {})
             }
         };
-
-        case ATTRIBUTE:
-
-        return {
-            ...state,
-            data: {
-                ...state.data,
-                ...action.payload.items.forEach((attribute) => {
-
-                    let be_code = attribute.targetCode;
-                    let attributeCode = attribute.attributeCode;
-                    let newValue = attribute.value;
-
-                    if(!state.data[be_code])  {
-
-                        state.data[be_code] = {
-                            attributes: {}
-                        };
-                    }
-
-                    if(!state.data[be_code].attributes) {
-                        state.data[be_code].attributes = {};
-                    }
-
-                    let found = false;
-                    if(Object.keys(state.data[be_code].attributes).length > 0) {
-                        Object.keys(state.data[be_code].attributes).forEach(attribute_key => {
-
-                            if(attribute_key == attributeCode) {
-                                state.data[be_code].attributes[attribute_key].value = newValue;
-                                found = true;
-                            }
-                        });
-                    }
-
-                    if(!found) {
-
-                        state.data[be_code] = {
-                            ...state.data[be_code],
-                            ...state.data[be_code].attributes[attributeCode] = {
-                                ...(state.data[be_code] ? state.data[be_code].attributes[attributeCode] : {}),
-                                ...{
-                                    code: attributeCode,
-                                    value: newValue
-                                }
-                            }
-                        };
-                    }
-                }),
-            }
-        };
+        //
+        // case ATTRIBUTE:
+        //
+        // return {
+        //     ...state,
+        //     data: {
+        //         ...state.data,
+        //         ...action.payload.items.forEach((attribute) => {
+        //
+        //             let be_code = attribute.targetCode;
+        //             let attributeCode = attribute.attributeCode;
+        //             let newValue = attribute.value;
+        //
+        //             if(!state.data[be_code])  {
+        //
+        //                 state.data[be_code] = {
+        //                     attributes: {}
+        //                 };
+        //             }
+        //
+        //             if(!state.data[be_code].attributes) {
+        //                 state.data[be_code].attributes = {};
+        //             }
+        //
+        //             let found = false;
+        //             if(Object.keys(state.data[be_code].attributes).length > 0) {
+        //                 Object.keys(state.data[be_code].attributes).forEach(attribute_key => {
+        //
+        //                     if(attribute_key == attributeCode) {
+        //                         state.data[be_code].attributes[attribute_key].value = newValue;
+        //                         found = true;
+        //                     }
+        //                 });
+        //             }
+        //
+        //             if(!found) {
+        //
+        //                 state.data[be_code] = {
+        //                     ...state.data[be_code],
+        //                     ...state.data[be_code].attributes[attributeCode] = {
+        //                         ...(state.data[be_code] ? state.data[be_code].attributes[attributeCode] : {}),
+        //                         ...{
+        //                             code: attributeCode,
+        //                             value: newValue
+        //                         }
+        //                     }
+        //                 };
+        //             }
+        //         }),
+        //     }
+        // };
 
         case ANSWER:
 
