@@ -83,6 +83,11 @@ class LayoutLoader extends Component {
                                 value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'created')
                             };
                         }
+                        else if(attribute_code == "code") {
+                            attribute = {
+                                value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
+                            };
+                        }
                         else if(attribute_code == "links") {
 
                             const linkValue = split[2];
