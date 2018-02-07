@@ -206,7 +206,7 @@ class GennyBridge {
                     Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
                 }
 
-            }).catch(err => console.err(err));
+            }).catch(err => console.error(err));
         }
     }
 }

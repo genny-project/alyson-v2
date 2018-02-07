@@ -12,7 +12,7 @@ class AppHolder extends Component {
     }
 
     static propTypes = {
-      children: any,
+        children: any,
     };
 
     state = {
@@ -35,7 +35,14 @@ class AppHolder extends Component {
                 GennyBridge.sendAnswer([data]);
                 localStorage.setItem("socialredirect", '');
             }
-       }
+        }
+
+        /* let BE know user will go away */
+        window.addEventListener("beforeunload", function (event) {
+
+            GennyBridge.sendBtnClick('USER_GO_OFFLINE', {});
+            event.preventDefault();
+        });
     }
 
     render() {
@@ -43,7 +50,7 @@ class AppHolder extends Component {
         const { children, cols, rows, style } = this.props;
 
         const componentStyle = { ...style, backgroundColor: "white"};
-        
+
         return (
             <div className={`app-holder ${window.getScreenSize()}`}>
                 <Grid style={componentStyle} cols={cols} rows={rows}>

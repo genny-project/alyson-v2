@@ -22,7 +22,7 @@ export function grabValue(item) {
     else if (item.valueString) {
         value = item.valueString;
     }
-    else if(item.valueBoolean != null) {
+    else if(item.valueBoolean) {
         value = item.valueBoolean;
     }
     else if(item.valueMoney != null) {

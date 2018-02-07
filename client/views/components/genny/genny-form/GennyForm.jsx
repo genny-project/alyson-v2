@@ -25,6 +25,9 @@ class GennyForm extends Component {
                 currency: "AUD"
             })
         }
+        else if(data.attributeCode.indexOf('ADDRESS_FULL') != -1) {
+            data.attributeCode = data.attributeCode.replace("ADDRESS_FULL", "ADDRESS_JSON");
+        }
 
         GennyBridge.sendAnswer([{
             ...data,

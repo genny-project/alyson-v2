@@ -28,7 +28,7 @@ class Status extends Component {
             case 'urgent':
             return { statusClass: this.props.color };
             default:
-            return { statusColor: { backgroundColor: this.props.color } };
+            return { statusColor: { background: this.props.color } };
         }
     }
 
@@ -37,7 +37,7 @@ class Status extends Component {
         const { className, style } = this.props;
         let renderState = this.getRenderState();
         const componentStyle = { ...style, ...renderState.statusColor };
-        
+
         return (
             <div className={`status ${className} ${renderState.statusClass}`} style={componentStyle}/>
         );

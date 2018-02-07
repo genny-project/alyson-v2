@@ -79,21 +79,25 @@ class InputUpload extends Component {
 
     const { autoProceed } = this.props;
 
-    this.uppy = new Uppy({
-      autoProceed,
-      debug: true,
-      restrictions: {
-        maxNumberOfFiles: this.props.maxNumberOfFiles,
-      },
-    })
-      .use( Dashboard, {
-        closeModalOnClickOutside: true,
-      })
-      .use( AwsS3, { host: BaseEntityQuery.getBaseEntityAttribute(GennyBridge.getProject(), "PRI_UPPY_URL").value })
-      .use( Webcam, { target: Dashboard })
-      .run();
+    const hosturlattr = BaseEntityQuery.getBaseEntityAttribute(GennyBridge.getProject(), "PRI_UPPY_URL");
+    if(hosturlattr) {
 
-    this.uppy.on( 'complete', this.handleComplete );
+        this.uppy = new Uppy({
+          autoProceed,
+          debug: true,
+          restrictions: {
+            maxNumberOfFiles: this.props.maxNumberOfFiles,
+          },
+        })
+          .use( Dashboard, {
+            closeModalOnClickOutside: true,
+          })
+          .use( AwsS3, { host: hosturlattr.value })
+          .use( Webcam, { target: Dashboard })
+          .run();
+
+        this.uppy.on( 'complete', this.handleComplete );
+    }
   }
 
   componentWillUnmount() {

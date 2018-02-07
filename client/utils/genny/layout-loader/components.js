@@ -40,6 +40,7 @@ import {
   SublayoutLoader,
   TreeView,
   GennyMessaging,
+  ProfileImageView,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -80,4 +81,5 @@ export default new ComponentCollection({
   SublayoutLoader,
   TreeView,
   GennyMessaging,
+  ProfileImageView,
 });
