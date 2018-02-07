@@ -10,7 +10,7 @@ class GennyButton extends Component {
     buttonCode: null,
     value: null,
     confirmation: null,
-    animationDelay: 3000
+    animationDelay: 500000
   }
 
   static propTypes = {
@@ -18,6 +18,7 @@ class GennyButton extends Component {
     value: object,
     children: any,
     buttonComponentStyle: object,
+    buttonStyle: object,
     style: object,
     className: string,
     confirmation: string,
@@ -29,11 +30,15 @@ class GennyButton extends Component {
     isAnimated: false
   };
 
+  componentWillUnmount() {
+    this.state.timer = null;
+  }
+
   handleClick = () => {
     this.setState({
       isAnimated: true
     }, () => {
-      setTimeout(() => {
+      this.state.timer = setTimeout(() => {
         this.setAnimationStop();
       }, this.props.animationDelay);
     });
@@ -63,7 +68,7 @@ class GennyButton extends Component {
     this.setState({
       isAnimated: true
     }, () => {
-      setTimeout(() => {
+      this.state.timer = setTimeout(() => {
         this.setAnimationStop();
       }, this.props.animationDelay);
     });
@@ -87,13 +92,29 @@ class GennyButton extends Component {
   }
 
   render() {
-    const { children, className, style, buttonComponentStyle, disabled, confirmation, ...rest } = this.props;
-    const componentStyle = { ...style, };
+    const { children, className, style, buttonComponentStyle, buttonStyle, disabled, confirmation, ...rest } = this.props;
+    const componentStyle = { ...style };
+    console.log(componentStyle);
     const clickEvent = confirmation ? () => this.handleConfirmation(confirmation) : this.handleClick;
 
+    let buttonWidth = buttonStyle.width ? buttonStyle.width : '100%';
+    if (this.state.isAnimated) {
+      if (buttonStyle && buttonStyle.height) {
+        buttonWidth = buttonStyle.height;
+      }
+      else if (componentStyle && componentStyle.height) {
+        buttonWidth = componentStyle.height; 
+      }
+    }
     return (
       <div className={`genny-button ${className} ${this.state.isAnimated ? 'animate' : ''}`} style={componentStyle}>
-        <Button {...rest} disabled={disabled} onClick={clickEvent} style={ {...buttonComponentStyle, height: componentStyle.height }}>
+        <Button
+          {...rest}
+          disabled={disabled}
+          onClick={clickEvent}
+          buttonStyle={{ ...buttonStyle, width: buttonWidth }}
+          style={ {...buttonComponentStyle, height: componentStyle.height }}
+        >
         {
           this.state.isAnimated ?
             <div className={'button-spinner'} />

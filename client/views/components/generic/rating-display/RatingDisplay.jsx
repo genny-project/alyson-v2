@@ -13,14 +13,14 @@ class RatingDisplay extends Component {
     iconNone: 'star_border',
     total: 5,
     value: 0,
-    size: 24
+    fontSize: '24px'
   }
 
   static propTypes = {
     className: string,
     style: object,
     label: string,
-    size: number,
+    fontSize: string,
     color: string,
     
     iconFull: string,
@@ -32,7 +32,7 @@ class RatingDisplay extends Component {
   }
 
   renderIcons = () => {
-    const {value, total, iconNone, iconHalf, iconFull, size } = this.props;
+    const {value, total, iconNone, iconHalf, iconFull, fontSize } = this.props;
   
     let icons = [];
 
@@ -52,7 +52,7 @@ class RatingDisplay extends Component {
       icons.push(
         <IconSmall
           name={iconType}
-          size={size}
+          fontSize={fontSize}
         />
       );
     }
