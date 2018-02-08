@@ -27,10 +27,16 @@ class ProfileImageView extends Component {
     const {  } = this.state;
     const componentStyle = { ...style, "position": "relative" };
 
+    /* because backend does not work properly... */
+    const isUserOnline = function() {
+        return isOnline === true || isOnline == "true" || isOnline == "TRUE";
+    }
+
     return (
       <div className={`profile-image-view ${className}`} style={componentStyle}>
-        <ImageView {...this.props} />
-        <Status style={{ "position": "absolute", "right": "-3px", "bottom": "-4px" }} color={ isOnline === true ? "success" : "urgent" } />
+        <ImageView {...this.props} >
+            <Status style={{ "position": "absolute", "right": "0px", "bottom": "12px" }} color={ isUserOnline() === true ? "success" : "urgent" } />
+        </ImageView>
       </div>
     );
   }

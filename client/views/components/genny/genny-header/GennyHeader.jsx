@@ -1,7 +1,7 @@
 import './gennyHeader.scss';
 import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
-import { Label, Dropdown, ImageView, IconSmall, GennyTreeView, Header, GennyNotifications } from 'views/components';
+import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
@@ -154,7 +154,7 @@ class GennyHeader extends Component {
             <IconSmall name="message" />
           </div>
 
-          <GennyNotifications 
+          <GennyNotifications
             position={[0,1]}
             isOpen={isOpen == 'notifications'}
             onBlur={this.handleBlur}
@@ -174,8 +174,8 @@ class GennyHeader extends Component {
               padding: '2.5px 5px',
             }}
           />
-          { window.getScreenSize() == 'sm' ? null : 
-            <ImageView position={[0,1]} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
+          { window.getScreenSize() == 'sm' ? null :
+            <ProfileImageView position={[0,1]} isOnline={true} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
           }
           { window.getScreenSize() == 'sm' ? null :
             <Label position={[0,1]} text={`${userName}`}/>
@@ -188,12 +188,12 @@ class GennyHeader extends Component {
             tabIndex='-1'
             noAnimation={window.getScreenSize() == 'sm'}
             header={
-              window.getScreenSize() == 'sm' ? 
+              window.getScreenSize() == 'sm' ?
               <ImageView
                 src={userImage}
                 onClick={this.handleProfileClick}
                 style={{ padding: '5px', width: '40px', minWidth: '40px'}}
-              /> 
+              />
               :
               <span style={ customStyle.dropdownSpan }>
                 <IconSmall
