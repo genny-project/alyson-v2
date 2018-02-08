@@ -19,7 +19,7 @@ class GennyActionTableCell extends Component {
     }
 
     renderAction = (buttonAction, be) => {
-        return <LayoutLoader layout={{ layout: [buttonAction]}} localAliases={{ BE: be }} />
+        return <LayoutLoader layout={{ layout: [buttonAction]}} localAliases={{ BE: be }} />;
     }
 
     render() {
@@ -32,7 +32,6 @@ class GennyActionTableCell extends Component {
         if(baseEntityCode) {
 
             const be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-            console.log(be);
 
             if(be) {
 

@@ -27,7 +27,7 @@ export function grabValue(item) {
     }
     else if(item.valueMoney != null) {
 
-        var formatter = new Intl.NumberFormat('en-US', {
+        var formatter = new Intl.NumberFormat('en-AU', {
           style: 'currency',
           currency: item.valueMoney.currency,
           minimumFractionDigits: 2,
