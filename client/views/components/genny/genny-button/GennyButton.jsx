@@ -31,7 +31,7 @@ class GennyButton extends Component {
   };
 
   componentWillUnmount() {
-    this.state.timer = null;
+     clearTimeout(this.state.timer);
   }
 
   handleClick = () => {
@@ -56,7 +56,7 @@ class GennyButton extends Component {
         code: this.props.buttonCode,
         value: btnValue || null,
       });
-      
+
       if(this.props.onClick) {
           this.props.onClick(this);
       }
@@ -64,7 +64,7 @@ class GennyButton extends Component {
   }
 
   handleConfirmation = (confirmation) => {
-    
+
     this.setState({
       isAnimated: true
     }, () => {
@@ -81,20 +81,20 @@ class GennyButton extends Component {
       this.setState({
         isAnimated: false
       });
-    }  
+    }
   }
 
   setAnimationStop = () => {
-    
+
     this.setState({
       isAnimated: false
-    }); 
+    });
   }
 
   render() {
     const { children, className, style, buttonComponentStyle, buttonStyle, disabled, confirmation, ...rest } = this.props;
     const componentStyle = { ...style };
-    
+
     const clickEvent = confirmation ? () => this.handleConfirmation(confirmation) : this.handleClick;
 
     let buttonWidth = buttonStyle && buttonStyle.width ? buttonStyle.width : '100%';
@@ -103,7 +103,7 @@ class GennyButton extends Component {
         buttonWidth = buttonStyle.height;
       }
       else if (componentStyle && componentStyle.height) {
-        buttonWidth = componentStyle.height; 
+        buttonWidth = componentStyle.height;
       }
     }
     return (

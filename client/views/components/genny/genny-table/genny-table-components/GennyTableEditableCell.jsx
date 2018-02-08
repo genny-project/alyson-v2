@@ -21,10 +21,17 @@ class GennyTableEditableCell extends Component {
 
     renderDiv() {
 
-        if (!this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id]) return null;
+        if (this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id] == null ) return null;
 
         let dataType = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].type;
         let value = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value;
+
+        // if (value == true) {
+        //     value = 'true';
+        // }
+        // else if (value == false) {
+        //     value = 'false';
+        // }
 
         switch (dataType) {
 
@@ -37,8 +44,11 @@ class GennyTableEditableCell extends Component {
                 return <a href={value}>Click Here</a>;
             }
 
-            default: {
+            case 'boolean': {
+                return <input checked={value} type="checkbox" />;
+            }
 
+            default: {
                 this.state.canEdit = true;
                 return (
                     value
@@ -55,6 +65,7 @@ class GennyTableEditableCell extends Component {
             <div
                 contentEditable={this.state.canEdit}
                 suppressContentEditableWarning
+                className={`editable-table-cell ${ this.state.canEdit ? 'active' : 'disabled' }`}
                 onBlur={e => {
                     let newValue = e.target.innerHTML;
                     if(newValue && newValue != this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value) {
