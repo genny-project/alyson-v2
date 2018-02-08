@@ -41,6 +41,7 @@ import {
   TreeView,
   GennyMessaging,
   ProfileImageView,
+  GennyCarousel,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -82,4 +83,5 @@ export default new ComponentCollection({
   TreeView,
   GennyMessaging,
   ProfileImageView,
+  GennyCarousel,
 });

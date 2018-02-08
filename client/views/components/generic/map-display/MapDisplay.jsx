@@ -10,7 +10,8 @@ class MapDisplay extends Component {
     zoom: 6,
     center: { lat: -33.8688, lng: 151.2093},
     markers: [],
-    routes: []
+    routes: [],
+    icon: 'https://i.imgur.com/V8EhEJD.png'
   }
 
   static propTypes = {
@@ -20,7 +21,8 @@ class MapDisplay extends Component {
     zoom: number,
     center: any,
     markers: array,
-    routes: array
+    routes: array,
+    icon: string
   }
 
 
@@ -75,7 +77,7 @@ class MapDisplay extends Component {
                   lng: markerCoords.lng,
 
                 },
-                icon: 'https://i.imgur.com/V8EhEJD.png',
+                icon: this.props.icon,
                 map
               });
 

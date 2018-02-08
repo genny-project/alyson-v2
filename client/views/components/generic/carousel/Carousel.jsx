@@ -1,6 +1,6 @@
 import './carousel.scss';
 import React, { Component } from 'react';
-import { string, any } from 'prop-types';
+import { string, any, array } from 'prop-types';
 import { Carousel as ReactCarousel} from 'react-responsive-carousel';
 import { ImageView } from 'views/components';
 
@@ -8,6 +8,7 @@ class Carousel extends Component {
 
   static defaultProps = {
     className: '',
+    items: [],
   }
 
   static propTypes = {
@@ -15,6 +16,7 @@ class Carousel extends Component {
     style: string,
     children: any,
     imageHeight: string,
+    items: array,
   }
 
   renderItems = (items) => {
@@ -38,34 +40,34 @@ class Carousel extends Component {
     return(content);
   }
 
-  handleClick = (event) => {
-    console.log(event);
-  }
+  // handleClick = (event) => {
+  //   console.log(event);
+  // }
 
   render() {
-    const { className, style } = this.props;
+    const { className, style, items } = this.props;
     const componentStyle = { ...style, };
 
-    let items = [
-      {
-        img: 'http://investorsking.com/wp-content/uploads/2016/09/rice.jpg'
-      },
-      {
-        img: 'http://thenationonlineng.net/wp-content/uploads/2017/10/Bags-of-Rice.jpg',
-      },
-      {
-        img: 'http://c8.alamy.com/comp/DYCDEC/stacks-of-bags-of-rice-sold-at-a-grocery-shop-in-ealing-road-in-north-DYCDEC.jpg',
-      },
-      {
-        img: 'http://investorsking.com/wp-content/uploads/2016/09/rice.jpg'
-      },
-      {
-        img: 'http://thenationonlineng.net/wp-content/uploads/2017/10/Bags-of-Rice.jpg',
-      },
-      {
-        img: 'http://c8.alamy.com/comp/DYCDEC/stacks-of-bags-of-rice-sold-at-a-grocery-shop-in-ealing-road-in-north-DYCDEC.jpg',
-      }
-    ];
+    // let items = [
+    //   {
+    //     img: 'http://investorsking.com/wp-content/uploads/2016/09/rice.jpg'
+    //   },
+    //   {
+    //     img: 'http://thenationonlineng.net/wp-content/uploads/2017/10/Bags-of-Rice.jpg',
+    //   },
+    //   {
+    //     img: 'http://c8.alamy.com/comp/DYCDEC/stacks-of-bags-of-rice-sold-at-a-grocery-shop-in-ealing-road-in-north-DYCDEC.jpg',
+    //   },
+    //   {
+    //     img: 'http://investorsking.com/wp-content/uploads/2016/09/rice.jpg'
+    //   },
+    //   {
+    //     img: 'http://thenationonlineng.net/wp-content/uploads/2017/10/Bags-of-Rice.jpg',
+    //   },
+    //   {
+    //     img: 'http://c8.alamy.com/comp/DYCDEC/stacks-of-bags-of-rice-sold-at-a-grocery-shop-in-ealing-road-in-north-DYCDEC.jpg',
+    //   }
+    // ];
 
     return (
       <div className={`carousel-main ${className}`} style={componentStyle}>
