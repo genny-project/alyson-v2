@@ -61,7 +61,7 @@ class Table extends Component {
         columns={columns}
         defaultPageSize={itemsPerPage}
         className='table -striped -highlight'
-        resizable={false}
+        //resizable={false}
         showPagination={ data.length > itemsPerPage ? true : false}
        
       />

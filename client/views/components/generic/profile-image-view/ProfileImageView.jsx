@@ -23,14 +23,13 @@ class ProfileImageView extends Component {
 
   render() {
 
-    const { className, children, style, isOnline } = this.props;
-    const {  } = this.state;
-    const componentStyle = { ...style, "position": "relative" };
+    const { className, style, isOnline } = this.props;
+    const componentStyle = { ...style, position: 'relative' };
 
     /* because backend does not work properly... */
     const isUserOnline = function() {
-        return isOnline === true || isOnline == "true" || isOnline == "TRUE";
-    }
+        return isOnline === true || isOnline == 'true' || isOnline == 'TRUE';
+    };
 
     return (
       <div className={`profile-image-view ${className}`} style={componentStyle}>

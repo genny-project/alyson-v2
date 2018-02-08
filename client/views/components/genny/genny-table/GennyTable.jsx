@@ -57,7 +57,7 @@ class GennyTable extends Component {
             if(tableColumns.length > 0) {
 
                 mobileColumns.push({
-                    'Header': <GennyTableHeader title={tableColumns[0].attributeCode} />,
+                    'Header': <GennyTableHeader title={tableColumns[0].attributeName ||  tableColumns[0].attributeCode} />,
                     'accessor': tableColumns[0].attributeCode,
                     'Cell': ({row, original}) => <GennyTableCellMobile data={tableColumns} row={row} original={original} />
                 });
@@ -82,7 +82,7 @@ class GennyTable extends Component {
                     'Header': <span className="header-single">Actions</span>,
                     'accessor': 'actions',
                     'Cell': ({row, original}) => <GennyActionTableCell original={original} value={row.code} />
-                })
+                });
             }
 
             c.push({
@@ -128,12 +128,12 @@ class GennyTable extends Component {
                         let newCol = {
                             'attributeCode': attribute.attributeCode
                         };
-
+                        
                         if(!isMobile) {
-                            newCol.Header = <GennyTableHeader title={attribute.attributeCode}/>;
+                            newCol.Header = <GennyTableHeader title={attribute.attributeName || attribute.attributeCode}/>;
                             newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
                             newCol.accessor = attribute.attributeCode;
-                            newCol.width = 200;
+                            newCol.minWidth = 200;
                         }
                         else {
                             newCol.name = attribute.attributeCode;
@@ -147,7 +147,8 @@ class GennyTable extends Component {
                     cols.splice(0, 0, {
                         'Header': <span className="header-single">Actions</span>,
                         'accessor': 'actions',
-                        'Cell': ({row, original}) => <GennyActionTableCell original={original} value={row.code} />
+                        'Cell': ({row, original}) => <GennyActionTableCell original={original} value={row.code} />,
+                        'minWidth': 140
                     });
                 }
             }
@@ -173,9 +174,9 @@ class GennyTable extends Component {
                     let attribute = baseEntity.attributes[attribute_key];
 
                     if(showBaseEntity) {
-
+                            
                         if(attribute.value) {
-
+                            
                             data.push({
                                 code: attribute.attributeCode,
                                 value: attribute.value,
@@ -201,7 +202,7 @@ class GennyTable extends Component {
 
                 if(!showBaseEntity) {
 
-                    newData["actions"] = {
+                    newData['actions'] = {
                         value: this.props.buttonActions
                     };
 
@@ -210,7 +211,7 @@ class GennyTable extends Component {
                 else {
                     data.push({
                         actions: this.props.buttonActions
-                    })
+                    });
                 }
             }
         });
@@ -261,7 +262,7 @@ class GennyTable extends Component {
 
         return (
             <div className={`genny-table ${data.length > 0 ? '' : 'empty'}`} style={style}>
-                <Table {...this.props} data={data} columns={columns}/>
+                <Table {...this.props} data={data} columns={columns} itemsPerPage={data != null && data.length < 20 ? data.length : 20} />
             </div>
         );
     }

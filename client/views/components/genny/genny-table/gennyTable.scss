@@ -23,7 +23,7 @@
     }
 
     span, p, div {
-        font-size: 0.9em;
+        font-size: 1em;
     }
 }
 
@@ -92,7 +92,14 @@
     }
 }
 
-.rt-td > div {
+.editable-table-cell {
+
+    height: 100%;
+
+    &:hover.active {
+        cursor: pointer;
+    }
+
     &:focus {
         outline: none;
         background: white;
