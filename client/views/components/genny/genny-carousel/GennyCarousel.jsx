@@ -1,4 +1,4 @@
-import './gennyList.scss';
+import './gennyCarousel.scss';
 import React, { Component } from 'react';
 import { string } from 'prop-types';
 import { Carousel } from 'views/components';
@@ -17,18 +17,19 @@ class GennyCarousel extends Component {
     state = {
     }
 
-    renderItems = (attribute) => {
-        
+    renderItems = (images) => {
+
         let array = [];
 
-        attribute.map(item => {
-            if (item.uploadURL != null) {
+        images.map(image => {
+            if (image.uploadURL != null) {
                 array.push({
-                    img: item.uploadURL,
-                    id: item.id || null
+                    img: image.uploadURL,
+                    id: image.id || null
                 });
             }
         });
+
         return array;
     }
 
@@ -36,8 +37,19 @@ class GennyCarousel extends Component {
 
         const { root, ...rest } = this.props;
 
+        let items = [];
         const attribute = BaseEntityQuery.getBaseEntityAttribute(root, 'PRI_IMAGE_URL');
-        const items = this.renderItems(attribute);
+        if(attribute != null) {
+
+            const jsonString = attribute.value;
+            if(jsonString != null) {
+
+                const newJsonString = jsonString.substr(0, 1).slice(0, -1);
+                console.log( newJsonString )
+                const images = JSON.parse(newJsonString);
+                items = this.renderItems(images);
+            }
+        }
 
         return (
             <div className="genny-carousel">

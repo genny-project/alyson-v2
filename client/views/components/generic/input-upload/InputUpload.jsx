@@ -84,7 +84,7 @@ class InputUpload extends Component {
 
         this.uppy = new Uppy({
           autoProceed,
-          debug: true,
+          debug: false,
           restrictions: {
             maxNumberOfFiles: this.props.maxNumberOfFiles,
           },
@@ -152,7 +152,7 @@ class InputUpload extends Component {
 
     const { validationList, validation, identifier } = this.props;
 
-    if(validation) validation(JSON.stringify( restructuredFiles ), identifier, validationList);
+    if(validation) validation( "-" + JSON.stringify( restructuredFiles ) + "-", identifier, validationList);
   }
 
   handleSuccess = success => {
