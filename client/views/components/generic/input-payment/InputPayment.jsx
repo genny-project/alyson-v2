@@ -2,7 +2,7 @@
 import './inputPayment.scss';
 import 'react-credit-cards/lib/styles.scss';
 import React, { Component } from 'react';
-import { array, object, string } from 'prop-types';
+import { array, object, string, bool } from 'prop-types';
 import Cards from 'react-credit-cards';
 import PaymentType from './payment-type';
 import PaymentMethod from './payment-method';
@@ -12,6 +12,7 @@ import { Spinner } from 'views/components/generic';
 import Dropdown from 'react-dropdown';
 
 class InputPayment extends Component {
+
   state = {
     selectedPaymentType: null,
     selectedPaymentMethod: null,
@@ -44,6 +45,7 @@ class InputPayment extends Component {
     accounts: array,
     data: object,
     amount: string,
+    isAccountsManagement: bool,
   };
 
   static defaultProps = {
@@ -70,7 +72,8 @@ class InputPayment extends Component {
     //   }
     // ]
 
-    accounts: []
+    accounts: [],
+    isAccountsManagement: false,
   };
 
   componentDidMount() {
@@ -308,8 +311,6 @@ class InputPayment extends Component {
       payout_currency: 'AUD',
     }, success => {
 
-        console.log( success );
-
         this.submitNewPaymentMethod({
             id: success.id,
             type: 'BANK_ACCOUNT',
@@ -376,11 +377,17 @@ class InputPayment extends Component {
   }
 
   renderSelectType() {
+
     const { selectedPaymentType } = this.state;
+    const { isAccountsManagement } = this.props;
 
     return (
       <div>
-        <h2>Select payment type</h2>
+        <h2>
+        {
+            isAccountsManagement ? "Add a payment method to your account" : "Select payment type"
+        }
+        </h2>
         <p>Please select a payment type from below</p>
         <div className='payment-type-select'>
           <PaymentType type='BANK ACCOUNT' selected={selectedPaymentType === 'BANK_ACCOUNT'} icon='account_balance' onClick={this.onSelectPaymentType( 'BANK_ACCOUNT' )} />
@@ -393,11 +400,15 @@ class InputPayment extends Component {
   renderSelectAccount() {
 
     const { selectedPaymentType, selectedPaymentMethod, accounts } = this.state;
+    const { isAccountsManagement } = this.props;
 
     return (
       <div>
         <h2>{this.renderBackButton()} Select account {this.renderAddButton( selectedPaymentType )}</h2>
-        <p>Please select a account from below</p>
+        <p>
+        {
+            isAccountsManagement ? "List of your payments methods" : "Please select a account from below"
+        }</p>
         <div className='payment-methods'>
           { accounts.filter( account => account.type == selectedPaymentType ).map( account => (
             <PaymentMethod
@@ -578,7 +589,9 @@ class InputPayment extends Component {
   }
 
   render() {
+
     const { stage, addingAccount, addingAccountType } = this.state;
+    const { isAccountsManagement } = this.props;
 
     if ( addingAccount ) {
       return (
@@ -590,13 +603,14 @@ class InputPayment extends Component {
       )
     }
 
-
     return (
       <div className='input-payment'>
         { stage === 0 && this.renderSelectType() }
+        { stage === 0 && this.renderNextButton() }
         { stage === 1 && this.renderSelectAccount() }
+        { stage === 1 && isAccountsManagement === false && this.renderNextButton() }
         { stage === 2 && this.renderConfirmPayment() }
-        { stage < 2 ? this.renderNextButton() : this.renderConfirmButton() }
+        { stage >= 2 && this.renderConfirmButton() }
       </div>
     );
   }
