@@ -31,12 +31,20 @@ class Selector extends Component {
 
         // 1. if showIfNull prop is true, then show content if checkvalue is null
         if(showIfNull) {
-            if (checkValues == null ) return this.renderChildren();
+            if (checkValues == null ) { 
+                return this.renderChildren();
+            } else {
+                return null;
+            }
         }
 
         // 2. if showIfNotNull prop is true, then show content if checkvalue is not null
         if(showIfNotNull) {
-            if (checkValues != null ) return this.renderChildren();
+            if (checkValues != null ) {
+                return this.renderChildren();
+            } else {
+                return null;
+            }
         }
 
         // 3. check if checkValues is an array and compare with showValues and hideValues
