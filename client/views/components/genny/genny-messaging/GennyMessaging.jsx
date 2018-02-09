@@ -103,6 +103,20 @@ class GennyMessaging extends Component {
         return messageArray;
     }
 
+    getContactAliases = (data) => {
+        let contactAliases = [];
+
+        data.map(conversation => {
+            let users = BaseEntityQuery.getLinkedBaseEntities(conversation.code, 'LNK_USER');
+            const currentUserCode = GennyBridge.getUser();
+            const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
+            contactAliases.push({
+                CONTACT: otherUser.code
+            });
+        });
+        return contactAliases;
+    }
+
     render() {
 
         const { root } = this.props;
@@ -121,6 +135,8 @@ class GennyMessaging extends Component {
         const currentUserCode = GennyBridge.getUser();
         const currentUser = users && users.filter(x => x.code == currentUserCode)[0];
         const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
+        
+        let contactAliases = this.getContactAliases(conversations);
 
         return (
             <div className="genny-messaging-container">
@@ -134,7 +150,7 @@ class GennyMessaging extends Component {
                     <GennyList
                         position={[0, 0]}
                         root={root}
-                        localAliases={{ CONTACT: otherUser ? otherUser.code : null }}
+                        localAliases={contactAliases}
                         onItemClick={this.handleClickConversation}
                         selectedItem={selectedItem}
                     />

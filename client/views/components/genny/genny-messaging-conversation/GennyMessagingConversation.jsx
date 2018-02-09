@@ -126,7 +126,7 @@ class GennyMessagingConversation extends Component {
         });
     }
 
-    renderMobileLayout(title, messages) {
+    renderMobileLayout(title, messages, otherUser) {
 
         return (
         <Grid
@@ -159,7 +159,7 @@ class GennyMessagingConversation extends Component {
 
                 !messages || messages.length <= 0 ?
                     <div className="conversation-messages-empty" position={[1,0]}>
-                        No messages
+                        Start your conversation with {otherUser && otherUser.attributes.PRI_FIRSTNAME.value}
                     </div>
                 : null
             }
@@ -167,7 +167,7 @@ class GennyMessagingConversation extends Component {
         </Grid>);
     }
 
-    renderWebLayout(title, messages) {
+    renderWebLayout(title, messages, otherUser) {
 
         return (
         <Grid
@@ -188,7 +188,7 @@ class GennyMessagingConversation extends Component {
             {
                 !messages || messages.length <= 0 ?
                     <div className="conversation-messages-empty" position={[ 0 ,0]}>
-                        No messages
+                        Start your conversation with {otherUser && otherUser.attributes.PRI_FIRSTNAME.value}
                     </div>
                 : null
             }
@@ -198,7 +198,7 @@ class GennyMessagingConversation extends Component {
 
     render() {
 
-        const { root, title, messages } = this.props;
+        const { root, title, messages, otherUser } = this.props;
 
         if(!root) {
             return (
@@ -208,10 +208,10 @@ class GennyMessagingConversation extends Component {
             );
         }
         else if (window.getScreenSize() == 'sm') {
-            return this.renderMobileLayout(title, messages);
+            return this.renderMobileLayout(title, messages, otherUser);
         }
         else {
-            return this.renderWebLayout(title, messages);
+            return this.renderWebLayout(title, messages, otherUser);
         }
     }
 }

@@ -33,16 +33,19 @@ class GennyList extends Component {
 
     generateListItems(data) {
 
-        return data.map(item => {
+        const {localAliases, selectedItem, root} = this.props;
 
-            let linkToParent = BaseEntityQuery.getLinkToParent(this.props.root, item.code);
+        return data.map((item, index) => {
+
+            let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
             if(linkToParent) {
 
-                const isSelected = this.props.selectedItem == item.code ? true : false;
+                const isSelected = selectedItem == item.code ? true : false;
+                const aliasProp = localAliases != null && localAliases.constructor == Array ? localAliases[index] : localAliases;
                 let layout_code = linkToParent.linkValue || 'list_item';
                 let sublayout = this.props.sublayout[layout_code];
-                item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: this.props.root, ITEMCODE: item.code, ...this.props.localAliases}}/>;
-                item['rootCode'] = this.props.root;
+                item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
+                item['rootCode'] = root;
                 item['isSelected'] = isSelected;
                 return item;
             }
