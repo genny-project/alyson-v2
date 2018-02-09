@@ -22,21 +22,7 @@ class Modal extends Component {
   state = {
   }
 
-  // componentWillUpdate(newProps) {
-
-  //     const { show } = newProps;
-
-  //     if(show) {
-  //         this.open();
-  //     }
-  //     else {
-  //        this.close();
-  //     }
-  // }
-
   open = () => {
-      // document.body.classList.add('modal-active');
-      // document.body.classList.remove('modal-closing');
   }
 
   close = () => {
@@ -44,15 +30,6 @@ class Modal extends Component {
     console.log('close');
 
     this.props.onClick();
-    //  if(document.body.classList.contains('modal-active')) {
-
-    //      if(this.props.onClose) {
-    //          this.props.onClose();
-    //      }
-
-    //      document.body.classList.remove('modal-active');
-    //      document.body.classList.add('modal-closing');
-    //  }
   }
 
   render() {
@@ -61,7 +38,7 @@ class Modal extends Component {
 
     return (
       <div className={`modal-container ${className} ${show ? 'animate' : 'out' }`}>
-        <div className='modal-background' />
+        <div className='modal-background' onClick={this.close} />
         <div className="modal">
           <IconSmall className='modal-close clickable' onClick={this.close} name='clear' />
           {children}
