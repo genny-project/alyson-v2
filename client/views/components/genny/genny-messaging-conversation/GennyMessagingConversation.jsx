@@ -50,7 +50,7 @@ class GennyMessagingConversation extends Component {
                     className='conversation-button'
                     onClick={this.onButtonClick}
                     disabled={this.state.messageText == ''}
-                    //buttonCode='BTN_SEND_MESSAGE'
+                    buttonCode='BTN_SEND_MESSAGE'
                     value={{ itemCode: this.props.root, value: this.state.messageText }}
                     style={{width: '100px', height: '50px'}}
                     >

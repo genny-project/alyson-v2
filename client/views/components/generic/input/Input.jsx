@@ -225,6 +225,8 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
+                    value={this.state.value}
+                    handleOnChange={this.handleOnChange}
                 />
             );
             case 'java.lang.Boolean':
