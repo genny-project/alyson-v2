@@ -45,7 +45,7 @@ class GennyCarousel extends Component {
             if(jsonString != null) {
 
                 const newJsonString = jsonString.substr(0, 1).slice(0, -1);
-                console.log( newJsonString )
+                // console.log( newJsonString )
                 const images = JSON.parse(newJsonString);
                 items = this.renderItems(images);
             }
