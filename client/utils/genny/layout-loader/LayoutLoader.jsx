@@ -107,7 +107,14 @@ class LayoutLoader extends Component {
                         }
 
                         if(attribute == null) {
-                            layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
+
+                            //TODO: check if there is a better way of doing this
+                            if(alias_code == "BE") {
+                                layout = JSON.parse(JSON.stringify(layout).replace(alias, null));
+                            }
+                            else {
+                                layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
+                            }
                         }
                    }
                 }
@@ -133,9 +140,27 @@ class LayoutLoader extends Component {
         }
 
         if(attribute != null && attribute.value != null ) {
-            layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
-        }
 
+
+            let finalV = null;
+            try {
+                finalV = JSON.parse(attribute.value);
+                // finalV = JSON.stringify(finalV);
+                // console.log( finalV )
+            }
+            catch(e) {
+
+                // console.log( attribute.value )
+                finalV = attribute.value;
+            }
+            // console.log( JSON.stringify(layout).replace(alias, baseEntity.code) )
+
+            try {
+                layout = JSON.parse(JSON.stringify(layout).replace(alias, finalV));
+            } catch (e) {
+                console.error(e);
+            }
+        }
       });
 
       return layout;

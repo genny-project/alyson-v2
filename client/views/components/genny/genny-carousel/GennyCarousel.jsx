@@ -39,9 +39,14 @@ class GennyCarousel extends Component {
 
         let items = [];
         const attribute = BaseEntityQuery.getBaseEntityAttribute(root, 'PRI_IMAGE_URL');
+        console.log( attribute )
+        console.log( "==========================" )
+        
         if(attribute != null) {
 
             const jsonString = attribute.value;
+            console.log(jsonString)
+
             if(jsonString != null) {
 
                 const newJsonString = jsonString.substr(0, 1).slice(0, -1);

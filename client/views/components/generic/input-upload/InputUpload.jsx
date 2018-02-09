@@ -152,7 +152,7 @@ class InputUpload extends Component {
 
     const { validationList, validation, identifier } = this.props;
 
-    if(validation) validation( "-" + JSON.stringify( restructuredFiles ) + "-", identifier, validationList);
+    if(validation) validation( JSON.stringify( restructuredFiles ), identifier, validationList);
   }
 
   handleSuccess = success => {

@@ -72,8 +72,11 @@ class InputRating extends Component {
   }
 
   renderIcons = () => {
-    const {value, total, iconFull, iconNone, size } = this.props;
-    const {currentHover, clicked} = this.state;
+
+    let { value, total, iconFull, iconNone, size } = this.props;
+    const { currentHover, clicked } = this.state;
+
+    if(typeof value == 'string') { value = parseFloat(value); }
 
     let icons = [];
 
