@@ -8,10 +8,12 @@ class GennyCarousel extends Component {
 
     static defaultProps = {
         root: '',
+        attributeCode: '',
     }
 
     static propTypes = {
         root: string,
+        attributeCode: string,
     };
 
     state = {
@@ -35,23 +37,19 @@ class GennyCarousel extends Component {
 
     render() {
 
-        const { root, ...rest } = this.props;
+        const { root, attributeCode, ...rest } = this.props;
 
         let items = [];
-        const attribute = BaseEntityQuery.getBaseEntityAttribute(root, 'PRI_IMAGE_URL');
-        console.log( attribute )
-        console.log( "==========================" )
-        
+        const attribute = BaseEntityQuery.getBaseEntityAttribute(root, attributeCode);
+
         if(attribute != null) {
 
             const jsonString = attribute.value;
-            console.log(jsonString)
 
             if(jsonString != null) {
 
-                const newJsonString = jsonString.substr(0, 1).slice(0, -1);
-                // console.log( newJsonString )
-                const images = JSON.parse(newJsonString);
+                console.log(jsonString);
+                const images = JSON.parse(jsonString);
                 items = this.renderItems(images);
             }
         }

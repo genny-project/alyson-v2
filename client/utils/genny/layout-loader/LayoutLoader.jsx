@@ -73,7 +73,7 @@ class LayoutLoader extends Component {
 
                if(alias_key == alias_code) {
 
-                   let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
+                    let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
 
                     if(baseEntity) {
 
@@ -95,10 +95,23 @@ class LayoutLoader extends Component {
 
                             if(linkValue != null && be_attribute != null) {
 
-                                const linkedBaseEntityCode = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue) || null;
+                                const linkedBaseEntityCode = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
 
                                 if(linkedBaseEntityCode != null) {
-                                    attribute = BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntityCode, be_attribute);
+
+                                    if(be_attribute == 'created') {
+                                        attribute = {
+                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntityCode, 'created')
+                                        };
+                                    }
+                                    else if(be_attribute == "code") {
+                                        attribute = {
+                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntityCode, 'code')
+                                        };
+                                    }
+                                    else {
+                                        attribute = BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntityCode, be_attribute);
+                                    }
                                 }
                             }
                         }
@@ -107,14 +120,7 @@ class LayoutLoader extends Component {
                         }
 
                         if(attribute == null) {
-
-                            //TODO: check if there is a better way of doing this
-                            if(alias_code == "BE") {
-                                layout = JSON.parse(JSON.stringify(layout).replace(alias, null));
-                            }
-                            else {
-                                layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
-                            }
+                            layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
                         }
                    }
                 }
@@ -141,22 +147,8 @@ class LayoutLoader extends Component {
 
         if(attribute != null && attribute.value != null ) {
 
-
-            let finalV = null;
             try {
-                finalV = JSON.parse(attribute.value);
-                // finalV = JSON.stringify(finalV);
-                // console.log( finalV )
-            }
-            catch(e) {
-
-                // console.log( attribute.value )
-                finalV = attribute.value;
-            }
-            // console.log( JSON.stringify(layout).replace(alias, baseEntity.code) )
-
-            try {
-                layout = JSON.parse(JSON.stringify(layout).replace(alias, finalV));
+                layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
             } catch (e) {
                 console.error(e);
             }

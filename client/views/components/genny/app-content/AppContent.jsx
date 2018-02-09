@@ -66,7 +66,7 @@ class AppContent extends Component {
             store.getState().layouts.currentModal = null;
             this.setState({
                 showModal: true
-            })
+            });
         }
     }
 

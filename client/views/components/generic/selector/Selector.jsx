@@ -6,9 +6,15 @@ class Selector extends Component {
         children: any,
         showIfNull: bool,
         showIfNotNull: bool,
+<<<<<<< Updated upstream
         checkValues: array,
         showValues: array,
         hideValues: array,
+=======
+        checkValues: any,
+        showValues: any,
+        hideValues: any,
+>>>>>>> Stashed changes
         showOverride: bool
     }
 
