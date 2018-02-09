@@ -186,7 +186,7 @@ class GennyHeader extends Component {
             }}
           />
           { window.getScreenSize() == 'sm' ? null :
-            <ProfileImageView position={[0,1]} isOnline={true} src={userImage} style={{ padding: '5px', width: '40px', minWidth: '40px'}}/>
+            <ProfileImageView position={[0,1]} isOnline={true} src={userImage} style={{ margin: '5px', width: '30px', minWidth: '30px'}}/>
           }
           { window.getScreenSize() == 'sm' ? null :
             <Label position={[0,1]} text={`${userName}`}/>
@@ -200,11 +200,12 @@ class GennyHeader extends Component {
             noAnimation={window.getScreenSize() == 'sm'}
             header={
               window.getScreenSize() == 'sm' ?
-              <ImageView
-                src={userImage}
-                onClick={this.handleProfileClick}
-                style={{ padding: '5px', width: '40px', minWidth: '40px'}}
-              />
+              <ProfileImageView
+              isOnline={true}
+              src={userImage}
+              onClick={this.handleProfileClick}
+              style={{ margin: '5px', width: '30px', minWidth: '30px'}}
+            />
               :
               <span style={ customStyle.dropdownSpan }>
                 <IconSmall

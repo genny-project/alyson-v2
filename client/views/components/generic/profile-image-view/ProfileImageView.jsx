@@ -33,9 +33,10 @@ class ProfileImageView extends Component {
 
     return (
       <div className={`profile-image-view ${className}`} style={componentStyle}>
-        <ImageView {...this.props} >
-            { isUserOnline() === true  ? <Status style={{ "position": "absolute", "right": "0px", "bottom": "12px" }} color={"success"} /> : null }
-        </ImageView>
+        <ImageView {...this.props} style={{ padding: '0' }}/>
+        { isUserOnline() === true ? 
+          <Status style={{ position: 'absolute', width: '25%', height: '25%', right: '0px', bottom: '0', border: 'solid 1px white' }} color='success' />
+        : null }
       </div>
     );
   }
