@@ -41,15 +41,16 @@ class Selector extends Component {
 
         // 3. check if checkValues is an array and compare with showValues and hideValues
         if(checkValues != null && checkValues.constructor == Array) {
-            //4.a check if hideValues is an array and 
+
+            //4.a check if hideValues is an array and
             if(hideValues != null && hideValues.constructor == Array) {
-                
+
                 //4.b loop through checkValues, comparing each value with every item in hideValues for a match
                 for (var i = 0; i < checkValues.length; i++) {
 
                     const value = checkValues[i];
                     let hasValue = false;
-                    
+
                     if( hideValues.includes(value)) {
                         hasValue = true;
                     }
@@ -58,15 +59,15 @@ class Selector extends Component {
                 }
             }
 
-            //5.a check if hideValues is an array and 
+            //5.a check if hideValues is an array and
             else if(showValues != null && showValues.constructor == Array) {
-        
+
                 //5.b loop through checkValues, comparing each value with every item in showValues for a match
                 for (var i = 0; i < checkValues.length; i++) {
 
                     const value = checkValues[i];
                     let hasValue = false;
-                    
+
                     if( showValues.includes(value)) {
                         hasValue = true;
                     }
