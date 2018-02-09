@@ -67,8 +67,6 @@ class LayoutLoader extends Component {
 
         if (localAliases) {
 
-            split.length > 2 ? console.log("----", split) : null
-
            Object.keys(localAliases).forEach((alias_key) => {
 
                let localAliasCode = localAliases[alias_key];

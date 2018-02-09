@@ -41,20 +41,15 @@ class GennyCarousel extends Component {
 
         let items = [];
         const attribute = BaseEntityQuery.getBaseEntityAttribute(root, attributeCode);
-        console.log( root )
-        console.log( attribute )
-        console.log( "==========================" )
 
         if(attribute != null) {
 
             const jsonString = attribute.value;
-            console.log(jsonString)
 
             if(jsonString != null) {
 
-                const newJsonString = jsonString.substr(0, 1).slice(0, -1);
-                // console.log( newJsonString )
-                const images = JSON.parse(newJsonString);
+                console.log(jsonString);
+                const images = JSON.parse(jsonString);
                 items = this.renderItems(images);
             }
         }
