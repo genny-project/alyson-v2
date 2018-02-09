@@ -187,6 +187,10 @@ class GennyForm extends Component {
                         }
                     }
 
+
+                    console.log("----------")
+                    console.log( ask )
+
                     return {
                         isHorizontal: this.props.isHorizontal,
                         mandatory: ask.question.mandatory,
@@ -216,6 +220,7 @@ class GennyForm extends Component {
                         onClickEvent: this.onClickEvent,
                         options: options,
                         inputMask: inputMask ? inputMask : false,
+                        isAccountsManagement: this.props.isAccountsManagement ? true : false, //TODO: to move to ask...
                     };
                 })
             };

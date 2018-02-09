@@ -69,6 +69,17 @@ class GennyHeader extends Component {
     });
   }
 
+  handlePaymentMethods = () => {
+
+    this.sendData('PAYMENT_METHODS', {
+      code: 'PAYMENT_METHODS',
+    });
+
+    this.setState({
+      isOpen: false
+    });
+  }
+
   handleMessages = () => {
     this.sendData('TV_SELECT', {
       code: 'TV1',
@@ -206,6 +217,7 @@ class GennyHeader extends Component {
           >
             <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
               <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
+              <li style={ customStyle.dropdownLi } onClick={this.handlePaymentMethods}><IconSmall name="attach_money" /><span>Payments</span></li>
               <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
               <br/>
               <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>
