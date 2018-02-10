@@ -150,7 +150,7 @@ class LayoutLoader extends Component {
             try {
                 layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
             } catch (e) {
-                console.error(e);
+                // console.error(e);
             }
         }
       });

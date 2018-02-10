@@ -6,15 +6,9 @@ class Selector extends Component {
         children: any,
         showIfNull: bool,
         showIfNotNull: bool,
-<<<<<<< Updated upstream
         checkValues: array,
         showValues: array,
         hideValues: array,
-=======
-        checkValues: any,
-        showValues: any,
-        hideValues: any,
->>>>>>> Stashed changes
         showOverride: bool
     }
 
@@ -37,7 +31,7 @@ class Selector extends Component {
 
         // 1. if showIfNull prop is true, then show content if checkvalue is null
         if(showIfNull) {
-            if (checkValues == null ) { 
+            if (checkValues == null ) {
                 return this.renderChildren();
             } else {
                 return null;
