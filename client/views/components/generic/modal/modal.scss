@@ -88,10 +88,21 @@
   }
 
   .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 2000;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2000;
+  }
+
+  &.sm{
+
+    .modal{
+      width: calc(100vw - 20px);
+      height: calc(100vh - 20px);
+      // width: 100vw;
+      // height: 100vh;
+      // border-radius: 0;
+    }
   }
 }
 

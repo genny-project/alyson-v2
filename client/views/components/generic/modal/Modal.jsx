@@ -37,7 +37,7 @@ class Modal extends Component {
     const { className, children, show } = this.props;
 
     return (
-      <div className={`modal-container ${className} ${show ? 'animate' : 'out' }`}>
+      <div className={`modal-container ${className} ${show ? 'animate' : 'out' } ${window.getScreenSize()}`}>
         <div className='modal-background' onClick={this.close} />
         <div className="modal">
           <IconSmall className='modal-close clickable' onClick={this.close} name='clear' />

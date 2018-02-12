@@ -53,6 +53,7 @@ class GennyMessagingConversation extends Component {
                     buttonCode='BTN_SEND_MESSAGE'
                     value={{ itemCode: this.props.root, value: this.state.messageText }}
                     style={{width: '100px', height: '50px'}}
+                    type='confirm'
                     >
                     <p>Send</p>
                 </GennyButton>
@@ -68,7 +69,7 @@ class GennyMessagingConversation extends Component {
             let groupCode = group[0].code;
 
             let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, 'PRI_CREATOR');
-            createdBy = createdBy ? createdBy.value : "-";
+            createdBy = createdBy ? createdBy.value : '-';
             group.sort((x, y) => x.created > y.created);
 
             return (
