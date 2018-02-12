@@ -50,6 +50,9 @@ class MapDisplay extends Component {
       };
 
       this.map = new google.maps.Map( this.mapRef, mapOptions );
+
+      if (window.getScreenSize() == 'sm') this.map.setOptions({gestureHandling: 'cooperative'});
+
       this.locations = [];
 
       const adjustMapBounds = () => {
@@ -82,8 +85,10 @@ class MapDisplay extends Component {
               });
 
               this.locations.push(new google.maps.LatLng(markerCoords.lat, markerCoords.lng));
-              if(counterMarkers == markers.length - 1) {
+              if(counterMarkers == markers.length - 1 && routes && routes.length > 0 ) {
                 adjustMapBounds();
+              } else {
+                map.setZoom(14);
               }
 
               counterMarkers += 1;
