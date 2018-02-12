@@ -14,7 +14,6 @@ class GennyForm extends Component {
 
     };
 
-
     onInputValidation = (newValue, data, mandatory) =>  {
 
         let finalValue = newValue;

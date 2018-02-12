@@ -52,8 +52,10 @@ class Input extends Component {
         this._ismounted = true;
     }
 
-    shouldComponentUpdate() {
-        return !this.state.isFocused;
+    shouldComponentUpdate(nextProps, nextState) {
+
+        if(nextProps.value == null || this.state.value == null || nextProps.value.length == 0 || this.state.value.length == 0) { return true; }
+        return this.state.value == null ? true : this.state.value != nextProps.value;
     }
 
     componentWillUpdate() {
