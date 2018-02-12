@@ -73,9 +73,9 @@ class InputTextarea extends Component {
   }
 
   render() {
+
     const { className, name, validationStatus, isHorizontal, hideHeader, mandatory } = this.props;
     const { value } = this.state;
-
 
     return (
       <div className={`input-textarea ${className} ${validationStatus}`}>

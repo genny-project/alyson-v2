@@ -111,6 +111,8 @@ class GennyMap extends Component {
                     case 'PRI_DROPOFF_ADDRESS_SUBURB':
                     case 'PRI_DROPOFF_ADDRESS_STATE':
                     case 'PRI_CURRENT_POSITION':
+                    case 'PRI_POSITION_LAT':
+                    case 'PRI_POSITION_LON':
                         hasAttributes = true;
                         break;
                     default:
@@ -157,10 +159,11 @@ class GennyMap extends Component {
             });
 
             // live position
-            if(attributes.PRI_POSITION_LON != null && attributes.PRI_POSITION_LAT != null) {
+            if(attributes.PRI_POSITION_LONGITUDE!= null && attributes.PRI_POSITION_LATITUDE != null) {
+
                 markers.push({
-                    lat: attributes.PRI_POSITION_LAT,
-                    lng: attributes.PRI_POSITION_LON
+                    lat: parseFloat(attributes.PRI_POSITION_LATITUDE.value),
+                    lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value)
                 })
             }
 
@@ -190,6 +193,8 @@ class GennyMap extends Component {
                         case 'PRI_DROPOFF_ADDRESS_SUBURB':
                         case 'PRI_DROPOFF_ADDRESS_STATE':
                         case 'PRI_CURRENT_POSITION':
+                        case 'PRI_POSITION_LATITUDE':
+                        case 'PRI_POSITION_LONGITUDE':
                             hasAttributes = true;
                             break;
                         default:
@@ -203,6 +208,7 @@ class GennyMap extends Component {
     }
 
     getChildrenMapData = (baseEntities) => {
+
         let markers = [];
         let routes = [];
         baseEntities.map(baseEntity => {
@@ -214,7 +220,8 @@ class GennyMap extends Component {
             let destSuburb;
             let destState;
 
-            if (attributes){
+            if (attributes) {
+
                 Object.keys(attributes).map(attribute_key => {
 
                     switch(attribute_key) {
@@ -232,14 +239,23 @@ class GennyMap extends Component {
                             break;
                         case 'PRI_CURRENT_POSITION':
                             markers.push({
-                                lat: attributes[attribute_key].lat,
-                                lng: attributes[attribute_key].lng
+                                lat: parseFloat(attributes[attribute_key].lat),
+                                lng: parseFloat(attributes[attribute_key].lng)
                             });
                             break;
                         default:
                             return null;
                     }
                 });
+
+                // live position
+                if(attributes.PRI_POSITION_LONGITUDE != null && attributes.PRI_POSITION_LATITUDE != null) {
+                    markers.push({
+                        lat: parseFloat(attributes.PRI_POSITION_LATITUDE.value),
+                        lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value)
+                    })
+                }
+
                 let originAddress = originSuburb + ', ' + originState;
                 let destAddress = destSuburb + ', ' + destState;
 
