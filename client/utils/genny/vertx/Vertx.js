@@ -56,7 +56,7 @@ class Vertx {
 
   onIncomingMessage( message ) {
     /* Log an incoming messages */
-    console.debug( '[Vertx] (Incoming)', message );
+    // console.debug( '[Vertx] (Incoming)', message );
 
     /* Send the message to the handler if one is specified */
     if ( this.incomingHandler ) {
