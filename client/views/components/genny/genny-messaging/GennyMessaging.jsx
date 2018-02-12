@@ -26,7 +26,8 @@ class GennyMessaging extends Component {
             code: this.props.messagesRoot
         };
 
-        if (window.getScreenSize() != 'sm') this.handleClickConversation(value);
+        const conversations = BaseEntityQuery.getEntityChildren(this.props.root);
+        if (window.getScreenSize() != 'sm' && conversations.length > 0) this.handleClickConversation(value);
     }
 
     handleClickConversation = (listItemProps) => {
