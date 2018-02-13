@@ -2,7 +2,7 @@ module.exports = {
   'backendEnabled': true,
   'backendLayouts': true,
   'genny': {
-    'host': '{{REACT_BRIDGE_HOST}}',
+    'host': process.env.FORCE_REACT_BRIDGE_HOST || '{{REACT_BRIDGE_HOST}}',
     'bridge': {
       'port': '8088',
       'endpoints': {

@@ -10,8 +10,7 @@
     "start": "webpack-dashboard -- webpack-dev-server",
     "start-no-dashboard": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy-dev": "webpack --config webpack.config.production.js; node aws-deploy-dev.js",
-    "deploy-prod": "webpack --config webpack.config.production.js; node aws-deploy-prod.js",
+    "deploy": "webpack --config webpack.config.production.js; node aws-deploy.js",
     "eslint-fix": "eslint -c .eslintrc.js --fix client/"
   },
   "keywords": [],

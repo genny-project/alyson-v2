@@ -10,3 +10,4 @@ build/*.ttf
 build/*.eot
 build/*.woff
 package-lock.json
+deploy-to-s3.sh

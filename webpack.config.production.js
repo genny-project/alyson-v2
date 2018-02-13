@@ -49,6 +49,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify( 'production' ),
+        FORCE_REACT_BRIDGE_HOST: JSON.stringify( process.env.FORCE_REACT_BRIDGE_HOST ),
+        FORCE_REACT_ORIGIN: JSON.stringify( process.env.FORCE_REACT_ORIGIN ),
       },
     }),
     new webpack.optimize.DedupePlugin(),
