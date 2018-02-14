@@ -186,7 +186,7 @@ class GennyBridge {
         let keycloakConfig = store.getState().keycloak.config;
         if(keycloakConfig) {
 
-            axios.post(`${config.genny.host}/${config.genny.bridge.endpoints.events}/init?url=hello}`, {
+            axios.post(`${config.genny.host}/${config.genny.bridge.endpoints.events}/init?url=${window.location.origin}`, {
                 responseType: 'json',
                 timeout: 30000,
                 headers: {
