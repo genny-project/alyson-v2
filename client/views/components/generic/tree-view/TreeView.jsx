@@ -32,7 +32,7 @@ class TreeView extends Component {
       return false;
   }
 
-  renderList = (items) => {
+  renderList = (items, levelIndex) => {
 
     return items.map( item => {
 
@@ -44,14 +44,14 @@ class TreeView extends Component {
 
       let childNumber = null;
       
-      if (item.childCount ) {
-        childNumber = item.childCount; 
+      if ( levelIndex == 0 ) {
+        childNumber = item.childCount || false; 
       }
-      else if (item.children && item.children.length > 0) {
-        childNumber = item.children.length;
+      else if ( levelIndex > 0 ) {
+        childNumber = item.children && item.children.length || false;
       }
 
-        return (
+      return (
 
         <li key={item.id} className='tree-view-item'>
           <div className='tree-view-item-content'>
@@ -67,7 +67,7 @@ class TreeView extends Component {
               <IconSmall
                 className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
                 size={32}
-                style={canOpen ? { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(-90deg)' }}
+                style={canOpen ? { transition: 'all 0.1s', transform: 'rotate(0deg)' } : { transition: 'all 0.1s', transform: 'rotate(-90deg)' }}
                 onClick={this.onExpand(item)}
                 name='arrow_drop_down'
               />
@@ -76,7 +76,7 @@ class TreeView extends Component {
           </div>
 
           <ul className="tree-view-child">
-            {canOpen ? this.renderList(item.children) : []}
+            {canOpen ? this.renderList(item.children, levelIndex + 1) : []}
           </ul>
         </li>
       );
@@ -90,7 +90,7 @@ class TreeView extends Component {
     return (
       <div className="treeview">
         <ul className="parent">
-          {this.renderList(items)}
+          {this.renderList(items, 0)}
         </ul>
       </div>
     );

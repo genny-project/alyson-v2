@@ -119,12 +119,9 @@ class Input extends Component {
 
     handleOnChange = (newValue) => {
         
-        console.log("setting new value")
-        console.log(newValue)
-
         this.setState({
             value: newValue
-        })
+        });
     }
 
     validateInput = (value, identifier, validationList) => {

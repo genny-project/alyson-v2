@@ -51,8 +51,6 @@ class InputRadio extends Component {
     const { className, name, value, identifier, html, mandatory, isHorizontal, hideHeader, validationStatus } = this.props;
 
     let isChecked = ( value == ( true || 'true' ) ) ? true : false;
-    console.log('========================');
-    console.log(value, isChecked);
 
     return (
       <div className={`input input-radio ${className}`}>
