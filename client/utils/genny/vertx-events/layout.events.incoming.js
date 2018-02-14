@@ -42,5 +42,6 @@ export default {
   CMD_VIEW,
   CMD_POPUP,
   CMD_SUBLAYOUT,
+  CMD_NOTIFICATION,
   SUB_LAYOUT,
 };

@@ -1,6 +1,6 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner, Modal } from 'views/components';
+import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner, Modal, IconSmall } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { BaseEntityQuery } from 'utils/genny';
@@ -71,23 +71,42 @@ class AppContent extends Component {
     }
 
     notify = (text, style) => {
+        
+        let content = (
+            <div className='toast-notification'>
+                <IconSmall name='notifications' />
+                <span>{text}</span>
+            </div>
+        );
 
         switch(style) {
 
             case 'success':
-                toast.success(text);
+                toast.success(content, {
+                    autoClose: false
+                });
             break;
 
             case 'error':
-                toast.success(text);
+                toast.error(content, {
+                    autoClose: false
+                });
+            break;
+        
+            case 'warning':
+                toast.warning(content, {
+                    autoClose: false
+                });
             break;
 
             case 'info':
-                toast.success(text);
+                toast.info(content, {
+                    autoClose: false
+                });
             break;
 
             default:
-            toast(text)
+            toast(text);
         }
     };
 
@@ -113,8 +132,12 @@ class AppContent extends Component {
             modalContent = this.renderContent('popup', layout.currentModal);
         }
 
-        if(layout != null && layout.currentNotification) {
+        {/*
+            sendIncomingVertxMessage({"msg_type":"CMD_MSG","cmd_type":"CMD_NOTIFICATION","style":"success", "text": "You've Got Quote!"})
+        
+        */}
 
+        if(layout != null && layout.currentNotification) {
             const style = layout.currentNotification.style;
             const text = layout.currentNotification.text;
             if(style && text) {
