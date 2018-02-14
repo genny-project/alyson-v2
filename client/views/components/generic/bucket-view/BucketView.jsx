@@ -456,7 +456,7 @@ class BucketView extends Component {
           canAddItem={bucket.canAddItem}
           style={{
             flexBasis: `calc(100vw / ${buckets.length})`,
-            minWidth: isMobile ? '100vw' : '270px',
+            minWidth: isMobile ? '100vw' : '240px',
             maxWidth: isMobile ? '100vw' : `calc(100vw / ${buckets.length})`,
             transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
           }}

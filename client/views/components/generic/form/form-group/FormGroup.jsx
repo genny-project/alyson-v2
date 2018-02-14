@@ -108,14 +108,32 @@ class FormGroup extends Component {
       // first we validate all the inputs and see if we get any error.
       if(this.props.onSubmit) {
 
-        if(this.props.onSubmit(button.replace('form-', ''))) {
-          let animatedButtons = this.state.animatedButtons;
-          animatedButtons[button] = animatedButtons[button] ? !animatedButtons[button] : true;
-          this.setState({
-            animatedButtons: animatedButtons
-          });
+        let buttonCode = button.replace('form-', '');
+        const next = (btnCode) => {
+
+          if(this.props.onSubmit(btnCode)) {
+            let animatedButtons = this.state.animatedButtons;
+            animatedButtons[button] = animatedButtons[button] ? !animatedButtons[button] : true;
+            this.setState({
+              animatedButtons: animatedButtons
+            });
+          }
+        };
+
+        if(buttonCode.indexOf('confirm') != -1) {
+          
+          if(this.askForConfirmation('Please confirm your submission')) {
+            next('submit');
+          }
+        }
+        else {
+          next(buttonCode);
         }
       }
+    }
+
+    askForConfirmation(text, next) {
+      return confirm(text);
     }
 
     isFormGroupValid = (showStyle) => {

@@ -49,7 +49,7 @@
 			&:hover {
 				transform: scale(1.05) 0.2s;
 
-				.form-submit {
+				.form-submit, .form-confirm {
 					box-shadow: inset 0 0 100px 100px green;
 				}
 
@@ -107,7 +107,7 @@
 		}
 	}
 
-	&.form-submit {
+	&.form-submit, &.form-confirm {
 
 		> button {
 			background: $success;

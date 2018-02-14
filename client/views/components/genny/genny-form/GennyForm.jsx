@@ -104,6 +104,7 @@ class GennyForm extends Component {
             let availableButtons = [
                 'submit',
                 'previous',
+                'confirm',
                 'next',
                 'cancel',
                 'reset'
@@ -144,7 +145,7 @@ class GennyForm extends Component {
 
                     if(be_code && attributeCode) {
                         const att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
-                        if(att) {
+                        if(att != null) {
                             default_value = att.value;
                         }
                     }

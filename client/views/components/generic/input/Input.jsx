@@ -9,6 +9,7 @@ import {
     InputDatePicker,
     InputDropdown,
     InputEmail,
+    InputRadio,
     InputRating,
     InputSlider,
     InputText,
@@ -44,7 +45,7 @@ class Input extends Component {
 
     state = {
         validationStatus: this.props.value ? 'success' : null,
-        value: this.props.value || '',
+        value: this.props.value,
         isFocused: false,
     }
 
@@ -117,9 +118,13 @@ class Input extends Component {
     }
 
     handleOnChange = (newValue) => {
+        
+        console.log("setting new value")
+        console.log(newValue)
+
         this.setState({
             value: newValue
-        });
+        })
     }
 
     validateInput = (value, identifier, validationList) => {
@@ -231,15 +236,26 @@ class Input extends Component {
                     handleOnChange={this.handleOnChange}
                 />
             );
+            // case 'java.lang.Boolean':
+            // return (
+            //     <InputCheckbox
+            //         {...rest}
+            //         validation={this.validateInput}
+            //         validationStatus={validationStatus}
+            //         value={this.state.value}
+            //         handleOnChange={this.handleOnChange}
+            //         checked={this.state.value != null && this.state.value == 'true' || this.state.value != null && this.state.value == true ? true : false}
+            //     />
+            // );
             case 'java.lang.Boolean':
+
             return (
-                <InputCheckbox
+                <InputRadio
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
-                    value={this.state.value}
                     handleOnChange={this.handleOnChange}
-                    checked={this.state.value != null && this.state.value == 'true' || this.state.value != null && this.state.value == true ? true : false}
+                    value={this.state.value != null ? this.state.value : false}
                 />
             );
             case 'dropdown':
