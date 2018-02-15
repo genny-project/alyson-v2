@@ -151,21 +151,19 @@ class FormGroup extends Component {
 
       const { animatedButtons, isFormValidated } = this.state;
 
-
-
       return (
         <Grid rows={1} cols={buttons.length}>
           {
             buttons.map((button, index) => {
 
-              const isDisabled = button == 'form-submit' && !isFormValidated && false; //TODO: remove false
+              const isDisabled = button == 'form-submit' && !isFormValidated;
 
               return (
                 <Button
                   key={index}
                   style={{ margin : `10px ${index < buttons.length - 1 ? '10px' : '0'} 10px 0` }}
                   position={[0, index]}
-                  disabled={ isDisabled || animatedButtons[button]}
+                  // disabled={ isDisabled || animatedButtons[button]} //TODO: remove false
                   className={`form-button ${button} ${animatedButtons[button] ? 'animate' : ''}`}
                   onClick={() => this.onSubmitClick(button)}>
                   {
