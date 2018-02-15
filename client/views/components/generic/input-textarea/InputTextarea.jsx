@@ -39,7 +39,7 @@ class InputTextarea extends Component {
 
     const { handleOnChange } = this.props;
     const value = event.target.value;
-
+    
     if(handleOnChange) handleOnChange(value);
 }
 
@@ -52,12 +52,6 @@ class InputTextarea extends Component {
     this.setState({
       focused: true
     });
-  }
-
-  onKeyDown = event => {
-    if(event.key == 'Enter') {
-        this.handleBlur(event);
-    }
   }
 
   handleBlur = (event) => {
@@ -74,11 +68,10 @@ class InputTextarea extends Component {
 
   render() {
 
-    const { className, name, validationStatus, isHorizontal, hideHeader, mandatory } = this.props;
-    const { value } = this.state;
+    const { className, name, validationStatus, isHorizontal, hideHeader, mandatory, value } = this.props;
 
     return (
-      <div className={`input-textarea ${className} ${validationStatus}`}>
+      <div className={`input input-textarea ${className} ${validationStatus}`}>
         {
             !isHorizontal && !hideHeader ?
             <div className="input-header">
@@ -93,7 +86,6 @@ class InputTextarea extends Component {
           onChange={this.handleChange}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
-          onKeyDown={this.onKeyDown}
         />
       </div>
     );
