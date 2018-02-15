@@ -48,7 +48,6 @@ class GennyCarousel extends Component {
 
             if(jsonString != null) {
 
-                console.log(jsonString);
                 const images = JSON.parse(jsonString);
                 items = this.renderItems(images);
             }
