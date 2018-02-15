@@ -12,6 +12,7 @@ import {
     InputRadio,
     InputRating,
     InputSlider,
+    InputTerms,
     InputText,
     InputTextarea,
     InputTime,
@@ -383,7 +384,7 @@ class Input extends Component {
             );
             case 'TermsandConditions':
             return (
-                <InputCheckbox
+                <InputTerms
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}

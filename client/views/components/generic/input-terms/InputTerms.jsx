@@ -1,7 +1,7 @@
 import './inputTerms.scss';
 import React, { Component } from 'react';
 import { string, any, bool, func, array, object } from 'prop-types';
-import { InputCheckbox, Modal } from 'views/components';
+import { SubmitStatusIcon, Label,  } from 'views/components';
 
 class InputTerms extends Component {
 
@@ -28,29 +28,38 @@ class InputTerms extends Component {
   }
 
   state = {
-    modalContent: null
   }
 
-  handleClick = () => {
-    
-    let modal = <div className="terms-and-conditions-content" dangerouslySetInnerHTML={{ __html: this.props.html }} />;
+  handleScroll = () => {
+    let div = this.divRef;
 
-    this.setState({
-      modalContent: modal
-    });
+    if (div.scrollHeight == div.scrollTop + div.offsetHeight) {
+      if(this.props.validation && this.state.isRead != true ) {
+        this.setState({
+          isRead: true
+        });
+        this.props.validation(true, this.props.identifier, this.props.validationList);
+      }
+    }
   }
+
+
 
   render() {
-    const { className, name, mandatory, ...rest } = this.props;
+    const { className, html, mandatory, isHorizontal, hideHeader, name, validationStatus } = this.props;
     const {modalContent, isChecked} = this.state;
     return (
-      <div className={`input input-checkbox ${className}`}>
-        {modalContent ? <Modal show={true} onClick={this.toggleModal} >{modalContent}</Modal> : null}
-        <InputCheckbox 
-          {...rest}
-          checked={isChecked}
-          onClick={this.handleClick} 
-        />
+      <div className={`input input-terms ${className}`}>
+      {
+          !isHorizontal && !hideHeader ?
+          <div className="input-header">
+              {name ? <Label text={name} /> : null}
+              {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : null } text="*  required" /> : null}
+              <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
+          </div> :
+          null
+        }
+        <div className="input-terms-main" ref={(ref) => { this.divRef = ref}} dangerouslySetInnerHTML={{ __html: html }} onScroll={this.handleScroll}/>
       </div>
     );
   }

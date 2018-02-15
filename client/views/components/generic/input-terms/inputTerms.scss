@@ -2,10 +2,10 @@
 
 .input-terms {
 
-    .terms-main {
-        display: flex;
-        align-items: center;
-    
+    .input-terms-main {
+        margin-top: 15px;
+        height: 300px;
+        overflow: scroll;
     }
 
     .terms-label {
