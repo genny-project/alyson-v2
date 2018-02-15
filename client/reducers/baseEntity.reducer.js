@@ -4,7 +4,8 @@ import { grabValue } from './utils.reducer';
 const initialState = {
     data: {},
     relationships: {},
-    aliases: {}
+    aliases: {},
+    attributes: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -141,57 +142,13 @@ export default function reducer(state = initialState, action) {
                 }, {})
             }
         };
-        //
-        // case ATTRIBUTE:
-        //
-        // return {
-        //     ...state,
-        //     data: {
-        //         ...state.data,
-        //         ...action.payload.items.forEach((attribute) => {
-        //
-        //             let be_code = attribute.targetCode;
-        //             let attributeCode = attribute.attributeCode;
-        //             let newValue = attribute.value;
-        //
-        //             if(!state.data[be_code])  {
-        //
-        //                 state.data[be_code] = {
-        //                     attributes: {}
-        //                 };
-        //             }
-        //
-        //             if(!state.data[be_code].attributes) {
-        //                 state.data[be_code].attributes = {};
-        //             }
-        //
-        //             let found = false;
-        //             if(Object.keys(state.data[be_code].attributes).length > 0) {
-        //                 Object.keys(state.data[be_code].attributes).forEach(attribute_key => {
-        //
-        //                     if(attribute_key == attributeCode) {
-        //                         state.data[be_code].attributes[attribute_key].value = newValue;
-        //                         found = true;
-        //                     }
-        //                 });
-        //             }
-        //
-        //             if(!found) {
-        //
-        //                 state.data[be_code] = {
-        //                     ...state.data[be_code],
-        //                     ...state.data[be_code].attributes[attributeCode] = {
-        //                         ...(state.data[be_code] ? state.data[be_code].attributes[attributeCode] : {}),
-        //                         ...{
-        //                             code: attributeCode,
-        //                             value: newValue
-        //                         }
-        //                     }
-        //                 };
-        //             }
-        //         }),
-        //     }
-        // };
+
+        case ATTRIBUTE:
+
+            return {
+                ...state,
+                attributes: action.payload.items,
+            };
 
         case ANSWER:
 

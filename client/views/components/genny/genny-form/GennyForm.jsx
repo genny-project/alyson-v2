@@ -138,15 +138,25 @@ class GennyForm extends Component {
                     let inputType = 'Text';
                     let valList = [];
                     let default_value = '';
+                    let placeholder = '';
                     let be_code = ask.targetCode;
                     let attributeCode = ask.attributeCode;
                     let options = [];
                     let inputMask = null;
 
                     if(be_code && attributeCode) {
+
                         const att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
                         if(att != null) {
                             default_value = att.value;
+                        }
+                    }
+
+                    if(attributeCode) {
+
+                        const att_details = BaseEntityQuery.getAttribute(attributeCode);
+                        if(att_details) {
+                            placeholder = att_details.placeholder;
                         }
                     }
 
@@ -205,7 +215,7 @@ class GennyForm extends Component {
                         style: this.props.style,
                         name: ask.question.name,
                         html: ask.question.html,
-                        placeholder: '',
+                        placeholder: placeholder,
                         value: default_value,
                         readOnly: ask.readOnly,
                         mandatory: ask.mandatory,

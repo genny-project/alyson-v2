@@ -87,6 +87,16 @@ class BaseEntityQuery {
         return [];
     }
 
+    static getAttribute(attribute_code) {
+
+        if(attribute_code) {
+            const all_attributes = store.getState().baseEntity.attributes;
+            return all_attributes.filter(att => att.code == attribute_code)[0];
+        }
+
+        return null;
+    }
+
     static getLinkToParent(parentCode, childCode) {
 
         if(parentCode && childCode) {
