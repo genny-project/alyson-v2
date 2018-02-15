@@ -91,7 +91,9 @@ class BaseEntityQuery {
 
         if(attribute_code) {
             const all_attributes = store.getState().baseEntity.attributes;
-            return all_attributes.filter(att => att.code == attribute_code)[0];
+            if(all_attributes) {
+                return all_attributes.filter(att => att.code == attribute_code)[0];
+            }
         }
 
         return null;
