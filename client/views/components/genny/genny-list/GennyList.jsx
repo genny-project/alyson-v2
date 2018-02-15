@@ -60,7 +60,7 @@ class GennyList extends Component {
 
         let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
 
-        if (showEmpty || !showEmpty && data.length > 0 ) {
+        if (showEmpty || !showEmpty && data && data.length > 0 ) {
             return (
                 <div className="genny-list">
                     <List

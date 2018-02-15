@@ -77,6 +77,8 @@ class LayoutLoader extends Component {
 
                     if(baseEntity) {
 
+                        alias_code == "ROOT" ? console.log(baseEntity) : null;
+
                         // i am so sorry
                         if(attribute_code == 'created') {
                             attribute = {
@@ -119,7 +121,10 @@ class LayoutLoader extends Component {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }
 
-                        if(attribute == null) {
+                        if(attribute == null && attribute_code != null) {
+                            layout = JSON.parse(JSON.stringify(layout).replace(alias, null));
+                        }
+                        else if(alias_code == "ROOT") {
                             layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));
                         }
                    }
@@ -173,7 +178,7 @@ class LayoutLoader extends Component {
     const { layout, aliases } = this.props;
 
     let finalLayout = this.replaceAliasesIn(layout, aliases);
-    finalLayout = this.hideAliasesIn( finalLayout );
+    // finalLayout = this.hideAliasesIn( finalLayout );
     return <JSONLoader layout={finalLayout} componentCollection={components} />;
   }
 }

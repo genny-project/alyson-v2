@@ -195,6 +195,7 @@ class GennyBridge {
                 },
             })
             .then(() => {
+
                 GennyBridge.initVertx(token, keycloakConfig.vertx_url);
 
                 let social_code = window.getQueryString('code');
