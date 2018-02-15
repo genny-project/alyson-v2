@@ -125,16 +125,9 @@ class GennyBridge {
 
         let payload = {
 
-            data_type: "Attribute",
+            data_type: "Answer",
             delete: false,
-            items: [
-                {
-                    baseEntityCode: items[0].targetCode,
-                    targetCode: items[0].targetCode,
-                    value: items[0].value,
-                    attributeCode: items[0].attributeCode
-                }
-            ],
+            items: items,
             msg_type: "DATA_MSG"
         };
 
