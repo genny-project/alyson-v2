@@ -53,7 +53,7 @@ class FormGroup extends Component {
     if(this._ismounted) {
 
       //console.log('===========');
-      
+
       const isInputValid = this.isFormGroupValid(false);
       //console.log('inputs', isInputValid);
       const isFormValid = isInputValid.every(input => {return input;});
@@ -71,7 +71,7 @@ class FormGroup extends Component {
         if(this.state.isFormValidated == true) {
           this.setState({
               isFormValidated: false
-          });  
+          });
         }
       }
     }
@@ -121,7 +121,7 @@ class FormGroup extends Component {
         };
 
         if(buttonCode.indexOf('confirm') != -1) {
-          
+
           if(this.askForConfirmation('Please confirm your submission')) {
             next('submit');
           }
@@ -158,11 +158,7 @@ class FormGroup extends Component {
           {
             buttons.map((button, index) => {
 
-              //console.log(isFormValidated);
-             
-              //console.log('====================');
-              const isDisabled = button == 'form-submit' && !isFormValidated;
-              //console.log(isDisabled);
+              const isDisabled = button == 'form-submit' && !isFormValidated && false; //TODO: remove false
 
               return (
                 <Button
