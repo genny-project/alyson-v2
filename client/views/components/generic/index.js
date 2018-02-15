@@ -27,6 +27,7 @@ export { default as InputRadio } from './input-radio';
 export { default as InputRating } from './input-rating';
 export { default as InputSlider } from './input-slider';
 export { default as InputPayment } from './input-payment';
+export { default as InputTerms } from './input-terms';
 export { default as InputText } from './input-text';
 export { default as InputTextarea } from './input-textarea';
 export { default as InputTime } from './input-time';

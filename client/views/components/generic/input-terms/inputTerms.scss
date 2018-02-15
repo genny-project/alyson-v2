@@ -1,0 +1,33 @@
+@import 'client/styles/colors';
+
+.input-terms {
+
+    .terms-main {
+        display: flex;
+        align-items: center;
+    
+    }
+
+    .terms-label {
+        margin-left: 10px;
+
+        &.label-html {
+            color: $grey-text-color;
+
+            a {
+                text-decoration: underline;
+
+                &:link, &:visited, &:hover, &:active {
+                    color: initial;    
+                }
+            }
+        }
+    }
+
+    .input-header {
+    	display: flex;
+    	align-items: center;
+    	justify-content: flex-start;
+    	margin-bottom: 3px;
+    }
+}

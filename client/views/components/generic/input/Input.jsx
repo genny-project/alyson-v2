@@ -244,8 +244,9 @@ class Input extends Component {
             //         checked={this.state.value != null && this.state.value == 'true' || this.state.value != null && this.state.value == true ? true : false}
             //     />
             // );
-            case 'java.lang.Boolean':
 
+
+            case 'java.lang.Boolean':
             return (
                 <InputRadio
                     {...rest}
@@ -255,8 +256,8 @@ class Input extends Component {
                     value={this.state.value != null ? this.state.value : false}
                 />
             );
+            
             case 'dropdown':
-            //console.log(this.props.value);
             return (
                 <InputDropdown
                     {...rest}
@@ -378,6 +379,16 @@ class Input extends Component {
                   validation={this.validateInput}
                   validationStatus={validationStatus}
                   value={this.state.value}
+                />
+            );
+            case 'TermsandConditions':
+            return (
+                <InputCheckbox
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    value={this.state.value}
+                    handleOnChange={this.handleOnChange}
                 />
             );
             default:
