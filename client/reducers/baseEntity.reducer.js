@@ -5,7 +5,7 @@ const initialState = {
     data: {},
     relationships: {},
     aliases: {},
-    attributes: {},
+    attributes: [],
 };
 
 export default function reducer(state = initialState, action) {
