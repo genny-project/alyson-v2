@@ -204,7 +204,7 @@ class GennyMessagingConversation extends Component {
         if(!root) {
             return (
                 <div className="conversation-messages-empty" >
-                    No Conversations
+                    Welcome to channel40. <br /> There are currently no messages for you to read.
                 </div>
             );
         }
