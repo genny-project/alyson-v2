@@ -110,7 +110,8 @@ class GennyForm extends Component {
                 'confirm',
                 'next',
                 'cancel',
-                'reset'
+                'reset',
+                'accept'
             ];
 
             if(askGroup.attributeCode.includes('BUTTON')) {

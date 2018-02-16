@@ -54,7 +54,7 @@ class InputDatePicker extends Component {
   componentWillMount() {
     const { value } = this.props;
 
-    if ( value ) {
+    if ( value != null && value != '' ) {
 
       const date = new Date( value );
       this.setState({
@@ -64,15 +64,16 @@ class InputDatePicker extends Component {
     }
     else {
       this.setState({
-        currentValue: new Date(),
-        lastSentValue: new Date()
+        currentValue: null,
+        lastSentValue: null
       });
     }
   }
 
   componentWillReceiveProps( nextProps) {
-    if (nextProps.value != this.props.value) {
-      this.setState({
+      
+    if (nextProps.value != this.props.value && nextProps.value != null && nextProps.value != '' ) {
+    this.setState({
         currentValue: new Date( nextProps.value ),
       });
     }
@@ -199,7 +200,7 @@ class InputDatePicker extends Component {
 
             dateFormat={(type == 'java.time.LocalDateTime') ? dateTimeDisplayFormat : dateDisplayFormat }
             timeFormat={timeDisplayFormat}
-            selected={currentValue ? moment( currentValue ) : null}
+            selected={currentValue != null ? moment( currentValue ) : null}
             
             onChange={this.changeValueProp}
 

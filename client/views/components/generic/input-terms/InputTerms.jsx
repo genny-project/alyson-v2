@@ -47,7 +47,7 @@ class InputTerms extends Component {
     const { className, html, mandatory, isHorizontal, hideHeader, name, validationStatus } = this.props;
 
     return (
-      <div className={`input input-terms ${className}`}>
+      <div className={`input input-terms ${className} ${window.getScreenSize()}`}>
       {
           !isHorizontal && !hideHeader ?
           <div className="input-header">
