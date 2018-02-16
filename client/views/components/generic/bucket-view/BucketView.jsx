@@ -97,7 +97,7 @@ class BucketView extends Component {
     // return;
 
     // if mobile we always re-render
-    if(window.getScreenSize() == "xs") { return true; }
+    return true;
 
     if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0 && !this.hasDraggedItem) {
 
