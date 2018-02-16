@@ -134,22 +134,24 @@ class BaseEntityQuery {
 
             const groupKey = groupKeys[i]
             const group = relationships[groupKey];
+            if(group) {
 
-            let childKeys = Object.keys(group);
-            for (var j = 0; j < childKeys.length; j++) {
+                let childKeys = Object.keys(group);
+                for (var j = 0; j < childKeys.length; j++) {
 
-                const childKey = childKeys[j]
-                const child = group[childKey];
+                    const childKey = childKeys[j]
+                    const child = group[childKey];
 
-                if(child) {
+                    if(child) {
 
-                    if(child.type == "BaseEntity") {
-                        if(childKey == childCode) {
-                            return BaseEntityQuery.getBaseEntity(groupKey);
+                        if(child.type == "BaseEntity") {
+                            if(childKey == childCode) {
+                                return BaseEntityQuery.getBaseEntity(groupKey);
+                            }
                         }
-                    }
-                    else {
-                        return BaseEntityQuery.getBaseEntityParent(childCode, group);
+                        else {
+                            return BaseEntityQuery.getBaseEntityParent(childCode, group);
+                        }
                     }
                 }
             }
