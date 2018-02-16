@@ -1,0 +1,38 @@
+@import 'client/styles/colors';
+
+.tab-container {
+	height: 100%;
+	width: 100%;
+
+	.tab-holder {
+		height: 40px;
+		width: 100%;
+		display: flex;
+		justify-content: flex-start;
+
+		.view-tab {
+			width: 100px;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			&.selected {
+				background-color: blue;
+			}
+			
+			&:hover {
+				background-color: red;
+			}
+		}
+	}
+
+	.tab-container-content {
+		width: 100%;
+		height: calc(100% - 50px);
+	}
+
+	&.sm {
+		
+	}
+}

@@ -49,7 +49,7 @@
 			&:hover {
 				transform: scale(1.05) 0.2s;
 
-				.form-submit, .form-confirm {
+				.form-submit, .form-confirm, .form-accept {
 					box-shadow: inset 0 0 100px 100px green;
 				}
 
@@ -119,6 +119,21 @@
 
 		> button:after {
 			content: "Submit";
+		}
+	}
+
+	&.form-accept {
+
+		> button {
+			background: $success;
+		}
+
+		> button[disabled] {
+			background: lightgray;
+		}
+
+		> button:after {
+			content: "Accept";
 		}
 	}
 

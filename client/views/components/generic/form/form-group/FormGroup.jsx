@@ -126,6 +126,9 @@ class FormGroup extends Component {
             next('submit');
           }
         }
+        else if (buttonCode.indexOf('accept') != -1) {
+          next('submit');
+        }
         else {
           next(buttonCode);
         }
@@ -156,7 +159,7 @@ class FormGroup extends Component {
           {
             buttons.map((button, index) => {
 
-              const isDisabled = button == 'form-submit' && !isFormValidated;
+              const isDisabled = ( button == 'form-submit' ||  button == 'form-confirm' || button == 'form-accept') && !isFormValidated;
 
               return (
                 <Button
