@@ -38,6 +38,7 @@ export default function reducer( state = initialState, action ) {
         currentSublayout: null,
         currentView: null,
         currentModal: null,
+        currentNotification: null,
         loaded
       };
 
@@ -78,7 +79,7 @@ export default function reducer( state = initialState, action ) {
 
     case CMD_NOTIFICATION:
 
-        const text = action.payload.text;
+        const text = action.payload.message;
         const style = action.payload.style;
         if(text && style) {
 
@@ -90,6 +91,8 @@ export default function reducer( state = initialState, action ) {
                 }
             }
         }
+
+        return state;
 
     break;
 

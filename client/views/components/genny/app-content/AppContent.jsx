@@ -23,6 +23,11 @@ class AppContent extends Component {
         showModal: false
     }
 
+    componentWillMount() {
+
+        this.toastId = null;
+    }
+
     renderContent = (commandType, commandData) => {
 
         if(commandType && commandData.dataCode) {
@@ -71,42 +76,45 @@ class AppContent extends Component {
     }
 
     notify = (text, style) => {
-        
-        let content = (
-            <div className='toast-notification'>
-                <IconSmall name='notifications' />
-                <span>{text}</span>
-            </div>
-        );
 
-        switch(style) {
+        if (!toast.isActive(this.toastId)) {
 
-            case 'success':
-                toast.success(content, {
-                    autoClose: false
-                });
-            break;
+            let content = (
+                <div className='toast-notification'>
+                    <IconSmall name='notifications' />
+                    <span>{text}</span>
+                </div>
+            );
 
-            case 'error':
-                toast.error(content, {
-                    autoClose: false
-                });
-            break;
-        
-            case 'warning':
-                toast.warning(content, {
-                    autoClose: false
-                });
-            break;
+            switch(style) {
 
-            case 'info':
-                toast.info(content, {
-                    autoClose: false
-                });
-            break;
+                case 'success':
+                    this.toastId = toast.success(content, {
+                        autoClose: false
+                    });
+                break;
 
-            default:
-            toast(text);
+                case 'error':
+                    this.toastId = toast.error(content, {
+                        autoClose: false
+                    });
+                break;
+
+                case 'warning':
+                    this.toastId = toast.warning(content, {
+                        autoClose: false
+                    });
+                break;
+
+                case 'info':
+                    this.toastId = toast.info(content, {
+                        autoClose: false
+                    });
+                break;
+
+                default:
+                this.toastId = toast(text);
+            }
         }
     };
 
@@ -134,7 +142,7 @@ class AppContent extends Component {
 
         {/*
             sendIncomingVertxMessage({"msg_type":"CMD_MSG","cmd_type":"CMD_NOTIFICATION","style":"success", "text": "You've Got Quote!"})
-        
+
         */}
 
         if(layout != null && layout.currentNotification) {
