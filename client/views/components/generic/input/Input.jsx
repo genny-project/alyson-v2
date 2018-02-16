@@ -70,7 +70,8 @@ class Input extends Component {
         const { value } = this.state;
 
         let isValid = false;
-        //console.log(validationList, value);
+
+        //sconsole.log(validationList, value, mandatory);
 
         // if there is validation required
         if ( mandatory || !mandatory && value != null && value.length > 0) {
@@ -80,8 +81,11 @@ class Input extends Component {
                 isValid = validationList.every( validation => {
 
                     // if passes all, return true, otherwise, return false.
+                    //console.log('regex validation', new RegExp(validation.regex).test( value ));
+                    
                     return new RegExp(validation.regex).test( value );
                 });
+                return isValid
             }
             //if there is no validation
             else {
@@ -388,7 +392,7 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
-                    value={this.state.value}
+                    value={this.state.value == true ? true : false}
                     handleOnChange={this.handleOnChange}
                 />
             );
