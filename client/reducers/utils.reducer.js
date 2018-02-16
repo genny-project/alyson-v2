@@ -4,7 +4,7 @@ export function grabValue(item) {
     let value = null;
     if(item.value != null) return item.value;
 
-    if (item.valueDouble) {
+    if (item.valueDouble != null) {
         value = item.valueDouble;
     }
     else if (item.valueInteger != null) {
@@ -19,10 +19,7 @@ export function grabValue(item) {
     else if (item.valueDate) {
         value = item.valueDate;
     }
-    else if (item.valueString) {
-        value = item.valueString;
-    }
-    else if(item.valueBoolean) {
+    else if(item.valueBoolean != null) {
         value = item.valueBoolean;
     }
     else if(item.valueMoney != null) {
@@ -34,6 +31,9 @@ export function grabValue(item) {
         });
 
         value = formatter.format(item.valueMoney.amount);
+    }
+    else if (item.valueString != null) {
+        value = item.valueString;
     }
 
     return value;
