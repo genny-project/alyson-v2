@@ -418,8 +418,8 @@ class BucketView extends Component {
             style={{
               height: '20px',
               width: '100vw',
-              position: 'fixed',
-              bottom: '30px',
+              position: 'absolute',
+              bottom: '0',
               right: '50vw',
               transform: 'translate(50%)',
               display: 'flex',

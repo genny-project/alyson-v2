@@ -3,36 +3,89 @@
 .tab-container {
 	height: 100%;
 	width: 100%;
+	background: #555;
 
 	.tab-holder {
-		height: 40px;
+		height: 30px;
 		width: 100%;
+		padding-left: 10px;
 		display: flex;
 		justify-content: flex-start;
 
 		.view-tab {
-			width: 100px;
+			width: fit-content;
+			padding: 0 10px;
 			height: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			border-radius: 5px 5px 0 0;
+
+			.icon-small {
+				margin-right: 5px;
+
+				i {
+					font-size: 0.8em;
+					color: white;
+				}
+			}
+
+			span {
+				font-size: 0.8em;
+				color: white;
+			}
 
 			&.selected {
-				background-color: blue;
+				background-color: #929292;
 			}
-			
+
+			&:not(.selected) {
+				//border: solid 1px #333;
+			}
+
 			&:hover {
-				background-color: red;
+				//background-color: red;
 			}
 		}
 	}
 
 	.tab-container-content {
 		width: 100%;
-		height: calc(100% - 50px);
+		height: calc(100% - 30px);
+		background: #929292;
 	}
 
 	&.sm {
+		background: #000;
 		
+		.tab-holder {
+			padding: 0px;
+			height: 40px;
+
+			.view-tab {
+				border-radius: 0;
+				padding: 0 10px;
+			
+				.tab-title {
+					display: none;
+				}
+
+				.icon-small {
+					margin-right: 0px;
+	
+					i {
+						font-size: 1em;
+					}
+				}
+
+				&.selected {
+					background: #555;
+				}
+			}
+		}
+
+		.tab-container-content {
+			height: calc(100% - 40px);
+		}
 	}
 }

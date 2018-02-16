@@ -1,6 +1,6 @@
 import './tabContainer.scss';
 import React, { Component } from 'react';
-import {  } from 'views/components';
+import { IconSmall } from 'views/components';
 import { array, string, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
@@ -44,12 +44,17 @@ class TabContainer extends Component {
             data.map((view, index) => {
                 tabs.push(
                     <div className={`view-tab ${this.state.currentViewIndex == index ? 'selected' : ''}`} key={index} onClick={() => this.handleClick(index)}>
-                        <span>{view.title}</span>
+                        <IconSmall name={view.icon} />
+                        <span className='tab-title' >{view.title}</span>
                     </div>
                 );
             });
         }
-        return tabs;
+        return ( 
+            <div className='tab-holder'>
+                {tabs}
+            </div>
+        );
     }
 
     renderContent = (data) => {
@@ -67,17 +72,17 @@ class TabContainer extends Component {
     render() {
 
         const { className, style, views, } = this.props;
-
         const componentStyle = { ...style };
-
+        
+        let isMobile = window.getScreenSize() == 'sm';
+        
         return (
             <div className={`tab-container ${className} ${window.getScreenSize()}`} style={componentStyle} >
-                <div className='tab-holder'>
-                    {this.renderTabs(views)}
-                </div>
+                { isMobile ? null : this.renderTabs(views) }    
                 <div className='tab-container-content'>
                     {this.renderContent(views)}
                 </div>
+                { isMobile ? this.renderTabs(views) : null }    
             </div>
         );
     }
