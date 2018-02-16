@@ -163,7 +163,7 @@ class FormGroup extends Component {
                   key={index}
                   style={{ margin : `10px ${index < buttons.length - 1 ? '10px' : '0'} 10px 0` }}
                   position={[0, index]}
-                  // disabled={ isDisabled || animatedButtons[button]} //TODO: remove false
+                  disabled={ isDisabled || animatedButtons[button]}
                   className={`form-button ${button} ${animatedButtons[button] ? 'animate' : ''}`}
                   onClick={() => this.onSubmitClick(button)}>
                   {

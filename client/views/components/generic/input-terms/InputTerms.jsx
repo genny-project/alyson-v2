@@ -43,11 +43,9 @@ class InputTerms extends Component {
     }
   }
 
-
-
   render() {
     const { className, html, mandatory, isHorizontal, hideHeader, name, validationStatus } = this.props;
-    const {modalContent, isChecked} = this.state;
+
     return (
       <div className={`input input-terms ${className}`}>
       {
@@ -59,7 +57,7 @@ class InputTerms extends Component {
           </div> :
           null
         }
-        <div className="input-terms-main" ref={(ref) => { this.divRef = ref}} dangerouslySetInnerHTML={{ __html: html }} onScroll={this.handleScroll}/>
+        <div className="input-terms-main" ref={(ref) => { this.divRef = ref;}} dangerouslySetInnerHTML={{ __html: html }} onScroll={this.handleScroll}/>
       </div>
     );
   }
