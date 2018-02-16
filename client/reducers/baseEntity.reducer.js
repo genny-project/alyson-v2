@@ -297,7 +297,7 @@ export default function reducer(state = initialState, action) {
                             [oldParentCode]: {
                                 ...state.data[oldParentCode],
                                 children: [
-                                    ...(state.data[oldParentCode].children ? state.data[oldParentCode].children.reduce((existing, child) => {
+                                    ...(state.data[oldParentCode] && state.data[oldParentCode].children ? state.data[oldParentCode].children.reduce((existing, child) => {
 
                                         if(child.code != be_code) existing.push(child);
 
