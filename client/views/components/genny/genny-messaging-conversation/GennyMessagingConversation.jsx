@@ -4,6 +4,7 @@ import { string, func, array } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { Grid } from '@genny-project/layson';
 import { GennyButton, ImageView, DateLabel, IconSmall} from 'views/components';
+import moment from 'moment';
 
 class GennyMessagingConversation extends Component {
 
@@ -21,7 +22,8 @@ class GennyMessagingConversation extends Component {
 
     state = {
         canSendMessage: false,
-        messageText: ''
+        messageText: '',
+        createdMessages: []
     }
 
     onTextChange = (e) => {
@@ -32,8 +34,26 @@ class GennyMessagingConversation extends Component {
     }
 
     onButtonClick = (e) => {
+
+        const newText = this.state.messageText;
         this.setState({
-            messageText: ''
+            messageText: '',
+            createdMessages: [
+                ...this.state.createdMessages,
+                {
+                    code: 'MSG_X',
+                    attributes: {
+                        PRI_CREATOR: {
+                            value: GennyBridge.getUser()
+                        },
+                        PRI_MESSAGE: {
+                            value: newText
+                        }
+                    },
+                    weight: 1,
+                    created: moment().toISOString()
+                }
+            ]
         });
     }
 
@@ -62,9 +82,12 @@ class GennyMessagingConversation extends Component {
 
     renderMessages = (messages) => {
 
-        const {currentUser, otherUser} = this.props;
+        const { currentUser, otherUser } = this.props;
 
-        return messages.map((group, groupIndex) => {
+        let finalMessages = messages;
+        this.state.createdMessages.forEach(mess => finalMessages[0].push(mess));
+
+        return finalMessages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
 
@@ -81,8 +104,8 @@ class GennyMessagingConversation extends Component {
                             let messageCode = message.code;
 
                             let style = { textAlign: 'left' };
-                            let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR');
-                            let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE');
+                            let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR') || message.attributes ? message.attributes.PRI_CREATOR : null;
+                            let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE') || message.attributes ? message.attributes.PRI_MESSAGE : null
 
                             if(messageTextAttribute && creatorAttribute) {
 
