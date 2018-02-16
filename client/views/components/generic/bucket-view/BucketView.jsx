@@ -96,6 +96,9 @@ class BucketView extends Component {
     // this.state.buckets = newProps.buckets;
     // return;
 
+    // if mobile we always re-render
+    if(window.getScreenSize() == "xs") { return true; }
+
     if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0 && !this.hasDraggedItem) {
 
       let differences = [];
@@ -262,7 +265,7 @@ class BucketView extends Component {
             currentBucket: prevState.currentBucket - 1
           }));
         }
-      }      
+      }
     }
 
     if (!this.state.isSafari) {
