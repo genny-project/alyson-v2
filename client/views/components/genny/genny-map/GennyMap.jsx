@@ -1,6 +1,6 @@
 import './gennyMap.scss';
 import React, { Component } from 'react';
-import { string, object } from 'prop-types';
+import { string, object, bool } from 'prop-types';
 import { MapDisplay } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
 
@@ -8,12 +8,16 @@ class GennyMap extends Component {
 
     static defaultProps = {
         root: '',
+        hideRoutes: false,
+        hideMarkers: false,
     }
 
     static propTypes = {
         root: string,
         style: object,
         mapStyle: object,
+        hideRoutes: bool,
+        hideMarkers: bool
     };
 
     state = {
@@ -164,7 +168,7 @@ class GennyMap extends Component {
                 markers.push({
                     lat: parseFloat(attributes.PRI_POSITION_LATITUDE.value),
                     lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value)
-                })
+                });
             }
 
             let originAddress = originSuburb + ', ' + originState;
@@ -249,20 +253,22 @@ class GennyMap extends Component {
                 });
 
                 // live position
-                if(attributes.PRI_POSITION_LONGITUDE != null && attributes.PRI_POSITION_LATITUDE != null) {
+                if(attributes.PRI_POSITION_LONGITUDE != null && attributes.PRI_POSITION_LATITUDE != null && !this.props.hideMarkers == true ) {
                     markers.push({
                         lat: parseFloat(attributes.PRI_POSITION_LATITUDE.value),
                         lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value)
-                    })
+                    });
                 }
 
                 let originAddress = originSuburb + ', ' + originState;
                 let destAddress = destSuburb + ', ' + destState;
 
-                routes.push({
-                    origin: originAddress,
-                    dest: destAddress
-                });
+                if ( !this.props.hideRoutes == true) {
+                    routes.push({
+                        origin: originAddress,
+                        dest: destAddress
+                    });
+                }
             }
         });
 
@@ -275,13 +281,16 @@ class GennyMap extends Component {
         const componentStyle = { ...style};
         let mapData = this.getDataFromCode(root);
 
+        console.log('markers', mapData.markers);
+        console.log('routes', mapData.routes);
+
         return (
             <div className="genny-map" style={componentStyle}>
                 <MapDisplay
                     {...rest}
                     style={mapStyle}
-                    markers={mapData && mapData.markers}
-                    routes={mapData && mapData.routes}
+                    markers={mapData && mapData.markers }
+                    routes={mapData && mapData.routes }
                 />
             </div>
         );

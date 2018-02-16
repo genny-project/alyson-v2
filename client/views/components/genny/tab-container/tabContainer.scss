@@ -6,7 +6,7 @@
 	background: #555;
 
 	.tab-holder {
-		height: 30px;
+		height: 32px;
 		width: 100%;
 		padding-left: 10px;
 		display: flex;
@@ -14,7 +14,7 @@
 
 		.view-tab {
 			width: fit-content;
-			padding: 0 10px;
+			padding: 0 10px 2px;
 			height: 100%;
 			display: flex;
 			align-items: center;
@@ -51,7 +51,7 @@
 
 	.tab-container-content {
 		width: 100%;
-		height: calc(100% - 30px);
+		height: calc(100% - 32px);
 		background: #929292;
 	}
 

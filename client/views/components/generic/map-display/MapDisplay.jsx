@@ -7,7 +7,7 @@ class MapDisplay extends Component {
   static defaultProps = {
     className: '',
     controls: false,
-    zoom: 6,
+    zoom: 12,
     center: { lat: -33.8688, lng: 151.2093},
     markers: [],
     routes: [],
@@ -19,6 +19,7 @@ class MapDisplay extends Component {
     style: object,
     controls: bool,
     zoom: number,
+    maxZoom: number,
     center: any,
     markers: array,
     routes: array,
@@ -37,12 +38,13 @@ class MapDisplay extends Component {
 
     if(typeof google == 'object') {
 
-      const { center, controls, zoom, markers, routes } = this.props;
+      const { center, controls, zoom, maxZoom, markers, routes } = this.props;
 
       let geocoder = new google.maps.Geocoder;
 
       const mapOptions = {
         zoom,
+        maxZoom: maxZoom,
         center: { lat: -33.8688, lng: 151.2093},
         disableDefaultUI: !controls,
         zoomControl: !controls,
@@ -85,10 +87,12 @@ class MapDisplay extends Component {
               });
 
               this.locations.push(new google.maps.LatLng(markerCoords.lat, markerCoords.lng));
-              if(counterMarkers == markers.length - 1 && routes && routes.length > 0 ) {
-                adjustMapBounds();
-              } else {
-                map.setZoom(14);
+              if(counterMarkers == markers.length - 1) {
+                if ( markers.length > 1 || routes && routes.length > 0 ) {
+                  adjustMapBounds();
+                } else {
+                  map.setZoom(12);
+                }
               }
 
               counterMarkers += 1;
@@ -205,6 +209,14 @@ class MapDisplay extends Component {
         bounds.extend(location);
       });
     }
+
+    // Don't zoom in too far on only one marker
+    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+      let extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
+      let extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
+      bounds.extend(extendPoint1);
+      bounds.extend(extendPoint2);
+   }
 
     this.map.fitBounds(bounds);
     this.map.panToBounds(bounds);
