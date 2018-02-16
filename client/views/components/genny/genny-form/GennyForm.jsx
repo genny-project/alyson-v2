@@ -27,6 +27,9 @@ class GennyForm extends Component {
         else if(data.attributeCode.indexOf('ADDRESS_FULL') != -1) {
             data.attributeCode = data.attributeCode.replace("ADDRESS_FULL", "ADDRESS_JSON");
         }
+        else if(data.attributeCode.indexOf('PRI_RATING') != -1) {
+            data.attributeCode = 'PRI_RATING_RAW';
+        }
 
         GennyBridge.sendAnswer([{
             ...data,
