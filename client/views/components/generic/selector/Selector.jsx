@@ -31,6 +31,9 @@ class Selector extends Component {
 
         // 1. if showIfNull prop is true, then show content if checkvalue is null
         if(showIfNull) {
+
+            console.log("showing if null: ");
+            console.log(checkValues);
             if (checkValues == null || checkValues == "null" ) {
                 return this.renderChildren();
             } else {

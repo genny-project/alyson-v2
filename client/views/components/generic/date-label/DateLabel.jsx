@@ -25,15 +25,15 @@ class DateLabel extends Component {
     const { format } = this.props;
 
     if (date) {
-      const formattedDate = moment(date).format(format);
-      return formattedDate;
-    } else {
-      return null;
+      const formattedDate = moment(date);
+      if(formattedDate.isValid()) return formattedDate.format(format);
     }
+
+    return null;
   }
 
   renderFromNow = (code) => {
-    
+
     if (code) {
       let createdAt = BaseEntityQuery.getBaseEntity(code);
       if (createdAt && createdAt.created){
@@ -47,7 +47,7 @@ class DateLabel extends Component {
     } else {
       return null;
     }
-    
+
 
   }
 
@@ -59,8 +59,8 @@ class DateLabel extends Component {
     return (
       <div className={`date-label ${className || ''}`} style={componentStyle}>
         <span className="date-label-text">
-          { 
-            fromNow ? 
+          {
+            fromNow ?
             this.renderFromNow(children) :
             this.renderDate(children)
           }
