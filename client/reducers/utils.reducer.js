@@ -30,7 +30,7 @@ export function grabValue(item) {
           minimumFractionDigits: 2,
         });
 
-        value = formatter.format(item.valueMoney.amount);
+        value = formatter.format(Number(item.valueMoney.amount));
     }
     else if (item.valueString != null) {
         value = item.valueString;
