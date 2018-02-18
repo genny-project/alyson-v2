@@ -286,6 +286,10 @@ export default function reducer(state = initialState, action) {
                         }
                     }
 
+                    if(state.relationships && state.relationships[oldParentCode]) {
+                        delete state.relationships[oldParentCode][be_code];
+                    }
+
                     return {
                         ...state,
                         data: {
@@ -321,8 +325,8 @@ export default function reducer(state = initialState, action) {
                             ...state.relationships,
                             [oldParentCode]: Object.keys(state.relationships[oldParentCode]).reduce((existing, key) => {
 
-                                if (key !== be_code) {
-                                    existing[key] = state.relationships[key];
+                                if (key != be_code) {
+                                    existing[key] = state.relationships[oldParentCode][key];
                                 }
                                 return existing;
 
