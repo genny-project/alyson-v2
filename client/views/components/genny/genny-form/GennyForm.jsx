@@ -114,7 +114,6 @@ class GennyForm extends Component {
                 'accept'
             ];
 
-            console.log(askGroup);
             if(askGroup.attributeCode.includes("EMPTY")) return null;
 
             if(askGroup.attributeCode.includes('BUTTON')) {
@@ -127,7 +126,7 @@ class GennyForm extends Component {
                             button: 'form-' + availableButton
                         });
                     }
-                });
+                }); 
             }
 
             submitButtons = submitButtonsData.sort((button, button2) => button.index > button2.index).map(button => button.button);
@@ -140,7 +139,6 @@ class GennyForm extends Component {
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
-                    console.log(ask.attributeCode);
 
                     if(ask.childAsks && !ask.attributeCode.includes("EMPTY")) return this.generateFormData(ask);
 

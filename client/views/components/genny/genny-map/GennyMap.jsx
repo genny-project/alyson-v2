@@ -281,9 +281,6 @@ class GennyMap extends Component {
         const componentStyle = { ...style};
         let mapData = this.getDataFromCode(root);
 
-        console.log('markers', mapData.markers);
-        console.log('routes', mapData.routes);
-
         return (
             <div className="genny-map" style={componentStyle}>
                 <MapDisplay

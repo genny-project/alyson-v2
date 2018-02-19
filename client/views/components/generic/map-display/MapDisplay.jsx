@@ -23,7 +23,9 @@ class MapDisplay extends Component {
     center: any,
     markers: array,
     routes: array,
-    icon: string
+    icon: string,
+    lat: any,
+    lng: any,
   }
 
 
@@ -34,18 +36,44 @@ class MapDisplay extends Component {
     }
   }
 
+  getLatLng = () => {
+    const { center, lat, lng } = this.props;
+
+    let newLat = center.lat;
+    let newLng = center.lng;
+
+    if (lat && lng) {
+      if (typeof lat != 'number' ){
+        let checkLat = parseFloat(lat);
+
+        if (typeof lng != 'number'){
+          let checkLng = parseFloat(lng);
+
+          if (Number.isInteger(checkLat) && Number.isInteger(checkLng)){
+            newLat = parseFloat(checkLat);
+            newLng = parseFloat(checkLng);
+          }
+        }
+      }
+    }
+
+    return { lat: newLat, lng: newLng };
+  }
+
   setup = () => {
 
     if(typeof google == 'object') {
 
-      const { center, controls, zoom, maxZoom, markers, routes } = this.props;
+      const { controls, zoom, maxZoom, markers, routes } = this.props;
 
       let geocoder = new google.maps.Geocoder;
 
+      let center = this.getLatLng();
+     
       const mapOptions = {
         zoom,
         maxZoom: maxZoom,
-        center: { lat: -33.8688, lng: 151.2093},
+        center: center,
         disableDefaultUI: !controls,
         zoomControl: !controls,
         scrollwheel: false,

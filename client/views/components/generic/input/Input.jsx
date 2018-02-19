@@ -54,10 +54,12 @@ class Input extends Component {
         this._ismounted = true;
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-
-        if(nextProps.value == null || this.state.value == null || nextProps.value.length == 0 || this.state.value.length == 0) { return true; }
-        return this.state.value == null ? true : this.state.value != nextProps.value;
+    shouldComponentUpdate(nextProps) {
+        const { value } = this.state;
+        if(nextProps.value == null || value == null || nextProps.value.length == 0 || value.length == 0) {
+            return true;
+        }
+        return value == null ? true : value != nextProps.value;
     }
 
     componentWillUpdate() {
@@ -85,7 +87,7 @@ class Input extends Component {
                     
                     return new RegExp(validation.regex).test( value );
                 });
-                return isValid
+                return isValid;
             }
             //if there is no validation
             else {
@@ -114,8 +116,9 @@ class Input extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        if(this._ismounted && !this.state.isFocused) {
-
+        const { isFocused } = this.state;
+        
+        if(this._ismounted && isFocused != true) {
             this.setState({
                 value: newProps.value
             });
@@ -173,11 +176,11 @@ class Input extends Component {
     }
 
     onFocus = () => {
-        this.state.onFocus = true;
+        this.state.isFocused = true;
     }
 
     onBlur = () => {
-        this.state.onFocus = false;
+        this.state.isFocused = false;
     }
 
     renderInput() {
@@ -271,8 +274,8 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     value={this.state.value}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
+                    // onFocus={this.onFocus}
+                    // onBlur={this.onBlur}
                 />
             );
             case 'dropdownmultiple':
@@ -282,8 +285,8 @@ class Input extends Component {
                     items={items}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
+                    // onFocus={this.onFocus}
+                    // onBlur={this.onBlur}
                 />
             );
             case 'slider':

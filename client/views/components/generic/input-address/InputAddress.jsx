@@ -107,6 +107,8 @@ class InputAddress extends Component {
 
     onChange = (newAddress) => {
 
+        //this.checkIfVisible();
+
         if(this.props.onFocus) {
             this.props.onFocus()
         }
@@ -134,6 +136,31 @@ class InputAddress extends Component {
             showMap: !this.state.showMap
         });
     }
+
+    // checkIfVisible = () => {
+    //     let element = document.getElementsByClassName('address-results-container');
+    //     if (element && element[0]) {
+    //         let bounding = element[0].getBoundingClientRect();
+    //         let height = element[0].clientHeight;
+    //         console.log(height);
+    //         console.log(bounding.top, bounding.bottom);
+    //         if (
+    //             bounding.top >= 0 &&
+    //             bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+    //         ) {
+    //             this.setState({
+    //                 isVisible: true
+    //             });
+    //         } else {
+    //             this.setState({
+    //                 isVisible: false
+    //             });
+    //         }
+    //     }
+    //     return null;
+    // }
+
+    
 
     renderInput() {
         const { showMap } = this.state;
@@ -194,7 +221,7 @@ class InputAddress extends Component {
                     <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
                 </div>
                 {window.google ? this.renderInput() : <p>Loading...</p>}
-                { window.getScreenSize() == 'sm' && <Button onClick={this.showMap} style={{marginTop: '10px'}}>{showMap ? 'Hide Map' : 'Show on Map'}</Button> }
+                {window.getScreenSize() == 'sm' && <Button onClick={this.showMap} style={{marginTop: '10px'}}>{showMap ? 'Hide Map' : 'Show on Map'}</Button> }
                 <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
                     <MapInput
                         handleUpdate={this.onSelect}

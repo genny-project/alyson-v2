@@ -36,13 +36,14 @@ class InputText extends Component {
         handleOnChange: func,
         inputType: string,
         inputMask: any,
-        hideHeader: bool
+        hideHeader: bool,
+        onBlur: func,
+        onFocus: func
     }
 
     state = {
         date: new Date(),
         hasChanges: false,
-        focused: false,
     }
 
     handleChange = event => {
@@ -54,14 +55,8 @@ class InputText extends Component {
     }
 
     handleFocus = () => {
-
-        if(this.props.onFocus) {
-            this.props.onFocus()
-        }
-
-        this.setState({
-            focused: true
-        });
+        const { onFocus } = this.props;
+        if(onFocus) onFocus();
     }
 
     onKeyDown = event => {
@@ -73,16 +68,10 @@ class InputText extends Component {
 
     handleBlur = (event) => {
 
-        if(this.props.onBlur) {
-            this.props.onBlur()
-        }
-
-        const { validationList, validation, identifier } = this.props;
+        const { validationList, validation, identifier, onBlur } = this.props;
         const value = event.target.value;
-        this.setState({
-            focused: false
-        });
 
+        if(onBlur) onBlur();    
         if(validation) validation(value, identifier, validationList);
     }
 
@@ -94,7 +83,6 @@ class InputText extends Component {
 
         const { className, style, name, mandatory, readOnly, placeholder, validationStatus, isHorizontal, inputType, inputMask, hideHeader, value, } = this.props;
         const componentStyle = { ...style, };
-        const { focused } = this.state;
 
         return <div className={`input input-text ${className} ${validationStatus || ''}`} style={componentStyle}>
             {
@@ -120,7 +108,7 @@ class InputText extends Component {
                     onBlur={this.handleBlur}
                     onFocus={this.handleFocus}
                     onKeyDown={this.onKeyDown}
-                    style={focused ? { borderColor: componentStyle.color } : null}
+                    
                 /> :
                 <input
                     ref={r => this.input = r}
@@ -132,7 +120,7 @@ class InputText extends Component {
                     onBlur={this.handleBlur}
                     onFocus={this.handleFocus}
                     onKeyDown={this.onKeyDown}
-                    style={focused ? { borderColor: componentStyle.color } : null}
+                    
                 />
             }
 
