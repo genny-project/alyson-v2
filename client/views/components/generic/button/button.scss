@@ -10,7 +10,7 @@
 
 	height: 50px;
 	display: flex;
-	
+
 	> button {
 
 		//animate
@@ -19,7 +19,6 @@
 		border-radius : 30px;
 		transition: all ease-out 0.3s;
 
-		width: 100%;
 		border: none;
 		border-radius: 5px;
 		color: white;
@@ -179,14 +178,14 @@
 		}
 	}
 
-	&.disabled { 
+	&.disabled {
 
         button {
             background-color: #BBB;
             cursor: not-allowed !important;
 
             &:hover {
-                box-shadow: none; 
+                box-shadow: none;
             }
         }
     }

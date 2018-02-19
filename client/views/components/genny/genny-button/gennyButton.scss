@@ -1,19 +1,23 @@
 @import 'client/styles/colors';
 
 .genny-button {
+
     width: 100%;
 
     &.animate {
 
         .button {
+
             justify-content: center;
 
             button {
+
                 width: 50px;
                 border-radius: 50%;
                 font-size:0px;
 
                 .button-spinner {
+
                     width: 75%;
                     padding-top: 75%;
                     top: 8px;

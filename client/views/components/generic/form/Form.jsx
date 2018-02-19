@@ -71,9 +71,12 @@ class Form extends Component {
 
   renderGroup(questionGroup, index) {
 
+      if(questionGroup == null) return [];
+
       if(Array.isArray( questionGroup )) {
 
         return questionGroup.map((group, index) => {
+            if(group == null) return false;
             if(group.content) return this.renderGroup(group, index);
             return group;
         });

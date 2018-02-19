@@ -114,6 +114,9 @@ class GennyForm extends Component {
                 'accept'
             ];
 
+            console.log(askGroup);
+            if(askGroup.attributeCode.includes("EMPTY")) return null;
+
             if(askGroup.attributeCode.includes('BUTTON')) {
 
                 availableButtons.forEach(availableButton => {
@@ -137,7 +140,9 @@ class GennyForm extends Component {
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
-                    if(ask.childAsks) return this.generateFormData(ask);
+                    console.log(ask.attributeCode);
+
+                    if(ask.childAsks && !ask.attributeCode.includes("EMPTY")) return this.generateFormData(ask);
 
                     let inputType = 'Text';
                     let valList = [];
@@ -214,6 +219,7 @@ class GennyForm extends Component {
                             code: ask.question.code,
                             questionGroup: askGroup.name,
                             identifier: ask.question.code,
+                            weight: ask.weight,
                         },
                         type: inputType,
                         style: this.props.style,

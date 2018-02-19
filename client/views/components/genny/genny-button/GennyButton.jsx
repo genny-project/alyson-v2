@@ -97,7 +97,7 @@ class GennyButton extends Component {
 
     const clickEvent = confirmation ? () => this.handleConfirmation(confirmation) : this.handleClick;
 
-    let buttonWidth = buttonStyle && buttonStyle.width ? buttonStyle.width : '100%';
+    let buttonWidth = buttonStyle && buttonStyle.width ? buttonStyle.width : null;
     if (this.state.isAnimated) {
       if (buttonStyle && buttonStyle.height) {
         buttonWidth = buttonStyle.height;

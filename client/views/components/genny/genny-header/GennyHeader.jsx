@@ -5,7 +5,7 @@ import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, Ge
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
-import decode_token from 'jwt-decode';
+// import decode_token from 'jwt-decode';
 
 class GennyHeader extends Component {
 
@@ -122,15 +122,15 @@ class GennyHeader extends Component {
       ...customStyle.gennyHeader
     };
 
-    let isOwner = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
-    isOwner = isOwner != null && isOwner.value === true;
-    let isDriver = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
-    isDriver = isDriver != null && isDriver.value === true;
-
-    let session_data = decode_token(token);
-    let roles = session_data.realm_access.roles;
-
-    let isAdmin = roles.includes('admin');
+    // let isOwner = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_OWNER' );
+    // isOwner = isOwner != null && isOwner.value === true;
+    // let isDriver = currentUser && BaseEntityQuery.getBaseEntityAttribute(currentUser, 'PRI_DRIVER' );
+    // isDriver = isDriver != null && isDriver.value === true;
+    //
+    // let session_data = decode_token(token);
+    // let roles = session_data.realm_access.roles;
+    //
+    // let isAdmin = roles.includes('admin');
 
     return (
       <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
@@ -174,7 +174,7 @@ class GennyHeader extends Component {
             root='GRP_NOTIFICATIONS'
           />
 
-          <Label
+          {/* <Label
             position={[0,1]}
             text={`${isAdmin ? 'ADMIN' : ''} ${isOwner ? 'OWNER' : ''} ${isDriver ? 'DRIVER' : ''}`}
             style={{
@@ -184,7 +184,7 @@ class GennyHeader extends Component {
               borderRadius: '5px',
               padding: '2.5px 5px',
             }}
-          />
+          /> */}
           { window.getScreenSize() == 'sm' ? null :
             <ProfileImageView position={[0,1]} isOnline={true} src={userImage} style={{ margin: '5px', width: '30px', minWidth: '30px'}}/>
           }
