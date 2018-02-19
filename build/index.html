@@ -16,7 +16,19 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script src="https://use.fontawesome.com/8f1fe4d2b6.js"></script>
-	<script src="https://js.prelive.promisepay.com/PromisePay.js " type="text/javascript"></script>
+	<script>
+	function addScript( src ) {
+		var s = document.createElement( 'script' );
+		s.setAttribute( 'src', src );
+		document.body.appendChild( s );
+	}
+
+	if ( window.location.hostname.indexOf( 'localhost' ) > -1 ) {
+		addScript( "https://js.prelive.promisepay.com/PromisePay.js" );
+	} else {
+		addScript( "https://js.promisepay.com/PromisePay.js" );
+	}
+	</script>
 	<script src="/js/bundle.min.js"></script>
 </body>
 
