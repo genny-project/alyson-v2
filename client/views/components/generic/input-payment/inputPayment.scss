@@ -140,7 +140,13 @@
   }
 
   .error-box {
-    background: red;
+
+     background: red;
+
+     &.success {
+         background: #5cb85c;
+     }
+
     color: #FFF;
     text-align: center;
     padding: 15px;

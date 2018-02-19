@@ -288,6 +288,7 @@ class InputPayment extends Component {
         submitting: false,
         error: 'Success',
       });
+
     }, error => {
       this.setState({
         submitting: false,
@@ -542,7 +543,7 @@ class InputPayment extends Component {
     return (
       <div className='add-bank'>
         { error && (
-          <div className='error-box'>
+          <div className={`error-box ${ error == "Success" ? 'success' : ''}` }>
             {error}
           </div>
         )}
