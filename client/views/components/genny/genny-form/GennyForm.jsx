@@ -163,10 +163,6 @@ class GennyForm extends Component {
 
                         const att_details = BaseEntityQuery.getAttribute(attributeCode);
                         if(att_details) {
-                            if(attributeCode.includes("PRICE")) {
-                                console.log(att_details);
-                            }
-                            
                             placeholder = att_details.placeholder;
                         }
                     }
