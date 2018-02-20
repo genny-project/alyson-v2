@@ -52,13 +52,8 @@ class FormGroup extends Component {
 
     if(this._ismounted) {
 
-      //console.log('===========');
-
       const isInputValid = this.isFormGroupValid(false);
-      //console.log('inputs', isInputValid);
       const isFormValid = isInputValid.every(input => {return input;});
-      //console.log('isFormValid', isFormValid);
-      //console.log('isFormValidated', this.state.isFormValidated);
 
       if(isFormValid) {
         if(this.state.isFormValidated == false){
@@ -82,6 +77,7 @@ class FormGroup extends Component {
     const { isHorizontal } = this.props;
 
     this.inputRefs = {};
+    if(data.length == 0) return null;
 
     return data.map((child, index) => {
 
@@ -140,9 +136,6 @@ class FormGroup extends Component {
     }
 
     isFormGroupValid = (showStyle) => {
-      // return this.inputRefs.map(input => {
-      //   return input ? input.isValid(showStyle) : true;
-      // });
 
       return Object.keys(this.inputRefs).map(ref => {
         let input = this.inputRefs[ref];
@@ -184,6 +177,8 @@ class FormGroup extends Component {
 
       const { data, title, submitButtons, isHorizontal } = this.props;
       const subforms = this.renderData(data);
+
+      if(subforms == null) return null;
 
       return (
         <div className="form-group">
