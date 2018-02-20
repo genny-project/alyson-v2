@@ -236,9 +236,9 @@ class BucketColumn extends Component {
                             >
                                 {legend.red ? <span position={[0,0]} style={{textAlign: 'center'}}>{legend.red}</span> : null }
                                 {legend.red ? <Status position={[0,1]} color='urgent' style={{height: '15px' }}/> : null }
-                                {legend.orange ? <span position={[1,0]} >{legend.orange}</span> : null }
+                                {legend.orange ? <span position={[1,0]} style={{textAlign: 'center'}}>{legend.orange}</span> : null }
                                 {legend.orange ? <Status position={[1,1]} color='warning' style={{ height: '15px' }}/> : null }
-                                {legend.green ? <span position={[2,0]} >{legend.green}</span> : null }
+                                {legend.green ? <span position={[2,0]} style={{textAlign: 'center'}}>{legend.green}</span> : null }
                                 {legend.green ? <Status position={[2,1]} color='success' style={{ height: '15px' }}/> : null }
                             </Grid>
                         </Dropdown>

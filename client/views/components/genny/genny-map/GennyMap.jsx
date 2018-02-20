@@ -226,6 +226,16 @@ class GennyMap extends Component {
 
             if (attributes) {
 
+                let text = '<div>'+
+                    '<span style="font-weight: 1000;" >' + attributes.PRI_TITLE.value + '</span>' +
+                    '<div>' + 
+                        '<span>' + 'Pickup: ' + attributes.PRI_PICKUP_ADDRESS_SUBURB.value + ', ' + attributes.PRI_PICKUP_ADDRESS_STATE.value + '</div>' +
+                    '</div>' +
+                    '<div>' + 
+                        '<span>' + 'Delivery: ' + attributes.PRI_DROPOFF_ADDRESS_SUBURB.value + ', ' + attributes.PRI_DROPOFF_ADDRESS_STATE.value + '</div>' +
+                    '</div>' +
+                '</div>';
+
                 Object.keys(attributes).map(attribute_key => {
 
                     switch(attribute_key) {
@@ -244,7 +254,8 @@ class GennyMap extends Component {
                         case 'PRI_CURRENT_POSITION':
                             markers.push({
                                 lat: parseFloat(attributes[attribute_key].lat),
-                                lng: parseFloat(attributes[attribute_key].lng)
+                                lng: parseFloat(attributes[attribute_key].lng),
+                                text: text
                             });
                             break;
                         default:
@@ -253,10 +264,11 @@ class GennyMap extends Component {
                 });
 
                 // live position
-                if(attributes.PRI_POSITION_LONGITUDE != null && attributes.PRI_POSITION_LATITUDE != null && !this.props.hideMarkers == true ) {
+                if(attributes.PRI_POSITION_LONGITUDE != null && attributes.PRI_POSITION_LATITUDE != null && this.props.hideMarkers != true ) {
                     markers.push({
                         lat: parseFloat(attributes.PRI_POSITION_LATITUDE.value),
-                        lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value)
+                        lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value),
+                        text: text
                     });
                 }
 

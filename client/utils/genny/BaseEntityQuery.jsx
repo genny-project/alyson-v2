@@ -3,8 +3,9 @@ import { GennyBridge } from 'utils/genny';
 
 class BaseEntityQuery {
 
-    static getEntityChildren(code, recursive) {
+    static getEntityChildren(code, recursionSafeCodes) {
 
+        const safeRecursion = recursionSafeCodes != null ? recursionSafeCodes : new Object();
         const relationships = store.getState().baseEntity.relationships;
         const grp = relationships[code];
 
@@ -51,7 +52,15 @@ class BaseEntityQuery {
                     weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
                 }
 
-                item.children = this.getEntityChildren(item.code);
+                if(!Object.keys(safeRecursion).includes(item.code)) {
+
+                    safeRecursion[item.code] = {};
+                    item.children = this.getEntityChildren(item.code, safeRecursion);
+                }
+                else {
+                    item.children = [];
+                }
+
                 item.weight = weight;
                 return item;
             }
