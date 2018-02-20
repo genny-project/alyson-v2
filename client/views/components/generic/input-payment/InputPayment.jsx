@@ -284,10 +284,12 @@ class InputPayment extends Component {
           ]
       })
 
-      this.setState({
-        submitting: false,
-        error: 'Success',
-      });
+      // this.setState({
+      //   submitting: false,
+      //   error: 'Success',
+      // });
+
+      this.onGoBack();
 
     }, error => {
       this.setState({
@@ -333,10 +335,13 @@ class InputPayment extends Component {
             ]
         })
 
-      this.setState({
-        submitting: false,
-        error: 'Success',
-      });
+      // this.setState({
+      //   submitting: false,
+      //   error: 'Success',
+      // });
+
+      this.onGoBack();
+
     }, error => {
       this.setState({
         submitting: false,
