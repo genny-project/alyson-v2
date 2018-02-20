@@ -41,7 +41,7 @@ class AppContent extends Component {
                 return <GennyBucketView root={commandData.dataCode} />;
             }
             else if (commandData.code == 'LIST_VIEW') {
-                return <GennyList root={commandData.dataCode} />;
+                return <GennyList root={commandData.dataCode} showTitle/>;
             }
             else if (commandData.code == 'FORM_VIEW') {
                 return <GennyForm root={commandData.dataCode}/>;
