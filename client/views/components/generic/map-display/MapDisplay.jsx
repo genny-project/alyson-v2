@@ -36,29 +36,6 @@ class MapDisplay extends Component {
     }
   }
 
-  getLatLng = () => {
-    const { center, lat, lng } = this.props;
-
-    let newLat = center.lat;
-    let newLng = center.lng;
-
-    if (lat && lng) {
-      if (typeof lat != 'number' ){
-        let checkLat = parseFloat(lat);
-
-        if (typeof lng != 'number'){
-          let checkLng = parseFloat(lng);
-
-          if (Number.isInteger(checkLat) && Number.isInteger(checkLng)){
-            newLat = parseFloat(checkLat);
-            newLng = parseFloat(checkLng);
-          }
-        }
-      }
-    }
-    return { 'lat': newLat, 'lng': newLng };
-  }
-
   setup = () => {
 
     if(typeof google == 'object') {
@@ -79,6 +56,10 @@ class MapDisplay extends Component {
       };
 
       this.map = new google.maps.Map( this.mapRef, mapOptions );
+      
+      let infowindow = new google.maps.InfoWindow({
+        content: ''
+      });
 
       if (window.getScreenSize() == 'sm') this.map.setOptions({gestureHandling: 'cooperative'});
 
@@ -113,9 +94,10 @@ class MapDisplay extends Component {
                 map
               });
 
-              // newMarker.addListener('click', function() {
-              //   console.log('click');
-              // });
+              newMarker.addListener('click', function() {
+                infowindow.open(map, newMarker);
+                infowindow.setContent(marker.text);
+              });
 
               this.locations.push(new google.maps.LatLng(markerCoords.lat, markerCoords.lng));
 
@@ -123,6 +105,7 @@ class MapDisplay extends Component {
                 if ( markers.length > 1 || routes && routes.length > 0 ) {
                   adjustMapBounds();
                 } else {
+                  adjustMapBounds();
                   map.setZoom(12);
                 }
               }
@@ -161,6 +144,29 @@ class MapDisplay extends Component {
         });
       });
     }
+  }
+
+  getLatLng = () => {
+    const { center, lat, lng } = this.props;
+
+    let newLat = center.lat;
+    let newLng = center.lng;
+
+    if (lat && lng) {
+      if (typeof lat != 'number' ){
+        let checkLat = parseFloat(lat);
+
+        if (typeof lng != 'number'){
+          let checkLng = parseFloat(lng);
+
+          if (Number.isInteger(checkLat) && Number.isInteger(checkLng)){
+            newLat = parseFloat(checkLat);
+            newLng = parseFloat(checkLng);
+          }
+        }
+      }
+    }
+    return { 'lat': newLat, 'lng': newLng };
   }
 
   componentDidMount() {

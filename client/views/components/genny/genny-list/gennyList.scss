@@ -1,5 +1,16 @@
 @import 'client/styles/colors';
 
 .genny-list {
-    
+    background-color: #ddd;
+
+    .genny-list-title {
+        text-align: center;
+        color: white;
+        background-color: #929292;
+        padding: 20px 0;
+
+        h2 {
+            margin: 0;
+        }
+    }
 }
