@@ -119,8 +119,8 @@ class LayoutLoader extends Component {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }
 
-                        if(attribute == null && attribute_code != null && split.length == 2) {
-                            layout = JSON.parse(JSON.stringify(layout).replace(alias, null));
+                        if(attribute == null && attribute_code != null && (split.length == 2 || split.length == 4)) {
+                            layout = JSON.parse(JSON.stringify(layout).replace(alias, ''));
                         }
                         else if(alias_code == "ROOT") {
                             layout = JSON.parse(JSON.stringify(layout).replace(alias, baseEntity.code));

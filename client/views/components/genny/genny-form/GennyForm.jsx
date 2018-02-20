@@ -126,7 +126,7 @@ class GennyForm extends Component {
                             button: 'form-' + availableButton
                         });
                     }
-                }); 
+                });
             }
 
             submitButtons = submitButtonsData.sort((button, button2) => button.index > button2.index).map(button => button.button);
@@ -163,6 +163,10 @@ class GennyForm extends Component {
 
                         const att_details = BaseEntityQuery.getAttribute(attributeCode);
                         if(att_details) {
+                            if(attributeCode.includes("PRICE")) {
+                                console.log(att_details);
+                            }
+                            
                             placeholder = att_details.placeholder;
                         }
                     }

@@ -84,7 +84,7 @@ class InputUpload extends Component {
 
         this.uppy = new Uppy({
           autoProceed,
-          debug: true,
+          debug: false,
           restrictions: {
             maxNumberOfFiles: this.props.maxNumberOfFiles,
           },

@@ -37,6 +37,10 @@ class BucketColumn extends Component {
         isOpen: false
     }
 
+    // shouldComponentUpdate() {
+    //     return true;
+    // }
+
     moveBucket = (notification) => {
         if(notification == 'previous') this.props.goToPreviousBucket();
         if(notification == 'next') this.props.goToNextBucket();
@@ -95,8 +99,8 @@ class BucketColumn extends Component {
             isOpen: !prevState.isOpen
         }));
     }
-    
-    
+
+
     handleBlur = () => {
         this.setState({
             isOpen: false
