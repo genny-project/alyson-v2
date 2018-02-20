@@ -55,6 +55,9 @@ class Input extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
+
+        return true;
+        
         const { value } = this.state;
         if(nextProps.value == null || value == null || nextProps.value.length == 0 || value.length == 0) {
             return true;
@@ -84,7 +87,7 @@ class Input extends Component {
 
                     // if passes all, return true, otherwise, return false.
                     //console.log('regex validation', new RegExp(validation.regex).test( value ));
-                    
+
                     return new RegExp(validation.regex).test( value );
                 });
                 return isValid;
@@ -117,7 +120,7 @@ class Input extends Component {
 
     componentWillReceiveProps(newProps) {
         const { isFocused } = this.state;
-        
+
         if(this._ismounted && isFocused != true) {
             this.setState({
                 value: newProps.value
@@ -126,7 +129,7 @@ class Input extends Component {
     }
 
     handleOnChange = (newValue) => {
-        
+
         this.setState({
             value: newValue
         });
@@ -264,7 +267,7 @@ class Input extends Component {
                     value={this.state.value != null ? this.state.value : false}
                 />
             );
-            
+
             case 'dropdown':
             return (
                 <InputDropdown
