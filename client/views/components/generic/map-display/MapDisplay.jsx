@@ -56,8 +56,7 @@ class MapDisplay extends Component {
         }
       }
     }
-
-    return { lat: newLat, lng: newLng };
+    return { 'lat': newLat, 'lng': newLng };
   }
 
   setup = () => {
@@ -68,12 +67,12 @@ class MapDisplay extends Component {
 
       let geocoder = new google.maps.Geocoder;
 
-      let center = this.getLatLng();
-     
+      let newCenter = this.getLatLng();
+      
       const mapOptions = {
         zoom,
         maxZoom: maxZoom,
-        center: center,
+        center: newCenter,
         disableDefaultUI: !controls,
         zoomControl: !controls,
         scrollwheel: false,
@@ -93,7 +92,7 @@ class MapDisplay extends Component {
         }
       };
 
-      this.checkAddressFormat(geocoder, center, (centerCoords) => {
+      this.checkAddressFormat(geocoder, newCenter, (centerCoords) => {
 
         let counterMarkers = 0;
         markers.forEach(marker => {
@@ -104,17 +103,22 @@ class MapDisplay extends Component {
 
               let map = this.map;
 
-              new google.maps.Marker({
+              let newMarker = new google.maps.Marker({
                 position: {
-                  lat: markerCoords.lat,
-                  lng: markerCoords.lng,
-
+                  lat: parseFloat(markerCoords.lat),
+                  lng: parseFloat(markerCoords.lng)
                 },
+                zIndex: 100,
                 icon: this.props.icon,
                 map
               });
 
+              // newMarker.addListener('click', function() {
+              //   console.log('click');
+              // });
+
               this.locations.push(new google.maps.LatLng(markerCoords.lat, markerCoords.lng));
+
               if(counterMarkers == markers.length - 1) {
                 if ( markers.length > 1 || routes && routes.length > 0 ) {
                   adjustMapBounds();

@@ -450,6 +450,7 @@ class BucketView extends Component {
           title={bucket.title}
           key={bucket.id}
           groupId={bucket.id}
+          legend={bucket.legend}
           items={bucket.children}
           goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
           goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}

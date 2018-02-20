@@ -134,12 +134,27 @@ class GennyBucketView extends PureComponent {
                 canAddItem = Object.keys(group.attributes).filter(x => x == 'ADD_ITEM').length > 0;
             }
 
+            //get legend text
+            let legendValues = {};
+            if (group.attributes) {
+                if (group.attributes.PRI_LEGEND_GREEN) {
+                    legendValues['green'] = group.attributes.PRI_LEGEND_GREEN.value;
+                }
+                if (group.attributes.PRI_LEGEND_ORANGE) {
+                    legendValues['orange'] = group.attributes.PRI_LEGEND_ORANGE.value;
+                }
+                if (group.attributes.PRI_LEGEND_RED) {
+                    legendValues['red'] = group.attributes.PRI_LEGEND_RED.value;
+                }
+            }
+
             buckets.push({
                 title: group.name,
                 id: group.code,
                 children: this.generateBucket(group),
                 weight: group.weight,
-                canAddItem: canAddItem
+                canAddItem: canAddItem,
+                legend: legendValues,
             });
         });
 

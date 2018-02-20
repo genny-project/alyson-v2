@@ -105,7 +105,7 @@ class BucketColumn extends Component {
 
     render() {
 
-        const { className, style, title, groupId, goToPreviousBucket, goToNextBucket, items} = this.props;
+        const { className, style, title, groupId, goToPreviousBucket, goToNextBucket, items, legend} = this.props;
         let titleDiv = null;
         let isMobile = window.getScreenSize() == 'sm';
 
@@ -199,46 +199,47 @@ class BucketColumn extends Component {
                     </Droppable>
                 }
 
-
-                <div className="bucket-legend sticky" onClick={this.handleClick} >
-                    <Dropdown
-                        className="bucket-legend-content"
-                        open={this.state.isOpen}
-                        isSlide={false}
-                        onBlur={this.handleBlur}
-                        tabIndex='-1'
-                        noAnimation={true}
-                        inline={true}
-                        header={
-                            <span style={{display: 'flex', alignItems: 'center', padding: `5px ${this.state.isOpen ? '5px 0' : ''}` }}>
-                                <h3>Status Legend</h3>
-                                <IconSmall
-                                    name='arrow_drop_down'
-                                    style={ this.state.isOpen ? { transform: 'rotate(180deg)' } : { transform: 'rotate(0deg)' }}
-                                />
-                            </span>
-                        }
-                    >
-                        <Grid
-                            style={{padding: '5px'}}
-                            cols={[
-                                {style:{flexGrow: 1, display: 'flex', alignItems: 'center', marginRight: '10px',  justifyContent: 'center'}},
-                                '10px'
-                            ]}
-                            rows={[
-                                {style: {flexGrow: 1, paddingBottom: '5px'}},{style: {flexGrow: 1, paddingBottom: '5px'}},
-                                1
-                            ]}
+                { legend.red || legend.orange || legend.green ?
+                    <div className="bucket-legend sticky" onClick={this.handleClick} >
+                        <Dropdown
+                            className="bucket-legend-content"
+                            open={this.state.isOpen}
+                            isSlide={false}
+                            onBlur={this.handleBlur}
+                            tabIndex='-1'
+                            noAnimation={true}
+                            inline={true}
+                            header={
+                                <span style={{display: 'flex', alignItems: 'center', padding: `5px ${this.state.isOpen ? '5px 0' : ''}` }}>
+                                    <h3>Status Legend</h3>
+                                    <IconSmall
+                                        name='arrow_drop_down'
+                                        style={ this.state.isOpen ? { transform: 'rotate(180deg)' } : { transform: 'rotate(0deg)' }}
+                                    />
+                                </span>
+                            }
                         >
-                            <span position={[0,0]} >Immediate action required.</span>
-                            <Status position={[0,1]} color='urgent' style={{height: '15px' }}/>
-                            <span position={[1,0]} >Update. Action required.</span>
-                            <Status position={[1,1]} color='warning' style={{ height: '15px' }}/>
-                            <span position={[2,0]} >No action required.</span>
-                            <Status position={[2,1]} color='success' style={{ height: '15px' }}/>
-                        </Grid>
-                    </Dropdown>
-                </div>
+                            <Grid
+                                style={{padding: '5px'}}
+                                cols={[
+                                    {style:{flexGrow: 1, display: 'flex', alignItems: 'center', marginRight: '10px',  justifyContent: 'center'}},
+                                    '10px'
+                                ]}
+                                rows={[
+                                    {style: {flexGrow: 1, paddingBottom: '5px'}},{style: {flexGrow: 1, paddingBottom: '5px'}},
+                                    1
+                                ]}
+                            >
+                                {legend.red ? <span position={[0,0]} style={{textAlign: 'center'}}>{legend.red}</span> : null }
+                                {legend.red ? <Status position={[0,1]} color='urgent' style={{height: '15px' }}/> : null }
+                                {legend.orange ? <span position={[1,0]} >{legend.orange}</span> : null }
+                                {legend.orange ? <Status position={[1,1]} color='warning' style={{ height: '15px' }}/> : null }
+                                {legend.green ? <span position={[2,0]} >{legend.green}</span> : null }
+                                {legend.green ? <Status position={[2,1]} color='success' style={{ height: '15px' }}/> : null }
+                            </Grid>
+                        </Dropdown>
+                    </div>
+                : null }
             </div>
         );
     }
