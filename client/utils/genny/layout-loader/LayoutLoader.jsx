@@ -16,6 +16,10 @@ class LayoutLoader extends Component {
     aliases: object
   };
 
+  shouldComponentUpdate() {
+      return true;
+  }
+
   getLayoutValues(layout) {
 
       let layoutValues = [];

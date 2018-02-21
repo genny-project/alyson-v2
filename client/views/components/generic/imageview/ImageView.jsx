@@ -28,11 +28,13 @@ class ImageView extends Component {
   render() {
 
     const { caption, src, onClick, style, placeholder, rounded, className, imageStyle } = this.props;
-    const { error } = this.state;
+    let { error } = this.state;
 
     const componentStyle = {
       ...style,
     };
+
+    if(src === "") error = true;
 
     return (
       <div className={`imageView ${rounded ? 'rounded' : ''} ${className}`} style={componentStyle}>

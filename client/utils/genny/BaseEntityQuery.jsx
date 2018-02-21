@@ -173,17 +173,18 @@ class BaseEntityQuery {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         if(be && be.links) {
-            return Object.keys(be.links).map(link => {
+
+            let bes = Object.keys(be.links).map(link => {
 
                 const links = be.links[link];
                 for(let i = 0; i < links.length; i++) {
 
                     let currentLink = links[i];
                     if(currentLink.linkValue == linkValue) { return currentLink.targetCode; }
-                    else return false;
                 }
-
-            })[0];
+            });
+            
+            if(bes.length > 0) return bes[0];
         }
 
         return null;
