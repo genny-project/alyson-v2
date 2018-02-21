@@ -214,8 +214,8 @@ class InputDropdown extends Component {
     );
 
     list = list.sort((x, y) => {
-        if(x.name > y.name) return -1;
-        else return 1;
+        if(x.name > y.name) return 1;
+        else return -1;
     });
 
     if (list.length > 0 ) {
