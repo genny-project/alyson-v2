@@ -38,6 +38,7 @@ export { default as List } from './list';
 export { default as MapDirectionsButton } from './map-directions-button';
 export { default as MapDisplay } from './map-display';
 export { default as MapInput } from './map-input';
+export { default as MeasurementLabel } from './measurement-label';
 export { default as Modal } from './modal';
 export { default as NotificationItem } from './notification-item';
 export { default as Notifications } from './notifications';
