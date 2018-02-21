@@ -14,7 +14,8 @@ class TabContainer extends Component {
         views: array,
         className: string,
         style: object,
-        isVertical: bool
+        isVertical: bool,
+        contentStyle: object
     };
 
     state = {
@@ -73,7 +74,7 @@ class TabContainer extends Component {
 
     render() {
 
-        const { className, style, views, isVertical} = this.props;
+        const { className, style, views, isVertical, contentStyle} = this.props;
         const componentStyle = { ...style };
         
         let isMobile = window.getScreenSize() == 'sm';
@@ -81,7 +82,7 @@ class TabContainer extends Component {
         return (
             <div className={`tab-container ${className} ${window.getScreenSize()} ${isVertical ? 'vertical' : '' }`} style={componentStyle} >
                 { isMobile ? null : this.renderTabs(views) }    
-                <div className='tab-container-content'>
+                <div className='tab-container-content' style={{contentStyle}}>
                     {this.renderContent(views)}
                 </div>
                 { isMobile ? this.renderTabs(views) : null }    
