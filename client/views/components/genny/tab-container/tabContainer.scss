@@ -88,4 +88,27 @@
 			height: calc(100% - 40px);
 		}
 	}
+
+	&.vertical:not(.sm) {
+		display: flex;
+
+		.tab-holder {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			flex-grow: 0;
+			width: fit-content;
+
+			.view-tab {
+				height: 50px;
+				width: 100%;
+				border-radius: 5px 0 0 5px;
+			}
+		}
+
+		.tab-container-content {
+			height: 100%;
+		}
+	}
 }
+
