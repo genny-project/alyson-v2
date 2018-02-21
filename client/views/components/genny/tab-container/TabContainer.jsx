@@ -78,8 +78,6 @@ class TabContainer extends Component {
         const componentStyle = { ...style };
         
         let isMobile = window.getScreenSize() == 'sm';
-
-        console.log(contentStyle);
         
         return (
             <div className={`tab-container ${className} ${window.getScreenSize()} ${isVertical ? 'vertical' : '' }`} style={componentStyle} >
