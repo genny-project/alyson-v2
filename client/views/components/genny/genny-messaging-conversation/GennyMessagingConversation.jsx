@@ -58,8 +58,8 @@ class GennyMessagingConversation extends Component {
     }
 
     handleClickBack = () => {
+        
         const { onClick } = this.props;
-
         if (onClick) onClick();
     }
 

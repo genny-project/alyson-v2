@@ -60,7 +60,7 @@ class Selector extends Component {
                     const value = checkValues[i];
                     let hasValue = false;
 
-                    if( hideValues.includes(value)) {
+                    if( hideValues.includes(value) ) {
                         hasValue = true;
                     }
                     //4.c if there are no matches, dont show content
@@ -85,6 +85,7 @@ class Selector extends Component {
                 }
             }
         }
+
         //6. if none of the conditions are met, then show content
         return this.renderChildren();
     }
