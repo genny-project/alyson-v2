@@ -7,7 +7,7 @@ import { LayoutLoader } from 'utils/genny/layout-loader';
 class TabContainer extends Component {
 
     static defaultProps = {
-        isVertical: true
+        isVertical: false
     }
 
     static propTypes = {
