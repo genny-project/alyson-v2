@@ -1,18 +1,20 @@
 import './tabContainer.scss';
 import React, { Component } from 'react';
 import { IconSmall } from 'views/components';
-import { array, string, object } from 'prop-types';
+import { array, string, object, bool } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class TabContainer extends Component {
 
     static defaultProps = {
+        isVertical: false
     }
 
     static propTypes = {
         views: array,
         className: string,
         style: object,
+        isVertical: bool
     };
 
     state = {
@@ -71,13 +73,13 @@ class TabContainer extends Component {
 
     render() {
 
-        const { className, style, views, } = this.props;
+        const { className, style, views, isVertical} = this.props;
         const componentStyle = { ...style };
         
         let isMobile = window.getScreenSize() == 'sm';
         
         return (
-            <div className={`tab-container ${className} ${window.getScreenSize()}`} style={componentStyle} >
+            <div className={`tab-container ${className} ${window.getScreenSize()} ${isVertical ? 'vertical' : '' }`} style={componentStyle} >
                 { isMobile ? null : this.renderTabs(views) }    
                 <div className='tab-container-content'>
                     {this.renderContent(views)}
