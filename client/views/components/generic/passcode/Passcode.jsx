@@ -1,6 +1,6 @@
 import './passcode.scss';
 import React, { Component } from 'react';
-import { string, object, any, number } from 'prop-types';
+import { string, object, any, number, bool, func } from 'prop-types';
 import { PasscodeInput } from './passcode-input';
 import _ from 'lodash';
 
@@ -9,7 +9,10 @@ class Passcode extends Component {
   static defaultProps = {
     className: '',
     placeholder: '-',
-    totalInputs: 4
+    totalInputs: 4,
+    maxLength: 1,
+    clearOnFocus: true,
+    disabled: false
   }
 
   static propTypes = {
@@ -18,7 +21,11 @@ class Passcode extends Component {
     children: any,
     value: string,
     placeholder: string,
-    totalInputs: number
+    totalInputs: number,
+    maxLength: number,
+    clearOnFocus: bool,
+    onComplete: func,
+    disabled: bool
   }
 
   state = {
@@ -27,24 +34,35 @@ class Passcode extends Component {
 
   inputs = {};
 
-  handleChange = (index) => (event) => {
-    if (this.inputs[index + 1]) {
-      this.inputs[index + 1 ].input.focus();
-    }
-    
-    const value = event.target.value;
+  handleChange = (index) => (value) => {
     
     this.setState(prevState => ({
       currentValues: {
         ...prevState.currentValues,
         [index]: value
       }
-    }));
+    }), () => {
+
+      if (this.inputs[index + 1]) {
+        this.inputs[index + 1 ].input.focus();
+      }
+      else if ( this.inputs[index] && !this.inputs[index + 1] && index == this.props.totalInputs - 1) {
+        this.inputs[index].input.blur();
+        this.handleComplete(this.state.currentValues);
+      }
+
+    });
   }
+
+  handleComplete = (valueObject) => {
+    let valueString = Object.values(valueObject).join('');
+    if (this.props.onComplete) this.props.onComplete(valueString);
+  }
+
 
   renderInputs = () => {
 
-    const { totalInputs, value, placeholder } = this.props;
+    const { totalInputs, placeholder, maxLength, clearOnFocus, disabled } = this.props;
     
     let inputs = [];
 
@@ -53,11 +71,14 @@ class Passcode extends Component {
         <PasscodeInput
           ref={(input) => this.inputs[index] = input }
           key={index}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          disabled={disabled}
+          clearOnFocus={clearOnFocus}
           onChange={this.handleChange(index)}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
           onKeyDown={this.onKeyDown}
-          onMaxLength={this.handleMaxLength}
         />    
       );
     });

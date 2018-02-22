@@ -1,13 +1,15 @@
 import './passcodeInput.scss';
 import React, { Component } from 'react';
-import { string, object, func, number } from 'prop-types';
+import { string, object, func, number, bool } from 'prop-types';
 
 class PasscodeInput extends Component {
 
   static defaultProps = {
     className: '',
     placeholder: '-',
-    maxLength: 1
+    maxLength: 1,
+    clearOnFocus: true,
+    disabled: false
   }
 
   static propTypes = {
@@ -17,6 +19,8 @@ class PasscodeInput extends Component {
     placeholder: string,
     maxLength: number,
     onChange: func,
+    clearOnFocus: bool,
+    disabled: bool,
   }
 
   state = {
@@ -29,27 +33,44 @@ class PasscodeInput extends Component {
     }
   }
 
-  handleChange = (event) => {
-    const value = event.target.value;
+  static blur() {
+    if(this.input) {
+      this.input.blur();
+    }
+  }
 
+  handleChange = (event) => {
+    let value = event.target.value;
+
+    //console.log('value', value);
     if (value && value.length > 0) {
       
-      if (this.state.currentValue < this.props.maxLength) {
+      //console.log('currentValue', this.state.currentValue, 'maxLength', this.props.maxLength);
+      if (value <= this.props.maxLength) {
         this.setState({
           currentValue: value
         });
       }
-      else if (value >= this.props.maxLength) {
-        console.log(value, value.length, value.charAt(value.length-1) );
+      else if (value > this.props.maxLength) {
+        value = value.charAt(value.length - 1);
         this.setState({
-          currentValue: value.charAt(value.length)
+          currentValue: value
         });
       }
+    }
+    if (this.props.onChange) this.props.onChange(value);
+  }
+
+  handleFocus = () => {
+    if (this.props.clearOnFocus) {
+      this.setState({
+        currentValue: ''
+      });
     }
   }
 
   render() {
-    const { className, style, placeholder, key} = this.props;
+    const { className, style, placeholder, disabled } = this.props;
     const { currentValue } = this.state;
     const componentStyle = { ...style, };
 
@@ -61,7 +82,7 @@ class PasscodeInput extends Component {
           required
           value={currentValue}
           ref={r => this.input = r}
-          tabIndex={key}
+          disabled={disabled}
           placeholder={placeholder}
           onChange={this.handleChange}
           onBlur={this.handleBlur}

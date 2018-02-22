@@ -1,0 +1,14 @@
+@import 'client/styles/colors';
+
+.genny-passcode {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .passcode {
+        margin: 5px;
+    }
+}

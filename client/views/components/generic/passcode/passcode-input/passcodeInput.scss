@@ -52,5 +52,11 @@
         &.has-value, &.has-value:not([disabled]):hover {
             color: black;
         }
+
+        &[disabled] {
+            color: #999;
+            border: 1px solid #DDD;
+            cursor: not-allowed;
+        }
     }
 }
