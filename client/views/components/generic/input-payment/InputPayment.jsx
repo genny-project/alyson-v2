@@ -53,7 +53,7 @@ class InputPayment extends Component {
     isAccountsManagement: false,
   };
 
-  componentDidUpdate() {
+  componentWillReceiveProps() {
       this.updateData()
   }
 
