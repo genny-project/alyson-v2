@@ -1,6 +1,6 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner, Modal, IconSmall } from 'views/components';
+import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner, Modal, IconSmall, Passcode } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { BaseEntityQuery } from 'utils/genny';
@@ -54,6 +54,9 @@ class AppContent extends Component {
             }
             else if (commandData.code == 'MAP_VIEW') {
                 return <GennyMap root={commandData.dataCode}/>;
+            }
+            else if (commandData.code == 'PASSCODE') {
+                return <Passcode />;
             }
             else if(commandData.layout != null) {
 

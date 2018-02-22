@@ -1,0 +1,18 @@
+@import 'client/styles/colors';
+
+.passcode {
+
+    padding: 10px;
+
+    .passcode-inputs {
+        
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: fit-content;
+
+        .passcode-input:not(:last-child){
+            margin-right: 10px;
+        }        
+    }
+}
