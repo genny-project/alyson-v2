@@ -8,12 +8,12 @@ pipeline {
 		}
 		stage('Build') {
 			steps {
-				sh "echo ./build-docker.sh ${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+				sh "./build-docker.sh ${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
 			}
 		}
 		stage('Push') {
 			steps {
-				sh "echo docker push gennyproject/alyson:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+				sh "docker push gennyproject/alyson:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
 			}
 		}
 		stage('Deploy') {
