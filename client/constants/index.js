@@ -41,7 +41,7 @@ export const CMD_VIEW_PAGE_CHANGE = 'CMD_VIEW_PAGE_CHANGE';
 
 /* Base entities */
 export const BASE_ENTITY = 'BaseEntity';
-export const LINK_CHANGE = 'LINK_CHANGE';
+export const EVT_LINK_CHANGE = 'EVT_LINK_CHANGE';
 
 /* Base entities + attributes */
 export const BASE_ENTITY_DATA = 'Data';

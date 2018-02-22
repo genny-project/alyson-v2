@@ -5,6 +5,7 @@ import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { IconSmall, Table } from 'views/components';
 import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile, GennyActionTableCell } from './genny-table-components';
 
+var canShowLogs = false;
 class GennyTable extends Component {
 
     static defaultProps = {
@@ -65,6 +66,9 @@ class GennyTable extends Component {
         }
 
         this.state.columns = isMobile ? mobileColumns : tableColumns;
+
+        canShowLogs ? console.log(this.state.columns) : null;
+
         return isMobile ? mobileColumns : tableColumns;
     }
 
@@ -128,7 +132,7 @@ class GennyTable extends Component {
                         let newCol = {
                             'attributeCode': attribute.attributeCode
                         };
-                        
+
                         if(!isMobile) {
                             newCol.Header = <GennyTableHeader title={attribute.attributeName || attribute.attributeCode}/>;
                             newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
@@ -154,6 +158,8 @@ class GennyTable extends Component {
             }
         }
 
+        canShowLogs ? console.log("cols") : null;
+        canShowLogs ? console.log(cols) : null;
         return cols;
     }
 
@@ -165,6 +171,7 @@ class GennyTable extends Component {
 
         baseEntities.forEach(baseEntity => {
 
+            console.log(baseEntity);
             if(baseEntity.attributes) {
 
                 let newData = {};
@@ -174,9 +181,9 @@ class GennyTable extends Component {
                     let attribute = baseEntity.attributes[attribute_key];
 
                     if(showBaseEntity) {
-                            
+
                         if(attribute.value) {
-                            
+
                             data.push({
                                 code: attribute.attributeCode,
                                 value: attribute.value,
@@ -244,6 +251,9 @@ class GennyTable extends Component {
         let columns = [];
         let data = [];
 
+        canShowLogs = root == "PER_USER1";
+        canShowLogs ? console.log( linkCode ) : null;
+
         let children = BaseEntityQuery.getEntityChildren(root);
 
         if(showBaseEntity) {
@@ -255,6 +265,7 @@ class GennyTable extends Component {
         }
         else if(linkCode) {
             children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
+            canShowLogs ? console.log( children ) : null;
         }
 
         columns = this.generateHeadersFor(children);

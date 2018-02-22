@@ -1,4 +1,4 @@
-import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE, ANSWER, LINK_CHANGE } from 'constants';
+import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE, ANSWER, EVT_LINK_CHANGE } from 'constants';
 import { grabValue } from './utils.reducer';
 
 const initialState = {
@@ -214,19 +214,68 @@ export default function reducer(state = initialState, action) {
             ...state
         };
 
-        case LINK_CHANGE:
+        case EVT_LINK_CHANGE:
 
         //TODO: use reduce to handle multiple link change
         if(action.payload.items.length > 0) {
 
             const item = action.payload.items[0];
             let be_code = item.targetCode;
+
             if(state.data[be_code] != null) {
 
                 const oldParentCode = state.data[be_code].parentCode;
                 const newParentCode = item.sourceCode;
 
-                if(oldParentCode != newParentCode) {
+                // if they are the same we just check that no GRP has the item still. can happen when we receive a BE message that HAS
+                if(oldParentCode == newParentCode) {
+
+                    Object.keys(state.data).forEach(beCode => {
+
+                        // it is a GRP
+                        if(beCode.startsWith("GRP_") && beCode != newParentCode) {
+
+                            let be = state.data[beCode];
+
+                            if(state.relationships[beCode] && state.relationships[beCode][be_code]) {
+                                delete state.relationships[beCode][be_code];
+                            }
+
+                            if(be.links) {
+
+                                // we check each link if they have the BE
+                                Object.keys(be.links).forEach(linkKey => {
+
+                                    let link = be.links[linkKey];
+                                    link.forEach(linkedBe => {
+
+                                        // we delete if found
+                                        if(linkedBe.targetCode == be_code) {
+                                            delete be.links[linkKey][be_code];
+                                        }
+                                    })
+                                })
+                            }
+
+                            if(be.children && be.children.length > 0) {
+
+                                for (var i = 0; i < be.children.length; i++) {
+
+                                    const child = be.children[i];
+                                    if(child && child.code == be_code) {
+                                        delete be.children[i];
+                                        i--;
+                                    }
+                                }
+                            }
+                        }
+                    })
+
+                    return {
+                        ...state
+                    }
+                }
+                else {
 
                     const newLinkCode = item.attributeCode;
                     const linkValue = item.linkValue;
@@ -290,6 +339,10 @@ export default function reducer(state = initialState, action) {
                         delete state.relationships[oldParentCode][be_code];
                     }
 
+                    if(state.data[oldParentCode] && state.data[oldParentCode].children) {
+                        state.data[oldParentCode].children = state.data[oldParentCode].children.filter(child => child.code != be_code);
+                    }
+
                     return {
                         ...state,
                         data: {
@@ -302,11 +355,8 @@ export default function reducer(state = initialState, action) {
                                 ...state.data[oldParentCode],
                                 children: [
                                     ...((state.data[oldParentCode] && state.data[oldParentCode].children != null) ? state.data[oldParentCode].children.reduce((existing, child) => {
-
                                         if(child.code != be_code) existing.push(child);
-
                                         return existing;
-
                                     }, []) : [])
                                 ],
                             },
@@ -328,6 +378,7 @@ export default function reducer(state = initialState, action) {
                                 if (key != be_code) {
                                     existing[key] = state.relationships[oldParentCode][key];
                                 }
+
                                 return existing;
 
                             }, {}),

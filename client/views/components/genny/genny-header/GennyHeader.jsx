@@ -218,7 +218,6 @@ class GennyHeader extends Component {
           >
             <ul className="dropdown-profile" style={ customStyle.dropdownProfile }>
               <li style={ customStyle.dropdownLi } onClick={this.handleProfile}><IconSmall name="person" /><span>Profile</span></li>
-              <li style={ customStyle.dropdownLi } onClick={this.handlePaymentMethods}><IconSmall name="attach_money" /><span>Payments</span></li>
               <li style={ customStyle.dropdownLi } onClick={this.handleAccount}><IconSmall name="settings" /><span>Account</span></li>
               <br/>
               <li style={ customStyle.dropdownLi } onClick={this.handleLogout}><IconSmall name="power_settings_new" /><span>Log Out</span></li>

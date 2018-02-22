@@ -142,6 +142,17 @@ class GennyMap extends Component {
 
         if (attributes) {
 
+            let text = '<div>'+
+                '<span style="font-weight: 1000;" >' + attributes.PRI_TITLE && attributes.PRI_TITLE.value + '</span>' +
+                '<div>' + 
+                    '<span>' + 'Pickup: ' + attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value + ', ' + attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value + '</span>' +
+                '</div>' +
+                '<div>' + 
+                    '<span>' + 'Delivery: ' + attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value + ', ' + attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value + '</span>' +
+                '</div>' +
+                '<span>' + attributes.PRI_TOTAL_DISTANCE_M && attributes.PRI_TOTAL_DISTANCE_M.value + '</span>' +
+            '</div>';
+
             Object.keys(attributes).map(attribute_key => {
 
                 switch(attribute_key) {
@@ -167,7 +178,8 @@ class GennyMap extends Component {
 
                 markers.push({
                     lat: parseFloat(attributes.PRI_POSITION_LATITUDE.value),
-                    lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value)
+                    lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value),
+                    text: text
                 });
             }
 
@@ -229,10 +241,10 @@ class GennyMap extends Component {
                 let text = '<div>'+
                     '<span style="font-weight: 1000;" >' + attributes.PRI_TITLE && attributes.PRI_TITLE.value + '</span>' +
                     '<div>' + 
-                        '<span>' + 'Pickup: ' + attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value + ', ' + attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value + '</div>' +
+                        '<span>' + 'Pickup: ' + attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value + ', ' + attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value + '</span>' +
                     '</div>' +
                     '<div>' + 
-                        '<span>' + 'Delivery: ' + attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value + ', ' + attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value + '</div>' +
+                        '<span>' + 'Delivery: ' + attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value + ', ' + attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value + '</span>' +
                     '</div>' +
                 '</div>';
 
