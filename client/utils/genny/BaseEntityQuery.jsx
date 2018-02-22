@@ -73,27 +73,26 @@ class BaseEntityQuery {
 
     static getLinkedBaseEntities = (baseEntityCode, linkCode, excludingLinks) => {
 
+        let showlogs = baseEntityCode == "PER_USER1";
+
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        let targets = [];
 
         if(be && be.links && be.links[linkCode]) {
 
-            return be.links[linkCode].reduce((existingBes, link) => {
+            be.links[linkCode].forEach(link => {
 
-                if(excludingLinks && excludingLinks.includes(link.linkValue)) {
-                    return existingBes.sort((x,y) => x.weight > y.weight);
+                if(!excludingLinks || !excludingLinks.includes(link.linkValue)) {
+
+                    if(link.targetCode && link.weight > 0) {
+                        let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
+                        if(targetBe) targets.push(targetBe);
+                    }
                 }
-
-                if(link.targetCode && link.weight > 0) {
-                    let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
-                    if(targetBe) existingBes.push(targetBe);
-                }
-
-                return existingBes.sort((x,y) => x.weight > y.weight);
-
-            }, []);
+            });
         }
 
-        return [];
+        return targets.sort((x,y) => x.weight > y.weight);;
     }
 
     static getAttribute(attribute_code) {
@@ -183,7 +182,7 @@ class BaseEntityQuery {
                     if(currentLink.linkValue == linkValue) { return currentLink.targetCode; }
                 }
             });
-            
+
             if(bes.length > 0) return bes[0];
         }
 

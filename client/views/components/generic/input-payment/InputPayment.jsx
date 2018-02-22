@@ -49,54 +49,40 @@ class InputPayment extends Component {
   };
 
   static defaultProps = {
-    // accounts: [
-    //   {
-    //     id: 1,
-    //     type: 'BANK_ACCOUNT',
-    //     name: 'NAB Business',
-    //     bsb: '833023',
-    //     accountNumber: '126456432'
-    //   },
-    //   {
-    //     id: 2,
-    //     type: 'BANK_ACCOUNT',
-    //     name: 'Westpac Personal',
-    //     bsb: '133663',
-    //     accountNumber: '832534723'
-    //   },
-    //   {
-    //     id: 3,
-    //     type: 'CARD',
-    //     name: 'Business Credit',
-    //     number: 'XXXX-XXXX-XXXX-1111'
-    //   }
-    // ]
-
     accounts: [],
     isAccountsManagement: false,
   };
 
+  componentDidUpdate() {
+      this.updateData()
+  }
+
+  updateData() {
+
+      const user = GennyBridge.getUser();
+      const project = GennyBridge.getProject ? GennyBridge.getProject() : null;
+      const bankTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' );
+      const cardTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' );
+      const accountsAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_USER_PAYMENT_METHODS' );
+      const amount = this.props.data ? BaseEntityQuery.getBaseEntityAttribute( this.props.data.targetCode, 'PRI_OWNER_PRICE_INC_GST' ) : null;
+      const descriptionAttribute = BaseEntityQuery.getBaseEntityAttribute( project, 'PRI_PAYMENT_CONFIRM_TEXT' );
+      const description = descriptionAttribute ? descriptionAttribute.value : 'will be charged / debited from the below account to escrow for the payment of this job.';
+
+      this.setState({
+        tokens: {
+          ...this.state.tokens,
+          bank: bankTokenAttribute ? bankTokenAttribute.value : null,
+          card: cardTokenAttribute ? cardTokenAttribute.value : null,
+        },
+        amount: amount ? amount.value : ( this.props.amount ? this.props.amount :  '0.00' ),
+        accounts: accountsAttribute ? JSON.parse(accountsAttribute.value) : ( this.props.accounts ? this.props.accounts : []),
+        confirmDescription: description,
+      });
+  }
+
   componentDidMount() {
 
-    const user = GennyBridge.getUser();
-    const project = GennyBridge.getProject ? GennyBridge.getProject() : null;
-    const bankTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' );
-    const cardTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' );
-    const accountsAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_USER_PAYMENT_METHODS' );
-    const amount = this.props.data ? BaseEntityQuery.getBaseEntityAttribute( this.props.data.targetCode, 'PRI_OWNER_PRICE_INC_GST' ) : null;
-    const descriptionAttribute = BaseEntityQuery.getBaseEntityAttribute( project, 'PRI_PAYMENT_CONFIRM_TEXT' );
-    const description = descriptionAttribute ? descriptionAttribute.value : 'will be charged / debited from the below account to escrow for the payment of this job.';
-
-    this.setState({
-      tokens: {
-        ...this.state.tokens,
-        bank: bankTokenAttribute ? bankTokenAttribute.value : null,
-        card: cardTokenAttribute ? cardTokenAttribute.value : null,
-      },
-      amount: amount ? amount.value : ( this.props.amount ? this.props.amount :  '0.00' ),
-      accounts: accountsAttribute ? JSON.parse(accountsAttribute.value) : ( this.props.accounts ? this.props.accounts : []),
-      confirmDescription: description,
-    });
+    this.updateData()
 
     /* Generate a device ID and grab IP address for the user */
     promisepay.captureDeviceId( data => {
@@ -168,8 +154,9 @@ class InputPayment extends Component {
   }
 
   onGoBack = () => {
+
     if ( this.state.addingAccount ) {
-      this.setState({ addingAccount: false });
+      this.setState({ addingAccount: false, submitting: false, });
       return;
     }
 
