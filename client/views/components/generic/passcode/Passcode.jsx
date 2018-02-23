@@ -56,7 +56,7 @@ class Passcode extends Component {
 
   handleComplete = (valueObject) => {
     let valueString = Object.values(valueObject).join('');
-    if (this.props.onComplete) this.props.onComplete(valueString);
+    if (this.props.onComplete && valueString.length == this.props.totalInputs ) this.props.onComplete(valueString);
   }
 
 

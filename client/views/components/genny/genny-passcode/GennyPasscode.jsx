@@ -38,6 +38,12 @@ class GennyPasscode extends Component {
     this.setState({
       answerSent: true
     });
+
+    this.state.timer = setTimeout(() => {
+      this.setState({
+        answerSent: false
+      });
+    }, 5000);
   }
 
   handleClick = () => {
@@ -53,11 +59,14 @@ class GennyPasscode extends Component {
 
     return (
       <div className={`genny-passcode ${className}`} style={componentStyle}>
-        <Passcode
-          onComplete={this.handleComplete}
-          disabled={answerSent}
-        />
-        { answerSent ? <Spinner /> : null}
+        { answerSent ?
+          <Spinner />
+          : 
+          <Passcode
+            onComplete={this.handleComplete}
+            disabled={answerSent}
+          />
+        }
         <GennyButton
           buttonCode="BTN_RESEND_VERIFICATION_SMS"
           onClick={this.handleClick}
