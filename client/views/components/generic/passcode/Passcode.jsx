@@ -12,7 +12,8 @@ class Passcode extends Component {
     totalInputs: 4,
     maxLength: 1,
     clearOnFocus: true,
-    disabled: false
+    disabled: false,
+    autofocus: false
   }
 
   static propTypes = {
@@ -25,7 +26,8 @@ class Passcode extends Component {
     maxLength: number,
     clearOnFocus: bool,
     onComplete: func,
-    disabled: bool
+    disabled: bool,
+    autofocus: bool
   }
 
   state = {
@@ -33,6 +35,12 @@ class Passcode extends Component {
   }
 
   inputs = {};
+
+  componentDidMount() {
+    if (this.inputs[0] && this.props.autofocus) {
+      this.inputs[0].input.focus();
+    }
+  }
 
   handleChange = (index) => (value) => {
     
@@ -42,7 +50,6 @@ class Passcode extends Component {
         [index]: value
       }
     }), () => {
-
       if (this.inputs[index + 1]) {
         this.inputs[index + 1 ].input.focus();
       }
@@ -50,7 +57,6 @@ class Passcode extends Component {
         this.inputs[index].input.blur();
         this.handleComplete(this.state.currentValues);
       }
-
     });
   }
 

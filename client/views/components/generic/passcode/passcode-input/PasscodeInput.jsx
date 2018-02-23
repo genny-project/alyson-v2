@@ -9,7 +9,7 @@ class PasscodeInput extends Component {
     placeholder: '-',
     maxLength: 1,
     clearOnFocus: true,
-    disabled: false
+    disabled: false,
   }
 
   static propTypes = {
@@ -38,7 +38,7 @@ class PasscodeInput extends Component {
       this.input.blur();
     }
   }
-
+  
   handleChange = (event) => {
     let value = event.target.value;
     if (value && value.length > 0) {

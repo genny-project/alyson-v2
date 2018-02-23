@@ -1,27 +1,19 @@
 import './gennyPasscode.scss';
 import React, { Component } from 'react';
-import { string, any, object, func, number } from 'prop-types';
+import { string, object, bool } from 'prop-types';
 import { Passcode, Spinner, GennyButton } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
 class GennyPasscode extends Component {
 
   static defaultProps = {
-    buttonCode: null,
-    value: null,
+    autofocus: false
   }
 
   static propTypes = {
-    buttonCode: string,
-    value: object,
-    children: any,
-    buttonComponentStyle: object,
-    buttonStyle: object,
     style: object,
     className: string,
-    confirmation: string,
-    onClick: func,
-    animationDelay: number
+    autofocus: bool
   };
 
   state = {
@@ -35,15 +27,17 @@ class GennyPasscode extends Component {
       value: value
     });
 
-    this.setState({
-      answerSent: true
-    });
-
     this.state.timer = setTimeout(() => {
       this.setState({
-        answerSent: false
+        answerSent: true
       });
-    }, 5000);
+
+      this.state.timer = setTimeout(() => {
+        this.setState({
+          answerSent: false
+        });
+      }, 5000);
+    }, 500);
   }
 
   handleClick = () => {
@@ -53,7 +47,7 @@ class GennyPasscode extends Component {
   }
 
   render() {
-    const { className, style,  } = this.props;
+    const { className, style, autofocus } = this.props;
     const { answerSent } = this.state;
     const componentStyle = { ...style };
 
@@ -65,6 +59,7 @@ class GennyPasscode extends Component {
           <Passcode
             onComplete={this.handleComplete}
             disabled={answerSent}
+            autofocus={autofocus}
           />
         }
         <GennyButton
