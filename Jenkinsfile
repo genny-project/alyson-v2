@@ -3,6 +3,7 @@ pipeline {
 	stages {
 		stage ('Clone') {
 		  steps {
+				cleanWs()
 		  	checkout scm
 		  }
 		}
@@ -14,11 +15,11 @@ pipeline {
 		}
 		stage('Push') {
 			steps {
-						sh "docker push gennyproject/alyson:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+				sh "docker push gennyproject/alyson:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
 			}
 		}
 		stage('Deploy') {
-			when { branch 'master' }
+			when { branch 'production' }
 			steps {
 				sh "echo deploying"
 			}
