@@ -13,7 +13,10 @@ pipeline {
 		}
 		stage('Push') {
 			steps {
-				sh "docker push gennyproject/alyson:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+					withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', usernameVariable: 'dockeruser', passwordVariable: 'dockerpass')]) {
+						sh "docker login -u ${dockeruser} -p ${dockerpass}"
+						sh "docker push gennyproject/alyson:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+					}
 			}
 		}
 		stage('Deploy') {
