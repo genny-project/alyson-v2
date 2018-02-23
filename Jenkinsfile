@@ -14,7 +14,7 @@ pipeline {
 		stage('Push') {
 			steps {
 					withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', usernameVariable: 'dockeruser', passwordVariable: 'dockerpass')]) {
-						sh "docker login -u ${dockeruser} --password-stdin ${dockerpass}"
+						sh "docker login -u $dockeruser -p $dockerpass"
 						sh "docker push gennyproject/alyson:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
 					}
 			}
