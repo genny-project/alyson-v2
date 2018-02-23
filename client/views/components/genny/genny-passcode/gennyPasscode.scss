@@ -1,7 +1,7 @@
 @import 'client/styles/colors';
 
 .genny-passcode {
-    width: 100%;
+    width: fit-content;
     padding: 10px;
     display: flex;
     align-items: center;
@@ -10,5 +10,9 @@
 
     .passcode {
         margin: 5px;
+    }
+
+    .spinner {
+        margin-bottom: 10px
     }
 }

@@ -41,24 +41,31 @@ class PasscodeInput extends Component {
 
   handleChange = (event) => {
     let value = event.target.value;
-
-    //console.log('value', value);
     if (value && value.length > 0) {
-      
-      //console.log('currentValue', this.state.currentValue, 'maxLength', this.props.maxLength);
-      if (value <= this.props.maxLength) {
-        this.setState({
-          currentValue: value
-        });
+
+      const regEx = /^\d+$/;
+
+      if (regEx.test(value)) {
+  
+        if (value <= this.props.maxLength) {
+          this.setState({
+            currentValue: value
+          });
+        }
+        else if (value > this.props.maxLength) {
+          value = value.charAt(value.length - 1);
+          this.setState({
+            currentValue: value
+          });
+        }
+        if (this.props.onChange) this.props.onChange(value);
       }
-      else if (value > this.props.maxLength) {
-        value = value.charAt(value.length - 1);
+      else {
         this.setState({
-          currentValue: value
+          currentValue: ''
         });
-      }
+      } 
     }
-    if (this.props.onChange) this.props.onChange(value);
   }
 
   handleFocus = () => {

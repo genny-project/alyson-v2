@@ -1,7 +1,7 @@
 import './gennyPasscode.scss';
 import React, { Component } from 'react';
 import { string, any, object, func, number } from 'prop-types';
-import { Passcode, Spinner } from 'views/components';
+import { Passcode, Spinner, GennyButton } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
 class GennyPasscode extends Component {
@@ -40,6 +40,12 @@ class GennyPasscode extends Component {
     });
   }
 
+  handleClick = () => {
+    this.setState({
+      answerSent: false
+    });
+  }
+
   render() {
     const { className, style,  } = this.props;
     const { answerSent } = this.state;
@@ -47,8 +53,24 @@ class GennyPasscode extends Component {
 
     return (
       <div className={`genny-passcode ${className}`} style={componentStyle}>
-        <Passcode onComplete={this.handleComplete} disabled={answerSent}/>
+        <Passcode
+          onComplete={this.handleComplete}
+          disabled={answerSent}
+        />
         { answerSent ? <Spinner /> : null}
+        <GennyButton
+          buttonCode="BTN_RESEND_VERIFICATION_SMS"
+          onClick={this.handleClick}
+          style={{
+            margin:'0 auto',
+            width: '80%',
+            height:'50px',
+            fontSize:'13px'
+          }}
+          type="confirm"
+          buttonStyle= {{ height: '50px'}}
+          children="RESEND VERIFICATION CODE"
+        />
       </div>
     );
   }
