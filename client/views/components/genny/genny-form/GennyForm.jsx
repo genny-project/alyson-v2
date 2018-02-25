@@ -70,6 +70,8 @@ class GennyForm extends Component {
 
     onSubmit = (questionGroupCode, targetCode, action) => {
 
+        console.log("Submitting form....");
+        
         if(questionGroupCode) {
 
             let btnEventData = {

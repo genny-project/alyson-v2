@@ -5,7 +5,6 @@ import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { IconSmall, Table } from 'views/components';
 import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile, GennyActionTableCell } from './genny-table-components';
 
-var canShowLogs = false;
 class GennyTable extends Component {
 
     static defaultProps = {
@@ -66,9 +65,6 @@ class GennyTable extends Component {
         }
 
         this.state.columns = isMobile ? mobileColumns : tableColumns;
-
-        canShowLogs ? console.log(this.state.columns) : null;
-
         return isMobile ? mobileColumns : tableColumns;
     }
 
@@ -122,6 +118,13 @@ class GennyTable extends Component {
                 Object.keys(attributes).sort((x,y) => attributes[x].weight > attributes[y].weight).forEach(attribute_key => {
 
                     let attribute = attributes[attribute_key];
+                    const attrData = BaseEntityQuery.getAttribute(attribute.attributeCode);
+                    let attrType = null;
+                    let attrName = null;
+                    if(attrData) {
+                        attrType = attrData.dataType ? attrData.dataType.className : null;
+                        attrName = attrData.name;
+                    }
 
                     let headers = cols.map(column => {
                         return column.attributeCode;
@@ -134,13 +137,13 @@ class GennyTable extends Component {
                         };
 
                         if(!isMobile) {
-                            newCol.Header = <GennyTableHeader title={attribute.attributeName || attribute.attributeCode}/>;
+                            newCol.Header = <GennyTableHeader title={attrName || attribute.attributeCode}/>;
                             newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
                             newCol.accessor = attribute.attributeCode;
                             newCol.minWidth = 200;
                         }
                         else {
-                            newCol.name = attribute.attributeCode;
+                            newCol.name = attrName || attribute.attributeCode;
                         }
 
                         cols.push(newCol);
@@ -158,8 +161,6 @@ class GennyTable extends Component {
             }
         }
 
-        canShowLogs ? console.log("cols") : null;
-        canShowLogs ? console.log(cols) : null;
         return cols;
     }
 
@@ -171,7 +172,6 @@ class GennyTable extends Component {
 
         baseEntities.forEach(baseEntity => {
 
-            console.log(baseEntity);
             if(baseEntity.attributes) {
 
                 let newData = {};
@@ -179,9 +179,15 @@ class GennyTable extends Component {
                 Object.keys(baseEntity.attributes).forEach(attribute_key => {
 
                     let attribute = baseEntity.attributes[attribute_key];
+                    const attrData = BaseEntityQuery.getAttribute(attribute.attributeCode);
+                    let attrType = null;
+                    let attrName = null;
+                    if(attrData) {
+                        attrType = attrData.dataType ? attrData.dataType.className : null;
+                        attrName = attrData.name;
+                    }
 
                     if(showBaseEntity) {
-
                         if(attribute.value) {
 
                             data.push({
@@ -189,7 +195,8 @@ class GennyTable extends Component {
                                 value: attribute.value,
                                 weight: attribute.weight,
                                 inferred: attribute.inferred,
-                                type: (attribute.attribute && attribute.attribute.dataType) ? attribute.attribute.dataType.className : null,
+                                name: attrName,
+                                type: attrType,
                             });
                         }
                     }
@@ -197,12 +204,15 @@ class GennyTable extends Component {
 
                         newData[attribute.attributeCode] = {
                             value: attribute.value,
-                            type: (attribute.attribute && attribute.attribute.dataType) ? attribute.attribute.dataType.className : null,
+                            weight: attribute.weight,
+                            code: attribute.attributeCode,
+                            name: attrName,
+                            type: attrType,
                         };
                         newData['baseEntityCode'] = attribute.baseEntityCode;
                         newData['validationList'] = {
                             ...newData['validationList'],
-                            [attribute.attributeCode]: (attribute.attribute && attribute.attribute.dataType) ? attribute.attribute.dataType.validationList : null
+                            [attribute.attributeCode]: attrType
                         };
                     }
                 });
@@ -227,33 +237,12 @@ class GennyTable extends Component {
         return data;
     }
 
-    formatColumns = (data) => {
-
-        let cols = [];
-
-        Object.keys(data).forEach(data_key => {
-
-            // data_key: value
-            let value = data[data_key];
-
-            cols.push({
-                'Header': <span className="header">{value}</span>,
-                'accessor': data_key
-            });
-        });
-        return cols;
-    }
-
     render() {
 
         const { root, showBaseEntity, linkCode, style } = this.props;
 
         let columns = [];
         let data = [];
-
-        canShowLogs = root == "PER_USER1";
-        canShowLogs ? console.log( linkCode ) : null;
-
         let children = BaseEntityQuery.getEntityChildren(root);
 
         if(showBaseEntity) {
@@ -265,11 +254,12 @@ class GennyTable extends Component {
         }
         else if(linkCode) {
             children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
-            canShowLogs ? console.log( children ) : null;
         }
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children);
+        this.props.showBaseEntity ? null : console.log( columns )
+        this.props.showBaseEntity ? null : console.log( data )
 
         return (
             <div className={`genny-table ${data.length > 0 ? '' : 'empty'}`} style={style}>

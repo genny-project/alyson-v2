@@ -21,17 +21,12 @@ class GennyTableEditableCell extends Component {
 
     renderDiv() {
 
+        console.log(this.props.data);
+
         if (this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id] == null ) return null;
 
         let dataType = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].type;
         let value = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value;
-
-        // if (value == true) {
-        //     value = 'true';
-        // }
-        // else if (value == false) {
-        //     value = 'false';
-        // }
 
         switch (dataType) {
 
@@ -60,6 +55,9 @@ class GennyTableEditableCell extends Component {
     }
 
     render() {
+
+        console.log("-------------------------")
+        console.log(this.props);
 
         return (
             <div

@@ -107,6 +107,19 @@ class BaseEntityQuery {
         return null;
     }
 
+    static getUserAttributes(filter) {
+
+        const userCode = GennyBridge.getUser();
+        if(userCode != null) {
+            const user = BaseEntityQuery.getBaseEntity(userCode);
+            if(user != null && user.attributes != null) {
+                return filter == null ? Object.keys(user.attributes).map(key => user.attributes[key]) : Object.keys(user.attributes).filter(filter).map(key => user.attributes[key]);
+            }
+        }
+
+        return null;
+    }
+
     static getLinkToParent(parentCode, childCode) {
 
         if(parentCode && childCode) {
@@ -135,30 +148,37 @@ class BaseEntityQuery {
 
     static getBaseEntityParent(childCode, group) {
 
-        const relationships = group || store.getState().baseEntity.relationships;
+        const be = BaseEntityQuery.getBaseEntity(childCode);
+        if(be != null && be.parentCode != null) {
+            return BaseEntityQuery.getBaseEntity(be.parentCode);
+        }
+        else {
 
-        const groupKeys = Object.keys(relationships);
-        for (var i = 0; i < groupKeys.length; i++) {
+            const relationships = group || store.getState().baseEntity.relationships;
 
-            const groupKey = groupKeys[i]
-            const group = relationships[groupKey];
-            if(group) {
+            const groupKeys = Object.keys(relationships);
+            for (var i = 0; i < groupKeys.length; i++) {
 
-                let childKeys = Object.keys(group);
-                for (var j = 0; j < childKeys.length; j++) {
+                const groupKey = groupKeys[i]
+                const group = relationships[groupKey];
+                if(group) {
 
-                    const childKey = childKeys[j]
-                    const child = group[childKey];
+                    let childKeys = Object.keys(group);
+                    for (var j = 0; j < childKeys.length; j++) {
 
-                    if(child) {
+                        const childKey = childKeys[j]
+                        const child = group[childKey];
 
-                        if(child.type == "BaseEntity") {
-                            if(childKey == childCode) {
-                                return BaseEntityQuery.getBaseEntity(groupKey);
+                        if(child) {
+
+                            if(child.type == "BaseEntity") {
+                                if(childKey == childCode) {
+                                    return BaseEntityQuery.getBaseEntity(groupKey);
+                                }
                             }
-                        }
-                        else {
-                            return BaseEntityQuery.getBaseEntityParent(childCode, group);
+                            else {
+                                return BaseEntityQuery.getBaseEntityParent(childCode, group);
+                            }
                         }
                     }
                 }

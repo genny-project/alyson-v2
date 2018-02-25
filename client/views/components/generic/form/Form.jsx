@@ -38,11 +38,13 @@ class Form extends Component {
       this.formGroupRefs = [];
   }
 
-  onFormSubmit = (formGroup, next) => {
+  onFormSubmit = (action, formGroup, next) => {
 
-    const validated = this.formGroupRefs.map(formGroup => {
+    const override = action != "submit" || action != "accept";
+
+    const validated = override == false ? this.formGroupRefs.map(formGroup => {
         return formGroup ? formGroup.isFormGroupValid() : true;
-    });
+    }) : true;
 
     const validate = function(inputs) {
 
@@ -61,7 +63,7 @@ class Form extends Component {
         }
     };
 
-    if(validate(validated)) {
+    if(validated === true || validate(validated)) {
         next(validated);
         return true;
     }
@@ -89,7 +91,7 @@ class Form extends Component {
                   title={questionGroup.title}
                   isHorizontal={questionGroup.isHorizontal}
                   submitButtons={questionGroup.submitButtons}
-                  onSubmit={(action) => this.onFormSubmit(questionGroup, (validated) => questionGroup.onSubmit(action))}
+                  onSubmit={(action) => this.onFormSubmit(action, questionGroup, (validated) => questionGroup.onSubmit(action))}
                   data={this.renderGroup(questionGroup.content)}/>);
       }
 

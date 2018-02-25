@@ -21,6 +21,11 @@ class SublayoutLoader extends Component {
             ROOT: aliases.GROUP,
         };
 
+        if(layoutCode.includes("load-action-buttons")) {
+            console.log( this.props )
+            console.log(localAliases)
+        }
+
         if (sublayouts) {
 
             const sublayout = sublayouts[layoutCode];
