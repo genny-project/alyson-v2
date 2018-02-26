@@ -28,6 +28,18 @@ export default function reducer(state = initialState, action) {
 
                         delete state.data[baseEntityCode];
                         delete existing[baseEntityCode];
+                        delete state.relationships[baseEntityCode];
+                        Object.keys(state.relationships).forEach(relationshipKey => {
+
+                            const relation = state.relationships[relationshipKey];
+                            if(relation[baseEntityCode] != null) {
+                              delete state.relationships[relationshipKey][baseEntityCode];
+                            }
+                        });
+
+                        return {
+                          ...state
+                        }
                     }
                     else {
 
