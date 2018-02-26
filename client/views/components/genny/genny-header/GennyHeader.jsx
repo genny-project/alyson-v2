@@ -132,9 +132,8 @@ class GennyHeader extends Component {
     //
     // let isAdmin = roles.includes('admin');
 
-    let roles = BaseEntityQuery.getUserAttributes((attribute => attribute.value != null && attribute.value.startsWith("PRI_IS")));
+    let roles = BaseEntityQuery.getUserAttributes((attribute => attribute.value != null && attribute.code.startsWith("PRI_IS")));
     console.log( roles )
-
 
     return (
       <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>

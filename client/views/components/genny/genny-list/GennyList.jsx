@@ -2,7 +2,7 @@ import './gennyList.scss';
 import React, { Component } from 'react';
 import { string, number, bool, object } from 'prop-types';
 import { List, GennyForm } from 'views/components';
-import { BaseEntityQuery } from 'utils/genny';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class GennyList extends Component {
@@ -60,17 +60,20 @@ class GennyList extends Component {
 
         const { root, showLinks, headerRoot, hideHeader, hideLinks, showTitle, showEmpty, ...rest } = this.props;
 
-        let data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
+        const data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
 
-        let rootEntity = BaseEntityQuery.getBaseEntity(root);
+        const rootEntity = BaseEntityQuery.getBaseEntity(root);
+        const projectCode = GennyBridge.getProject();
+        let projectColor = BaseEntityQuery.getBaseEntityAttribute(projectCode, "PRI_COLOR");
+        projectColor = projectColor ? projectColor.value : null;
 
         if (showEmpty || !showEmpty && data && data.length > 0 ) {
             return (
                 <div className="genny-list">
                     { showTitle ?
-                        <div className='genny-list-title'>
+                        <div style={{ "backgroundColor": projectColor}} className='genny-list-title'>
                             <h2>{rootEntity && rootEntity.name} ( {data && data.length} )</h2>
-                            
+
                         </div>
                     : null }
                     <List

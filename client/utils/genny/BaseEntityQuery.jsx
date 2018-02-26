@@ -120,6 +120,21 @@ class BaseEntityQuery {
         return null;
     }
 
+    static getProjectAttributes(filter) {
+
+        const projectCode = GennyBridge.getProject();
+        if(projectCode != null) {
+            const project = BaseEntityQuery.getBaseEntity(projectCode);
+            if(project != null && project.attributes != null) {
+                console.log(project);
+                console.log( filter )
+                return filter == null ? Object.keys(project.attributes).map(key => project.attributes[key]) : Object.keys(project.attributes).filter(filter).map(key => project.attributes[key]);
+            }
+        }
+
+        return null;
+    }
+
     static getLinkToParent(parentCode, childCode) {
 
         if(parentCode && childCode) {
