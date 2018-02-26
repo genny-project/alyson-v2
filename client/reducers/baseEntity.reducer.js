@@ -15,157 +15,166 @@ export default function reducer(state = initialState, action) {
         case BASE_ENTITY:
         case BASE_ENTITY_DATA:
 
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    ...action.payload.items.reduce((existing, newItem) => {
+        return {
+              ...state,
+              data: {
+                  ...state.data,
+                  ...action.payload.items.reduce((existing, newItem) => {
 
-                        let baseEntityCode = newItem.code;
-                        let parentCode = action.payload.parentCode;
+                      let baseEntityCode = newItem.code;
+                      let parentCode = action.payload.parentCode;
 
-                        if (action.payload.delete) {
+                      if (action.payload.delete) {
 
-                            delete state.data[baseEntityCode];
-                            delete existing[baseEntityCode];
-                        } else {
+                          delete state.data[baseEntityCode];
+                          delete existing[baseEntityCode];
+                          delete state.relationships[baseEntityCode];
+                          Object.keys(state.relationships).forEach(relationshipKey => {
 
-                            if (!newItem.baseEntityAttributes) {
+                              const relation = state.relationships[relationshipKey];
+                              if(relation[baseEntityCode] != null) {
+                                delete state.relationships[relationshipKey][baseEntityCode];
+                              }
+                          });
 
-                                existing[baseEntityCode] = {
-                                    ...state.data[baseEntityCode],
-                                    ...existing[baseEntityCode],
-                                    ...newItem,
-                                    parentCode: parentCode,
-                                    originalLinks: newItem.links,
-                                    links: newItem.links.reduce((existingLinks, newLink) => {
+                      } else {
 
-                                        let linkCode = newLink.link ? newLink.link.attributeCode : null;
-                                        if (!linkCode) return [];
+                          if (!newItem.baseEntityAttributes) {
 
-                                        if (!existingLinks[linkCode]) {
-                                            existingLinks[linkCode] = [];
-                                            existingLinks[linkCode].push({
-                                                ...newLink,
-                                                targetCode: newLink.link.targetCode,
-                                                linkValue: newLink.valueString || newLink.link.linkValue,
-                                            });
-                                        } else {
+                              existing[baseEntityCode] = {
+                                  ...state.data[baseEntityCode],
+                                  ...existing[baseEntityCode],
+                                  ...newItem,
+                                  parentCode: parentCode,
+                                  originalLinks: newItem.links,
+                                  links: newItem.links.reduce((existingLinks, newLink) => {
 
-                                            let found = -1;
-                                            for (let index = 0; index < existingLinks[linkCode].length; index++) {
-                                                const link = existingLinks[linkCode][index];
-                                                if (link.link.targetCode == newLink.link.targetCode) {
-                                                    found = index;
-                                                    break;
-                                                }
-                                            }
+                                      let linkCode = newLink.link ? newLink.link.attributeCode : null;
+                                      if (!linkCode) return [];
 
-                                            if (found > -1) {
-                                                existingLinks[linkCode][found] = {
-                                                    ...existingLinks[linkCode][found],
-                                                    ...newLink,
-                                                    targetCode: newLink.link.targetCode,
-                                                    linkValue: newLink.valueString || newLink.link.linkValue,
-                                                };
-                                            } else {
+                                      if (!existingLinks[linkCode]) {
+                                          existingLinks[linkCode] = [];
+                                          existingLinks[linkCode].push({
+                                              ...newLink,
+                                              targetCode: newLink.link.targetCode,
+                                              linkValue: newLink.valueString || newLink.link.linkValue,
+                                          });
+                                      } else {
 
-                                                existingLinks[linkCode].push({
-                                                    ...newLink,
-                                                    targetCode: newLink.link.targetCode,
-                                                    linkValue: newLink.valueString || newLink.link.linkValue,
-                                                });
-                                            }
-                                        }
+                                          let found = -1;
+                                          for (let index = 0; index < existingLinks[linkCode].length; index++) {
+                                              const link = existingLinks[linkCode][index];
+                                              if (link.link.targetCode == newLink.link.targetCode) {
+                                                  found = index;
+                                                  break;
+                                              }
+                                          }
 
-                                        return existingLinks;
+                                          if (found > -1) {
+                                              existingLinks[linkCode][found] = {
+                                                  ...existingLinks[linkCode][found],
+                                                  ...newLink,
+                                                  targetCode: newLink.link.targetCode,
+                                                  linkValue: newLink.valueString || newLink.link.linkValue,
+                                              };
+                                          } else {
 
-                                    }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
-                                    linkCode: action.payload.linkCode,
-                                    weight: newItem.weight ? newItem.weight : 1
-                                };
+                                              existingLinks[linkCode].push({
+                                                  ...newLink,
+                                                  targetCode: newLink.link.targetCode,
+                                                  linkValue: newLink.valueString || newLink.link.linkValue,
+                                              });
+                                          }
+                                      }
 
-                                return existing;
-                            }
+                                      return existingLinks;
 
-                            let existingAttributes = state.data[baseEntityCode] ? state.data[baseEntityCode].attributes : {};
-                            if (newItem.baseEntityAttributes.length > 0) {
+                                  }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
+                                  linkCode: action.payload.linkCode,
+                                  weight: newItem.weight ? newItem.weight : 1
+                              };
 
-                                let newAttributes = newItem.baseEntityAttributes;
-                                newAttributes.forEach(newAttribute => {
+                              return existing;
+                          }
 
-                                    existingAttributes[newAttribute.attributeCode] = {
-                                        ...existingAttributes[newAttribute.attributeCode],
-                                        ...newAttribute,
-                                        ... {
-                                            value: grabValue(newAttribute),
-                                            baseEntityCode: baseEntityCode
-                                        }
-                                    };
-                                });
-                            }
+                          let existingAttributes = state.data[baseEntityCode] ? state.data[baseEntityCode].attributes : {};
+                          if (newItem.baseEntityAttributes.length > 0) {
 
-                            existing[baseEntityCode] = {
-                                ...state.data[baseEntityCode],
-                                ...existing[baseEntityCode],
-                                ...newItem,
-                                parentCode: parentCode,
-                                originalLinks: newItem.links,
-                                links: newItem.links.reduce((existingLinks, newLink) => {
+                              let newAttributes = newItem.baseEntityAttributes;
+                              newAttributes.forEach(newAttribute => {
 
-                                    let linkCode = newLink.link ? newLink.link.attributeCode : null;
-                                    if (!linkCode) return [];
+                                  existingAttributes[newAttribute.attributeCode] = {
+                                      ...existingAttributes[newAttribute.attributeCode],
+                                      ...newAttribute,
+                                      ... {
+                                          value: grabValue(newAttribute),
+                                          baseEntityCode: baseEntityCode
+                                      }
+                                  };
+                              });
+                          }
 
-                                    if (!existingLinks[linkCode]) {
-                                        existingLinks[linkCode] = [];
-                                        existingLinks[linkCode].push({
-                                            ...newLink,
-                                            targetCode: newLink.link.targetCode,
-                                            linkValue: newLink.valueString || newLink.link.linkValue,
-                                        });
-                                    } else {
+                          existing[baseEntityCode] = {
+                              ...state.data[baseEntityCode],
+                              ...existing[baseEntityCode],
+                              ...newItem,
+                              parentCode: parentCode,
+                              originalLinks: newItem.links,
+                              links: newItem.links.reduce((existingLinks, newLink) => {
 
-                                        let found = -1;
-                                        for (let index = 0; index < existingLinks[linkCode].length; index++) {
-                                            const link = existingLinks[linkCode][index];
-                                            if (link.link.targetCode == newLink.link.targetCode) {
-                                                found = index;
-                                                break;
-                                            }
-                                        }
+                                  let linkCode = newLink.link ? newLink.link.attributeCode : null;
+                                  if (!linkCode) return [];
 
-                                        if (found > -1) {
+                                  if (!existingLinks[linkCode]) {
+                                      existingLinks[linkCode] = [];
+                                      existingLinks[linkCode].push({
+                                          ...newLink,
+                                          targetCode: newLink.link.targetCode,
+                                          linkValue: newLink.valueString || newLink.link.linkValue,
+                                      });
+                                  } else {
 
-                                            existingLinks[linkCode][found] = {
-                                                ...existingLinks[linkCode][found],
-                                                ...newLink,
-                                                targetCode: newLink.link.targetCode,
-                                                linkValue: newLink.valueString || newLink.link.linkValue,
-                                            };
-                                        } else {
+                                      let found = -1;
+                                      for (let index = 0; index < existingLinks[linkCode].length; index++) {
+                                          const link = existingLinks[linkCode][index];
+                                          if (link.link.targetCode == newLink.link.targetCode) {
+                                              found = index;
+                                              break;
+                                          }
+                                      }
 
-                                            existingLinks[linkCode].push({
-                                                ...newLink,
-                                                targetCode: newLink.link.targetCode,
-                                                linkValue: newLink.valueString || newLink.link.linkValue,
-                                            });
-                                        }
-                                    }
+                                      if (found > -1) {
 
-                                    return existingLinks;
+                                          existingLinks[linkCode][found] = {
+                                              ...existingLinks[linkCode][found],
+                                              ...newLink,
+                                              targetCode: newLink.link.targetCode,
+                                              linkValue: newLink.valueString || newLink.link.linkValue,
+                                          };
+                                      } else {
 
-                                }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
-                                linkCode: action.payload.linkCode,
-                                attributes: existingAttributes,
-                                weight: newItem.weight ? newItem.weight : 1,
-                            };
+                                          existingLinks[linkCode].push({
+                                              ...newLink,
+                                              targetCode: newLink.link.targetCode,
+                                              linkValue: newLink.valueString || newLink.link.linkValue,
+                                          });
+                                      }
+                                  }
 
-                            delete existing[baseEntityCode].baseEntityAttributes;
-                        }
+                                  return existingLinks;
 
-                        return existing;
+                              }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
+                              linkCode: action.payload.linkCode,
+                              attributes: existingAttributes,
+                              weight: newItem.weight ? newItem.weight : 1,
+                          };
 
-                    }, {}),
+                          delete existing[baseEntityCode].baseEntityAttributes;
+                      }
+
+                      return existing;
+
+                  }, {}),
                 },
                 relationships: {
                     ...state.relationships,
