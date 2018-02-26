@@ -31,6 +31,7 @@ export default function reducer(state = initialState, action) {
                         } else {
 
                             if (!newItem.baseEntityAttributes) {
+
                                 existing[baseEntityCode] = {
                                     ...state.data[baseEntityCode],
                                     ...existing[baseEntityCode],
@@ -44,17 +45,42 @@ export default function reducer(state = initialState, action) {
 
                                         if (!existingLinks[linkCode]) {
                                             existingLinks[linkCode] = [];
-                                        }
+                                            existingLinks[linkCode].push({
+                                                ...newLink,
+                                                targetCode: newLink.link.targetCode,
+                                                linkValue: newLink.valueString || newLink.link.linkValue,
+                                            });
+                                        } else {
 
-                                        existingLinks[linkCode].push({
-                                            ...newLink,
-                                            targetCode: newLink.link.targetCode,
-                                            linkValue: newLink.valueString || newLink.link.linkValue,
-                                        });
+                                            let found = -1;
+                                            for (let index = 0; index < existingLinks[linkCode].length; index++) {
+                                                const link = existingLinks[linkCode][index];
+                                                if (link.link.targetCode == newLink.link.targetCode) {
+                                                    found = index;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (found > -1) {
+                                                existingLinks[linkCode][found] = {
+                                                    ...existingLinks[linkCode][found],
+                                                    ...newLink,
+                                                    targetCode: newLink.link.targetCode,
+                                                    linkValue: newLink.valueString || newLink.link.linkValue,
+                                                };
+                                            } else {
+
+                                                existingLinks[linkCode].push({
+                                                    ...newLink,
+                                                    targetCode: newLink.link.targetCode,
+                                                    linkValue: newLink.valueString || newLink.link.linkValue,
+                                                });
+                                            }
+                                        }
 
                                         return existingLinks;
 
-                                    }, {}),
+                                    }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
                                     linkCode: action.payload.linkCode,
                                     weight: newItem.weight ? newItem.weight : 1
                                 };
@@ -92,18 +118,43 @@ export default function reducer(state = initialState, action) {
 
                                     if (!existingLinks[linkCode]) {
                                         existingLinks[linkCode] = [];
-                                    }
+                                        existingLinks[linkCode].push({
+                                            ...newLink,
+                                            targetCode: newLink.link.targetCode,
+                                            linkValue: newLink.valueString || newLink.link.linkValue,
+                                        });
+                                    } else {
 
-                                    existingLinks[linkCode].push({
-                                        ...newLink,
-                                        targetCode: newLink.link.targetCode,
-                                        linkValue: newLink.valueString || newLink.link.linkValue,
-                                    });
+                                        let found = -1;
+                                        for (let index = 0; index < existingLinks[linkCode].length; index++) {
+                                            const link = existingLinks[linkCode][index];
+                                            if (link.link.targetCode == newLink.link.targetCode) {
+                                                found = index;
+                                                break;
+                                            }
+                                        }
+
+                                        if (found > -1) {
+
+                                            existingLinks[linkCode][found] = {
+                                                ...existingLinks[linkCode][found],
+                                                ...newLink,
+                                                targetCode: newLink.link.targetCode,
+                                                linkValue: newLink.valueString || newLink.link.linkValue,
+                                            };
+                                        } else {
+
+                                            existingLinks[linkCode].push({
+                                                ...newLink,
+                                                targetCode: newLink.link.targetCode,
+                                                linkValue: newLink.valueString || newLink.link.linkValue,
+                                            });
+                                        }
+                                    }
 
                                     return existingLinks;
 
-                                }, {}),
-
+                                }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
                                 linkCode: action.payload.linkCode,
                                 attributes: existingAttributes,
                                 weight: newItem.weight ? newItem.weight : 1,
