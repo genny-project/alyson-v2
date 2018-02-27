@@ -8,4 +8,10 @@
       width: 100%;
       height: 100%;
     }
+
+    .map-display-error {
+      text-align: center;
+      padding: 10px;
+      color: $error
+    }
   }
