@@ -15,14 +15,15 @@ class Slide extends Component {
         inProp: bool,
         heightEntering: string,
         heightEntered: string,
-        children: any
+        children: any,
+        className: string
     };
 
     state = {
     };
 
     render() {
-        const { children, duration, heightEntering, heightEntered, inProp, } = this.props;
+        const { children, duration, heightEntering, heightEntered, inProp, className } = this.props;
 
         const defaultStyle = {
             transition: `max-height ${duration}ms ease-in-out`,
@@ -41,11 +42,14 @@ class Slide extends Component {
                         return null;
                     }
                     return (
-                        <div style={{
-                            ...defaultStyle,
-                            ...transitionStyles[state],
-                            overflow: 'hidden',
-                        }}>
+                        <div 
+                            style={{
+                                ...defaultStyle,
+                                ...transitionStyles[state],
+                                overflow: 'hidden',
+                            }}
+                            className={className}
+                        >
                             {children}
                         </div>
                     );

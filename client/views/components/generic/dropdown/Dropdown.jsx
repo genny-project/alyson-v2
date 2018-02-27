@@ -84,20 +84,20 @@ class Dropdown extends Component {
     return (
       <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur} tabIndex='-1' style={style} >
         {!isSlide ? this.renderHeader(isOpen) : null }   
-        { isOpen ?
+        {/* { isOpen ?
           <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : ''}`} style={contentStyle} >
             {isSlide && inline ? <div className='line-break' />: null }   
             { showTag && !inline ? <div className='dropdown-tag' style={tagStyle}></div> : null }
             {children}
           </div>
-        : null }
-        {/* <Slide inProp={isOpen}>
+        : null } */}
+        <Slide inProp={isOpen} className='dropdown-slide'>
           <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : ''}`} style={contentStyle} >
             {isSlide && inline ? <div className='line-break' />: null }   
             { showTag && !inline ? <div className='dropdown-tag' style={tagStyle}></div> : null }
             {children}
           </div>
-        </Slide> */}
+        </Slide>
         {isSlide ? this.renderHeader(isOpen) : null}
       </div>
     );

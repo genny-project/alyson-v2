@@ -77,10 +77,10 @@ class TreeView extends Component {
           </div>
 
           <ul className="tree-view-child">
-            {canOpen ? this.renderList(item.children, levelIndex + 1) : []}
-            {/* <Scale inProp={canOpen}>
+            {/* {canOpen ? this.renderList(item.children, levelIndex + 1) : []} */}
+            <Scale inProp={canOpen}>
               {this.renderList(item.children, levelIndex + 1)}
-            </Scale> */}
+            </Scale>
           </ul>
         </li>
       );

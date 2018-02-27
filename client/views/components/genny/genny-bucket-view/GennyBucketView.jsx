@@ -137,13 +137,13 @@ class GennyBucketView extends PureComponent {
             //get legend text
             let legendValues = {};
             if (group.attributes) {
-                if (group.attributes.PRI_LEGEND_GREEN) {
+                if (group.attributes.PRI_LEGEND_GREEN != null) {
                     legendValues['green'] = group.attributes.PRI_LEGEND_GREEN.value;
                 }
-                if (group.attributes.PRI_LEGEND_ORANGE) {
+                if (group.attributes.PRI_LEGEND_ORANGE != null) {
                     legendValues['orange'] = group.attributes.PRI_LEGEND_ORANGE.value;
                 }
-                if (group.attributes.PRI_LEGEND_RED) {
+                if (group.attributes.PRI_LEGEND_RED  != null) {
                     legendValues['red'] = group.attributes.PRI_LEGEND_RED.value;
                 }
             }
