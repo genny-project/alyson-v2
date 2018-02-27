@@ -12,6 +12,9 @@
 
 		.input-rating-icon {
 
+			i { 
+				color: #D4AF37;
+			}
 			&.hover i {
 				color: $success;
 			}
@@ -19,7 +22,7 @@
 			@keyframes pulse {
 				from {
 				  box-shadow:  0 0 0 0 rgba(255,255,255,1),
-							   0 0 0 0 rgba(92, 184, 92, 1);
+							   0 0 0 0 rgba(212,175,55, 1);
 				}
 				to {
 				  box-shadow:  0 0 0 5em rgba(255,255,255,1),
@@ -36,7 +39,7 @@
 	> span {
 
 		margin-right: 10px;
-    	color: $success;
+    	color: #D4AF37;
 
     	&:nth-child(2) {
     		margin-right: 20px;
