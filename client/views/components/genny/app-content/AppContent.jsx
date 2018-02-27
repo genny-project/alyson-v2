@@ -93,25 +93,25 @@ class AppContent extends Component {
 
                 case 'success':
                     this.toastId = toast.success(content, {
-                        autoClose: false
+                        autoClose: 30000
                     });
                 break;
 
                 case 'error':
                     this.toastId = toast.error(content, {
-                        autoClose: false
+                        autoClose: 30000
                     });
                 break;
 
                 case 'warning':
                     this.toastId = toast.warning(content, {
-                        autoClose: false
+                        autoClose: 30000
                     });
                 break;
 
                 case 'info':
                     this.toastId = toast.info(content, {
-                        autoClose: false
+                        autoClose: 30000
                     });
                 break;
 
