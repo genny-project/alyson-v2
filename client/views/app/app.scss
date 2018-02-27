@@ -2,17 +2,17 @@
 
 .app {
 
-  display: flex;
-  width: 100%;
-  height: 100%;
+    display: flex;
+    width: 100%;
+    height: 100%;
 
- 	  .sticky {
- 		    position: sticky;
- 		    top: 0;
-	  }
+    .sticky {
+        position: sticky;
+        top: 0;
+    }
 
-	  .clickable {
-		    cursor: pointer;
+    .clickable {
+        cursor: pointer;
     }
 
     .hide-element {
@@ -22,28 +22,30 @@
    .no-select {
 
     -webkit-touch-callout: none; /* iOS Safari */
-   -webkit-user-select: none; /* Safari */
+    -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
-      -moz-user-select: none; /* Firefox */
-       -ms-user-select: none; /* Internet Explorer/Edge */
-           user-select: none; /* Non-prefixed version, currently
-                                 supported by Chrome and Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
 
+   }
+
+   > div {
+       width: 100%;
    }
 }
 
 body {
  background-color: black;
-}
-body.modal-active {
- overflow: hidden;
+ width: 100%;
 }
 
 body.modal-active {
-
- .app {
-  animation: scaleBack .25s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
- }
+    overflow: hidden;
+    .app {
+        animation: scaleBack .25s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
 }
 
 body.modal-closing {
@@ -54,4 +56,8 @@ body.modal-closing {
 
 body, html {
     position: fixed;
+}
+
+main {
+    width: 100%;
 }

@@ -7,7 +7,6 @@ class InputRadio extends Component {
 
   static defaultProps = {
     className: '',
-    checked: false,
     identifier: null,
     validationStatus: null
   }
@@ -16,7 +15,7 @@ class InputRadio extends Component {
     className: string,
     style: object,
     children: any,
-    checked: bool,
+    value: bool,
     validation: func,
     identifier: any,
     validationStatus: string,
@@ -39,12 +38,7 @@ class InputRadio extends Component {
     if (event.target.value == 'option2') value = false;
 
     if(handleOnChange) handleOnChange(value);
-    if(validation) {
-      clearTimeout(this.state.timer);
-      this.state.timer = setTimeout(() => {
-        validation(value, identifier, validationList);
-      }, 1000);
-    }
+    if(validation) validation(value, identifier, validationList);
   }
 
   render() {
