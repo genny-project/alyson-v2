@@ -458,7 +458,7 @@ class BucketView extends Component {
           style={{
             flexBasis: `calc(100vw / ${buckets.length})`,
             minWidth: isMobile ? '100vw' : '240px',
-            maxWidth: isMobile ? '100vw' : `calc(100vw / ${buckets.length})`,
+            maxWidth: isMobile ? '100vw' : `calc(100${this.state.isSafari ? '%' : 'vw'} / ${buckets.length})`,
             transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
           }}
           className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}

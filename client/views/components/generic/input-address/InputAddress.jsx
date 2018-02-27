@@ -176,6 +176,12 @@ class InputAddress extends Component {
             autocompleteContainer: 'address-results-container'
         };
 
+        // const options = {
+        //     componentRestrictions: {
+        //         country: 'au'
+        //     }
+        // };
+
         if (window.getScreenSize() == 'sm') {
             return (
                 <Grid cols={1} rows={1}>
