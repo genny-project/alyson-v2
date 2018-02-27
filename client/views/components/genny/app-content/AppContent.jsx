@@ -151,7 +151,9 @@ class AppContent extends Component {
         if(layout != null && layout.currentNotification) {
             const style = layout.currentNotification.style;
             const text = layout.currentNotification.text;
-            if(style && text) {
+            const shown = layout.currentNotification.shown;
+            if(style && text && shown === false) {
+                layout.currentNotification.shown = true;
                 this.notify(text, style);
             }
         }

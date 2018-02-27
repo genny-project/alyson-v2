@@ -111,9 +111,11 @@ class GennyMessaging extends Component {
             let users = BaseEntityQuery.getLinkedBaseEntities(conversation.code, 'LNK_USER');
             const currentUserCode = GennyBridge.getUser();
             const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
-            contactAliases.push({
-                CONTACT: otherUser.code
-            });
+            if (otherUser && otherUser.code) {
+                contactAliases.push({
+                    CONTACT: otherUser.code
+                });
+            }
         });
         return contactAliases;
     }

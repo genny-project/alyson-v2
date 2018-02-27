@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { string, any, bool, object, func } from 'prop-types';
 import components from 'utils/genny/layout-loader/components.js';
 import { JSONLoader } from '@genny-project/layson';
+import { Fade, Slide, Scale } from 'views/utils/animations';
 
 class Dropdown extends Component {
   static defaultProps = {
@@ -90,6 +91,13 @@ class Dropdown extends Component {
             {children}
           </div>
         : null }
+        {/* <Slide inProp={isOpen}>
+          <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : ''}`} style={contentStyle} >
+            {isSlide && inline ? <div className='line-break' />: null }   
+            { showTag && !inline ? <div className='dropdown-tag' style={tagStyle}></div> : null }
+            {children}
+          </div>
+        </Slide> */}
         {isSlide ? this.renderHeader(isOpen) : null}
       </div>
     );

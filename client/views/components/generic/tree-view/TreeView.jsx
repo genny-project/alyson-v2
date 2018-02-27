@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { object, array, func } from 'prop-types';
 import { IconSmall } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
+import { Fade, Slide, Scale } from 'views/utils/animations';
 
 class TreeView extends Component {
 
@@ -77,6 +78,9 @@ class TreeView extends Component {
 
           <ul className="tree-view-child">
             {canOpen ? this.renderList(item.children, levelIndex + 1) : []}
+            {/* <Scale inProp={canOpen}>
+              {this.renderList(item.children, levelIndex + 1)}
+            </Scale> */}
           </ul>
         </li>
       );

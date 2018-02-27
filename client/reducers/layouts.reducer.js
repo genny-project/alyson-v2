@@ -88,8 +88,9 @@ export default function reducer( state = initialState, action ) {
                 currentNotification: {
                     text: text,
                     style: style,
+                    shown: false,
                 }
-            }
+            };
         }
 
         return state;
