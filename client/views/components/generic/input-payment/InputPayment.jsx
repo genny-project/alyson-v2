@@ -68,19 +68,6 @@ class InputPayment extends Component {
       const descriptionAttribute = BaseEntityQuery.getBaseEntityAttribute( project, 'PRI_PAYMENT_CONFIRM_TEXT' );
       const description = descriptionAttribute ? descriptionAttribute.value : 'will be charged / debited from the below account to escrow for the payment of this job.';
 
-      console.log("-----------")
-      console.log(this.props);
-      
-      console.log({
-        tokens: {
-          ...this.state.tokens,
-          bank: bankTokenAttribute ? bankTokenAttribute.value : null,
-          card: cardTokenAttribute ? cardTokenAttribute.value : null,
-        },
-        amount: amount ? amount.value : ( this.props.amount ? this.props.amount :  '0.00' ),
-        accounts: accountsAttribute ? JSON.parse(accountsAttribute.value) : ( this.props.accounts ? this.props.accounts : []),
-        confirmDescription: description,
-      })
       this.setState({
         tokens: {
           ...this.state.tokens,
