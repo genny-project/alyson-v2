@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { array, string, func, bool } from 'prop-types';
 import { Input, Button } from 'views/components';
 import { Grid } from '@genny-project/layson';
+import { GennyBridge } from 'utils/genny';
 
 class FormGroup extends Component {
 
@@ -118,9 +119,18 @@ class FormGroup extends Component {
 
         if(buttonCode.indexOf('confirm') != -1) {
 
-          if(this.askForConfirmation('Please confirm your submission')) {
-            next('submit');
-          }
+          // let project = GennyBridge.getProject();
+
+          // if (project == 'PRJ_CHANNEL40') {
+          //   if(this.askForConfirmation('Please confirm your payment of ')) {
+          //     next('submit');
+          //   }
+          // }
+          // else {
+            if(this.askForConfirmation('Please confirm your submission')) {
+              next('submit');
+            }
+          // }
         }
         else if (buttonCode.indexOf('accept') != -1) {
           next('submit');

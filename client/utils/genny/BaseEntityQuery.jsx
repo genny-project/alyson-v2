@@ -107,34 +107,6 @@ class BaseEntityQuery {
         return null;
     }
 
-    static getUserAttributes(filter) {
-
-        const userCode = GennyBridge.getUser();
-        if(userCode != null) {
-            const user = BaseEntityQuery.getBaseEntity(userCode);
-            if(user != null && user.attributes != null) {
-                return filter == null ? Object.keys(user.attributes).map(key => user.attributes[key]) : Object.keys(user.attributes).filter(filter).map(key => user.attributes[key]);
-            }
-        }
-
-        return null;
-    }
-
-    static getProjectAttributes(filter) {
-
-        const projectCode = GennyBridge.getProject();
-        if(projectCode != null) {
-            const project = BaseEntityQuery.getBaseEntity(projectCode);
-            if(project != null && project.attributes != null) {
-                console.log(project);
-                console.log( filter )
-                return filter == null ? Object.keys(project.attributes).map(key => project.attributes[key]) : Object.keys(project.attributes).filter(filter).map(key => project.attributes[key]);
-            }
-        }
-
-        return null;
-    }
-
     static getLinkToParent(parentCode, childCode) {
 
         if(parentCode && childCode) {

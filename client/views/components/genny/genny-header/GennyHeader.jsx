@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
-import { GennyBridge, BaseEntityQuery } from 'utils/genny';
+import { GennyBridge, } from 'utils/genny';
 // import decode_token from 'jwt-decode';
 
 class GennyHeader extends Component {
@@ -132,7 +132,7 @@ class GennyHeader extends Component {
     //
     // let isAdmin = roles.includes('admin');
 
-    let roles = BaseEntityQuery.getUserAttributes((attribute => attribute.value != null && attribute.code.startsWith("PRI_IS")));
+    //let roles = BaseEntityQuery.getUserAttributes((attribute => attribute.value != null && attribute.code.startsWith("PRI_IS")));
     //console.log( roles )
 
     return (
