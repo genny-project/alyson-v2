@@ -244,6 +244,7 @@ class InputPayment extends Component {
 
     const { tokens, form } = this.state;
     const { nickname, name, number, expiry, cvc } = form;
+
     promisepay.createCardAccount( tokens.card, {
       full_name: name,
       number: number.split( ' ' ).join( '' ),
@@ -256,7 +257,8 @@ class InputPayment extends Component {
         id: success.id,
         type: 'CARD',
         name: name,
-        number: number
+        number: number,
+        nickname: nickname,
       });
 
       this.setState({
@@ -266,7 +268,8 @@ class InputPayment extends Component {
                 id: success.id,
                 type: 'CARD',
                 name: name,
-                number: number
+                number: number,
+                nickname: nickname,
               }
           ]
       })
@@ -306,6 +309,7 @@ class InputPayment extends Component {
             type: 'BANK_ACCOUNT',
             name: form.accountName,
             bsb: form.bsb,
+            nickname: form.nickname,
             accountNumber: form.accountNumber
         });
 
@@ -317,6 +321,7 @@ class InputPayment extends Component {
                     type: 'BANK_ACCOUNT',
                     name: form.accountName,
                     bsb: form.bsb,
+                    nickname: form.nickname,
                     accountNumber: form.accountNumber
                 }
             ]
