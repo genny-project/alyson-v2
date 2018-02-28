@@ -31,6 +31,7 @@ class InputAddress extends Component {
         hasChanges: false,
         showMap: false,
         coords: null,
+        error: null
     }
 
     onSelect = (newAddress) => {
@@ -49,34 +50,34 @@ class InputAddress extends Component {
                     }
                 });
 
-                let requiredFields = ['street_number','route','locality','administrative_area_level_1','postal_code','country'];
+                let requiredFields = ['street_number','route', 'locality','administrative_area_level_1','postal_code','country'];
 
                 let resultObj = {};
                 let streetAddress = {};
 
-                requiredFields.forEach((f) => {
+                requiredFields.forEach((field) => {
 
-                    addressObj.address_components.forEach((a) => {
+                    addressObj.address_components.forEach((address) => {
 
-                        if (a.types.includes(f)) {
+                        if (address.types.includes(field)) {
 
-                            if (a.types.includes('street_number')) {
-                                streetAddress['street_number'] = a.long_name;
+                            if (address.types.includes('street_number')) {
+                                streetAddress['street_number'] = address.long_name;
                             }
-                            else if (a.types.includes('route')) {
-                                streetAddress['street_name'] = a.long_name;
+                            else if (address.types.includes('route')) {
+                                streetAddress['street_name'] = address.long_name;
                             }
-                            else if (a.types.includes('locality')) {
-                                resultObj['suburb'] = a.long_name;
+                            else if (address.types.includes('locality')) {
+                                resultObj['suburb'] = address.long_name;
                             }
-                            else if (a.types.includes('administrative_area_level_1')) {
-                                resultObj['state'] = a.short_name;
+                            else if (address.types.includes('administrative_area_level_1')) {
+                                resultObj['state'] = address.short_name;
                             }
-                            else if (a.types.includes('postal_code')) {
-                                resultObj['postal_code'] = a.long_name;
+                            else if (address.types.includes('postal_code')) {
+                                resultObj['postal_code'] = address.long_name;
                             }
-                            else if (a.types.includes('country')) {
-                                resultObj['country'] = a.short_name;
+                            else if (address.types.includes('country')) {
+                                resultObj['country'] = address.short_name;
                             }
                         }
 
@@ -90,12 +91,40 @@ class InputAddress extends Component {
                 resultObj['latitude'] = results[0].geometry.location.lat();
                 resultObj['longitude'] = results[0].geometry.location.lng();
 
-                this.updateAddressProp(results[0].formatted_address);
+                const requiredKeys = ['suburb', 'state'];
+                
+                let hasFields = requiredKeys.every(required_key => {
+                    
+                    let isAnyTrue = false;
+                    Object.keys(resultObj).map(key => {
+                        if (key.includes(required_key)) {
+                            isAnyTrue = true;
+                        }
+                    });
+                    return isAnyTrue;
+                });
 
-                // send answer
-                this.onBlur(resultObj);
+                if ( hasFields == true ) {
+                    this.setState({
+                        error: null
+                    });
+
+                    this.updateAddressProp(results[0].formatted_address);
+
+                    // send answer
+                    this.onBlur(resultObj);
+                }
+                else {
+                    this.setAlert('Address must contain a suburb and a state');
+                }
             });
         }
+    }
+
+    setAlert = (text) => {
+        this.setState({
+            error: text
+        });
     }
 
     updateAddressProp = (newAddress) => {
@@ -110,7 +139,7 @@ class InputAddress extends Component {
         //this.checkIfVisible();
 
         if(this.props.onFocus) {
-            this.props.onFocus()
+            this.props.onFocus();
         }
 
         this.setState({
@@ -122,7 +151,7 @@ class InputAddress extends Component {
     onBlur = (address) => {
 
         if(this.props.onBlur) {
-            this.props.onBlur()
+            this.props.onBlur();
         }
 
         const { validationList, validation, identifier } = this.props;
@@ -217,16 +246,19 @@ class InputAddress extends Component {
     render() {
 
         const { name, mandatory, validationStatus, className } = this.props;
-        const { showMap, address, coords  } = this.state;
+        const { showMap, address, coords, error } = this.state;
 
         return (
-            <div className={`input input-address ${className} ${validationStatus}` }>
+            <div className={`input input-address ${className} ${error ? 'error' : validationStatus}` }>
                 <div className="input-header">
                     {name ? <Label text={name} /> : null }
-                    {mandatory ? <Label className='input-label-required' textStyle={ !validationStatus ? {color: '#cc0000'} : null} text="*  required" /> : null}
-                    <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
+                    {mandatory ? <Label className='input-label-required' textStyle={ !validationStatus || error ? {color: '#cc0000'} : null} text="*  required" /> : null}
+                    <SubmitStatusIcon status={error ? 'error' : validationStatus} style={{marginLeft: '5px'}}/>
                 </div>
                 {window.google ? this.renderInput() : <p>Loading...</p>}
+                { this.state.error ?
+                    <div className='input-address-error'>{this.state.error}</div>
+                : null }
                 {window.getScreenSize() == 'sm' && <Button onClick={this.showMap} style={{marginTop: '10px'}}>{showMap ? 'Hide Map' : 'Show on Map'}</Button> }
                 <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
                     <MapInput
