@@ -28,6 +28,9 @@ class MapDisplay extends Component {
     lng: any,
   }
 
+  state = {
+    error: null
+  };
 
   componentWillUnmount() {
 
@@ -180,7 +183,7 @@ class MapDisplay extends Component {
 
     let address = value;
 
-    if (typeof address == 'string' || typeof address == 'object' && address.suburb && address.state ) {
+    if (typeof address == 'string' || (typeof address == 'object' && address.suburb != null && address.suburb.length > 0 && address.state != null && address.suburb.length > 0)) {
 
       if (typeof address == 'object') {
         address = address.suburb + ', ' + address.state;
@@ -206,13 +209,16 @@ class MapDisplay extends Component {
           }
         }
         else {
-          // alert('Geocode was not successful for the following reason: ' + status);
+          this.setAlert('Address not found');
         }
       });
     }
-    else if (typeof address == 'object') {
+    else if (typeof address == 'object' && address.lat && address.lng) {
       callback(address);
       return;
+    }
+    else {
+      this.setAlert('Address not found');
     }
   }
 
@@ -261,6 +267,12 @@ class MapDisplay extends Component {
     //this.map.setZoom(this.props.zoom);
   }
 
+  setAlert = (text) => {
+    this.setState({
+      error: text
+    });
+  }
+
   render() {
     const { className, style } = this.props;
     const componentStyle = { ...style,};
@@ -268,6 +280,9 @@ class MapDisplay extends Component {
     return (
       <div className={`map-display ${className}`} style={componentStyle}>
         <div className='google-map' ref={div => this.mapRef = div} />
+        { this.state.error ?
+          <div className='map-display-error'>{this.state.error}</div>
+        : null }
       </div>
     );
   }
