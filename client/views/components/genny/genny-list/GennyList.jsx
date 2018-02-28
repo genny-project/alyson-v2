@@ -58,7 +58,7 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideLinks, showTitle, showEmpty, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, hideLinks, showTitle, showEmpty, gennyListStyle, ...rest } = this.props;
 
         const data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
 
@@ -69,9 +69,9 @@ class GennyList extends Component {
 
         if (showEmpty || !showEmpty && data && data.length > 0 ) {
             return (
-                <div className="genny-list">
+                <div className='genny-list' style={gennyListStyle}>
                     { showTitle ?
-                        <div style={{ "backgroundColor": projectColor}} className='genny-list-title'>
+                        <div style={{ backgroundColor: projectColor}} className='genny-list-title'>
                             <h2>{rootEntity && rootEntity.name} ( {data && data.length} )</h2>
 
                         </div>
