@@ -62,6 +62,8 @@ class GennyList extends Component {
         const { root, showLinks, headerRoot, hideHeader, hideLinks, showTitle, showEmpty, gennyListStyle, ...rest } = this.props;
         const componentStyle = { ...gennyListStyle};
 
+        console.log(componentStyle);
+        
         const data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
 
         const rootEntity = BaseEntityQuery.getBaseEntity(root);
