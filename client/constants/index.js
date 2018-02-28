@@ -30,6 +30,9 @@ export const SUBLAYOUT_CHANGE = 'SUBLAYOUT_CHANGE';
 /* Command View */
 export const CMD_VIEW = 'CMD_VIEW';
 
+/* Command Reload */
+export const CMD_RELOAD = 'CMD_RELOAD';
+
 /* Command View - Popup */
 export const CMD_POPUP = 'CMD_POPUP';
 

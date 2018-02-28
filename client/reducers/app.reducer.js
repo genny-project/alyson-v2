@@ -1,4 +1,4 @@
-import { REDIRECT, SOCIAL_REDIRECT, GPS_CMD, GPS_MONITOR } from 'constants';
+import { REDIRECT, SOCIAL_REDIRECT, GPS_CMD, GPS_MONITOR, CMD_RELOAD } from 'constants';
 import history from 'views/history.js';
 
 const initialState = {
@@ -17,6 +17,7 @@ export default function reducer( state = initialState, action ) {
   switch ( action.type ) {
 
     case REDIRECT:
+
       if ( action.payload.indexOf( 'https://' ) > -1 || action.payload.indexOf( 'http://' ) > -1 ) {
         window.location.href = action.payload;
       } else {
@@ -103,6 +104,10 @@ export default function reducer( state = initialState, action ) {
      return {
          ...state
      };
+
+     case CMD_RELOAD:
+
+        window.location.reload();
 
     default:
       return state;

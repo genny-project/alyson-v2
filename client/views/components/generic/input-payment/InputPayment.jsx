@@ -64,7 +64,7 @@ class InputPayment extends Component {
       const bankTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_BANK_TOKEN' );
       const cardTokenAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_ASSEMBLY_CARD_TOKEN' );
       const accountsAttribute = BaseEntityQuery.getBaseEntityAttribute( user, 'PRI_USER_PAYMENT_METHODS' );
-      const amount = this.props.data ? BaseEntityQuery.getBaseEntityAttribute( this.props.data.targetCode, 'PRI_OWNER_PRICE_INC_GST' ) : null;
+      const amount = this.props.data ? BaseEntityQuery.getBaseEntityAttribute( this.props.data.targetCode, 'PRI_JOB_PAYMENT_PRICE' ) : null;
       const descriptionAttribute = BaseEntityQuery.getBaseEntityAttribute( project, 'PRI_PAYMENT_CONFIRM_TEXT' );
       const description = descriptionAttribute ? descriptionAttribute.value : 'will be charged / debited from the below account to escrow for the payment of this job.';
 

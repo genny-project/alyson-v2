@@ -5,6 +5,7 @@ import {
     SUB_LAYOUT as SUBLAYOUT_CODE,
     CMD_NOTIFICATION as NOTIFICATION_MESSAGE,
     SUBLAYOUT_CHANGE,
+    CMD_RELOAD as RELOAD_PAGE,
 } from 'constants';
 
 export const CMD_LAYOUT = message => ({
@@ -37,6 +38,11 @@ export const CMD_SUBLAYOUT = message => ({
   payload: message,
 });
 
+export const CMD_RELOAD = message => ({
+    type: RELOAD_PAGE,
+    payload: message,
+})
+
 export default {
   CMD_LAYOUT,
   CMD_VIEW,
@@ -44,4 +50,5 @@ export default {
   CMD_SUBLAYOUT,
   CMD_NOTIFICATION,
   SUB_LAYOUT,
+  CMD_RELOAD,
 };
