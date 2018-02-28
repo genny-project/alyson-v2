@@ -5,6 +5,7 @@ import {
 } from '@genny-project/layson';
 
 import {
+  AddressLabel,
   AppContent,
   AppHolder,
   BucketView,
@@ -49,6 +50,7 @@ import {
 } from 'views/components';
 
 export default new ComponentCollection({
+  AddressLabel,
   AppContent,
   AppHolder,
   BucketView,

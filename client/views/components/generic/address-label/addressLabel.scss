@@ -1,0 +1,17 @@
+@import 'client/styles/colors';
+
+.address-label{
+    display: flex;
+    flex-wrap: wrap;
+
+    > .address-label-text {
+
+        &:not(:last-child) {
+            margin-right: 5px;
+            
+            &::after{
+                content: ',';
+            }
+        }
+    }
+}
