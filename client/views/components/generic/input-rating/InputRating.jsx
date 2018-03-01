@@ -46,15 +46,18 @@ class InputRating extends Component {
   }
 
   state = {
-    currentHover: null
+    currentHover: null,
+    value: 0
   }
 
   handleClick = (event, value) => {
 
     const { handleOnChange, validation, identifier, validationList } = this.props;
-    if(handleOnChange) handleOnChange(value);
+    // if(handleOnChange) handleOnChange(value);
 
+    // console.log(value);
     this.setState({
+      value: value,
       clicked: value
     });
 
@@ -69,8 +72,8 @@ class InputRating extends Component {
 
   renderIcons = () => {
 
-    const { value, total, iconFull, iconNone, size } = this.props;
-    const { currentHover, clicked } = this.state;
+    const { total, iconFull, iconNone, size } = this.props;
+    const { value, currentHover, clicked } = this.state;
 
     let number = value;
 

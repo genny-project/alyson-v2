@@ -380,7 +380,7 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     handleOnChange={this.handleOnChange}
-                    value={this.state.value}
+                    //value={this.state.value}
                 />
             );
             case 'Payment':
