@@ -43,9 +43,12 @@ class BaseEntityQuery {
 
                 // order by weight if found in links
                 let weight = item.weight;
-                if(rootEntity != null && rootEntity.originalLinks) {
+                if(rootEntity != null && rootEntity.links != null) {
 
-                    let currentLinks = rootEntity.originalLinks.filter(x => {
+                    let allLinks = Object.keys(rootEntity.links).map(lnkKey => rootEntity.links[lnkKey]);
+                    allLinks = allLinks.length > 0 ? allLinks[0] : [];
+
+                    let currentLinks = allLinks.filter(x => {
                         return x.link.targetCode == item.code;
                     });
 
@@ -183,6 +186,7 @@ class BaseEntityQuery {
             let bes = Object.keys(be.links).map(link => {
 
                 const links = be.links[link];
+                console.log( links );
                 for(let i = 0; i < links.length; i++) {
 
                     let currentLink = links[i];
