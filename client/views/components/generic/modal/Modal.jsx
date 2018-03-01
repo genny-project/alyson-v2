@@ -5,47 +5,49 @@ import { IconSmall } from 'views/components';
 
 class Modal extends Component {
 
-  static defaultProps = {
-    className: '',
-    onClose: null,
-    show: false,
-  }
+    static defaultProps = {
+        className: '',
+        onClose: null,
+        show: false,
+    }
 
-  static propTypes = {
-    className: string,
-    children: any,
-    onClose: func,
-    show: bool,
-    header: any
-  }
+    static propTypes = {
+        className: string,
+        children: any,
+        onClose: func,
+        show: bool,
+        header: any
+    }
 
-  state = {
-  }
+    state = {
+    }
 
-  open = () => {
-  }
+    open = () => {
+    }
 
-  close = () => {
+    close = () => {
 
-    console.log('close');
+        console.log('close');
 
-    this.props.onClick();
-  }
+        this.props.onClick();
+    }
 
-  render() {
+    render() {
 
-    const { className, children, show } = this.props;
+        const { className, children, show } = this.props;
 
-    return (
-      <div className={`modal-container ${className} ${show ? 'animate' : 'out' } ${window.getScreenSize()}`}>
-        <div className='modal-background' onClick={this.close} />
-        <div className="modal">
-          <IconSmall className='modal-close clickable' onClick={this.close} name='clear' />
-          {children}
+        return (
+        <div className={`modal-container ${className} ${show ? 'animate' : 'out' } ${window.getScreenSize()}`}>
+            <div className='modal-background' onClick={this.close} />
+            <div className="modal">
+                <IconSmall className='modal-close clickable' onClick={this.close} name='clear' />
+                <div className='modal-content'>
+                    {children}
+                </div>
+            </div>
         </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default Modal;
