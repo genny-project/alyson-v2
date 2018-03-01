@@ -55,7 +55,7 @@ class FormGroup extends Component {
 
       const isInputValid = this.isFormGroupValid(false);
       const isFormValid = isInputValid.every(input => {return input;});
-
+      //console.log(this.inputRefs);
       if(isFormValid) {
         if(this.state.isFormValidated == false){
           this.setState({
@@ -141,14 +141,15 @@ class FormGroup extends Component {
       }
     }
 
-    askForConfirmation(text, next) {
+    askForConfirmation(text) {
       return confirm(text);
     }
 
     isFormGroupValid = (showStyle) => {
-
+      //console.log('===================');
       return Object.keys(this.inputRefs).map(ref => {
         let input = this.inputRefs[ref];
+        //console.log(input, input ? input.isValid(showStyle) : true);
         return input ? input.isValid(showStyle) : true;
       });
     }

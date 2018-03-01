@@ -238,13 +238,19 @@ class GennyMap extends Component {
 
             if (attributes) {
 
+                const title = attributes.PRI_TITLE && attributes.PRI_TITLE.value;
+                const pickupSuburb = attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value;
+                const pickupState = attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value;
+                const dropoffSuburb = attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value;
+                const dropoffState = attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value;
+
                 let text = '<div>'+
-                    '<span style="font-weight: 1000;" >' + attributes.PRI_TITLE && attributes.PRI_TITLE.value + '</span>' +
+                    '<span style="font-weight: 1000;" >' + title + '</span>' +
                     '<div>' + 
-                        '<span>' + 'Pickup: ' + attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value + ', ' + attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value + '</span>' +
+                        '<span>' + 'Pickup: ' + pickupSuburb + ', ' + pickupState + '</span>' +
                     '</div>' +
                     '<div>' + 
-                        '<span>' + 'Delivery: ' + attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value + ', ' + attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value + '</span>' +
+                        '<span>' + 'Delivery: ' + dropoffSuburb + ', ' + dropoffState + '</span>' +
                     '</div>' +
                 '</div>';
 

@@ -160,7 +160,7 @@ class GennyHeader extends Component {
           ]}
           rows={[ { style: { flexGrow: '1', paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: '100%' } } ]}
         >
-          <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3 >
+          <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3>
           <div className='header-messages clickable'
             position={[0,1]}
             onClick={this.handleMessages}

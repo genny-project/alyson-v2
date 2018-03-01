@@ -1,3 +1,4 @@
+export { default as AddressLabel } from './address-label';
 export { default as Breadcrumbs } from './breadcrumbs';
 export { default as BucketView } from './bucket-view';
 export { default as Button } from './button';

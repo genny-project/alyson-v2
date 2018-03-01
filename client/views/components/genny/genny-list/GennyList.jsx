@@ -27,7 +27,8 @@ class GennyList extends Component {
         hideHeader: bool,
         sublayout: object,
         headerRoot: string,
-        showTitle: bool
+        showTitle: bool,
+        gennyListStyle: object
     };
 
     state = {
@@ -58,22 +59,22 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideLinks, showTitle, showEmpty, ...rest } = this.props;
-
+        const { root, showLinks, headerRoot, hideHeader, hideLinks, showTitle, showEmpty, gennyListStyle, ...rest } = this.props;
+        const componentStyle = { ...gennyListStyle};
+        
         const data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
 
         const rootEntity = BaseEntityQuery.getBaseEntity(root);
         const projectCode = GennyBridge.getProject();
-        let projectColor = BaseEntityQuery.getBaseEntityAttribute(projectCode, "PRI_COLOR");
+        let projectColor = BaseEntityQuery.getBaseEntityAttribute(projectCode, 'PRI_COLOR');
         projectColor = projectColor ? projectColor.value : null;
 
         if (showEmpty || !showEmpty && data && data.length > 0 ) {
             return (
-                <div className="genny-list">
+                <div className='genny-list' style={componentStyle}>
                     { showTitle ?
-                        <div style={{ "backgroundColor": projectColor}} className='genny-list-title'>
+                        <div style={{ backgroundColor: projectColor}} className='genny-list-title'>
                             <h2>{rootEntity && rootEntity.name} ( {data && data.length} )</h2>
-
                         </div>
                     : null }
                     <List

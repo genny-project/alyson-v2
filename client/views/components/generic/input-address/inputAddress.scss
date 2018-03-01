@@ -23,7 +23,14 @@
 			color: $error;
 			border: 1px solid $error
         }
-    }
+	}
+	
+	.input-address-error {
+		text-align: center;
+		padding: 5px;
+		font-size: 0.9em;
+		color: $error;
+	}
 }
 
 .input-address-search {
@@ -79,7 +86,4 @@
 	        color: black;
 	    }
 	}
-
-	
-
 }

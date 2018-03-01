@@ -55,7 +55,7 @@ class Input extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-
+        
         return true;
         
         const { value } = this.state;
@@ -404,14 +404,21 @@ class Input extends Component {
             );
             default:
             return (
-                <InputText
+                // <InputText
+                //     {...rest}
+                //     validation={this.validateInput}
+                //     validationStatus={validationStatus}
+                //     handleOnChange={this.handleOnChange}
+                //     value={this.state.value}
+                //     onFocus={this.onFocus}
+                //     onBlur={this.onBlur}
+                // />
+                <InputRating
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     handleOnChange={this.handleOnChange}
                     value={this.state.value}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
                 />
             );
         }

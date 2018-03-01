@@ -27,12 +27,14 @@ class IconSmall extends Component {
   }
 
   render() {
+
     const { className, size, fontSize, name, onClick, onMouseOver, onMouseOut, text, fa, style } = this.props;
 
     let iconStyle = {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        ...style,
     };
 
     let iconPadding = `${size / 6 }px 0`;
@@ -44,12 +46,12 @@ class IconSmall extends Component {
               onClick={onClick}
               onMouseOver={onMouseOver}
               onMouseOut={onMouseOut}
-              style={{ padding: iconPadding, fontSize: fontSize, ...style, }}
+              style={{ padding: iconPadding, ...style, }}
             >
               {fa ? null : name}
             </i>
             {
-                text ? <span style={{ fontSize: fontSize, paddingLeft: '5px', }}>{text}</span> : null
+                text ? <span style={{ paddingLeft: '5px' }}>{text}</span> : null
             }
         </span>
     );

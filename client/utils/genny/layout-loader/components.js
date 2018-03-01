@@ -5,6 +5,7 @@ import {
 } from '@genny-project/layson';
 
 import {
+  AddressLabel,
   AppContent,
   AppHolder,
   BucketView,
@@ -15,6 +16,7 @@ import {
   Device,
   Dropdown,
   Footer,
+  GennyAddressLabel,
   GennyBucketView,
   GennyButton,
   GennyDropdown,
@@ -49,6 +51,7 @@ import {
 } from 'views/components';
 
 export default new ComponentCollection({
+  AddressLabel,
   AppContent,
   AppHolder,
   BucketView,
@@ -59,6 +62,7 @@ export default new ComponentCollection({
   Device,
   Dropdown,
   Footer,
+  GennyAddressLabel,
   GennyBucketView,
   GennyButton,
   GennyDropdown,

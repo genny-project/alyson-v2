@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { object, bool, func } from 'prop-types';
 
 class PaymentMethod extends Component {
+
   static propTypes = {
     account: object.isRequired,
     selected: bool.isRequired,
@@ -14,12 +15,17 @@ class PaymentMethod extends Component {
   }
 
   render() {
+
     const { account, selected } = this.props;
     const selectedClass = selected ? 'selected' : '';
+
+    console.log( account )
 
     return (
       <div className={`payment-method ${selectedClass}`} onClick={this.handleOnClick}>
         <div>
+          {account.nickname}
+          <br />
           {account.name}
           {account.type === 'BANK_ACCOUNT' && (
             <div>
