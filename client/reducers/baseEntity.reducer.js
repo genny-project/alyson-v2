@@ -323,7 +323,7 @@ export default function reducer(state = initialState, action) {
                                     link.forEach(linkedBe => {
 
                                         // we delete if found
-                                        if (linkedBe.targetCode == be_code) {
+                                        if (linkedBe != null && linkedBe.targetCode == be_code) {
 
                                             if(!isParent) {
                                                 delete be.links[linkKey][counter];
@@ -339,7 +339,7 @@ export default function reducer(state = initialState, action) {
                                                     weight: newLinkWeight,
                                                     linkValue: linkValue
                                                 }
-                                                
+
                                                 counter += 1;
                                             }
                                         }
