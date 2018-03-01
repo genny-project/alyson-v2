@@ -5,6 +5,7 @@ import Uppy from 'uppy/lib/core';
 import AwsS3 from 'uppy/lib/plugins/AwsS3';
 import Webcam from 'uppy/lib/plugins/Webcam';
 import Dashboard from 'uppy/lib/plugins/Dashboard';
+import StatusBar from 'uppy/lib/plugins/StatusBar';
 import prettierBytes from 'prettier-bytes';
 import classNames from 'classnames';
 import { Label, SubmitStatusIcon, IconSmall } from 'views/components';
@@ -46,6 +47,7 @@ class InputUpload extends Component {
   state = {
     error: null,
     files: [],
+    completeText: 'Done'
   }
 
   componentDidMount() {
@@ -89,12 +91,12 @@ class InputUpload extends Component {
             maxNumberOfFiles: this.props.maxNumberOfFiles,
           },
         })
-          .use( Dashboard, {
-            closeModalOnClickOutside: true,
-          })
-          .use( AwsS3, { host: hosturlattr.value })
-          .use( Webcam, { target: Dashboard })
-          .run();
+        .use(Dashboard, {
+            closeModalOnClickOutside: true
+        })
+        .use( AwsS3, { host: hosturlattr.value })
+        .use( Webcam, { target: Dashboard })
+        .run();
 
         this.uppy.on( 'complete', this.handleComplete );
     }
@@ -102,7 +104,6 @@ class InputUpload extends Component {
 
   componentWillUnmount() {
     this.uppy.close();
-
     removeEventListener( 'hashchange', this.handleHashChange, false );
   }
 
@@ -127,7 +128,8 @@ class InputUpload extends Component {
   }
 
   handleComplete = result => {
-    console.log( this.state, result );
+    //console.log( this.state, result );
+
     this.setState( state => ({
       files: [
         ...state.files,
@@ -141,23 +143,25 @@ class InputUpload extends Component {
   }
 
   handleSaveToServer = () => {
+    
     const { files } = this.state;
-    console.log( files );
-
     this.setState({ error: null });
 
-    console.log('Upload', files);
+    //console.log('Upload', files);
+
+    setTimeout(() => {
+      //console.log('closing');
+      this.close();
+    }, 2000 );
 
     const restructuredFiles = files;
-
     const { validationList, validation, identifier } = this.props;
-
     if(validation) validation( JSON.stringify( restructuredFiles ), identifier, validationList);
   }
 
   handleSuccess = success => {
     const uploadedFiles = success.response.map(({ id }) => id );
-
+    //console.log('success');
     /* Update all the  */
     this.setState( state => ({
       files: [
@@ -244,6 +248,11 @@ class InputUpload extends Component {
     return true;
   }
 
+  close = () => {
+    this.uppy.getPlugin( 'Dashboard' ).closeModal();
+    //console.log('closed');
+  }
+
   render() {
     const { className, style, icon, name, mandatory, validationStatus, isHorizontal, hideHeader, } = this.props;
     const componentStyle = { ...style, };
@@ -261,9 +270,8 @@ class InputUpload extends Component {
             </div> :
           null
         }
-        {validFiles && validFiles.length > 0 && (
-
-
+        {
+          validFiles && validFiles.length > 0 && (
           validFiles.map( file => {
             return (
               <article key={file.id}>
@@ -296,8 +304,7 @@ class InputUpload extends Component {
 
         <div className='input-file-main' type="button" onClick={this.handleOpenModal}>
             <IconSmall className='input-file-icon' name={icon} />
-
-          <span>Upload a{validFiles.length > 0 && 'nother'} file or image</span>
+            <span>Upload a{validFiles.length > 0 && 'nother'} file or image</span>
         </div>
       </div>
     );
