@@ -280,6 +280,8 @@ export default function reducer(state = initialState, action) {
                 const item = action.payload.items[0];
                 let be_code = item.targetCode;
                 const linkValue = item.linkValue;
+                const newLinkCode = item.attributeCode;
+                const newLinkWeight = item.weight;
 
                 if (state.data[be_code] != null) {
 
@@ -291,41 +293,89 @@ export default function reducer(state = initialState, action) {
 
                         Object.keys(state.data).forEach(beCode => {
 
-                            // it is a GRP
-                            if (beCode != newParentCode) { //beCode.startsWith("GRP_") &&
+                            const isParent = beCode == newParentCode;
 
-                                let be = state.data[beCode];
+                            let be = state.data[beCode];
 
-                                if (state.relationships[beCode] && state.relationships[beCode][be_code]) {
+                            if (state.relationships[beCode] && state.relationships[beCode][be_code]) {
+
+                                if(!isParent) {
                                     delete state.relationships[beCode][be_code];
                                 }
+                                else {
 
-                                if (be.links) {
+                                    // if the relationship does not exist, we create it
+                                    state.relationships[beCode][be_code] = { type: BASE_ENTITY }
+                                }
+                            }
 
-                                    // we check each link if they have the BE
-                                    Object.keys(be.links).forEach(linkKey => {
+                            if (be.links) {
 
-                                        let link = be.links[linkKey];
-                                        link.forEach(linkedBe => {
+                                let found = false;
 
-                                            // we delete if found
-                                            if (linkedBe.targetCode == be_code) {
+                                // we check each link if they have the BE
+                                Object.keys(be.links).forEach(linkKey => {
+
+                                    let link = be.links[linkKey];
+                                    link.forEach(linkedBe => {
+
+                                        // we delete if found
+                                        if (linkedBe.targetCode == be_code) {
+
+                                            if(!isParent) {
                                                 delete be.links[linkKey][be_code];
                                             }
-                                        });
+                                            else {
+                                                found = true;
+                                            }
+                                        }
                                     });
+                                });
+
+                                if(found === false && isParent) {
+
+                                    // we need to create the link
+                                    be.links[newLinkCode] = [
+                                        ...be.links[newLinkCode],
+                                        {
+                                            value: linkValue,
+                                            valueString: linkValue,
+                                            weight: newLinkWeight,
+                                            targetCode: be_code,
+                                            linkValue: linkValue
+                                        }
+                                    ]
                                 }
+                            }
 
-                                if (be.children && be.children.length > 0) {
+                            if (be.children && be.children.length > 0) {
 
-                                    for (var i = 0; i < be.children.length; i++) {
+                                let found = false;
 
-                                        const child = be.children[i];
-                                        if (child && child.code == be_code) {
+                                for (var i = 0; i < be.children.length; i++) {
+
+                                    const child = be.children[i];
+                                    if (child && child.code == be_code) {
+
+                                        if(!isParent) {
                                             delete be.children[i];
                                             i--;
                                         }
+                                        else {
+                                            found = true;
+                                        }
                                     }
+                                }
+
+                                if(found === false && isParent && state.data && state.data[be_code] != null) {
+
+                                    // we need to create the child
+                                    be.children = [
+                                        ...be.children,
+                                        {
+                                            ...state.data[be_code]
+                                        }
+                                    ]
                                 }
                             }
                         });
@@ -336,13 +386,9 @@ export default function reducer(state = initialState, action) {
 
                     } else {
 
-                        const newLinkCode = item.attributeCode;
-                        const newLinkWeight = item.weight;
-
                         let newParentLinks = (state.data[newParentCode] && state.data[newParentCode].links) ? state.data[newParentCode].links : {
                             [newLinkCode]: []
                         };
-
 
                         if (newParentLinks && newParentLinks[newLinkCode] == null) {
                             newParentLinks[newLinkCode] = [];
@@ -369,6 +415,7 @@ export default function reducer(state = initialState, action) {
                             } else {
 
                                 if (newParentLinks[newLinkCode].length == 0) {
+
                                     newParentLinks[newLinkCode] = [{
                                         value: linkValue,
                                         valueString: linkValue,
@@ -382,6 +429,7 @@ export default function reducer(state = initialState, action) {
                                     for (let i = 0; i < newParentLinks[newLinkCode].length; i++) {
 
                                         if (newParentLinks[newLinkCode][i].targetCode == be_code) {
+
                                             newParentLinks[newLinkCode][i] = {
                                                 ...newParentLinks[newLinkCode][i],
                                                 ... {
