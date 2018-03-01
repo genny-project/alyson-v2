@@ -13,13 +13,13 @@ class BaseEntityQuery {
 
         let rootEntity = BaseEntityQuery.getBaseEntity(code);
 
-        if(items.length == 0) {
+        if (items.length == 0) {
 
-            if(!grp && code.indexOf('GRP') == 0) {
+            if (!grp && code.indexOf('GRP') == 0) {
                 relationships[code] = {};
             }
 
-            if(relationships[code] && !relationships[code]['DUMMY']) {
+            if (relationships[code] && !relationships[code]['DUMMY']) {
 
                 // set dummy value so we wont call this again
                 relationships[code]['DUMMY'] = {
@@ -29,8 +29,8 @@ class BaseEntityQuery {
                 };
 
                 GennyBridge.sendTVEvent('TV_EXPAND', {
-                  code: 'TV1',
-                  value: code
+                    code: 'TV1',
+                    value: code
                 }, code);
             }
 
@@ -39,28 +39,27 @@ class BaseEntityQuery {
 
         items = items.map(item => {
 
-            if(item) {
+            if (item) {
 
                 // order by weight if found in links
                 let weight = item.weight;
-                if(rootEntity != null && rootEntity.links != null) {
+                if (rootEntity != null && rootEntity.links != null) {
 
                     let allLinks = Object.keys(rootEntity.links).map(lnkKey => rootEntity.links[lnkKey]);
                     allLinks = allLinks.length > 0 ? allLinks[0] : [];
 
                     let currentLinks = allLinks.filter(x => {
-                        return x.link.targetCode == item.code;
+                        return x.link != null && x.link.targetCode != null && x.link.targetCode == item.code;
                     });
 
                     weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
                 }
 
-                if(!Object.keys(safeRecursion).includes(item.code)) {
+                if (!Object.keys(safeRecursion).includes(item.code)) {
 
                     safeRecursion[item.code] = {};
                     item.children = this.getEntityChildren(item.code, safeRecursion);
-                }
-                else {
+                } else {
                     item.children = [];
                 }
 
@@ -81,28 +80,28 @@ class BaseEntityQuery {
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         let targets = [];
 
-        if(be && be.links && be.links[linkCode]) {
+        if (be && be.links && be.links[linkCode]) {
 
             be.links[linkCode].forEach(link => {
 
-                if(!excludingLinks || !excludingLinks.includes(link.linkValue)) {
+                if (!excludingLinks || !excludingLinks.includes(link.linkValue)) {
 
-                    if(link.targetCode && link.weight > 0) {
+                    if (link.targetCode && link.weight > 0) {
                         let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
-                        if(targetBe) targets.push(targetBe);
+                        if (targetBe) targets.push(targetBe);
                     }
                 }
             });
         }
 
-        return targets.sort((x,y) => x.weight > y.weight);;
+        return targets.sort((x, y) => x.weight > y.weight);;
     }
 
     static getAttribute(attribute_code) {
 
-        if(attribute_code) {
+        if (attribute_code) {
             const all_attributes = store.getState().baseEntity.attributes;
-            if(all_attributes) {
+            if (all_attributes) {
                 return all_attributes.filter(att => att.code == attribute_code)[0];
             }
         }
@@ -112,22 +111,22 @@ class BaseEntityQuery {
 
     static getLinkToParent(parentCode, childCode) {
 
-        if(parentCode && childCode) {
+        if (parentCode && childCode) {
 
             const parent = BaseEntityQuery.getBaseEntity(parentCode);
-            if(parent) {
+            if (parent) {
 
                 let keys = Object.keys(parent.links);
-                for(let i = 0; i < keys.length; i++) {
+                for (let i = 0; i < keys.length; i++) {
 
                     const linkKey = keys[i];
                     const links = parent.links[linkKey];
-                    for(let j = 0; j < links.length; j++) {
+                    for (let j = 0; j < links.length; j++) {
 
                         const link = links[j];
-                        if(link.targetCode == childCode) {
+                        if (link.targetCode == childCode) {
                             return link;
-                       }
+                        }
                     }
                 }
             }
@@ -139,10 +138,9 @@ class BaseEntityQuery {
     static getBaseEntityParent(childCode, group) {
 
         const be = BaseEntityQuery.getBaseEntity(childCode);
-        if(be != null && be.parentCode != null) {
+        if (be != null && be.parentCode != null) {
             return BaseEntityQuery.getBaseEntity(be.parentCode);
-        }
-        else {
+        } else {
 
             const relationships = group || store.getState().baseEntity.relationships;
 
@@ -151,7 +149,7 @@ class BaseEntityQuery {
 
                 const groupKey = groupKeys[i]
                 const group = relationships[groupKey];
-                if(group) {
+                if (group) {
 
                     let childKeys = Object.keys(group);
                     for (var j = 0; j < childKeys.length; j++) {
@@ -159,14 +157,13 @@ class BaseEntityQuery {
                         const childKey = childKeys[j]
                         const child = group[childKey];
 
-                        if(child) {
+                        if (child) {
 
-                            if(child.type == "BaseEntity") {
-                                if(childKey == childCode) {
+                            if (child.type == "BaseEntity") {
+                                if (childKey == childCode) {
                                     return BaseEntityQuery.getBaseEntity(groupKey);
                                 }
-                            }
-                            else {
+                            } else {
                                 return BaseEntityQuery.getBaseEntityParent(childCode, group);
                             }
                         }
@@ -181,20 +178,20 @@ class BaseEntityQuery {
     static getLinkedBaseEntity = (baseEntityCode, linkValue) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-        if(be && be.links) {
+        if (be && be.links) {
 
             let bes = Object.keys(be.links).map(link => {
 
                 const links = be.links[link];
-                console.log( links );
-                for(let i = 0; i < links.length; i++) {
+                console.log(links);
+                for (let i = 0; i < links.length; i++) {
 
                     let currentLink = links[i];
-                    if(currentLink.linkValue == linkValue) { return currentLink.targetCode; }
+                    if (currentLink.linkValue == linkValue) { return currentLink.targetCode; }
                 }
             });
 
-            if(bes.length > 0) return bes[0];
+            if (bes.length > 0) return bes[0];
         }
 
         return null;
@@ -203,7 +200,7 @@ class BaseEntityQuery {
     static getBaseEntitiesForLinkCode = (baseEntityCode, excludingLinks) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-        if(be && be.links) {
+        if (be && be.links) {
             return Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, excludingLinks))[0];
         }
 
@@ -214,12 +211,12 @@ class BaseEntityQuery {
 
         let aliases = store.getState().baseEntity.aliases;
         let matchingAliases = Object.keys(aliases).filter(x => x == alias_code);
-        if(matchingAliases.length > 0) {
+        if (matchingAliases.length > 0) {
 
             let be_code = aliases[matchingAliases[0]];
             let baseEntities = store.getState().baseEntity.data;
             let matchingEntities = Object.keys(baseEntities).filter(x => x == be_code);
-            if(matchingEntities.length > 0) {
+            if (matchingEntities.length > 0) {
                 return baseEntities[matchingEntities[0]];
             }
         }
@@ -234,7 +231,7 @@ class BaseEntityQuery {
     static getAliasAttribute = (alias_code, attribute_code) => {
 
         let be = BaseEntityQuery.getAlias(alias_code);
-        if(be && be.attributes) {
+        if (be && be.attributes) {
             return be.attributes[attribute_code];
         }
 
@@ -244,7 +241,7 @@ class BaseEntityQuery {
     static getBaseEntityAttribute = (baseEntityCode, attribute_code) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-        if(be && be.attributes) {
+        if (be && be.attributes) {
             return be.attributes[attribute_code];
         }
 
