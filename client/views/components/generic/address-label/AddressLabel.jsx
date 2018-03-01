@@ -26,7 +26,9 @@ class AddressLabel extends Component {
     }
 
     renderTextLayout = (data) => {
+
         const { textStyle } = this.props;
+
         return (
             <div className='address-label-text' style={textStyle}>
                 {data}
@@ -35,7 +37,8 @@ class AddressLabel extends Component {
     }
 
     renderAddress = (data) => {
-        const { hideStreetAddress, hideSuburb, hideState, hidePostcode, hideCountry} = this.props;
+
+        const { hideStreetAddress, hideSuburb, hideState, hidePostcode, hideCountry } = this.props;
 
         let address = [];
 
@@ -43,41 +46,42 @@ class AddressLabel extends Component {
             let text = this.renderTextLayout(data.street_address);
             address.push(
                 text
-            );    
+            );
         }
 
         if ( hideSuburb != true && data && data.suburb) {
             let text = this.renderTextLayout(data.suburb);
             address.push(
                 text
-            );    
+            );
         }
 
         if ( hideState != true && data && data.state) {
             let text = this.renderTextLayout(data.state);
             address.push(
                 text
-            );    
+            );
         }
 
         if ( hidePostcode != true && data && data.postal_code) {
             let text = this.renderTextLayout(data.postal_code);
             address.push(
                 text
-            );    
+            );
         }
 
         if ( hideCountry != true && data && data.country) {
             let text = this.renderTextLayout(data.country);
             address.push(
                 text
-            );    
+            );
         }
 
         return address;
     }
 
     render() {
+        
         const { className, addressData, style } = this.props;
         const componentStyle = { ...style, };
 

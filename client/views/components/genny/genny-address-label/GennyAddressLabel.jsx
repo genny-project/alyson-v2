@@ -21,13 +21,18 @@ class GennyAddressLabel extends Component {
     }
 
     getDataFromCode = (root) => {
+
         const {attributePrefix} = this.props;
+
         let data = BaseEntityQuery.getBaseEntity(root);
         if(data) {
+
             let attributes = data.attributes;
             if (attributes) {
+
                 let address = {};
                 Object.keys(attributes).map(attribute_key => {
+
                     switch(attribute_key) {
                         case `${attributePrefix}_ADDRESS1`:
                             address['street_address'] = attributes[`${attributePrefix}_ADDRESS1`].value;
@@ -48,6 +53,7 @@ class GennyAddressLabel extends Component {
                             return null;
                     }
                 });
+
                 return address;
             }
         }
@@ -57,6 +63,7 @@ class GennyAddressLabel extends Component {
 
         const { root, style, labelStyle, attributePrefix, ...rest } = this.props;
         const componentStyle = { ...style};
+
         let addressData = this.getDataFromCode(root);
 
         return (
