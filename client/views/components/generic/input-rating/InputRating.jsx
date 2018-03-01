@@ -51,18 +51,14 @@ class InputRating extends Component {
 
   handleClick = (event, value) => {
 
-    const { handleOnChange } = this.props;
+    const { handleOnChange, validation, identifier, validationList } = this.props;
     if(handleOnChange) handleOnChange(value);
 
     this.setState({
       clicked: value
     });
 
-    if(this.props.onValidation) {
-        console.log(this.props.data);
-
-        this.props.onValidation(value, this.props.data);
-    }
+    if(validation) validation(value, identifier, validationList);
   }
 
   handleHover = (event, value) => {
@@ -73,10 +69,12 @@ class InputRating extends Component {
 
   renderIcons = () => {
 
-    let { value, total, iconFull, iconNone, size } = this.props;
+    const { value, total, iconFull, iconNone, size } = this.props;
     const { currentHover, clicked } = this.state;
 
-    if(typeof value == 'string') { value = parseFloat(value); }
+    let number = value;
+
+    if(typeof number == 'string') { number = parseFloat(number); }
 
     let icons = [];
 
@@ -84,7 +82,7 @@ class InputRating extends Component {
 
       icons.push(
         <IconSmall
-          name={value >= i ? iconFull : iconNone}
+          name={number >= i ? iconFull : iconNone}
           size={size}
           className={`input-rating-icon clickable ${currentHover && currentHover >= i ? 'hover' : ''}  ${clicked == i ? 'clicked' : '' }`}
           onClick={() => this.handleClick(event, i)}
@@ -100,7 +98,6 @@ class InputRating extends Component {
 
     const { className, style, name, mandatory, validationStatus, isHorizontal, hideHeader, } = this.props;
     const componentStyle = { ...style, };
-
     return <div className={`input input-rating ${className} ${validationStatus || ''}`} style={componentStyle}>
       {
         !isHorizontal && !hideHeader ?

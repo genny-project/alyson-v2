@@ -132,7 +132,7 @@ class GennyBridge {
         };
 
         // locally updating the attribute so we dont have to wait for the backend to send us an answer. this is called optimistic results.
-        GennyBridge.messageHandler.onMessage(payload);
+        //GennyBridge.messageHandler.onMessage(payload);
     }
 
     ajaxCall(settings) {
