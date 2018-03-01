@@ -64,7 +64,7 @@ export default function reducer(state = initialState, action) {
                                           let found = -1;
                                           for (let index = 0; index < existingLinks[linkCode].length; index++) {
                                               const link = existingLinks[linkCode][index];
-                                              if (link.link.targetCode == newLink.link.targetCode) {
+                                              if (link != null && link.link != null && link.link.targetCode != null && link.link.targetCode == newLink.link.targetCode) {
                                                   found = index;
                                                   break;
                                               }
@@ -137,7 +137,7 @@ export default function reducer(state = initialState, action) {
                                       let found = -1;
                                       for (let index = 0; index < existingLinks[linkCode].length; index++) {
                                           const link = existingLinks[linkCode][index];
-                                          if (link.link.targetCode == newLink.link.targetCode) {
+                                          if (link != null && link.link != null && link.link.targetCode != null && link.link.targetCode == newLink.link.targetCode) {
                                               found = index;
                                               break;
                                           }
@@ -305,7 +305,8 @@ export default function reducer(state = initialState, action) {
                                 else {
 
                                     // if the relationship does not exist, we create it
-                                    state.relationships[beCode][be_code] = { type: BASE_ENTITY }
+                                    if(state.relationships[beCode] != null && state.relationships[beCode][be_code] == null)
+                                        state.relationships[beCode][be_code] = { type: BASE_ENTITY }
                                 }
                             }
 
@@ -317,17 +318,33 @@ export default function reducer(state = initialState, action) {
                                 Object.keys(be.links).forEach(linkKey => {
 
                                     let link = be.links[linkKey];
+                                    let counter = 0;
+
                                     link.forEach(linkedBe => {
 
                                         // we delete if found
                                         if (linkedBe.targetCode == be_code) {
 
                                             if(!isParent) {
-                                                delete be.links[linkKey][be_code];
+                                                delete be.links[linkKey][counter];
+                                                counter -= 1;
                                             }
                                             else {
+
                                                 found = true;
+
+                                                // we update the link weight + value in case that changed
+                                                be.links[linkKey][counter] = {
+                                                    ...be.links[linkKey][counter],
+                                                    weight: newLinkWeight,
+                                                    linkValue: linkValue
+                                                }
+                                                
+                                                counter += 1;
                                             }
+                                        }
+                                        else {
+                                            counter += 1;
                                         }
                                     });
                                 });
