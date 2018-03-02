@@ -23,18 +23,18 @@ class SubmitStatusIcon extends Component {
 			case 'sending':
 			return ( 
 				<div className="ellipsis-anim" style={componentStyle}>
-					<IconSmall name="brightness_1" fontSize='4px' />
-					<IconSmall name="brightness_1" fontSize='4px' />
-					<IconSmall name="brightness_1" fontSize='4px' />
+					<IconSmall name="brightness_1" size={4} />
+					<IconSmall name="brightness_1" size={4} />
+					<IconSmall name="brightness_1" size={4} />
 				</div>
 			);
 			case 'success':
 			return ( 
-				<IconSmall className="success" name="check_circle" fontSize='14px' style={componentStyle}/>
+				<IconSmall className="success" name="check_circle" size={14} style={componentStyle}/>
 			);
 			case 'error':
 			return (
-				<IconSmall className="error" name="error" fontSize='14px' style={componentStyle}/>
+				<IconSmall className="error" name="error" size={14} style={componentStyle}/>
 			);
 			default:
 				return null;
