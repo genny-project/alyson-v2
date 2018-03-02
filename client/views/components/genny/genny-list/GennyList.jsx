@@ -38,7 +38,7 @@ class GennyList extends Component {
 
         const {localAliases, selectedItem, root} = this.props;
 
-        return data.map((item, index) => {
+        let newData = data.map((item, index) => {
 
             let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
             if(linkToParent) {
@@ -55,6 +55,8 @@ class GennyList extends Component {
 
             return false;
         });
+
+        return newData;
     }
 
     render() {

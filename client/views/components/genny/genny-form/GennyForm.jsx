@@ -14,18 +14,18 @@ class GennyForm extends Component {
 
     };
 
-    onInputValidation = (newValue, data, mandatory) =>  {
+    onInputValidation = (newValue, data,) =>  {
 
         let finalValue = newValue;
 
         if(data.attributeCode.indexOf('PRICE') != -1 || data.attributeCode.indexOf('FEE') != -1) {
             finalValue = JSON.stringify({
                 amount: newValue,
-                currency: "AUD"
-            })
+                currency: 'AUD'
+            });
         }
         else if(data.attributeCode.indexOf('ADDRESS_FULL') != -1) {
-            data.attributeCode = data.attributeCode.replace("ADDRESS_FULL", "ADDRESS_JSON");
+            data.attributeCode = data.attributeCode.replace('ADDRESS_FULL', 'ADDRESS_JSON');
         }
         else if(data.attributeCode.indexOf('PRI_RATING') != -1) {
             data.attributeCode = 'PRI_RATING_RAW';
@@ -56,7 +56,7 @@ class GennyForm extends Component {
                 value: JSON.stringify(data),
             };
 
-            GennyBridge.sendBtnClick("BTN_CLICK", btnEventData);
+            GennyBridge.sendBtnClick('BTN_CLICK', btnEventData);
         }
     }
 
@@ -80,9 +80,9 @@ class GennyForm extends Component {
                     targetCode: targetCode,
                     action: action
                 }),
-            }
+            };
 
-            GennyBridge.sendBtnClick("FORM_SUBMIT", btnEventData);
+            GennyBridge.sendBtnClick('FORM_SUBMIT', btnEventData);
         }
     }
 
@@ -116,7 +116,7 @@ class GennyForm extends Component {
                 'accept'
             ];
 
-            if(askGroup.attributeCode.includes("EMPTY")) return null;
+            if(askGroup.attributeCode.includes('EMPTY')) return null;
 
             if(askGroup.attributeCode.includes('BUTTON')) {
 
@@ -132,9 +132,9 @@ class GennyForm extends Component {
             }
 
             submitButtons = submitButtonsData.sort((button, button2) => button.index > button2.index).map(button => button.button);
-
             return {
                 title: askGroup.name,
+                code: askGroup.questionCode,
                 isHorizontal: askGroup.attributeCode.includes('HORIZONTAL'),
                 submitButtons: submitButtons,
                 onSubmit: (action) => this.onSubmit(askGroup.question.code, askGroup.targetCode, action),
@@ -210,7 +210,6 @@ class GennyForm extends Component {
 
                     return {
                         isHorizontal: this.props.isHorizontal,
-                        mandatory: ask.question.mandatory,
                         key: index,
                         identifier: ask.question.code,
                         data: {
