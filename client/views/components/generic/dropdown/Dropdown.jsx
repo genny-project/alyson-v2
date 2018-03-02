@@ -80,20 +80,20 @@ class Dropdown extends Component {
     const { className, children, style, contentStyle, tagStyle, open, noDropdownStyle, showTag, inline, isSlide } = this.props;
     let { isOpen, } = this.state;
     if(open != undefined || open != null) isOpen = open; // open props overrides
-        
+
     return (
       <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur} tabIndex='-1' style={style} >
-        {!isSlide ? this.renderHeader(isOpen) : null }   
+        {!isSlide ? this.renderHeader(isOpen) : null }
         { isOpen ?
           <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : ''}`} style={contentStyle} >
-            {isSlide && inline ? <div className='line-break' />: null }   
+            {isSlide && inline ? <div className='line-break' />: null }
             { showTag && !inline ? <div className='dropdown-tag' style={tagStyle}></div> : null }
             {children}
           </div>
         : null }
         {/* <Slide inProp={isOpen}>
           <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : ''}`} style={contentStyle} >
-            {isSlide && inline ? <div className='line-break' />: null }   
+            {isSlide && inline ? <div className='line-break' />: null }
             { showTag && !inline ? <div className='dropdown-tag' style={tagStyle}></div> : null }
             {children}
           </div>
