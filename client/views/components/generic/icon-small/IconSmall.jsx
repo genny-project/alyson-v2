@@ -6,7 +6,6 @@ class IconSmall extends Component {
 
   static defaultProps = {
     className: '',
-    fontSize: '24px',
     size: 24,
     name: 'android',
     text: null,
@@ -18,7 +17,6 @@ class IconSmall extends Component {
     name: string,
     text: string,
     fa: bool,
-    fontSize: string,
     size: number,
     onClick: func,
     onMouseOver: func,
@@ -28,7 +26,7 @@ class IconSmall extends Component {
 
   render() {
 
-    const { className, size, fontSize, name, onClick, onMouseOver, onMouseOut, text, fa, style } = this.props;
+    const { className, size, name, onClick, onMouseOver, onMouseOut, text, fa, style } = this.props;
 
     let iconStyle = {
         display: 'flex',
@@ -46,12 +44,12 @@ class IconSmall extends Component {
               onClick={onClick}
               onMouseOver={onMouseOver}
               onMouseOut={onMouseOut}
-              style={{ padding: iconPadding, ...style, }}
+              style={{ padding: iconPadding, fontSize: `${size}px`, ...style, }}
             >
               {fa ? null : name}
             </i>
             {
-                text ? <span style={{ paddingLeft: '5px' }}>{text}</span> : null
+                text ? <span style={{ paddingLeft: '5px', fontSize: `${size}px` }}>{text}</span> : null
             }
         </span>
     );
