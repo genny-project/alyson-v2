@@ -52,17 +52,24 @@ class Input extends Component {
 
     componentDidMount() {
         this._ismounted = true;
+
+        if (this.props.onMount) {
+
+            let isValid = this.isValid();
+
+            this.props.onMount(this.props.identifier, this.props.value, isValid);
+        }
     }
 
     shouldComponentUpdate(nextProps) {
 
         return true;
 
-        const { value } = this.state;
-        if(nextProps.value == null || value == null || nextProps.value.length == 0 || value.length == 0) {
-            return true;
-        }
-        return value == null ? true : value != nextProps.value;
+        // const { value } = this.state;
+        // if(nextProps.value == null || value == null || nextProps.value.length == 0 || value.length == 0) {
+        //     return true;
+        // }
+        // return value == null ? true : value != nextProps.value;
     }
 
     componentWillUpdate() {
@@ -141,26 +148,16 @@ class Input extends Component {
 
         this.state.value = value;
 
-        if ( validationList.length > 0) {
-
-            const valResult = validationList.every( validation => new RegExp(validation.regex).test( value ));
-            this.validateValue(valResult, value);
-
-        }
-        else {
-
-            const valResult = new RegExp(/.*/).test( value );
-            this.validateValue(valResult, value);
-
-        }
+        const valResult = this.isValid();
+        
+        this.validateValue(valResult, value);
     }
 
     validateValue = ( valResult, value ) => {
 
         if ( valResult ){
-
             this.validationStyle('success');
-            if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory);
+            if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory, valResult, this.props.identifier);
         }
         else {
 

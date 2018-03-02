@@ -41,11 +41,14 @@ class Slide extends Component {
                         return null;
                     }
                     return (
-                        <div style={{
-                            ...defaultStyle,
-                            ...transitionStyles[state],
-                            overflow: 'hidden',
-                        }}>
+                        <div 
+                            id='animation-slide'
+                            style={{
+                                ...defaultStyle,
+                                ...transitionStyles[state],
+                                overflow: 'hidden',
+                            }}
+                        >
                             {children}
                         </div>
                     );

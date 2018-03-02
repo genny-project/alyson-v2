@@ -46,7 +46,7 @@ class TabContainer extends Component {
         if (data && data.length) {
             data.map((view, index) => {
                 tabs.push(
-                    <div className={`view-tab ${this.state.currentViewIndex == index ? 'selected' : ''}`} key={index} onClick={() => this.handleClick(index)}>
+                    <div className={`view-tab clickable ${this.state.currentViewIndex == index ? 'selected' : ''}`} key={index} onClick={() => this.handleClick(index)}>
                         <IconSmall name={view.icon} />
                         <span className='tab-title' >{view.title}</span>
                     </div>
