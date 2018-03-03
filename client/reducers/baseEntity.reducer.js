@@ -305,8 +305,9 @@ export default function reducer(state = initialState, action) {
                                 else {
 
                                     // if the relationship does not exist, we create it
-                                    if(state.relationships[beCode] != null && state.relationships[beCode][be_code] == null)
-                                        state.relationships[beCode][be_code] = { type: BASE_ENTITY }
+                                    if(state.relationships[beCode] != null && state.relationships[beCode][be_code] == null) {
+                                            state.relationships[beCode][be_code] = { type: BASE_ENTITY }
+                                    }
                                 }
                             }
 
@@ -326,14 +327,18 @@ export default function reducer(state = initialState, action) {
                                         if (linkedBe != null && linkedBe.targetCode == be_code) {
 
                                             if(!isParent) {
+
+                                                console.log( "deleting" )
+                                                console.log( be.links[linkKey][counter] )
                                                 delete be.links[linkKey][counter];
-                                                counter -= 1;
                                             }
                                             else {
 
                                                 found = true;
 
                                                 // we update the link weight + value in case that changed
+                                                console.log("here");
+                                                console.log(be.links[linkKey][counter]);
                                                 be.links[linkKey][counter] = {
                                                     ...be.links[linkKey][counter],
                                                     weight: newLinkWeight,
