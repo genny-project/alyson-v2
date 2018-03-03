@@ -43,25 +43,57 @@ class InputDropdown extends Component {
   componentDidMount() {
 
     //TODO works only with singleselected
-
-    let filter = this.props.items.filter(item => item.code == this.props.value)[0];
-    this.setState({
-      selectedItems: filter && filter.name ? [filter.name] : []
-    });
+    this.updateValueFromProps(this.props);
   }
 
   componentWillReceiveProps( nextProps) {
 
-    //TODO works only with singleselected
-
     if (nextProps.value != this.props.value) {
-      let filter = this.props.items.filter(item => item.code == nextProps.value)[0];
-
-      //console.log(filter);
-      this.setState({
-        selectedItems: filter && filter.name ? [filter.name] : []
-      });
+        this.updateValueFromProps(nextProps);
     }
+  }
+
+  updateValueFromProps(props) {
+
+      if(this.props.isSingleSelect) {
+
+          const filter = this.props.items.filter(item => item.code == props.value)[0];
+
+          //console.log(filter);
+          this.setState({
+            selectedItems: filter && filter.name ? [filter.name] : []
+          });
+      }
+      else {
+
+        // the value coming in could be a stringified array.
+        try {
+
+            if(value != null) {
+
+                const newValue = JSON.parse(props.value);
+                const selectedItems = this.props.items.map(item => {
+
+                    for (var i = 0; i < newValue.length; i++) {
+                        const newItem = newValue[i];
+                        if(newItem == item.code) {
+                            return item.code;
+                        }
+                    }
+
+                    return false;
+                })
+
+                //console.log(filter);
+                this.setState({
+                  selectedItems: selectedItems ? selectedItems : []
+                });
+            }
+        }
+        catch(e) {
+            
+        }
+      }
   }
 
   handleChange = selectedItem => {
@@ -189,16 +221,14 @@ class InputDropdown extends Component {
 
       } else {
 
-        this.props.items.map(item=> {
-
-            return selectedItems.map(selectedItem => {
-
-                if(selectedItem == item.name) return item.code;
-                return false;
+        let results = [];
+        this.props.items.forEach(item => {
+            selectedItems.forEach(selectedItem => {
+                if(selectedItem == item.name) results.push(item.code);
             });
         });
 
-        if(validation) validation(selectedItems, identifier, validationList);
+        if(validation) validation(JSON.stringify(results), identifier, validationList);
       }
     }
   }

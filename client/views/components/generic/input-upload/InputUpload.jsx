@@ -60,7 +60,7 @@ class InputUpload extends Component {
     this.setState({
       files,
     }, () => {
-      console.log( this.state );
+      //console.log( this.state );
     });
   }
 
@@ -73,7 +73,7 @@ class InputUpload extends Component {
     this.setState({
       files,
     }, () => {
-      console.log( this.state );
+      //console.log( this.state );
     });
   }
 

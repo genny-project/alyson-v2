@@ -49,7 +49,7 @@ class BaseEntityQuery {
                     allLinks = allLinks.length > 0 ? allLinks[0] : [];
 
                     let currentLinks = allLinks.filter(x => {
-                        return x.link != null && x.link.targetCode != null && x.link.targetCode == item.code;
+                        return x != null && x.link != null && x.link.targetCode != null && x.link.targetCode == item.code;
                     });
 
                     weight = currentLinks.length > 0 ? currentLinks[0].weight : weight;
@@ -86,7 +86,7 @@ class BaseEntityQuery {
 
                 if (!excludingLinks || !excludingLinks.includes(link.linkValue)) {
 
-                    if (link.targetCode && link.weight > 0) {
+                    if (link != null && link.targetCode && link.weight > 0) {
                         let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
                         if (targetBe) targets.push(targetBe);
                     }
@@ -124,7 +124,7 @@ class BaseEntityQuery {
                     for (let j = 0; j < links.length; j++) {
 
                         const link = links[j];
-                        if (link.targetCode == childCode) {
+                        if (link != null && link.targetCode == childCode) {
                             return link;
                         }
                     }
