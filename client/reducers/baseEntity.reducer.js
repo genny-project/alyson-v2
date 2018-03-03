@@ -354,9 +354,14 @@ export default function reducer(state = initialState, action) {
                                     });
                                 });
 
-                                if(found === false && isParent) {
+                                if(found === false && isParent && newLinkCode != null) {
 
                                     // we need to create the link
+
+                                    if(be.links == null) be.links = {
+                                      [newLinkCode]: []
+                                    };
+
                                     be.links[newLinkCode] = [
                                         ...be.links[newLinkCode],
                                         {

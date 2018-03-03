@@ -71,7 +71,7 @@ class GennyForm extends Component {
     onSubmit = (questionGroupCode, targetCode, action) => {
 
         console.log("Submitting form....");
-        
+
         if(questionGroupCode) {
 
             let btnEventData = {
@@ -156,6 +156,7 @@ class GennyForm extends Component {
                     if(be_code && attributeCode) {
 
                         const att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
+
                         if(att != null) {
                             default_value = att.value;
                         }
