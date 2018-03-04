@@ -435,53 +435,88 @@ class BucketView extends Component {
             }
         }
     }
+  }
 
-    renderDots = () => {
+  renderDots = () => {
+    const { buckets, currentBucket} = this.state;
+    let count = 0;
+    let columns = buckets.map((c, index )=> {
+      count = count + 1;
+      return <IconSmall key={index} size={12} name={count == currentBucket ? 'lens' : 'panorama_fish_eye'} style={ count < buckets.length ? { marginRight: '5px'} : null }/>;
+    });
 
-        const { buckets, currentBucket} = this.state;
-        let count = 0;
-        let columns = buckets.map((c, index )=> {
-            count = count + 1;
-            return <IconSmall key={index} fontSize='12px' name={count == currentBucket ? 'lens' : 'panorama_fish_eye'} style={ count < buckets.length ? { marginRight: '5px'} : null }/>;
-        });
+    return columns;
+  }
 
-        return columns;
-    }
+  renderContent = (columns) => {
 
-    renderContent = (columns) => {
+    const { currentlySelectedItem } = this.state;
 
-        const { currentlySelectedItem } = this.state;
+    return (
+      <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
+        <Device isMobile>
+          <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+          </Modal>
+        </Device>
+        {columns}
+        <Device isMobile>
+          <div
+            className='bucket-mobile-dots'
+            style={{
+              height: '20px',
+              width: '100vw',
+              position: 'absolute',
+              bottom: '0',
+              right: '50vw',
+              transform: 'translate(50%)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              zIndex: '10',
+              padding: '5px',
+              backgroundColor: 'rgba(0,0,0,0.5)'
+            }}
+          >
+            {this.renderDots()}
+          </div>
+        </Device>
+      </div>
+    );
+  }
 
-        return (
-            <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
-                <Device isMobile>
-                    <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
-                    <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
-                </Modal>
-            </Device>
-            {columns}
-            <Device isMobile>
-                <div
-                    className='bucket-mobile-dots'
-                    style={{
-                        height: '20px',
-                        width: '100vw',
-                        position: 'absolute',
-                        bottom: '0',
-                        right: '50vw',
-                        transform: 'translate(50%)',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        zIndex: '10',
-                        padding: '5px',
-                        backgroundColor: 'rgba(0,0,0,0.5)'
-                    }}
-                    >
-                        {this.renderDots()}
-                    </div>
-                </Device>
-            </div>
+  render() {
+    const { buckets } = this.state;
+    let isMobile = window.getScreenSize() == 'sm';
+    let columns = buckets.map((bucket, index) => {
+
+      return (
+        <BucketColumn
+          screenSize={this.props.screenSize}
+          title={bucket.title}
+          key={bucket.id}
+          groupId={bucket.id}
+          legend={bucket.legend}
+          items={bucket.children}
+          goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
+          goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}
+          showMovingOptions={this.toggleMovingOptions}
+          addNewItem={this.addNewItem}
+          canAddItem={bucket.canAddItem}
+          style={{
+            flexBasis: `calc(100vw / ${buckets.length})`,
+            minWidth: isMobile ? '100vw' : '240px',
+            maxWidth: isMobile ? '100vw' : `calc(100${this.state.isSafari ? '%' : 'vw'} / ${buckets.length})`,
+            transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
+          }}
+          className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}
+        />
+      );
+    });
+
+    if (isMobile) {
+      return (
+          this.renderContent(columns)
         );
     }
 
