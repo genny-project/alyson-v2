@@ -435,7 +435,6 @@ class BucketView extends Component {
             }
         }
     }
-  }
 
   renderDots = () => {
     const { buckets, currentBucket} = this.state;
@@ -486,81 +485,46 @@ class BucketView extends Component {
   }
 
   render() {
-    const { buckets } = this.state;
-    let isMobile = window.getScreenSize() == 'sm';
-    let columns = buckets.map((bucket, index) => {
+      const { buckets } = this.state;
+      let isMobile = window.getScreenSize() == 'sm';
+      let columns = buckets.map((bucket, index) => {
 
-      return (
-        <BucketColumn
-          screenSize={this.props.screenSize}
-          title={bucket.title}
-          key={bucket.id}
-          groupId={bucket.id}
-          legend={bucket.legend}
-          items={bucket.children}
-          goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
-          goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}
-          showMovingOptions={this.toggleMovingOptions}
-          addNewItem={this.addNewItem}
-          canAddItem={bucket.canAddItem}
-          style={{
-            flexBasis: `calc(100vw / ${buckets.length})`,
-            minWidth: isMobile ? '100vw' : '240px',
-            maxWidth: isMobile ? '100vw' : `calc(100${this.state.isSafari ? '%' : 'vw'} / ${buckets.length})`,
-            transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
-          }}
-          className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}
-        />
-      );
-    });
+          return (
+              <BucketColumn
+                  screenSize={this.props.screenSize}
+                  title={bucket.title}
+                  key={bucket.id}
+                  groupId={bucket.id}
+                  legend={bucket.legend}
+                  items={bucket.children}
+                  goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
+                  goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}
+                  showMovingOptions={this.toggleMovingOptions}
+                  addNewItem={this.addNewItem}
+                  canAddItem={bucket.canAddItem}
+                  style={{
+                      flexBasis: `calc(100vw / ${buckets.length})`,
+                      minWidth: isMobile ? '100vw' : '240px',
+                      maxWidth: isMobile ? '100vw' : `calc(100${this.state.isSafari ? '%' : 'vw'} / ${buckets.length})`,
+                      transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
+                  }}
+                  className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}
+              />
+          );
+      });
 
-    if (isMobile) {
-      return (
-          this.renderContent(columns)
-        );
-    }
-
-    render() {
-        const { buckets } = this.state;
-        let isMobile = window.getScreenSize() == 'sm';
-        let columns = buckets.map((bucket, index) => {
-
-            return (
-                <BucketColumn
-                    screenSize={this.props.screenSize}
-                    title={bucket.title}
-                    key={bucket.id}
-                    groupId={bucket.id}
-                    legend={bucket.legend}
-                    items={bucket.children}
-                    goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
-                    goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}
-                    showMovingOptions={this.toggleMovingOptions}
-                    addNewItem={this.addNewItem}
-                    canAddItem={bucket.canAddItem}
-                    style={{
-                        flexBasis: `calc(100vw / ${buckets.length})`,
-                        minWidth: isMobile ? '100vw' : '240px',
-                        maxWidth: isMobile ? '100vw' : `calc(100${this.state.isSafari ? '%' : 'vw'} / ${buckets.length})`,
-                        transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
-                    }}
-                    className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}
-                />
-            );
-        });
-
-        if (isMobile) {
-            return (
-                this.renderContent(columns)
-            );
-        } else {
-            return (
-                <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                    {this.renderContent(columns)}
-                </DragDropContext>
-            );
-        }
-    }
+      if (isMobile) {
+          return (
+              this.renderContent(columns)
+          );
+      } else {
+          return (
+              <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+                  {this.renderContent(columns)}
+              </DragDropContext>
+          );
+      }
+  }
 }
 
 export default BucketView;
