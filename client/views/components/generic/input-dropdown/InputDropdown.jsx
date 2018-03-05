@@ -91,7 +91,7 @@ class InputDropdown extends Component {
             }
         }
         catch(e) {
-            
+
         }
       }
   }
@@ -176,6 +176,7 @@ class InputDropdown extends Component {
         this.setState({isOpen}, () => {
           if (!this.state.isOpen) {
             this.handleValidation();
+            this.inputRef ? this.inputRef.blur() : null;
           }
         });
     }
@@ -197,6 +198,8 @@ class InputDropdown extends Component {
     this.setState({
       currentValue: ''
     });
+
+    this.inputRef ? this.inputRef.blur() : null;
   }
 
   handleValidation = () => {
@@ -247,6 +250,13 @@ class InputDropdown extends Component {
         if(x.name > y.name) return 1;
         else return -1;
     });
+
+    list = list.sort((x, y) => {
+        if(x.weight > y.weight) return 1;
+        return -1;
+    });
+
+    console.log(list);
 
     if (list.length > 0 ) {
 
@@ -321,6 +331,7 @@ class InputDropdown extends Component {
                 className={`input-dropdown-field ${isOpen ? 'selected' : ''}`}
               >
                 <input
+                  ref={(ref) => this.inputRef = ref }
                   value={this.state.currentValue}
                   placeholder={displayText}
                   {...getInputProps({})}

@@ -198,6 +198,7 @@ class GennyForm extends Component {
                                             existing.push({
                                                 name: newEntity.name,
                                                 code: newEntity.code,
+                                                weight: newEntity.weight,
                                             });
                                             return existing;
                                         }, []);
