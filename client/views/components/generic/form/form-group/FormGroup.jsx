@@ -39,14 +39,14 @@ class FormGroup extends Component {
     componentDidMount() {
 
         this._ismounted = true;
-        console.log(this.props.title, 'is mounted');
+        console.log('MOUNTED: ', this.props.title);
             
-        this.setChildrenState();
+        // if (this.props.onMount) {
+        //     console.log(this.props.title, this.state.isFormValidated);
+        //     this.props.onMount(this.props.code, null, this.state.isFormValidated);
+        // }
 
-        if (this.props.onMount) {
-            console.log(this.props.title, this.state.isFormValidated);
-            this.props.onMount(this.props.code, null, this.state.isFormValidated);
-        }
+        this.setChildrenState();
     }
 
     componentWillUnmount() {
@@ -56,45 +56,6 @@ class FormGroup extends Component {
     componentWillUpdate() {
         this.children = {};
         this.state.animatedButtons = {};
-    }
-
-    checkIfFormIsValid() {
-        
-        if(this._ismounted) {
-
-            if (this.props.onValidCheck) console.log( 'calling..');
-
-            const { children }= this.state;
-            console.log('-------------------');
-            console.log('CHECK IF "', this.props.title, '" IS VALID');
-            console.log(children, Object.keys(children));
-            const isFormValid = Object.keys(children).every(child_key => {
-                const child = children[child_key];
-                const isChildValid = child && child.isValid != null ? child.isValid : true;
-                return isChildValid;
-            });
-            console.log('RESULT: ', isFormValid);
-            if(isFormValid) {
-                if(this.state.isFormValidated == false){
-                    this.setState({
-                        isFormValidated: true
-                    }, () => {
-                        console.log('is form valid? ', this.state.isFormValidated);
-                        if (this.props.onValidCheck) this.props.onValidCheck();
-                    });
-                }
-            }
-            else {
-                if(this.state.isFormValidated == true) {
-                    this.setState({
-                        isFormValidated: false
-                    }, () => {
-                        console.log('is form valid? ', this.state.isFormValidated);
-                        if (this.props.onValidCheck) this.props.onValidCheck();
-                    });
-                }
-            }
-        }
     }
 
     renderData = (data) => {
@@ -150,6 +111,8 @@ class FormGroup extends Component {
 
     setChildrenState = () => {
 
+        console.log('setState', this.props.title);
+
         this.setState({
             children: this.children
         }, () => {
@@ -171,6 +134,72 @@ class FormGroup extends Component {
         }, () => {
             this.checkIfFormIsValid();
         });
+    }
+
+    checkIfFormIsValid() {
+
+        if(this._ismounted) {
+
+            console.log('-------------------');
+            console.log('CHECK IF "', this.props.title, '" IS VALID');
+
+            if (this.props.onValidCheck) console.log( 'calling..');
+
+            const { children }= this.state;
+            console.log(children, Object.keys(children));
+            const isFormValid = Object.keys(children).every(child_key => {
+                const child = children[child_key];
+                const isChildValid = child && child.isValid != null ? child.isValid : true;
+                return isChildValid;
+            });
+            
+            console.log('. . . . . . . . . . .');
+            console.log('RESULT: ', isFormValid);
+            if(isFormValid) {
+                if(this.state.isFormValidated == false){
+                    this.setState({
+                        isFormValidated: true
+                    }, () => {
+                        console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
+                        console.log('is form valid? ', this.props.title, this.state.isFormValidated);
+                        if (this.props.onValidCheck) this.props.onValidCheck();
+                        if (this.props.onMount) {
+                            this.props.onMount(this.props.code, null, this.state.isFormValidated);
+                        }
+                    });
+                }
+                else {
+                    console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
+                    console.log('is form valid? ', this.props.title, this.state.isFormValidated);
+                    if (this.props.onValidCheck) this.props.onValidCheck();
+                    if (this.props.onMount) {
+                        this.props.onMount(this.props.code, null, this.state.isFormValidated);
+                    }
+                }
+            }
+            else {
+                if(this.state.isFormValidated == true) {
+                    this.setState({
+                        isFormValidated: false
+                    }, () => {
+                        console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
+                        console.log('is form valid? ', this.props.title, this.state.isFormValidated);
+                        if (this.props.onValidCheck) this.props.onValidCheck();
+                        if (this.props.onMount) {
+                            this.props.onMount(this.props.code, null, this.state.isFormValidated);
+                        }
+                    });
+                }
+                else {
+                    console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
+                    console.log('is form valid? ', this.props.title, this.state.isFormValidated);
+                    if (this.props.onValidCheck) this.props.onValidCheck();
+                    if (this.props.onMount) {
+                        this.props.onMount(this.props.code, null, this.state.isFormValidated);
+                    }
+                }
+            }
+        }
     }
 
     renderFormButtons(buttons) {
