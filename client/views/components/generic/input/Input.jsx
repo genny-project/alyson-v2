@@ -63,9 +63,9 @@ class Input extends Component {
 
     shouldComponentUpdate(nextProps) {
 
+        //if (this.state.value == null && nextProps.value === this.props.value) return false;
         return true;
 
-        // const { value } = this.state;
         // if(nextProps.value == null || value == null || nextProps.value.length == 0 || value.length == 0) {
         //     return true;
         // }
@@ -74,6 +74,7 @@ class Input extends Component {
 
     componentWillUpdate() {
         this.state.validationStatus = 'normal';
+
     }
 
     isValid = (showStyle) => {
@@ -154,15 +155,17 @@ class Input extends Component {
     }
 
     validateValue = ( valResult, value ) => {
-
         if ( valResult ){
             this.validationStyle('success');
             if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory, valResult, this.props.identifier);
         }
+        else if (this.props.mandatory && ( value == null || value.length == 0 ) ) {
+            this.validationStyle('success');
+            if(this.props.onValidationFail) this.props.onValidationFail(this.props.value, this.props.data, this.props.mandatory, true, this.props.identifier);
+        }
         else {
-
             this.validationStyle('error');
-            if(this.props.onValidationFailure) this.props.onValidationFailure(this.props.data, this.props.mandatory);
+            if(this.props.onValidationFail) this.props.onValidationFail(value, this.props.data, this.props.mandatory, valResult, this.props.identifier);
         }
     }
 

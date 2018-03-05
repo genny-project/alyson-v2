@@ -295,7 +295,6 @@ class InputDropdown extends Component {
                   placeholder={displayText}
                   {...getInputProps({})}
                 />
-                {/* <span className="">{displayText}</span> */}
                 { this.state.currentValue && this.state.currentValue.length > 0 ?
                   <IconSmall className='input-dropdown-icon' name='clear' onClick={this.handleClearInput}/>
                   : <IconSmall className='input-dropdown-icon' name={ isOpen ? 'expand_more' : 'chevron_right'} />

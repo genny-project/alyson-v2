@@ -23,6 +23,8 @@ class FormGroup extends Component {
         onSubmit: func,
         onGroupValidation: func,
         isHorizontal: bool,
+        onMount: func,
+        handleValidation: func
     }
 
     state = {
@@ -39,12 +41,11 @@ class FormGroup extends Component {
     componentDidMount() {
 
         this._ismounted = true;
-        console.log('MOUNTED: ', this.props.title);
-            
-        // if (this.props.onMount) {
-        //     console.log(this.props.title, this.state.isFormValidated);
-        //     this.props.onMount(this.props.code, null, this.state.isFormValidated);
-        // }
+        // console.log('MOUNTED: ', this.props.title);
+
+        if (this.props.onMount) {
+            this.props.onMount(this.props.title, null, this.state.isFormValidated);
+        }
 
         this.setChildrenState();
     }
@@ -71,8 +72,8 @@ class FormGroup extends Component {
             if (child.$$typeof) {
                 //return child;
                 return React.cloneElement(child, {
-                    onMount: this.onMount,
-                    onValidCheck: this.checkIfFormIsValid
+                    onMount: this.setChildInitial,
+                    handleValidation: this.updateChildState
                 });
             }
             //if child is NOT a React Element, ie: it is a data object, render that data as a Input Element 
@@ -81,11 +82,16 @@ class FormGroup extends Component {
                 return (
                     <Input
                         {...child}
-                        onMount={this.onMount}
+                        onMount={this.setChildInitial}
                         onValidation={
                             (argument1, argument2, argument3, argument4, argument5) => { 
                                 this.updateChildState(argument5, argument1, argument4);
                                 child.onValidation(argument1, argument2, argument3);
+                            }
+                        }
+                        onValidationFail={
+                            (argument1, argument2, argument3, argument4, argument5) => { 
+                                this.updateChildState(argument5, argument1, argument4);
                             }
                         }
                         key={index}
@@ -101,17 +107,16 @@ class FormGroup extends Component {
         });
     }
 
-    onMount = (a, b, c) => {
-        
-        this.children[a] = {
-            value: b,
-            isValid: c
+    setChildInitial = (name, value, isValid) => {
+        // console.log('* initial', name);
+        this.children[name] = {
+            value: value,
+            isValid: isValid
         };
     }
 
     setChildrenState = () => {
-
-        console.log('setState', this.props.title);
+        // console.log('SET', this.props.title);
 
         this.setState({
             children: this.children
@@ -121,84 +126,41 @@ class FormGroup extends Component {
     }
 
     updateChildState = (id, value, isValid) => {
-        console.log('========================');
-        console.log(id, value, isValid);
-        this.setState({
-            children: {
-                ...this.state.children,
-                [id]: {
-                    value: value,
-                    isValid: isValid
-                }
-            }
-        }, () => {
-            this.checkIfFormIsValid();
-        });
+        // console.log('UPDATE', this.props.title);
+        // console.log('-- current', this.state.children);
+        // console.log('++ adding', id, value, isValid);
+        this.state.children[id] = {
+            value: value,
+            isValid: isValid
+        };
+        this.checkIfFormIsValid();
     }
 
     checkIfFormIsValid() {
 
         if(this._ismounted) {
 
-            console.log('-------------------');
-            console.log('CHECK IF "', this.props.title, '" IS VALID');
-
-            if (this.props.onValidCheck) console.log( 'calling..');
-
+            //console.log('-------------------');
+            //console.log('CHECK IF "', this.props.title, '" IS VALID');
+            
             const { children }= this.state;
-            console.log(children, Object.keys(children));
+            //console.log(children);
             const isFormValid = Object.keys(children).every(child_key => {
                 const child = children[child_key];
-                const isChildValid = child && child.isValid != null ? child.isValid : true;
+                const isChildValid = child.isValid != null ? child.isValid : true;
                 return isChildValid;
             });
             
-            console.log('. . . . . . . . . . .');
-            console.log('RESULT: ', isFormValid);
-            if(isFormValid) {
-                if(this.state.isFormValidated == false){
-                    this.setState({
-                        isFormValidated: true
-                    }, () => {
-                        console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
-                        console.log('is form valid? ', this.props.title, this.state.isFormValidated);
-                        if (this.props.onValidCheck) this.props.onValidCheck();
-                        if (this.props.onMount) {
-                            this.props.onMount(this.props.code, null, this.state.isFormValidated);
-                        }
-                    });
+            //console.log('RESULT: ', isFormValid);
+            this.setState({
+                isFormValidated: isFormValid
+            }, () => {
+                if (this.props.handleValidation) {
+                    //console.log('updating parent');
+                    this.props.handleValidation(this.props.title, null, isFormValid);
                 }
-                else {
-                    console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
-                    console.log('is form valid? ', this.props.title, this.state.isFormValidated);
-                    if (this.props.onValidCheck) this.props.onValidCheck();
-                    if (this.props.onMount) {
-                        this.props.onMount(this.props.code, null, this.state.isFormValidated);
-                    }
-                }
-            }
-            else {
-                if(this.state.isFormValidated == true) {
-                    this.setState({
-                        isFormValidated: false
-                    }, () => {
-                        console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
-                        console.log('is form valid? ', this.props.title, this.state.isFormValidated);
-                        if (this.props.onValidCheck) this.props.onValidCheck();
-                        if (this.props.onMount) {
-                            this.props.onMount(this.props.code, null, this.state.isFormValidated);
-                        }
-                    });
-                }
-                else {
-                    console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
-                    console.log('is form valid? ', this.props.title, this.state.isFormValidated);
-                    if (this.props.onValidCheck) this.props.onValidCheck();
-                    if (this.props.onMount) {
-                        this.props.onMount(this.props.code, null, this.state.isFormValidated);
-                    }
-                }
-            }
+            });
+            
         }
     }
 

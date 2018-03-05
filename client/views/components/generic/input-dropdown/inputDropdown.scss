@@ -15,7 +15,11 @@
     &.success > .dropdown-container {
         
         > .input-dropdown-field input {
-    	    border: 1px solid $success;
+            border: 1px solid $success;
+
+            &::placeholder {
+                color: $success;
+            }
         }
 
         > .input-dropdown-button{
@@ -26,7 +30,11 @@
     &.error > .dropdown-container {
         
         > .input-dropdown-field input {
-            border: 1px solid $error
+            border: 1px solid $error;
+            
+            &::placeholder {
+                color: $error;
+            }
         }
         
         > .input-dropdown-button{
@@ -82,6 +90,10 @@
                 border: 1px solid black;
                 box-shadow: 0px 0px 5px #888;
                 color: rgb(31, 31, 31);
+
+                &::placeholder {
+                    color: rgb(31, 31, 31);;
+                }
             }
         }
     }
