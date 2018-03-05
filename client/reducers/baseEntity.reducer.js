@@ -331,6 +331,7 @@ export default function reducer(state = initialState, action) {
                                                 console.log( "deleting" )
                                                 console.log( be.links[linkKey][counter] )
                                                 delete be.links[linkKey][counter];
+                                                be.links[linkKey].splice(counter, 1);
                                             }
                                             else {
 
@@ -385,7 +386,8 @@ export default function reducer(state = initialState, action) {
                                     if (child && child.code == be_code) {
 
                                         if(!isParent) {
-                                            delete be.children[i];
+                                            // delete be.children[i];
+                                            be.children.splice(i, 1);
                                             i--;
                                         }
                                         else {
