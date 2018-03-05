@@ -5,7 +5,14 @@ export function grabValue(item) {
     if(item.value != null) return item.value;
 
     if (item.valueDouble != null) {
-        value = item.valueDouble;
+
+        let local = navigator.language;
+        if(local == null) local = "en-AU";
+
+        value = new Intl.NumberFormat(local).format(item.valueDouble);
+        if(value == null) {
+            value = item.valueDouble;
+        }
     }
     else if (item.valueInteger != null) {
         value = item.valueInteger;

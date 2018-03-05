@@ -275,8 +275,8 @@ class BucketView extends Component {
             else {
 
                 if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
-                    new_position = currentScrollPosition + bucketPageWidth;
 
+                    new_position = currentScrollPosition + bucketPageWidth;
                     localStorage.setItem("current_bucket_page", (parseFloat(this.state.currentBucket) + 1));
 
                     this.setState(prevState => ({
