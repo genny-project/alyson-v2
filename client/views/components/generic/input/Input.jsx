@@ -404,21 +404,14 @@ class Input extends Component {
             );
             default:
             return (
-                // <InputText
-                //     {...rest}
-                //     validation={this.validateInput}
-                //     validationStatus={validationStatus}
-                //     handleOnChange={this.handleOnChange}
-                //     value={this.state.value}
-                //     onFocus={this.onFocus}
-                //     onBlur={this.onBlur}
-                // />
-                <InputRating
+                <InputText
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     handleOnChange={this.handleOnChange}
-                    //value={this.state.value}
+                    value={this.state.value}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
         }
