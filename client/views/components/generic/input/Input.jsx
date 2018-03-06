@@ -79,13 +79,13 @@ class Input extends Component {
 
     isValid = (showStyle) => {
 
+        
         const { validationList, mandatory } = this.props;
         const { value } = this.state;
 
         let isValid = false;
 
-        //sconsole.log(validationList, value, mandatory);
-
+        //console.log(value, validationList, mandatory);
         // if there is validation required
         if ( mandatory || !mandatory && value != null && value.length > 0) {
             if (validationList.length > 0) {

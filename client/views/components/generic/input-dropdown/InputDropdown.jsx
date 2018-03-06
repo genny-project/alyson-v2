@@ -82,7 +82,7 @@ class InputDropdown extends Component {
                     }
 
                     return false;
-                })
+                });
 
                 //console.log(filter);
                 this.setState({
@@ -112,6 +112,7 @@ class InputDropdown extends Component {
     }), () => {
       if (this.props.isSingleSelect){
         this.handleValidation();
+        this.inputRef ? this.inputRef.blur() : null;
       }
     });
   }
@@ -125,6 +126,7 @@ class InputDropdown extends Component {
     }, () => {
       if (this.props.isSingleSelect){
         this.handleValidation();
+        this.inputRef ? this.inputRef.blur() : null;
       }
     });
   }
@@ -176,7 +178,6 @@ class InputDropdown extends Component {
         this.setState({isOpen}, () => {
           if (!this.state.isOpen) {
             this.handleValidation();
-            this.inputRef ? this.inputRef.blur() : null;
           }
         });
     }
@@ -198,40 +199,49 @@ class InputDropdown extends Component {
     this.setState({
       currentValue: ''
     });
-
     this.inputRef ? this.inputRef.blur() : null;
   }
 
   handleValidation = () => {
 
-    const { validationList, validation, identifier, isSingleSelect } = this.props;
+    const { validationList, validation, identifier, isSingleSelect, mandatory } = this.props;
     const { selectedItems, lastSentValue } = this.state;
 
     let match = true;
     match = selectedItems.compare(lastSentValue);
 
-    if( !match || selectedItems && lastSentValue == null){
+    if( match == false || selectedItems && lastSentValue == null ) {
 
-      this.setState({
-        lastSentValue: selectedItems
-      });
+      if ( ( selectedItems.length > 0 || ( selectedItems.length == 0 && ( selectedItems != lastSentValue && lastSentValue != null ) ) ) ) {
 
-      // we now get the code of the item to send by comparing the value
-      if ( isSingleSelect && selectedItems.length == 1 ) {
-
-        let itemCode = this.props.items.filter(x => x.name == selectedItems[0])[0].code;
-        if(validation) validation(itemCode, identifier, validationList);
-
-      } else {
-
-        let results = [];
-        this.props.items.forEach(item => {
-            selectedItems.forEach(selectedItem => {
-                if(selectedItem == item.name) results.push(item.code);
-            });
+        this.setState({
+          lastSentValue: selectedItems
         });
 
-        if(validation) validation(JSON.stringify(results), identifier, validationList);
+        // we now get the code of the item to send by comparing the value
+        if ( isSingleSelect && selectedItems.length == 1 ) {
+
+          let itemCode = this.props.items.filter(x => x.name == selectedItems[0])[0].code;
+          if(validation) validation(itemCode, identifier, validationList);
+
+        } else {
+
+          let results = [];
+          this.props.items.forEach(item => {
+              selectedItems.forEach(selectedItem => {
+                  if(selectedItem == item.name) results.push(item.code);
+              });
+          });
+
+
+          if(results.length == 0 && mandatory == false ) {
+            let resultsString = JSON.stringify(results);
+            if(validation) validation( resultsString, identifier, validationList);
+          }
+          else {
+            if(validation) validation( '', identifier, validationList);
+          }
+        }
       }
     }
   }
@@ -255,8 +265,6 @@ class InputDropdown extends Component {
         if(x.weight > y.weight) return 1;
         return -1;
     });
-
-    console.log(list);
 
     if (list.length > 0 ) {
 
