@@ -180,12 +180,14 @@ class InputDatePicker extends Component {
             <div className='input-date-picker-mobile' style={{display: 'flex'}}>
               <input
                 type='date'
+                className='input-field'
                 onChange={this.handleChangeMobile( 'date' )}
                 value={currentValue ? moment( currentValue ).format( 'YYYY-MM-DD' ) : null}
               />
               { type == 'java.time.LocalDate' ? null :
                 <input
                   type='time'
+                  className='input-field'
                   onChange={this.handleChangeMobile( 'time' )}
                   // onBlur={this.handleChangeMobile}
                   // onKeyDown={this.handleChangeMobile}
@@ -195,8 +197,7 @@ class InputDatePicker extends Component {
             </div>
 
           : (<DatePicker
-            className={`${validationStatus} input-date-picker-main`}
-            calendarClassName=""
+            className={`${validationStatus} input-field`}
 
             dateFormat={(type == 'java.time.LocalDateTime') ? dateTimeDisplayFormat : dateDisplayFormat }
             timeFormat={timeDisplayFormat}

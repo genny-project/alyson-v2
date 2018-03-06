@@ -2,6 +2,9 @@
 
 .input-terms {
 
+    .input-header {
+    }
+
     .input-terms-main {
         margin-top: 15px;
         height: 500px;
@@ -22,13 +25,6 @@
                 }
             }
         }
-    }
-
-    .input-header {
-    	display: flex;
-    	align-items: center;
-    	justify-content: flex-start;
-    	margin-bottom: 3px;
     }
 
     &.sm .input-terms-main {

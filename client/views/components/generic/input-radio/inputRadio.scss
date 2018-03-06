@@ -2,6 +2,9 @@
 
 .input-radio {
 
+    .input-header {
+    }
+
     .radio-main {
         display: flex;
         align-items: center;
@@ -27,12 +30,5 @@
                 }
             }
         }
-    }
-
-    .input-header {
-    	display: flex;
-    	align-items: center;
-    	justify-content: flex-start;
-    	margin-bottom: 3px;
     }
 }

@@ -82,6 +82,7 @@ class InputTextarea extends Component {
             null
         }
         <textarea
+          className='input-field'
           value={value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}

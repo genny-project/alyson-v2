@@ -325,7 +325,7 @@ class InputUpload extends Component {
                             })
                         )}
 
-                        <div className='input-file-main' type="button" onClick={this.handleOpenModal}>
+                        <div className='input-field' type="button" onClick={this.handleOpenModal}>
                             <IconSmall className='input-file-icon' name={icon} />
                             <span>Upload a{validFiles.length > 0 && 'nother'} file or image</span>
                         </div>

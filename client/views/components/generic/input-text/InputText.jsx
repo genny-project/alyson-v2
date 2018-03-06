@@ -98,6 +98,7 @@ class InputText extends Component {
 
                 inputMask ?
                 <MaskedTextInput
+                    className='input-field'
                     mask={inputMask}
                     guide={false}
                     disabled={readOnly}
@@ -111,6 +112,7 @@ class InputText extends Component {
                     
                 /> :
                 <input
+                    className='input-field'
                     ref={r => this.input = r}
                     disabled={readOnly}
                     type={inputType || 'text'}

@@ -2,35 +2,21 @@
 
 .input-textarea {
 
-	> textarea {
+	.input-header {
+    }
+
+	> .input-field {
 		min-height: 150px;
-	    width: 100%;
 	    max-width: 100%;
-	    border-radius: 5px;
-	    color: #999;
-	    background-color: #DDD;
-	    font-size: 1em;
-	    padding: 10px;
-	    box-sizing: border-box;
 	    text-align: left;
-	    transition: 300ms ease;
-	    border: 1px solid #DDD;
 
 	    &:not([disabled]):hover {
-	        color: #555;
-	        border: 1px solid #555;
-
 	    }
 
 	    &:hover, &:focus {
-	    	outline: none;
 	    }
 
 	    &:focus, &:not([disabled]):hover:focus {
-	        border: 1px solid black;
-	        box-shadow: 0px 0px 5px #888;
-	        background-color: white;
-	        color: black;
 	    }
 	}
 
@@ -43,28 +29,17 @@
     	}
 	}
 	
-	&.success textarea{
+	&.success .input-field {
     	color: $success;
 	    border: 1px solid $success;
     }
 
-    &.error textarea{
+    &.error .input-field {
     	color: $error;
 	    border: 1px solid $error;
     }
 
     &:not(:last-child) {
     	margin-bottom: 10px;
-    }
-
-    > .optional {
-    	font-size: 0.5em;
-	}
-	
-	.input-header {
-    	display: flex;
-    	align-items: center;
-    	justify-content: flex-start;
-    	margin-bottom: 3px;
     }
 }

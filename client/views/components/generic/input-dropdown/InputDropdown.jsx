@@ -339,6 +339,7 @@ class InputDropdown extends Component {
                 className={`input-dropdown-field ${isOpen ? 'selected' : ''}`}
               >
                 <input
+                  className='input-field'
                   ref={(ref) => this.inputRef = ref }
                   value={this.state.currentValue}
                   placeholder={displayText}

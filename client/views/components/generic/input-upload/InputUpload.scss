@@ -2,182 +2,176 @@
 
 .input-file {
 
-  .input-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 3px;
-  }
-
-  .input-file-main {
-    display: flex;
-    align-items: center;
-
-
-    min-height: 50px;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 5px;
-    color: #999;
-    background-color: #DDD;
-    font-size: 1em;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: left;
-    transition: 300ms ease;
-    border: 1px solid #DDD;
-
-    .input-file-icon {
-      padding-right: 20px;
+    .input-header {
     }
-  }
 
-  > button {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 0;
-    background: transparent;
+    .input-field {
+        display: flex;
+        align-items: center;
 
-    &:disabled {
-      background: black;
-      cursor: default;
+        min-height: 50px;
+        max-width: 100%;
+        text-align: left;
 
-      > div {
+        .input-file-icon {
+            padding-right: 20px;
 
-        > i.material-icons {
-          color: #DDD;
+            i {
+                transition: 300ms ease;
+            }
         }
-      }
-    }
 
-    &:not(:disabled) {
-
-      &:hover {
-
-        > div {
-          transform: scale(1.1);
+        &:not([disabled]):hover .input-file-icon i {
+            color: #555;
         }
-      }
-
-      &:focus {
-        outline: 0;
-
-        > div {
-          border-color: orange;
-          outline: 0;
-          transform: scale(1.1);
-        }
-      }
     }
-
-    > p {
-      margin: auto;
-      margin-left: 10px;
-      color: #8d8d8d;
-      font-family: "Open Sans", sans-serif;
-      font-weight: 300;
-    }
-
-    > div {
-      height: 40px;
-      width: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      cursor: pointer;
-      position: relative;
-      transition: 300ms ease transform, 300ms ease background, 300ms ease border-color;
-      border: 2px solid transparent;
-      background: #DDD;
-
-      > i.material-icons {
-        font-size: 1.7rem;
-        color: white;
-        transition: 300ms ease color;
-      }
-    }
-  }
-
-  > label {
-    display: block;
-    font-weight: bold;
-    color: #19a4e7;
-    margin-bottom: 10px;
-    margin-left: 5px;
-  }
-
-  article {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 10px;
-    padding-right: 35px;
 
     > button {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 5px;
-      cursor: pointer;
-      border: 0;
-      background: transparent;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border: 0;
+        background: transparent;
 
-      &:hover {
+        &:disabled {
+        background: black;
+        cursor: default;
 
-        > i.material-icons {
-          color: lighten(black, 20%);
+        > div {
+
+            > i.material-icons {
+                color: #DDD;
+                }
+            }
         }
-      }
 
-      > i.material-icons {
-        transition: 300ms ease color;
-        color: black;
-      }
-    }
+        &:not(:disabled) {
 
-    > img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid grey;
-    }
+            &:hover {
 
-    > aside {
-      height: 40px;
-      width: 40px;
-      background: #DDD;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
+                > div {
+                   transform: scale(1.1);
+                }
+            }
 
-      > i.material-icons {
-        color: black;
-        font-size: 1.5rem;
-      }
-    }
+            &:focus {
+                outline: 0;
 
-    > div {
-      flex-grow: 1;
-      margin-left: 10px;
-
-      > a {
-        color: black;
-        transition: 300ms ease color;
-
-        &:hover {
-          color: black;
+                > div {
+                    border-color: orange;
+                    outline: 0;
+                    transform: scale(1.1);
+                }
+            }
         }
-      }
 
-      > small {
-        color: grey;
+        > p {
+            margin: auto;
+            margin-left: 10px;
+            color: #8d8d8d;
+            font-family: "Open Sans", sans-serif;
+            font-weight: 300;
+        }
+
+        > div {
+            height: 40px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            transition: 300ms ease transform, 300ms ease background, 300ms ease border-color;
+            border: 2px solid transparent;
+            background: #DDD;
+
+            > i.material-icons {
+                font-size: 1.7rem;
+                color: white;
+                transition: 300ms ease color;
+            }
+        }
+    }
+
+    > label {
         display: block;
-      }
+        font-weight: bold;
+        color: #19a4e7;
+        margin-bottom: 10px;
+        margin-left: 5px;
     }
-  }
+
+    article {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 10px;
+        padding-right: 35px;
+
+        > button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 5px;
+            cursor: pointer;
+            border: 0;
+            background: transparent;
+
+            &:hover {
+
+                > i.material-icons {
+                    color: lighten(black, 20%);
+                }
+            }
+
+            > i.material-icons {
+                transition: 300ms ease color;
+                color: black;
+            }
+        }
+
+            > img {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 1px solid grey;
+            }
+
+            > aside {
+                height: 40px;
+                width: 40px;
+                background: #DDD;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+
+                > i.material-icons {
+                    color: black;
+                    font-size: 1.5rem;
+                }
+            }
+
+        > div {
+            flex-grow: 1;
+            margin-left: 10px;
+
+            > a {
+                color: black;
+                transition: 300ms ease color;
+
+                &:hover {
+                    color: black;
+                }
+            }
+
+            > small {
+                color: grey;
+                display: block;
+            }
+        }
+    }
 }

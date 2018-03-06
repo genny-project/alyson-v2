@@ -202,7 +202,8 @@ class InputAddress extends Component {
 
         const classes = {
             root: 'input-address-search',
-            autocompleteContainer: 'address-results-container'
+            autocompleteContainer: 'address-results-container',
+            input: 'input-field'
         };
 
         // const options = {

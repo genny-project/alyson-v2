@@ -3,15 +3,11 @@
 .input-address {
 	
 	.input-header {
-    	display: flex;
-    	align-items: center;
-    	justify-content: flex-start;
-    	margin-bottom: 3px;
 	}
 	
 	&.success .input-address-search  {
         
-        > input {
+        > .input-field {
 			color: $success;
 			border: 1px solid $success;
         }
@@ -19,7 +15,7 @@
 
     &.error .input-address-search  {
         
-        > input {
+        > .input-field {
 			color: $error;
 			border: 1px solid $error
         }
@@ -34,29 +30,29 @@
 }
 
 .input-address-search {
-  position:relative;
-  width: 100%;
-  
-  .address-results-container {
-	margin-top: 5px;
-	position:absolute;
-	z-index: 15;
-	border: 1px solid black;
-	border-radius: 5px;
+	position:relative;
+	width: 100%;
+	
+	.address-results-container {
+		margin-top: 5px;
+		position:absolute;
+		z-index: 15;
+		border: 1px solid black;
+		border-radius: 5px;
 
-	> div:first-child {
-		border-radius: 5px 5px 0 0;
-	}
-	> div:last-child {
-		border-radius: 0 0 5px 5px;
+		> div:first-child {
+			border-radius: 5px 5px 0 0;
+		}
+		> div:last-child {
+			border-radius: 0 0 5px 5px;
+		}
+
+		&.show-above {
+			bottom: 100%;
+		}
 	}
 
-	&.show-above {
-		bottom: 100%;
-	}
-  }
-
-  > input {
+	> .input-field {
 
 		height: 50px;
 	    width: 100%;

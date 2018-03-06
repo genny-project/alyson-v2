@@ -1,20 +1,13 @@
 @import 'client/styles/colors';
 
 .input-dropdown {
-    // display: flex;
-    // align-items: center;
-    // justify-content: space-between;
 
     .input-header {
-    	display: flex;
-    	align-items: center;
-    	justify-content: flex-start;
-    	margin-bottom: 3px;
     }
 
     &.success > .dropdown-container {
         
-        > .input-dropdown-field input {
+        > .input-dropdown-field .input-field {
             border: 1px solid $success;
 
             &::placeholder {
@@ -29,7 +22,7 @@
 
     &.error > .dropdown-container {
         
-        > .input-dropdown-field input {
+        > .input-dropdown-field .input-field {
             border: 1px solid $error;
             
             &::placeholder {
@@ -55,17 +48,8 @@
             align-items: center;
             position: relative;
 
-            > input {
-                height: 50px;
-                width: 100%;
-                border-radius: 5px;
-                color: #999;
-                background-color: #DDD;
-                font-size: 1em;
+            > .input-field {
                 padding: 10px 10px;
-                box-sizing: border-box;
-                transition: 300ms ease;
-                border: 1px solid #DDD;
                 outline: none;
             }
 
@@ -77,23 +61,16 @@
 
             &.selected, {
 
-                > input {
-                    background-color: #FFF;
-                    border: 1px solid black;
-                    box-shadow: 0px 0px 5px #888;
-                    color: rgb(31, 31, 31);
+                > .input-field {
+                    // background-color: #FFF;
+                    // border: 1px solid black;
+                    // box-shadow: 0px 0px 5px #888;
+                    // color: rgb(31, 31, 31);
                 }
             }
 
-            > input:focus {
-                background-color: #FFF;
-                border: 1px solid black;
-                box-shadow: 0px 0px 5px #888;
-                color: rgb(31, 31, 31);
-
-                &::placeholder {
-                    color: rgb(31, 31, 31);;
-                }
+            > .input-field:focus::placeholder {
+                color: rgb(31, 31, 31);;
             }
         }
     }

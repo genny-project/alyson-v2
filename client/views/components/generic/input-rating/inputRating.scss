@@ -2,6 +2,9 @@
 
 .input-rating {
 
+	.input-header {
+    }
+
 	.rating-display-container {
 
 		display: flex;
@@ -58,12 +61,5 @@
     &.error input{
     	color: $error;
 	    border: 1px solid $error;
-    }
-
-    .input-header {
-    	display: flex;
-    	align-items: center;
-    	justify-content: flex-start;
-    	margin-bottom: 3px;
     }
 }
