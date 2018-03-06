@@ -47,7 +47,7 @@ class GennyList extends Component {
 
                 const isSelected = selectedItem == item.code ? true : false;
                 const aliasProp = localAliases != null && localAliases.constructor == Array ? localAliases[index] : localAliases;
-                let layout_code = linkToParent.linkValue || 'list_item';
+                let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != "LINK" ? linkToParent.linkValue : 'list_item';
                 let sublayout = this.props.sublayout[layout_code];
                 item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
                 item['rootCode'] = root;

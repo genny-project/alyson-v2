@@ -11,7 +11,7 @@ class MapDisplay extends Component {
     center: { lat: -33.8688, lng: 151.2093},
     markers: [],
     routes: [],
-    icon: 'https://i.imgur.com/V8EhEJD.png'
+    icon: 'https://i.imgur.com/kTmPVex.png'
   }
 
   static propTypes = {
@@ -48,7 +48,7 @@ class MapDisplay extends Component {
       let geocoder = new google.maps.Geocoder;
 
       let newCenter = this.getLatLng();
-      
+
       const mapOptions = {
         zoom,
         maxZoom: maxZoom,
@@ -59,7 +59,7 @@ class MapDisplay extends Component {
       };
 
       this.map = new google.maps.Map( this.mapRef, mapOptions );
-      
+
       let infowindow = new google.maps.InfoWindow({
         content: ''
       });
