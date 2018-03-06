@@ -1,7 +1,7 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
 import { string, number, bool, object } from 'prop-types';
-import { List, GennyForm } from 'views/components';
+import { List, GennyForm, GennySearchBar } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 
@@ -13,6 +13,7 @@ class GennyList extends Component {
         hideHeader: false,
         showEmpty: true,
         showTitle: false,
+        showSearchBar: true,
     }
 
     static propTypes = {
@@ -28,6 +29,7 @@ class GennyList extends Component {
         sublayout: object,
         headerRoot: string,
         showTitle: bool,
+        showSearchBar: bool,
         gennyListStyle: object
     };
 
@@ -59,11 +61,15 @@ class GennyList extends Component {
         return newData;
     }
 
+    renderSearchBar() {
+        return <GennySearchBar />
+    }
+
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideLinks, showTitle, showEmpty, gennyListStyle, ...rest } = this.props;
+        const { root, showLinks, showSearchBar, headerRoot, hideHeader, hideLinks, showTitle, showEmpty, gennyListStyle, ...rest } = this.props;
         const componentStyle = { ...gennyListStyle};
-        
+
         const data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
 
         const rootEntity = BaseEntityQuery.getBaseEntity(root);
@@ -79,6 +85,9 @@ class GennyList extends Component {
                             <h2>{rootEntity && rootEntity.name} ( {data && data.length} )</h2>
                         </div>
                     : null }
+                    {/* {
+                        showSearchBar ? this.renderSearchBar() : null
+                    } */}
                     <List
                         header={ headerRoot && !hideHeader ? <GennyForm root={headerRoot} isHorizontal /> : null }
                         hideCount

@@ -2,6 +2,11 @@
 
 .carousel-main {
 
+    .slick-track {
+
+        max-width: 350px;
+        max-height: 250px;
+    }
 
     > div {
         height: fit-content;
@@ -25,7 +30,7 @@
                 // padding: 5px;
             }
 
-            &:hover{ 
+            &:hover{
                 //background: none;
             }
         }

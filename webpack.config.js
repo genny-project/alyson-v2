@@ -1,7 +1,7 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 const Dashboard = require( 'webpack-dashboard/plugin' );
-
+const { IgnorePlugin } = require('webpack');
 
 module.exports = {
     context: path.resolve( __dirname, './client' ),
@@ -16,6 +16,11 @@ module.exports = {
         port: 3000,
         host: '0.0.0.0',
         historyApiFallback: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        }
     },
     devtool: 'eval',
     module: {

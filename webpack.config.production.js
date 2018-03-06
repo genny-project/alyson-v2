@@ -1,6 +1,7 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 
+const { IgnorePlugin } = require('webpack');
 
 module.exports = {
   context: path.resolve( __dirname, './client' ),
