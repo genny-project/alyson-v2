@@ -10,10 +10,9 @@ import prettierBytes from 'prettier-bytes';
 import classNames from 'classnames';
 import { Label, SubmitStatusIcon, IconSmall } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
-import Piexif from 'piexifjs';
-import fs from 'fs';
 
 class InputUpload extends Component {
+
     static defaultProps = {
         className: '',
         maxNumberOfFiles: 0,
@@ -92,27 +91,28 @@ class InputUpload extends Component {
                 restrictions: {
                     maxNumberOfFiles: this.props.maxNumberOfFiles,
                 },
-                onBeforeUpload: (files) => {
-
-                    Object.keys(files).forEach(fileKey => {
-
-                        let currentFile = files[fileKey];
-                        var jpeg = fs.readFileSync(currentFile.data);
-                        var data = jpeg.toString("binary");
-                        var exifObj = Piexif.load(data);
-                        delete exifObj["0th"][Piexif.ImageIFD.Orientation];
-                        var exifbytes = Piexif.dump(exifObj);
-
-                        var reader = new FileReader();
-                        let imageFile = reader.readAsDataURL(currentFile.data);
-                        var newData = Piexif.insert(exifbytes, data);
-                        var newJpeg = new Buffer(data, "binary");
-                        fs.writeFileSync(currentFile.data, newJpeg);
-                        console.log("done");
-                    })
-
-                    return Promise.resolve()
-                }
+                // onBeforeUpload: (files) => {
+                //
+                //     Object.keys(files).forEach(fileKey => {
+                //
+                //         let currentFile = files[fileKey];
+                //         // var jpeg = fs.readFileSync(currentFile.data);
+                //         // var data = jpeg.toString("binary");
+                //         console.log(currentFile);
+                //         var exifObj = Piexif.load(currentFile.data.name);
+                //         delete exifObj["0th"][Piexif.ImageIFD.Orientation];
+                //         var exifbytes = Piexif.dump(exifObj);
+                //
+                //         var reader = new FileReader();
+                //         let imageFile = reader.readAsDataURL(currentFile.data);
+                //         var newData = Piexif.insert(exifbytes, currentFile.data);
+                //         var newJpeg = new Buffer(data, "binary");
+                //         // fs.writeFileSync(currentFile.data, newJpeg);
+                //         console.log("done", newJpeg);
+                //     })
+                //
+                //     return Promise.resolve()
+                // }
             })
             .use(Dashboard, {
                 closeModalOnClickOutside: true

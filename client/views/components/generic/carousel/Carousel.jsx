@@ -33,11 +33,11 @@ class Carousel extends Component {
             items.map( item  => {
                 content.push(
                     <div style={{ height: imageHeight }}>
-                        <img src={item.img} style={{ height: '100%' }}/>
-                        { item.text ?
+                        <ImageView caption={item.text} src={item.img} style={{ height: '100%' }}/>
+                        {/* { item.text ?
                             <span className='legend'>{item.text}</span>
-                            : null }
-                        </div>
+                            : null } */}
+                    </div>
                     );
                 });
             }

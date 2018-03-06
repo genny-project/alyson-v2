@@ -66,7 +66,6 @@ module.exports = {
         extensions: ['.js', '.jsx'],
     },
     plugins: [
-        new IgnorePlugin(/vertx/),
         new Dashboard()
     ],
 };
