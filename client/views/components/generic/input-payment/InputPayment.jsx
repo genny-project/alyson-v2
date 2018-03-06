@@ -391,8 +391,30 @@ class InputPayment extends Component {
           <PaymentType type='BANK ACCOUNT' selected={selectedPaymentType === 'BANK_ACCOUNT'} icon='account_balance' onClick={this.onSelectPaymentType( 'BANK_ACCOUNT' )} />
           <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} />
         </div>
+
+        {
+            isAccountsManagement == true ? this.renderPaymentMethodsList() : null
+        }
+
       </div>
     );
+  }
+
+  renderPaymentMethodsList() {
+
+      const { accounts, selectedPaymentType } = this.state;
+      return (
+          <div style={{ marginTop: "10px" }}>
+              <p>My Payment Methods: </p>
+              { accounts.filter((account) => selectedPaymentType != null ? account.type == selectedPaymentType : true).map( account => (
+                <PaymentMethod
+                  key={account.id}
+                  account={account}
+                  onClick={this.handleSelectPaymentMethod( account )}
+                />
+              ))}
+          </div>
+      )
   }
 
   renderSelectAccount() {
@@ -408,14 +430,7 @@ class InputPayment extends Component {
             isAccountsManagement ? "List of your payments methods" : "Please select a account from below"
         }</p>
         <div className='payment-methods'>
-          { accounts.filter( account => account.type == selectedPaymentType ).map( account => (
-            <PaymentMethod
-              key={account.id}
-              account={account}
-              onClick={this.handleSelectPaymentMethod( account )}
-              selected={selectedPaymentMethod === account.id}
-            />
-          ))}
+          {this.renderPaymentMethodsList()}
         </div>
       </div>
     );

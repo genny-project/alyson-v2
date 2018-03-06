@@ -195,6 +195,8 @@ class GennyForm extends Component {
                                     valList = ask.question.attribute.dataType.validationList;
                                     if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
                                         options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
+
+                                            console.log(newEntity);
                                             existing.push({
                                                 name: newEntity.name,
                                                 code: newEntity.code,
