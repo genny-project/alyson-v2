@@ -13,6 +13,9 @@
     "deploy": "webpack --config webpack.config.production.js; node aws-deploy.js",
     "eslint-fix": "eslint -c .eslintrc.js --fix client/"
   },
+  "browser": {
+    "vertx": false
+  },
   "keywords": [],
   "author": "Outcome.life",
   "license": "Apache-2.0",
@@ -59,6 +62,7 @@
     "axios": "^0.17.1",
     "babel-preset-stage-0": "^6.24.1",
     "downshift": "^1.12.0",
+    "fs": "0.0.1-security",
     "halogen": "^0.2.0",
     "jwt-decode": "^2.2.0",
     "keycloak-js": "^3.3.0-cr.2",
@@ -68,6 +72,7 @@
     "moment": "^2.20.1",
     "node-sass": "^4.5.3",
     "path": "^0.12.7",
+    "piexifjs": "^1.0.3",
     "postcss-uncss": "^0.15.0",
     "prettier-bytes": "^1.0.4",
     "query-string": "^4.3.4",
@@ -84,9 +89,9 @@
     "react-paginate": "^5.0.0",
     "react-places-autocomplete": "^6.0.1",
     "react-redux": "^5.0.2",
-    "react-responsive-carousel": "^3.1.30",
     "react-router-dom": "^4.0.0-beta.8",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-slick": "^0.20.0",
     "react-table": "6.7.5",
     "react-text-mask": "^5.0.2",
     "react-toastify": "^3.3.1",
@@ -98,9 +103,11 @@
     "resolve-cwd": "^2.0.0",
     "rxjs": "^5.4.0",
     "s3": "^4.4.0",
+    "slick-carousel": "^1.8.1",
     "text-mask-addons": "^3.6.0",
     "uncss": "^0.15.0",
     "uppy": "0.22.0",
+    "es6-promise": "4.2.4",
     "vertx3-eventbus-client": "^3.4.2",
     "webpack-dashboard": "^0.4.0"
   }

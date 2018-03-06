@@ -6,7 +6,7 @@ import { BucketColumn } from './bucket-column';
 import { Modal, Device, IconSmall, Button } from 'views/components';
 import _ from 'lodash';
 
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './bucketView.scss';
 
 class BucketView extends Component {
