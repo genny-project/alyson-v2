@@ -12,7 +12,8 @@ class Dropdown extends Component {
     showTag: true,
     inline: false,
     isSlide: true,
-    noAnimation: false
+    animateHeader: true,
+    animateFooter: true,
   }
 
   static propTypes = {
@@ -21,13 +22,15 @@ class Dropdown extends Component {
     children: any,
     open: bool,
     header: any,
+    footer: any,
     showTag: bool,
     inline: bool,
     contentStyle: object,
     tagStyle: object,
     noDropdownStyle: string,
     isSlide: bool,
-    noAnimation: bool,
+    animateHeader: bool,
+    animateFooter: bool,
     onBlur: func
   }
 
@@ -54,7 +57,7 @@ class Dropdown extends Component {
 
   renderHeader = (isOpen) => {
 
-    const { header, noAnimation } = this.props;
+    const { header, animateHeader } = this.props;
 
     let headerContent;
 
@@ -69,8 +72,32 @@ class Dropdown extends Component {
       }
 
       return (
-        <div className='dropdown-header' onClick={this.handleClick} style={isOpen && !noAnimation ? { 'transition': 'all 0.1s', 'transform': 'rotate(180deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' }}>
+        <div className='dropdown-header' onClick={this.handleClick} style={isOpen && animateHeader ? { 'transition': 'all 0.1s', 'transform': 'rotate(180deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' }}>
           {headerContent}
+        </div>
+      );
+    }
+  }
+
+  renderFooter = (isOpen) => {
+
+    const { footer, animateFooter } = this.props;
+
+    let footerContent;
+
+    if (footer) {
+      if (footer.$$typeof ) {
+        footerContent = footer;
+      } else if (Array.isArray(footer)) {
+        let layout = {layout: footer};
+        footerContent = <JSONLoader layout={layout} componentCollection={components} />;
+      } else {
+        footerContent =  null;
+      }
+
+      return (
+        <div className='dropdown-footer' onClick={this.handleClick} style={isOpen && animateFooter ? { 'transition': 'all 0.1s', 'transform': 'rotate(180deg)' } : { 'transition': 'all 0.1s', 'transform': 'rotate(0deg)' }}>
+          {footerContent}
         </div>
       );
     }
@@ -99,6 +126,7 @@ class Dropdown extends Component {
           </div>
         </Slide> */}
         {isSlide ? this.renderHeader(isOpen) : null}
+        {this.renderFooter(isOpen)}
       </div>
     );
   }

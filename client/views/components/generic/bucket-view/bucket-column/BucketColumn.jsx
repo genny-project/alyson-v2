@@ -211,7 +211,7 @@ class BucketColumn extends Component {
                             isSlide={false}
                             onBlur={this.handleBlur}
                             tabIndex='-1'
-                            noAnimation={true}
+                            animateHeader={false}
                             inline={true}
                             header={
                                 <span style={{display: 'flex', alignItems: 'center', padding: `5px ${this.state.isOpen ? '5px 0' : ''}` }}>

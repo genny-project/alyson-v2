@@ -13,8 +13,8 @@
         outline: none;
     }
 
-    .dropdown-header {
-     z-index: 9;
+    .dropdown-header, .dropdown-footer {
+        z-index: 9;
     }
 
     .dropdown-content {
