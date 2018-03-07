@@ -18,4 +18,5 @@ export { default as GennyPasscode } from './genny-passcode';
 export { default as GennyDropdown } from './genny-dropdown';
 export { default as GennyMessaging } from './genny-messaging';
 export { default as GennyMessagingConversation } from './genny-messaging-conversation';
+export { default as GennyStatus } from './genny-status';
 export { default as TabContainer } from './tab-container';
