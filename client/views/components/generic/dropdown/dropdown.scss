@@ -16,6 +16,9 @@
     .dropdown-header, .dropdown-footer {
         z-index: 9;
     }
+    .dropdown-header{
+        width: 100%;
+    }
 
     .dropdown-content {
         position: absolute;
