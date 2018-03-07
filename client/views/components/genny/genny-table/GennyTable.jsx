@@ -8,7 +8,7 @@ import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCel
 class GennyTable extends Component {
 
     static defaultProps = {
-        showBaseEntity: false,
+        showBaseEntity: false,    
         columns: null,
         root: null,
         buttonActions: [],
@@ -19,6 +19,7 @@ class GennyTable extends Component {
         columns: [],
         root: string,
         buttonActions: array,
+
       }
 
     state = {
@@ -48,7 +49,7 @@ class GennyTable extends Component {
                     tableColumns.push(c);
                 }
             });
-        });
+        });        
 
         let mobileColumns = [];
 
@@ -64,7 +65,6 @@ class GennyTable extends Component {
             }
         }
 
-        this.state.columns = isMobile ? mobileColumns : tableColumns;
         return isMobile ? mobileColumns : tableColumns;
     }
 
@@ -115,9 +115,9 @@ class GennyTable extends Component {
 
             if(attributes) {
 
-                Object.keys(attributes).sort((x,y) => attributes[x].weight > attributes[y].weight).forEach(attribute_key => {
+                const createColumn = (attributeCode, width) => {
 
-                    let attribute = attributes[attribute_key];
+                    let attribute = attributes[attributeCode];
                     const attrData = BaseEntityQuery.getAttribute(attribute.attributeCode);
                     let attrType = null;
                     let attrName = null;
@@ -140,15 +140,40 @@ class GennyTable extends Component {
                             newCol.Header = <GennyTableHeader title={attrName || attribute.attributeCode}/>;
                             newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
                             newCol.accessor = attribute.attributeCode;
-                            newCol.minWidth = 200;
+                            newCol.minWidth = typeof width == 'number' ? width : 300;
                         }
                         else {
                             newCol.name = attrName || attribute.attributeCode;
                         }
 
-                        cols.push(newCol);
+                        return newCol;
                     }
-                });
+
+                    return null;
+                };
+
+                const columnsProps = this.props.columns;
+                if (columnsProps != null && columnsProps.length > 0) {
+                         
+                    for(let i = 0; i < columnsProps.length; i++) {
+
+                        const attributeCode = columnsProps[i].code;
+                        const width = columnsProps[i].width;
+                        if(attributes[attributeCode] != null) {
+
+                            const newColumn = createColumn(attributeCode, width);
+                            newColumn && cols.push(newColumn);
+                        }
+                    }
+                }
+                else {
+
+                    Object.keys(attributes).sort((x,y) => attributes[x].weight > attributes[y].weight).forEach(attribute_key => {
+
+                        const newColumn = createColumn(attribute_key);
+                        newColumn && cols.push(newColumn);
+                    });
+                }
 
                 if(this.props.buttonActions.length > 0) {
                     cols.splice(0, 0, {
@@ -258,8 +283,8 @@ class GennyTable extends Component {
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children);
-        this.props.showBaseEntity ? null : console.log( columns )
-        this.props.showBaseEntity ? null : console.log( data )
+        //this.props.showBaseEntity ? null : console.log( columns );
+        //this.props.showBaseEntity ? null : console.log( data );
 
         return (
             <div className={`genny-table ${data.length > 0 ? '' : 'empty'}`} style={style}>

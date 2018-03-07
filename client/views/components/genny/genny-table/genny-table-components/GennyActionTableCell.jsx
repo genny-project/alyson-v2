@@ -38,7 +38,10 @@ class GennyActionTableCell extends Component {
                 return (
                     <span
                         style={{
-                        fontSize: '14px',
+                            fontSize: '14px',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center'
                         }}>
                         {
                             buttonActions ? buttonActions.map(buttonAction => this.renderAction(buttonAction, be)) : null

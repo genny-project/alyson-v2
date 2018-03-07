@@ -35,8 +35,6 @@ class GennyTableCellMobile extends Component {
         const { data, row, original } = this.props;
         const { isOpen } = this.state;
 
-        console.log("====================");
-
         return (
             <div className='table-mobile-cell'>
                     <IconSmall

@@ -17,11 +17,67 @@ class GennyTableEditableCell extends Component {
 
     state = {
         canEdit: false,
+        lastSentAnswer: null
+    }
+
+    componentDidMount() {
+        if (this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id] != ( null || undefined ) ) {
+            let dataType = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].type;
+            if (dataType != 'Image' && dataType != 'link' && dataType != 'java.lang.Boolean') {
+                this.setState({
+                    canEdit: true
+                });
+            }
+            let value = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value;
+            this.setState({
+                lastSentAnswer: value
+            });
+        }
+    }
+
+    handleKeyDown = (event) => {
+        if (event.keyCode == '13') {
+            event.preventDefault();
+            this.handleBlur(event);
+        }
+    }
+
+    handleBlur = (event) => {
+        let newValue = event.target.value;
+        if(newValue && newValue != this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value) {
+
+            let attributeCode = this.props.cellInfo.column.attributeCode;
+            if(attributeCode) {
+
+                let baseEntity = this.props.data[this.props.cellInfo.index];                
+                let targetCode = baseEntity.baseEntityCode;
+                
+                let answer = [
+                    {
+                        targetCode: targetCode,
+                        attributeCode: attributeCode,
+                        value: newValue
+                    }
+                ];
+
+                //console.log(newValue, this.state.lastSentAnswer);
+
+                if ( newValue != this.state.lastSentAnswer ) {
+                    if (confirm('Are you sure you want to change this information?')) {
+                        GennyBridge.sendAnswer(answer);
+                        this.setState({
+                            lastSentAnswer: newValue
+                        });
+                    }
+                    else {
+                        this.input.value = this.state.lastSentAnswer;
+                    }
+                }
+            }
+        }
     }
 
     renderDiv() {
-
-        console.log(this.props.data);
 
         if (this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id] == null ) return null;
 
@@ -31,7 +87,7 @@ class GennyTableEditableCell extends Component {
         switch (dataType) {
 
             case 'Image': {
-                return <ImageView src={value} style={{ width: '50p', height: '50px', borderRadius: '25px' }} />;
+                return <ImageView src={value} style={{ width: '50px', height: '50px' }} />;
             }
 
             case 'link': {
@@ -39,74 +95,39 @@ class GennyTableEditableCell extends Component {
                 return <a href={value}>Click Here</a>;
             }
 
-            case 'boolean': {
-                return <input checked={value} type="checkbox" />;
+            case 'java.lang.Boolean': {
+                return (
+                    <input 
+                        checked={value} 
+                        type="checkbox"
+                    />
+                );
             }
 
             default: {
-                this.state.canEdit = true;
                 return (
-                    value
+                    <input
+                        ref={r => this.input = r}
+                        className="table-input"
+                        defaultValue={value}
+                        type="text"
+                        onBlur={this.handleBlur}
+                        onKeyDown={this.handleKeyDown}
+                    />
                 );
             }
         }
-
-        return null;
     }
 
     render() {
 
-        console.log("-------------------------")
-        console.log(this.props);
-
         return (
             <div
-                contentEditable={this.state.canEdit}
-                suppressContentEditableWarning
+                // contentEditable={this.state.canEdit}
+                // suppressContentEditableWarning
                 className={`editable-table-cell ${ this.state.canEdit ? 'active' : 'disabled' }`}
-                onBlur={e => {
-                    let newValue = e.target.innerHTML;
-                    if(newValue && newValue != this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value) {
-
-                        let attributeCode = this.props.cellInfo.column.attributeCode;
-                        if(attributeCode) {
-
-                            let baseEntity = this.props.data[this.props.cellInfo.index];
-                            let validationList = baseEntity.validationList[attributeCode];
-                            let targetCode = baseEntity.baseEntityCode;
-                            let answer = [
-                                {
-                                    targetCode: targetCode,
-                                    attributeCode: attributeCode,
-                                    value: newValue
-                                }
-                            ];
-
-                            // we validate and then send the answer if OK
-
-                            let valResult = null;
-                            if (validationList != null && validationList.length > 0 ) {
-                                valResult = validationList.every( validation => {
-                                    console.log(validation);
-                                    return new RegExp(validation.regex).test( newValue )
-                                });
-                            } else {
-                                valResult = new RegExp(/.*/).test( newValue );
-                            }
-
-                            if (valResult) {
-                                GennyBridge.sendAnswer(answer);
-
-                            } else {
-
-                                console.error("to implement: regex was not validated, should show error.");
-                            }
-                        }
-                    }
-                }}>
-
+            >
                 {this.renderDiv()}
-
             </div>
         );
     }
