@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { string, object, bool } from 'prop-types';
 import { MapDisplay } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
+import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class GennyMap extends Component {
 
@@ -244,6 +245,12 @@ class GennyMap extends Component {
                 const dropoffSuburb = attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value;
                 const dropoffState = attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value;
 
+                // const layout_code = 'map-pin-info';
+                // const sublayout = this.props.sublayout[layout_code];
+                // let content = <LayoutLoader layout={sublayout} aliases={{BE: baseEntity.code, ROOT: this.props.root }}/>;
+
+                //console.log(baseEntity.attributes, content);
+
                 let text = '<div>'+
                     '<span style="font-weight: 1000;" >' + title + '</span>' +
                     '<div>' + 
@@ -253,6 +260,9 @@ class GennyMap extends Component {
                         '<span>' + 'Delivery: ' + dropoffSuburb + ', ' + dropoffState + '</span>' +
                     '</div>' +
                 '</div>';
+
+                // let text = '<div id="map-infowindow" >INFOWINDOW</div>' ;
+
 
                 Object.keys(attributes).map(attribute_key => {
 

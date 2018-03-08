@@ -1,6 +1,6 @@
 import './measurementLabel.scss';
 import React, { Component } from 'react';
-import { string, any, object, bool } from 'prop-types';
+import { string, any, object, bool, number } from 'prop-types';
 const measurement = require('measurement');
 const mf = new measurement.Factory();
 
@@ -9,7 +9,8 @@ class MeasurementLabel extends Component {
   static defaultProps = {
     value: '',
     fromUnit: 'm',
-    toUnit: 'km'
+    toUnit: 'km',
+    hideDecimal: false,
   }
 
   static propTypes = {
@@ -18,16 +19,27 @@ class MeasurementLabel extends Component {
     style: object,
     fromUnit: string.isRequired,
     toUnit: string.isRequired,
+    hideDecimal: bool,
+    showDecimal: number
   }
 
   convert = (value, fromUnit, toUnit) => {
-
+    const { hideDecimal, showDecimal } = this.props;
     const newValue = parseFloat(value.replace(',', ''));
 
     if(newValue != null && fromUnit != null && toUnit != null) {
 
-        const measurement = mf.measure(`${newValue}${fromUnit}`);
-        return `${measurement.as(toUnit)}`;
+        let measurement = mf.measure(newValue, `${fromUnit}`);
+
+        let convertMeasurement = measurement.as(toUnit);
+
+        if (showDecimal && Number.isInteger(showDecimal) && showDecimal.length > 0 ) {
+          convertMeasurement.value = convertMeasurement.value.toFixed( showDecimal );
+        }
+        if (hideDecimal == true) {
+          convertMeasurement.value = convertMeasurement.value.toFixed(0);
+        }
+        return `${convertMeasurement.as(toUnit)}`;
     }
 
     return null;

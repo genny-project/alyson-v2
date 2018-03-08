@@ -97,9 +97,15 @@ class MapDisplay extends Component {
                 map
               });
 
-              newMarker.addListener('click', function() {
+              newMarker.addListener('click', () => {
                 infowindow.open(map, newMarker);
                 infowindow.setContent(marker.text);
+                
+                // let button = document.getElementById('map-infowindow');
+                // console.log(button);
+                // button.addEventListener('click', () => {
+                //   console.log('onClick');
+                // });
               });
 
               this.locations.push(new google.maps.LatLng(markerCoords.lat, markerCoords.lng));
@@ -130,9 +136,12 @@ class MapDisplay extends Component {
 
             this.locations.push(originCoords);
 
+            console.log(route.dest);
+              
             this.checkAddressFormat(geocoder, route.dest, (routeDestCoords) => {
 
               let destCoords = new google.maps.LatLng( routeDestCoords.lat, routeDestCoords.lng );
+              console.log(destCoords);
               this.locations.push(destCoords);
 
               this.calcRoute(originCoords, destCoords, () => {
@@ -236,6 +245,10 @@ class MapDisplay extends Component {
     let directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(this.map);
     directionsService.route(request, function(response, status) {
+
+      console.log(
+        response.request.destination.location.lat()
+      );
 
       if (status == 'OK') {
         directionsDisplay.setDirections(response);

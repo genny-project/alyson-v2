@@ -54,8 +54,6 @@ class GennyStatus extends Component {
 
         const color = this.getEntityStatus(root);
 
-        console.log(style);
-
         return (
             <div className="genny-status" style={componentStyle}>
                 <Status

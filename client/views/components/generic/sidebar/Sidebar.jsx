@@ -19,7 +19,7 @@ class Sidebar extends Component {
     }
 
     componentWillMount() {
-        this.state.isOpen = window.getScreenSize() != 'sm' && localStorage.getItem("sidebar_open") == "true";
+        this.state.isOpen = window.getScreenSize() != 'sm' && localStorage.getItem('sidebar_open') == 'true';
     }
 
     handleSidebarToggle = (event) => {
@@ -29,7 +29,7 @@ class Sidebar extends Component {
         this.setState(prevState => ({
             isOpen: !prevState.isOpen
         }), () => {
-            localStorage.setItem("sidebar_open", this.state.isOpen);
+            localStorage.setItem('sidebar_open', this.state.isOpen);
         });
     }
 
@@ -38,7 +38,27 @@ class Sidebar extends Component {
     }
 
     onClick = () => {
-        console.log('hello');
+        this.setState(prevState => ({
+            isOpen: !prevState.isOpen
+        }), () => {
+            localStorage.setItem('sidebar_open', this.state.isOpen);
+        });
+    }
+
+    renderChildren = (children) => {
+
+        const childrenWithProps =  React.Children.map(children, child => {
+            if (child.$$typeof) {
+                return React.cloneElement(child, {
+                    onClick: this.onClick
+                });
+            }
+            else {
+                console.log('Error: Child must be a valid react element');
+            }
+        });
+
+        return childrenWithProps;
     }
 
     render() {
@@ -71,12 +91,6 @@ class Sidebar extends Component {
             position={[0,0]}
         />;
 
-        // React.Children.map(this.props.children, child => {
-        //     React.cloneElement(child, {
-        //         onClick: this.onClick
-        //     });
-        // });
-
         return (
             <div className={`sidebar ${window.getScreenSize()} ${!isOpen ? '' : 'closed'}`}>
                 <Grid
@@ -87,7 +101,7 @@ class Sidebar extends Component {
 
                     {icon}
                     {image}
-                    {children}
+                    {this.renderChildren(children)}
                 </Grid>
             </div>
         );

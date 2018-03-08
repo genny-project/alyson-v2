@@ -70,7 +70,7 @@ class GennyForm extends Component {
 
     onSubmit = (questionGroupCode, targetCode, action) => {
 
-        console.log("Submitting form....");
+        //console.log("Submitting form....");
 
         if(questionGroupCode) {
 
@@ -196,7 +196,7 @@ class GennyForm extends Component {
                                     if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
                                         options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
 
-                                            console.log(newEntity);
+                                            //console.log(newEntity);
                                             existing.push({
                                                 name: newEntity.name,
                                                 code: newEntity.code,

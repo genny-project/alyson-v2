@@ -1,11 +1,11 @@
 import './gennyTreeView.scss';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { TreeView, Breadcrumbs } from 'views/components';
 import { object, array, bool } from 'prop-types';
 import store from 'views/store';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 
-class GennyTreeView extends PureComponent {
+class GennyTreeView extends Component {
 
     constructor(props) {
         super(props);
@@ -29,7 +29,9 @@ class GennyTreeView extends PureComponent {
 
     componentDidMount() {
 
-        //console.log(this.props);
+        console.log(this.props);
+
+        if (this.props.onMount)this.props.onMount();
 
         // let identifier = this.props.key || this.props.root;
         // if(identifier && this.props.componentState) {
