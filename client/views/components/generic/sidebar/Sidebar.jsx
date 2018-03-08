@@ -37,6 +37,10 @@ class Sidebar extends Component {
         window.location.reload();
     }
 
+    onClick = () => {
+        console.log('hello');
+    }
+
     render() {
 
         const { style, src, caption, children, } = this.props;
@@ -61,11 +65,17 @@ class Sidebar extends Component {
             );
         }
         let icon = <IconSmall className='sidebar-toggle-icon clickable'
-                name="menu"
-                size={32}
-                onClick={this.handleSidebarToggle}
-                position={[0,0]}
-            />;
+            name="menu"
+            size={32}
+            onClick={this.handleSidebarToggle}
+            position={[0,0]}
+        />;
+
+        // React.Children.map(this.props.children, child => {
+        //     React.cloneElement(child, {
+        //         onClick: this.onClick
+        //     });
+        // });
 
         return (
             <div className={`sidebar ${window.getScreenSize()} ${!isOpen ? '' : 'closed'}`}>

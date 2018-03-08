@@ -29,6 +29,8 @@ class GennyTreeView extends PureComponent {
 
     componentDidMount() {
 
+        //console.log(this.props);
+
         // let identifier = this.props.key || this.props.root;
         // if(identifier && this.props.componentState) {
         //
@@ -124,6 +126,8 @@ class GennyTreeView extends PureComponent {
             code: 'TV1',
             value: item.code
         }, item.code);
+
+        if (this.props.onClick) this.props.onClick();
     }
 
     sendData(event, data) {

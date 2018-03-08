@@ -49,6 +49,7 @@ import {
   GennyCarousel,
   GennyPasscode,
   GennyStatus,
+  GennySearchBar,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -98,4 +99,5 @@ export default new ComponentCollection({
   GennyCarousel,
   GennyPasscode,
   GennyStatus,
+  GennySearchBar,
 });
