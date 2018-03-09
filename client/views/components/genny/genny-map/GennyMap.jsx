@@ -2,8 +2,9 @@ import './gennyMap.scss';
 import React, { Component } from 'react';
 import { string, object, bool } from 'prop-types';
 import { MapDisplay } from 'views/components';
-import { BaseEntityQuery } from 'utils/genny';
-import { LayoutLoader } from 'utils/genny/layout-loader';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+const measurement = require('measurement');
+const mf = new measurement.Factory();
 
 class GennyMap extends Component {
 
@@ -65,7 +66,7 @@ class GennyMap extends Component {
         const entityAttribute = this.checkEntityForAttributes(data);
 
         if (entityAttribute) {
-            let mapData = this.getEntityMapData(data);
+            let mapData = this.getEntityMapData(root, data);
             return mapData;
         }
         else {
@@ -76,7 +77,7 @@ class GennyMap extends Component {
             const childAttributes = this.checkChildrenForAttributes(children);
 
             if (childAttributes) {
-                let mapData = this.getChildrenMapData(children);
+                let mapData = this.getChildrenMapData(root, children);
                 return mapData;
             }
             else {
@@ -129,7 +130,7 @@ class GennyMap extends Component {
         return hasAttributes;
     }
 
-    getEntityMapData = (baseEntity) => {
+    getEntityMapData = (root, baseEntity) => {
 
         let markers = [];
         let routes = [];
@@ -143,16 +144,7 @@ class GennyMap extends Component {
 
         if (attributes) {
 
-            let text = '<div>'+
-                '<span style="font-weight: 1000;" >' + attributes.PRI_TITLE && attributes.PRI_TITLE.value + '</span>' +
-                '<div>' + 
-                    '<span>' + 'Pickup: ' + attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value + ', ' + attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value + '</span>' +
-                '</div>' +
-                '<div>' + 
-                    '<span>' + 'Delivery: ' + attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value + ', ' + attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value + '</span>' +
-                '</div>' +
-                '<span>' + attributes.PRI_TOTAL_DISTANCE_M && attributes.PRI_TOTAL_DISTANCE_M.value + '</span>' +
-            '</div>';
+            let text = this.renderInfowindowContent(root, attributes);
 
             Object.keys(attributes).map(attribute_key => {
 
@@ -180,7 +172,9 @@ class GennyMap extends Component {
                 markers.push({
                     lat: parseFloat(attributes.PRI_POSITION_LATITUDE.value),
                     lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value),
-                    text: text
+                    text: text,
+                    code: baseEntity.code,
+                    root: root
                 });
             }
 
@@ -224,7 +218,7 @@ class GennyMap extends Component {
         return hasAttributes;
     }
 
-    getChildrenMapData = (baseEntities) => {
+    getChildrenMapData = (root, baseEntities) => {
 
         let markers = [];
         let routes = [];
@@ -239,30 +233,7 @@ class GennyMap extends Component {
 
             if (attributes) {
 
-                const title = attributes.PRI_TITLE && attributes.PRI_TITLE.value;
-                const pickupSuburb = attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value;
-                const pickupState = attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value;
-                const dropoffSuburb = attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value;
-                const dropoffState = attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value;
-
-                // const layout_code = 'map-pin-info';
-                // const sublayout = this.props.sublayout[layout_code];
-                // let content = <LayoutLoader layout={sublayout} aliases={{BE: baseEntity.code, ROOT: this.props.root }}/>;
-
-                //console.log(baseEntity.attributes, content);
-
-                let text = '<div>'+
-                    '<span style="font-weight: 1000;" >' + title + '</span>' +
-                    '<div>' + 
-                        '<span>' + 'Pickup: ' + pickupSuburb + ', ' + pickupState + '</span>' +
-                    '</div>' +
-                    '<div>' + 
-                        '<span>' + 'Delivery: ' + dropoffSuburb + ', ' + dropoffState + '</span>' +
-                    '</div>' +
-                '</div>';
-
-                // let text = '<div id="map-infowindow" >INFOWINDOW</div>' ;
-
+                let text = this.renderInfowindowContent(root, attributes);
 
                 Object.keys(attributes).map(attribute_key => {
 
@@ -283,7 +254,9 @@ class GennyMap extends Component {
                             markers.push({
                                 lat: parseFloat(attributes[attribute_key].lat),
                                 lng: parseFloat(attributes[attribute_key].lng),
-                                text: text
+                                text: text,
+                                code: baseEntity.code,
+                                root: root
                             });
                             break;
                         default:
@@ -296,7 +269,9 @@ class GennyMap extends Component {
                     markers.push({
                         lat: parseFloat(attributes.PRI_POSITION_LATITUDE.value),
                         lng: parseFloat(attributes.PRI_POSITION_LONGITUDE.value),
-                        text: text
+                        text: text,
+                        code: baseEntity.code,
+                        root: root
                     });
                 }
 
@@ -315,6 +290,105 @@ class GennyMap extends Component {
         return {markers: markers, routes: routes};
     }
 
+    renderInfowindowContent = (root, attributes) => {
+
+        const title = attributes.PRI_TITLE && attributes.PRI_TITLE.value;
+        
+        let driver = BaseEntityQuery.getLinkedBaseEntity(root,'DRIVER');
+        if (driver && driver.value) driver = driver.value;
+
+        const contentDriver = driver && driver.length > 0 ? 
+            (
+                '<div style="margin-bottom: 5px">' + 
+                    '<span>' +
+                        `Driver: ${driver}` +
+                    '</span>' +
+                '</div>'
+            ) :
+            null;
+
+        const pickupSuburb = attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value;
+        const pickupState = attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value;
+        const dropoffSuburb = attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value;
+        const dropoffState = attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value;
+        const distance =  attributes.PRI_TOTAL_DISTANCE_M && attributes.PRI_TOTAL_DISTANCE_M.value;
+
+        let status_color = '#5cb85c';
+        let user_status_color = null;
+
+        const userCode = GennyBridge.getUser();
+
+        const attributeKeys = Object.keys(attributes);
+        for (var i = 0; i < attributeKeys.length; i++) {
+
+            let attribute_key = attributeKeys[i];
+
+            if(attribute_key == 'STA_STATUS') {
+                status_color = attributes[attribute_key].value || status_color;
+            }
+
+            if(attribute_key.startsWith('STA') && attribute_key.indexOf(userCode) > -1) {
+                user_status_color = attributes[attribute_key].value;
+                break;
+            }
+        }
+
+        const newValue = parseFloat(distance.replace(',', ''));
+        let measurement = mf.measure(newValue, 'm');
+        let convertMeasurement = measurement.as('km');
+        convertMeasurement.value = convertMeasurement.value.toFixed(0);
+        const distanceKM = `${convertMeasurement.as('km')}`;
+
+        let content = (
+            '<div>' +
+                '<div style="display: flex; align-items: center; margin-bottom: 5px" >' + 
+                    `<div style="height: 15px; width: 15px; border-radius: 50%; margin-right: 5px; background: ${user_status_color || status_color}" ></div>`+
+                    '<span style="font-weight: 1000;" >' +
+                        title +
+                    '</span>' +
+                '</div>' +
+                `${contentDriver || ''}` +
+                '<div style="margin-bottom: 5px">' + 
+                    '<span>' +
+                        `Pickup: ${pickupSuburb}, ${pickupState}` +
+                    '</span>' +
+                '</div>' +
+                '<div style="margin-bottom: 5px">' + 
+                    '<span>' +
+                        `Delivery: ${dropoffSuburb}, ${dropoffState}` +
+                    '</span>' +
+                '</div>' +
+                `<div style="margin-bottom: 5px"><span>${distanceKM}</span></div>`+
+                '<div class="line-break"></div>' + 
+                '<div id="map-infowindow" class="map-infowindow-button">' +
+                    'See More Details' +
+                '</div>' +
+            '</div>'
+        );
+
+        return content;
+    }
+
+    handleInfowindowButtonClick = (code, root) => {
+
+        let value = {
+            itemCode: code,
+            hint: root
+        };
+
+        const isString = (value && value.constructor == String);
+        if(isString == false) {
+            value.userCode = GennyBridge.getUser();
+        }
+
+        let btnValue = (value && value.constructor == String) ? value : JSON.stringify(value);
+
+        GennyBridge.sendBtnClick('BTN_CLICK', {
+            code: 'BTN_LOAD_SEE_MORE',
+            value: btnValue || null
+        });
+    }
+
     render() {
 
         const { root, style, mapStyle, ...rest } = this.props;
@@ -328,6 +402,7 @@ class GennyMap extends Component {
                     style={mapStyle}
                     markers={mapData && mapData.markers }
                     routes={mapData && mapData.routes }
+                    onClick={this.handleInfowindowButtonClick}
                 />
             </div>
         );
