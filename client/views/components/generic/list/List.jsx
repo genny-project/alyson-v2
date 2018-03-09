@@ -33,11 +33,25 @@ class List extends Component {
   }
 
   state = {
+    data: null
+  }
+
+  componentDidMount() {
+    this.setState({
+      data: this.props.data
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+    //console.log(newProps.data);
+    this.setState({
+        data: newProps.data,
+    });
   }
 
   renderMain = (data, itemsPerPage, hideNav) => {
     const { itemHeight, itemWidth, itemGap, onItemClick } = this.props;
-
+    //console.log(data && data.length);
     if (data && data.length > 0) {
       return (
         <Pagination perPage={itemsPerPage} hideNav={hideNav} >
@@ -65,7 +79,8 @@ class List extends Component {
 
   render() {
 
-    const { className, style, data, itemsPerPage, header, hideNav, hideCount, countText, countStyle } = this.props;
+    const { className, style, itemsPerPage, header, hideNav, hideCount, countText, countStyle } = this.props;
+    const { data } = this.state;
     const componentStyle = { ...style, };
 
     const renderMain = this.renderMain(data, itemsPerPage, hideNav);
