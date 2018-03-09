@@ -297,7 +297,7 @@ export default function reducer(state = initialState, action) {
 
                             let be = state.data[beCode];
 
-                            if (state.relationships[beCode] && state.relationships[beCode][be_code]) {
+                            if (state.relationships[beCode] != null && state.relationships[beCode][be_code] != null) {
 
                                 if(!isParent) {
                                     delete state.relationships[beCode][be_code];
@@ -306,7 +306,7 @@ export default function reducer(state = initialState, action) {
 
                                     // if the relationship does not exist, we create it
                                     if(state.relationships[beCode] != null && state.relationships[beCode][be_code] == null) {
-                                            state.relationships[beCode][be_code] = { type: BASE_ENTITY }
+                                        state.relationships[beCode][be_code] = { type: BASE_ENTITY };
                                     }
                                 }
                             }
@@ -328,8 +328,6 @@ export default function reducer(state = initialState, action) {
 
                                             if(!isParent) {
 
-                                                console.log( "deleting" )
-                                                console.log( be.links[linkKey][counter] )
                                                 delete be.links[linkKey][counter];
                                                 be.links[linkKey].splice(counter, 1);
                                             }
@@ -338,13 +336,11 @@ export default function reducer(state = initialState, action) {
                                                 found = true;
 
                                                 // we update the link weight + value in case that changed
-                                                console.log("here");
-                                                console.log(be.links[linkKey][counter]);
                                                 be.links[linkKey][counter] = {
                                                     ...be.links[linkKey][counter],
                                                     weight: newLinkWeight,
                                                     linkValue: linkValue
-                                                }
+                                                };
 
                                                 counter += 1;
                                             }
@@ -372,7 +368,7 @@ export default function reducer(state = initialState, action) {
                                             targetCode: be_code,
                                             linkValue: linkValue
                                         }
-                                    ]
+                                    ];
                                 }
                             }
 
@@ -404,7 +400,7 @@ export default function reducer(state = initialState, action) {
                                         {
                                             ...state.data[be_code]
                                         }
-                                    ]
+                                    ];
                                 }
                             }
                         });
