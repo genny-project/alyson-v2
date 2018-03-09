@@ -31,7 +31,9 @@ class ImageView extends Component {
     }
 
     componentDidUpdate() {
-        this.renderImage();
+        if(this.state.error != true) {
+            this.renderImage();
+        }
     }
 
     renderImage() {
@@ -43,7 +45,9 @@ class ImageView extends Component {
                 src,
                 (img) => {
                     if(img.type === "error") {
-                        console.log("Error loading image " + src);
+                        this.setState({
+                            error: true
+                        });
                     } else {
 
                         if(this.refs != null && this.refs.imgDiv != null && this.refs.imgDiv.firstChild != null)
@@ -58,7 +62,9 @@ class ImageView extends Component {
             );
         }
         else {
-
+            this.setState({
+                error: true
+            });
         }
     }
 
@@ -75,6 +81,9 @@ class ImageView extends Component {
         return (
             <div className={`imageView ${rounded ? 'rounded' : ''} ${className}`} style={componentStyle}>
                 <div name="imgCanvas" ref="imgDiv" style={imageStyle} onClick={onClick} />
+                {
+                    error ? <img style={imageStyle} src={"https://i.imgur.com/FKJV3fp.jpg"} onError={this.onError} onClick={onClick} /> : null
+                }
                 { caption ? <span style={{ alignSelf: 'center' }}>{caption}</span> : null }
             </div>
         );

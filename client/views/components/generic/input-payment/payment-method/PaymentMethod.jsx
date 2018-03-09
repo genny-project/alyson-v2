@@ -8,18 +8,36 @@ class PaymentMethod extends Component {
     account: object.isRequired,
     selected: bool.isRequired,
     onClick: func.isRequired,
+    onDelete: func,
   };
 
   handleOnClick = () => {
     this.props.onClick();
   }
 
+  deletePaymentMethod = () => {
+
+      const { account } = this.props;
+
+      if(account.id) {
+
+          if(account.type == "bank_account") {
+              if(confirm("Are you sure you would like to delete this bank account?")) {
+                 this.props.onDelete && this.props.onDelete(account.id);
+              }
+          }
+          else {
+              if(confirm("Are you sure you would like to delete this credit card?")) {
+                 this.props.onDelete && this.props.onDelete(account.id);
+              }
+          }
+      }
+  }
+
   render() {
 
     const { account, selected } = this.props;
     const selectedClass = selected ? 'selected' : '';
-
-    console.log( account )
 
     return (
       <div className={`payment-method ${selectedClass}`} onClick={this.handleOnClick}>
@@ -38,6 +56,9 @@ class PaymentMethod extends Component {
             </div>
           )}
         </div>
+        {
+            account.id && account.type != "bank_account" ? <button onClick={this.deletePaymentMethod} className={"delete-button"}>Delete</button> : null
+        }
         {selected && (
           <div className='selected-tick'>
             <i className='material-icons'>check_circle</i>

@@ -240,6 +240,18 @@ class InputPayment extends Component {
       });
   }
 
+  onDeletePaymentMethod = (paymentMethodId) => {
+
+      GennyBridge.sendBtnClick('PAYMENT_SUBMIT', {
+          code: "USER_DELETE_NEW_PAYMENT_METHOD",
+          value: paymentMethodId
+      });
+
+      this.setState({
+          accounts: this.state.accounts.filter(account => account.id != paymentMethodId)
+      });
+  }
+
   submitCreditCard() {
 
     const { tokens, form } = this.state;
@@ -411,6 +423,7 @@ class InputPayment extends Component {
                   key={account.id}
                   account={account}
                   onClick={this.handleSelectPaymentMethod( account )}
+                  onDelete={this.onDeletePaymentMethod}
                 />
               ))}
           </div>
