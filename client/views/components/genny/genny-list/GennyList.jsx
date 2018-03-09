@@ -40,7 +40,9 @@ class GennyList extends Component {
 
         const {localAliases, selectedItem, root} = this.props;
 
-        let newData = data.map((item, index) => {
+        let newData = [];
+
+        data.map((item, index) => {
 
             let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
             if(linkToParent) {
@@ -52,17 +54,20 @@ class GennyList extends Component {
                 item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
                 item['rootCode'] = root;
                 item['isSelected'] = isSelected;
-                return item;
+                newData.push(
+                    item
+                );
             }
-
             return false;
         });
+
+        newData = newData.sort((x, y) => x.created < y.created);
 
         return newData;
     }
 
     renderSearchBar() {
-        return <GennySearchBar />
+        return <GennySearchBar />;
     }
 
     render() {
