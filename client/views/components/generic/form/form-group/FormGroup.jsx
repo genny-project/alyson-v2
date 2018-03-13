@@ -41,7 +41,7 @@ class FormGroup extends Component {
     componentDidMount() {
 
         this._ismounted = true;
-        // console.log('MOUNTED: ', this.props.title);
+        //console.log('MOUNTED: ', this.props.title);
 
         if (this.props.onMount) {
             this.props.onMount(this.props.title, null, this.state.isFormValidated);
@@ -108,7 +108,7 @@ class FormGroup extends Component {
     }
 
     setChildInitial = (name, value, isValid) => {
-        // console.log('* initial', name);
+        //console.log('* initial', name);
         this.children[name] = {
             value: value,
             isValid: isValid
@@ -116,7 +116,7 @@ class FormGroup extends Component {
     }
 
     setChildrenState = () => {
-        // console.log('SET', this.props.title);
+        //console.log('SET', this.props.title);
 
         this.setState({
             children: this.children
@@ -139,24 +139,24 @@ class FormGroup extends Component {
     checkIfFormIsValid() {
 
         if(this._ismounted) {
-
-            //console.log('-------------------');
-            //console.log('CHECK IF "', this.props.title, '" IS VALID');
+            // console.log('');
+            // console.log('-------------------');
+            // console.log('CHECK IF "', this.props.title, '" IS VALID');
             
             const { children }= this.state;
-            //console.log(children);
+            // console.log(children);
             const isFormValid = Object.keys(children).every(child_key => {
                 const child = children[child_key];
                 const isChildValid = child.isValid != null ? child.isValid : true;
                 return isChildValid;
             });
             
-            //console.log('RESULT: ', isFormValid);
+            // console.log('RESULT: ', isFormValid);
             this.setState({
                 isFormValidated: isFormValid
             }, () => {
                 if (this.props.handleValidation) {
-                    //console.log('updating parent');
+                    // console.log('updating parent');
                     this.props.handleValidation(this.props.title, null, isFormValid);
                 }
             });

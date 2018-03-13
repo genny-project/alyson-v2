@@ -198,7 +198,7 @@ class GennyHeader extends Component {
                     open={isOpen == 'profile'}
                     onBlur={this.handleBlur}
                     tabIndex='-1'
-                    noAnimation={window.getScreenSize() == 'sm'}
+                    animateHeader={window.getScreenSize() != 'sm'}
                     header={
                         window.getScreenSize() == 'sm' ?
                         <ProfileImageView

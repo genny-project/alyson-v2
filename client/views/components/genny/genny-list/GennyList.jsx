@@ -44,6 +44,9 @@ class GennyList extends Component {
 
         data.map((item, index) => {
 
+            // console.log('===================');
+            // console.log(item);
+
             let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
             if(linkToParent) {
 

@@ -37,7 +37,7 @@ class GennyNotifications extends Component {
           open={isOpen}
           onBlur={this.props.handleBlur}
           tabIndex='-1'
-          noAnimation
+          animateHeader={false}
           header={
             <div className='notifications-header-main' onClick={this.props.onHeaderClick}>
               { 

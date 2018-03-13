@@ -39,7 +39,7 @@ class Pagination extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        //console.log(newProps.children);
+        // console.log(newProps.children);
         this.setState({
             children: newProps.children,
             pageCount: Math.ceil( Object.keys(newProps.children).length / this.props.perPage ),

@@ -51,6 +51,10 @@ class Input extends Component {
     }
 
     componentDidMount() {
+        // console.log('');
+        // console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
+        // console.log('mounted: ', this.props.identifier);
+        
         this._ismounted = true;
 
         if (this.props.onMount) {
@@ -86,6 +90,7 @@ class Input extends Component {
         let isValid = false;
 
         //console.log(value, validationList, mandatory);
+        
         // if there is validation required
         if ( mandatory || !mandatory && value != null && value.length > 0) {
             if (validationList.length > 0) {
@@ -94,6 +99,7 @@ class Input extends Component {
                 isValid = validationList.every( validation => {
 
                     // if passes all, return true, otherwise, return false.
+                    
                     //console.log('regex validation', new RegExp(validation.regex).test( value ));
 
                     return new RegExp(validation.regex).test( value );
