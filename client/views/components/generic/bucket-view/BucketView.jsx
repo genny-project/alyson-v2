@@ -22,7 +22,7 @@ class BucketView extends Component {
         buckets: this.props.buckets || [],
         currentlySelectedItem: false,
         touch: {},
-        currentBucket: localStorage.getItem("current_bucket_page") ? parseFloat(localStorage.getItem("current_bucket_page")) : 0,
+        currentBucket: localStorage.getItem("current_bucket_page") ? parseFloat(localStorage.getItem("current_bucket_page")) : 1,
         isSafari: navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1
     }
 
@@ -94,6 +94,7 @@ class BucketView extends Component {
 
     componentDidMount() {
         if(this.state.currentBucket)
+            console.log(this.state.currentBucket);
             this.scrollToBucket(this.state.currentBucket);
     }
 
@@ -106,6 +107,7 @@ class BucketView extends Component {
 
         return;
 
+        /*
         if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0 && !this.hasDraggedItem) {
 
             let differences = [];
@@ -171,7 +173,7 @@ class BucketView extends Component {
 
         this.state.buckets = newProps.buckets;
         this.hasDraggedItem = false;
-        return;
+        return; */
     }
 
     onDragEnd = (result) => {
@@ -242,29 +244,29 @@ class BucketView extends Component {
         let bucketPageWidth = bucket.getBoundingClientRect().width;
         let currentScrollPosition = bucket.scrollLeft;
         let new_position = currentScrollPosition;
-
         if(typeof positionBucket === "number") {
 
             if(positionBucket >= 0 && positionBucket < this.props.buckets.length) {
-
+                console.log('part 1');
                 new_position = positionBucket * bucketPageWidth;
 
                 localStorage.setItem("current_bucket_page", parseFloat(positionBucket));
-
-                this.setState(prevState => ({
+                
+                console.log('positionBucket', positionBucket, new_position);
+                this.setState({
                     currentBucket: positionBucket
-                }));
+                });
             }
             else {
-
+                console.log('part 2');
                 localStorage.setItem("current_bucket_page", parseFloat(0));
             }
         }
         else if(positionBucket == 'next') {
-
             if (this.state.isSafari) {
                 if(this.state.currentBucket < this.props.buckets.length) {
-
+                    console.log('part 3');
+            
                     localStorage.setItem("current_bucket_page", (parseFloat(this.state.currentBucket) + 1));
 
                     this.setState(prevState => ({
@@ -273,15 +275,20 @@ class BucketView extends Component {
                 }
             }
             else {
+                if(this.state.currentBucket < this.props.buckets.length) {
 
-                if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
+                    //if(currentScrollPosition + bucketPageWidth <= bucketTotalWidth) {
+                        console.log('part 4');
+            
+                        new_position = currentScrollPosition + bucketPageWidth;
+                        console.log(currentScrollPosition, bucketPageWidth);
+                        const newBucket = this.state.currentBucket + 1;
+                        localStorage.setItem("current_bucket_page", (parseFloat(newBucket)));
 
-                    new_position = currentScrollPosition + bucketPageWidth;
-                    localStorage.setItem("current_bucket_page", (parseFloat(this.state.currentBucket) + 1));
-
-                    this.setState(prevState => ({
-                        currentBucket: prevState.currentBucket + 1
-                    }));
+                        this.setState(prevState => ({
+                            currentBucket: newBucket
+                        }));
+                    //}
                 }
             }
         }
@@ -289,7 +296,8 @@ class BucketView extends Component {
 
             if (this.state.isSafari) {
                 if(this.state.currentBucket > 1 ) {
-
+                    console.log('part 5');
+            
                     localStorage.setItem("current_bucket_page", (parseFloat(this.state.currentBucket) - 1));
 
                     this.setState(prevState => ({
@@ -298,21 +306,26 @@ class BucketView extends Component {
                 }
             }
             else {
+                if(this.state.currentBucket > 1 ) {
 
-                if(currentScrollPosition - bucketPageWidth >= 0) {
+                    //if(currentScrollPosition - bucketPageWidth >= 0) {
+                        console.log('part 6');
+            
+                        new_position = currentScrollPosition - bucketPageWidth;
+                        console.log(currentScrollPosition, bucketPageWidth);
+                        const newBucket = this.state.currentBucket - 1;
+                        localStorage.setItem('current_bucket_page', (parseFloat(newBucket)));
 
-                    new_position = currentScrollPosition - bucketPageWidth;
-
-                    localStorage.setItem("current_bucket_page", (parseFloat(this.state.currentBucket) - 1));
-
-                    this.setState(prevState => ({
-                        currentBucket: prevState.currentBucket - 1
-                    }));
+                        this.setState(prevState => ({
+                            currentBucket: newBucket
+                        }));
+                    //}
                 }
             }
         }
 
         if (!this.state.isSafari) {
+            console.log('scrollto', new_position);
             bucket.scrollTo({
                 'behavior': 'smooth',
                 'left': new_position
@@ -337,8 +350,6 @@ class BucketView extends Component {
 
     addNewItem = (selectedColumn) => {
         let groupId = selectedColumn.props.groupId;
-        console.log(selectedColumn);
-
         if(this.props.addNewItem) {
             this.props.addNewItem(groupId);
         }
@@ -436,95 +447,111 @@ class BucketView extends Component {
         }
     }
 
-  renderDots = () => {
-    const { buckets, currentBucket} = this.state;
-    let count = 0;
-    let columns = buckets.map((c, index )=> {
-      count = count + 1;
-      return <IconSmall key={index} size={12} name={count == currentBucket ? 'lens' : 'panorama_fish_eye'} style={ count < buckets.length ? { marginRight: '5px'} : null }/>;
-    });
+    renderDots = () => {
+        const { buckets, currentBucket} = this.state;
+        let count = 0;
+        let columns = buckets.map((c, index )=> {
+            count = count + 1;
+            console.log(count, currentBucket);
+            console.log(localStorage.getItem("current_bucket_page"));
+            return <IconSmall key={index} size={12} name={count == currentBucket ? 'lens' : 'panorama_fish_eye'} style={ count < buckets.length ? { marginRight: '5px'} : null }/>;
+        });
 
-    return columns;
-  }
+        return columns;
+    }
 
-  renderContent = (columns) => {
+    renderContent = (columns) => {
 
-    const { currentlySelectedItem } = this.state;
+        const { currentlySelectedItem } = this.state;
 
-    return (
-      <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
-        <Device isMobile>
-          <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
-            <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
-          </Modal>
-        </Device>
-        {columns}
-        <Device isMobile>
-          <div
-            className='bucket-mobile-dots'
-            style={{
-              height: '20px',
-              width: '100vw',
-              position: 'absolute',
-              bottom: '0',
-              right: '50vw',
-              transform: 'translate(50%)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              zIndex: '10',
-              padding: '5px',
-              backgroundColor: 'rgba(0,0,0,0.5)'
-            }}
-          >
-            {this.renderDots()}
-          </div>
-        </Device>
-      </div>
-    );
-  }
+        return (
+        <div onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd} className={`bucket-view size-${window.getScreenSize()}`}>
+            <Device isMobile>
+                <Modal header={<div>Move to</div>} onClose={this.toggleMovingOptions} show={currentlySelectedItem}>
+                    <div>{this.bucketSelectionLayout(currentlySelectedItem)}</div>
+                </Modal>
+            </Device>
+            <div
+                className='bucket-columns-container'
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexGrow: 1
+                }}
+            >
+                {columns}
+            </div>
+            
+            {/*
+                {columns}
+            */}
+            <Device isMobile>
+                <div
+                    className='bucket-mobile-dots'
+                    style={{
+                        height: '20px',
+                        width: '100vw',
+                        //position: 'absolute',
+                        //bottom: '0',
+                        //right: '50vw',
+                        //transform: 'translate(50%)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        //zIndex: '10',
+                        padding: '5px',
+                        backgroundColor: 'rgba(0,0,0,0.5)'
+                    }}
+                >
+                    {this.renderDots()}
+                </div>
+            </Device>
+        </div>
+        );
+    }
 
-  render() {
-      const { buckets } = this.state;
-      let isMobile = window.getScreenSize() == 'sm';
-      let columns = buckets.map((bucket, index) => {
+    render() {
+        const { buckets } = this.state;
+        let isMobile = window.getScreenSize() == 'sm';
+        let columns = buckets.map((bucket, index) => {
 
-          return (
-              <BucketColumn
-                  screenSize={this.props.screenSize}
-                  title={bucket.title}
-                  key={bucket.id}
-                  groupId={bucket.id}
-                  legend={bucket.legend}
-                  items={bucket.children}
-                  goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
-                  goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}
-                  showMovingOptions={this.toggleMovingOptions}
-                  addNewItem={this.addNewItem}
-                  canAddItem={bucket.canAddItem}
-                  style={{
-                      flexBasis: `calc(100vw / ${buckets.length})`,
-                      minWidth: isMobile ? '100vw' : '240px',
-                      maxWidth: isMobile ? '100vw' : `calc(100${this.state.isSafari ? '%' : 'vw'} / ${buckets.length})`,
-                      transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
-                  }}
-                  className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}
-              />
-          );
-      });
+            return (
+                <BucketColumn
+                    screenSize={this.props.screenSize}
+                    title={bucket.title}
+                    key={bucket.id}
+                    groupId={bucket.id}
+                    legend={bucket.legend}
+                    items={bucket.children}
+                    goToPreviousBucket={ index == 0 ? false : this.goToPreviousBucket}
+                    goToNextBucket={ index == buckets.length - 1 ? false : this.goToNextBucket}
+                    showMovingOptions={this.toggleMovingOptions}
+                    addNewItem={this.addNewItem}
+                    canAddItem={bucket.canAddItem}
+                    style={{
+                        flexBasis: `calc(100vw / ${buckets.length})`,
+                        minWidth: isMobile ? '100vw' : '240px',
+                        maxWidth: isMobile ? '100vw' : `calc(100${this.state.isSafari ? '%' : 'vw'} / ${buckets.length})`,
+                        //THIS LINE IS THE PROBLEM
+                        transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
+                    }}
+                    className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}
+                />
+            );
+        });
 
-      if (isMobile) {
-          return (
-              this.renderContent(columns)
-          );
-      } else {
-          return (
-              <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                  {this.renderContent(columns)}
-              </DragDropContext>
-          );
-      }
-  }
+        if (isMobile) {
+            return (
+                this.renderContent(columns)
+            );
+        } else {
+            return (
+                <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+                    {this.renderContent(columns)}
+                </DragDropContext>
+            );
+        }
+    }
 }
 
 export default BucketView;
