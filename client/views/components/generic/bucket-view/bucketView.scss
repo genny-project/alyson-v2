@@ -3,8 +3,9 @@
 .bucket-view {
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-grow: 1;
+  
   position: relative;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-touch-callout: none;
@@ -16,6 +17,10 @@
 
   > div {
     flex-grow: 1;
+  }
+
+  .bucket-columns-container {
+    -webkit-touch-callout: none;
   }
 
   &.size-lg, &.size-md, &.size-sm {
@@ -40,6 +45,12 @@
 .bucket-view.size-sm {
   overflow-x: hidden;
   cursor: pointer;
+
+  .bucket-columns-container {
+    -webkit-touch-callout: none;
+    width: 100vw;
+    max-width: 100%;
+  }
 
   .bucket-contents > .bucket-card {
     max-width: 100%;
