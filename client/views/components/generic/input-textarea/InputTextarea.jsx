@@ -39,7 +39,7 @@ class InputTextarea extends Component {
 
     const { handleOnChange } = this.props;
     const value = event.target.value;
-    
+
     if(handleOnChange) handleOnChange(value);
 }
 

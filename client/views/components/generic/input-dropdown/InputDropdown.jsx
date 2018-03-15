@@ -133,6 +133,7 @@ class InputDropdown extends Component {
 
   getDisplayText = () => {
 
+    const { isSingleSelect } = this.props;
     const { selectedItems } = this.state;
     if ( selectedItems) {
       if ( selectedItems.length == 1 && this.props.isSingleSelect ) {
@@ -143,7 +144,11 @@ class InputDropdown extends Component {
       } else if (selectedItems.length > 1) {
         return `${selectedItems.length} items selected`;
       }
-      return 'Select an item';
+
+      if(isSingleSelect)
+        return 'Select an item';
+
+      return 'Select multiple items';
     }
   }
 
@@ -295,7 +300,7 @@ class InputDropdown extends Component {
 
   render() {
 
-    const { className, style, name, validationStatus, hideHeader, isHorizontal, mandatory } = this.props;
+    const { className, style, name, validationStatus, hideHeader, isHorizontal, mandatory, isSingleSelect } = this.props;
     let { items } = this.props;
     const { selectedItems } = this.state;
     const componentStyle = { ...style, };
@@ -307,8 +312,8 @@ class InputDropdown extends Component {
         {
         !isHorizontal && !hideHeader ?
           <div className="input-header">
-            {name ? <Label text={name} /> : null}
-            {mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : null} text="*  required" /> : null}
+            { name ? <Label text={name} /> : null }
+            { mandatory? <Label className='input-label-required' textStyle={ !validationStatus || validationStatus == 'error' ? {color: '#cc0000'} : null} text="*  required" /> : null}
             <SubmitStatusIcon status={validationStatus} style={{marginLeft: '5px'}}/>
           </div> :
         null

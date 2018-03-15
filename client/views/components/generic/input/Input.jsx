@@ -55,13 +55,12 @@ class Input extends Component {
         // console.log('');
         // console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
         // console.log('mounted: ', this.props.identifier);
-        
+
         this._ismounted = true;
 
         if (this.props.onMount) {
 
             let isValid = this.isValid();
-
             this.props.onMount(this.props.identifier, this.props.value, isValid);
         }
     }
@@ -84,14 +83,14 @@ class Input extends Component {
 
     isValid = (showStyle) => {
 
-        
+
         const { validationList, mandatory } = this.props;
         const { value } = this.state;
 
         let isValid = false;
 
         //console.log(value, validationList, mandatory);
-        
+
         // if there is validation required
         if ( mandatory || !mandatory && value != null && value.length > 0) {
             if (validationList.length > 0) {
@@ -100,7 +99,7 @@ class Input extends Component {
                 isValid = validationList.every( validation => {
 
                     // if passes all, return true, otherwise, return false.
-                    
+
                     //console.log('regex validation', new RegExp(validation.regex).test( value ));
 
                     return new RegExp(validation.regex).test( value );
@@ -157,7 +156,7 @@ class Input extends Component {
         this.state.value = value;
 
         const valResult = this.isValid();
-        
+
         this.validateValue(valResult, value);
     }
 
