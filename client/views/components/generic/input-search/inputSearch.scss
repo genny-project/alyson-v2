@@ -1,0 +1,41 @@
+@import 'client/styles/colors';
+
+.input-search {
+	.input-header {
+	}
+
+	.input-search-main {
+
+		display: flex;
+		align-items: center;
+		position: relative;
+
+		.input-search-icon-search {
+			position: absolute;
+    		left: 10px;
+		}
+
+		.input-text {
+
+			input {
+				text-align: left;
+				padding-left: 45px;
+				padding-right: 45px;
+			}
+		}
+
+		.input-search-icon-clear {
+			position: absolute;
+			right: 10px;
+
+			i {
+				transition: 300ms ease;
+			
+			}
+			
+			&:not([disabled]):hover i {
+				color: black;
+			}
+		}
+	}
+}

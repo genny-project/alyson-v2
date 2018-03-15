@@ -27,6 +27,7 @@ export { default as InputEmail } from './input-email';
 export { default as InputRadio } from './input-radio';
 export { default as InputRating } from './input-rating';
 export { default as InputSlider } from './input-slider';
+export { default as InputSearch } from './input-search';
 export { default as InputPayment } from './input-payment';
 export { default as InputTerms } from './input-terms';
 export { default as InputText } from './input-text';

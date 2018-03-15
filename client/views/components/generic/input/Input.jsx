@@ -11,6 +11,7 @@ import {
     InputEmail,
     InputRadio,
     InputRating,
+    InputSearch,
     InputSlider,
     InputTerms,
     InputText,
@@ -406,6 +407,17 @@ class Input extends Component {
                     validationStatus={validationStatus}
                     value={this.state.value == true ? true : false}
                     handleOnChange={this.handleOnChange}
+                />
+            );
+            case 'Search' :
+            return (
+                <InputSearch
+                    {...rest}
+                    handleOnChange={this.handleOnChange}
+                    value={this.state.value}
+                    validation={this.validateInput}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
             );
             default:
