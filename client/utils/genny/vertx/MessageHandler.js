@@ -33,7 +33,7 @@ class MessageHandler {
     }
 
     if ( msg_type === EVT_MSG ) {
-      eventType = message.data.evt_type;
+      eventType = message.event_type;
     }
 
     /* Get the redux action to send */
@@ -41,6 +41,7 @@ class MessageHandler {
 
     if ( !action ) {
       console.warn( `[MessageHandler] No action creator for events of type ${eventType} `);
+      console.warn ( message );
       return;
     }
 
