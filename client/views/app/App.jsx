@@ -3,7 +3,7 @@ import config from 'config/config';
 import React, { Component } from 'react';
 import Routes from './Routes.jsx';
 import { func, object } from 'prop-types';
-import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn, KeycloakAccount } from '@genny-project/keycloak-react';
+import { Keycloak, KeycloakLogin, KeycloakLogout, KeycloakLoggedIn, KeycloakAccount, KeycloakRegister } from '@genny-project/keycloak-react';
 import keycloakAdapter from 'keycloak-js';
 import { GennyBridge } from 'utils/genny';
 
@@ -95,6 +95,8 @@ class App extends Component {
       );
     }
 
+    const isRegistering = window && window.location && window.location.pathname && window.location.pathname.indexOf( '/register' ) > -1;
+
     return (
       <Keycloak config={keycloakConfig} adapter={keycloakAdapter} defaultRedirectUri={window.location.origin} onAuthSuccess={this.handleAuthSuccess}>
         <div className='app'>
@@ -108,7 +110,7 @@ class App extends Component {
             </main>
           </KeycloakLoggedIn>
         </div>
-        <KeycloakLogin />
+        { isRegistering ? <KeycloakRegister /> : <KeycloakLogin /> }
       </Keycloak>
     );
   }
