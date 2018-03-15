@@ -50,10 +50,12 @@ class ImageView extends Component {
                         });
                     } else {
 
-                        if(this.refs != null && this.refs.imgDiv != null && this.refs.imgDiv.firstChild != null)
+                        if(this.refs != null && this.refs.imgDiv != null && this.refs.imgDiv.firstChild != null) {
                             this.refs.imgDiv.removeChild(this.refs.imgDiv.firstChild);
-
-                        this.refs.imgDiv.appendChild(img);
+                        }
+                        if (this.refs.imgDiv != null) {
+                            this.refs.imgDiv.appendChild(img);
+                        }
                     }
                 },
                 {
