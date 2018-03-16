@@ -293,13 +293,13 @@ class GennyMap extends Component {
     renderInfowindowContent = (root, attributes) => {
 
         const title = attributes.PRI_TITLE && attributes.PRI_TITLE.value;
-        
+
         let driver = BaseEntityQuery.getLinkedBaseEntity(root,'DRIVER');
         if (driver && driver.value) driver = driver.value;
 
-        const contentDriver = driver && driver.length > 0 ? 
+        const contentDriver = driver && driver.length > 0 ?
             (
-                '<div style="margin-bottom: 5px">' + 
+                '<div style="margin-bottom: 5px">' +
                     '<span>' +
                         `Driver: ${driver}` +
                     '</span>' +
@@ -307,11 +307,11 @@ class GennyMap extends Component {
             ) :
             null;
 
-        const pickupSuburb = ( attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value ) || null;
-        const pickupState = ( attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value ) || null;
-        const dropoffSuburb = ( attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value ) || null;
-        const dropoffState = ( attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value ) || null;
-        const distance =  ( attributes.PRI_TOTAL_DISTANCE_M && attributes.PRI_TOTAL_DISTANCE_M.value ) || null;
+        const pickupSuburb = ( attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value ) ? attributes.PRI_PICKUP_ADDRESS_SUBURB.value : null;
+        const pickupState = ( attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value ) ? attributes.PRI_PICKUP_ADDRESS_STATE.value : null;
+        const dropoffSuburb = ( attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value ) ? attributes.PRI_DROPOFF_ADDRESS_SUBURB.value : null;
+        const dropoffState = ( attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value ) ? attributes.PRI_DROPOFF_ADDRESS_STATE.value : null;
+        const distance =  ( attributes.PRI_TOTAL_DISTANCE_M && attributes.PRI_TOTAL_DISTANCE_M.value ) ? attributes.PRI_TOTAL_DISTANCE_M.value : null;
 
         let status_color = '#5cb85c';
         let user_status_color = null;
@@ -341,28 +341,28 @@ class GennyMap extends Component {
             convertMeasurement.value = convertMeasurement.value.toFixed(0);
             distanceKM = `${convertMeasurement.as('km')}`;
         }
-        
+
         let content = (
             '<div>' +
-                '<div style="display: flex; align-items: center; margin-bottom: 5px" >' + 
+                '<div style="display: flex; align-items: center; margin-bottom: 5px" >' +
                     `<div style="height: 15px; width: 15px; border-radius: 50%; margin-right: 5px; background: ${user_status_color || status_color}" ></div>`+
                     '<span style="font-weight: 1000;" >' +
                         title || '' +
                     '</span>' +
                 '</div>' +
                 `${contentDriver || ''}` +
-                '<div style="margin-bottom: 5px">' + 
+                '<div style="margin-bottom: 5px">' +
                     '<span>' +
                         `Pickup: ${pickupSuburb || ''}, ${pickupState || ''}` +
                     '</span>' +
                 '</div>' +
-                '<div style="margin-bottom: 5px">' + 
+                '<div style="margin-bottom: 5px">' +
                     '<span>' +
                         `Delivery: ${dropoffSuburb || ''}, ${dropoffState || ''}` +
                     '</span>' +
                 '</div>' +
                 `${ distance ? `<div style="margin-bottom: 5px"><span>${distanceKM}</span></div>` : '' }` +
-                '<div class="line-break"></div>' + 
+                '<div class="line-break"></div>' +
                 '<div id="map-infowindow" class="map-infowindow-button">' +
                     'See More Details' +
                 '</div>' +
