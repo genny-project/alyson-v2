@@ -110,10 +110,12 @@ class InputDropdown extends Component {
       selectedItems: this.props.isSingleSelect ? [item] : [...selectedItems, item],
       isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
     }), () => {
+
       if (this.props.isSingleSelect){
         this.handleValidation();
         this.inputRef ? this.inputRef.blur() : null;
       }
+
     });
   }
 
@@ -238,8 +240,8 @@ class InputDropdown extends Component {
               });
           });
 
+          if((results.length == 0 && mandatory == false) || results.length > 0 ) {
 
-          if(results.length == 0 && mandatory == false ) {
             let resultsString = JSON.stringify(results);
             if(validation) validation( resultsString, identifier, validationList);
           }

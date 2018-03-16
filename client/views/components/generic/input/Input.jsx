@@ -78,7 +78,6 @@ class Input extends Component {
 
     componentWillUpdate() {
         this.state.validationStatus = 'normal';
-
     }
 
     isValid = (showStyle) => {
@@ -151,6 +150,9 @@ class Input extends Component {
 
     validateInput = (value, identifier, validationList) => {
 
+        console.log(this.props.value);
+        console.log(value)
+        console.log(value == this.props.value && value.constructor != Boolean)
         if(value == this.props.value && value.constructor != Boolean) return;
 
         this.state.value = value;
