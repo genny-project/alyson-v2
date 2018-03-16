@@ -41,11 +41,17 @@ class GennyMap extends Component {
                 return mapData;
             }
             else {
+
                 let markers = [];
                 let routes = [];
+
                 children.map( child => {
+
                     if (child && child.code) {
+
                         let result = this.getDataFromCode(child.code);
+                        console.log("2");
+
                         if (result.markers && result.markers.length > 0) {
                             result.markers.map(marker => {
                                 markers.push(marker);
@@ -58,6 +64,7 @@ class GennyMap extends Component {
                         }
                     }
                 });
+
                 let mapData = { markers: markers, routes: routes };
                 return mapData;
             }
@@ -77,27 +84,33 @@ class GennyMap extends Component {
             const childAttributes = this.checkChildrenForAttributes(children);
 
             if (childAttributes) {
+                console.log("4");
                 let mapData = this.getChildrenMapData(root, children);
                 return mapData;
             }
             else {
+
                 let markers = [];
                 let routes = [];
+
                 children.map( child => {
+
                     if (child && child.code) {
+
                         let result = this.getDataFromCode(child.code);
                         if (result.markers && result.markers.length > 0) {
-                            result.markers.map(marker => {
+                            result.markers.forEach(marker => {
                                 markers.push(marker);
                             });
                         }
                         if (result.routes && result.routes.length > 0) {
-                            result.routes.map(route => {
+                            result.routes.forEach(route => {
                                 routes.push(route);
                             });
                         }
                     }
                 });
+
                 let mapData = { markers: markers, routes: routes };
                 return mapData;
             }
@@ -345,9 +358,9 @@ class GennyMap extends Component {
         let content = (
             '<div>' +
                 '<div style="display: flex; align-items: center; margin-bottom: 5px" >' +
-                    `<div style="height: 15px; width: 15px; border-radius: 50%; margin-right: 5px; background: ${user_status_color || status_color}" ></div>`+
-                    '<span style="font-weight: 1000;" >' +
-                        title || '' +
+                    `<div style="height: 15px; width: 15px; border-radius: 50%; margin-right: 5px; background: ${user_status_color || status_color}" ></div>` +
+                    '<span style="font-weight: 1000;">' +
+                        `${title || ''}` +
                     '</span>' +
                 '</div>' +
                 `${contentDriver || ''}` +

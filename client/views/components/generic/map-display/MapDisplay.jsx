@@ -83,7 +83,7 @@ class MapDisplay extends Component {
 
                 let counterMarkers = 0;
                 this.markers = [];
-                
+
                 markers.forEach(marker => {
 
                     this.checkAddressFormat(geocoder, marker, (markerCoords) => {
@@ -107,14 +107,17 @@ class MapDisplay extends Component {
                         });
 
                         newMarker.addListener('click', () => {
+
                             infowindow.open(map, newMarker);
                             infowindow.setContent(marker.text);
                             this.handleMarkerClick(newMarker);
 
                             let infowindowButton = document.getElementById('map-infowindow');
-                            infowindowButton.addEventListener('click', () => {
-                                if (this.props.onClick) this.props.onClick(marker.code, marker.root);
-                            });
+                            if(infowindowButton != null) {
+                                infowindowButton.addEventListener('click', () => {
+                                    if (this.props.onClick) this.props.onClick(marker.code, marker.root);
+                                });
+                            }
                         });
 
                         this.locations.push(new google.maps.LatLng(markerCoords.lat, markerCoords.lng));
@@ -146,7 +149,7 @@ class MapDisplay extends Component {
                         this.locations.push(originCoords);
 
                         //console.log(route.dest);
-                        
+
                         this.checkAddressFormat(geocoder, route.dest, (routeDestCoords) => {
 
                             let destCoords = new google.maps.LatLng( routeDestCoords.lat, routeDestCoords.lng );
@@ -299,7 +302,7 @@ class MapDisplay extends Component {
         this.markers.map(marker => {
             if (marker && marker.newMarker) {
                 marker.newMarker.setIcon(this.props.icon);
-            }    
+            }
         });
         markerData.setIcon(this.props.iconClick);
     }
@@ -311,7 +314,7 @@ class MapDisplay extends Component {
         return (
         <div className={`map-display ${className}`} style={componentStyle}>
             <div className='google-map' ref={div => this.mapRef = div} />
-            { 
+            {
                 this.state.error ?
                 <div className='map-display-error'>{this.state.error}</div>
                 : null
