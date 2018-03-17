@@ -25,7 +25,8 @@ class MeasurementLabel extends Component {
 
   convert = (value, fromUnit, toUnit) => {
     const { hideDecimal, showDecimal } = this.props;
-    const newValue = parseFloat(value.replace(',', ''));
+
+    const newValue = value ? parseFloat(value.replace(',', '')) : null;
 
     if(newValue != null && fromUnit != null && toUnit != null) {
 
