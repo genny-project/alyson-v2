@@ -167,17 +167,12 @@ class GennyForm extends Component {
                         const att_details = BaseEntityQuery.getAttribute(attributeCode);
                         if(att_details) {
                             placeholder = att_details.placeholder;
-                        }
-                    }
 
-                    if (ask.question) {
+                            if(att_details.dataType != null) {
 
-                        if(ask.question.attribute) {
-                            if(ask.question.attribute.dataType) {
+                                if(att_details.dataType.inputmask != null) {
 
-                                if(ask.question.attribute.dataType.inputmask) {
-
-                                    inputMask = ask.question.attribute.dataType.inputmask.split(',').map(x => {
+                                    inputMask = att_details.dataType.inputmask.split(',').map(x => {
 
                                         if(x.indexOf('d') == 1 || x.indexOf('w') == 1) {
                                             return new RegExp(x);
@@ -187,12 +182,11 @@ class GennyForm extends Component {
                                     });
                                 }
 
-                                if(ask.question.attribute.dataType.className) {
-                                    inputType = ask.question.attribute.dataType.className;
-                                }
+                                inputType = att_details.dataType.className;
 
-                                if(ask.question.attribute.dataType.validationList) {
-                                    valList = ask.question.attribute.dataType.validationList;
+                                if(att_details.dataType.validationList != null) {
+
+                                    let valList = att_details.dataType.validationList;
                                     if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
                                         options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
 
