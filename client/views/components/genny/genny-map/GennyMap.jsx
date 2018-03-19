@@ -50,8 +50,6 @@ class GennyMap extends Component {
                     if (child && child.code) {
 
                         let result = this.getDataFromCode(child.code);
-                        console.log("2");
-
                         if (result.markers && result.markers.length > 0) {
                             result.markers.map(marker => {
                                 markers.push(marker);
@@ -84,7 +82,6 @@ class GennyMap extends Component {
             const childAttributes = this.checkChildrenForAttributes(children);
 
             if (childAttributes) {
-                console.log("4");
                 let mapData = this.getChildrenMapData(root, children);
                 return mapData;
             }
@@ -200,7 +197,7 @@ class GennyMap extends Component {
             });
         }
 
-        return {markers: markers, routes: routes};
+        return { markers: markers, routes: routes };
     }
 
     checkChildrenForAttributes = (data) => {
@@ -419,6 +416,7 @@ class GennyMap extends Component {
                     markers={mapData && mapData.markers }
                     routes={mapData && mapData.routes }
                     onClick={this.handleInfowindowButtonClick}
+                    suppressMarkers={true}
                 />
             </div>
         );

@@ -12,12 +12,15 @@ class MapDisplay extends Component {
         markers: [],
         routes: [],
         icon: 'https://i.imgur.com/unMXE8B.png',
-        iconClick: 'https://i.imgur.com/XiZYxed.png'
+        iconClick: 'https://i.imgur.com/XiZYxed.png',
+        mapRouteIcon: 'https://i.imgur.com/Zyinht5.png',
+        suppressMarkers: true,
     }
 
     static propTypes = {
         className: string,
         style: object,
+        suppressMarkers: bool,
         controls: bool,
         zoom: number,
         maxZoom: number,
@@ -142,21 +145,62 @@ class MapDisplay extends Component {
                 let counterRoutes = 0;
                 routes.forEach(route => {
 
+                    let map = this.map;
+
                     this.checkAddressFormat(geocoder, route.origin, (routeOriginCoords) => {
+
+                        let newMarker = new google.maps.Marker({
+                            position: {
+                                lat: parseFloat(routeOriginCoords.lat),
+                                lng: parseFloat(routeOriginCoords.lng)
+                            },
+                            zIndex: 100,
+                            icon: this.props.mapRouteIcon,
+                            map
+                        });
+
+                        this.markers.push({
+                            newMarker
+                        });
+
+                        newMarker.addListener('click', () => {
+
+                            infowindow.open(map, newMarker);
+                            infowindow.setContent(route.origin);
+                        });
 
                         let originCoords = new google.maps.LatLng( routeOriginCoords.lat, routeOriginCoords.lng );
 
                         this.locations.push(originCoords);
 
-                        //console.log(route.dest);
-
                         this.checkAddressFormat(geocoder, route.dest, (routeDestCoords) => {
+
+                            let newMarker = new google.maps.Marker({
+                                position: {
+                                    lat: parseFloat(routeDestCoords.lat),
+                                    lng: parseFloat(routeDestCoords.lng)
+                                },
+                                zIndex: 100,
+                                icon: this.props.mapRouteIcon,
+                                map
+                            });
+
+                            this.markers.push({
+                                newMarker
+                            });
+
+                            newMarker.addListener('click', () => {
+
+                                infowindow.open(map, newMarker);
+                                infowindow.setContent(route.dest);
+                            });
 
                             let destCoords = new google.maps.LatLng( routeDestCoords.lat, routeDestCoords.lng );
                             //console.log(destCoords);
                             this.locations.push(destCoords);
 
                             this.calcRoute(originCoords, destCoords, () => {
+
                                 if(counterRoutes == routes.length - 1) {
                                     adjustMapBounds();
                                 }
@@ -171,6 +215,7 @@ class MapDisplay extends Component {
     }
 
     getLatLng = () => {
+
         const { center, lat, lng } = this.props;
 
         let newLat = center.lat;
@@ -195,8 +240,6 @@ class MapDisplay extends Component {
 
     componentDidMount() {
 
-        //console.log("------------------------------")
-        //console.log(this.props);
         this.setup();
     }
 
@@ -214,20 +257,26 @@ class MapDisplay extends Component {
 
                 if (status === 'OK' && results.length > 0) {
 
-                    let input = results[0].geometry.location.toString();
-                    input = input.substr(1, input.length-1);
+                    results.forEach(result => {
 
-                    let latlngStr = input.split(',', 2);
-                    if (latlngStr.length == 2) {
+                        if(result.formatted_address != null && window.similarity(address, result.formatted_address) > 50) {
 
-                        let latlng = {
-                            lat: parseFloat(latlngStr[0]),
-                            lng: parseFloat(latlngStr[1])
-                        };
+                            let input = result.geometry.location.toString();
+                            input = input.substr(1, input.length-1);
 
-                        callback(latlng);
-                        return;
-                    }
+                            let latlngStr = input.split(',', 2);
+                            if (latlngStr.length == 2) {
+
+                                let latlng = {
+                                    lat: parseFloat(latlngStr[0]),
+                                    lng: parseFloat(latlngStr[1])
+                                };
+
+                                callback(latlng);
+                                return;
+                            }
+                        }
+                    });
                 }
                 else {
                     this.setAlert('Address not found');
@@ -247,6 +296,8 @@ class MapDisplay extends Component {
 
         let directionsService = new google.maps.DirectionsService();
 
+        const { suppressMarkers } = this.props;
+
         let request = {
             origin: originCoords,
             //waypoints: waypointCoords
@@ -254,13 +305,10 @@ class MapDisplay extends Component {
             travelMode: 'DRIVING'
         };
 
-        let directionsDisplay = new google.maps.DirectionsRenderer();
-        //let directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+        // let directionsDisplay = new google.maps.DirectionsRenderer();
+        let directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: suppressMarkers });
         directionsDisplay.setMap(this.map);
         directionsService.route(request, function(response, status) {
-            console.log(
-                response.request.destination.location.lat()
-            );
 
             if (status == 'OK') {
                 directionsDisplay.setDirections(response);
