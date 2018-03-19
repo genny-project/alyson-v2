@@ -10,5 +10,4 @@ if [ $LOCAL_REALM_NAME ]; then
     echo  $LOCAL_REALM_NAME  >> $ENV_FILE
 fi
 
-
 ENV_FILE=$ENV_FILE docker-compose up -d
