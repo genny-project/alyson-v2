@@ -186,8 +186,9 @@ class GennyForm extends Component {
 
                                 if(att_details.dataType.validationList != null) {
 
-                                    let valList = att_details.dataType.validationList;
+                                    valList = att_details.dataType.validationList;
                                     if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
+
                                         options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
 
                                             //console.log(newEntity);
@@ -196,6 +197,7 @@ class GennyForm extends Component {
                                                 code: newEntity.code,
                                                 weight: newEntity.weight,
                                             });
+
                                             return existing;
                                         }, []);
                                     }
