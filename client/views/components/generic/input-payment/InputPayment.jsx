@@ -393,6 +393,10 @@ class InputPayment extends Component {
 
     return (
       <div>
+        {
+            isAccountsManagement == true ? this.renderPaymentMethodsList() : null
+        }
+
         <h2>
         {
             isAccountsManagement ? "Add a payment method to your account" : "Select payment type"
@@ -404,10 +408,6 @@ class InputPayment extends Component {
           <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} />
         </div>
 
-        {
-            isAccountsManagement == true ? this.renderPaymentMethodsList() : null
-        }
-
       </div>
     );
   }
@@ -415,19 +415,26 @@ class InputPayment extends Component {
   renderPaymentMethodsList() {
 
       const { accounts, selectedPaymentType } = this.state;
-      return (
-          <div style={{ marginTop: "10px" }}>
-              <p>My Payment Methods: </p>
-              { accounts.filter((account) => selectedPaymentType != null ? account.type == selectedPaymentType : true).map( account => (
-                <PaymentMethod
-                  key={account.id}
-                  account={account}
-                  onClick={this.handleSelectPaymentMethod( account )}
-                  onDelete={this.onDeletePaymentMethod}
-                />
-              ))}
-          </div>
-      )
+
+      if(accounts != null && accounts.length > 0) {
+
+          return (
+              <div style={{ marginTop: "10px" }}>
+                  <p>My Payment Methods: </p>
+                  { accounts.filter((account) => selectedPaymentType != null ? account.type == selectedPaymentType : true).map( account => (
+                    <PaymentMethod
+                      key={account.id}
+                      account={account}
+                      onClick={this.handleSelectPaymentMethod( account )}
+                      onDelete={this.onDeletePaymentMethod}
+                    />
+                  ))}
+              </div>
+          )
+      }
+
+      return null;
+
   }
 
   renderSelectAccount() {
