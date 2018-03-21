@@ -342,7 +342,7 @@ class InputDropdown extends Component {
                 {
                     getButtonProps ? ...getButtonProps({ onClick: this.onToggleMenu }) : null
                 }
-                
+
                 type="button"
                 className={`input-dropdown-field ${isOpen ? 'selected' : ''}`}
               >
@@ -351,7 +351,7 @@ class InputDropdown extends Component {
                   ref={(ref) => this.inputRef = ref }
                   value={this.state.currentValue}
                   placeholder={displayText}
-                  {...getInputProps({})}
+                  { getInputProps ? ...getInputProps({}) : null }
                 />
                 { this.state.currentValue && this.state.currentValue.length > 0 ?
                   <IconSmall className='input-dropdown-icon' name='clear' onClick={this.handleClearInput}/>
