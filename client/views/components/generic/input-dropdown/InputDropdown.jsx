@@ -339,9 +339,10 @@ class InputDropdown extends Component {
           }) => (
             <div className="dropdown-container">
               <div
-                {...getButtonProps({
-                  onClick: this.onToggleMenu
-                })}
+                {
+                    getButtonProps ? ...getButtonProps({ onClick: this.onToggleMenu }) : null
+                }
+                
                 type="button"
                 className={`input-dropdown-field ${isOpen ? 'selected' : ''}`}
               >
