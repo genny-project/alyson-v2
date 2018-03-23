@@ -278,8 +278,6 @@ export default function reducer(state = initialState, action) {
 
     const item = action.payload;
 
-    console.log(item)
-
     const newLink = item.link;
     const oldLink = item.oldLink;
 
@@ -293,7 +291,12 @@ export default function reducer(state = initialState, action) {
 
       if (state.data[be_code] != null) {
 
-        if(item.oldLink != null) {
+        console.log(" received new link : ");
+        console.log(item);
+        console.log(item.oldLink.sourceCode);
+        console.log(newParentCode);
+
+        if(item.oldLink != null && newParentCode != item.oldLink.sourceCode) {
 
           const oldLinkCode = item.oldLink.attributeCode;
           const oldParentCode = item.oldLink.sourceCode;
@@ -390,7 +393,7 @@ export default function reducer(state = initialState, action) {
         }
         else {
 
-          return {
+          console.log("we return: ", {
             ...state,
             data: {
               ...state.data,
@@ -408,6 +411,65 @@ export default function reducer(state = initialState, action) {
                       existing.push(link);
                     }
                     else if(link != null && link.targetCode == be_code) {
+                      link = {
+                        ...link,
+                        value: newLinkValue,
+                        valueString: newLinkValue,
+                        weight: newLinkWeight,
+                        targetCode: be_code,
+                        linkValue: newLinkValue
+                      };
+                      existing.push(link);
+                    }
+
+                    return existing;
+
+                  }), []) : [
+                    {
+                      value: newLinkValue,
+                      valueString: newLinkValue,
+                      weight: newLinkWeight,
+                      targetCode: be_code,
+                      linkValue: newLinkValue
+                    }
+                  ])
+                },
+                children: [
+                  ...((state.data[newParentCode] && state.data[newParentCode].children) ? state.data[newParentCode].children : []),
+                  {
+                    ...state.data[be_code],
+                  }
+                ]
+              }
+            },
+            relationships: {
+              ...state.relationships,
+              [newParentCode]: {
+                ...state.relationships[newParentCode],
+                [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
+              }
+            }
+          })
+
+          return {
+            ...state,
+            data: {
+              ...state.data,
+              [be_code]: {
+                ...state.data[be_code],
+                parentCode: newParentCode
+              },
+              [newParentCode]: {
+                ...state.data[newParentCode],
+                links: {
+                  ...(state.data[newParentCode] && state.data[newParentCode].links ? state.data[newParentCode].links : {}),
+                  [newLinkCode]: (state.data[newParentCode] && state.data[newParentCode].links && state.data[newParentCode].links[newLinkCode] ? state.data[newParentCode].links[newLinkCode].reduce(((existing, link) => {
+
+                    if(link != null && link.targetCode != be_code) {
+                      existing.push(link);
+                    }
+                    else if(link != null && link.targetCode == be_code) {
+
                       link = {
                         ...link,
                         value: newLinkValue,
