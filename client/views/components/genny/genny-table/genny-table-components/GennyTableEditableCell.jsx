@@ -21,6 +21,7 @@ class GennyTableEditableCell extends Component {
     }
 
     componentDidMount() {
+
         if (this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id] != ( null || undefined ) ) {
             let dataType = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].type;
             if (dataType != 'Image' && dataType != 'link' && dataType != 'java.lang.Boolean') {
@@ -49,9 +50,9 @@ class GennyTableEditableCell extends Component {
             let attributeCode = this.props.cellInfo.column.attributeCode;
             if(attributeCode) {
 
-                let baseEntity = this.props.data[this.props.cellInfo.index];                
+                let baseEntity = this.props.data[this.props.cellInfo.index];
                 let targetCode = baseEntity.baseEntityCode;
-                
+
                 let answer = [
                     {
                         targetCode: targetCode,
@@ -97,8 +98,8 @@ class GennyTableEditableCell extends Component {
 
             case 'java.lang.Boolean': {
                 return (
-                    <input 
-                        checked={value} 
+                    <input
+                        checked={value}
                         type="checkbox"
                     />
                 );
@@ -120,6 +121,9 @@ class GennyTableEditableCell extends Component {
     }
 
     render() {
+
+        console.log( "rendering cell" )
+        console.log(this.props)
 
         return (
             <div

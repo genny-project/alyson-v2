@@ -183,7 +183,7 @@ class BaseEntityQuery {
             let bes = Object.keys(be.links).map(link => {
 
                 const links = be.links[link];
-                //console.log(links);
+                // console.log(links);
                 for (let i = 0; i < links.length; i++) {
 
                     let currentLink = links[i];

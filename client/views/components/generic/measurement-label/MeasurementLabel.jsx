@@ -29,19 +29,23 @@ class MeasurementLabel extends Component {
 
     const newValue = value != null ? parseFloat(value.replace(',', '')) : null;
 
+    if (showDecimal && Number.isInteger(showDecimal) && showDecimal.length > 0 ) {
+        newValue.toFixed( showDecimal );
+    }
+
+    if (hideDecimal == true) {
+        newValue.toFixed(0);
+    }
+
     if(newValue != null && fromUnit != null && toUnit != null) {
 
         let measurement = mf.measure(newValue, `${fromUnit}`);
-
-        let convertMeasurement = measurement.as(toUnit);
-
-        if (showDecimal && Number.isInteger(showDecimal) && showDecimal.length > 0 ) {
-          convertMeasurement.value = convertMeasurement.value.toFixed( showDecimal );
+        if(measurement != null) {
+            let convertMeasurement = measurement.as(toUnit);
+            if(convertMeasurement != null) {
+                return `${convertMeasurement.as(toUnit)}`;
+            }
         }
-        if (hideDecimal == true) {
-          convertMeasurement.value = convertMeasurement.value.toFixed(0);
-        }
-        return `${convertMeasurement.as(toUnit)}`;
     }
 
     return null;
