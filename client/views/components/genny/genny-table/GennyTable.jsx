@@ -5,10 +5,11 @@ import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { IconSmall, Table } from 'views/components';
 import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile, GennyActionTableCell } from './genny-table-components';
 
+var test = 0;
 class GennyTable extends Component {
 
     static defaultProps = {
-        showBaseEntity: false,    
+        showBaseEntity: false,
         columns: null,
         root: null,
         buttonActions: [],
@@ -49,7 +50,7 @@ class GennyTable extends Component {
                     tableColumns.push(c);
                 }
             });
-        });        
+        });
 
         let mobileColumns = [];
 
@@ -65,6 +66,7 @@ class GennyTable extends Component {
             }
         }
 
+        this.state.columns = isMobile ? mobileColumns : tableColumns;
         return isMobile ? mobileColumns : tableColumns;
     }
 
@@ -132,29 +134,31 @@ class GennyTable extends Component {
 
                     if(!headers.includes(attribute.attributeCode)) {
 
-                        let newCol = {
-                            'attributeCode': attribute.attributeCode
-                        };
-
                         if(!isMobile) {
-                            newCol.Header = <GennyTableHeader title={attrName || attribute.attributeCode}/>;
-                            newCol.Cell = (cellInfo) => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />;
-                            newCol.accessor = attribute.attributeCode;
-                            newCol.minWidth = typeof width == 'number' ? width : 300;
+
+                            return {
+                                'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
+                                'Cell': cellInfo => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />,
+                                'accessor': attribute.attributeCode,
+                                'minWidth': typeof width == 'number' ? width : 300,
+                                'attributeCode': attribute.attributeCode
+                            };
                         }
                         else {
-                            newCol.name = attrName || attribute.attributeCode;
+                            return {
+                                'name': attrName || attribute.attributeCode,
+                                'attributeCode': attribute.attributeCode
+                            }
                         }
-
-                        return newCol;
                     }
 
                     return null;
                 };
 
                 const columnsProps = this.props.columns;
+
                 if (columnsProps != null && columnsProps.length > 0) {
-                         
+
                     for(let i = 0; i < columnsProps.length; i++) {
 
                         const attributeCode = columnsProps[i].code;
@@ -162,16 +166,20 @@ class GennyTable extends Component {
                         if(attributes[attributeCode] != null) {
 
                             const newColumn = createColumn(attributeCode, width);
-                            newColumn && cols.push(newColumn);
+                            if(newColumn != null) {
+                                cols.push(newColumn);
+                            }
                         }
                     }
                 }
                 else {
 
-                    Object.keys(attributes).sort((x,y) => attributes[x].weight > attributes[y].weight).forEach(attribute_key => {
+                    Object.keys(attributes).forEach(attribute_key => {
 
                         const newColumn = createColumn(attribute_key);
-                        newColumn && cols.push(newColumn);
+                        if(newColumn != null) {
+                            cols.push(newColumn);
+                        }
                     });
                 }
 
@@ -283,8 +291,6 @@ class GennyTable extends Component {
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children);
-        //this.props.showBaseEntity ? null : console.log( columns );
-        //this.props.showBaseEntity ? null : console.log( data );
 
         return (
             <div className={`genny-table ${data.length > 0 ? '' : 'empty'}`} style={style}>

@@ -290,12 +290,7 @@ export default function reducer(state = initialState, action) {
       const newParentCode = item.link.sourceCode;
 
       if (state.data[be_code] != null) {
-
-        console.log(" received new link : ");
-        console.log(item);
-        console.log(item.oldLink.sourceCode);
-        console.log(newParentCode);
-
+          
         if(item.oldLink != null && newParentCode != item.oldLink.sourceCode) {
 
           const oldLinkCode = item.oldLink.attributeCode;
