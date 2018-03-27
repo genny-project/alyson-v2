@@ -47,6 +47,7 @@ class MapDisplay extends Component {
 
     setup = () => {
 
+
         if(typeof google == 'object') {
 
             const { controls, zoom, maxZoom, markers, routes } = this.props;
@@ -143,6 +144,7 @@ class MapDisplay extends Component {
                 });
 
                 let counterRoutes = 0;
+
                 routes.forEach(route => {
 
                     let map = this.map;
@@ -259,7 +261,7 @@ class MapDisplay extends Component {
 
                     results.forEach(result => {
 
-                        if(result.formatted_address != null && window.similarity(address, result.formatted_address) > 50) {
+                        if(result.formatted_address != null && window.similarity(address, result.formatted_address) > 30) {
 
                             let input = result.geometry.location.toString();
                             input = input.substr(1, input.length-1);
