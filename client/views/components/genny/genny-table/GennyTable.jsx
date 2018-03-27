@@ -310,12 +310,6 @@ class GennyTable extends Component {
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children);
 
-        if(linkCode != null && test < 30 ){
-            console.log(columns)
-            console.log(data)
-            test++;
-        }
-
         return (
             <div className={`genny-table ${data.length > 0 ? '' : 'empty'}`} style={style}>
                 <Table {...this.props} data={data} columns={columns} itemsPerPage={data != null && data.length < 20 ? data.length : 20} />
