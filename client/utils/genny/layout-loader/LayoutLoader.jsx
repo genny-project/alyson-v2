@@ -121,8 +121,6 @@ class LayoutLoader extends Component {
                         }
                         else {
 
-                            console.log( attribute_code && attribute_code.includes("DESCRIPTION") )
-
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }
 
