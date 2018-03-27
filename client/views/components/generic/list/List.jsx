@@ -50,13 +50,12 @@ class List extends Component {
     }
 
     renderMain = (data, itemsPerPage, hideNav) => {
+
         const { itemHeight, itemWidth, itemGap, onItemClick } = this.props;
-        
+
         let children = [];
         if (data && data.length > 0) {
             children = data.map((item, index) => {
-                // console.log('----------------');
-                // console.log(item);
                 return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick}/>;
             });
         }
@@ -70,18 +69,6 @@ class List extends Component {
                 {children}
             </Pagination>
         );
-        // if (data && data.length > 0) {
-        //     <Pagination perPage={itemsPerPage} hideNav={hideNav} >
-        //         {
-        //             data.map((item, index) => {
-        //                 return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick}/>;
-        //             })
-        //         }
-        //     </Pagination>;
-        // }
-        // else {
-        //     <div className='list-empty'>No data to display.</div>;
-        // }
     }
 
     renderCount = (data, countText, countStyle) => {

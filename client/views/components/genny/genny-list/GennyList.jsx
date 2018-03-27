@@ -44,9 +44,6 @@ class GennyList extends Component {
 
         data.map((item, index) => {
 
-            // console.log('===================');
-            // console.log(item);
-
             let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
             if(linkToParent) {
 
@@ -64,8 +61,7 @@ class GennyList extends Component {
             return false;
         });
 
-        newData = newData.sort((x, y) => x.created < y.created);
-
+        console.log( newData )
         return newData;
     }
 
