@@ -29,9 +29,8 @@ class ImageView extends Component {
 
     render() {
 
-        const { caption, onClick, style, placeholder, rounded, className, imageStyle } = this.props;
+        const { caption, src, onClick, style, placeholder, rounded, className, imageStyle } = this.props;
         let { error } = this.state;
-        let { src } = this.props;
 
         const componentStyle = {
             ...style,
@@ -39,8 +38,6 @@ class ImageView extends Component {
 
         if(error == false && (src === "" || src == null)) error = true;
 
-
-        src = `https://images.channel40.com.au/1024x/${src}`
         return (
             <div className={`imageView ${rounded ? 'rounded' : ''} ${className}`} style={componentStyle}>
                 <div name="imgCanvas" style={imageStyle} onClick={onClick} />

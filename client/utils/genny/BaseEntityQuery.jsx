@@ -75,8 +75,6 @@ class BaseEntityQuery {
 
     static getLinkedBaseEntities = (baseEntityCode, linkCode, excludingLinks) => {
 
-        let showlogs = baseEntityCode == "PER_USER1";
-
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         let targets = [];
 
@@ -88,7 +86,11 @@ class BaseEntityQuery {
 
                     if (link != null && link.targetCode && link.weight > 0) {
                         let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
-                        if (targetBe) targets.push(targetBe);
+
+                        if (targetBe) targets.push({
+                            ...targetBe,
+                            weight: link.weight
+                        });
                     }
                 }
             });
