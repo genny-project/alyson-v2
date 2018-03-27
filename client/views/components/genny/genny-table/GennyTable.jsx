@@ -128,27 +128,44 @@ class GennyTable extends Component {
                         attrName = attrData.name;
                     }
 
-                    let headers = cols.map(column => {
-                        return column.attributeCode;
-                    });
+                    // let headers = cols.map(column => {
+                    //     return column.attributeCode;
+                    // });
+                    //
+                    // if(!headers.includes(attribute.attributeCode)) {
+                    //
+                    //     if(!isMobile) {
+                    //
+                    //         return {
+                    //             'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
+                    //             'Cell': cellInfo => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />,
+                    //             'accessor': attribute.attributeCode,
+                    //             'minWidth': typeof width == 'number' ? width : 300,
+                    //             'attributeCode': attribute.attributeCode
+                    //         };
+                    //     }
+                    //     else {
+                    //         return {
+                    //             'name': attrName || attribute.attributeCode,
+                    //             'attributeCode': attribute.attributeCode
+                    //         }
+                    //     }
+                    // }
 
-                    if(!headers.includes(attribute.attributeCode)) {
+                    if(!isMobile) {
 
-                        if(!isMobile) {
-
-                            return {
-                                'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
-                                'Cell': cellInfo => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />,
-                                'accessor': attribute.attributeCode,
-                                'minWidth': typeof width == 'number' ? width : 300,
-                                'attributeCode': attribute.attributeCode
-                            };
-                        }
-                        else {
-                            return {
-                                'name': attrName || attribute.attributeCode,
-                                'attributeCode': attribute.attributeCode
-                            }
+                        return {
+                            'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
+                            'Cell': cellInfo => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />,
+                            'accessor': attribute.attributeCode,
+                            'minWidth': typeof width == 'number' ? width : 300,
+                            'attributeCode': attribute.attributeCode
+                        };
+                    }
+                    else {
+                        return {
+                            'name': attrName || attribute.attributeCode,
+                            'attributeCode': attribute.attributeCode
                         }
                     }
 
@@ -163,6 +180,7 @@ class GennyTable extends Component {
 
                         const attributeCode = columnsProps[i].code;
                         const width = columnsProps[i].width;
+
                         if(attributes[attributeCode] != null) {
 
                             const newColumn = createColumn(attributeCode, width);
@@ -291,6 +309,12 @@ class GennyTable extends Component {
 
         columns = this.generateHeadersFor(children);
         data = this.generateDataFor(children);
+
+        if(linkCode != null && test < 30 ){
+            console.log(columns)
+            console.log(data)
+            test++;
+        }
 
         return (
             <div className={`genny-table ${data.length > 0 ? '' : 'empty'}`} style={style}>

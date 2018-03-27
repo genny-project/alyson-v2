@@ -54,35 +54,39 @@ class Selector extends Component {
             //4.a check if hideValues is an array and
             if(hideValues != null && hideValues.constructor == Array) {
 
+                let hasValue = false;
+                
                 //4.b loop through checkValues, comparing each value with every item in hideValues for a match
                 for (var i = 0; i < checkValues.length; i++) {
 
                     const value = checkValues[i];
-                    let hasValue = false;
 
                     if( hideValues.includes(value) ) {
                         hasValue = true;
                     }
-                    //4.c if there are no matches, dont show content
-                    if (hasValue == true && showOverride != true ) return null;
                 }
+
+                //4.c if there are no matches, dont show content
+                if (hasValue == true && showOverride != true ) return null;
             }
 
             //5.a check if hideValues is an array and
             else if(showValues != null && showValues.constructor == Array) {
 
+                let hasValue = false;
+
                 //5.b loop through checkValues, comparing each value with every item in showValues for a match
                 for (var i = 0; i < checkValues.length; i++) {
 
                     const value = checkValues[i];
-                    let hasValue = false;
 
                     if( showValues.includes(value)) {
                         hasValue = true;
                     }
-                    //5.c if there are no matches, dont show content
-                    if (hasValue == false) return null;
                 }
+
+                //5.c if there are no matches, dont show content
+                if (hasValue == false) return null;
             }
         }
 

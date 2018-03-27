@@ -122,9 +122,6 @@ class GennyTableEditableCell extends Component {
 
     render() {
 
-        console.log( "rendering cell" )
-        console.log(this.props)
-
         return (
             <div
                 // contentEditable={this.state.canEdit}
