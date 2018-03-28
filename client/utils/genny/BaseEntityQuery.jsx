@@ -185,15 +185,20 @@ class BaseEntityQuery {
             let bes = Object.keys(be.links).map(link => {
 
                 const links = be.links[link];
-                // console.log(links);
                 for (let i = 0; i < links.length; i++) {
 
                     let currentLink = links[i];
-                    if (currentLink.linkValue == linkValue) { return currentLink.targetCode; }
+                    if (currentLink.linkValue == linkValue) {
+
+                        const be = BaseEntityQuery.getBaseEntity(currentLink.targetCode);
+                        return be != null ? be : false;
+                    }
                 }
+
+                return false;
             });
 
-            if (bes.length > 0) return bes[0];
+            if (bes.length > 0) return bes[0] != false ? bes[0] : null;
         }
 
         return null;
@@ -203,7 +208,8 @@ class BaseEntityQuery {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         if (be && be.links) {
-            return Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, excludingLinks))[0];
+            const bes = Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, excludingLinks));
+            if(bes != null && bes.length > 0) return bes[0];
         }
 
         return [];

@@ -1,6 +1,6 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
-import { string, number, bool, object } from 'prop-types';
+import { string, number, bool, object, array } from 'prop-types';
 import { List, GennyForm } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -24,7 +24,7 @@ class GennyList extends Component {
         itemGap: number,
         listGap: number,
         rowsVisible: number,
-        showLinks: bool,
+        showLinks: array,
         showEmpty: bool,
         hideHeader: bool,
         sublayout: object,
@@ -42,26 +42,32 @@ class GennyList extends Component {
         const {localAliases, selectedItem, root} = this.props;
 
         let newData = [];
-
+        if(data.length == 0) return [];
         data.map((item, index) => {
 
-            let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
-            if(linkToParent) {
+            if(item) {
 
-                const isSelected = selectedItem == item.code ? true : false;
-                const aliasProp = localAliases != null && localAliases.constructor == Array ? localAliases[index] : localAliases;
-                let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != "LINK" ? linkToParent.linkValue : 'list_item';
-                let sublayout = this.props.sublayout[layout_code];
-                item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
-                item['rootCode'] = root;
-                item['isSelected'] = isSelected;
-                newData.push(
-                    item
-                );
+                let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
+                if(linkToParent) {
+
+                    const isSelected = selectedItem == item.code ? true : false;
+                    const aliasProp = localAliases != null && localAliases.constructor == Array ? localAliases[index] : localAliases;
+                    let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != "LINK" ? linkToParent.linkValue : 'list_item';
+                    let sublayout = this.props.sublayout[layout_code];
+                    item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
+                    item['rootCode'] = root;
+                    item['isSelected'] = isSelected;
+                    newData.push(
+                        item
+                    );
+                }
             }
+
             return false;
+
         });
 
+        console.log( newData )
         return newData;
     }
 
@@ -70,7 +76,17 @@ class GennyList extends Component {
         const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, showTitle, showEmpty, gennyListStyle, ...rest } = this.props;
         const componentStyle = { ...gennyListStyle};
 
-        const data = showLinks ? BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks) : BaseEntityQuery.getEntityChildren(root);
+        let data = [];
+
+        if(showLinks === true) {
+            data = BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks);
+        }
+        else if(showLinks.constructor == Array) {
+            data = showLinks.map(linkValue => BaseEntityQuery.getLinkedBaseEntity(root, linkValue));
+        }
+        else if(showLinks == null || showLinks == false) {
+            data = BaseEntityQuery.getEntityChildren(root);
+        }
 
         const rootEntity = BaseEntityQuery.getBaseEntity(root);
         const projectCode = GennyBridge.getProject();
@@ -90,6 +106,7 @@ class GennyList extends Component {
                         hideCount
                         hideNav={hideNav}
                         data={ this.generateListItems(data) }
+                        showEmpty={showEmpty}
                         {...rest}
                     />
                 </div>

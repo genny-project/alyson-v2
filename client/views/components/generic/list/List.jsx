@@ -12,10 +12,13 @@ class List extends Component {
         hideNav: false,
         hideCount: false,
         countText: 'Items Found',
+        showEmpty: true,
     }
 
     static propTypes = {
+
         hideNav: bool,
+        showEmpty: bool,
         className: string,
         style: object,
         itemsPerPage: number,
@@ -51,7 +54,7 @@ class List extends Component {
 
     renderMain = (data, itemsPerPage, hideNav) => {
 
-        const { itemHeight, itemWidth, itemGap, onItemClick } = this.props;
+        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty } = this.props;
 
         let children = [];
         if (data && data.length > 0) {
@@ -60,10 +63,15 @@ class List extends Component {
             });
         }
         else {
-            children = [
-                <div className='list-empty'>No data to display.</div>
-            ];
+
+            if(showEmpty === true) {
+
+                children = [
+                    <div className='list-empty'>No data to display.</div>
+                ];
+            }
         }
+
         return (
             <Pagination perPage={itemsPerPage} hideNav={hideNav} >
                 {children}

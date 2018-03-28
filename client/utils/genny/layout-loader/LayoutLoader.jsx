@@ -99,22 +99,22 @@ class LayoutLoader extends Component {
 
                             if(linkValue != null && be_attribute != null) {
 
-                                const linkedBaseEntityCode = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
+                                const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
 
-                                if(linkedBaseEntityCode != null) {
+                                if(linkedBaseEntity != null) {
 
                                     if(be_attribute == 'created') {
                                         attribute = {
-                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntityCode, 'created')
+                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created')
                                         };
                                     }
                                     else if(be_attribute == "code") {
                                         attribute = {
-                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntityCode, 'code')
+                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
                                         };
                                     }
                                     else {
-                                        attribute = BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntityCode, be_attribute);
+                                        attribute = BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute);
                                     }
                                 }
                             }

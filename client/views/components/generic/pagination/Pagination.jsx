@@ -47,6 +47,7 @@ class Pagination extends Component {
     }
 
     getChildrenForCurrentPage = (perPage, offset, children) => {
+
         let displayedItems = children.slice(offset, offset + perPage);
         return displayedItems;
     }
@@ -76,7 +77,7 @@ class Pagination extends Component {
                 <div className='pagination-content'>
                     {childrenPageArray}
                 </div>
-                <ReactPaginate 
+                <ReactPaginate
                     pageCount={pageCount}
                     marginPagesDisplayed={0}
                     pageRangeDisplayed={3}

@@ -2,7 +2,7 @@ import './ImageView.scss';
 import React, { Component } from 'react';
 import { string, any, bool, func, object } from 'prop-types';
 // import loadImage from 'blueimp-load-image';
-import ExifOrientationImg from 'react-exif-orientation-img';
+// import ExifOrientationImg from 'react-exif-orientation-img';
 
 class ImageView extends Component {
 
@@ -42,7 +42,7 @@ class ImageView extends Component {
             <div className={`imageView ${rounded ? 'rounded' : ''} ${className}`} style={componentStyle}>
                 <div name="imgCanvas" style={imageStyle} onClick={onClick} />
                 {
-                    error ? <ExifOrientationImg style={imageStyle} src={"https://i.imgur.com/FKJV3fp.jpg"} onError={this.onError} onClick={onClick} /> : <ExifOrientationImg src={src} />
+                    error ? <img style={imageStyle} src={"https://i.imgur.com/FKJV3fp.jpg"} onError={this.onError} onClick={onClick} /> : <img src={src} />
                 }
                 { caption ? <span style={{ alignSelf: 'center' }}>{caption}</span> : null }
             </div>
