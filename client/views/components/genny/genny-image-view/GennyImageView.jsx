@@ -25,9 +25,15 @@ class GennyImageView extends Component {
     const project_code = GennyBridge.getProject();
     if(project_code != null) {
 
-        const image_proxy_url = BaseEntityQuery.getBaseEntityAttribute(project_code, )
+        const image_proxy_url = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_IMAGE_PROXY_URL');
         if(image_proxy_url != null && image_proxy_url.value != null) {
-            src = `${image_proxy_url}${src}`;
+
+            let proxy = image_proxy_url.value;
+            if(proxy.endsWith("/")) {
+              proxy = str.slice(0, -1);
+            }
+
+            src = `${proxy}/${src}`;
         }
     }
 
