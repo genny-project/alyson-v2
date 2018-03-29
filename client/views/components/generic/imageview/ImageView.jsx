@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { string, any, bool, func, object } from 'prop-types';
 // import loadImage from 'blueimp-load-image';
 // import ExifOrientationImg from 'react-exif-orientation-img';
+import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 
 class ImageView extends Component {
 
@@ -29,7 +30,8 @@ class ImageView extends Component {
 
     render() {
 
-        const { caption, src, onClick, style, placeholder, rounded, className, imageStyle } = this.props;
+        const { caption, onClick, style, placeholder, rounded, className, imageStyle } = this.props;
+        let { src } = this.props;
         let { error } = this.state;
 
         const componentStyle = {
@@ -37,6 +39,23 @@ class ImageView extends Component {
         };
 
         if(error == false && (src === "" || src == null)) error = true;
+
+        // proxy URL if any
+        const project_code = GennyBridge.getProject();
+        if(project_code != null) {
+
+            const image_proxy_url = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_IMAGE_PROXY_URL');
+            if(image_proxy_url != null && image_proxy_url.value != null) {
+
+                let proxy = image_proxy_url.value;
+                if(proxy.endsWith("/")) {
+                  proxy = proxy.slice(0, -1);
+                }
+
+                src = `${proxy}/${src}`;
+            }
+        }
+
 
         return (
             <div className={`imageView ${rounded ? 'rounded' : ''} ${className}`} style={componentStyle}>

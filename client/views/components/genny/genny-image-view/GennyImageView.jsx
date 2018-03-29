@@ -21,22 +21,6 @@ class GennyImageView extends Component {
     const { root, baseEntity, caption } = this.props;
     let { src } = this.props;
 
-    // proxy URL if any
-    const project_code = GennyBridge.getProject();
-    if(project_code != null) {
-
-        const image_proxy_url = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_IMAGE_PROXY_URL');
-        if(image_proxy_url != null && image_proxy_url.value != null) {
-
-            let proxy = image_proxy_url.value;
-            if(proxy.endsWith("/")) {
-              proxy = str.slice(0, -1);
-            }
-
-            src = `${proxy}/${src}`;
-        }
-    }
-
     return (
       <div className="genny-image-view">
         <ImageView root={root} src={src} caption={caption} />
