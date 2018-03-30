@@ -103,14 +103,17 @@ export default function reducer(state = initialState, action) {
                                 let newAttributes = newItem.baseEntityAttributes;
                                 newAttributes.forEach(newAttribute => {
 
-                                    existingAttributes[newAttribute.attributeCode] = {
-                                        ...existingAttributes[newAttribute.attributeCode],
-                                        ...newAttribute,
-                                        ... {
-                                            value: grabValue(newAttribute),
-                                            baseEntityCode: baseEntityCode
-                                        }
-                                    };
+                                    if(newAttribute.privacyFlag == false || newAttribute.privacyFlag == null) {
+
+                                        existingAttributes[newAttribute.attributeCode] = {
+                                            ...existingAttributes[newAttribute.attributeCode],
+                                            ...newAttribute,
+                                            ... {
+                                                value: grabValue(newAttribute),
+                                                baseEntityCode: baseEntityCode
+                                            }
+                                        };
+                                    }
                                 });
                             }
 
@@ -206,7 +209,7 @@ export default function reducer(state = initialState, action) {
 
             return {
                 ...state,
-                attributes: action.payload.items,
+                attributes: action.payload.items.map(item => { return item.defaultPrivacyFlag === false || item.defaultPrivacyFlag == null ? item : false } ),
             };
 
         case ANSWER:
@@ -219,7 +222,7 @@ export default function reducer(state = initialState, action) {
                 if (typeof newValue != 'string') { return; }
 
                 let attributeCode = newAnswer.attributeCode;
-                if (be_code && attributeCode) {
+                if (be_code && attributeCode && (newAnswer.privacyFlag === false || newAnswer.privacyFlag == null)) {
 
                     if (action.payload.delete) {
 
