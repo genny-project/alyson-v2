@@ -148,6 +148,7 @@ class Input extends Component {
 
     handleOnChange = (newValue) => {
 
+        this.didReceiveNewProps = false;
         this.setState({
             value: newValue
         });
