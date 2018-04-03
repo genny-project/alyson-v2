@@ -64,7 +64,7 @@ class Input extends Component {
     shouldComponentUpdate(nextProps) {
 
         //if (this.state.value == null && nextProps.value === this.props.value) return false;
-        if(this.state.isFocused === true) return false;
+        if(this.state.isFocused === true && this.didReceiveNewProps == true) return false;
         return true;
 
         // if(nextProps.value == null || value == null || nextProps.value.length == 0 || value.length == 0) {
@@ -128,11 +128,18 @@ class Input extends Component {
         return isValid;
     }
 
+     componentDidUpdate() {
+
+       this.didReceiveNewProps = false;
+     }
+
     componentWillReceiveProps(newProps) {
 
         const { isFocused } = this.state;
 
         if(this._ismounted && isFocused != true) {
+
+            this.didReceiveNewProps = true;
             this.setState({
                 value: newProps.value
             });
