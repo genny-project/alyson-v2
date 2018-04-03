@@ -116,10 +116,15 @@ class GennyBridge {
             Vertx.sendMessage(events.outgoing.ANSWER('Answer', answers, token));
         }
 
-        if(items[0].attributeCode.includes('ADDRESS_FULL')) { return; }
+        const attributeC = items[0].attributeCode;
+        const forbiddenAnswers = ['ADDRESS_FULL', 'PRI_RATING'];
+        for (var i = 0; i < forbiddenAnswers.length; i++) {
+            const forbiddenCode = forbiddenAnswers[i];
+            if(attributeC.includes(forbiddenCode)) { return; }
+        }
 
         let value = items[0].value;
-        if(items[0].attributeCode.includes('PRICE')) {
+        if(attributeC.includes('PRICE') || attributeC.includes('FEE')) {
             value = JSON.parse(value).amount;
         }
 
@@ -132,7 +137,7 @@ class GennyBridge {
         };
 
         // locally updating the attribute so we dont have to wait for the backend to send us an answer. this is called optimistic results.
-        //GennyBridge.messageHandler.onMessage(payload);
+        GennyBridge.messageHandler.onMessage(payload);
     }
 
     ajaxCall(settings) {

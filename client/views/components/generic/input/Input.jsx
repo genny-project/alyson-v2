@@ -52,14 +52,10 @@ class Input extends Component {
     }
 
     componentDidMount() {
-        // console.log('');
-        // console.log('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
-        // console.log('mounted: ', this.props.identifier);
 
         this._ismounted = true;
 
         if (this.props.onMount) {
-
             let isValid = this.isValid();
             this.props.onMount(this.props.identifier, this.props.value, isValid);
         }
@@ -68,6 +64,7 @@ class Input extends Component {
     shouldComponentUpdate(nextProps) {
 
         //if (this.state.value == null && nextProps.value === this.props.value) return false;
+        if(this.state.isFocused === true) return false;
         return true;
 
         // if(nextProps.value == null || value == null || nextProps.value.length == 0 || value.length == 0) {
@@ -132,6 +129,7 @@ class Input extends Component {
     }
 
     componentWillReceiveProps(newProps) {
+
         const { isFocused } = this.state;
 
         if(this._ismounted && isFocused != true) {
@@ -150,9 +148,6 @@ class Input extends Component {
 
     validateInput = (value, identifier, validationList) => {
 
-        console.log(this.props.value);
-        console.log(value)
-        console.log(value == this.props.value && value.constructor != Boolean)
         if(value == this.props.value && value.constructor != Boolean) return;
 
         this.state.value = value;

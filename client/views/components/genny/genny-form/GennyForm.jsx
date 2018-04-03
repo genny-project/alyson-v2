@@ -39,7 +39,7 @@ class GennyForm extends Component {
 
     // shouldComponentUpdate(nextProps, nextState) {
     //
-    //     // we only re-render if the number of gorm groups has changed. otherwise inputs can take care of themselves. :)
+    //     // we only re-render if the number of form groups has changed. otherwise inputs can take care of themselves. :)
     //     const newQuestionGroups = AskQuery.getQuestionGroup(nextProps.root);
     //     const oldQuestionGroups = AskQuery.getQuestionGroup(this.props.root);
     //     return this.getNumberOfQuestions(newQuestionGroups) != this.getNumberOfQuestions(oldQuestionGroups);
