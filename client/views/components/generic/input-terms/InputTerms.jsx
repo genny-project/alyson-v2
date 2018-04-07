@@ -33,7 +33,7 @@ class InputTerms extends Component {
   handleScroll = () => {
     let div = this.divRef;
 
-    if (div.scrollHeight == div.scrollTop + div.offsetHeight) {
+    if (div.scrollHeight >= div.scrollTop + div.offsetHeight - 50) {
       if(this.props.validation && this.state.isRead != true ) {
         this.setState({
           isRead: true
