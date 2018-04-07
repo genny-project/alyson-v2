@@ -18,6 +18,14 @@ class Vertx {
     this.eventBus.onopen = () => {
 
       this.connected = true;
+      console.log("reconnected");
+      if(this.reloadTimeout) {
+          clearTimeout(this.reloadTimeout);
+      }
+
+      if(this.reconnectTimeout) {
+          clearTimeout(this.reconnectTimeout);
+      }
 
       // decode token
       let session_data = decode_token(token);
@@ -49,8 +57,27 @@ class Vertx {
 
     this.eventBus.onclose = () => {
 
+        if(this.reloadTimeout) {
+            clearTimeout(this.reloadTimeout);
+        }
+
+        if(this.reconnectTimeout) {
+            clearTimeout(this.reconnectTimeout);
+        }
+
+        console.log("connection was lost.");
         this.connected = false;
-        document.location.reload();
+        this.reconnectTimeout = setTimeout(() => {
+            this.init(token, url);
+        }, 1500);
+
+        this.reloadTimeout = setTimeout(() => {
+
+            if(this.connected === false) {
+                document.location.reload();
+            }
+
+        }, 60000) // 10s
     };
   }
 
