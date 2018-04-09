@@ -120,7 +120,6 @@ class LayoutLoader extends Component {
                             }
                         }
                         else {
-
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }
 
@@ -154,11 +153,10 @@ class LayoutLoader extends Component {
         }
 
         if(attribute != null && attribute.value != null ) {
-
             try {
-                layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value));
+                layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value).replace(/(\r\n|\n|\r)/gm, '<br>'));
             } catch (e) {
-                // console.error(e);
+                //console.error(e);
             }
         }
       });
