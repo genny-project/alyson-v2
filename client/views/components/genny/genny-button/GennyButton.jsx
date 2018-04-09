@@ -34,10 +34,18 @@ class GennyButton extends Component {
         clearTimeout(this.state.timer);
     }
 
+    componentDidMount() {
+
+        const height = this.props.buttonCode ? document.getElementById(this.props.buttonCode).clientHeight : null;
+        this.currentHeight = height || -1;
+    }
+
     handleClick = () => {
+
         this.setState({
             isAnimated: true
         }, () => {
+
             this.state.timer = setTimeout(() => {
                 this.setAnimationStop();
             }, this.props.animationDelay);
@@ -92,27 +100,44 @@ class GennyButton extends Component {
     }
 
     render() {
-        const { children, className, style, buttonComponentStyle, buttonStyle, disabled, confirmation, ...rest } = this.props;
-        const componentStyle = { ...style };
+
+        const { children, className, style, buttonComponentStyle, disabled, confirmation, ...rest } = this.props;
+        let componentStyle = { ...style };
+        let { buttonStyle } = this.props;
 
         const clickEvent = confirmation ? () => this.handleConfirmation(confirmation) : this.handleClick;
 
-        let buttonWidth = buttonStyle && buttonStyle.width ? buttonStyle.width : '100%';
-        if (this.state.isAnimated) {
-            if (buttonStyle && buttonStyle.height) {
-                buttonWidth = buttonStyle.height;
+        const buttonHeight = this.currentHeight;
+        if (this.state.isAnimated == true && buttonHeight > 0) {
+
+            const buttonWidth = buttonHeight;
+
+            componentStyle = {
+                ...componentStyle,
+                width: buttonWidth
             }
-            else if (componentStyle && componentStyle.height) {
-                buttonWidth = componentStyle.height;
+
+            buttonStyle = {
+                ...buttonStyle,
+                width: buttonWidth
             }
         }
+
+        if(buttonStyle.width == null) {
+            buttonStyle.width = '100%';
+        }
+
+        if(componentStyle.width == null) {
+            componentStyle.width = '100%';
+        }
+
         return (
-        <div className={`genny-button ${className} ${this.state.isAnimated ? 'animate' : ''}`} style={componentStyle}>
+        <div id={this.props.buttonCode} className={`genny-button ${className} ${this.state.isAnimated ? 'animate' : ''}`} style={componentStyle}>
             <Button
                 {...rest}
                 disabled={disabled}
                 onClick={clickEvent}
-                buttonStyle={{ ...buttonStyle, width: buttonWidth }}
+                buttonStyle={buttonStyle}
                 style={ {...buttonComponentStyle, height: componentStyle.height }}
             >
                 {
