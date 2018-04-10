@@ -43,7 +43,10 @@ class GennyList extends Component {
 
         let newData = [];
         if(data.length == 0) return [];
-        data.map((item, index) => {
+        data.sort((x, y) => {
+            if(x.weight > y.weight) return 1;
+            return -1;
+        }).map((item, index) => {
 
             if(item) {
 
@@ -67,7 +70,7 @@ class GennyList extends Component {
 
         });
 
-        console.log( newData )
+        console.log( newData );
         return newData;
     }
 
