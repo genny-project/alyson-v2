@@ -9,6 +9,7 @@ export { default as CircleButton } from './circle-button';
 export { default as CompactList } from './compact-list';
 export { default as DateLabel } from './date-label';
 export { default as Device } from './device';
+export { default as DisplayHTML } from './display-html';
 export { default as Dropdown } from './dropdown';
 export { default as Footer } from './footer';
 export { default as Form } from './form';

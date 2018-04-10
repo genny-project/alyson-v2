@@ -100,7 +100,6 @@ class GennyBridge {
     }
 
     sendAnswer = (items) => {
-
         let token = this.getToken();
         if(token) {
 
@@ -112,7 +111,6 @@ class GennyBridge {
 
                 return item;
             });
-
             Vertx.sendMessage(events.outgoing.ANSWER('Answer', answers, token));
         }
 
