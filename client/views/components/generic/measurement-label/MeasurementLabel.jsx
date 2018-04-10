@@ -27,6 +27,10 @@ class MeasurementLabel extends Component {
 
         const { hideDecimal, showDecimal } = this.props;
 
+        if(value == null) {
+            return null;
+        }
+
         const tempValue = value.replace(/,/g, '');
         let newValue = value != null ? parseFloat(tempValue, 10) : null;
 
@@ -35,7 +39,7 @@ class MeasurementLabel extends Component {
             let measurement = mf.measure(newValue, `${fromUnit}`);
             if(measurement != null) {
                 let convertMeasurement = measurement.as(toUnit);
-                
+
                 if (showDecimal && Number.isInteger(showDecimal) && showDecimal > 0 ) {
                     convertMeasurement = convertMeasurement.value.toFixed( showDecimal );
                 }
