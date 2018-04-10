@@ -6,64 +6,65 @@ const mf = new measurement.Factory();
 
 class MeasurementLabel extends Component {
 
-  static defaultProps = {
-    value: '',
-    fromUnit: 'm',
-    toUnit: 'km',
-    hideDecimal: false,
-  }
-
-  static propTypes = {
-    className: string,
-    value: any,
-    style: object,
-    fromUnit: string.isRequired,
-    toUnit: string.isRequired,
-    hideDecimal: bool,
-    showDecimal: number
-  }
-
-  convert = (value, fromUnit, toUnit) => {
-
-    const { hideDecimal, showDecimal } = this.props;
-
-    const newValue = value != null ? parseFloat(value.replace(',', '')) : null;
-
-    if (showDecimal && Number.isInteger(showDecimal) && showDecimal.length > 0 ) {
-        newValue.toFixed( showDecimal );
+    static defaultProps = {
+        value: '',
+        fromUnit: 'm',
+        toUnit: 'km',
+        hideDecimal: false,
     }
 
-    if (hideDecimal == true) {
-        newValue.toFixed(0);
+    static propTypes = {
+        className: string,
+        value: any,
+        style: object,
+        fromUnit: string.isRequired,
+        toUnit: string.isRequired,
+        hideDecimal: bool,
+        showDecimal: number
     }
 
-    if(newValue != null && fromUnit != null && toUnit != null) {
+    convert = (value, fromUnit, toUnit) => {
 
-        let measurement = mf.measure(newValue, `${fromUnit}`);
-        if(measurement != null) {
-            let convertMeasurement = measurement.as(toUnit);
-            if(convertMeasurement != null) {
-                return `${convertMeasurement.as(toUnit)}`;
+        const { hideDecimal, showDecimal } = this.props;
+
+        const tempValue = value.replace(/,/g, '');
+        let newValue = value != null ? parseFloat(tempValue, 10) : null;
+
+        if(newValue != null && fromUnit != null && toUnit != null) {
+
+            let measurement = mf.measure(newValue, `${fromUnit}`);
+            if(measurement != null) {
+                let convertMeasurement = measurement.as(toUnit);
+                
+                if (showDecimal && Number.isInteger(showDecimal) && showDecimal > 0 ) {
+                    convertMeasurement = convertMeasurement.value.toFixed( showDecimal );
+                }
+                else if (hideDecimal == true) {
+                    convertMeasurement = convertMeasurement.value.toFixed(0);
+                }
+
+                if(convertMeasurement != null) {
+                    return `${convertMeasurement}${toUnit}`;
+                }
             }
         }
+
+        return null;
     }
 
-    return null;
-  }
+    render() {
 
-  render() {
+        const { className, children, value, style, fromUnit, toUnit } = this.props;
+        const componentStyle = { ...style, };
 
-    const { className, children, value, style, fromUnit, toUnit } = this.props;
-    const componentStyle = { ...style, };
-
-    return (
-      <div className={`measurement-label ${className || ''}`} style={componentStyle}>
-        <span className="measurement-label-text">
-            {this.convert(value || children, fromUnit, toUnit)}
-        </span>
-      </div>
-    );
-  }
+        return (
+            <div className={`measurement-label ${className || ''}`} style={componentStyle}>
+                <span className="measurement-label-text">
+                    {this.convert(value || children, fromUnit, toUnit)}
+                </span>
+            </div>
+        );
+    }
 }
 
 export default MeasurementLabel;
