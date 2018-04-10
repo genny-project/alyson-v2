@@ -10,7 +10,8 @@ class GennyButton extends Component {
         buttonCode: null,
         value: null,
         confirmation: null,
-        animationDelay: 3000
+        animationDelay: 3000,
+        buttonStyle: {},
     }
 
     static propTypes = {
@@ -115,12 +116,12 @@ class GennyButton extends Component {
             componentStyle = {
                 ...componentStyle,
                 width: buttonWidth
-            }
+            };
 
             buttonStyle = {
                 ...buttonStyle,
                 width: buttonWidth
-            }
+            };
         }
 
         if(buttonStyle.width == null) {
