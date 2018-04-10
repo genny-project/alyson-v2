@@ -154,7 +154,21 @@ class LayoutLoader extends Component {
 
         if(attribute != null && attribute.value != null ) {
             try {
-                layout = JSON.parse(JSON.stringify(layout).replace(alias, attribute.value).replace(/(\r\n|\n|\r)/gm, '<br>'));
+
+                if(layout != null) {
+
+                    let stringified = JSON.stringify(layout);
+                    if(stringified != null) {
+
+                        stringified = stringified.replace(alias, attribute.value);
+                        if(stringified != null) {
+                            stringified = stringified.replace(/(\r\n|\n|\r)/gm, '<br>');
+                            if(stringified != null) {
+                                layout = JSON.parse(stringified);
+                            }
+                        }
+                    }
+                }
             } catch (e) {
                 //console.error(e);
             }
