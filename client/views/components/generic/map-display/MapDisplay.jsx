@@ -65,122 +65,98 @@ class MapDisplay extends Component {
                 scrollwheel: false,
             };
 
-            this.map = new google.maps.Map( this.mapRef, mapOptions );
+            try {
+                this.map = new google.maps.Map( this.mapRef, mapOptions );
+                this.isError = false;
 
-            let infowindow = new google.maps.InfoWindow({
-                content: ''
-            });
-
-            if (window.getScreenSize() == 'sm') this.map.setOptions({gestureHandling: 'cooperative'});
-
-            this.locations = [];
-
-            const adjustMapBounds = () => {
-                if (this.map) {
-                    setTimeout(() => {
-                        this.adjustBounds();
-                    }, 500);
-                }
-            };
-
-            this.checkAddressFormat(geocoder, newCenter, (centerCoords) => {
-
-                let counterMarkers = 0;
-                this.markers = [];
-
-                markers.forEach(marker => {
-
-                    this.checkAddressFormat(geocoder, marker, (markerCoords) => {
-
-                        if (markerCoords.lat && markerCoords.lng) {
-
-                        let map = this.map;
-
-                        let newMarker = new google.maps.Marker({
-                            position: {
-                                lat: parseFloat(markerCoords.lat),
-                                lng: parseFloat(markerCoords.lng)
-                            },
-                            zIndex: 100,
-                            icon: this.props.icon,
-                            map
-                        });
-
-                        this.markers.push({
-                            newMarker
-                        });
-
-                        newMarker.addListener('click', () => {
-
-                            infowindow.open(map, newMarker);
-                            infowindow.setContent(marker.text);
-                            this.handleMarkerClick(newMarker);
-
-                            let infowindowButton = document.getElementById('map-infowindow');
-                            if(infowindowButton != null) {
-                                infowindowButton.addEventListener('click', () => {
-                                    if (this.props.onClick) this.props.onClick(marker.code, marker.root);
-                                });
-                            }
-                        });
-
-                        this.locations.push(new google.maps.LatLng(markerCoords.lat, markerCoords.lng));
-
-                        if(counterMarkers == markers.length - 1) {
-                            if ( markers.length > 1 || routes && routes.length > 0 ) {
-                                adjustMapBounds();
-                            } else {
-                                adjustMapBounds();
-                                map.setZoom(12);
-                            }
-                        }
-
-                        counterMarkers += 1;
-                        }
-                        else {
-                            counterMarkers += 1;
-                        }
-                    });
+                let infowindow = new google.maps.InfoWindow({
+                    content: ''
                 });
 
-                let counterRoutes = 0;
+                if (window.getScreenSize() == 'sm') this.map.setOptions({gestureHandling: 'cooperative'});
 
-                routes.forEach(route => {
+                this.locations = [];
 
-                    let map = this.map;
+                const adjustMapBounds = () => {
+                    if (this.map) {
+                        setTimeout(() => {
+                            this.adjustBounds();
+                        }, 500);
+                    }
+                };
 
-                    this.checkAddressFormat(geocoder, route.origin, (routeOriginCoords) => {
+                this.checkAddressFormat(geocoder, newCenter, (centerCoords) => {
 
-                        let newMarker = new google.maps.Marker({
-                            position: {
-                                lat: parseFloat(routeOriginCoords.lat),
-                                lng: parseFloat(routeOriginCoords.lng)
-                            },
-                            zIndex: 100,
-                            icon: this.props.mapRouteIcon,
-                            map
-                        });
+                    let counterMarkers = 0;
+                    this.markers = [];
 
-                        this.markers.push({
-                            newMarker
-                        });
+                    markers.forEach(marker => {
 
-                        newMarker.addListener('click', () => {
+                        this.checkAddressFormat(geocoder, marker, (markerCoords) => {
 
-                            infowindow.open(map, newMarker);
-                            infowindow.setContent(route.origin);
-                        });
+                            if (markerCoords.lat && markerCoords.lng) {
 
-                        let originCoords = new google.maps.LatLng( routeOriginCoords.lat, routeOriginCoords.lng );
-
-                        this.locations.push(originCoords);
-
-                        this.checkAddressFormat(geocoder, route.dest, (routeDestCoords) => {
+                            let map = this.map;
 
                             let newMarker = new google.maps.Marker({
                                 position: {
-                                    lat: parseFloat(routeDestCoords.lat),
-                                    lng: parseFloat(routeDestCoords.lng)
+                                    lat: parseFloat(markerCoords.lat),
+                                    lng: parseFloat(markerCoords.lng)
+                                },
+                                zIndex: 100,
+                                icon: this.props.icon,
+                                map
+                            });
+
+                            this.markers.push({
+                                newMarker
+                            });
+
+                            newMarker.addListener('click', () => {
+
+                                infowindow.open(map, newMarker);
+                                infowindow.setContent(marker.text);
+                                this.handleMarkerClick(newMarker);
+
+                                let infowindowButton = document.getElementById('map-infowindow');
+                                if(infowindowButton != null) {
+                                    infowindowButton.addEventListener('click', () => {
+                                        if (this.props.onClick) this.props.onClick(marker.code, marker.root);
+                                    });
+                                }
+                            });
+
+                            this.locations.push(new google.maps.LatLng(markerCoords.lat, markerCoords.lng));
+
+                            if(counterMarkers == markers.length - 1) {
+                                if ( markers.length > 1 || routes && routes.length > 0 ) {
+                                    adjustMapBounds();
+                                } else {
+                                    adjustMapBounds();
+                                    map.setZoom(12);
+                                }
+                            }
+
+                            counterMarkers += 1;
+                            }
+                            else {
+                                counterMarkers += 1;
+                            }
+                        });
+                    });
+
+                    let counterRoutes = 0;
+
+                    routes.forEach(route => {
+
+                        let map = this.map;
+
+                        this.checkAddressFormat(geocoder, route.origin, (routeOriginCoords) => {
+
+                            let newMarker = new google.maps.Marker({
+                                position: {
+                                    lat: parseFloat(routeOriginCoords.lat),
+                                    lng: parseFloat(routeOriginCoords.lng)
                                 },
                                 zIndex: 100,
                                 icon: this.props.mapRouteIcon,
@@ -194,25 +170,57 @@ class MapDisplay extends Component {
                             newMarker.addListener('click', () => {
 
                                 infowindow.open(map, newMarker);
-                                infowindow.setContent(route.dest);
+                                infowindow.setContent(route.origin);
                             });
 
-                            let destCoords = new google.maps.LatLng( routeDestCoords.lat, routeDestCoords.lng );
-                            //console.log(destCoords);
-                            this.locations.push(destCoords);
+                            let originCoords = new google.maps.LatLng( routeOriginCoords.lat, routeOriginCoords.lng );
 
-                            this.calcRoute(originCoords, destCoords, () => {
+                            this.locations.push(originCoords);
 
-                                if(counterRoutes == routes.length - 1) {
-                                    adjustMapBounds();
-                                }
+                            this.checkAddressFormat(geocoder, route.dest, (routeDestCoords) => {
 
-                                counterRoutes += 1;
+                                let newMarker = new google.maps.Marker({
+                                    position: {
+                                        lat: parseFloat(routeDestCoords.lat),
+                                        lng: parseFloat(routeDestCoords.lng)
+                                    },
+                                    zIndex: 100,
+                                    icon: this.props.mapRouteIcon,
+                                    map
+                                });
+
+                                this.markers.push({
+                                    newMarker
+                                });
+
+                                newMarker.addListener('click', () => {
+
+                                    infowindow.open(map, newMarker);
+                                    infowindow.setContent(route.dest);
+                                });
+
+                                let destCoords = new google.maps.LatLng( routeDestCoords.lat, routeDestCoords.lng );
+                                //console.log(destCoords);
+                                this.locations.push(destCoords);
+
+                                this.calcRoute(originCoords, destCoords, () => {
+
+                                    if(counterRoutes == routes.length - 1) {
+                                        adjustMapBounds();
+                                    }
+
+                                    counterRoutes += 1;
+                                });
                             });
                         });
                     });
                 });
-            });
+            }
+            catch (error) {
+                console.error( error );
+                this.isError = true;
+                this.setAlert('Map could not be loaded. Please contact support.');
+            }
         }
     }
 
