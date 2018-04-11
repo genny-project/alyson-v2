@@ -74,19 +74,19 @@ class GennyMessagingConversation extends Component {
                     value={{ itemCode: this.props.root, value: this.state.messageText }}
                     style={{width: '100px', height: '50px'}}
                     type='confirm'
-                    >
+                >
                     <p>Send</p>
                 </GennyButton>
         </div>;
     }
 
-    renderMessages = (messages) => {
-
-        const { currentUser, otherUser } = this.props;
+    renderMessages = (messages, currentUser, otherUser) => {
 
         let finalMessages = messages;
-        this.state.createdMessages.forEach(mess => finalMessages[0].push(mess));
-
+        this.state.createdMessages.forEach(mess => {
+            finalMessages[0].push(mess);
+        });
+        
         return finalMessages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
@@ -150,7 +150,54 @@ class GennyMessagingConversation extends Component {
         });
     }
 
-    renderMobileLayout(title, messages, otherUser) {
+    orderMessages = (messages) => {
+
+        let messageArray = [];
+        let tempArray = [];
+
+         messages.map((message, index) => {
+
+            if (tempArray.length > 0) {
+
+                const last = tempArray.length - 1;
+                const creatorAttr = tempArray[last].attributes.PRI_CREATOR;
+                const thisCreatorAttr =  message.attributes.PRI_CREATOR;
+
+                if(!creatorAttr || !thisCreatorAttr) {
+                    return false;
+                }
+
+                const lastCreator = creatorAttr.value;
+                const thisCreator = thisCreatorAttr.value;
+
+                if (lastCreator != thisCreator) {
+                    messageArray.push(tempArray);
+                    tempArray = [];
+                }
+                else {
+
+                    const lastDateTime = moment(tempArray[last].created).format('YYYY-MM-DD HH');
+                    const thisDateTIme = moment(message.created).format('YYYY-MM-DD HH');
+
+                    if (lastDateTime != thisDateTIme) {
+                        messageArray.push(tempArray);
+                        tempArray = [];
+                    }
+                }
+            }
+
+            tempArray.push(message);
+
+            if (index == messages.length - 1) {
+                messageArray.push(tempArray);
+            }
+
+        });
+
+        return messageArray;
+    }
+
+    renderMobileLayout(title, messages, currentUser, otherUser) {
 
         return (
         <Grid
@@ -175,7 +222,7 @@ class GennyMessagingConversation extends Component {
             {
                 messages && messages.length > 0 ?
                     <div className={`conversation-messages-container ${window.getScreenSize()}`} position={[ 1,0]}>
-                         {this.renderMessages(messages)}
+                         {this.renderMessages(messages, currentUser, otherUser)}
                     </div>
                 : null
             }
@@ -191,7 +238,7 @@ class GennyMessagingConversation extends Component {
         </Grid>);
     }
 
-    renderWebLayout(title, messages, otherUser) {
+    renderWebLayout(title, messages, currentUser, otherUser) {
 
         return (
         <Grid
@@ -204,7 +251,7 @@ class GennyMessagingConversation extends Component {
             {
                 messages && messages.length > 0 ?
                     <div className="conversation-messages-container" position={[0 ,0]}>
-                        {this.renderMessages(messages)}
+                        {this.renderMessages(messages, currentUser, otherUser)}
 
                     </div>
                 : null
@@ -219,10 +266,22 @@ class GennyMessagingConversation extends Component {
             <div className="conversation-message-input" position={[ 1 ,0]}>{this.renderTextInput()}</div>
         </Grid>);
     }
-
     render() {
 
-        const { root, title, messages, otherUser } = this.props;
+        const { root } = this.props;
+
+        const attribute = BaseEntityQuery.getBaseEntityAttribute(root, 'PRI_TITLE');
+        const title = attribute ? attribute.value : '';
+
+        let users = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_USER');
+        const currentUserCode = GennyBridge.getUser();
+        const currentUser = users && users.filter(x => x.code == currentUserCode)[0];
+        const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
+
+        let messages = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_MESSAGES');
+        messages = messages.sort((x, y) => x.created < y.created);
+
+        const orderedMessages = this.orderMessages(messages);
 
         if(!root) {
             return (
@@ -232,10 +291,10 @@ class GennyMessagingConversation extends Component {
             );
         }
         else if (window.getScreenSize() == 'sm') {
-            return this.renderMobileLayout(title, messages, otherUser);
+            return this.renderMobileLayout(title, orderedMessages, currentUser, otherUser);
         }
         else {
-            return this.renderWebLayout(title, messages, otherUser);
+            return this.renderWebLayout(title, orderedMessages, currentUser, otherUser);
         }
     }
 }

@@ -37,6 +37,24 @@ class GennyList extends Component {
     state = {
     }
 
+    handleClick = (listItemProps) => {
+        let btnValue = {
+            hint: listItemProps.rootCode,
+            itemCode: listItemProps.code,
+            userCode: GennyBridge.getUser()
+        };
+        btnValue = JSON.stringify(btnValue);
+
+        GennyBridge.sendBtnClick('BTN_CLICK', {
+            code: 'BTN_SEE_CONVERSATION',
+            value: btnValue
+        });
+
+        this.setState({
+            selectedItem: listItemProps.code,
+        });
+    }
+
     generateListItems(data) {
 
         const {localAliases, selectedItem, root} = this.props;
@@ -69,8 +87,7 @@ class GennyList extends Component {
             return false;
 
         });
-
-        console.log( newData );
+        //console.log( newData );
         return newData;
     }
 
@@ -110,6 +127,7 @@ class GennyList extends Component {
                         hideNav={hideNav}
                         data={ this.generateListItems(data) }
                         showEmpty={showEmpty}
+                        onItemClick={this.handleClick}
                         {...rest}
                     />
                 </div>

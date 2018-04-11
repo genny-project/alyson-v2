@@ -46,7 +46,6 @@ class List extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        // console.log(newProps.data);
         this.setState({
             data: newProps.data,
         });

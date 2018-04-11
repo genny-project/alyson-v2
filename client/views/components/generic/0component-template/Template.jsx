@@ -5,30 +5,30 @@ import {  } from 'views/components';
 
 class Template extends Component {
 
-  static defaultProps = {
-    className: '',
-  }
+    static defaultProps = {
+        className: '',
+    }
 
-  static propTypes = {
-    className: string,
-    style: object,
-    children: any,
-  }
+    static propTypes = {
+        className: string,
+        style: object,
+        children: any,
+    }
 
-  state = {
-  }
+    state = {
+    }
 
-  render() {
- 	  const { className, children, style } = this.props;
-    const {  } = this.state;
-    const componentStyle = { ...style, };
+    render() {
+        const { className, children, style } = this.props;
+        const {  } = this.state;
+        const componentStyle = { ...style, };
 
-    return (
-      <div className={`template ${className}`}>
-        {children}
-      </div>
-    );
-  }
+        return (
+            <div className={`template ${className}`} style={componentStyle}>
+                {children}
+            </div>
+        );
+    }
 }
 
 export default Template;

@@ -1,6 +1,18 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { GennyBucketView, GennyForm, GennyTable, GennyList, GennyMap, Spinner, Modal, IconSmall, GennyPasscode } from 'views/components';
+import { 
+    GennyBucketView,
+    GennyMessagingConversation,
+    GennyForm,
+    GennyTable,
+    GennyList,
+    GennyMap,
+    Spinner,
+    Modal,
+    IconSmall,
+    GennyPasscode,
+    SplitView
+} from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { BaseEntityQuery } from 'utils/genny';
@@ -30,39 +42,53 @@ class AppContent extends Component {
 
     renderContent = (commandType, commandData) => {
 
-        if(commandType && commandData.dataCode) {
+        if(commandType && commandData.data) {
 
             // we need to show the table view
             if(commandData.code == 'TABLE_VIEW') {
-                return <GennyTable root={commandData.dataCode}/>;
+                return <GennyTable root={commandData.data}/>;
             }
             // we need to show the bucket view
             else if (commandData.code == 'BUCKET_VIEW') {
-                return <GennyBucketView root={commandData.dataCode} />;
+                return <GennyBucketView root={commandData.data} />;
             }
             else if (commandData.code == 'LIST_VIEW') {
-                return <GennyList root={commandData.dataCode} showTitle/>;
+                return <GennyList root={commandData.data} showTitle/>;
             }
             else if (commandData.code == 'FORM_VIEW') {
-                return <GennyForm root={commandData.dataCode}/>;
+                return <GennyForm root={commandData.data}/>;
             }
             else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root={commandData.dataCode}/>;
+                return <GennyMap root={commandData.data}/>;
             }
             else if (commandData.code == 'LOADING') {
-                return <Spinner text={commandData.dataCode} />;
+                return <Spinner text={commandData.data} />;
             }
             else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root={commandData.dataCode}/>;
+                return <GennyMap root={commandData.data}/>;
             }
             else if (commandData.code == 'PASSCODE') {
                 return <GennyPasscode />;
             }
-            else if(commandData.layout != null) {
+            else if (commandData.code == 'CONVERSATION_VIEW') {
+                return <GennyMessagingConversation root={commandData.data}/>;
+            }
+            else if (commandData.code == 'SPLIT_VIEW') {
+                return (
+                    <SplitView>
+                        {
+                            commandData.data.map(item => {
+                                return this.renderContent('view', item);
+                            })
+                        }
+                    </SplitView>
+                );
+            }
+            else if (commandData.layout != null) {
 
-                const parent = BaseEntityQuery.getBaseEntityParent(commandData.dataCode);
+                const parent = BaseEntityQuery.getBaseEntityParent(commandData.data);
                 const parentCode = parent ? parent.code : null;
-                return <LayoutLoader layout={commandData} aliases={{ROOT: parentCode, BE: commandData.dataCode, ITEMCODE: commandData.dataCode}} />;
+                return <LayoutLoader layout={commandData} aliases={{ROOT: parentCode, BE: commandData.data, ITEMCODE: commandData.data}} />;
             }
         }
     }
