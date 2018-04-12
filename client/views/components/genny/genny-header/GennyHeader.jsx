@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications, } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
-import { GennyBridge, } from 'utils/genny';
+import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 // import decode_token from 'jwt-decode';
 
 class GennyHeader extends Component {
@@ -131,8 +131,11 @@ class GennyHeader extends Component {
         //
         // let isAdmin = roles.includes('admin');
 
-        //let roles = BaseEntityQuery.getUserAttributes((attribute => attribute.value != null && attribute.code.startsWith("PRI_IS")));
-        //console.log( roles )
+        let attributes = BaseEntityQuery.getBaseEntityAttributes(GennyBridge.getUser());
+        if(attributes) {
+            const roles = Object.keys(attributes).map(attributeKey => { return (attributes[attributeKey].attributeCode != null && attributes[attributeKey].attributeCode.startsWith("PRI_IS") != null) ? attributes[attributeKey].attributeCode : false } );
+            console.log( roles )
+        }
 
         return (
         <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>

@@ -256,6 +256,16 @@ class BaseEntityQuery {
         return null;
     }
 
+    static getBaseEntityAttributes = (baseEntityCode) => {
+
+        let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        if (be) {
+            return be.attributes;
+        }
+
+        return null;
+    }
+
     static getBaseEntityField = (baseEntityCode, field) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
