@@ -93,7 +93,6 @@ class LayoutLoader extends Component {
                             };
                         }
                         else if(attribute_code == "links") {
-
                             const linkValue = split[2];
                             const be_attribute = split[3];
 
@@ -119,6 +118,9 @@ class LayoutLoader extends Component {
                                 }
                             }
                         }
+                        // else if(attribute_code == "links") {
+                            
+                        // }
                         else {
                             attribute = split.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                         }

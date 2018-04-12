@@ -135,7 +135,7 @@ class GennyHeader extends Component {
         let attributes = BaseEntityQuery.getBaseEntityAttributes(GennyBridge.getUser());
         if(attributes) {
             const roles = Object.keys(attributes).map(attributeKey => { return (attributes[attributeKey].attributeCode != null && attributes[attributeKey].attributeCode.startsWith("PRI_IS") != null) ? attributes[attributeKey].attributeCode : false } );
-            console.log( roles )
+            //console.log( roles );
         }
 
         return (
