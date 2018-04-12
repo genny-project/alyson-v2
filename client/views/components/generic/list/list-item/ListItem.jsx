@@ -5,45 +5,45 @@ import { } from 'views/components';
 
 class ListItem extends Component {
 
-  static defaultProps = {
-    className: '',
-    isSelected: false
-  }
+    static defaultProps = {
+        className: '',
+        isSelected: false
+    }
 
-  static propTypes = {
-    className: string,
-    style: string,
-    itemHeight: number,
-    itemWidth: number,
-    itemGap: number,
-    layout: any,
-    onClick: func,
-    isSelected: bool
-  }
+    static propTypes = {
+        className: string,
+        style: string,
+        itemHeight: number,
+        itemWidth: number,
+        itemGap: number,
+        layout: any,
+        onClick: func,
+        isSelected: bool
+    }
 
-  state = {
-  }
+    state = {
+    }
 
-  handleClick = () => {
-    this.props.onClick(this.props);
-  }
+    handleClick = () => {
+        this.props.onClick(this.props);
+    }
 
-  render() {
-    const { className, style, itemHeight, itemWidth, itemGap, onClick, isSelected } = this.props;
+    render() {
+        const { className, style, itemHeight, itemWidth, itemGap, onClick, isSelected } = this.props;
 
-    const componentStyle = {
-      ...style,
-      height: `${itemHeight}px`,
-      width: `${itemWidth}px`,
-      margin: `${itemGap}px`,
-    };
+        const componentStyle = {
+            ...style,
+            height: `${itemHeight}px`,
+            width: `${itemWidth}px`,
+            margin: `${itemGap}px`,
+        };
 
-    return (
-      <div className={`list-item ${className} ${isSelected ? 'selected' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null}>
-        { this.props.layout || null }
-      </div>
-    );
-  }
+        return (
+            <div className={`list-item ${className} ${isSelected ? 'selected' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null}>
+                { this.props.layout || null }
+            </div>
+        );
+    }
 }
 
 export default ListItem;

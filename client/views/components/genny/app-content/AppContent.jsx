@@ -41,7 +41,7 @@ class AppContent extends Component {
 
     renderContent = (commandType, commandData) => {
 
-        if (commandType && commandData.data) {
+        if(commandType && commandData.data != null) {
 
             // we need to show the table view
             if (commandData.code == 'TABLE_VIEW') {
@@ -50,35 +50,37 @@ class AppContent extends Component {
             }
             // we need to show the bucket view
             else if (commandData.code == 'BUCKET_VIEW') {
-                return <GennyBucketView root = { commandData.data }
-                />;
-            } else if (commandData.code == 'LIST_VIEW') {
-                return <GennyList root = { commandData.data }
-                showTitle / > ;
-            } else if (commandData.code == 'FORM_VIEW') {
-                return <GennyForm root = { commandData.data }
-                />;
-            } else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root = { commandData.data }
-                />;
-            } else if (commandData.code == 'LOADING') {
-                return <Spinner text = { commandData.data }
-                />;
-            } else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root = { commandData.data }
-                />;
-            } else if (commandData.code == 'PASSCODE') {
-                return <GennyPasscode / > ;
-            } else if (commandData.code == 'CONVERSATION_VIEW') {
-                return <GennyMessagingConversation root = { commandData.data }
-                />;
-            } else if (commandData.code == 'SPLIT_VIEW') {
-                return ( < SplitView > {
-                        commandData.data.map(item => {
-                            return this.renderContent('view', item);
-                        })
-                    } <
-                    /SplitView>
+                return <GennyBucketView root={commandData.data} />;
+            }
+            else if (commandData.code == 'LIST_VIEW') {
+                return <GennyList root={commandData.data} showTitle/>;
+            }
+            else if (commandData.code == 'FORM_VIEW') {
+                return <GennyForm root={commandData.data}/>;
+            }
+            else if (commandData.code == 'MAP_VIEW') {
+                return <GennyMap root={commandData.data}/>;
+            }
+            else if (commandData.code == 'LOADING') {
+                return <Spinner text={commandData.data} />;
+            }
+            else if (commandData.code == 'MAP_VIEW') {
+                return <GennyMap root={commandData.data}/>;
+            }
+            else if (commandData.code == 'PASSCODE') {
+                return <GennyPasscode />;
+            }
+            else if (commandData.code == 'CONVERSATION_VIEW') {
+                return <GennyMessagingConversation root={commandData.data}/>;
+            }
+            else if (commandData.code == 'SPLIT_VIEW') {
+                let children = commandData.data.map(item => {
+                    return this.renderContent('view', item);
+                });
+                return (
+                    < SplitView >
+                        {children}
+                    </SplitView>
                 );
             } else if (commandData.layout != null) {
 
