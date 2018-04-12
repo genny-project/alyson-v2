@@ -5,6 +5,7 @@ import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, Ge
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
+import { Utils } from 'views/utils/methods';
 // import decode_token from 'jwt-decode';
 
 class GennyHeader extends Component {

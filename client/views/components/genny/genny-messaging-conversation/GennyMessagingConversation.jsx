@@ -80,6 +80,53 @@ class GennyMessagingConversation extends Component {
         </div>;
     }
 
+    orderMessages = (messages) => {
+
+        let messageArray = [];
+        let tempArray = [];
+
+         messages.map((message, index) => {
+
+            if (tempArray.length > 0) {
+
+                const last = tempArray.length - 1;
+                const creatorAttr = tempArray[last].attributes.PRI_CREATOR;
+                const thisCreatorAttr =  message.attributes.PRI_CREATOR;
+
+                if(!creatorAttr || !thisCreatorAttr) {
+                    return false;
+                }
+
+                const lastCreator = creatorAttr.value;
+                const thisCreator = thisCreatorAttr.value;
+
+                if (lastCreator != thisCreator) {
+                    messageArray.push(tempArray);
+                    tempArray = [];
+                }
+                else {
+
+                    const lastDateTime = moment(tempArray[last].created).format('YYYY-MM-DD HH');
+                    const thisDateTIme = moment(message.created).format('YYYY-MM-DD HH');
+
+                    if (lastDateTime != thisDateTIme) {
+                        messageArray.push(tempArray);
+                        tempArray = [];
+                    }
+                }
+            }
+
+            tempArray.push(message);
+
+            if (index == messages.length - 1) {
+                messageArray.push(tempArray);
+            }
+
+        });
+
+        return messageArray;
+    }
+
     renderMessages = (messages, currentUser, otherUser) => {
 
         let finalMessages = messages;
@@ -148,53 +195,6 @@ class GennyMessagingConversation extends Component {
                 </div>
             );
         });
-    }
-
-    orderMessages = (messages) => {
-
-        let messageArray = [];
-        let tempArray = [];
-
-         messages.map((message, index) => {
-
-            if (tempArray.length > 0) {
-
-                const last = tempArray.length - 1;
-                const creatorAttr = tempArray[last].attributes.PRI_CREATOR;
-                const thisCreatorAttr =  message.attributes.PRI_CREATOR;
-
-                if(!creatorAttr || !thisCreatorAttr) {
-                    return false;
-                }
-
-                const lastCreator = creatorAttr.value;
-                const thisCreator = thisCreatorAttr.value;
-
-                if (lastCreator != thisCreator) {
-                    messageArray.push(tempArray);
-                    tempArray = [];
-                }
-                else {
-
-                    const lastDateTime = moment(tempArray[last].created).format('YYYY-MM-DD HH');
-                    const thisDateTIme = moment(message.created).format('YYYY-MM-DD HH');
-
-                    if (lastDateTime != thisDateTIme) {
-                        messageArray.push(tempArray);
-                        tempArray = [];
-                    }
-                }
-            }
-
-            tempArray.push(message);
-
-            if (index == messages.length - 1) {
-                messageArray.push(tempArray);
-            }
-
-        });
-
-        return messageArray;
     }
 
     renderMobileLayout(title, messages, currentUser, otherUser) {
@@ -270,7 +270,7 @@ class GennyMessagingConversation extends Component {
 
         const { root } = this.props;
 
-        console.log('hello');
+        const be = BaseEntityQuery.getBaseEntity(root);
 
         const attribute = BaseEntityQuery.getBaseEntityAttribute(root, 'PRI_TITLE');
         const title = attribute ? attribute.value : '';
@@ -285,7 +285,7 @@ class GennyMessagingConversation extends Component {
 
         const orderedMessages = this.orderMessages(messages);
 
-        if(!root || root == 'null') {
+        if(!root || root == 'null' || !be) {
             return (
                 <div className="conversation-messages-empty" >
                     Welcome to Channel40.<br />
