@@ -1,6 +1,6 @@
 import './appContent.scss';
 import React, { Component } from 'react';
-import { 
+import {
     GennyBucketView,
     GennyMessagingConversation,
     GennyForm,
@@ -21,8 +21,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 class AppContent extends Component {
 
-    static defaultProps = {
-    }
+    static defaultProps = {}
 
     static propTypes = {
         style: object,
@@ -42,61 +41,64 @@ class AppContent extends Component {
 
     renderContent = (commandType, commandData) => {
 
-        if(commandType && commandData.data) {
+        if (commandType && commandData.data) {
 
             // we need to show the table view
-            if(commandData.code == 'TABLE_VIEW') {
-                return <GennyTable root={commandData.data}/>;
+            if (commandData.code == 'TABLE_VIEW') {
+                return <GennyTable root = { commandData.data }
+                />;
             }
             // we need to show the bucket view
             else if (commandData.code == 'BUCKET_VIEW') {
-                return <GennyBucketView root={commandData.data} />;
-            }
-            else if (commandData.code == 'LIST_VIEW') {
-                return <GennyList root={commandData.data} showTitle/>;
-            }
-            else if (commandData.code == 'FORM_VIEW') {
-                return <GennyForm root={commandData.data}/>;
-            }
-            else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root={commandData.data}/>;
-            }
-            else if (commandData.code == 'LOADING') {
-                return <Spinner text={commandData.data} />;
-            }
-            else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root={commandData.data}/>;
-            }
-            else if (commandData.code == 'PASSCODE') {
-                return <GennyPasscode />;
-            }
-            else if (commandData.code == 'CONVERSATION_VIEW') {
-                return <GennyMessagingConversation root={commandData.data}/>;
-            }
-            else if (commandData.code == 'SPLIT_VIEW') {
-                return (
-                    <SplitView>
-                        {
-                            commandData.data.map(item => {
-                                return this.renderContent('view', item);
-                            })
-                        }
-                    </SplitView>
+                return <GennyBucketView root = { commandData.data }
+                />;
+            } else if (commandData.code == 'LIST_VIEW') {
+                return <GennyList root = { commandData.data }
+                showTitle / > ;
+            } else if (commandData.code == 'FORM_VIEW') {
+                return <GennyForm root = { commandData.data }
+                />;
+            } else if (commandData.code == 'MAP_VIEW') {
+                return <GennyMap root = { commandData.data }
+                />;
+            } else if (commandData.code == 'LOADING') {
+                return <Spinner text = { commandData.data }
+                />;
+            } else if (commandData.code == 'MAP_VIEW') {
+                return <GennyMap root = { commandData.data }
+                />;
+            } else if (commandData.code == 'PASSCODE') {
+                return <GennyPasscode / > ;
+            } else if (commandData.code == 'CONVERSATION_VIEW') {
+                return <GennyMessagingConversation root = { commandData.data }
+                />;
+            } else if (commandData.code == 'SPLIT_VIEW') {
+                return ( < SplitView > {
+                        commandData.data.map(item => {
+                            return this.renderContent('view', item);
+                        })
+                    } <
+                    /SplitView>
                 );
-            }
-            else if (commandData.layout != null) {
+            } else if (commandData.layout != null) {
 
                 const parent = BaseEntityQuery.getBaseEntityParent(commandData.data);
                 const parentCode = parent ? parent.code : null;
-                return <LayoutLoader layout={commandData} aliases={{ROOT: parentCode, BE: commandData.data, ITEMCODE: commandData.data}} />;
+                return <LayoutLoader layout = { commandData }
+                aliases = {
+                    { ROOT: parentCode, BE: commandData.data, ITEMCODE: commandData.data }
+                }
+                />;
             }
         }
     }
 
     toggleModal = () => {
 
+        console.log(" toggling modal ");
+
         // re render
-        if(store && store.getState()) {
+        if (store && store.getState()) {
             store.getState().layouts.currentModal = null;
             this.setState({
                 showModal: true
@@ -108,41 +110,43 @@ class AppContent extends Component {
 
         if (!toast.isActive(this.toastId)) {
 
-            let content = (
-                <div className='toast-notification'>
-                    <IconSmall name='notifications' />
-                    <span>{text}</span>
-                </div>
+            let content = ( <
+                div className = 'toast-notification' >
+                <
+                IconSmall name = 'notifications' / >
+                <
+                span > { text } < /span> < /
+                div >
             );
 
-            switch(style) {
+            switch (style) {
 
                 case 'success':
                     this.toastId = toast.success(content, {
                         autoClose: 30000
                     });
-                break;
+                    break;
 
                 case 'error':
                     this.toastId = toast.error(content, {
                         autoClose: 30000
                     });
-                break;
+                    break;
 
                 case 'warning':
                     this.toastId = toast.warning(content, {
                         autoClose: 30000
                     });
-                break;
+                    break;
 
                 case 'info':
                     this.toastId = toast.info(content, {
                         autoClose: 30000
                     });
-                break;
+                    break;
 
                 default:
-                this.toastId = toast(text);
+                    this.toastId = toast(text);
             }
         }
     };
@@ -150,49 +154,55 @@ class AppContent extends Component {
     render() {
 
         const { layout, style, children } = this.props;
-        const componentStyle = {...style};
+        const componentStyle = {...style };
 
         let layoutContent = null;
         let modalContent = null;
 
         if (layout != null && layout.currentView) {
             layoutContent = this.renderContent('view', layout.currentView);
-        }
-        else if (layout.currentSublayout && layout.currentSublayout.layout) {
+        } else if (layout.currentSublayout && layout.currentSublayout.layout) {
 
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;
-            layoutContent =  <LayoutLoader layout={layout.currentSublayout} aliases={{ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root}} />;
+            layoutContent = < LayoutLoader layout = { layout.currentSublayout }
+            aliases = {
+                { ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root }
+            }
+            />;
         }
 
         if (layout != null && layout.currentModal) {
+            console.log("hey");
             modalContent = this.renderContent('popup', layout.currentModal);
         }
 
-        {/*
-            sendIncomingVertxMessage({"msg_type":"CMD_MSG","cmd_type":"CMD_NOTIFICATION","style":"success", "text": "You've Got Quote!"})
+        {
+            /*
+                        sendIncomingVertxMessage({"msg_type":"CMD_MSG","cmd_type":"CMD_NOTIFICATION","style":"success", "text": "You've Got Quote!"})
 
-        */}
+                    */
+        }
 
-        if(layout != null && layout.currentNotification) {
+        if (layout != null && layout.currentNotification) {
             const style = layout.currentNotification.style;
             const text = layout.currentNotification.text;
             const shown = layout.currentNotification.shown;
-            if(style && text && shown === false) {
+            if (style && text && shown === false) {
                 layout.currentNotification.shown = true;
                 this.notify(text, style);
             }
         }
 
-        return (
-            <div className="app-content" style={componentStyle}>
-                {/* <span onClick={this.notify} >TOAST</span> */}
-                <ToastContainer />
-                {modalContent ? <Modal show={true} onClick={this.toggleModal} >{modalContent}</Modal> : null}
-                {layoutContent || children}
-            </div>
-        );
+        return ( <
+            div className = "app-content"
+            style = { componentStyle } > { /* <span onClick={this.notify} >TOAST</span> */ } <
+            ToastContainer / > {
+                modalContent ? < Modal show = { true }
+                onClick = { this.toggleModal } > { modalContent } < /Modal> : null} { layoutContent || children } < /
+                div >
+            );
+        }
     }
-}
 
-export default AppContent;
+    export default AppContent;
