@@ -270,6 +270,8 @@ class GennyMessagingConversation extends Component {
 
         const { root } = this.props;
 
+        console.log('hello');
+
         const attribute = BaseEntityQuery.getBaseEntityAttribute(root, 'PRI_TITLE');
         const title = attribute ? attribute.value : '';
 
@@ -283,10 +285,11 @@ class GennyMessagingConversation extends Component {
 
         const orderedMessages = this.orderMessages(messages);
 
-        if(!root) {
+        if(!root || root == 'null') {
             return (
                 <div className="conversation-messages-empty" >
-                    Welcome to Channel40. <br /> There are currently no messages for you to read.
+                    Welcome to Channel40.<br />
+                    There are currently no messages for you to read.
                 </div>
             );
         }

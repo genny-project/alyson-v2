@@ -30,6 +30,8 @@ class SplitView extends Component {
 
     renderContent = (children) => {
 
+        console.log(children);
+
         return children.map((child, index) => {
             if (child.$$typeof) {
                 if (this.state.isMobile && index > 0) {
