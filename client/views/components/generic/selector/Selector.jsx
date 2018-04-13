@@ -28,7 +28,7 @@ class Selector extends Component {
     render() {
 
         const { checkValues, showValues, hideValues, showOverride, showIfNull, showIfNotNull } = this.props;
-
+        
         // 1. if showIfNull prop is true, then show content if checkvalue is null
         if(showIfNull) {
 

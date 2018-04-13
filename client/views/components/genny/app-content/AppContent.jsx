@@ -31,12 +31,13 @@ class AppContent extends Component {
     }
 
     state = {
-        showModal: false
+        showModal: false,
+        toasts: []
     }
 
     componentWillMount() {
-
         this.toastId = null;
+        //this.toastCount = 0;
     }
 
     renderContent = (commandType, commandData) => {
@@ -108,7 +109,34 @@ class AppContent extends Component {
         }
     }
 
+    openToast = (id) => {
+        console.log('open: ', id);
+        this.setState({
+            toasts: [
+                ...this.state.toasts,
+                {
+                    id: id
+                }
+            ]
+        }, () => {
+            console.log(this.state.toasts);
+        });
+    }
+
+    closeToast = (id) => {
+        console.log('close: ', id);
+        this.setState({
+            toasts: [
+                ...this.state.toasts.filter(x => x.id != id),
+            ]
+        }, () => {
+            console.log(this.state.toasts);
+        });
+    }
+
     notify = (text, style) => {
+
+        // console.log(text);
 
         if (!toast.isActive(this.toastId)) {
 
@@ -117,35 +145,17 @@ class AppContent extends Component {
                 <span > { text } </span>
             </div> );
 
-            switch (style) {
+            // this.toastCount = this.toastCount + 1;
+            // const toastNumber = this.toastCount;
+            
+            let options = {
+                autoClose: 30000,
+                // onOpen: () => this.openToast(this.toastId),
+                // onClose: () => this.closeToast(this.toastId),
+            };
 
-                case 'success':
-                    this.toastId = toast.success(content, {
-                        autoClose: 30000
-                    });
-                    break;
-
-                case 'error':
-                    this.toastId = toast.error(content, {
-                        autoClose: 30000
-                    });
-                    break;
-
-                case 'warning':
-                    this.toastId = toast.warning(content, {
-                        autoClose: 30000
-                    });
-                    break;
-
-                case 'info':
-                    this.toastId = toast.info(content, {
-                        autoClose: 30000
-                    });
-                    break;
-
-                default:
-                    this.toastId = toast(text);
-            }
+            this.toastId = toast[style](content, options);
+            // console.log(this.toastCount, this.toastId);
         }
     };
 
@@ -170,14 +180,13 @@ class AppContent extends Component {
         }
 
         {/*
-            sendIncomingVertxMessage({"msg_type":"CMD_MSG","cmd_type":"CMD_NOTIFICATION","style":"success", "text": "You've Got Quote!"})
+            sendIncomingVertxMessage({"data_type":"CMD_NOTIFICATION","delete":false,"message":"You have just submitted a quote of 121.00 AUD (Excl GST) for the job: new load posted by Tom","msg_type":"DATA_MSG","style":"info"})
         */}
 
         if (layout != null && layout.currentNotification) {
             const style = layout.currentNotification.style;
             const text = layout.currentNotification.text;
             const shown = layout.currentNotification.shown;
-            console.log(layout.currentNotification);
             if (style && text && shown === false) {
                 layout.currentNotification.shown = true;
                 this.notify(text, style);
