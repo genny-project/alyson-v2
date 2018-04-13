@@ -3,6 +3,10 @@ import { GennyBridge } from 'utils/genny';
 
 class BaseEntityQuery {
 
+    static sortItems(items) {
+        return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
+    }
+
     static getEntityChildren(code, recursionSafeCodes) {
 
         const safeRecursion = recursionSafeCodes != null ? recursionSafeCodes : new Object();
@@ -69,11 +73,11 @@ class BaseEntityQuery {
 
             return false;
         });
-
-        return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
+        return BaseEntityQuery.sortItems(items);
+        //return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
     }
 
-    static getLinkedBaseEntities = (baseEntityCode, linkCode, excludingLinks) => {
+    static getLinkedBaseEntities = (baseEntityCode, linkCode, type, linkValues) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         let targets = [];
@@ -82,21 +86,36 @@ class BaseEntityQuery {
 
             be.links[linkCode].forEach(link => {
 
-                if (!excludingLinks || !excludingLinks.includes(link.linkValue)) {
+                if ( type == 'hide'){
+                    if (!linkValues || !linkValues.includes(link.linkValue)) {
 
-                    if (link != null && link.targetCode && link.weight > 0) {
-                        let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
+                        if (link != null && link.targetCode && link.weight > 0) {
+                            let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
+    
+                            if (targetBe) targets.push({
+                                ...targetBe,
+                                weight: link.weight
+                            });
+                        }
+                    }
+                }
+                else if ( type == 'show'){
+                    if (linkValues && linkValues.includes(link.linkValue)) {
 
-                        if (targetBe) targets.push({
-                            ...targetBe,
-                            weight: link.weight
-                        });
+                        if (link != null && link.targetCode && link.weight > 0) {
+                            let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
+    
+                            if (targetBe) targets.push({
+                                ...targetBe,
+                                weight: link.weight
+                            });
+                        }
                     }
                 }
             });
         }
-
-        return targets.sort((x, y) => x.weight > y.weight);;
+        return BaseEntityQuery.sortItems(targets);
+        //return targets.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
     }
 
     static getAttribute(attribute_code) {
@@ -177,12 +196,13 @@ class BaseEntityQuery {
         return null;
     }
 
-    static getLinkedBaseEntity = (baseEntityCode, linkValue) => {
+    static getLinkedBaseEntitiesByValue = (baseEntityCode, linkValue) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
+        let bes = [];
         if (be && be.links) {
 
-            let bes = Object.keys(be.links).map(link => {
+            Object.keys(be.links).forEach(link => {
 
                 const links = be.links[link];
                 for (let i = 0; i < links.length; i++) {
@@ -191,24 +211,36 @@ class BaseEntityQuery {
                     if (currentLink.linkValue == linkValue) {
 
                         const be = BaseEntityQuery.getBaseEntity(currentLink.targetCode);
-                        return be != null ? be : false;
+                        if(be != null) {
+                            bes.push(be);
+                        }
                     }
                 }
 
                 return false;
             });
 
-            if (bes.length > 0) return bes[0] != false ? bes[0] : null;
+            return bes;
+        }
+
+        return bes;
+    }
+
+    static getLinkedBaseEntity = (baseEntityCode, linkValue) => {
+
+        let bes = BaseEntityQuery.getLinkedBaseEntitiesByValue(baseEntityCode, linkValue);
+        if(bes != null && bes.length > 0) {
+            return bes[0];
         }
 
         return null;
     }
 
-    static getBaseEntitiesForLinkCode = (baseEntityCode, excludingLinks) => {
+    static getBaseEntitiesForLinkCode = (baseEntityCode, type, linkValues) => {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         if (be && be.links) {
-            const bes = Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, excludingLinks));
+            const bes = Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, type, linkValues));
             if(bes != null && bes.length > 0) return bes[0];
         }
 

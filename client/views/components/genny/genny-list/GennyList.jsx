@@ -15,6 +15,7 @@ class GennyList extends Component {
         showTitle: false,
         showSearchBar: true,
         hideNav: false,
+        numberOfItems: 1,
     }
 
     static propTypes = {
@@ -25,13 +26,15 @@ class GennyList extends Component {
         listGap: number,
         rowsVisible: number,
         showLinks: array,
+        hideLinks: array,
         showEmpty: bool,
         hideHeader: bool,
         sublayout: object,
         headerRoot: string,
         showTitle: bool,
         showSearchBar: bool,
-        gennyListStyle: object
+        gennyListStyle: object,
+        numberOfItems: number,
     };
 
     state = {
@@ -57,14 +60,12 @@ class GennyList extends Component {
 
     generateListItems(data) {
 
-        const {localAliases, selectedItem, root} = this.props;
+        const { localAliases, selectedItem, root, numberOfItems } = this.props;
 
         let newData = [];
         if(data.length == 0) return [];
-        data.sort((x, y) => {
-            if(x.weight > y.weight) return 1;
-            return -1;
-        }).map((item, index) => {
+        //const displayedItems = numberOfItems > -1 ? data.splice(numberOfItems, data.length - 1) : data;
+        newData = data.map((item, index) => {
 
             if(item) {
 
@@ -73,14 +74,12 @@ class GennyList extends Component {
 
                     const isSelected = selectedItem == item.code ? true : false;
                     const aliasProp = localAliases != null && localAliases.constructor == Array ? localAliases[index] : localAliases;
-                    let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != "LINK" ? linkToParent.linkValue : 'list_item';
+                    let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != 'LINK' ? linkToParent.linkValue : 'list_item';
                     let sublayout = this.props.sublayout[layout_code];
                     item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
                     item['rootCode'] = root;
                     item['isSelected'] = isSelected;
-                    newData.push(
-                        item
-                    );
+                    return item;
                 }
             }
 
@@ -99,10 +98,10 @@ class GennyList extends Component {
         let data = [];
 
         if(showLinks === true) {
-            data = BaseEntityQuery.getBaseEntitiesForLinkCode(root, hideLinks);
+            data = BaseEntityQuery.getBaseEntitiesForLinkCode(root, 'hide', hideLinks);
         }
         else if(showLinks.constructor == Array) {
-            data = showLinks.map(linkValue => BaseEntityQuery.getLinkedBaseEntity(root, linkValue));
+            data = BaseEntityQuery.getBaseEntitiesForLinkCode(root, 'show', showLinks);       
         }
         else if(showLinks == null || showLinks == false) {
             data = BaseEntityQuery.getEntityChildren(root);

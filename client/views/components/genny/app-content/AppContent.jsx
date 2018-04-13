@@ -112,14 +112,10 @@ class AppContent extends Component {
 
         if (!toast.isActive(this.toastId)) {
 
-            let content = ( <
-                div className = 'toast-notification' >
-                <
-                IconSmall name = 'notifications' / >
-                <
-                span > { text } < /span> < /
-                div >
-            );
+            let content = ( <div className = 'toast-notification' >
+                <IconSmall name = 'notifications' />
+                <span > { text } </span>
+            </div> );
 
             switch (style) {
 
@@ -164,47 +160,41 @@ class AppContent extends Component {
         if (layout != null && layout.currentView) {
             layoutContent = this.renderContent('view', layout.currentView);
         } else if (layout.currentSublayout && layout.currentSublayout.layout) {
-
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;
-            layoutContent = < LayoutLoader layout = { layout.currentSublayout }
-            aliases = {
-                { ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root }
-            }
-            />;
+            layoutContent = <LayoutLoader layout={ layout.currentSublayout } aliases={{ ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root }}/>;
         }
 
         if (layout != null && layout.currentModal) {
-            console.log("hey");
             modalContent = this.renderContent('popup', layout.currentModal);
         }
 
-        {
-            /*
-                        sendIncomingVertxMessage({"msg_type":"CMD_MSG","cmd_type":"CMD_NOTIFICATION","style":"success", "text": "You've Got Quote!"})
-
-                    */
-        }
+        {/*
+            sendIncomingVertxMessage({"msg_type":"CMD_MSG","cmd_type":"CMD_NOTIFICATION","style":"success", "text": "You've Got Quote!"})
+        */}
 
         if (layout != null && layout.currentNotification) {
             const style = layout.currentNotification.style;
             const text = layout.currentNotification.text;
             const shown = layout.currentNotification.shown;
+            console.log(layout.currentNotification);
             if (style && text && shown === false) {
                 layout.currentNotification.shown = true;
                 this.notify(text, style);
             }
         }
 
-        return ( <
-            div className = "app-content"
-            style = { componentStyle } > { /* <span onClick={this.notify} >TOAST</span> */ } <
-            ToastContainer / > {
-                modalContent ? < Modal show = { true }
-                onClick = { this.toggleModal } > { modalContent } < /Modal> : null} { layoutContent || children } < /
-                div >
-            );
-        }
+        return (
+            <div className = "app-content" style={ componentStyle } >
+                { /* <span onClick={this.notify} >TOAST</span> */ }
+                <ToastContainer /> 
+                {
+                    modalContent ?
+                    < Modal show={ true } onClick={ this.toggleModal } > { modalContent } </Modal> : null} { layoutContent || children
+                }
+            </div>
+        );
     }
+}
 
-    export default AppContent;
+export default AppContent;
