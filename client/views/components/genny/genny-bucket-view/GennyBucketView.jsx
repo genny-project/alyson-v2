@@ -118,6 +118,8 @@ class GennyBucketView extends PureComponent {
 
         let buckets = [];
         let rootGroups = BaseEntityQuery.getEntityChildren(root);
+        console.log( root )
+        console.log( rootGroups.length );
         rootGroups.forEach(group => {
 
             let canAddItem = false;

@@ -29,9 +29,7 @@ class GennyTreeView extends Component {
 
     componentDidMount() {
 
-        console.log(this.props);
-
-        if (this.props.onMount)this.props.onMount();
+        if (this.props.onMount) this.props.onMount();
 
         // let identifier = this.props.key || this.props.root;
         // if(identifier && this.props.componentState) {
@@ -180,6 +178,7 @@ class GennyTreeView extends Component {
     render() {
 
         const { root, isHorizontal } = this.props;
+
         let items = root ?
 
             BaseEntityQuery.getEntityChildren(root).map(item => {
@@ -187,7 +186,7 @@ class GennyTreeView extends Component {
                 let childCount = 0;
                 if (item && item.children != null && item.children.length > 0) {
                     item.children.map(child => {
-                        childCount = childCount + child.children.length;
+                        childCount = childCount + (child != null && child.children != null ? child.children.length : 0);
                     });
                 }
 
