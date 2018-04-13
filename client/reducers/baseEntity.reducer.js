@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action) {
                         let baseEntityCode = newItem.code;
                         let parentCode = action.payload.parentCode;
 
-                        if (action.payload.delete) {
+                        if (action.payload.delete === true) {
 
                             delete state.data[baseEntityCode];
                             delete existing[baseEntityCode];
@@ -219,7 +219,7 @@ export default function reducer(state = initialState, action) {
 
                 let be_code = newAnswer.targetCode;
                 let newValue = newAnswer.value;
-                if (typeof newValue != 'string') { return; }
+                //if (typeof newValue != 'string') { return; }
 
                 let attributeCode = newAnswer.attributeCode;
                 if (be_code && attributeCode && (newAnswer.privacyFlag === false || newAnswer.privacyFlag == null)) {

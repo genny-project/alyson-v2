@@ -279,7 +279,6 @@ class BaseEntityQuery {
     }
 
     static getBaseEntityAttribute = (baseEntityCode, attribute_code) => {
-
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         if (be && be.attributes) {
             return be.attributes[attribute_code];
