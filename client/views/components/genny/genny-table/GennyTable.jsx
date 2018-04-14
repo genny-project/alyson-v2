@@ -40,9 +40,13 @@ class GennyTable extends Component {
         let tableColumns = [];
         let headers = [];
 
+        console.log( baseEntities )
         baseEntities.map(baseEntity => {
 
             let cols = this.generateColumns(baseEntity);
+
+            console.log( 'test' )
+            console.log( cols )
             cols.map(c => {
 
                 if( !headers.includes(c.attributeCode) ) {
@@ -290,29 +294,32 @@ class GennyTable extends Component {
 
     render() {
 
-        const { root, showBaseEntity, linkCode, style } = this.props;
+        const { root, showBaseEntity, linkCode, style, columns } = this.props;
 
-        let columns = [];
-        let data = [];
+        let tableColumns = [];
+        let tableData = [];
         let children = BaseEntityQuery.getEntityChildren(root);
 
-        if(showBaseEntity) {
+        if(showBaseEntity != null && showBaseEntity === true) {
 
             let be = BaseEntityQuery.getBaseEntity(root);
             if(be) {
                 children = [be];
             }
         }
-        else if(linkCode) {
+        else if(linkCode != null) {
             children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
         }
+        else {
+            children = BaseEntityQuery.getAllLinkedBaseEntities(root);
+        }
 
-        columns = this.generateHeadersFor(children);
-        data = this.generateDataFor(children);
+        tableColumns = this.generateHeadersFor(children);
+        tableData = this.generateDataFor(children);
 
         return (
-            <div className={`genny-table ${data.length > 0 ? '' : 'empty'}`} style={style}>
-                <Table {...this.props} data={data} columns={columns} itemsPerPage={data != null && data.length < 20 ? data.length : 20} />
+            <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'}`} style={style}>
+                <Table {...this.props} data={tableData} columns={tableColumns} itemsPerPage={tableData != null && tableData.length < 20 ? tableData.length : 20} />
             </div>
         );
     }

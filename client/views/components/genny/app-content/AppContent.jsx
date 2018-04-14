@@ -46,33 +46,32 @@ class AppContent extends Component {
 
             // we need to show the table view
             if (commandData.code == 'TABLE_VIEW') {
-                return <GennyTable root = { commandData.data }
-                />;
+                return <GennyTable root = { commandData.root } columns={commandData.data.columns}/>;
             }
             // we need to show the bucket view
             else if (commandData.code == 'BUCKET_VIEW') {
-                return <GennyBucketView root={commandData.data} />;
+                return <GennyBucketView root={commandData.root} />;
             }
             else if (commandData.code == 'LIST_VIEW') {
-                return <GennyList root={commandData.data} showTitle/>;
+                return <GennyList root={commandData.root} showTitle/>;
             }
             else if (commandData.code == 'FORM_VIEW') {
-                return <GennyForm root={commandData.data}/>;
+                return <GennyForm root={commandData.root}/>;
             }
             else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root={commandData.data}/>;
+                return <GennyMap root={commandData.root}/>;
             }
             else if (commandData.code == 'LOADING') {
-                return <Spinner text={commandData.data} />;
+                return <Spinner text={commandData.root} />;
             }
             else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root={commandData.data}/>;
+                return <GennyMap root={commandData.root}/>;
             }
             else if (commandData.code == 'PASSCODE') {
                 return <GennyPasscode />;
             }
             else if (commandData.code == 'CONVERSATION_VIEW') {
-                return <GennyMessagingConversation root={commandData.data}/>;
+                return <GennyMessagingConversation root={commandData.root}/>;
             }
             else if (commandData.code == 'SPLIT_VIEW') {
                 let children = commandData.data.map(item => {
@@ -89,7 +88,7 @@ class AppContent extends Component {
                 const parentCode = parent ? parent.code : null;
                 return <LayoutLoader layout = { commandData }
                 aliases = {
-                    { ROOT: parentCode, BE: commandData.data, ITEMCODE: commandData.data }
+                    { ROOT: parentCode, BE: commandData.root, ITEMCODE: commandData.root }
                 }
                 />;
             }
@@ -97,8 +96,6 @@ class AppContent extends Component {
     }
 
     toggleModal = () => {
-
-        console.log(" toggling modal ");
 
         // re render
         if (store && store.getState()) {
@@ -147,7 +144,7 @@ class AppContent extends Component {
 
             // this.toastCount = this.toastCount + 1;
             // const toastNumber = this.toastCount;
-            
+
             let options = {
                 autoClose: 30000,
                 // onOpen: () => this.openToast(this.toastId),
@@ -169,7 +166,9 @@ class AppContent extends Component {
 
         if (layout != null && layout.currentView) {
             layoutContent = this.renderContent('view', layout.currentView);
-        } else if (layout.currentSublayout && layout.currentSublayout.layout) {
+        }
+        else if (layout.currentSublayout && layout.currentSublayout.layout) {
+
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;
             layoutContent = <LayoutLoader layout={ layout.currentSublayout } aliases={{ ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root }}/>;
@@ -196,7 +195,7 @@ class AppContent extends Component {
         return (
             <div className = "app-content" style={ componentStyle } >
                 { /* <span onClick={this.notify} >TOAST</span> */ }
-                <ToastContainer /> 
+                <ToastContainer />
                 {
                     modalContent ?
                     < Modal show={ true } onClick={ this.toggleModal } > { modalContent } </Modal> : null} { layoutContent || children

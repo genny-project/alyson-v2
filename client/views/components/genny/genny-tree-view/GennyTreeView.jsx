@@ -153,28 +153,6 @@ class GennyTreeView extends Component {
         return finalPath;
     }
 
-    // getEntityChildren(code) {
-
-    //     const { baseEntity } = this.props;
-    //     const relationships = baseEntity.relationships[code];
-    //     let items = relationships ? Object.keys(relationships).filter(key => relationships[key]).map(code => baseEntity.data[code]) : [];
-
-    //     console.log('========================');
-    //     items = items.map(item => {
-    //         /* Get the children for this item */
-    //         console.log(item);
-    //         // add item.icon from item.attributes.PRI_IMAGE_URL.value
-    //         const children = this.getEntityChildren(item.code);
-    //         item.children = children;
-    //         item.open = !!this.state.tree[item.code];
-    //         item.parentCode = code;
-    //         console.log(item);
-    //         return item;
-    //     });
-
-    //     return items;
-    // }
-
     render() {
 
         const { root, isHorizontal } = this.props;

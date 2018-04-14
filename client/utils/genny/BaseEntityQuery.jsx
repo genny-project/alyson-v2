@@ -26,6 +26,7 @@ class BaseEntityQuery {
 
                     safeRecursion[item.code] = {};
                     item.children = BaseEntityQuery.getAllLinkedBaseEntities(item.code, safeRecursion);
+
                 } else {
                     item.children = [];
                 }
@@ -42,12 +43,16 @@ class BaseEntityQuery {
             const relationships = store.getState().baseEntity.relationships;
             const beRoot = relationships["GRP_ROOT"];
             const items = beRoot ? Object.keys(beRoot).filter(x => x != 'DUMMY').map(code => Object.assign({}, store.getState().baseEntity.data[code])) : [];
+
+            let counter = 1;
             items.forEach(item => {
 
-                const newItem = recurse(item.code, 1);
+                const newItem = recurse(item.code, counter);
                 if(newItem) {
                     results.push(newItem);
                 }
+
+                counter += 1;
             });
         }
         else {
