@@ -40,13 +40,9 @@ class GennyTable extends Component {
         let tableColumns = [];
         let headers = [];
 
-        console.log( baseEntities )
         baseEntities.map(baseEntity => {
 
             let cols = this.generateColumns(baseEntity);
-
-            console.log( 'test' )
-            console.log( cols )
             cols.map(c => {
 
                 if( !headers.includes(c.attributeCode) ) {
