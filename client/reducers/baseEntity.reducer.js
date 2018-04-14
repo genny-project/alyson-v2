@@ -182,7 +182,7 @@ export default function reducer(state = initialState, action) {
 
                     }, {}),
                     ...(
-                        action.payload.parentCode ? (
+                        action.payload.parentCode && state.data[action.payload.parentCode] == null ? (
                             {
                                 [action.payload.parentCode]: {
                                     ...state.data[action.payload.parentCode],
@@ -206,7 +206,9 @@ export default function reducer(state = initialState, action) {
                                             if(newItem.code != null) {
 
                                                 if(existing["LNK_CORE"] == null) {
-                                                    existing["LNK_CORE"] = [];
+                                                    existing["LNK_CORE"] = [
+                                                        ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null ? state.data[action.payload.parentCode].links["LNK_CORE"] : []),
+                                                    ];
                                                 }
 
                                                 existing["LNK_CORE"] = [
