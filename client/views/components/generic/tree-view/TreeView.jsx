@@ -2,7 +2,6 @@ import './treeView.scss';
 import React, { Component } from 'react';
 import { object, array, func } from 'prop-types';
 import { IconSmall } from 'views/components';
-import { BaseEntityQuery } from 'utils/genny';
 import { Fade, Slide, Scale } from 'views/utils/animations';
 
 class TreeView extends Component {
@@ -39,14 +38,12 @@ class TreeView extends Component {
 
       const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
       const canOpen = ( hasChildren && item.open );
-
-      let icon = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL' );
-      icon = icon && icon.value;
+      const icon = item.icon;
 
       let childNumber = null;
-      
+
       if ( levelIndex == 0 ) {
-        childNumber = item.childCount || false; 
+        childNumber = item.childCount || false;
       }
       else if ( levelIndex > 0 ) {
         childNumber = item.children && item.children.length || false;

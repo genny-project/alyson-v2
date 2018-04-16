@@ -15,6 +15,7 @@ export { default as Footer } from './footer';
 export { default as Form } from './form';
 export { default as Header } from './header';
 export { default as IconSmall } from './icon-small';
+export { default as iFrame } from './iframe';
 export { default as ImageView } from './imageview';
 export { default as Input } from './input';
 export { default as InputAddress } from './input-address';
