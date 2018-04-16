@@ -24,8 +24,8 @@ class iFrame extends Component {
         if(src == null) return null;
 
         return (
-            <div className="iframe" style={{ flexGrow: 1, display: flex, flexDirection: column}}>
-                <iframe style={{flexGrow: 1}} src={src} width="100%" height="100%" frameborder="0"></iframe>
+            <div className="iframe" style={{ "flexGrow": 1, "display": "flex", "flexDirection": "column"}}>
+                <iframe style={{"flexGrow": 1}} src={src} width="100%" height="100%" frameborder="0"></iframe>
             </div>
         );
     }
