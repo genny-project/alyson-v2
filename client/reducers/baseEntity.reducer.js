@@ -376,7 +376,7 @@ export default function reducer(state = initialState, action) {
                                     ...state.data[oldParentCode],
                                     links: {
                                         ...(state.data[oldParentCode] && state.data[oldParentCode].links ? state.data[oldParentCode].links : {}),
-                                        [oldLinkCode]: (state.data[oldParentCode].links[oldLinkCode] ? state.data[oldParentCode].links[oldLinkCode].reduce(((existing, link) => {
+                                        [oldLinkCode]: (state.data[oldParentCode] && state.data[oldParentCode].links[oldLinkCode] ? state.data[oldParentCode].links[oldLinkCode].reduce(((existing, link) => {
 
                                             if (link != null && link.targetCode != be_code) {
                                                 existing.push(link);
