@@ -254,10 +254,6 @@ class GennyForm extends Component {
         const componentStyle = { ...style, };
         let questionGroup = AskQuery.getQuestionGroup(root);
 
-        console.log( '-------' )
-        console.log( root )
-        console.log( questionGroup )
-        
         return (
             <div className={`genny-form ${className || ''}`} style={componentStyle}>
                 <Form {...this.props} data={questionGroup ? this.generateFormData(questionGroup) : []} style={{...formStyle}}/>

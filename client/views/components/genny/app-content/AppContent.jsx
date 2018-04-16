@@ -42,7 +42,7 @@ class AppContent extends Component {
 
     renderContent = (commandType, commandData) => {
 
-        if(commandType && commandData.data != null) {
+        if(commandType && commandData.root != null) {
 
             // we need to show the table view
             if (commandData.code == 'TABLE_VIEW') {
