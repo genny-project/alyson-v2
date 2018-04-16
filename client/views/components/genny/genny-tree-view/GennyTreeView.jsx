@@ -145,7 +145,11 @@ class GennyTreeView extends Component {
             if(be_code && be_code.length > 0) {
 
                 let be = this.props.baseEntity.data[be_code];
+<<<<<<< HEAD
                 if(be != null) {
+=======
+                if (be && be.name) {
+>>>>>>> 4af9a54e89db119981cffcdc83aa00002256c62a
                     finalPath += '/' + be.name;
                     this.state.horizontalItems[be.name] = be;
                 }
