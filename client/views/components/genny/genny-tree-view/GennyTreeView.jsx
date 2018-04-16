@@ -145,8 +145,10 @@ class GennyTreeView extends Component {
             if(be_code && be_code.length > 0) {
 
                 let be = this.props.baseEntity.data[be_code];
-                finalPath += '/' + be.name;
-                this.state.horizontalItems[be.name] = be;
+                if(be != null) {
+                    finalPath += '/' + be.name;
+                    this.state.horizontalItems[be.name] = be;
+                }
             }
         });
 
@@ -157,19 +159,55 @@ class GennyTreeView extends Component {
 
         const { root, isHorizontal } = this.props;
 
+        const getIcon = (item) => {
+
+            if(item.code != null) {
+                const imageAttribute = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL');
+                if(imageAttribute != null) {
+                    return imageAttribute.value;
+                }
+            }
+
+            return null;
+        }
+
+        const getItems = (item) => {
+
+            let childCount = 0;
+            if (item && item.children != null && item.children.length > 0) {
+                item.children.forEach(child => {
+                    childCount = childCount + (child != null && child.children != null ? child.children.length : 0);
+                    child.icon = getIcon(child);
+                });
+            }
+
+            let icon = getIcon(item);
+
+            return {
+                ...item,
+                icon: icon,
+                open: !!this.state.tree[item.code],
+                childCount: childCount,
+            };
+        }
+
         let items = root ?
 
             BaseEntityQuery.getEntityChildren(root).map(item => {
 
                 let childCount = 0;
                 if (item && item.children != null && item.children.length > 0) {
-                    item.children.map(child => {
+                    item.children.forEach(child => {
                         childCount = childCount + (child != null && child.children != null ? child.children.length : 0);
+                        child.icon = getIcon(child);
                     });
                 }
 
+                let icon = getIcon(item);
+
                 return {
                     ...item,
+                    icon: icon,
                     open: !!this.state.tree[item.code],
                     childCount: childCount,
                 };
