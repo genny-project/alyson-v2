@@ -9,13 +9,22 @@ class Utils extends Component {
         argumentArray: array
     };
 
+    exclude = (data, args) => {
+        return data.filter(x => x != args[0]);
+    }
+
     render() {
         const { data, type, argumentArray} = this.props;
         let newData;
-        if (argumentArray != null) {
-            newData = data[type](...argumentArray);
-        } else {
-            newData = data[type]();
+        if (type == 'exclude') {
+            newData = this.exclude(data, argumentArray);
+        }
+        else {
+            if (argumentArray != null) {
+                newData = data[type](...argumentArray);
+            } else {
+                newData = data[type]();
+            }
         }
         return <span>{newData}</span>;
     }

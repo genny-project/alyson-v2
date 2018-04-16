@@ -285,6 +285,7 @@ class GennyMessagingConversation extends Component {
 
         const orderedMessages = this.orderMessages(messages);
 
+        //console.log(root, orderedMessages);
         if(!root || root == 'null' || !be) {
             return (
                 <div className="conversation-messages-empty" >

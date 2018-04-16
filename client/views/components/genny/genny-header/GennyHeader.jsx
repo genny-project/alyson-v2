@@ -170,7 +170,6 @@ class GennyHeader extends Component {
                 >
                     <IconSmall name="message" />
                 </div>
-
                 <GennyNotifications
                     position={[0,1]}
                     isOpen={isOpen == 'notifications'}

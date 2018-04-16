@@ -53,7 +53,7 @@ class AppContent extends Component {
                 return <GennyBucketView root={commandData.root} />;
             }
             else if (commandData.code == 'LIST_VIEW') {
-                return <GennyList root={commandData.root} showTitle/>;
+                return <GennyList root={commandData.root || commandData.data } showTitle/>;
             }
             else if (commandData.code == 'FORM_VIEW') {
                 return <GennyForm root={commandData.root}/>;
@@ -71,10 +71,10 @@ class AppContent extends Component {
                 return <GennyPasscode />;
             }
             else if (commandData.code == 'CONVERSATION_VIEW') {
-                return <GennyMessagingConversation root={commandData.root}/>;
+                return <GennyMessagingConversation root={commandData.root || commandData.data}/>;
             }
             else if (commandData.code == 'SPLIT_VIEW') {
-                let children = commandData.data.map(item => {
+                let children = commandData.root.map(item => {
                     return this.renderContent('view', item);
                 });
                 return (
