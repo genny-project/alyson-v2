@@ -102,9 +102,6 @@ class GennyForm extends Component {
 
     generateFormData(askGroup) {
 
-      console.log( askGroup )
-      console.log( askGroup.childAsks )
-
         if(askGroup && askGroup.childAsks) {
 
             let submitButtons = [];
@@ -147,7 +144,6 @@ class GennyForm extends Component {
 
                     if(ask.childAsks && !ask.attributeCode.includes("EMPTY")) return this.generateFormData(ask);
 
-                    console.log( ask )
                     let inputType = 'Text';
                     let valList = [];
                     let default_value = '';
