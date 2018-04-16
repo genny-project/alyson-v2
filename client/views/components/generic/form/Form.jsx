@@ -1,7 +1,7 @@
 import './form.scss';
 import React, { Component } from 'react';
 import { Pagination } from 'views/components';
-import { string, bool, number, object } from 'prop-types';
+import { string, bool, number, object, array } from 'prop-types';
 import { FormGroup } from './form-group';
 
 class Form extends Component {
@@ -16,7 +16,7 @@ class Form extends Component {
         className: string,
         itemsPerPage: number,
         showProgress: bool,
-        data: object,
+        data: array,
         style: object,
         isHorizontal: bool,
         hideNav: bool,
@@ -99,7 +99,7 @@ class Form extends Component {
 
         return false;
     }
-    
+
     render() {
 
         const { style, itemsPerPage, isHorizontal, hideNav, data } = this.props;
@@ -111,7 +111,7 @@ class Form extends Component {
         <div className={`form-container ${isHorizontal ? 'horizontal' : null }`} style={componentStyle}>
             <div className="form-main">
                 <div className="form-fields">
-                    { 
+                    {
                         !isHorizontal && questionGroup.length > itemsPerPage ?
                         <Pagination perPage={itemsPerPage} hideNav={hideNav}>
                             {questionGroup}

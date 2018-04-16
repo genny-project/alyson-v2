@@ -102,6 +102,9 @@ class GennyForm extends Component {
 
     generateFormData(askGroup) {
 
+      console.log( askGroup )
+      console.log( askGroup.childAsks )
+
         if(askGroup && askGroup.childAsks) {
 
             let submitButtons = [];
@@ -132,6 +135,7 @@ class GennyForm extends Component {
             }
 
             submitButtons = submitButtonsData.sort((button, button2) => button.index > button2.index).map(button => button.button);
+
             return {
                 title: askGroup.name,
                 code: askGroup.questionCode,
@@ -141,9 +145,9 @@ class GennyForm extends Component {
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
-
                     if(ask.childAsks && !ask.attributeCode.includes("EMPTY")) return this.generateFormData(ask);
 
+                    console.log( ask )
                     let inputType = 'Text';
                     let valList = [];
                     let default_value = '';
@@ -250,6 +254,9 @@ class GennyForm extends Component {
         const componentStyle = { ...style, };
         let questionGroup = AskQuery.getQuestionGroup(root);
 
+        console.log( '-------' )
+        console.log( root )
+        console.log( questionGroup )
         return (
             <div className={`genny-form ${className || ''}`} style={componentStyle}>
                 <Form {...this.props} data={questionGroup ? this.generateFormData(questionGroup) : []} style={{...formStyle}}/>
