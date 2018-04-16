@@ -86,7 +86,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
             return existing;
         }
 
-        let existingAttributes = state.data[baseEntityCode] ? state.data[baseEntityCode].attributes : {};
+        let existingAttributes = (state.data[baseEntityCode] && state.data[baseEntityCode].attributes != null) ? state.data[baseEntityCode].attributes : {};
         if (newItem.baseEntityAttributes.length > 0) {
 
             let newAttributes = newItem.baseEntityAttributes;
@@ -376,7 +376,7 @@ export default function reducer(state = initialState, action) {
                                     ...state.data[oldParentCode],
                                     links: {
                                         ...(state.data[oldParentCode] && state.data[oldParentCode].links ? state.data[oldParentCode].links : {}),
-                                        [oldLinkCode]: (state.data[oldParentCode] && state.data[oldParentCode].links[oldLinkCode] ? state.data[oldParentCode].links[oldLinkCode].reduce(((existing, link) => {
+                                        [oldLinkCode]: ((state.data[oldParentCode] && state.data[oldParentCode].links && state.data[oldParentCode].links[oldLinkCode]) ? state.data[oldParentCode].links[oldLinkCode].reduce(((existing, link) => {
 
                                             if (link != null && link.targetCode != be_code) {
                                                 existing.push(link);
@@ -398,8 +398,8 @@ export default function reducer(state = initialState, action) {
                                 [newParentCode]: {
                                     ...state.data[newParentCode],
                                     links: {
-                                        ...(state.data[newParentCode] && state.data[newParentCode].links ? state.data[newParentCode].links : {}),
-                                        [newLinkCode]: (state.data[newLinkCode] && state.data[newLinkCode].links && state.data[newLinkCode].links[newLinkCode] ? state.data[newLinkCode].links[newLinkCode].reduce(((existing, link) => {
+                                        ...((state.data[newParentCode] && state.data[newParentCode].links) ? state.data[newParentCode].links : {}),
+                                        [newLinkCode]: (state.data[newParentCode] && state.data[newParentCode].links && state.data[newParentCode].links[newLinkCode] ? state.data[newParentCode].links[newLinkCode].reduce(((existing, link) => {
 
                                             if (link != null && link.targetCode != be_code) {
                                                 existing.push(link);
@@ -435,7 +435,7 @@ export default function reducer(state = initialState, action) {
                             },
                             relationships: {
                                 ...state.relationships,
-                                [oldParentCode]: Object.keys(state.relationships[oldParentCode]).reduce((existing, key) => {
+                                [oldParentCode]: Object.keys(state.relationships[oldParentCode] ? state.relationships[oldParentCode] : {}).reduce((existing, key) => {
 
                                     if (key != be_code) {
                                         existing[key] = state.relationships[oldParentCode][key];
