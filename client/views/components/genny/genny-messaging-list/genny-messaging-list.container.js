@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import GennyMessaging from './GennyMessaging';
+import GennyMessagingList from './GennyMessagingList';
 
 function mapStateToProps(state) {
   return { baseEntity: state.baseEntity, sublayout: state.layouts.sublayout  };
 }
 
-export default connect( mapStateToProps, null )( GennyMessaging );
+export default connect( mapStateToProps, null )( GennyMessagingList );

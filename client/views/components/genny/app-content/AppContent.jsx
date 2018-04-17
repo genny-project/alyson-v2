@@ -11,7 +11,8 @@ import {
     Modal,
     GennyPasscode,
     SplitView,
-    GennyToasts
+    GennyToasts,
+    GennyMessagingList
 } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -62,6 +63,9 @@ class AppContent extends Component {
             }
             else if (commandData.code == 'PASSCODE') {
                 return <GennyPasscode />;
+            }
+            else if (commandData.code == 'MESSAGE_VIEW') {
+                return <GennyMessagingList root={commandData.root || commandData.data}/>;
             }
             else if (commandData.code == 'CONVERSATION_VIEW') {
                 return <GennyMessagingConversation root={commandData.root || commandData.data}/>;
