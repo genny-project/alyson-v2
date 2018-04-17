@@ -111,7 +111,7 @@ class LayoutLoader extends Component {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
                                 };
                             }
-                            else if(attribute_code == "link") {
+                            else if(attribute_code == "links") {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
@@ -138,38 +138,34 @@ class LayoutLoader extends Component {
                                     }
                                 }
                             }
-                            else if(attribute_code == "links") {
+                            else if(attribute_code == "linkAll") {
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
-                                attribute = [];
 
                                 if(linkValue != null && be_attribute != null) {
 
                                     const linkedBaseEntities = BaseEntityQuery.getLinkedBaseEntities(localAliasCode, linkValue);
 
-                                    
-
+                                    let tempAttribute = [];
                                     linkedBaseEntities.forEach(linkedBaseEntity => {
                                         if(linkedBaseEntity != null) {
 
                                             if(be_attribute == 'created') {
-                                                attribute.push({
-                                                    value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created')
-                                                });
+                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created')
+                                            );
                                             }
                                             else if(be_attribute == "code") {
-                                                attribute.push({
-                                                    value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
-                                                });
+                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
+                                            );
                                             }
                                             else {
-                                                attribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute).value);
+                                                tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute).value);
                                             }
                                         }
                                     });
+                                    attribute.value = tempAttribute.toString();
                                 }
-                                attribute = attribute.toString();
-                                console.log(attribute);
+                                
                             }
                             else {
                                 attribute = splitValue.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
@@ -211,7 +207,7 @@ class LayoutLoader extends Component {
 
                         let stringified = JSON.stringify(layout);
                         if(stringified != null) {
-                            console.log(attribute);
+                            //console.log(attribute);
                             stringified = stringified.replace(toBeReplacedAlias, attribute.value);
                             if(stringified != null) {
                                 stringified = stringified.replace(/(\r\n|\n|\r)/gm, '<br>');

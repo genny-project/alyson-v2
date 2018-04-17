@@ -10,30 +10,34 @@ class Utils extends Component {
         argumentArray: array
     };
 
-    exclude = (data, args) => {
-        console.log(data, args);
-        return data.filter(x => x != args[0]);
-    }
-
     render() {
         const { data, type, format, argumentArray} = this.props;
-        let newData;
+        let newData = data;
+        let newArguments = argumentArray;
 
         if (format == 'array') {
             newData = data.split(',');
         }
-
-
-        if (type == 'exclude') {
-            newData = this.exclude(data, argumentArray);
+        
+        switch (type) {
+            case 'filter-inc':
+                if (argumentArray != null) {
+                    newData = newData.filter(x => x == newArguments);
+                }
+            break;
+            case 'filter-exc':
+                if (argumentArray != null) {
+                    newData = newData.filter(x => x != newArguments);
+                }
+            break;
+            default:
+                if (argumentArray != null) {
+                    newData = newData[type](...newArguments);
+                } else {
+                    newData = newData[type]();
+                } 
         }
-        else {
-            if (argumentArray != null) {
-                newData = data[type](...argumentArray);
-            } else {
-                newData = data[type]();
-            }
-        }
+    
         return <span>{newData}</span>;
     }
 }
