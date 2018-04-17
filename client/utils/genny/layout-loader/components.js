@@ -4,6 +4,11 @@ import {
   ComponentCollection
 } from '@genny-project/layson';
 
+
+import {
+  Utils,
+} from 'views/utils/methods';
+
 import {
   AddressLabel,
   AppContent,
@@ -50,7 +55,7 @@ import {
   ProfileImageView,
   GennyCarousel,
   GennyPasscode,
-  GennyStatus,
+  GennyStatus
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -102,4 +107,5 @@ export default new ComponentCollection({
   GennyCarousel,
   GennyPasscode,
   GennyStatus,
+  Utils,
 });

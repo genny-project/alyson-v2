@@ -118,7 +118,6 @@ class BaseEntityQuery {
         }
 
         return BaseEntityQuery.sortItems(targets);
-        //return targets.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
     }
 
     static getAttribute(attribute_code) {
@@ -171,14 +170,14 @@ class BaseEntityQuery {
             const groupKeys = Object.keys(relationships);
             for (var i = 0; i < groupKeys.length; i++) {
 
-                const groupKey = groupKeys[i]
+                const groupKey = groupKeys[i];
                 const group = relationships[groupKey];
                 if (group) {
 
                     let childKeys = Object.keys(group);
                     for (var j = 0; j < childKeys.length; j++) {
 
-                        const childKey = childKeys[j]
+                        const childKey = childKeys[j];
                         const child = group[childKey];
 
                         if (child) {

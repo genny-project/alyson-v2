@@ -5,27 +5,39 @@ class Utils extends Component {
 
     static propTypes = {
         type: string,
+        format: string,
         data: array,
         argumentArray: array
     };
 
-    exclude = (data, args) => {
-        return data.filter(x => x != args[0]);
-    }
-
     render() {
-        const { data, type, argumentArray} = this.props;
-        let newData;
-        if (type == 'exclude') {
-            newData = this.exclude(data, argumentArray);
+        const { data, type, format, argumentArray} = this.props;
+        let newData = data;
+        let newArguments = argumentArray;
+
+        if (format == 'array') {
+            newData = data.split(',');
         }
-        else {
-            if (argumentArray != null) {
-                newData = data[type](...argumentArray);
-            } else {
-                newData = data[type]();
-            }
+        
+        switch (type) {
+            case 'filter-inc':
+                if (argumentArray != null) {
+                    newData = newData.filter(x => x == newArguments);
+                }
+            break;
+            case 'filter-exc':
+                if (argumentArray != null) {
+                    newData = newData.filter(x => x != newArguments);
+                }
+            break;
+            default:
+                if (argumentArray != null) {
+                    newData = newData[type](...newArguments);
+                } else {
+                    newData = newData[type]();
+                } 
         }
+    
         return <span>{newData}</span>;
     }
 }
