@@ -111,7 +111,7 @@ class LayoutLoader extends Component {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
                                 };
                             }
-                            else if(attribute_code == "links") {
+                            else if(attribute_code == "link") {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
@@ -138,9 +138,10 @@ class LayoutLoader extends Component {
                                     }
                                 }
                             }
-                            else if(attribute_code == "linkAll") {
+                            else if(attribute_code == "links") {
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
+                                attribute = [];
 
                                 if(linkValue != null && be_attribute != null) {
 
