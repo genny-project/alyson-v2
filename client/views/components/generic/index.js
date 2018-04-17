@@ -60,4 +60,5 @@ export { default as Status } from './status/';
 export { default as SubmitStatusIcon } from './submit-status-icon';
 export { default as SublayoutLoader } from './sublayout-loader/';
 export { default as Table } from './table';
+export { default as Toasts } from './toasts';
 export { default as TreeView } from './tree-view';

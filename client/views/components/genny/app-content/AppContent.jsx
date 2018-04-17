@@ -9,15 +9,14 @@ import {
     GennyMap,
     Spinner,
     Modal,
-    IconSmall,
     GennyPasscode,
-    SplitView
+    SplitView,
+    GennyToasts
 } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { BaseEntityQuery } from 'utils/genny';
 import store from 'views/store';
-import { ToastContainer, toast } from 'react-toastify';
 
 class AppContent extends Component {
 
@@ -32,12 +31,6 @@ class AppContent extends Component {
 
     state = {
         showModal: false,
-        toasts: []
-    }
-
-    componentWillMount() {
-        this.toastId = null;
-        //this.toastCount = 0;
     }
 
     renderContent = (commandType, commandData) => {
@@ -106,56 +99,6 @@ class AppContent extends Component {
         }
     }
 
-    openToast = (id) => {
-        console.log('open: ', id);
-        this.setState({
-            toasts: [
-                ...this.state.toasts,
-                {
-                    id: id
-                }
-            ]
-        }, () => {
-            console.log(this.state.toasts);
-        });
-    }
-
-    closeToast = (id) => {
-        console.log('close: ', id);
-        this.setState({
-            toasts: [
-                ...this.state.toasts.filter(x => x.id != id),
-            ]
-        }, () => {
-            console.log(this.state.toasts);
-        });
-    }
-
-    notify = (text, style) => {
-
-        // console.log(text);
-
-        if (!toast.isActive(this.toastId)) {
-
-            let content = ( <div className = 'toast-notification' >
-                <IconSmall name = 'notifications' />
-                <span > { text } </span>
-            </div> );
-
-            // this.toastCount = this.toastCount + 1;
-            // const toastNumber = this.toastCount;
-
-            let options = {
-                autoClose: 30000,
-                // onOpen: () => this.openToast(this.toastId),
-                // onClose: () => this.closeToast(this.toastId),
-            };
-
-            this.toastId = toast[style](content, options);
-            // console.log(this.toastCount, this.toastId);
-        }
-    };
-
     render() {
 
         const { layout, style, children } = this.props;
@@ -178,24 +121,9 @@ class AppContent extends Component {
             modalContent = this.renderContent('popup', layout.currentModal);
         }
 
-        {/*
-            sendIncomingVertxMessage({"data_type":"CMD_NOTIFICATION","delete":false,"message":"You have just submitted a quote of 121.00 AUD (Excl GST) for the job: new load posted by Tom","msg_type":"DATA_MSG","style":"info"})
-        */}
-
-        if (layout != null && layout.currentNotification) {
-            const style = layout.currentNotification.style;
-            const text = layout.currentNotification.text;
-            const shown = layout.currentNotification.shown;
-            if (style && text && shown === false) {
-                layout.currentNotification.shown = true;
-                this.notify(text, style);
-            }
-        }
-
         return (
             <div className = "app-content" style={ componentStyle } >
-                { /* <span onClick={this.notify} >TOAST</span> */ }
-                <ToastContainer />
+                <GennyToasts />
                 {
                     modalContent ?
                     < Modal show={ true } onClick={ this.toggleModal } > { modalContent } </Modal> : null} { layoutContent || children
