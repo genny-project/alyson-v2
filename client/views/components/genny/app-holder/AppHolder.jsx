@@ -37,16 +37,21 @@ class AppHolder extends Component {
                 try {
 
                     const json = JSON.parse(decodedState);
-                    if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT") {
-                        GennyBridge.sendRedirectEvent(json.data);
+                    if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
+                        GennyBridge.sendRedirectEvent(json.evt_code, {
+                            ...json.data,
+                            code: json.evt_code
+                        });
                     }
 
                     /* TODO: json.loading (optional) contains a text to show instead of showing the interface if necessary */
+                    window.history.replaceState({}, document.title, "/");
                 }
                 catch( e ) {
                     console.log(' could not decode state ');
                 }
             }
+
         }
     }
 
