@@ -133,8 +133,10 @@ class GennyMessagingConversation extends Component {
         this.state.createdMessages.forEach(mess => {
             finalMessages[0].push(mess);
         });
+
+        //console.log(messages);
         
-        return finalMessages.map((group, groupIndex) => {
+        return messages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
 

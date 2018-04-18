@@ -48,7 +48,7 @@
     
                     display: flex;
                     align-items: center;
-                    max-width: 90%;
+                    //max-width: 90%;
     
                     .conversation-message-image {
                         width: 40px;
@@ -59,6 +59,7 @@
                     .conversation-message-spacer {
                         width: 40px;
                         margin-right: 10px;
+                        flex-shrink: 0;
                     }
     
                     .conversation-message-text  {

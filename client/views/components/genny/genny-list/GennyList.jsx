@@ -64,7 +64,6 @@ class GennyList extends Component {
 
         let newData = [];
         if(data.length == 0) return [];
-        //const displayedItems = numberOfItems > -1 ? data.splice(numberOfItems, data.length - 1) : data;
         newData = data.map((item, index) => {
 
             if(item) {
@@ -72,7 +71,10 @@ class GennyList extends Component {
                 let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
                 if(linkToParent) {
 
+                    //console.log(item);
+
                     const isSelected = selectedItem == item.code ? true : false;
+                    //TODO: alias prop should have a value that matches the item code to match them correctly
                     const aliasProp = localAliases != null && localAliases.constructor == Array ? localAliases[index] : localAliases;
                     let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != 'LINK' ? linkToParent.linkValue : 'list_item';
                     let sublayout = this.props.sublayout[layout_code];
