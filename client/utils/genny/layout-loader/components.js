@@ -57,6 +57,10 @@ import {
   GennyStatus
 } from 'views/components';
 
+import {
+  Utils
+} from 'views/utils/methods';
+
 export default new ComponentCollection({
   AddressLabel,
   AppContent,
