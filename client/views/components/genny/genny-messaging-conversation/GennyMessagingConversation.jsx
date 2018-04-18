@@ -44,13 +44,16 @@ class GennyMessagingConversation extends Component {
                     code: 'MSG_X',
                     attributes: {
                         PRI_CREATOR: {
+                            attributeCode: 'PRI_CREATOR',
                             value: GennyBridge.getUser()
                         },
                         PRI_MESSAGE: {
+                            attributeCode: 'PRI_MESSAGE',
                             value: newText
                         }
                     },
                     weight: 1,
+                    //created: moment().format('YYYY-MM-DDTHH:mm:ss')
                     created: moment().toISOString()
                 }
             ]
@@ -85,7 +88,21 @@ class GennyMessagingConversation extends Component {
         let messageArray = [];
         let tempArray = [];
 
-         messages.map((message, index) => {
+        console.log('=======================');
+        console.log(messages);
+
+        messages = messages.sort((x, y) => x.created > y.created);
+
+        console.log(messages);
+
+        let finalMessages = messages;
+        this.state.createdMessages.forEach(mess => {
+            finalMessages.push(mess);
+        });
+
+        console.log(messages);
+
+        messages.map((message, index) => {
 
             if (tempArray.length > 0) {
 
@@ -124,17 +141,17 @@ class GennyMessagingConversation extends Component {
 
         });
 
+        console.log(messageArray);
+
         return messageArray;
     }
 
     renderMessages = (messages, currentUser, otherUser) => {
 
-        let finalMessages = messages;
-        this.state.createdMessages.forEach(mess => {
-            finalMessages[0].push(mess);
-        });
-
+        console.log('-----------------');
         //console.log(messages);
+
+        console.log(messages);
         
         return messages.map((group, groupIndex) => {
 
@@ -283,11 +300,9 @@ class GennyMessagingConversation extends Component {
         const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
 
         let messages = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_MESSAGES');
-        messages = messages.sort((x, y) => x.created < y.created);
 
         const orderedMessages = this.orderMessages(messages);
 
-        //console.log(root, orderedMessages);
         if(!root || root == 'null' || !be) {
             return (
                 <div className="conversation-messages-empty" >
