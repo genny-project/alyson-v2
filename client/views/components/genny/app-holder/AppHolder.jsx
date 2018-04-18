@@ -42,11 +42,13 @@ class AppHolder extends Component {
                     }
 
                     /* TODO: json.loading (optional) contains a text to show instead of showing the interface if necessary */
+                    window.history.replaceState({}, document.title, "/");
                 }
                 catch( e ) {
                     console.log(' could not decode state ');
                 }
             }
+
         }
     }
 
