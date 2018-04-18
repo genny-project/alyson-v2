@@ -340,8 +340,6 @@ export default function reducer(state = initialState, action) {
                 ...state
             };
 
-
-
         case EVT_LINK_CHANGE:
 
             const item = action.payload;
@@ -449,7 +447,7 @@ export default function reducer(state = initialState, action) {
                                     [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
                                 }
                             }
-                        }
+                        };
                     } else {
 
                         return {
@@ -506,7 +504,7 @@ export default function reducer(state = initialState, action) {
                                     [be_code]: { type: BASE_ENTITY, weight: newLinkWeight == 0 ? 0 : 1 }
                                 }
                             }
-                        }
+                        };
                     }
 
                 }
