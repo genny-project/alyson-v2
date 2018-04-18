@@ -1,9 +1,9 @@
 export const REDIRECT_EVENT = (data, token) => ({
 
-    evt_type: 'REDIRECT_EVT',
-    msg_type: "EVT_MSG",
+    event_type : 'REDIRECT_EVT',
+    msg_type: 'EVT_MSG',
+    data: data,
     token: token,
-    value: data,
 });
 
 export default {
