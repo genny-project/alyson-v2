@@ -17,6 +17,7 @@ import cmdOutgoing from './cmd.events.outgoing';
 import cacheMissingOutgoing from './cachemissing.events.outgoing';
 import gpsIncoming from './gps.events.incoming';
 import gpsOutgoing from './gps.events.outgoing';
+import redirectEventOutgoing from './redirect.events.outgoing';
 
 export default {
   incoming: {
@@ -41,5 +42,6 @@ export default {
     ...cmdOutgoing,
     ...cacheMissingOutgoing,
     ...gpsOutgoing,
+    ...redirectEventOutgoing
   }
 };
