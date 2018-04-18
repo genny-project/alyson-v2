@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { array, object, bool } from 'prop-types';
+import { array, object, bool, string } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
 import { ImageView } from 'views/components';
 
@@ -8,11 +8,13 @@ class GennyTableEditableCell extends Component {
     static defaultProps = {
         data: [],
         cellInfo: {},
+        code: null,
     }
 
     static propTypes = {
         data: array,
         cellInfo: object,
+        code: string,
     }
 
     state = {
@@ -22,18 +24,21 @@ class GennyTableEditableCell extends Component {
 
     componentDidMount() {
 
-        if (this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id] != ( null || undefined ) ) {
-            let dataType = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].type;
-            if (dataType != 'Image' && dataType != 'link' && dataType != 'java.lang.Boolean') {
-                this.setState({
-                    canEdit: true
-                });
-            }
-            let value = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value;
+        const { cellInfo, code, value, dataType } = this.props;
+
+        if (dataType != 'Image' && dataType != 'link' && dataType != 'java.lang.Boolean') {
             this.setState({
-                lastSentAnswer: value
+                canEdit: true
             });
         }
+
+        this.setState({
+            lastSentAnswer: value
+        });
+    }
+
+    shouldComponentUpdate() {
+        return true;
     }
 
     handleKeyDown = (event) => {
@@ -44,12 +49,17 @@ class GennyTableEditableCell extends Component {
     }
 
     handleBlur = (event) => {
+        
         let newValue = event.target.value;
+
+        //value
         if(newValue && newValue != this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value) {
 
+            //code
             let attributeCode = this.props.cellInfo.column.attributeCode;
             if(attributeCode) {
 
+                //be
                 let baseEntity = this.props.data[this.props.cellInfo.index];
                 let targetCode = baseEntity.baseEntityCode;
 
@@ -60,8 +70,6 @@ class GennyTableEditableCell extends Component {
                         value: newValue
                     }
                 ];
-
-                //console.log(newValue, this.state.lastSentAnswer);
 
                 if ( newValue != this.state.lastSentAnswer ) {
                     if (confirm('Are you sure you want to change this information?')) {
@@ -80,10 +88,11 @@ class GennyTableEditableCell extends Component {
 
     renderDiv() {
 
-        if (this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id] == null ) return null;
+        const { cellInfo, code, value, dataType } = this.props;
 
-        let dataType = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].type;
-        let value = this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value;
+        // console.log( ' ---------------' )
+        // console.log( value );
+        // console.log( cellInfo );
 
         switch (dataType) {
 

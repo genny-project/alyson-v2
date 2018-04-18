@@ -138,7 +138,13 @@ class GennyTable extends Component {
                     
                             return {
                                 'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
-                                'Cell': cellInfo => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />,
+                                'Cell': cellInfo => {
+
+                                    const value = cellInfo.row[attribute.attributeCode].value;
+                                    const dataType = cellInfo.row[attribute.attributeCode].dataType;
+                                    return <GennyTableEditableCell code={attribute.attributeCode} value={value} dataType={dataType} cellInfo={cellInfo} />
+                                },
+                                // 'Cell': cellInfo => cellInfo.row[attribute.attributeCode].value,
                                 'accessor': attribute.attributeCode,
                                 'minWidth': typeof width == 'number' ? width : 300,
                                 'attributeCode': attribute.attributeCode
@@ -151,32 +157,30 @@ class GennyTable extends Component {
                             };
                         }
                     }
+                    // if(!isMobile) {
 
-                    if(!isMobile) {
-
-                        return {
-                            'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
-                            'Cell': cellInfo => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />,
-                            'accessor': attribute.attributeCode,
-                            'minWidth': typeof width == 'number' ? width : 300,
-                            'attributeCode': attribute.attributeCode
-                        };
-                    }
-                    else {
-                        return {
-                            'name': attrName || attribute.attributeCode,
-                            'attributeCode': attribute.attributeCode
-                        };
-                    }
+                    //     return {
+                    //         'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
+                    //         'Cell': cellInfo => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />,
+                    //         'accessor': attribute.attributeCode,
+                    //         'minWidth': typeof width == 'number' ? width : 300,
+                    //         'attributeCode': attribute.attributeCode
+                    //     };
+                    // }
+                    // else {
+                    //     return {
+                    //         'name': attrName || attribute.attributeCode,
+                    //         'attributeCode': attribute.attributeCode
+                    //     };
+                    // }
 
                     return null;
                 };
+                
 
 
                 const columnsProps = this.props.columns;
-
                 if (columnsProps != null && columnsProps.length > 0) {
-
                     for(let i = 0; i < columnsProps.length; i++) {
 
                         const attributeCode = columnsProps[i];
@@ -191,7 +195,7 @@ class GennyTable extends Component {
                     }
                 }
                 else {
-
+                    
                     Object.keys(attributes).forEach(attribute_key => {
                             
                         const newColumn = createColumn(attribute_key);
@@ -310,7 +314,131 @@ class GennyTable extends Component {
         tableColumns = this.generateHeadersFor(children);
         tableData = this.generateDataFor(children);
 
-        //console.log(this.props);
+        console.log(tableColumns);
+        console.log(tableData);
+
+        // tableColumns = [
+        //     {
+        //         Header: "First Name",
+        //         accessor: "firstName"
+        //     },
+        //     {
+        //         Header: "Last Name",
+        //         id: "lastName",
+        //         accessor: d => d.lastName
+        //     },
+        //     {
+        //         Header: "Age",
+        //         accessor: "age"
+        //     },
+        //     {
+        //         Header: "Status",
+        //         accessor: "status"
+        //     },
+        //     {
+        //         Header: "Visits",
+        //         accessor: "visits"
+        //     }
+        // ];
+        // tableData = [
+        //     {
+        //         firstName: "girls",
+        //         lastName: "voyage",
+        //         age: 12,
+        //         visits: 49,
+        //         progress: 3,
+        //         status: "relationship"
+        //     },
+        //     {
+        //         firstName: "things",
+        //         lastName: "authority",
+        //         age: 19,
+        //         visits: 4,
+        //         progress: 67,
+        //         status: "complicated"
+        //     },
+        //     {
+        //         firstName: "circle",
+        //         lastName: "brick",
+        //         age: 20,
+        //         visits: 44,
+        //         progress: 67,
+        //         status: "single"
+        //     },
+        //     {
+        //         firstName: "burst",
+        //         lastName: "water",
+        //         age: 10,
+        //         visits: 14,
+        //         progress: 67,
+        //         status: "single"
+        //     },
+        //     {
+        //         firstName: "thanks",
+        //         lastName: "basketball",
+        //         age: 13,
+        //         visits: 12,
+        //         progress: 57,
+        //         status: "complicated"
+        //     },
+        //     {
+        //         firstName: "angle",
+        //         lastName: "guitar",
+        //         age: 17,
+        //         visits: 56,
+        //         progress: 53,
+        //         status: "single"
+        //     },
+        //     {
+        //         firstName: "stick",
+        //         lastName: "haircut",
+        //         age: 27,
+        //         visits: 49,
+        //         progress: 81,
+        //         status: "single"
+        //     },
+        //     {
+        //         firstName: "plate",
+        //         lastName: "dock",
+        //         age: 17,
+        //         visits: 2,
+        //         progress: 88,
+        //         status: "relationship"
+        //     },
+        //     {
+            
+        //         firstName: "republic",
+        //         lastName: "birthday",
+        //         age: 3,
+        //         visits: 24,
+        //         progress: 27,
+        //         status: "relationship"
+        //     },
+        //     {
+        //         firstName: "girls",
+        //         lastName: "voyage",
+        //         age: 12,
+        //         visits: 49,
+        //         progress: 3,
+        //         status: "relationship"
+        //     },
+        //     {
+        //         firstName: "things",
+        //         lastName: "authority",
+        //         age: 19,
+        //         visits: 4,
+        //         progress: 67,
+        //         status: "complicated"
+        //     },
+        //     {
+        //         firstName: "circle",
+        //         lastName: "brick",
+        //         age: 20,
+        //         visits: 44,
+        //         progress: 67,
+        //         status: "single"
+        //     }
+        // ];
         return (
             <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'}`} style={style}>
                 <Table {...this.props} data={tableData} columns={tableColumns} itemsPerPage={tableData != null && tableData.length < 20 ? tableData.length : 20} />

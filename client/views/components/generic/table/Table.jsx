@@ -38,8 +38,6 @@ class Table extends Component {
 
     render() {
         const { columns, data, itemsPerPage, } = this.props;
-        console.log(itemsPerPage);
-        console.log(data);
         return (
             <ReactTable
                 getTdProps={this.createProps( 'tdStyle' )}
