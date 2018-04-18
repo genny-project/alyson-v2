@@ -37,8 +37,8 @@ class AppHolder extends Component {
                 try {
 
                     const json = JSON.parse(decodedState);
-                    if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT") {
-                        GennyBridge.sendRedirectEvent(json.data);
+                    if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
+                        GennyBridge.sendRedirectEvent(json.evt_code, json.data);
                     }
 
                     /* TODO: json.loading (optional) contains a text to show instead of showing the interface if necessary */

@@ -70,11 +70,11 @@ class GennyBridge {
         }
     }
 
-    sendRedirectEvent( data ) {
+    sendRedirectEvent( redirect_code, data ) {
 
         let token = this.getToken();
         if(token) {
-            Vertx.sendMessage(events.outgoing.REDIRECT_EVENT(data, token));
+            Vertx.sendMessage(events.outgoing.REDIRECT_EVENT(redirect_code, data, token));
         }
     }
 
