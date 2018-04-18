@@ -166,12 +166,12 @@ class LayoutLoader extends Component {
                                     });
                                     attribute.value = tempAttribute.toString();
                                 }
-                                
+
                             }
                             else {
                                 attribute = splitValue.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                             }
-                            
+
                             if(attribute == null && attribute_code != null && (splitValue.length == 2 || splitValue.length == 4)) {
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, ''));
                             }
@@ -225,6 +225,12 @@ class LayoutLoader extends Component {
         });
 
         return layout;
+    }
+
+    replace(str, stringToReplace, replacement) {
+        stringToReplace = stringToReplace.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        var re = new RegExp(stringToReplace, 'g');
+        return str.replace(re, replacement);
     }
 
     hideAliasesIn(layout) {

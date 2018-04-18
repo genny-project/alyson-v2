@@ -70,6 +70,14 @@ class GennyBridge {
         }
     }
 
+    sendRedirectEvent( data ) {
+
+        let token = this.getToken();
+        if(token) {
+            Vertx.sendMessage(events.outgoing.REDIRECT_EVENT(data, token));
+        }
+    }
+
     sendGPSData(data) {
 
         let token = this.getToken();
