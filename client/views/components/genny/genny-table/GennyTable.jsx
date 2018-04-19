@@ -151,19 +151,12 @@ class GennyTable extends Component {
                                         />
                                     );
                                 },
-                                // 'Cell': cellInfo => cellInfo.row[attribute.attributeCode].value,
                                 'accessor': attribute.attributeCode,
                                 'minWidth': typeof width == 'number' ? width : 300,
                                 'attributeCode': attribute.attributeCode,
                                 'sortMethod': (a, b) => {
-                                    // console.log('---------------------');
-                                    // console.log(a.value, b.value );
-                                    // console.log(a.value.localeCompare(b.value) ? a.value : b.value );
                                     return a.value.localeCompare(b.value);
                                 }
-                                // 'sortMethod':{(filterow) => {
-                                //     return row[filter.id].value.includes(filter.value);
-                                // }}
                             };
                         }
                         else {
