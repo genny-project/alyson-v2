@@ -209,18 +209,27 @@ class GennyBridge {
                     try {
                         const decodedState = atob(state);
                         if(decodedState != null) {
-                            const json = JSON.parse(decodedState);
-                            if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
-                                found = true;
-                            }
+
+                                const json = JSON.parse(decodedState);
+                                if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
+
+                                    found = true;
+                                    GennyBridge.sendRedirectEvent(json.evt_code, {
+                                        ...json.data,
+                                        code: json.evt_code
+                                    });
+                                }
+
+                                /* TODO: json.loading (optional) contains a text to show instead of showing the interface if necessary */
+                                window.history.replaceState({}, document.title, "/");
                         }
                     }
                     catch( e ) {
-
+                        console.log(' could not decode state ');
                     }
                 }
 
-                if( found === false ) {
+                if(found === false ) {
                     Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
                 }
 
