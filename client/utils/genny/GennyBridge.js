@@ -210,11 +210,12 @@ class GennyBridge {
                         const decodedState = atob(state);
                         if(decodedState != null) {
 
+                                console.log( decodedState )
                                 const json = JSON.parse(decodedState);
                                 if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
 
                                     found = true;
-                                    GennyBridge.sendRedirectEvent(json.evt_code, {
+                                    this.sendRedirectEvent(json.evt_code, {
                                         ...json.data,
                                         code: json.evt_code
                                     });
@@ -226,6 +227,7 @@ class GennyBridge {
                     }
                     catch( e ) {
                         console.log(' could not decode state ');
+                        console.error( e );
                     }
                 }
 
