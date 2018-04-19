@@ -21,27 +21,33 @@ class GennyStatus extends Component {
 
     getEntityStatus = (root) => {
 
-        let be = BaseEntityQuery.getBaseEntity(root);
-        let attributes = be.attributes;
-
         let status_color = '#5cb85c';
         let user_status_color = null;
 
-        const userCode = GennyBridge.getUser();
+        let be = BaseEntityQuery.getBaseEntity(root);
+        if( be != null ) {
 
-        const attributeKeys = Object.keys(attributes);
-        for (var i = 0; i < attributeKeys.length; i++) {
+            let attributes = be.attributes;
+            if( attributes != null ) {
 
-          let attribute_key = attributeKeys[i];
+                const userCode = GennyBridge.getUser();
 
-          if(attribute_key == 'STA_STATUS') {
-              status_color = attributes[attribute_key].value || status_color;
-          }
+                const attributeKeys = Object.keys(attributes);
+                for (var i = 0; i < attributeKeys.length; i++) {
 
-          if(attribute_key.startsWith('STA') && attribute_key.indexOf(userCode) > -1) {
-              user_status_color = attributes[attribute_key].value;
-              break;
-          }
+                  let attribute_key = attributeKeys[i];
+
+                  if(attribute_key == 'STA_STATUS') {
+                      status_color = attributes[attribute_key].value || status_color;
+                  }
+
+                  if(attribute_key.startsWith('STA') && attribute_key.indexOf(userCode) > -1) {
+                      user_status_color = attributes[attribute_key].value;
+                      break;
+                  }
+                }
+
+            }
         }
 
         return user_status_color || status_color;

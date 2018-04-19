@@ -202,12 +202,36 @@ class GennyBridge {
 
                 GennyBridge.initVertx(token, keycloakConfig.vertx_url);
 
-                let social_code = window.getQueryString('code');
-                if(social_code && localStorage.getItem("socialredirect")) {  // we are coming back from a redirect.
-                    // Vertx.sendMessage(events.outgoing.REDIRECT_RETURN(token));
-                    Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
+                let found = false;
+                let state = window.getQueryString('state');
+                if(state != null) {
+
+                    try {
+                        const decodedState = atob(state);
+                        if(decodedState != null) {
+
+                                console.log( decodedState )
+                                const json = JSON.parse(decodedState);
+                                if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
+
+                                    found = true;
+                                    this.sendRedirectEvent(json.evt_code, {
+                                        ...json.data,
+                                        code: json.evt_code
+                                    });
+                                }
+
+                                /* TODO: json.loading (optional) contains a text to show instead of showing the interface if necessary */
+                                window.history.replaceState({}, document.title, "/");
+                        }
+                    }
+                    catch( e ) {
+                        console.log(' could not decode state ');
+                        console.error( e );
+                    }
                 }
-                else {
+
+                if(found === false ) {
                     Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
                 }
 

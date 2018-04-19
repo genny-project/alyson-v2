@@ -17,10 +17,9 @@ class GennyTable extends Component {
 
       static propTypes = {
         showBaseEntity: bool,
-        columns: [],
+        columns: array,
         root: string,
         buttonActions: array,
-
       }
 
     state = {
@@ -116,7 +115,6 @@ class GennyTable extends Component {
 
             if(attributes) {
 
-
                 const createColumn = (attributeCode, width) => {
 
                     let attribute = attributes[attributeCode];
@@ -131,9 +129,9 @@ class GennyTable extends Component {
                     let headers = cols.map(column => {
                         return column.attributeCode;
                     });
-                    
+
                     if(!headers.includes(attribute.attributeCode)) {
-                    
+
                         if(!isMobile) {
                             return {
                                 'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
@@ -186,9 +184,9 @@ class GennyTable extends Component {
                     }
                 }
                 else {
-                    
+
                     Object.keys(attributes).forEach(attribute_key => {
-                            
+
                         const newColumn = createColumn(attribute_key);
                         if(newColumn != null) {
                             cols.push(newColumn);
@@ -219,17 +217,17 @@ class GennyTable extends Component {
         baseEntities.forEach(baseEntity => {
 
             if(baseEntity.attributes) {
-                
+
                 // HIDES row if it doesnt have all the attributes
 
                 //if (process.env.NODE_ENV === 'production') {
                     let hasAttributes = this.props.columns.every(col => {
                         const hasAttribute = Object.keys(baseEntity.attributes).includes(col);
-                        return hasAttribute; 
+                        return hasAttribute;
                     });
                     if (hasAttributes != true) return null;
                 //}
-                
+
                 let newData = {};
 
                 Object.keys(baseEntity.attributes).forEach(attribute_key => {
@@ -315,156 +313,10 @@ class GennyTable extends Component {
         tableColumns = this.generateHeadersFor(children);
         tableData = this.generateDataFor(children);
 
-        // console.log(tableColumns);
-        // console.log(tableData);
+        console.log('----------')
+        console.log( tableColumns )
+        console.log( tableData )
 
-        // tableColumns = [
-        //     {
-        //         Header: "First Name",
-        //         id: "firstName",
-        //         accessor: d => d.firstName.value
-        //     },
-        //     {
-        //         Header: "Last Name",
-        //         id: "lastName",
-        //         accessor: d => d.lastName
-        //     },
-        //     {
-        //         Header: "Age",
-        //         accessor: "age"
-        //     },
-        //     {
-        //         Header: "Status",
-        //         accessor: "status"
-        //     },
-        //     {
-        //         Header: "Visits",
-        //         accessor: "visits"
-        //     }
-        // ];
-        // tableData = [
-        //     {
-        //         firstName: {
-        //             value: "girls"
-        //         },
-        //         lastName: "voyage",
-        //         age: 12,
-        //         visits: 49,
-        //         progress: 3,
-        //         status: "relationship"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "things"
-        //         },
-        //         lastName: "authority",
-        //         age: 19,
-        //         visits: 4,
-        //         progress: 67,
-        //         status: "complicated"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "circle"
-        //         },
-        //         lastName: "brick",
-        //         age: 20,
-        //         visits: 44,
-        //         progress: 67,
-        //         status: "single"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "burst"
-        //         },
-        //         lastName: "water",
-        //         age: 10,
-        //         visits: 14,
-        //         progress: 67,
-        //         status: "single"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "thanks"
-        //         },
-        //         lastName: "basketball",
-        //         age: 13,
-        //         visits: 12,
-        //         progress: 57,
-        //         status: "complicated"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "angle"
-        //         },
-        //         lastName: "guitar",
-        //         age: 17,
-        //         visits: 56,
-        //         progress: 53,
-        //         status: "single"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "stick"
-        //         },
-        //         lastName: "haircut",
-        //         age: 27,
-        //         visits: 49,
-        //         progress: 81,
-        //         status: "single"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "plate"
-        //         },
-        //         lastName: "dock",
-        //         age: 17,
-        //         visits: 2,
-        //         progress: 88,
-        //         status: "relationship"
-        //     },
-        //     {
-            
-        //         firstName: {
-        //             value: "republic"
-        //         },
-        //         lastName: "birthday",
-        //         age: 3,
-        //         visits: 24,
-        //         progress: 27,
-        //         status: "relationship"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "girls"
-        //         },
-        //         lastName: "voyage",
-        //         age: 15,
-        //         visits: 56,
-        //         progress: 5,
-        //         status: "relationship"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "port"
-        //         },
-        //         lastName: "dependent",
-        //         age: 25,
-        //         visits: 3,
-        //         progress: 92,
-        //         status: "complicated"
-        //     },
-        //     {
-        //         firstName: {
-        //             value: "death"
-        //         },
-        //         lastName: "expected",
-        //         age: 45,
-        //         visits: 33,
-        //         progress: 15,
-        //         status: "single"
-        //     }
-        // ];
         return (
             <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'}`} style={style}>
                 <Table {...this.props} data={tableData} columns={tableColumns} itemsPerPage={tableData != null && tableData.length < 20 ? tableData.length : 20} />
