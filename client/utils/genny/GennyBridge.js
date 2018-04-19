@@ -206,18 +206,17 @@ class GennyBridge {
                 let state = window.getQueryString('state');
                 if(state != null) {
 
-                    const decodedState = atob(state);
-                    if(decodedState != null) {
-                        try {
-
+                    try {
+                        const decodedState = atob(state);
+                        if(decodedState != null) {
                             const json = JSON.parse(decodedState);
                             if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
                                 found = true;
                             }
                         }
-                        catch( e ) {
+                    }
+                    catch( e ) {
 
-                        }
                     }
                 }
 
