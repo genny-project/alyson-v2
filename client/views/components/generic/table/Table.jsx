@@ -13,6 +13,7 @@ class Table extends Component {
         data: [],
         itemsPerPage: 10,
         tBodyStyle: false,
+        filterable: true
     }
 
     static propTypes = {
@@ -21,6 +22,7 @@ class Table extends Component {
         data: array,
         itemsPerPage: number,
         bodyHeight: any,
+        filterable: bool
     }
 
     //createProps = key => (state, rowInfo, column) => {
@@ -37,7 +39,7 @@ class Table extends Component {
     }
 
     render() {
-        const { columns, data, itemsPerPage, } = this.props;
+        const { columns, data, itemsPerPage, filterable } = this.props;
         return (
             <ReactTable
                 getTdProps={this.createProps( 'tdStyle' )}
@@ -58,13 +60,16 @@ class Table extends Component {
                 noDataText='No data to display.'
                 data={data}
                 columns={columns}
-                //defaultPageSize={itemsPerPage}
-                defaultPageSize={10}
+                defaultPageSize={itemsPerPage}
+                //defaultPageSize={10}
                 className='table -striped -highlight'
-                filterable={true}
+                filterable={filterable}
+                defaultFilterMethod={(filter, row) => {
+                    return row[filter.id].value.includes(filter.value);
+                }}
                 //resizable={false}
-                //showPagination={ data.length > itemsPerPage ? true : false}
-                showPagination={ true}
+                showPagination={ data.length > itemsPerPage ? true : false}
+                //showPagination={ true}
             />
         );
     }

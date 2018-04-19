@@ -121,10 +121,10 @@ class GennyTable extends Component {
 
                     let attribute = attributes[attributeCode];
                     const attrData = BaseEntityQuery.getAttribute(attribute.attributeCode);
-                    let attrType = null;
+                    //let attrType = null;
                     let attrName = null;
                     if(attrData) {
-                        attrType = attrData.dataType ? attrData.dataType.className : null;
+                        //attrType = attrData.dataType ? attrData.dataType.className : null;
                         attrName = attrData.name;
                     }
 
@@ -135,19 +135,28 @@ class GennyTable extends Component {
                     if(!headers.includes(attribute.attributeCode)) {
                     
                         if(!isMobile) {
-                    
                             return {
                                 'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
                                 'Cell': cellInfo => {
-
-                                    const value = cellInfo.row[attribute.attributeCode].value;
-                                    const dataType = cellInfo.row[attribute.attributeCode].dataType;
-                                    return <GennyTableEditableCell code={attribute.attributeCode} value={value} dataType={dataType} cellInfo={cellInfo} />
+                                    const cell = cellInfo.row[attribute.attributeCode];
+                                    const value = cell && cell.value;
+                                    const dataType = cell && cell.type;
+                                    return (
+                                        <GennyTableEditableCell
+                                            cell={cell}
+                                            code={attribute.attributeCode}
+                                            value={value}
+                                            dataType={dataType}
+                                            targetCode={this.state.data[cellInfo.index].baseEntityCode}
+                                        />
+                                    );
                                 },
-                                // 'Cell': cellInfo => cellInfo.row[attribute.attributeCode].value,
                                 'accessor': attribute.attributeCode,
                                 'minWidth': typeof width == 'number' ? width : 300,
-                                'attributeCode': attribute.attributeCode
+                                'attributeCode': attribute.attributeCode,
+                                'sortMethod': (a, b) => {
+                                    return a.value.localeCompare(b.value);
+                                }
                             };
                         }
                         else {
@@ -157,27 +166,9 @@ class GennyTable extends Component {
                             };
                         }
                     }
-                    // if(!isMobile) {
-
-                    //     return {
-                    //         'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
-                    //         'Cell': cellInfo => <GennyTableEditableCell data={this.state.data} cellInfo={cellInfo} />,
-                    //         'accessor': attribute.attributeCode,
-                    //         'minWidth': typeof width == 'number' ? width : 300,
-                    //         'attributeCode': attribute.attributeCode
-                    //     };
-                    // }
-                    // else {
-                    //     return {
-                    //         'name': attrName || attribute.attributeCode,
-                    //         'attributeCode': attribute.attributeCode
-                    //     };
-                    // }
 
                     return null;
                 };
-                
-
 
                 const columnsProps = this.props.columns;
                 if (columnsProps != null && columnsProps.length > 0) {
@@ -228,7 +219,17 @@ class GennyTable extends Component {
         baseEntities.forEach(baseEntity => {
 
             if(baseEntity.attributes) {
+                
+                // HIDES row if it doesnt have all the attributes
 
+                //if (process.env.NODE_ENV === 'production') {
+                    let hasAttributes = this.props.columns.every(col => {
+                        const hasAttribute = Object.keys(baseEntity.attributes).includes(col);
+                        return hasAttribute; 
+                    });
+                    if (hasAttributes != true) return null;
+                //}
+                
                 let newData = {};
 
                 Object.keys(baseEntity.attributes).forEach(attribute_key => {
@@ -314,13 +315,14 @@ class GennyTable extends Component {
         tableColumns = this.generateHeadersFor(children);
         tableData = this.generateDataFor(children);
 
-        console.log(tableColumns);
-        console.log(tableData);
+        // console.log(tableColumns);
+        // console.log(tableData);
 
         // tableColumns = [
         //     {
         //         Header: "First Name",
-        //         accessor: "firstName"
+        //         id: "firstName",
+        //         accessor: d => d.firstName.value
         //     },
         //     {
         //         Header: "Last Name",
@@ -342,7 +344,9 @@ class GennyTable extends Component {
         // ];
         // tableData = [
         //     {
-        //         firstName: "girls",
+        //         firstName: {
+        //             value: "girls"
+        //         },
         //         lastName: "voyage",
         //         age: 12,
         //         visits: 49,
@@ -350,7 +354,9 @@ class GennyTable extends Component {
         //         status: "relationship"
         //     },
         //     {
-        //         firstName: "things",
+        //         firstName: {
+        //             value: "things"
+        //         },
         //         lastName: "authority",
         //         age: 19,
         //         visits: 4,
@@ -358,7 +364,9 @@ class GennyTable extends Component {
         //         status: "complicated"
         //     },
         //     {
-        //         firstName: "circle",
+        //         firstName: {
+        //             value: "circle"
+        //         },
         //         lastName: "brick",
         //         age: 20,
         //         visits: 44,
@@ -366,7 +374,9 @@ class GennyTable extends Component {
         //         status: "single"
         //     },
         //     {
-        //         firstName: "burst",
+        //         firstName: {
+        //             value: "burst"
+        //         },
         //         lastName: "water",
         //         age: 10,
         //         visits: 14,
@@ -374,7 +384,9 @@ class GennyTable extends Component {
         //         status: "single"
         //     },
         //     {
-        //         firstName: "thanks",
+        //         firstName: {
+        //             value: "thanks"
+        //         },
         //         lastName: "basketball",
         //         age: 13,
         //         visits: 12,
@@ -382,7 +394,9 @@ class GennyTable extends Component {
         //         status: "complicated"
         //     },
         //     {
-        //         firstName: "angle",
+        //         firstName: {
+        //             value: "angle"
+        //         },
         //         lastName: "guitar",
         //         age: 17,
         //         visits: 56,
@@ -390,7 +404,9 @@ class GennyTable extends Component {
         //         status: "single"
         //     },
         //     {
-        //         firstName: "stick",
+        //         firstName: {
+        //             value: "stick"
+        //         },
         //         lastName: "haircut",
         //         age: 27,
         //         visits: 49,
@@ -398,7 +414,9 @@ class GennyTable extends Component {
         //         status: "single"
         //     },
         //     {
-        //         firstName: "plate",
+        //         firstName: {
+        //             value: "plate"
+        //         },
         //         lastName: "dock",
         //         age: 17,
         //         visits: 2,
@@ -407,7 +425,9 @@ class GennyTable extends Component {
         //     },
         //     {
             
-        //         firstName: "republic",
+        //         firstName: {
+        //             value: "republic"
+        //         },
         //         lastName: "birthday",
         //         age: 3,
         //         visits: 24,
@@ -415,27 +435,33 @@ class GennyTable extends Component {
         //         status: "relationship"
         //     },
         //     {
-        //         firstName: "girls",
+        //         firstName: {
+        //             value: "girls"
+        //         },
         //         lastName: "voyage",
-        //         age: 12,
-        //         visits: 49,
-        //         progress: 3,
+        //         age: 15,
+        //         visits: 56,
+        //         progress: 5,
         //         status: "relationship"
         //     },
         //     {
-        //         firstName: "things",
-        //         lastName: "authority",
-        //         age: 19,
-        //         visits: 4,
-        //         progress: 67,
+        //         firstName: {
+        //             value: "port"
+        //         },
+        //         lastName: "dependent",
+        //         age: 25,
+        //         visits: 3,
+        //         progress: 92,
         //         status: "complicated"
         //     },
         //     {
-        //         firstName: "circle",
-        //         lastName: "brick",
-        //         age: 20,
-        //         visits: 44,
-        //         progress: 67,
+        //         firstName: {
+        //             value: "death"
+        //         },
+        //         lastName: "expected",
+        //         age: 45,
+        //         visits: 33,
+        //         progress: 15,
         //         status: "single"
         //     }
         // ];

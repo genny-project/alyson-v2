@@ -6,15 +6,15 @@ import { ImageView } from 'views/components';
 class GennyTableEditableCell extends Component {
 
     static defaultProps = {
-        data: [],
         cellInfo: {},
         code: null,
     }
 
     static propTypes = {
-        data: array,
         cellInfo: object,
         code: string,
+        value: string,
+        dataType: string,
     }
 
     state = {
@@ -24,7 +24,7 @@ class GennyTableEditableCell extends Component {
 
     componentDidMount() {
 
-        const { cellInfo, code, value, dataType } = this.props;
+        const { value, dataType } = this.props;
 
         if (dataType != 'Image' && dataType != 'link' && dataType != 'java.lang.Boolean') {
             this.setState({
@@ -33,7 +33,8 @@ class GennyTableEditableCell extends Component {
         }
 
         this.setState({
-            lastSentAnswer: value
+            lastSentAnswer: value,
+            valueState: value
         });
     }
 
@@ -41,6 +42,15 @@ class GennyTableEditableCell extends Component {
         return true;
     }
 
+    componentWillReceiveProps(newProps) {
+        //console.log(this.props.value, newProps.value);
+        if (newProps.value != this.props.value) {
+            this.setState({
+                value: newProps.value,
+                valueState: newProps.value
+            });
+        }
+    }
     handleKeyDown = (event) => {
         if (event.keyCode == '13') {
             event.preventDefault();
@@ -49,80 +59,88 @@ class GennyTableEditableCell extends Component {
     }
 
     handleBlur = (event) => {
+
+        const { targetCode, code, value } = this.props;
         
         let newValue = event.target.value;
 
-        //value
-        if(newValue && newValue != this.props.data[this.props.cellInfo.index][this.props.cellInfo.column.id].value) {
+        if(newValue != null && newValue != value) {
 
-            //code
-            let attributeCode = this.props.cellInfo.column.attributeCode;
-            if(attributeCode) {
+            if (newValue.length == 0 ){
+                alert('Field must not be empty.');
+                this.setState({
+                    valueState: value
+                });
+            }
+            else {
+                if(code) {
 
-                //be
-                let baseEntity = this.props.data[this.props.cellInfo.index];
-                let targetCode = baseEntity.baseEntityCode;
+                    let answer = [
+                        {
+                            targetCode: targetCode,
+                            attributeCode: code,
+                            value: newValue
+                        }
+                    ];
 
-                let answer = [
-                    {
-                        targetCode: targetCode,
-                        attributeCode: attributeCode,
-                        value: newValue
-                    }
-                ];
-
-                if ( newValue != this.state.lastSentAnswer ) {
-                    if (confirm('Are you sure you want to change this information?')) {
-                        GennyBridge.sendAnswer(answer);
-                        this.setState({
-                            lastSentAnswer: newValue
-                        });
-                    }
-                    else {
+                    //if ( newValue != this.state.lastSentAnswer ) {
+                        if (confirm('Are you sure you want to change this information?')) {
+                            GennyBridge.sendAnswer(answer);
+                            this.setState({
+                                lastSentAnswer: newValue
+                            });
+                        }
                         this.input.value = this.state.lastSentAnswer;
-                    }
+                    //}
                 }
             }
         }
     }
 
+    handleChange = (event) => {
+        let newValue = event.target.value;
+
+        this.setState({
+            valueState: newValue
+        });
+    }
+
     renderDiv() {
 
-        const { cellInfo, code, value, dataType } = this.props;
-
-        // console.log( ' ---------------' )
-        // console.log( value );
-        // console.log( cellInfo );
+        const { value, dataType } = this.props;
+        const { valueState } = this.state;
 
         switch (dataType) {
 
             case 'Image': {
-                return <ImageView src={value} style={{ width: '50px', height: '50px' }} />;
+                return <ImageView src={valueState || value} style={{ width: '50px', height: '50px' }} />;
             }
 
             case 'link': {
 
-                return <a href={value}>Click Here</a>;
+                return <a href={valueState || value}>Click Here</a>;
             }
 
             case 'java.lang.Boolean': {
                 return (
                     <input
-                        checked={value}
+                        checked={valueState || value}
                         type="checkbox"
                     />
                 );
             }
-
+           
             default: {
+                //console.log(value);
                 return (
                     <input
                         ref={r => this.input = r}
                         className="table-input"
-                        defaultValue={value}
+                        value={valueState != null ? valueState : value}
                         type="text"
                         onBlur={this.handleBlur}
                         onKeyDown={this.handleKeyDown}
+                        onChange={this.handleChange}
                     />
                 );
             }
