@@ -25,10 +25,10 @@ class DateLabel extends Component {
     const { format } = this.props;
 
     if (date) {
-      const formattedDate = moment(date);
+      const formattedDate = moment(date).utcOffset(-4);
       if(formattedDate.isValid()) return formattedDate.format(format);
     }
-
+    
     return null;
   }
 

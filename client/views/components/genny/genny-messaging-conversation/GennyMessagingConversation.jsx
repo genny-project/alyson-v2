@@ -53,8 +53,8 @@ class GennyMessagingConversation extends Component {
                         }
                     },
                     weight: 1,
-                    //created: moment().format('YYYY-MM-DDTHH:mm:ss')
-                    created: moment().toISOString()
+                    created: moment().utc().format('YYYY-MM-DDTHH:mm:ss')
+                    //created: moment().toISOString()
                 }
             ]
         });
@@ -88,22 +88,16 @@ class GennyMessagingConversation extends Component {
         let messageArray = [];
         let tempArray = [];
 
-        console.log('=======================');
-        console.log(messages);
-
-        messages = messages.sort((x, y) => x.created > y.created);
-
-        console.log(messages);
-
         let finalMessages = messages;
         this.state.createdMessages.forEach(mess => {
             finalMessages.push(mess);
         });
 
-        console.log(messages);
-
-        messages.map((message, index) => {
-
+        finalMessages = messages.sort((x, y) => {
+            return x.created < y.created ? 1 : -1;
+        });
+        
+        finalMessages.map((message, index) => {
             if (tempArray.length > 0) {
 
                 const last = tempArray.length - 1;
@@ -116,7 +110,7 @@ class GennyMessagingConversation extends Component {
 
                 const lastCreator = creatorAttr.value;
                 const thisCreator = thisCreatorAttr.value;
-
+                
                 if (lastCreator != thisCreator) {
                     messageArray.push(tempArray);
                     tempArray = [];
@@ -141,28 +135,19 @@ class GennyMessagingConversation extends Component {
 
         });
 
-        console.log(messageArray);
-
         return messageArray;
     }
 
     renderMessages = (messages, currentUser, otherUser) => {
-
-        console.log('-----------------');
-        //console.log(messages);
-
-        console.log(messages);
         
         return messages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
-
             let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, 'PRI_CREATOR');
-            createdBy = createdBy ? createdBy.value : '-';
+            createdBy = createdBy ? createdBy.value : group[0].attributes.PRI_CREATOR.value;
             group.sort((x, y) => x.created > y.created);
 
             return (
-
                 <div className={`conversation-message-group ${createdBy == GennyBridge.getUser() ? 'sent' : 'received' }`} key={groupIndex} >
                     {
                         group.map((message, messageIndex) => {
@@ -260,30 +245,31 @@ class GennyMessagingConversation extends Component {
     renderWebLayout(title, messages, currentUser, otherUser) {
 
         return (
-        <Grid
-            className="messaging-conversation-main"
-            rows={[
-                { style: { flexGrow: 12 }},
-                { style: { flexGrow: 0.5 }}]}
-            cols={1}
-        >
-            {
-                messages && messages.length > 0 ?
-                    <div className="conversation-messages-container" position={[0 ,0]}>
-                        {this.renderMessages(messages, currentUser, otherUser)}
+            <Grid
+                className="messaging-conversation-main"
+                rows={[
+                    { style: { flexGrow: 12 }},
+                    { style: { flexGrow: 0.5, flexShrink: 0 }}]}
+                cols={1}
+            >
+                {
+                    messages && messages.length > 0 ?
+                        <div className="conversation-messages-container" position={[0 ,0]}>
+                            {this.renderMessages(messages, currentUser, otherUser)}
 
-                    </div>
-                : null
-            }
-            {
-                !messages || messages.length <= 0 ?
-                    <div className="conversation-messages-empty" position={[ 0 ,0]}>
-                        Start your conversation with {otherUser && otherUser.attributes.PRI_FIRSTNAME.value}
-                    </div>
-                : null
-            }
-            <div className="conversation-message-input" position={[ 1 ,0]}>{this.renderTextInput()}</div>
-        </Grid>);
+                        </div>
+                    : null
+                }
+                {
+                    !messages || messages.length <= 0 ?
+                        <div className="conversation-messages-empty" position={[ 0 ,0]}>
+                            Start your conversation with {otherUser && otherUser.attributes.PRI_FIRSTNAME.value}
+                        </div>
+                    : null
+                }
+                <div className="conversation-message-input" position={[ 1 ,0]}>{this.renderTextInput()}</div>
+            </Grid>
+        );
     }
     render() {
 

@@ -1,4 +1,4 @@
-//import './GennyMessaging.scss';
+import './GennyMessagingList.scss';
 import React, { Component } from 'react';
 import { string, number, bool, array } from 'prop-types';
 import { GennyList } from 'views/components';
@@ -75,10 +75,9 @@ class GennyMessagingList extends Component {
         const { selectedItem } = this.state;
 
         const conversations = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_CHAT');
-        //console.log(conversations);
       
         let contactAliases = this.getContactAliases(conversations);
-        //console.log(contactAliases);
+    
         return (
             <div className="genny-messaging-list">
                 <GennyList
