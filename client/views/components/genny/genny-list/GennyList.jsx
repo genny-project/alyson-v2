@@ -16,6 +16,7 @@ class GennyList extends Component {
         showSearchBar: true,
         hideNav: false,
         numberOfItems: 1,
+        emptyMessage: 'No data to display.'
     }
 
     static propTypes = {
@@ -41,6 +42,7 @@ class GennyList extends Component {
     }
 
     handleClick = (listItemProps) => {
+
         let btnValue = {
             hint: listItemProps.rootCode,
             itemCode: listItemProps.code,
@@ -94,7 +96,7 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, showTitle, showEmpty, gennyListStyle, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, showTitle, showEmpty, gennyListStyle, emptyMessage, ...rest } = this.props;
         const componentStyle = { ...gennyListStyle};
 
         let data = [];
@@ -103,7 +105,7 @@ class GennyList extends Component {
             data = BaseEntityQuery.getBaseEntitiesForLinkCode(root, 'hide', hideLinks);
         }
         else if(showLinks.constructor == Array) {
-            data = BaseEntityQuery.getBaseEntitiesForLinkCode(root, 'show', showLinks);       
+            data = BaseEntityQuery.getBaseEntitiesForLinkCode(root, 'show', showLinks);
         }
         else if(showLinks == null || showLinks == false) {
             data = BaseEntityQuery.getEntityChildren(root);
@@ -126,6 +128,7 @@ class GennyList extends Component {
                         header={ headerRoot && !hideHeader ? <GennyForm root={headerRoot} isHorizontal /> : null }
                         hideCount
                         hideNav={hideNav}
+                        emptyMessage={emptyMessage}
                         data={ this.generateListItems(data) }
                         showEmpty={showEmpty}
                         onItemClick={this.handleClick}

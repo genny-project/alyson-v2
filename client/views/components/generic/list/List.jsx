@@ -13,6 +13,7 @@ class List extends Component {
         hideCount: false,
         countText: 'Items Found',
         showEmpty: true,
+        emptyMessage: 'No data to display.'
     }
 
     static propTypes = {
@@ -53,7 +54,7 @@ class List extends Component {
 
     renderMain = (data, itemsPerPage, hideNav) => {
 
-        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty } = this.props;
+        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage } = this.props;
 
         let children = [];
         if (data && data.length > 0) {
@@ -66,7 +67,7 @@ class List extends Component {
             if(showEmpty === true) {
 
                 children = [
-                    <div className='list-empty'>No data to display.</div>
+                    <div className='list-empty'>{emptyMessage}</div>
                 ];
             }
         }
