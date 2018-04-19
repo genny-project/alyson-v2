@@ -29,7 +29,8 @@ class AppHolder extends Component {
                 localStorage.setItem("socialredirect", '');
             }
         }
-        let state = window.getQueryString('state'); //localhost:3000/?state=eyJsb2FkaW5nIjoiTG9hZGluZyB5b3VyIGRvY3VtZW50cy4uLiIsImV2dF90eXBlIjoiUkVESVJFQ1RfRVZFTlQiLCJkYXRhIjp7Iml0ZW1Db2RlIjoiQkVHXzAwMDEifX0=
+
+        let state = window.getQueryString('state');
         if(state != null) {
 
             const decodedState = atob(state);
