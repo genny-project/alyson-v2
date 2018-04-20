@@ -1,13 +1,34 @@
-// import './carousel.scss';
+import './carousel.scss';
 import "slick-carousel/slick/slick.css";
 import 'slick-carousel/slick/slick-theme.css';
 
 import React, { Component } from 'react';
 import { string, any, array, object } from 'prop-types';
-// import { Carousel as ReactCarousel} from 'react-responsive-carousel';
-import { ImageView } from 'views/components';
+import { ImageView, IconSmall } from 'views/components';
 import Slider from 'react-slick';
 
+function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={className}
+            style={{ ...style,}}
+            onClick={onClick}
+        />
+    );
+}
+  
+function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={className}
+            style={{ ...style, display: "block", background: "green" }}
+            onClick={onClick}
+        />
+        //<IconSmall style={{ ...style}} onClick={onClick} className={className} size={12} name='chevron-left' />
+    );
+}
 class Carousel extends Component {
 
     static defaultProps = {
@@ -58,27 +79,17 @@ class Carousel extends Component {
                 infinite: true,
                 speed: 500,
                 slidesToShow: 1,
-                slidesToScroll: 1
+                slidesToScroll: 1,
+                //nextArrow: <SampleNextArrow/>,
+                //prevArrow: <SamplePrevArrow/>
             };
             return (
-                <div className={`carousel-main ${className}`} style={componentStyle}>
+                <div className={`carousel-main ${className} ${window.getScreenSize()}`} style={componentStyle}>
                     <Slider {...settings}>
                         {this.renderItems(items)}
                     </Slider>
                 </div>
             );
-
-            // return (
-            //   <div className={`carousel-main ${className}`} style={componentStyle}>
-            //     <ReactCarousel
-            //       showThumbs
-            //       onClickItem={this.handleClick}
-            //       onClickThumb={this.handleClick}
-            //     >
-            //       {this.renderItems(items)}
-            //     </ReactCarousel>
-            //   </div>
-            // );
         }
     }
 
