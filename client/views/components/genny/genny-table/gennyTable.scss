@@ -25,6 +25,12 @@
     span, p, div, input {
         font-size: 12px !important;
     }
+
+    &.sm {
+        .rt-td {
+            white-space: initial;
+        }
+    }
 }
 
 
@@ -81,7 +87,8 @@
         }
 
         &:not(:first-child) {
-            width:100%;
+            //width:100%;
+            //max-width: 50%;
         }
     }
 

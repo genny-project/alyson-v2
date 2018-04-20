@@ -18,7 +18,7 @@ class SplitView extends Component {
 
     state = {
         isMobile: window.getScreenSize() == 'sm',
-        isOpen: false
+        isOpen: true
     }
 
     close = () => {

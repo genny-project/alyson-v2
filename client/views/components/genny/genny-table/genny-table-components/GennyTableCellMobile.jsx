@@ -46,11 +46,11 @@ class GennyTableCellMobile extends Component {
                     data.map((attribute, i ) => {
 
                         if ( i ===  0 || i > 0 && isOpen[original.baseEntityCode] === true ) {
-
+                            const attributeObj = original[attribute.attributeCode];
                             return (
                                 <div key={i} className={`${ i === 0 ? 'table-mobile-cell-header' : 'table-mobile-cell-row'} ${ isOpen[original.baseEntityCode] ? 'header-divider' : null }`}>
                                     <span className='table-mobile-cell-cell'>{attribute.name}:</span>
-                                    <span className='table-mobile-cell-cell'>{original[attribute.name]}</span>
+                                    <span className='table-mobile-cell-cell'>{attributeObj && attributeObj.value}</span>
                                 </div>
                             );
                         }

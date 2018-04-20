@@ -55,9 +55,9 @@ class GennyTable extends Component {
         if(!showBaseEntity && isMobile) {
 
             if(tableColumns.length > 0) {
-
+                
                 mobileColumns.push({
-                    'Header': <GennyTableHeader title={tableColumns[0].attributeName ||  tableColumns[0].attributeCode} />,
+                    'Header': <GennyTableHeader title={tableColumns[0].name ||  tableColumns[0].attributeCode} />,
                     'accessor': tableColumns[0].attributeCode,
                     'Cell': ({row, original}) => <GennyTableCellMobile data={tableColumns} row={row} original={original} />
                 });
@@ -317,7 +317,7 @@ class GennyTable extends Component {
         tableData = this.generateDataFor(children);
 
         return (
-            <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'}`} style={style}>
+            <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'} ${window.getScreenSize()}`} style={style}>
                 <Table {...this.props} data={tableData} columns={tableColumns} itemsPerPage={tableData != null && tableData.length < 20 ? tableData.length : 20} />
             </div>
         );
