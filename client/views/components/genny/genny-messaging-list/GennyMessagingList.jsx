@@ -22,7 +22,8 @@ class GennyMessagingList extends Component {
 
         const value = {
             rootCode: this.props.root,
-            code: this.props.messagesRoot
+            code: this.props.messagesRoot,
+            selectedItem: this.props.selectedItem
         };
 
         const conversations = BaseEntityQuery.getEntityChildren(this.props.root);
