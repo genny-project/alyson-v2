@@ -89,9 +89,9 @@ class GennyMessagingConversation extends Component {
         let tempArray = [];
 
         let finalMessages = messages;
-        this.state.createdMessages.forEach(mess => {
-            finalMessages.push(mess);
-        });
+        // this.state.createdMessages.forEach(mess => {
+        //     finalMessages.push(mess);
+        // });
 
         finalMessages = messages.sort((x, y) => {
             return x.created < y.created ? 1 : -1;
