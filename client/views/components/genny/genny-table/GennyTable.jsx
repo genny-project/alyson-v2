@@ -134,7 +134,10 @@ class GennyTable extends Component {
 
                         if(!isMobile) {
                             return {
-                                'Header': <GennyTableHeader title={attrName || attribute.attributeCode}/>,
+                                'Header': props => {
+                                    //console.log(props);
+                                    return <GennyTableHeader title={attrName || attribute.attributeCode}/>;
+                                },
                                 'Cell': cellInfo => {
                                     const cell = cellInfo.row[attribute.attributeCode];
                                     const value = cell && cell.value;
@@ -312,10 +315,6 @@ class GennyTable extends Component {
 
         tableColumns = this.generateHeadersFor(children);
         tableData = this.generateDataFor(children);
-
-        console.log('----------')
-        console.log( tableColumns )
-        console.log( tableData )
 
         return (
             <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'}`} style={style}>

@@ -53,6 +53,8 @@ class GennyMessagingList extends Component {
             selectedItem: listItemProps.code,
             messagesRoot: listItemProps.code,
         });
+
+        if (this.props.onClick) this.props.onClick();
     }
 
     getContactAliases = (data) => {

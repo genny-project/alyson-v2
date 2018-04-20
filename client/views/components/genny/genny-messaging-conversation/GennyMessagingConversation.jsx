@@ -209,20 +209,17 @@ class GennyMessagingConversation extends Component {
             rows={[
                 '40px',
                 { style: { flexGrow: 12 }},
-                { style: { flexGrow: 0.5 }}]}
+                { style: { flexGrow: 0.5, flexShrink: 0 }}]}
             cols={1}
         >
-            {
-                messages ?
-                    <div className="conversation-message-title" position={[0,0]}>
-                        <div className='conversation-back-button' onClick={this.handleClickBack}>
-                            <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
-                            <span>Back</span>
-                        </div>
-                        {title}
-                    </div>
-                : null
-            }
+            <div className="conversation-message-title" position={[0,0]}>
+                <div className='conversation-back-button' onClick={this.handleClickBack}>
+                    <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
+                    <span>Back</span>
+                </div>
+                {title}
+            </div>
+            
             {
                 messages && messages.length > 0 ?
                     <div className={`conversation-messages-container ${window.getScreenSize()}`} position={[ 1,0]}>
@@ -291,10 +288,22 @@ class GennyMessagingConversation extends Component {
 
         if(!root || root == 'null' || !be) {
             return (
-                <div className="conversation-messages-empty" >
-                    Welcome to Channel40.<br />
-                    There are currently no messages for you to read.
-                </div>
+                <Grid
+                    className="messaging-conversation-main"
+                    rows={['40px',1]}
+                    cols={1}
+                >
+                    <div className="conversation-message-title" position={[0,0]}>
+                        <div className='conversation-back-button' onClick={this.handleClickBack}>
+                            <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
+                            <span>Back</span>
+                        </div>
+                    </div>
+                    <div className="conversation-messages-empty" position={[1,0]}>
+                        Welcome to Channel40.<br />
+                        There are currently no messages for you to read.
+                    </div>
+                </Grid>
             );
         }
         else if (window.getScreenSize() == 'sm') {
