@@ -22,8 +22,13 @@ class GennyMessagingList extends Component {
 
         const value = {
             rootCode: this.props.root,
-            code: this.props.messagesRoot
+            code: this.props.messagesRoot,
+            selectedItem: this.props.selectedItem
         };
+
+        this.setState({
+            selectedItem: this.props.selectedItem
+        });
 
         const conversations = BaseEntityQuery.getEntityChildren(this.props.root);
         if (window.getScreenSize() != 'sm' && conversations.length > 0) this.handleClickConversation(value);
@@ -85,7 +90,7 @@ class GennyMessagingList extends Component {
                     root={root}
                     localAliases={contactAliases}
                     onItemClick={this.handleClickConversation}
-                    selectedItem={selectedItem}
+                    selectedItem={selectedItem || this.props.selectedItem}
                 />
             </div>
         );

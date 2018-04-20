@@ -65,7 +65,7 @@ class AppContent extends Component {
                 return <GennyPasscode />;
             }
             else if (commandData.code == 'MESSAGE_VIEW') {
-                return <GennyMessagingList root={commandData.root || commandData.data}/>;
+                return <GennyMessagingList root={commandData.root || commandData.data} selectedItem={commandData.selectedItem}/>;
             }
             else if (commandData.code == 'CONVERSATION_VIEW') {
                 return <GennyMessagingConversation root={commandData.root || commandData.data}/>;
