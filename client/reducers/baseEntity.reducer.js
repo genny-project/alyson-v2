@@ -92,7 +92,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
             let newAttributes = newItem.baseEntityAttributes;
             newAttributes.forEach(newAttribute => {
 
-                if(newAttribute.privacyFlag == false || newAttribute.privacyFlag == null) {
+                if (newAttribute.privacyFlag == false || newAttribute.privacyFlag == null) {
 
                     existingAttributes[newAttribute.attributeCode] = {
                         ...existingAttributes[newAttribute.attributeCode],
@@ -182,66 +182,60 @@ export default function reducer(state = initialState, action) {
 
                     }, {}),
                     ...(
-                        action.payload.parentCode && state.data[action.payload.parentCode] == null ? (
-                            {
-                                [action.payload.parentCode]: {
-                                    ...state.data[action.payload.parentCode],
-                                    children: [
-                                        ...(state.data[action.payload.parentCode] != null ? state.data[action.payload.parentCode].children : []),
-                                        ...action.payload.items.map((item, index) => {
+                        action.payload.parentCode && state.data[action.payload.parentCode] == null ? ({
+                            [action.payload.parentCode]: {
+                                ...state.data[action.payload.parentCode],
+                                children: [
+                                    ...(state.data[action.payload.parentCode] != null ? state.data[action.payload.parentCode].children : []),
+                                    ...action.payload.items.map((item, index) => {
 
-                                            if(item.code != null) {
-                                                return state.data[item.code] ? state.data[item.code] : {
-                                                    code: item.code
-                                                };
-                                            }
+                                        if (item.code != null) {
+                                            return state.data[item.code] ? state.data[item.code] : {
+                                                code: item.code
+                                            };
+                                        }
 
-                                            return false;
-                                        })
-                                    ],
-                                    links: {
-                                        ...(state.data[action.payload.parentCode] != null ? state.data[action.payload.parentCode].links : {}),
-                                        ...action.payload.items.reduce((existing, newItem) => {
+                                        return false;
+                                    })
+                                ],
+                                links: {
+                                    ...(state.data[action.payload.parentCode] != null ? state.data[action.payload.parentCode].links : {}),
+                                    ...action.payload.items.reduce((existing, newItem) => {
 
-                                            if(newItem.code != null) {
+                                        if (newItem.code != null) {
 
-                                                if(existing["LNK_CORE"] == null) {
-                                                    existing["LNK_CORE"] = [
-                                                        ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null ? state.data[action.payload.parentCode].links["LNK_CORE"] : []),
-                                                    ];
-                                                }
-
+                                            if (existing["LNK_CORE"] == null) {
                                                 existing["LNK_CORE"] = [
-                                                    ...existing["LNK_CORE"],
-                                                    ...[
-                                                        {
-                                                            attributeCode: "LINK",
-                                                            weight: 1,
-                                                            targetCode: newItem.code,
-                                                            sourceCode: action.payload.parentCode,
-                                                            linkValue: "LINK",
-                                                            valueString: "LINK",
-                                                            link: {
-                                                                attributeCode: "LINK",
-                                                                weight: 1,
-                                                                targetCode: newItem.code,
-                                                                sourceCode: action.payload.parentCode,
-                                                                linkValue: "LINK",
-                                                            }
-                                                        }
-                                                    ]
-                                                ]
+                                                    ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null ? state.data[action.payload.parentCode].links["LNK_CORE"] : []),
+                                                ];
                                             }
 
-                                            return existing;
+                                            existing["LNK_CORE"] = [
+                                                ...existing["LNK_CORE"],
+                                                ...[{
+                                                    attributeCode: "LINK",
+                                                    weight: 1,
+                                                    targetCode: newItem.code,
+                                                    sourceCode: action.payload.parentCode,
+                                                    linkValue: "LINK",
+                                                    valueString: "LINK",
+                                                    link: {
+                                                        attributeCode: "LINK",
+                                                        weight: 1,
+                                                        targetCode: newItem.code,
+                                                        sourceCode: action.payload.parentCode,
+                                                        linkValue: "LINK",
+                                                    }
+                                                }]
+                                            ]
+                                        }
 
-                                        }, {})
-                                    }
+                                        return existing;
+
+                                    }, {})
                                 }
                             }
-                        ) : (
-                            {}
-                        )
+                        }) : ({})
                     ),
                 },
                 relationships: {
@@ -274,7 +268,7 @@ export default function reducer(state = initialState, action) {
 
             return {
                 ...state,
-                attributes: action.payload.items.map(item => { return item.defaultPrivacyFlag === false || item.defaultPrivacyFlag == null ? item : false } ),
+                attributes: action.payload.items.map(item => { return item.defaultPrivacyFlag === false || item.defaultPrivacyFlag == null ? item : false }),
             };
 
         case ANSWER:
@@ -349,11 +343,11 @@ export default function reducer(state = initialState, action) {
 
             if (newLink != null) {
 
-                let be_code = item.link.targetCode;
-                const newLinkValue = item.link.linkValue;
-                const newLinkCode = item.link.attributeCode;
-                const newLinkWeight = item.link.weight;
-                const newParentCode = item.link.sourceCode;
+                let be_code = newLink.targetCode;
+                const newLinkValue = newLink.linkValue;
+                const newLinkCode = newLink.attributeCode;
+                const newLinkWeight = newLink.weight;
+                const newParentCode = newLink.sourceCode;
 
                 if (state.data[be_code] != null) {
 
@@ -450,6 +444,53 @@ export default function reducer(state = initialState, action) {
                         };
                     } else {
 
+                        const linkAlreadyExist = (state.data[newParentCode] && state.data[newParentCode].links && state.data[newParentCode].links[newLinkCode]);
+                        let newLinks = [];
+
+                        if (linkAlreadyExist) {
+
+                            let found = false;
+                            state.data[newParentCode].links[newLinkCode].forEach(existingLink => {
+
+                                if (existingLink != null && existingLink.targetCode != be_code) {
+                                    newLinks.push(existingLink);
+                                } else if (existingLink != null && existingLink.targetCode == be_code) {
+
+                                    found = true;
+                                    existingLink = {
+                                        ...existingLink,
+                                        value: newLinkValue,
+                                        valueString: newLinkValue,
+                                        weight: newLinkWeight,
+                                        targetCode: be_code,
+                                        linkValue: newLinkValue
+                                    };
+
+                                    newLinks.push(existingLink);
+                                }
+                            });
+
+                            if (found == false) {
+
+                                newLinks.push({
+                                    value: newLinkValue,
+                                    valueString: newLinkValue,
+                                    weight: newLinkWeight,
+                                    targetCode: be_code,
+                                    linkValue: newLinkValue
+                                });
+                            }
+
+                        } else {
+                            newLinks = [{
+                                value: newLinkValue,
+                                valueString: newLinkValue,
+                                weight: newLinkWeight,
+                                targetCode: be_code,
+                                linkValue: newLinkValue
+                            }];
+                        }
+
                         return {
                             ...state,
                             data: {
@@ -462,32 +503,7 @@ export default function reducer(state = initialState, action) {
                                     ...state.data[newParentCode],
                                     links: {
                                         ...(state.data[newParentCode] && state.data[newParentCode].links ? state.data[newParentCode].links : {}),
-                                        [newLinkCode]: (state.data[newParentCode] && state.data[newParentCode].links && state.data[newParentCode].links[newLinkCode] ? state.data[newParentCode].links[newLinkCode].reduce(((existing, link) => {
-
-                                            if (link != null && link.targetCode != be_code) {
-                                                existing.push(link);
-                                            } else if (link != null && link.targetCode == be_code) {
-
-                                                link = {
-                                                    ...link,
-                                                    value: newLinkValue,
-                                                    valueString: newLinkValue,
-                                                    weight: newLinkWeight,
-                                                    targetCode: be_code,
-                                                    linkValue: newLinkValue
-                                                };
-                                                existing.push(link);
-                                            }
-
-                                            return existing;
-
-                                        }), []) : [{
-                                            value: newLinkValue,
-                                            valueString: newLinkValue,
-                                            weight: newLinkWeight,
-                                            targetCode: be_code,
-                                            linkValue: newLinkValue
-                                        }])
+                                        [newLinkCode]: newLinks
                                     },
                                     children: [
                                         ...((state.data[newParentCode] && state.data[newParentCode].children) ? state.data[newParentCode].children : []),

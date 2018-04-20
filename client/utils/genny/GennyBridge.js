@@ -27,7 +27,7 @@ class GennyBridge {
 
         const token = this.getToken();
         const session_data = decode_token(token);
-        if(session_data && session_data.realm_access && session_data.realm_access.roles) {
+        if (session_data && session_data.realm_access && session_data.realm_access.roles) {
             return session_data.realm_access.roles;
         }
 
@@ -36,14 +36,14 @@ class GennyBridge {
 
     sendMessage(event, data) {
         let token = this.getToken();
-        if(token)
-        Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
+        if (token)
+            Vertx.sendMessage(events.outgoing.SEND_CODE(event, data, token));
     }
 
     sendBtnClick(event_type, data) {
 
         let token = this.getToken();
-        if(token) {
+        if (token) {
             Vertx.sendMessage(events.outgoing.BTN(event_type, data, token));
         }
     }
@@ -51,29 +51,29 @@ class GennyBridge {
     sendTVEvent(event, data) {
 
         let token = this.getToken();
-        if(token)
-        Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
+        if (token)
+            Vertx.sendMessage(events.outgoing.TV_EVENT(event, data, token));
 
     }
 
     sendLogout(event, data) {
         let token = this.getToken();
-        if(token)
-        Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
+        if (token)
+            Vertx.sendMessage(events.outgoing.LOGOUT(event, data, token));
     }
 
     sendBucketDropEvent(data) {
 
         let token = this.getToken();
-        if(token) {
+        if (token) {
             Vertx.sendMessage(events.outgoing.BUCKET_DROP_EVENT(data, token));
         }
     }
 
-    sendRedirectEvent( redirect_code, data ) {
+    sendRedirectEvent(redirect_code, data) {
 
         let token = this.getToken();
-        if(token) {
+        if (token) {
             Vertx.sendMessage(events.outgoing.REDIRECT_EVENT(redirect_code, data, token));
         }
     }
@@ -81,7 +81,7 @@ class GennyBridge {
     sendGPSData(data) {
 
         let token = this.getToken();
-        if(token) {
+        if (token) {
 
             let final = data.map(item => {
                 return item.coords;
@@ -94,7 +94,7 @@ class GennyBridge {
     sendGeofenceData(event_id, data) {
 
         let token = this.getToken();
-        if(token) {
+        if (token) {
             Vertx.sendMessage(events.outgoing.GEOFENCE_NOTIFICATION(event_id, data, token));
         }
     }
@@ -102,18 +102,18 @@ class GennyBridge {
     sendCacheMissing(beCode) {
 
         let token = this.getToken();
-        if(token) {
+        if (token) {
             Vertx.sendMessage(events.outgoing.CACHE_MISSING(token, beCode));
         }
     }
 
     sendAnswer = (items) => {
         let token = this.getToken();
-        if(token) {
+        if (token) {
 
             let answers = items.map(item => {
 
-                if(!item.sourceCode) {
+                if (!item.sourceCode) {
                     item.sourceCode = this.getUser();
                 }
 
@@ -126,11 +126,11 @@ class GennyBridge {
         const forbiddenAnswers = ['ADDRESS_FULL', 'PRI_RATING'];
         for (var i = 0; i < forbiddenAnswers.length; i++) {
             const forbiddenCode = forbiddenAnswers[i];
-            if(attributeC.includes(forbiddenCode)) { return; }
+            if (attributeC.includes(forbiddenCode)) { return; }
         }
 
         let value = items[0].value;
-        if(attributeC.includes('PRICE') || attributeC.includes('FEE')) {
+        if (attributeC.includes('PRICE') || attributeC.includes('FEE')) {
             value = JSON.parse(value).amount;
         }
 
@@ -170,7 +170,7 @@ class GennyBridge {
 
         console.log("[Vertx] Opening Vertx...");
 
-    /* Create a new message handler */
+        /* Create a new message handler */
         this.messageHandler = new MessageHandler();
 
         /* Set vertx to use the message handler */
@@ -188,31 +188,31 @@ class GennyBridge {
     sendAuthInit(token) {
 
         let keycloakConfig = store.getState().keycloak.config;
-        if(keycloakConfig) {
+        if (keycloakConfig) {
 
             axios.post(`${config.genny.host}/${config.genny.bridge.endpoints.events}/init?url=${window.location.origin}`, {
-                responseType: 'json',
-                timeout: 30000,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': "Bearer " + this.getToken()
-                },
-            })
-            .then(() => {
+                    responseType: 'json',
+                    timeout: 30000,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + this.getToken()
+                    },
+                })
+                .then(() => {
 
-                GennyBridge.initVertx(token, keycloakConfig.vertx_url);
+                    GennyBridge.initVertx(token, keycloakConfig.vertx_url);
 
-                let found = false;
-                let state = window.getQueryString('state');
-                if(state != null) {
+                    let found = false;
+                    let state = window.getQueryString('state');
+                    if (state != null) {
 
-                    try {
-                        const decodedState = atob(state);
-                        if(decodedState != null) {
+                        try {
 
-                                console.log( decodedState )
+                            const decodedState = atob(state);
+                            if (decodedState != null) {
+
                                 const json = JSON.parse(decodedState);
-                                if(json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
+                                if (json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
 
                                     found = true;
                                     this.sendRedirectEvent(json.evt_code, {
@@ -223,19 +223,18 @@ class GennyBridge {
 
                                 /* TODO: json.loading (optional) contains a text to show instead of showing the interface if necessary */
                                 window.history.replaceState({}, document.title, "/");
+                            }
+                        } catch (e) {
+                            console.log(' could not decode state ');
+                            console.error(e);
                         }
                     }
-                    catch( e ) {
-                        console.log(' could not decode state ');
-                        console.error( e );
+
+                    if (found === false) {
+                        Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
                     }
-                }
 
-                if(found === false ) {
-                    Vertx.sendMessage(events.outgoing.AUTH_INIT(token));
-                }
-
-            }).catch(err => console.error(err));
+                }).catch(err => console.error(err));
         }
     }
 }
