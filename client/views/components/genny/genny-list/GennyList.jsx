@@ -51,8 +51,7 @@ class GennyList extends Component {
         btnValue = JSON.stringify(btnValue);
 
         GennyBridge.sendBtnClick('BTN_CLICK', {
-            //TODO make SELECT EVENT
-            code: 'BTN_SEE_CONVERSATION',
+            code: 'SELECT_EVENT',
             value: btnValue
         });
 
