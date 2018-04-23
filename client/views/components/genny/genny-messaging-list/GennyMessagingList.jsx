@@ -73,6 +73,7 @@ class GennyMessagingList extends Component {
                 });
             }
         });
+
         return contactAliases;
     }
 
@@ -82,9 +83,10 @@ class GennyMessagingList extends Component {
         const { selectedItem } = this.state;
 
         const conversations = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_CHAT');
-      
+
         let contactAliases = this.getContactAliases(conversations);
-    
+        console.log( contactAliases );
+
         return (
             <div className="genny-messaging-list">
                 <GennyList

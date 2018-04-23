@@ -15,7 +15,7 @@ class GennyList extends Component {
         showTitle: false,
         showSearchBar: true,
         hideNav: false,
-        numberOfItems: 1,
+        numberOfItems: 4,
         emptyMessage: 'No data to display.'
     }
 
@@ -74,15 +74,18 @@ class GennyList extends Component {
                 if(linkToParent) {
 
                     const isSelected = selectedItem == item.code ? true : false;
+
                     //TODO: alias prop should have a value that matches the item code to match them correctly
-                    const aliasProp = localAliases != null && localAliases.constructor == Array ? localAliases[index] : localAliases;
-                        
+                    const aliasProp = localAliases != null && (localAliases.constructor == Array ? localAliases[index] : localAliases);
+
                     //let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != 'LINK' ? linkToParent.linkValue : 'list_item';
                     let layout_code = linkToParent.linkValue != null ? linkToParent.linkValue : 'list_item';
                     let sublayout = this.props.sublayout[layout_code];
                     item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
                     item['rootCode'] = root;
                     item['isSelected'] = isSelected;
+
+                    console.log( {BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp} );
                     return item;
                 }
             }
@@ -115,6 +118,8 @@ class GennyList extends Component {
         const projectCode = GennyBridge.getProject();
         let projectColor = BaseEntityQuery.getBaseEntityAttribute(projectCode, 'PRI_COLOR');
         projectColor = projectColor ? projectColor.value : null;
+
+        data = [...new Set(data)]
 
         if (showEmpty || !showEmpty && data && data.length > 0 ) {
             return (

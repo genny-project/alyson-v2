@@ -106,6 +106,11 @@ class LayoutLoader extends Component {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'created')
                                 };
                             }
+                            else if(attribute_code == 'name') {
+                              attribute = {
+                                  value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'name')
+                              };
+                            }
                             else if(attribute_code == "code") {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')

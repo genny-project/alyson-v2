@@ -189,9 +189,12 @@ export default function reducer(state = initialState, action) {
                                     ...action.payload.items.map((item, index) => {
 
                                         if (item.code != null) {
-                                            return state.data[item.code] ? state.data[item.code] : {
-                                                code: item.code
-                                            };
+
+                                            if(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].children != null && state.data[action.payload.parentCode].children.filter(child => child.code == item.code) == 0) {
+                                              return state.data[item.code] ? state.data[item.code] : {
+                                                  code: item.code
+                                              };
+                                            }
                                         }
 
                                         return false;
@@ -209,24 +212,27 @@ export default function reducer(state = initialState, action) {
                                                 ];
                                             }
 
-                                            existing["LNK_CORE"] = [
-                                                ...existing["LNK_CORE"],
-                                                ...[{
-                                                    attributeCode: "LINK",
-                                                    weight: 1,
-                                                    targetCode: newItem.code,
-                                                    sourceCode: action.payload.parentCode,
-                                                    linkValue: "LINK",
-                                                    valueString: "LINK",
-                                                    link: {
-                                                        attributeCode: "LINK",
-                                                        weight: 1,
-                                                        targetCode: newItem.code,
-                                                        sourceCode: action.payload.parentCode,
-                                                        linkValue: "LINK",
-                                                    }
-                                                }]
-                                            ]
+                                            if(existing["LNK_CORE"] != null && existing["LNK_CORE"].filter(lnk => lnk.targetCode == newItem.code) == 0) {
+
+                                              existing["LNK_CORE"] = [
+                                                  ...existing["LNK_CORE"],
+                                                  ...[{
+                                                      attributeCode: "LINK",
+                                                      weight: 1,
+                                                      targetCode: newItem.code,
+                                                      sourceCode: action.payload.parentCode,
+                                                      linkValue: "LINK",
+                                                      valueString: "LINK",
+                                                      link: {
+                                                          attributeCode: "LINK",
+                                                          weight: 1,
+                                                          targetCode: newItem.code,
+                                                          sourceCode: action.payload.parentCode,
+                                                          linkValue: "LINK",
+                                                      }
+                                                  }]
+                                              ]  
+                                            }
                                         }
 
                                         return existing;

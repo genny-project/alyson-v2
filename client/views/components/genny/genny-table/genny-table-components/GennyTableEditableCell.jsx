@@ -61,7 +61,7 @@ class GennyTableEditableCell extends Component {
     handleBlur = (event) => {
 
         const { targetCode, code, value } = this.props;
-        
+
         let newValue = event.target.value;
 
         if(newValue != null && newValue != value) {
@@ -109,7 +109,7 @@ class GennyTableEditableCell extends Component {
 
         const { value, dataType } = this.props;
         const { valueState } = this.state;
-        
+
         switch (dataType) {
 
             case 'Image': {
@@ -146,9 +146,8 @@ class GennyTableEditableCell extends Component {
                     </div>
                 );
             }
-           
+
             default: {
-                //console.log(value);
                 return (
                     <input
                         ref={r => this.input = r}

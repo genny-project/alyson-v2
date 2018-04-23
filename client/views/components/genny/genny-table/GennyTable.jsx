@@ -31,6 +31,10 @@ class GennyTable extends Component {
         isMobile: window.getScreenSize() == 'sm'
     }
 
+    shouldComponentUpdate() {
+      return true;
+    }
+
     generateHeadersFor(baseEntities) {
 
         const { showBaseEntity } = this.props;
@@ -55,7 +59,7 @@ class GennyTable extends Component {
         if(!showBaseEntity && isMobile) {
 
             if(tableColumns.length > 0) {
-                
+
                 mobileColumns.push({
                     'Header': <GennyTableHeader title={tableColumns[0].name ||  tableColumns[0].attributeCode} />,
                     'accessor': tableColumns[0].attributeCode,
@@ -133,15 +137,18 @@ class GennyTable extends Component {
                     if(!headers.includes(attribute.attributeCode)) {
 
                         if(!isMobile) {
+
                             return {
                                 'Header': props => {
                                     //console.log(props);
                                     return <GennyTableHeader title={attrName || attribute.attributeCode}/>;
                                 },
                                 'Cell': cellInfo => {
+
                                     const cell = cellInfo.row[attribute.attributeCode];
                                     const value = cell && cell.value;
                                     const dataType = cell && cell.type;
+
                                     return (
                                         <GennyTableEditableCell
                                             cell={cell}
@@ -184,10 +191,11 @@ class GennyTable extends Component {
                 if (columnsProps != null && columnsProps.length > 0) {
                     for(let i = 0; i < columnsProps.length; i++) {
 
-                        const attributeCode = columnsProps[i].code;
+                        const attributeCode = columnsProps[i];
                         const width = columnsProps[i].width;
 
                         if(attributes[attributeCode] != null) {
+
                             const newColumn = createColumn(attributeCode, width);
                             if(newColumn != null) {
                                 cols.push(newColumn);
@@ -237,6 +245,7 @@ class GennyTable extends Component {
                         const hasAttribute = Object.keys(baseEntity.attributes).includes(col);
                         return hasAttribute;
                     });
+
                     if (hasAttributes != true) return null;
                 //}
 
@@ -306,7 +315,7 @@ class GennyTable extends Component {
     render() {
 
         const { root, showBaseEntity, linkCode, style, columns } = this.props;
-        console.log(columns);
+
         let tableColumns = [];
         let tableData = [];
         let children = BaseEntityQuery.getEntityChildren(root);

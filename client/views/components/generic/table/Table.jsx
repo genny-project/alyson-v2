@@ -40,6 +40,7 @@ class Table extends Component {
 
     render() {
         const { columns, data, itemsPerPage, filterable } = this.props;
+
         return (
             <ReactTable
                 getTdProps={this.createProps( 'tdStyle' )}
@@ -60,7 +61,7 @@ class Table extends Component {
                 noDataText='No data to display.'
                 data={data}
                 columns={columns}
-                defaultPageSize={itemsPerPage}
+                pageSize={itemsPerPage}
                 //defaultPageSize={10}
                 className='table -striped -highlight'
                 filterable={filterable}
