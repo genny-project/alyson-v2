@@ -179,10 +179,9 @@ export default function reducer(state = initialState, action) {
                     ...action.payload.items.reduce((existing, newItem) => {
                         handleBaseEntity(state, action, existing, newItem);
                         return existing;
-
                     }, {}),
                     ...(
-                        action.payload.parentCode && state.data[action.payload.parentCode] == null ? ({
+                        action.payload.parentCode != null ? ({
                             [action.payload.parentCode]: {
                                 ...state.data[action.payload.parentCode],
                                 children: [
@@ -206,7 +205,7 @@ export default function reducer(state = initialState, action) {
 
                                             if (existing["LNK_CORE"] == null) {
                                                 existing["LNK_CORE"] = [
-                                                    ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null ? state.data[action.payload.parentCode].links["LNK_CORE"] : []),
+                                                    ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null &&  state.data[action.payload.parentCode].links["LNK_CORE"] ? state.data[action.payload.parentCode].links["LNK_CORE"] : []),
                                                 ];
                                             }
 
