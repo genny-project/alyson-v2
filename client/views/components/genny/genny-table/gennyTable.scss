@@ -35,7 +35,12 @@
 
 
 .table-header {
-   display: flex;
+    display: flex;
+    justify-content: center;
+
+    > span {
+        color: #5fa5ec;
+    }
 }
 
 .table-mobile-cell {
@@ -128,15 +133,18 @@
 .-filters {
 
     .rt-th {
-
         padding: 3px !important;
 
         .table-filter {
             width: 100%;
 
             &::placeholder {
-                color: #93a5ca;
+                //color: #c2c8d5;
             }
         }
     }
+}
+
+i {
+    color: #5fa5ec;
 }

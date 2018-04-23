@@ -23,7 +23,7 @@ class GennyTableCell extends Component {
         switch (dataType) {
 
             case "Image": {
-                return <ImageView src={value} style={{ "width": "50px", "height": "50px", "borderRadius": "25px" }} />
+                return <ImageView src={value} style={{ "width": "30px", "height": "30px", "borderRadius": "25px" }} />
             }
 
             default: {

@@ -184,7 +184,7 @@ class GennyTable extends Component {
                 if (columnsProps != null && columnsProps.length > 0) {
                     for(let i = 0; i < columnsProps.length; i++) {
 
-                        const attributeCode = columnsProps[i];
+                        const attributeCode = columnsProps[i].code;
                         const width = columnsProps[i].width;
 
                         if(attributes[attributeCode] != null) {
@@ -306,7 +306,7 @@ class GennyTable extends Component {
     render() {
 
         const { root, showBaseEntity, linkCode, style, columns } = this.props;
-
+        console.log(columns);
         let tableColumns = [];
         let tableData = [];
         let children = BaseEntityQuery.getEntityChildren(root);
