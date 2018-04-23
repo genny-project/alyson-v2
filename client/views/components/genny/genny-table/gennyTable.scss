@@ -133,6 +133,10 @@
 
         .table-filter {
             width: 100%;
+
+            &::placeholder {
+                color: #93a5ca;
+            }
         }
     }
 }
