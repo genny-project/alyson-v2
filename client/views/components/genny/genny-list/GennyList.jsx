@@ -73,12 +73,12 @@ class GennyList extends Component {
                 let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
                 if(linkToParent) {
 
-                    //console.log(item);
-
                     const isSelected = selectedItem == item.code ? true : false;
                     //TODO: alias prop should have a value that matches the item code to match them correctly
                     const aliasProp = localAliases != null && localAliases.constructor == Array ? localAliases[index] : localAliases;
-                    let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != 'LINK' ? linkToParent.linkValue : 'list_item';
+                        
+                    //let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != 'LINK' ? linkToParent.linkValue : 'list_item';
+                    let layout_code = linkToParent.linkValue != null ? linkToParent.linkValue : 'list_item';
                     let sublayout = this.props.sublayout[layout_code];
                     item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
                     item['rootCode'] = root;

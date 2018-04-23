@@ -1,37 +1,43 @@
 @import 'client/styles/colors';
 
-.split-view.sm {
-    width: 200vw;
+.split-view {
+
     > .row {
-        > .col {
-            overflow: scroll;
+        flex-wrap: nowrap;
+    }
+    &.sm {
+        width: 200vw;
+        > .row {
+            > .col {
+                overflow: scroll;
 
-            transition: 0.3s ease;
-            opacity: 1;
-            overflow-x: hidden;
-            overflow-y: auto;
+                transition: 0.3s ease;
+                opacity: 1;
+                overflow-x: hidden;
+                overflow-y: auto;
 
-            &.split-view-left {
-                flex-grow: 1;
-                
-                &.open {
-                    transform: translateX(0%);
+                &.split-view-left {
+                    flex-grow: 1;
+                    
+                    &.open {
+                        transform: translateX(0%);
+                    }
+                    &.closed{
+                        transform: translateX(-100%);
+                    }
                 }
-                &.closed{
-                    transform: translateX(-100%);
-                }
-            }
 
-            &.split-view-right {
-                flex-grow: 1;
+                &.split-view-right {
+                    flex-grow: 1;
 
-                &.open {
-                    transform: translateX(0%);
-                }
-                &.closed{
-                    transform: translateX(-100%);
+                    &.open {
+                        transform: translateX(0%);
+                    }
+                    &.closed{
+                        transform: translateX(-100%);
+                    }
                 }
             }
         }
-    } 
+    }
 }

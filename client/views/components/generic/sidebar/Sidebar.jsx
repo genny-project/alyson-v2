@@ -40,7 +40,7 @@ class Sidebar extends Component {
     onClick = () => {
         this.setState(prevState => ({
             //isOpen: window.getScreenSize() == 'sm' ? 
-            isOpen: window.getScreenSize() == 'sm' ? false : !prevState.isOpen
+            isOpen: false
         }), () => {
             localStorage.setItem('sidebar_open', this.state.isOpen);
         });

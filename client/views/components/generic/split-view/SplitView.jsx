@@ -72,10 +72,15 @@ class SplitView extends Component {
                 { className: `col split-view-left ${isOpen ? 'open' : 'closed'}` },
                 { className: `col split-view-right ${isOpen ? 'open' : 'closed'}` }
             ] :
-            [1,3];
+            [1,4];
 
         return (
-            <Grid className={`split-view ${className} ${window.getScreenSize()}`} style={componentStyle} cols={cols} rows={1}>
+            <Grid
+                className={`split-view ${className} ${window.getScreenSize()}`}
+                style={componentStyle}
+                cols={cols}
+                rows={1}
+            >
                 {this.renderContent(children)}
             </Grid>
         );

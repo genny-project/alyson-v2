@@ -1,76 +1,84 @@
 @import 'client/styles/colors';
 
 .treeview {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-
-  li {
-    list-style: none;
-  }
-
-  >div {
-    padding-bottom: 20px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 20px;
-  }
-
-  ul{
-    list-style-type: none;
-    padding-top: 0;
-    padding-left: 0px;
-    margin-left: 0;
-  }
-  li{
-    list-style-type: none;
-    border-bottom: 1px solid #222;
-
-    &:first-child {
-      border-top: 1px solid #222;
-    }
+    flex-direction: column;
+    text-align: left;
 
     li {
-      padding-left: 15px;
+        list-style: none;
     }
 
-    >div>span {
-          padding: 15px 20px;
+    >div {
+        padding-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 20px;
     }
 
-    > div, > div > span {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      justify-content: space-between;
+    ul {
+        list-style-type: none;
+        padding-top: 0;
+        padding-left: 0px;
+        margin-left: 0;
+    }
+    li {
+        list-style-type: none;
+        border-bottom: 1px solid #222;
+
+        &:first-child {
+            border-top: 1px solid #222;
+        }
+
+        li {
+            padding-left: 15px;
+        }
+
+        >div>span {
+            padding: 15px 20px;
+        }
+
+        > div, > div > span {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            justify-content: space-between;
+        }
+
+        > div > span > i {
+            margin-right: 10px;
+        }
     }
 
-    > div > span > i {
-      margin-right: 10px;
-    }
-  }
+    .tree-view-item-content {
 
-  .tree-view-item-content {
+        .tree-view-text {
+           // transition: 300ms ease;
+            opacity: 100;
+        }
+        
+        .tree-view-icon {
+        
+            &.main {
+                margin-right: 10px;
+            }
 
-    .tree-view-text {
-      transition: 300ms ease;
-      opacity: 100;
-    }
-    
-    .tree-view-icon {
-      
-      &.main {
-        margin-right: 10px;
-      }
+            .icon {
+                color: white;
+            }
+        }
 
-      .icon {
-        color: white;
-      }
-    }
+        .tree-view-item-count {
+            margin-left: 10px;
+        }
 
-    .tree-view-item-count {
-      margin-left: 10px;
+        &.tree-view-item-selected {
+            background-color: white !important;
+
+            i, span, p {
+                color: black !important;
+            }
+        }
     }
-  }
 }

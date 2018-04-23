@@ -153,7 +153,7 @@ class GennyTable extends Component {
                                     );
                                 },
                                 'accessor': attribute.attributeCode,
-                                'minWidth': typeof width == 'number' ? width : 300,
+                                //'minWidth': typeof width == 'number' ? width : 300,
                                 'attributeCode': attribute.attributeCode,
                                 'sortMethod': (a, b) => {
                                     return a.value.localeCompare(b.value);

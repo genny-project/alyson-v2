@@ -6,95 +6,104 @@ import { Fade, Slide, Scale } from 'views/utils/animations';
 
 class TreeView extends Component {
 
-  static propTypes = {
-    style: object,
-    items: array,
-    data: object,
-    onClick: func,
-    onExpand: func
-  };
+    static propTypes = {
+        style: object,
+        items: array,
+        data: object,
+        onClick: func,
+        onExpand: func
+    };
 
-  onClick = (item) => (event) => {
+    state = {
+        currentItem: null
+    };
 
-    event.stopPropagation();
-    event.preventDefault();
+    onClick = (item) => (event) => {
 
-    this.props.onClick(item);
-    return false;
-  }
+        event.stopPropagation();
+        event.preventDefault();
 
-  onExpand = (item) => (event) => {
+        console.log(item.id);
+        this.setState({
+            selectedItem: item.id
+        });
 
-      event.stopPropagation();
-      event.preventDefault();
+        this.props.onClick(item);
+        return false;
+    }
 
-      this.props.onExpand(item);
-      return false;
-  }
+    onExpand = (item) => (event) => {
 
-  renderList = (items, levelIndex) => {
+        event.stopPropagation();
+        event.preventDefault();
 
-    return items.map( item => {
+        this.props.onExpand(item);
+        return false;
+    }
 
-      const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
-      const canOpen = ( hasChildren && item.open );
-      const icon = item.icon;
+    renderList = (items, levelIndex) => {
 
-      let childNumber = null;
+        return items.map( item => {
 
-      if ( levelIndex == 0 ) {
-        childNumber = item.childCount || false;
-      }
-      else if ( levelIndex > 0 ) {
-        childNumber = item.children && item.children.length || false;
-      }
+            const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
+            const canOpen = ( hasChildren && item.open );
+            const icon = item.icon;
 
-      return (
+            let childNumber = null;
 
-        <li key={item.id} className='tree-view-item'>
-          <div className='tree-view-item-content'>
-            <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
-              { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
-              <span className='tree-view-text'>{item.name}</span>
-              { childNumber && (
-                <span className='tree-view-item-count'>({childNumber})</span>
-              )}
-            </span>
+            if ( levelIndex == 0 ) {
+                childNumber = item.childCount || false;
+            }
+            else if ( levelIndex > 0 ) {
+                childNumber = item.children && item.children.length || false;
+            }
 
-            {( item.children && item.children.length > 0 ) && (
-              <IconSmall
-                className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
-                size={32}
-                style={canOpen ? { transition: 'all 0.1s', transform: 'rotate(0deg)' } : { transition: 'all 0.1s', transform: 'rotate(-90deg)' }}
-                onClick={this.onExpand(item)}
-                name='arrow_drop_down'
-              />
-            )}
+            return (
 
-          </div>
+                <li key={item.id} className='tree-view-item'>
+                    <div className={`tree-view-item-content ${this.state.selectedItem == item.id ? 'tree-view-item-selected' : ''} `}>
+                        <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
+                            { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
+                            <span className='tree-view-text'>{item.name}</span>
+                            { childNumber && (
+                                <span className='tree-view-item-count'>({childNumber})</span>
+                            )}
+                        </span>
 
-          <ul className="tree-view-child">
-            <Slide inProp={canOpen} heightEntered={`${item.children.length * 60}px`}>
-              {this.renderList(item.children, levelIndex + 1)}
-            </Slide>
-          </ul>
-        </li>
-      );
-    });
-  }
+                        {( item.children && item.children.length > 0 ) && (
+                            <IconSmall
+                                className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
+                                size={32}
+                                style={canOpen ? { transition: 'transform 0.1s', transform: 'rotate(0deg)' } : { transition: 'transform 0.1s', transform: 'rotate(-90deg)' }}
+                                onClick={this.onExpand(item)}
+                                name='arrow_drop_down'
+                            />
+                        )}
 
-  render() {
+                    </div>
 
-    const { items } = this.props;
+                    <ul className="tree-view-child">
+                        <Slide inProp={canOpen} heightEntered={`${item.children.length * 60}px`}>
+                            {this.renderList(item.children, levelIndex + 1)}
+                        </Slide>
+                    </ul>
+                </li>
+            );
+        });
+    }
 
-    return (
-      <div className="treeview">
-        <ul className="parent">
-          {this.renderList(items, 0)}
-        </ul>
-      </div>
-    );
-  }
+    render() {
+
+        const { items } = this.props;
+
+        return (
+            <div className="treeview">
+                <ul className="parent">
+                    {this.renderList(items, 0)}
+                </ul>
+            </div>
+        );
+    }
 }
 
 export default TreeView;
