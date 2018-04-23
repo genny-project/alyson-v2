@@ -109,8 +109,7 @@ class GennyTableEditableCell extends Component {
 
         const { value, dataType } = this.props;
         const { valueState } = this.state;
-
-        console.log(dataType);
+        
         switch (dataType) {
 
             case 'Image': {
