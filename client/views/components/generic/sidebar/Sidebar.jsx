@@ -38,12 +38,12 @@ class Sidebar extends Component {
     }
 
     onClick = () => {
-        this.setState({
+        this.setState(prevState => ({
             //isOpen: window.getScreenSize() == 'sm' ? 
-            isOpen: window.getScreenSize() == 'sm' ? false : true
+            isOpen: window.getScreenSize() == 'sm' ? false : !prevState.isOpen
         }), () => {
             localStorage.setItem('sidebar_open', this.state.isOpen);
-        };
+        });
     }
 
     renderChildren = (children) => {

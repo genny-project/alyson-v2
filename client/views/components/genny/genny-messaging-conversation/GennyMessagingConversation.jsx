@@ -290,16 +290,18 @@ class GennyMessagingConversation extends Component {
             return (
                 <Grid
                     className="messaging-conversation-main"
-                    rows={['40px',1]}
+                    rows={window.getScreenSize() == 'sm' ? ['40px',1] : 1}
                     cols={1}
                 >
-                    <div className="conversation-message-title" position={[0,0]}>
-                        <div className='conversation-back-button' onClick={this.handleClickBack}>
-                            <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
-                            <span>Back</span>
+                    {window.getScreenSize() == 'sm' ?
+                        <div className="conversation-message-title" position={[0,0]}>
+                            <div className='conversation-back-button' onClick={this.handleClickBack}>
+                                <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
+                                <span>Back</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="conversation-messages-empty" position={[1,0]}>
+                    : null }
+                    <div className="conversation-messages-empty" position={window.getScreenSize() == 'sm' ? [1,0] : [0,0]}>
                         Welcome to Channel40.<br />
                         There are currently no messages for you to read.
                     </div>
