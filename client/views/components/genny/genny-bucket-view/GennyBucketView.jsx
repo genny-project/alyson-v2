@@ -96,7 +96,7 @@ class GennyBucketView extends PureComponent {
 
             let layout_code = 'card';
             let sublayout = this.props.sublayout[layout_code];
-
+            //console.log(be.created);
             children.push(
                 {
                 content: {
@@ -104,7 +104,8 @@ class GennyBucketView extends PureComponent {
                     description: be.code,
                     screenSize: this.props.screenSize,
                     onClick: this.onClick,
-                    layout: <LayoutLoader layout={sublayout} aliases={{BE: be.code, ROOT: group.code}}/>
+                    layout: <LayoutLoader layout={sublayout} aliases={{BE: be.code, ROOT: group.code}}/>,
+                    created: be.created
                 },
                 id: be.code
                 }

@@ -34,7 +34,8 @@ class BucketColumn extends Component {
     }
 
     state = {
-        isOpen: false
+        isOpen: false,
+        sort: 'asc',
     }
 
     // shouldComponentUpdate() {
@@ -61,9 +62,21 @@ class BucketColumn extends Component {
         }, code);
     }
 
+    sortItems = (items) => {
+        const { sort } = this.state;
+
+        if ( sort == 'desc' ) {
+            return items.sort((x, y) => x.content.created > y.content.created);
+        }
+        else if (sort == 'asc' ) {
+            return items.sort((x, y) => x.content.created < y.content.created);
+        }
+
+    }
+
     renderContent = (provided) => {
         const { title, items, showMovingOptions } = this.props;
-
+        
         return (
             <div ref={provided && provided.innerRef}
                 //style={getListStyle(snapshot.isDraggingOver)}
@@ -72,8 +85,7 @@ class BucketColumn extends Component {
 
                 <div className={`bucket-content size-${window.getScreenSize()} no-select`}>
                     {
-                        items.map((child, index) => {
-
+                        this.sortItems(items).map((child, index) => {
                             return (
                                 <BucketElement
                                 key={child.id}
@@ -107,9 +119,25 @@ class BucketColumn extends Component {
         });
     }
 
+    handleSort = () => {
+        const { sort } = this.state;
+        
+        if (sort == 'desc') {
+            this.setState({
+                sort: 'asc'
+            });
+        }
+        else if (sort == 'asc') {
+            this.setState({
+                sort: 'desc'
+            });
+        }
+    }
+
     render() {
 
         const { className, style, title, groupId, goToPreviousBucket, goToNextBucket, items, legend} = this.props;
+        const { sort } = this.state;
         let titleDiv = null;
         let isMobile = window.getScreenSize() == 'sm';
 
@@ -139,10 +167,10 @@ class BucketColumn extends Component {
                 <IconSmall
                     style={{
                         cursor: 'pointer',
-                        fontSize: '16px'
+                        transform: `scale(1, ${sort == 'desc' ? '-' : ''}1`
                     }}
-                    fa
-                    name='sort-amount-desc'
+                    onClick={this.handleSort}
+                    name='sort'
                 />
                 {
                     goToNextBucket ?
@@ -164,10 +192,8 @@ class BucketColumn extends Component {
                 <IconSmall
                     style={{
                         marginRight: 'auto',
-                        fontSize: '16px',
                         cursor: 'pointer',
                     }}
-                    fa
                     name='list'
                     onClick={() => this.onExpandColumn(this.props.groupId)}
                 />
@@ -177,11 +203,11 @@ class BucketColumn extends Component {
                 <IconSmall
                     style={{
                         marginLeft: 'auto',
-                        fontSize: '16px',
                         cursor: 'pointer',
+                        transform: `scale(1, ${sort == 'desc' ? '-' : ''}1`
                     }}
-                    fa
-                    name='sort-amount-desc'
+                    onClick={this.handleSort}
+                    name='sort'
                 />
             </div>;
         }
