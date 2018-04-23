@@ -39,7 +39,7 @@ class ListItem extends Component {
         };
 
         return (
-            <div className={`list-item ${className} ${isSelected ? 'selected' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null}>
+            <div className={`list-item clickable ${className} ${isSelected ? 'selected' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null}>
                 { this.props.layout || null }
             </div>
         );

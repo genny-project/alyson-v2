@@ -157,7 +157,16 @@ class GennyTable extends Component {
                                 'attributeCode': attribute.attributeCode,
                                 'sortMethod': (a, b) => {
                                     return a.value.localeCompare(b.value);
-                                }
+                                },
+                                'Filter': ({filter, onChange}) => (
+                                    <input
+                                        className='table-filter'
+                                        type='text'
+                                        placeholder={`Filter ${attrName}`}
+                                        value={filter ? filter.value : ''}
+                                        onChange={event => onChange(event.target.value)}
+                                    />
+                                )
                             };
                         }
                         else {

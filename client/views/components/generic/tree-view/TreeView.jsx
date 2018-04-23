@@ -23,7 +23,6 @@ class TreeView extends Component {
         event.stopPropagation();
         event.preventDefault();
 
-        console.log(item.id);
         this.setState({
             selectedItem: item.id
         });
