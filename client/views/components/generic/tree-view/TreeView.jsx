@@ -61,7 +61,7 @@ class TreeView extends Component {
 
                 <li key={item.id} className='tree-view-item'>
                     <div className={`tree-view-item-content ${this.state.selectedItem == item.id ? 'tree-view-item-selected' : ''} `}>
-                        <span className={canOpen ? 'clickable' : ''} onClick={this.onClick(item)}>
+                        <span className={canOpen && ( this.state.selectedItem != item.id ) ? 'clickable' : ''} onClick={this.state.selectedItem == item.id ? null : this.onClick(item)}>
                             { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
                             <span className='tree-view-text'>{item.name}</span>
                             { childNumber && (
