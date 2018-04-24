@@ -7,27 +7,24 @@ import { log } from 'util';
 
 class GennyForm extends Component {
 
-    state = {
-    }
+    state = {}
 
     static propTypes = {
 
     };
 
-    onInputValidation = (newValue, data,) =>  {
+    onInputValidation = (newValue, data, ) => {
 
         let finalValue = newValue;
 
-        if(data.attributeCode.indexOf('PRICE') != -1 || data.attributeCode.indexOf('FEE') != -1) {
+        if (data.attributeCode.indexOf('PRICE') != -1 || data.attributeCode.indexOf('FEE') != -1) {
             finalValue = JSON.stringify({
                 amount: newValue,
                 currency: 'AUD'
             });
-        }
-        else if(data.attributeCode.indexOf('ADDRESS_FULL') != -1) {
+        } else if (data.attributeCode.indexOf('ADDRESS_FULL') != -1) {
             data.attributeCode = data.attributeCode.replace('ADDRESS_FULL', 'ADDRESS_JSON');
-        }
-        else if(data.attributeCode.indexOf('PRI_RATING') != -1) {
+        } else if (data.attributeCode.indexOf('PRI_RATING') != -1) {
             data.attributeCode = 'PRI_RATING_RAW';
         }
 
@@ -47,7 +44,7 @@ class GennyForm extends Component {
 
     onClickEvent = (clickedButton) => {
 
-        if(clickedButton && clickedButton.props) {
+        if (clickedButton && clickedButton.props) {
 
             let data = clickedButton.props.data;
 
@@ -72,7 +69,7 @@ class GennyForm extends Component {
 
         //console.log("Submitting form....");
 
-        if(questionGroupCode) {
+        if (questionGroupCode) {
 
             let btnEventData = {
                 code: questionGroupCode,
@@ -88,12 +85,11 @@ class GennyForm extends Component {
 
     getNumberOfQuestions = (askGroup, counter) => {
 
-        if(counter == null) counter = 0;
+        if (counter == null) counter = 0;
 
-        if(askGroup && askGroup.childAsks) {
+        if (askGroup && askGroup.childAsks) {
             askGroup.childAsks.forEach(childask => counter += this.getNumberOfQuestions(childask, counter));
-        }
-        else if (askGroup && !askGroup.childAsks) {
+        } else if (askGroup && !askGroup.childAsks) {
             counter += 1;
         }
 
@@ -102,7 +98,7 @@ class GennyForm extends Component {
 
     generateFormData(askGroup) {
 
-        if(askGroup && askGroup.childAsks) {
+        if (askGroup && askGroup.childAsks) {
 
             let submitButtons = [];
             let submitButtonsData = [];
@@ -113,16 +109,17 @@ class GennyForm extends Component {
                 'next',
                 'cancel',
                 'reset',
-                'accept'
+                'accept',
+                'email'
             ];
 
-            if(askGroup.attributeCode.includes('EMPTY')) return null;
+            if (askGroup.attributeCode.includes('EMPTY')) return null;
 
-            if(askGroup.attributeCode.includes('BUTTON')) {
+            if (askGroup.attributeCode.includes('BUTTON')) {
 
                 availableButtons.forEach(availableButton => {
 
-                    if(askGroup.attributeCode.indexOf(availableButton.toUpperCase()) > -1) {
+                    if (askGroup.attributeCode.indexOf(availableButton.toUpperCase()) > -1) {
                         submitButtonsData.push({
                             index: askGroup.attributeCode.indexOf(availableButton.toUpperCase()),
                             button: 'form-' + availableButton
@@ -142,7 +139,7 @@ class GennyForm extends Component {
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
-                    if(ask.childAsks && !ask.attributeCode.includes("EMPTY")) return this.generateFormData(ask);
+                    if (ask.childAsks && !ask.attributeCode.includes("EMPTY")) return this.generateFormData(ask);
 
                     let inputType = 'Text';
                     let valList = [];
@@ -153,28 +150,28 @@ class GennyForm extends Component {
                     let options = [];
                     let inputMask = null;
 
-                    if(be_code && attributeCode) {
+                    if (be_code && attributeCode) {
 
                         const att = BaseEntityQuery.getBaseEntityAttribute(be_code, attributeCode);
 
-                        if(att != null) {
+                        if (att != null) {
                             default_value = att.value;
                         }
                     }
 
-                    if(attributeCode) {
+                    if (attributeCode) {
 
                         const att_details = BaseEntityQuery.getAttribute(attributeCode);
-                        if(att_details) {
+                        if (att_details) {
                             placeholder = att_details.placeholder;
 
-                            if(att_details.dataType != null) {
+                            if (att_details.dataType != null) {
 
-                                if(att_details.dataType.inputmask != null) {
+                                if (att_details.dataType.inputmask != null) {
 
                                     inputMask = att_details.dataType.inputmask.split(',').map(x => {
 
-                                        if(x.indexOf('d') == 1 || x.indexOf('w') == 1) {
+                                        if (x.indexOf('d') == 1 || x.indexOf('w') == 1) {
                                             return new RegExp(x);
                                         }
 
@@ -184,10 +181,10 @@ class GennyForm extends Component {
 
                                 inputType = att_details.dataType.className;
 
-                                if(att_details.dataType.validationList != null) {
+                                if (att_details.dataType.validationList != null) {
 
                                     valList = att_details.dataType.validationList;
-                                    if(valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
+                                    if (valList.length > 0 && valList[0].selectionBaseEntityGroupList && valList[0].selectionBaseEntityGroupList[0]) {
 
                                         options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
 
@@ -247,13 +244,20 @@ class GennyForm extends Component {
     render() {
 
         const { root, style, className, formStyle } = this.props;
-        const componentStyle = { ...style, };
+        const componentStyle = {...style, };
         let questionGroup = AskQuery.getQuestionGroup(root);
 
-        return (
-            <div className={`genny-form ${className || ''}`} style={componentStyle}>
-                <Form {...this.props} data={questionGroup ? this.generateFormData(questionGroup) : []} style={{...formStyle}}/>
-            </div>
+        return ( <
+            div className = { `genny-form ${className || ''}` }
+            style = { componentStyle } >
+            <
+            Form {...this.props }
+            data = { questionGroup ? this.generateFormData(questionGroup) : [] }
+            style = {
+                {...formStyle }
+            }
+            /> < /
+            div >
         );
     }
 }
