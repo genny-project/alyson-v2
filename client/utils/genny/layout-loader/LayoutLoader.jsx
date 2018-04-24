@@ -106,6 +106,11 @@ class LayoutLoader extends Component {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'created')
                                 };
                             }
+                            else if(attribute_code == 'name') {
+                              attribute = {
+                                  value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'name')
+                              };
+                            }
                             else if(attribute_code == "code") {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
@@ -130,6 +135,11 @@ class LayoutLoader extends Component {
                                         else if(be_attribute == "code") {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
+                                            };
+                                        }
+                                        else if(be_attribute == "name") {
+                                            attribute = {
+                                                value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'name')
                                             };
                                         }
                                         else {

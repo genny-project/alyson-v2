@@ -8,7 +8,7 @@ class List extends Component {
 
     static defaultProps = {
         className: '',
-        itemsPerPage: 4,
+        itemsPerPage: 20,
         hideNav: false,
         hideCount: false,
         countText: 'Items Found',

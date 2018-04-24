@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { array, object, bool, string } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
-import { ImageView } from 'views/components';
+import { ImageView, ContactButton } from 'views/components';
 
 class GennyTableEditableCell extends Component {
 
@@ -61,7 +61,7 @@ class GennyTableEditableCell extends Component {
     handleBlur = (event) => {
 
         const { targetCode, code, value } = this.props;
-        
+
         let newValue = event.target.value;
 
         if(newValue != null && newValue != value) {
@@ -113,7 +113,7 @@ class GennyTableEditableCell extends Component {
         switch (dataType) {
 
             case 'Image': {
-                return <ImageView src={valueState || value} style={{ width: '50px', height: '50px' }} />;
+                return <ImageView src={valueState || value} style={{ width: '30px', height: '30px' }} />;
             }
 
             case 'link': {
@@ -129,9 +129,25 @@ class GennyTableEditableCell extends Component {
                     />
                 );
             }
-           
+
+            case 'Mobile': {
+                return (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                        <input
+                            ref={r => this.input = r}
+                            className="table-input"
+                            value={valueState != null ? valueState : value}
+                            type="text"
+                            onBlur={this.handleBlur}
+                            onKeyDown={this.handleKeyDown}
+                            onChange={this.handleChange}
+                        />
+                        <ContactButton link={value}/>
+                    </div>
+                );
+            }
+
             default: {
-                //console.log(value);
                 return (
                     <input
                         ref={r => this.input = r}
