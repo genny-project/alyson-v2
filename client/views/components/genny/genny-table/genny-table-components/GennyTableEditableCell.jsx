@@ -90,6 +90,11 @@ class GennyTableEditableCell extends Component {
                                 lastSentAnswer: newValue
                             });
                         }
+                        else {
+                            this.setState({
+                                valueState: this.state.lastSentAnswer
+                            });
+                        }
                         this.input.value = this.state.lastSentAnswer;
                     //}
                 }
@@ -117,7 +122,6 @@ class GennyTableEditableCell extends Component {
             }
 
             case 'link': {
-
                 return <a href={valueState || value}>Click Here</a>;
             }
 
@@ -130,9 +134,16 @@ class GennyTableEditableCell extends Component {
                 );
             }
 
-            case 'Mobile': {
+            case 'Mobile': 
+            case 'Email' : {
                 return (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
+                        <ContactButton
+                            link={value}
+                            icon={dataType == 'Email' ? 'email' : 'phone'}
+                            type={dataType == 'Email' ? 'mailto' : 'tel'}
+                            style={{marginRight: '5px'}}
+                        />
                         <input
                             ref={r => this.input = r}
                             className="table-input"
@@ -142,7 +153,6 @@ class GennyTableEditableCell extends Component {
                             onKeyDown={this.handleKeyDown}
                             onChange={this.handleChange}
                         />
-                        <ContactButton link={value}/>
                     </div>
                 );
             }

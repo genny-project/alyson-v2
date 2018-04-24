@@ -22,7 +22,7 @@ class SplitView extends Component {
     }
 
     close = () => {
-        console.log('close');
+        //console.log('close');
         this.setState({
             isOpen: true
         });
@@ -30,7 +30,7 @@ class SplitView extends Component {
     }
 
     open = () => {
-        console.log('open');
+        //console.log('open');
         this.setState({
             isOpen: false
         });
@@ -41,23 +41,23 @@ class SplitView extends Component {
         
         return children.map((child, index) => {
             if (child.$$typeof) {
-                // if (this.state.isMobile && index > 0) {
-                //     return (
-                //         <div position={[0, index]} >
-                //             <div className='conversation-back-button' onClick={this.close}>
-                //                 <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
-                //                 <span>Back</span>
-                //             </div>
-                //             {child}
-                //         </div>
-                //     );
-                // }
-                // else {
+                if (this.state.isMobile && index > 0) {
+                    return (
+                        <div position={[0, index]} >
+                            <div className='conversation-back-button' onClick={this.close}>
+                                <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
+                                <span>Back</span>
+                            </div>
+                            {child}
+                        </div>
+                    );
+                }
+                else {
                     return React.cloneElement(child, {
                         position: [0, index],
                         onClick: index > 0 ? this.close : this.open
                     });
-                // }
+                }
             }
         });
     }

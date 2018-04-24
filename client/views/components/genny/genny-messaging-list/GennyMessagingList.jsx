@@ -85,13 +85,14 @@ class GennyMessagingList extends Component {
         const conversations = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_CHAT');
 
         let contactAliases = this.getContactAliases(conversations);
-        console.log( contactAliases );
+        //console.log( contactAliases );
 
         return (
             <div className="genny-messaging-list">
                 <GennyList
                     position={[0, 0]}
                     root={root}
+                    itemsPerPage={10}
                     localAliases={contactAliases}
                     onItemClick={this.handleClickConversation}
                     selectedItem={selectedItem || this.props.selectedItem}

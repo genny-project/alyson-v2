@@ -1,6 +1,6 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
-import { string, number, bool, object, array } from 'prop-types';
+import { string, number, bool, object, array, func } from 'prop-types';
 import { List, GennyForm } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -36,6 +36,7 @@ class GennyList extends Component {
         showSearchBar: bool,
         gennyListStyle: object,
         numberOfItems: number,
+        onClick: func,
     };
 
     state = {
@@ -48,6 +49,7 @@ class GennyList extends Component {
             itemCode: listItemProps.code,
             userCode: GennyBridge.getUser()
         };
+
         btnValue = JSON.stringify(btnValue);
 
         GennyBridge.sendBtnClick('BTN_CLICK', {
@@ -55,17 +57,23 @@ class GennyList extends Component {
             value: btnValue
         });
 
+        console.log(listItemProps);
         this.setState({
-            selectedItem: listItemProps.code,
+            selectedItemState: listItemProps.code,
         });
+
+        if (this.props.onClick) this.props.onClick();
     }
 
     generateListItems(data) {
 
         const { localAliases, selectedItem, root, numberOfItems } = this.props;
+        const { selectedItemState } = this.state;
 
         let newData = [];
+        
         if(data.length == 0) return [];
+
         newData = data.map((item, index) => {
 
             if(item) {
@@ -73,8 +81,8 @@ class GennyList extends Component {
                 let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
                 if(linkToParent) {
 
-                    const isSelected = selectedItem == item.code ? true : false;
-
+                    const isSelected = selectedItemState == item.code || selectedItem == item.code ? true : false;
+                    
                     //TODO: alias prop should have a value that matches the item code to match them correctly
                     const aliasProp = localAliases != null && (localAliases.constructor == Array ? localAliases[index] : localAliases);
 
@@ -85,7 +93,7 @@ class GennyList extends Component {
                     item['rootCode'] = root;
                     item['isSelected'] = isSelected;
 
-                    console.log( {BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp} );
+                    //console.log( {BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp} );
                     return item;
                 }
             }
@@ -119,7 +127,7 @@ class GennyList extends Component {
         let projectColor = BaseEntityQuery.getBaseEntityAttribute(projectCode, 'PRI_COLOR');
         projectColor = projectColor ? projectColor.value : null;
 
-        data = [...new Set(data)]
+        data = [...new Set(data)];
 
         if (showEmpty || !showEmpty && data && data.length > 0 ) {
             return (

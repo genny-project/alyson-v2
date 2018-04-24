@@ -163,7 +163,15 @@ class GennyTable extends Component {
                                 //'minWidth': typeof width == 'number' ? width : 300,
                                 'attributeCode': attribute.attributeCode,
                                 'sortMethod': (a, b) => {
-                                    return a.value.localeCompare(b.value);
+                                    let valueA = a.value && a.value;
+                                    let valueB = b.value && b.value;
+                                    
+                                    if ( parseFloat(valueA) != null && parseFloat(valueB) != null ) {
+                                        return valueA < valueB ? 1 : -1;
+                                    }
+                                    else {
+                                        return valueA.localeCompare(valueB);
+                                    }
                                 },
                                 'Filter': ({filter, onChange}) => (
                                     <input
