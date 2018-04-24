@@ -24,3 +24,4 @@ export { default as GennyStatus } from './genny-status';
 export { default as GennyToasts } from './genny-toasts';
 export { default as TabContainer } from './tab-container';
 export { default as GennyCounter } from './genny-counter';
+export { default as GennyPieChart } from './genny-pie-chart';
