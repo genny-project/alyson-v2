@@ -70,7 +70,7 @@ class Sidebar extends Component {
         const componentStyle = {
             ...style,
         };
-
+ 
         let image = null;
         if ( src ) {
             image = (
