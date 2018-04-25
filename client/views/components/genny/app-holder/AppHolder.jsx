@@ -1,3 +1,4 @@
+/* global UserTiming keycloak */
 import './appHolder.scss';
 import React, { Component } from 'react';
 import { any } from 'prop-types';
@@ -46,6 +47,17 @@ class AppHolder extends Component {
             GennyBridge.sendBtnClick('USER_GO_OFFLINE', {});
             event.preventDefault();
         });
+
+        try {
+        
+            const id = keycloak && keycloak.idTokenParsed;
+            const name = id && id.name;
+            const email = id && id.email;
+            UserTiming.setUser({ name: `${name || 'Unknown'} - ${email || 'Unknown'}` });
+            UserTiming.event({ type: 'APP_LOADED' });
+        } catch ( e ) {
+            /* Do nothing */
+        }
     }
 
     render() {
