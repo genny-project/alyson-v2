@@ -170,7 +170,7 @@ class GennyTable extends Component {
                                         return valueA < valueB ? 1 : -1;
                                     }
                                     else {
-                                        return valueA.contains(valueB) || valueB.contains(valueA);
+                                        return valueA.toLowerCase().compareLocale(valueB.toLowerCase()) ? 1 : -1;
                                     }
                                 },
                                 'Filter': ({filter, onChange}) => (
@@ -181,7 +181,17 @@ class GennyTable extends Component {
                                         value={filter ? filter.value : ''}
                                         onChange={event => onChange(event.target.value)}
                                     />
-                                )
+                                ),
+                                'filterMethod': (filter, row, column) => {
+                                    const cell = row[attribute.attributeCode];
+                                    const cellValue = cell && cell.value;
+                                    const filterValue = filter && filter.value;
+
+                                    if (cellValue && filterValue) {
+                                        return cellValue.toLowerCase().includes(filterValue.toLowerCase());
+                                    }
+                                    return false;
+                                },
                             };
                         }
                         else {
