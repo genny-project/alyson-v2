@@ -185,15 +185,20 @@ export default function reducer(state = initialState, action) {
                             [action.payload.parentCode]: {
                                 ...state.data[action.payload.parentCode],
                                 children: [
-                                    ...(state.data[action.payload.parentCode] != null ? state.data[action.payload.parentCode].children : []),
-                                    ...action.payload.items.map((item, index) => {
+                                    ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].children != null ? state.data[action.payload.parentCode].children : []),
+                                    ...action.payload.items.map((item) => {
 
                                         if (item.code != null) {
 
-                                            if(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].children != null && state.data[action.payload.parentCode].children.filter(child => child.code == item.code) == 0) {
-                                              return state.data[item.code] ? state.data[item.code] : {
-                                                  code: item.code
-                                              };
+                                            if (state.data[action.payload.parentCode] == null) state.data[action.payload.parentCode] = { code: action.payload.parentCode };
+
+                                            if (state.data[action.payload.parentCode].children == null) state.data[action.payload.parentCode].children = [];
+
+                                            if (state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].children != null && state.data[action.payload.parentCode].children.filter(child => child.code == item.code) == 0) {
+
+                                                return state.data[item.code] ? state.data[item.code] : {
+                                                    code: item.code
+                                                };
                                             }
                                         }
 
@@ -208,30 +213,30 @@ export default function reducer(state = initialState, action) {
 
                                             if (existing["LNK_CORE"] == null) {
                                                 existing["LNK_CORE"] = [
-                                                    ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null &&  state.data[action.payload.parentCode].links["LNK_CORE"] ? state.data[action.payload.parentCode].links["LNK_CORE"] : []),
+                                                    ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null && state.data[action.payload.parentCode].links["LNK_CORE"] ? state.data[action.payload.parentCode].links["LNK_CORE"] : []),
                                                 ];
                                             }
 
-                                            if(existing["LNK_CORE"] != null && existing["LNK_CORE"].filter(lnk => lnk.targetCode == newItem.code) == 0) {
+                                            if (existing["LNK_CORE"] != null && existing["LNK_CORE"].filter(lnk => lnk.targetCode == newItem.code) == 0) {
 
-                                              existing["LNK_CORE"] = [
-                                                  ...existing["LNK_CORE"],
-                                                  ...[{
-                                                      attributeCode: "LINK",
-                                                      weight: 1,
-                                                      targetCode: newItem.code,
-                                                      sourceCode: action.payload.parentCode,
-                                                      linkValue: "LINK",
-                                                      valueString: "LINK",
-                                                      link: {
-                                                          attributeCode: "LINK",
-                                                          weight: 1,
-                                                          targetCode: newItem.code,
-                                                          sourceCode: action.payload.parentCode,
-                                                          linkValue: "LINK",
-                                                      }
-                                                  }]
-                                              ]  
+                                                existing["LNK_CORE"] = [
+                                                    ...existing["LNK_CORE"],
+                                                    ...[{
+                                                        attributeCode: "LINK",
+                                                        weight: 1,
+                                                        targetCode: newItem.code,
+                                                        sourceCode: action.payload.parentCode,
+                                                        linkValue: "LINK",
+                                                        valueString: "LINK",
+                                                        link: {
+                                                            attributeCode: "LINK",
+                                                            weight: 1,
+                                                            targetCode: newItem.code,
+                                                            sourceCode: action.payload.parentCode,
+                                                            linkValue: "LINK",
+                                                        }
+                                                    }]
+                                                ]
                                             }
                                         }
 
