@@ -66,10 +66,10 @@ class BucketColumn extends Component {
         const { sort } = this.state;
 
         if ( sort == 'desc' ) {
-            return items.sort((x, y) => x.content.created > y.content.created ? -1 : 1);
+            return items.sort((x, y) => x.content && x.content.created > y.content && y.content.created ? -1 : 1);
         }
         else if (sort == 'asc' ) {
-            return items.sort((x, y) => x.content.created < y.content.created ? 1 : -1);
+            return items.sort((x, y) => x.content && x.content.created < y.content && y.content.created ? 1 : -1);
         }
 
     }
