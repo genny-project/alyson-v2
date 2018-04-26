@@ -38,7 +38,7 @@ class BaseEntityQuery {
             return null;
         }
 
-        if (baseEntityCode == "GRP_ROOT" && state.data["GRP_ROOT"] == null) { // booouuuhhhhh channel40
+        if (baseEntityCode == "GRP_ROOT" && store.getState().baseEntity.data["GRP_ROOT"] == null) { // booouuuhhhhh channel40
 
             const relationships = store.getState().baseEntity.relationships;
             const beRoot = relationships["GRP_ROOT"];
