@@ -199,7 +199,7 @@ class Input extends Component {
 
     renderInput() {
 
-        const { ...rest } = this.props;
+        const { identifier, ...rest } = this.props;
         const { validationStatus } = this.state;
         let items = this.props.options;
 
@@ -212,6 +212,7 @@ class Input extends Component {
                     {...rest}
                     onClick={this.props.onClickEvent}
                     className="facebook"
+                    className={identifier}
                     name=""
                     type="facebook"
                 />
@@ -223,6 +224,7 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     value={this.state.value}
+                    className={identifier}
                     handleOnChange={this.handleOnChange}
                     dateDisplayFormat={window.getScreenSize() == 'sm' ? 'yyyy-MM-dd' : 'YYYY-MM-DD'}
                     onFocus={this.onFocus}
@@ -236,6 +238,7 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     value={this.state.value}
+                    className={identifier}
                     handleOnChange={this.handleOnChange}
                     showTimeSelect={false}
                     dateDisplayFormat={window.getScreenSize() == 'sm' ? 'yyyy-MM-dd' : 'YYYY-MM-DD'}
@@ -250,6 +253,7 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     onFocus={this.onFocus}
+                    className={identifier}
                     onBlur={this.onBlur}
                     value={this.state.value}
                     handleOnChange={this.handleOnChange}
@@ -274,6 +278,7 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    className={identifier}
                     handleOnChange={this.handleOnChange}
                     value={this.state.value != null ? this.state.value : false}
                 />
@@ -288,6 +293,7 @@ class Input extends Component {
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     value={this.state.value}
+                    className={identifier}
                     // onFocus={this.onFocus}
                     // onBlur={this.onBlur}
                 />
@@ -298,6 +304,7 @@ class Input extends Component {
                     {...rest}
                     items={items}
                     validation={this.validateInput}
+                    className={identifier}
                     validationStatus={validationStatus}
                     // onFocus={this.onFocus}
                     // onBlur={this.onBlur}
@@ -309,6 +316,7 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    className={identifier}
                 />
             );
             case 'upload-photo':
@@ -320,6 +328,7 @@ class Input extends Component {
                 <InputUpload
                     {...rest}
                     validation={this.validateInput}
+                    className={identifier}
                     validationStatus={validationStatus}
                 />
             );
@@ -328,6 +337,7 @@ class Input extends Component {
                 <InputButton
                     {...rest}
                     onClick={this.props.onClickEvent}
+                    className={identifier}
                 />
             );
             case 'Answer Button':
@@ -336,6 +346,7 @@ class Input extends Component {
                 <InputButton
                     {...rest}
                     onClick={this.props.onClick}
+                    className={identifier}
                 />
             );
             case 'Time':
@@ -343,6 +354,7 @@ class Input extends Component {
                 <InputTime
                     {...rest}
                     validation={this.validateInput}
+                    className={identifier}
                     validationStatus={validationStatus}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
@@ -354,6 +366,7 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    className={identifier}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                 />
@@ -366,6 +379,7 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    className={identifier}
                     value={this.state.value}
                     prefix={this.props.type == 'Currency' ? '$' : ''}
                     handleOnChange={this.handleOnChange}
@@ -379,6 +393,7 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    className={identifier}
                     value={this.state.value}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
@@ -390,6 +405,7 @@ class Input extends Component {
                     {...rest}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
+                    className={identifier}
                     handleOnChange={this.handleOnChange}
                     //value={this.state.value}
                 />
@@ -400,6 +416,7 @@ class Input extends Component {
                   {...rest}
                   validation={this.validateInput}
                   validationStatus={validationStatus}
+                  className={identifier}
                   value={this.state.value}
                 />
             );
@@ -408,6 +425,7 @@ class Input extends Component {
                 <InputTerms
                     {...rest}
                     validation={this.validateInput}
+                    className={identifier}
                     validationStatus={validationStatus}
                     value={this.state.value == true ? true : false}
                     handleOnChange={this.handleOnChange}
@@ -419,6 +437,7 @@ class Input extends Component {
                     {...rest}
                     handleOnChange={this.handleOnChange}
                     value={this.state.value}
+                    className={identifier}
                     validation={this.validateInput}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
@@ -429,6 +448,7 @@ class Input extends Component {
                 <InputText
                     {...rest}
                     validation={this.validateInput}
+                    className={identifier}
                     validationStatus={validationStatus}
                     handleOnChange={this.handleOnChange}
                     value={this.state.value}
