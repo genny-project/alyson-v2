@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-const { PieChart, Pie, Sector, Cell } = Recharts;
-import { array, object, number } from 'prop-types';
+import { PieChart, Pie, Sector, Cell } from 'recharts';
+import { array, object, number, string } from 'prop-types';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -8,9 +9,10 @@ const renderCustomizedLabel = ({
   cy,
   midAngle,
   innerRadius,
+  github,
   outerRadius,
   percent,
-  index
+  index,
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -32,17 +34,55 @@ const renderCustomizedLabel = ({
 class GennyPieChart extends Component {
   static propTypes = {
     data: array,
-    colors: object,
+    colors: array,
     containerHeight: number,
-    containerWidth: number
+    containerWidth: number,
+    root: string,
+    only: array,
+    except: array,
   };
+
+  static defaultProps = {
+    root: '',
+    only: [],
+    except: [],
+  };
+
+  getData = () => {
+    const { root, only, except } = this.props;
+    console.log(root, only, 'log the props dashboard');
+
+    if (root) {
+      const datas = BaseEntityQuery.getEntityChildren(root);
+      console.log(datas, 'log datas');
+
+      if (only && only.length > 0) {
+        const filtered = only.map(data => {
+          const data1 = datas.filter(dd => {
+            return dd.code === data;
+          });
+          return data1;
+        });
+
+        console.log(filtered, 'filtered only');
+        const req = filtered.map(ff => {
+          return { name: 'asdad', value: 4 };
+        });
+        console.log(req, 'final data returned');
+        return req;
+      }
+
+      return null;
+    }
+  };
+
   render() {
-    const { data, colors, containerHeight, containerWidth } = this.props;
+    const { data, colors, containerHeight, containerWidth, root } = this.props;
     return (
       <div className="genny-pie-chart">
         <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
           <Pie
-            data={data}
+            data={this.getData()}
             cx={300}
             cy={200}
             labelLine={false}
@@ -50,8 +90,8 @@ class GennyPieChart extends Component {
             outerRadius={containerHeight / 2}
             fill="#8884d8"
           >
-            {data.map((entry, index) => (
-              <Cell fill={COLORS[index % COLORS.length]} />
+            {this.getData().map((entry, index) => (
+              <Cell fill={colors[index % colors.length]} />
             ))}
           </Pie>
         </PieChart>
