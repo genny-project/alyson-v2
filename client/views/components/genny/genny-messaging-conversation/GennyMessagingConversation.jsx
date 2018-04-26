@@ -207,22 +207,13 @@ class GennyMessagingConversation extends Component {
         <Grid
             className="messaging-conversation-main"
             rows={[
-                '40px',
                 { style: { flexGrow: 12 }},
                 { style: { flexGrow: 0.5, flexShrink: 0 }}]}
             cols={1}
-        >
-            <div className="conversation-message-title" position={[0,0]}>
-                <div className='conversation-back-button' onClick={this.handleClickBack}>
-                    <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
-                    <span>Back</span>
-                </div>
-                {title}
-            </div>
-            
+        >            
             {
                 messages && messages.length > 0 ?
-                    <div className={`conversation-messages-container ${window.getScreenSize()}`} position={[ 1,0]}>
+                    <div className={`conversation-messages-container ${window.getScreenSize()}`} position={[ 0,0]}>
                          {this.renderMessages(messages, currentUser, otherUser)}
                     </div>
                 : null
@@ -230,12 +221,12 @@ class GennyMessagingConversation extends Component {
             {
 
                 !messages || messages.length <= 0 ?
-                    <div className="conversation-messages-empty" position={[1,0]}>
+                    <div className="conversation-messages-empty" position={[0,0]}>
                         Start your conversation with {otherUser && otherUser.attributes.PRI_FIRSTNAME.value}
                     </div>
                 : null
             }
-            <div className="conversation-message-input" position={[ 2 ,0]}>{this.renderTextInput()}</div>
+            <div className="conversation-message-input" position={[ 1 ,0]}>{this.renderTextInput()}</div>
         </Grid>);
     }
 

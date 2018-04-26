@@ -170,7 +170,7 @@ class GennyTable extends Component {
                                         return valueA < valueB ? 1 : -1;
                                     }
                                     else {
-                                        return valueA.localeCompare(valueB);
+                                        return valueA.contains(valueB) || valueB.contains(valueA);
                                     }
                                 },
                                 'Filter': ({filter, onChange}) => (
