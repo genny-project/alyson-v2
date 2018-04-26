@@ -36,16 +36,31 @@ class MessageHandler {
       eventType = message.event_type;
     }
 
-    /* Get the redux action to send */
-    const action = events.incoming[eventType];
+    /* handle bulk messages */
+    if(message.data_type == 'QDataBulkMessage' && message.messages != null && message.messages.length) {
 
-    if ( !action ) {
-      console.warn( `[MessageHandler] No action creator for events of type ${eventType} `);
-      console.warn ( message );
-      return;
+        message.messages.forEach(msg => {
+            onMessage( msg );
+        })
+    }
+    else {
+        handleMessage(message, eventType);
     }
 
-    store.dispatch(action(message));
+  }
+
+  handleMessage(message, eventType) {
+
+      /* Get the redux action to send */
+      const action = events.incoming[eventType];
+
+      if ( !action ) {
+        console.warn( `[MessageHandler] No action creator for events of type ${eventType} `);
+        console.warn ( message );
+        return;
+      }
+
+      store.dispatch(action(message));
   }
 }
 
