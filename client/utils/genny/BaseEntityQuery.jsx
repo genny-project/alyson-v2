@@ -20,7 +20,7 @@ class BaseEntityQuery {
         const recurse = (itemCode, itemWeight) => {
 
             let item = BaseEntityQuery.getBaseEntity(itemCode);
-            if(item != null && item != undefined) {
+            if (item != null && item != undefined) {
 
                 if (!Object.keys(safeRecursion).includes(item.code)) {
 
@@ -38,7 +38,7 @@ class BaseEntityQuery {
             return null;
         }
 
-        if(baseEntityCode == "GRP_ROOT") { // booouuuhhhhh
+        if (baseEntityCode == "GRP_ROOT" && store.getState().baseEntity.data["GRP_ROOT"] == null) { // booouuuhhhhh channel40
 
             const relationships = store.getState().baseEntity.relationships;
             const beRoot = relationships["GRP_ROOT"];
@@ -48,24 +48,23 @@ class BaseEntityQuery {
             items.forEach(item => {
 
                 const newItem = recurse(item.code, counter);
-                if(newItem) {
+                if (newItem) {
                     results.push(newItem);
                 }
 
                 counter += 1;
             });
-        }
-        else {
+        } else {
 
-            if(be != null && be.links != null) {
+            if (be != null && be.links != null) {
 
                 Object.keys(be.links).forEach(linkCode => {
 
                     be.links[linkCode].forEach(linkedItem => {
 
-                        if(linkedItem.targetCode != null) {
+                        if (linkedItem.targetCode != null) {
                             const newItem = recurse(linkedItem.targetCode, linkedItem.weight);
-                            if(newItem) {
+                            if (newItem) {
                                 results.push(newItem);
                             }
                         }
@@ -99,19 +98,17 @@ class BaseEntityQuery {
 
             be.links[linkCode].forEach(link => {
 
-                if ( type == 'hide') {
+                if (type == 'hide') {
 
                     if (!linkValues || !linkValues.includes(link.linkValue)) {
                         add(link);
                     }
-                }
-                else if ( type == 'show'){
+                } else if (type == 'show') {
 
                     if (linkValues && linkValues.includes(link.linkValue)) {
                         add(link);
                     }
-                }
-                else {
+                } else {
                     add(link);
                 }
             });
@@ -213,7 +210,7 @@ class BaseEntityQuery {
                     if (currentLink.linkValue == linkValue) {
 
                         const be = BaseEntityQuery.getBaseEntity(currentLink.targetCode);
-                        if(be != null) {
+                        if (be != null) {
                             bes.push(be);
                         }
                     }
@@ -231,7 +228,7 @@ class BaseEntityQuery {
     static getLinkedBaseEntity = (baseEntityCode, linkValue) => {
 
         let bes = BaseEntityQuery.getLinkedBaseEntitiesByValue(baseEntityCode, linkValue);
-        if(bes != null && bes.length > 0) {
+        if (bes != null && bes.length > 0) {
             return bes[0];
         }
 
@@ -243,7 +240,7 @@ class BaseEntityQuery {
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         if (be && be.links) {
             const bes = Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, type, linkValues));
-            if(bes != null && bes.length > 0) return bes[0];
+            if (bes != null && bes.length > 0) return bes[0];
         }
 
         return [];
