@@ -23,35 +23,31 @@ class LayoutLoader extends Component {
     getLayoutValues(layout) {
 
         let layoutValues = [];
-        if(layout instanceof Object) {
+        if (layout instanceof Object) {
             Object.keys(layout).forEach(key => {
 
                 let results = this.getLayoutValues(layout[key]);
-                if(results instanceof Array) {
+                if (results instanceof Array) {
                     results.forEach(result => {
                         layoutValues.push(result);
                     });
-                }
-                else {
+                } else {
                     layoutValues.push(results);
                 }
             });
-        }
-        else if (layout instanceof Array) {
+        } else if (layout instanceof Array) {
 
             layout.forEach(value => {
                 let results = this.getLayoutValues(value);
-                if(results instanceof Array) {
+                if (results instanceof Array) {
                     results.forEach(result => {
                         layoutValues.push(result);
                     });
-                }
-                else {
+                } else {
                     layoutValues.push(results);
                 }
             });
-        }
-        else if (typeof layout == 'string') {
+        } else if (typeof layout == 'string') {
             return [layout];
         }
 
@@ -66,19 +62,18 @@ class LayoutLoader extends Component {
             let splitValue = '';
             let toBeReplacedAlias = alias;
 
-            if(alias.includes("${")) {
+            if (alias.includes("${")) {
 
                 const regex = /[$][{](.*?)[}]/;
                 const v = regex.exec(alias);
 
-                if(v != null) {
-                    if(v[1] != null) {
+                if (v != null) {
+                    if (v[1] != null) {
                         splitValue = v[1];
                         toBeReplacedAlias = v[0];
                     }
                 }
-            }
-            else {
+            } else {
                 splitValue = alias;
             }
 
@@ -94,82 +89,71 @@ class LayoutLoader extends Component {
 
                     let localAliasCode = localAliases[alias_key];
 
-                    if(alias_key == alias_code) {
+                    if (alias_key == alias_code) {
 
                         let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
 
-                        if(baseEntity) {
+                        if (baseEntity) {
 
                             // i am so sorry
-                            if(attribute_code == 'created') {
+                            if (attribute_code == 'created') {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'created')
                                 };
-                            }
-                            else if(attribute_code == 'name') {
-                              attribute = {
-                                  value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'name')
-                              };
-                            }
-                            else if(attribute_code == "code") {
+                            } else if (attribute_code == 'name') {
+                                attribute = {
+                                    value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'name')
+                                };
+                            } else if (attribute_code == "code") {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
                                 };
-                            }
-                            else if(attribute_code == "link") {
+                            } else if (attribute_code == "link") {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
 
-                                if(linkValue != null && be_attribute != null) {
+                                if (linkValue != null && be_attribute != null) {
 
                                     const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
 
-                                    if(linkedBaseEntity != null) {
+                                    if (linkedBaseEntity != null) {
 
-                                        if(be_attribute == 'created') {
+                                        if (be_attribute == 'created') {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created')
                                             };
-                                        }
-                                        else if(be_attribute == "code") {
+                                        } else if (be_attribute == "code") {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
                                             };
-                                        }
-                                        else if(be_attribute == "name") {
+                                        } else if (be_attribute == "name") {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'name')
                                             };
-                                        }
-                                        else {
+                                        } else {
                                             attribute = BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute);
                                         }
                                     }
                                 }
-                            }
-                            else if(attribute_code == "links") {
+                            } else if (attribute_code == "links") {
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
                                 attribute = [];
 
-                                if(linkValue != null && be_attribute != null) {
+                                if (linkValue != null && be_attribute != null) {
 
                                     const linkedBaseEntities = BaseEntityQuery.getLinkedBaseEntities(localAliasCode, linkValue);
 
                                     let tempAttribute = [];
                                     linkedBaseEntities.forEach(linkedBaseEntity => {
-                                        if(linkedBaseEntity != null) {
+                                        if (linkedBaseEntity != null) {
 
-                                            if(be_attribute == 'created') {
-                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created')
-                                            );
-                                            }
-                                            else if(be_attribute == "code") {
-                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
-                                            );
-                                            }
-                                            else {
+                                            if (be_attribute == 'created') {
+                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created'));
+                                            } else if (be_attribute == "code") {
+                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code'));
+                                            } else {
                                                 tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute).value);
                                             }
                                         }
@@ -177,15 +161,13 @@ class LayoutLoader extends Component {
                                     attribute.value = tempAttribute.toString();
                                 }
 
-                            }
-                            else {
+                            } else {
                                 attribute = splitValue.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                             }
 
-                            if(attribute == null && attribute_code != null && (splitValue.length == 2 || splitValue.length == 4)) {
+                            if (attribute == null && attribute_code != null && (splitValue.length == 2 || splitValue.length == 4)) {
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, ''));
-                            }
-                            else if(alias_code == "ROOT") {
+                            } else if (alias_code == "ROOT") {
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, baseEntity.code));
                             }
                         }
@@ -193,16 +175,16 @@ class LayoutLoader extends Component {
                 });
             }
 
-            if(!localAliases || alias_code == 'USER' || alias_code == 'PROJECT') {
+            if (!localAliases || alias_code == 'USER' || alias_code == 'PROJECT') {
 
-                if(splitValue.length == 2) {
+                if (splitValue.length == 2) {
 
                     attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
 
-                    if(attribute == null) {
+                    if (attribute == null) {
 
                         let baseEntity = BaseEntityQuery.getAlias(alias_code);
-                        if(baseEntity) {
+                        if (baseEntity) {
                             attribute = {
                                 value: baseEntity.code
                             };
@@ -211,18 +193,18 @@ class LayoutLoader extends Component {
                 }
             }
 
-            if(attribute != null && attribute.value != null ) {
+            if (attribute != null && attribute.value != null) {
                 try {
 
-                    if(layout != null) {
+                    if (layout != null) {
 
                         let stringified = JSON.stringify(layout);
-                        if(stringified != null) {
+                        if (stringified != null) {
                             //console.log(attribute);
                             stringified = stringified.replace(toBeReplacedAlias, attribute.value);
-                            if(stringified != null) {
+                            if (stringified != null) {
                                 stringified = stringified.replace(/(\r\n|\n|\r)/gm, '<br>');
-                                if(stringified != null) {
+                                if (stringified != null) {
                                     layout = JSON.parse(stringified);
                                 }
                             }
@@ -244,9 +226,9 @@ class LayoutLoader extends Component {
     }
 
     hideAliasesIn(layout) {
-        if ( layout && process.env.NODE_ENV === 'production' ) {
-        const layoutString = JSON.stringify( layout ).replace( /\"PROJECT\.[^\"]*\"/g, '\"\"' ).replace( /\"USER\.[^\"]*\"/g, '\"\"' ).replace( /\"BE\.[^\"]*\"/g, '\"\"' );
-        layout = JSON.parse( layoutString );
+        if (true || (layout && process.env.NODE_ENV === 'production')) {
+            const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
+            layout = JSON.parse(layoutString);
         }
 
         return layout;
@@ -258,8 +240,10 @@ class LayoutLoader extends Component {
         const { layout, aliases } = this.props;
 
         let finalLayout = this.replaceAliasesIn(layout, aliases);
-        // finalLayout = this.hideAliasesIn( finalLayout );
-        return <JSONLoader layout={finalLayout} componentCollection={components} />;
+        finalLayout = this.hideAliasesIn(finalLayout);
+        return <JSONLoader layout = { finalLayout }
+        componentCollection = { components }
+        />;
     }
 }
 
