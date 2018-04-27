@@ -59,25 +59,37 @@ class TagDisplay extends Component {
     renderTags = (data) => {
         let asd = asd;
 
-        return data.map((item, index) => {
+        if (Array.isArray(data)) {
+            return data.map((item, index) => {
+                return (
+                    <div key={index} className='tag-display-tag' >
+                        { item.icon ? 
+                            <IconSmall
+                                name={item.icon}
+                                fontSize='12'
+                            />
+                        : null }
+                        <span>{item && item.text}</span>
+                    </div>
+                );
+            });
+        }
+        else if (typeof data == 'string') {
             return (
-                <div key={index} className='tag-display-tag' >
-                    { item.icon ? 
-                        <IconSmall
-                            name={item.icon}
-                            fontSize='12'
-                        />
-                    : null }
-                    <span>{item && item.text}</span>
+                <div className='tag-display-tag' >
+                    <span>{data}</span>
                 </div>
             );
-        });
+        }
+        else return null;
     }
 
     render() {
         const { className, data, style } = this.props;
         const {  } = this.state;
         const componentStyle = { ...style, };
+
+        console.log(data);
 
         return (
             <div className={`tag-display-container ${className}`} style={componentStyle}>
