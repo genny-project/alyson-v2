@@ -195,7 +195,7 @@ class InputDatePicker extends Component {
         const { currentValue, isMobile } = this.state;
         const componentStyle = { ...style, };
         const dateRange = this.getDateRange(inputMask);
-
+        
         return (
             <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
                 { name ? <div className='input-header'>
@@ -209,6 +209,8 @@ class InputDatePicker extends Component {
                             type='date'
                             className='input-field'
                             onChange={this.handleChangeMobile( 'date' )}
+                            min={dateRange.minDate && dateRange.minDate.format( 'YYYY-MM-DD' )}
+                            max={dateRange.maxDate && dateRange.maxDate.format( 'YYYY-MM-DD' )}
                             value={currentValue ? moment( currentValue ).format( 'YYYY-MM-DD' ) : null}
                         />
                         { type == 'java.time.LocalDate' ? null :
