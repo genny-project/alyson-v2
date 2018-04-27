@@ -19,5 +19,6 @@ export { default as GennyDropdown } from './genny-dropdown';
 export { default as GennyMessagingList } from './genny-messaging-list';
 export { default as GennyMessagingConversation } from './genny-messaging-conversation';
 export { default as GennyStatus } from './genny-status';
+export { default as GennyTagDisplay } from './genny-tag-display';
 export { default as GennyToasts } from './genny-toasts';
 export { default as TabContainer } from './tab-container';
