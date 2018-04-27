@@ -241,6 +241,7 @@ class Input extends Component {
                     className={identifier}
                     handleOnChange={this.handleOnChange}
                     showTimeSelect={false}
+                    inputMask={this.props.inputMask}
                     dateDisplayFormat={window.getScreenSize() == 'sm' ? 'yyyy-MM-dd' : 'YYYY-MM-DD'}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}

@@ -140,7 +140,7 @@ class GennyForm extends Component {
                 content: askGroup.childAsks.map((ask, index) => {
 
                     if (ask.childAsks && !ask.attributeCode.includes("EMPTY")) return this.generateFormData(ask);
-
+                    
                     let inputType = 'Text';
                     let valList = [];
                     let default_value = '';
@@ -247,17 +247,15 @@ class GennyForm extends Component {
         const componentStyle = {...style, };
         let questionGroup = AskQuery.getQuestionGroup(root);
 
-        return ( <
-            div className = { `genny-form ${className || ''}` }
-            style = { componentStyle } >
-            <
-            Form {...this.props }
-            data = { questionGroup ? this.generateFormData(questionGroup) : [] }
-            style = {
-                {...formStyle }
-            }
-            /> < /
-            div >
+        return ( 
+            <div className={ `genny-form ${className || ''}` } style={ componentStyle } >
+                <Form {...this.props }
+                    data = { questionGroup ? this.generateFormData(questionGroup) : [] }
+                    style = {
+                        {...formStyle }
+                    }
+                /> 
+            </div>
         );
     }
 }
