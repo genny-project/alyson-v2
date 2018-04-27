@@ -89,8 +89,6 @@ class TagDisplay extends Component {
         const {  } = this.state;
         const componentStyle = { ...style, };
 
-        console.log(data);
-
         return (
             <div className={`tag-display-container ${className}`} style={componentStyle}>
                 {this.renderTags(data)}
