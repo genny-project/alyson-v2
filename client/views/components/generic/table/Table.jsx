@@ -2,7 +2,7 @@ import 'react-table/react-table.css';
 import './table.scss';
 import React, { Component } from 'react';
 import { string, array, number, bool, any } from 'prop-types';
-import ReactTable from 'react-table';
+import {ReactTable} from 'react-table';
 import { IconSmall, } from 'views/components';
 
 class Table extends Component {

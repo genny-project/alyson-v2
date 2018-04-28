@@ -96,6 +96,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-slick": "^0.20.0",
     "react-table": "6.8.1",
+    "react-tag-input": "^5.0.1",
     "react-text-mask": "^5.0.2",
     "react-toastify": "^3.3.1",
     "react-transition-group": "^2.2.1",

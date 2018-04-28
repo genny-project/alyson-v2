@@ -32,6 +32,7 @@ export { default as InputSlider } from './input-slider';
 export { default as InputSearch } from './input-search';
 export { default as InputPayment } from './input-payment';
 export { default as InputTerms } from './input-terms';
+export { default as InputTags } from './input-tags';
 export { default as InputText } from './input-text';
 export { default as InputTextarea } from './input-textarea';
 export { default as InputTime } from './input-time';
