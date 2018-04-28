@@ -284,72 +284,56 @@ class InputUpload extends Component {
         const { files, error } = this.state;
         const validFiles = files && files.length ? files.filter(file => this.isValidFile(file)) : [];
 
-        return ( <
-            div className = { classNames('input', 'input-file', className, {}) } > {!isHorizontal && !hideHeader ?
-                <
-                div className = "input-header" > {
+        return (
+            <div className = { classNames('input', 'input-file', className, {}) } > {!isHorizontal && !hideHeader ?
+                <div className = "input-header" > {
                     name ? < Label text = { name }
                     /> : null} { mandatory ? < Label className = 'input-label-required'
                     textStyle = {!validationStatus || validationStatus == 'error' ? { color: '#cc0000' } : null }
-                    text = "*  required" / > : null
-                } <
-                SubmitStatusIcon status = { validationStatus }
+                    text = "*  required" /> : null
+                } <SubmitStatusIcon status = { validationStatus }
                 style = {
                     { marginLeft: '5px' }
                 }
-                /> < /
-                div > : null
+                /> </div> : null
             } {
                 validFiles && validFiles.length > 0 && (
                     validFiles.map(file => {
-                        return ( <
-                            article key = { file.id } >
-                            <
-                            button type = "button"
-                            onClick = { this.handleRemoveFile(file.id) } >
-                            <
-                            i className = "material-icons" > close < /i> < /
-                            button >
+                        return ( 
+                            <article key = { file.id } >
+                                <button type = "button"
+                                    onClick = { this.handleRemoveFile(file.id) } >
+                                <i className = "material-icons" > close </i> </button >
 
-                            {
-                                (file.type.includes('image') && (!!file.preview || !!file.uploadURL)) ? ( <
-                                    img src = { file.uploadURL || file.preview }
-                                    role = "presentation" / >
-                                ) : ( <
-                                    aside >
-                                    <
-                                    i className = "material-icons" > { this.getIconByFileType(file.type) } < /i> < /
-                                    aside >
-                                )
-                            }
+                                {
+                                    (file.type.includes('image') && (!!file.preview || !!file.uploadURL)) ? ( <
+                                        img src = { file.uploadURL || file.preview }
+                                        role = "presentation" />
+                                    ) : ( <aside>
+                                        <i className = "material-icons" > { this.getIconByFileType(file.type) } </i>
+                                    </aside>
+                                    )
+                                }
 
-                            <
-                            div >
-                            <
-                            a href = { file.uploadURL }
-                            target = "_blank"
-                            rel = "noopener" > { file.name } { file.uploaded ? ' (uploaded)' : ' (not uploaded)' } { error && '(ERROR)' } <
-                            /a> <
-                            small > { prettierBytes(file.size) } < /small> < /
-                            div > <
-                            /article>
+                                <div>
+                                    <a href = { file.uploadURL }
+                                        target = "_blank"
+                                        rel = "noopener" > { file.name } { file.uploaded ? ' (uploaded)' : ' (not uploaded)' } { error && '(ERROR)' } </a>
+                                    <small> { prettierBytes(file.size) } </small>
+                                </div>
+                            </article>
                         );
                     })
                 )
             }
 
-            <
-            div className = 'input-field'
+            <div className = 'input-field'
             type = "button"
             onClick = { this.handleOpenModal } >
-            <
-            IconSmall className = 'input-file-icon'
+            <IconSmall className = 'input-file-icon'
             name = { icon }
-            /> <
-            span > Upload a { validFiles.length > 0 && 'nother' }
-            file or image < /span> < /
-            div > <
-            /div>
+            /> <span> Upload a { validFiles.length > 0 && 'nother' }
+            file or image </span> </div > </div>
         );
     }
 }

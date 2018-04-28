@@ -20,6 +20,7 @@ import {
     InputUpload,
     InputUploadPhoto,
     InputPayment,
+    InputTags
 } from 'views/components';
 
 class Input extends Component {
@@ -241,6 +242,7 @@ class Input extends Component {
                     className={identifier}
                     handleOnChange={this.handleOnChange}
                     showTimeSelect={false}
+                    inputMask={this.props.inputMask}
                     dateDisplayFormat={window.getScreenSize() == 'sm' ? 'yyyy-MM-dd' : 'YYYY-MM-DD'}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
@@ -259,18 +261,20 @@ class Input extends Component {
                     handleOnChange={this.handleOnChange}
                 />
             );
-            // case 'java.lang.Boolean':
-            // return (
-            //     <InputCheckbox
-            //         {...rest}
-            //         validation={this.validateInput}
-            //         validationStatus={validationStatus}
-            //         value={this.state.value}
-            //         handleOnChange={this.handleOnChange}
-            //         checked={this.state.value != null && this.state.value == 'true' || this.state.value != null && this.state.value == true ? true : false}
-            //     />
-            // );
 
+            case 'Tag':
+            return (
+                <InputTags
+                    {...rest}
+                    validation={this.validateInput}
+                    validationStatus={validationStatus}
+                    onFocus={this.onFocus}
+                    className={identifier}
+                    onBlur={this.onBlur}
+                    value={this.state.value}
+                    handleOnChange={this.handleOnChange}
+                />
+            );
 
             case 'java.lang.Boolean':
             return (
