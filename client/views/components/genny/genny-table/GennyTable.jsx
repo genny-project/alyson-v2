@@ -57,6 +57,7 @@ class GennyTable extends Component {
                 }
                 else
                     if( !tableColumns.includes(col.attributeCode) ) {
+                        headers.push(col.attributeCode);
                         tableColumns.push(col);
                     }
             });
@@ -215,7 +216,6 @@ class GennyTable extends Component {
 
                 const columnsProps = this.props.columns;
                 if (columnsProps != null && columnsProps.length > 0) {
-                    columnsProps.push('PRI_BLANK');
                     
                     for(let i = 0; i < columnsProps.length; i++) {
 
