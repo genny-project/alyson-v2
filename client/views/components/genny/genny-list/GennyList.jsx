@@ -57,7 +57,6 @@ class GennyList extends Component {
             value: btnValue
         });
 
-        console.log(listItemProps);
         this.setState({
             selectedItemState: listItemProps.code,
         });
