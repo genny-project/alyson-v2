@@ -47,19 +47,11 @@ class GennyTable extends Component {
             let cols = this.generateColumns(baseEntity);
            
             cols.map(col => {
-                if (this.props.columns == null) {
-
-                    if( !headers.includes(col.attributeCode) ) {
-                        headers.push(col.attributeCode);
-                        tableColumns.push(col);
-                    }
-
+                if( !headers.includes(col.attributeCode) ) {
+                    headers.push(col.attributeCode);
+                    tableColumns.push(col);
                 }
-                else
-                    if( !tableColumns.includes(col.attributeCode) ) {
-                        headers.push(col.attributeCode);
-                        tableColumns.push(col);
-                    }
+                    
             });
         });
 
