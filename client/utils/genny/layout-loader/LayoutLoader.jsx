@@ -186,7 +186,7 @@ class LayoutLoader extends Component {
                         let baseEntity = BaseEntityQuery.getAlias(alias_code);
                         if (baseEntity) {
                             attribute = {
-                                value: baseEntity.code
+                                value: alias_code
                             };
                         }
                     }
@@ -226,11 +226,9 @@ class LayoutLoader extends Component {
     }
 
     hideAliasesIn(layout) {
-        if (true || (layout && process.env.NODE_ENV === 'production')) {
-            const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
-            layout = JSON.parse(layoutString);
-        }
 
+        const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
+        layout = JSON.parse(layoutString);
         return layout;
         //return JSON.parse(JSON.stringify( layout ).replace(/\"BE\..*\"/g, ''));
     }

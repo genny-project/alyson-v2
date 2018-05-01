@@ -25,73 +25,109 @@ class Selector extends Component {
         return children;
     }
 
+    canBeShown(checkValue, showValues, hideValues) {
+
+        let canShowValue = false;
+
+        if(showValues != null) {
+
+            // if showValues is an array
+            if(showValues.constructor == Array) {
+
+                for (var i = 0; i < showValues.length; i++) {
+
+                    const showValue = showValues[i];
+                    if(`${checkValue}` == `${showValue}`) canShowValue = true;
+                }
+            }
+            else {
+                if(`${checkValue}` == `${showValues}`) canShowValue = true;
+            }
+        }
+
+        if(hideValues != null) {
+
+            canShowValue = true;
+
+            // if hide values is an array
+            if(hideValues.constructor == Array) {
+
+                for (var i = 0; i < hideValues.length; i++) {
+
+                    const hideValue = hideValues[i];
+                    if(`${checkValue}` == `${hideValue}`) canShowValue = false;
+                }
+            }
+            else {
+
+                if(`${checkValue}` == `${hideValues}`) canShowValue = false;
+            }
+        }
+
+        return canShowValue;
+    }
+
     render() {
 
         const { checkValues, showValues, hideValues, showOverride, showIfNull, showIfNotNull } = this.props;
-        
-        // 1. if showIfNull prop is true, then show content if checkvalue is null
-        if(showIfNull) {
 
-            if (checkValues == null || checkValues == 'null' || (checkValues.length == 1 && checkValues[0] === "")) {
-                return this.renderChildren();
-            } else {
-                return null;
+
+        let shouldShow = false;
+
+        /* if showIfNull is defined and checkValues does not exist, shouldShow matches showIfNull */
+        if(showIfNull != null) {
+
+            if(checkValues.constructor == Array) {
+
+                let foundValue = false;
+                for (var i = 0; i < checkValues.length; i++) {
+                    if(checkValues[i] != null && checkValues[i].replace(" ", '').length > 0) foundValue = true;
+                }
+
+                if(foundValue === false) shouldShow = showIfNull;
+            }
+            else {
+                if((checkValues == null || checkValues.length == 0)) shouldShow = showIfNull;
             }
         }
 
-        // 2. if showIfNotNull prop is true, then show content if checkvalue is not null
-        if(showIfNotNull) {
-            if (checkValues != null && checkValues != 'null' && !(checkValues.length == 1 && checkValues[0] === "")) {
-                return this.renderChildren();
-            } else {
-                return null;
+        /* if showIfNotNull is defined and checkValues exists, shouldShow matches showIfNotNull */
+        if(showIfNotNull != null) {
+
+            if(checkValues.constructor == Array) {
+
+                let foundValue = false;
+                for (var i = 0; i < checkValues.length; i++) {
+                    if(checkValues[i] != null && checkValues[i].replace(" ", '').length > 0) foundValue = true;
+                }
+
+                if(foundValue === true) shouldShow = showIfNotNull;
+            }
+            else {
+                if((checkValues != null && checkValues.replace(" ", "").length > 0)) shouldShow = showIfNotNull;
             }
         }
 
-        // 3. check if checkValues is an array and compare with showValues and hideValues
-        if(checkValues != null && checkValues.constructor == Array) {
+        if(showIfNull == null && showIfNotNull == null) {
 
-            //4.a check if hideValues is an array and
-            if(hideValues != null && hideValues.constructor == Array) {
+            // if check values is an array
+            if(checkValues.constructor == Array) {
 
-                let hasValue = false;
-                
-                //4.b loop through checkValues, comparing each value with every item in hideValues for a match
                 for (var i = 0; i < checkValues.length; i++) {
 
-                    const value = checkValues[i];
-
-                    if( hideValues.includes(value) ) {
-                        hasValue = true;
-                    }
+                    const checkValue = checkValues[i];
+                    if(this.canBeShown(checkValue, showValues, hideValues) === true) shouldShow = true;
                 }
-
-                //4.c if there are no matches, dont show content
-                if (hasValue == true && showOverride != true ) return null;
             }
+            else {
 
-            //5.a check if hideValues is an array and
-            else if(showValues != null && showValues.constructor == Array) {
-
-                let hasValue = false;
-
-                //5.b loop through checkValues, comparing each value with every item in showValues for a match
-                for (var i = 0; i < checkValues.length; i++) {
-
-                    const value = checkValues[i];
-
-                    if( showValues.includes(value)) {
-                        hasValue = true;
-                    }
-                }
-
-                //5.c if there are no matches, dont show content
-                if (hasValue == false) return null;
+                const checkValue = checkValues;
+                shouldShow = this.canBeShown(checkValue, showValues, hideValues);
             }
         }
 
         //6. if none of the conditions are met, then show content
-        return this.renderChildren();
+        return shouldShow ? this.renderChildren() : null;
     }
 }
 
