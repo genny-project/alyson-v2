@@ -23,6 +23,7 @@ class InputUpload extends Component {
         mandatory: false,
         identifier: null,
         validationStatus: null,
+        allowedFileTypes: ['image/jpeg', 'image/png'],
     }
 
     static propTypes = {
@@ -43,6 +44,7 @@ class InputUpload extends Component {
         hideHeader: bool,
         validationStatus: string,
         name: string,
+        allowedFileTypes: array,
     }
 
     state = {
@@ -82,7 +84,7 @@ class InputUpload extends Component {
 
         const { autoProceed } = this.props;
 
-        const hosturlattr = BaseEntityQuery.getBaseEntityAttribute(GennyBridge.getProject(), "PRI_UPPY_URL");
+        const hosturlattr = BaseEntityQuery.getBaseEntityAttribute(GennyBridge.getProject(), 'PRI_UPPY_URL');
         if (hosturlattr != null && hosturlattr.value != null) {
 
             this.uppy = new Uppy({
@@ -90,32 +92,14 @@ class InputUpload extends Component {
                     debug: false,
                     restrictions: {
                         maxNumberOfFiles: this.props.maxNumberOfFiles,
+                        allowedFileTypes: this.props.allowedFileTypes
                     },
-                    // onBeforeUpload: (files) => {
-                    //
-                    //     Object.keys(files).forEach(fileKey => {
-                    //
-                    //         let currentFile = files[fileKey];
-                    //         // var jpeg = fs.readFileSync(currentFile.data);
-                    //         // var data = jpeg.toString("binary");
-                    //         console.log(currentFile);
-                    //         var exifObj = Piexif.load(currentFile.data.name);
-                    //         delete exifObj["0th"][Piexif.ImageIFD.Orientation];
-                    //         var exifbytes = Piexif.dump(exifObj);
-                    //
-                    //         var reader = new FileReader();
-                    //         let imageFile = reader.readAsDataURL(currentFile.data);
-                    //         var newData = Piexif.insert(exifbytes, currentFile.data);
-                    //         var newJpeg = new Buffer(data, "binary");
-                    //         // fs.writeFileSync(currentFile.data, newJpeg);
-                    //         console.log("done", newJpeg);
-                    //     })
-                    //
-                    //     return Promise.resolve()
-                    // }
+                    onBeforeFileAdded: (currentFile) => this.checkFileType(currentFile)
                 })
                 .use(Dashboard, {
-                    closeModalOnClickOutside: true
+                    closeModalOnClickOutside: true,
+                    note: '.jpeg, .jpg, and .png file types allowed only',
+                    hideProgressAfterFinish: true,
                 })
                 .use(AwsS3, { host: hosturlattr.value })
                 .use(Webcam, { target: Dashboard })
@@ -135,6 +119,17 @@ class InputUpload extends Component {
     get modalName() {
         return 'uppy';
     }
+
+    checkFileType = (currentFile) => {
+        
+        if (this.props.allowedFileTypes.includes(currentFile.type)) {
+            this.uppy.info('Upload successful', 'success', 3000);
+            return true;
+        }
+        this.uppy.info('Invalid file type', 'error', 3000);
+        return false;
+    }
+
 
     getIconByFileType = fileType => {
         if (fileType.includes('image'))
@@ -283,7 +278,7 @@ class InputUpload extends Component {
         const componentStyle = {...style, };
         const { files, error } = this.state;
         const validFiles = files && files.length ? files.filter(file => this.isValidFile(file)) : [];
-
+        
         return (
             <div className = { classNames('input', 'input-file', className, {}) } > {!isHorizontal && !hideHeader ?
                 <div className = "input-header" > {
@@ -296,44 +291,47 @@ class InputUpload extends Component {
                     { marginLeft: '5px' }
                 }
                 /> </div> : null
-            } {
-                validFiles && validFiles.length > 0 && (
-                    validFiles.map(file => {
-                        return ( 
-                            <article key = { file.id } >
-                                <button type = "button"
-                                    onClick = { this.handleRemoveFile(file.id) } >
-                                <i className = "material-icons" > close </i> </button >
+                } {
+                    validFiles && validFiles.length > 0 && (
+                        validFiles.map(file => {
+                            return ( 
+                                <article key = { file.id } >
+                                    <button type = "button"
+                                        onClick = { this.handleRemoveFile(file.id) } >
+                                    <i className = "material-icons" > close </i> </button >
 
-                                {
-                                    (file.type.includes('image') && (!!file.preview || !!file.uploadURL)) ? ( <
-                                        img src = { file.uploadURL || file.preview }
-                                        role = "presentation" />
-                                    ) : ( <aside>
-                                        <i className = "material-icons" > { this.getIconByFileType(file.type) } </i>
-                                    </aside>
-                                    )
-                                }
+                                    {
+                                        (file.type.includes('image') && (!!file.preview || !!file.uploadURL)) ? ( <
+                                            img src = { file.uploadURL || file.preview }
+                                            role = "presentation" />
+                                        ) : ( <aside>
+                                            <i className = "material-icons" > { this.getIconByFileType(file.type) } </i>
+                                        </aside>
+                                        )
+                                    }
 
-                                <div>
-                                    <a href = { file.uploadURL }
-                                        target = "_blank"
-                                        rel = "noopener" > { file.name } { file.uploaded ? ' (uploaded)' : ' (not uploaded)' } { error && '(ERROR)' } </a>
-                                    <small> { prettierBytes(file.size) } </small>
-                                </div>
-                            </article>
-                        );
-                    })
-                )
-            }
+                                    <div>
+                                        <a href = { file.uploadURL }
+                                            target = "_blank"
+                                            rel = "noopener" > { file.name } { file.uploaded ? ' (uploaded)' : ' (not uploaded)' } { error && '(ERROR)' } </a>
+                                        <small> { prettierBytes(file.size) } </small>
+                                    </div>
+                                </article>
+                            );
+                        })
+                    )
+                }
 
-            <div className = 'input-field'
-            type = "button"
-            onClick = { this.handleOpenModal } >
-            <IconSmall className = 'input-file-icon'
-            name = { icon }
-            /> <span> Upload a { validFiles.length > 0 && 'nother' }
-            file or image </span> </div > </div>
+                <div className = 'input-field'
+                    type = "button"
+                    onClick = { this.handleOpenModal }
+                >
+                    <IconSmall className = 'input-file-icon'
+                        name = { icon }
+                    />
+                    <span> Upload a{ validFiles.length > 0 && 'nother' } file or image </span>
+                </div >
+            </div>
         );
     }
 }
