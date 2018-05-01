@@ -65,13 +65,46 @@ class BucketColumn extends Component {
     sortItems = (items) => {
         const { sort } = this.state;
 
-        if ( sort == 'desc' ) {
-            return items.sort((x, y) => x.content && x.content.created > y.content && y.content.created ? -1 : 1);
-        }
-        else if (sort == 'asc' ) {
-            return items.sort((x, y) => x.content && x.content.created < y.content && y.content.created ? 1 : -1);
-        }
+        let sortedItems = [];
+        
+            sortedItems = items.sort((x, y) => {
 
+                if ( x.content != null || y.content != null ) {
+                    
+                    let valX = null;
+                    let valY = null;
+                    
+                    if (x.content != null ) {
+                        if (x.content.created != null ) {
+                            if (new Date(x.content.created) != 'Invalid Date') {
+                                valX = new Date(x.content.created);
+                            }
+                        }
+                    }
+                    if (y.content != null ) {
+                        if (y.content.created != null ) {
+                            if (new Date(y.content.created) != 'Invalid Date') {
+                                valY = new Date(y.content.created);
+                            }
+                        }
+                    }
+                    
+                    if ( sort == 'desc' ) {
+                        return valX > valY ? 1 : valX < valY ? -1 : 0;
+                    }
+                    else if (sort == 'asc' ) {
+                        return valX < valY ? 1 : valX > valY ? -1 : 0;
+                    }
+                }
+                return 0;
+            });
+        // let arr = [];
+        // sortedItems.forEach(item => {
+        //     arr.push(item.content.created);
+        // });
+        // console.log(arr);
+
+        return sortedItems;
     }
 
     renderContent = (provided) => {
