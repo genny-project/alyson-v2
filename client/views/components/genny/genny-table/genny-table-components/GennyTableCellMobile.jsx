@@ -30,6 +30,34 @@ class GennyTableCellMobile extends Component {
 
     }
 
+    renderField = (data) => {
+        console.log(data);
+        // switch (dataType) {
+
+        //     case 'Image': {
+        //         return <ImageView src={valueState || value} style={{ width: '30px', height: '30px' }} />;
+        //     }
+
+        //     case 'link': {
+        //         return <a href={valueState || value}>Click Here</a>;
+        //     }
+
+        //     case 'java.lang.Boolean': {
+        //         return (
+        //             <input
+        //                 checked={valueState || value}
+        //                 type="checkbox"
+        //             />
+        //         );
+        //     }
+
+        //     case 'Mobile': 
+        //     case 'Email' : {
+        //         <span className='table-mobile-cell-cell'>{attributeObj && attributeObj.value}</span>;
+        //     }
+        // }
+    }
+
     render() {
 
         const { data, row, original } = this.props;
@@ -47,10 +75,14 @@ class GennyTableCellMobile extends Component {
 
                         if ( i ===  0 || i > 0 && isOpen[original.baseEntityCode] === true ) {
                             const attributeObj = original[attribute.attributeCode];
+                            
                             return (
+
                                 <div key={i} className={`${ i === 0 ? 'table-mobile-cell-header' : 'table-mobile-cell-row'} ${ isOpen[original.baseEntityCode] ? 'header-divider' : null }`}>
                                     <span className='table-mobile-cell-cell'>{attribute.name}:</span>
                                     <span className='table-mobile-cell-cell'>{attributeObj && attributeObj.value}</span>
+                                    {//this.renderField()
+                                    }
                                 </div>
                             );
                         }

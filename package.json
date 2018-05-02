@@ -96,6 +96,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-slick": "^0.20.0",
     "react-table": "6.8.1",
+    "react-tag-input": "^5.0.1",
     "react-text-mask": "^5.0.2",
     "react-toastify": "^3.3.1",
     "react-transition-group": "^2.2.1",
@@ -109,7 +110,7 @@
     "slick-carousel": "^1.8.1",
     "text-mask-addons": "^3.6.0",
     "uncss": "^0.15.0",
-    "uppy": "0.22.0",
+    "uppy": "0.24.2",
     "vertx3-eventbus-client": "^3.4.2",
     "webpack-dashboard": "^0.4.0"
   }

@@ -50,6 +50,7 @@ import {
   GennyStatus,
   GennyCounter,
   GennyPieChart,
+  GennyTagDisplay
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -100,6 +101,7 @@ export default new ComponentCollection({
   GennyCarousel,
   GennyPasscode,
   GennyStatus,
+  GennyTagDisplay,
   Utils,
   GennyCounter,
   GennyPieChart,

@@ -56,7 +56,6 @@ class ImageView extends Component {
             }
         }
 
-
         return (
             <div className={`imageView ${rounded ? 'rounded' : ''} ${className}`} style={componentStyle}>
                 <div name="imgCanvas" style={imageStyle} onClick={onClick} />

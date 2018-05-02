@@ -56,7 +56,7 @@ class TreeView extends Component {
             else if ( levelIndex > 0 ) {
                 childNumber = item.children && item.children.length || false;
             }
-
+            
             return (
 
                 <li key={item.id} className='tree-view-item'>

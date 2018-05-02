@@ -4,6 +4,10 @@
 
     > .row {
         flex-wrap: nowrap;
+
+        > .col {
+            overflow-y: auto;
+        }
     }
     &.sm {
         width: 200vw;
@@ -39,5 +43,10 @@
                 }
             }
         }
+    }
+
+    .split-view-close-button {
+        display: flex;
+        align-items: center;
     }
 }

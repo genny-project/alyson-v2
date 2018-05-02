@@ -5,7 +5,6 @@ import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { IconSmall, Table } from 'views/components';
 import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile, GennyActionTableCell } from './genny-table-components';
 
-var test = 0;
 class GennyTable extends Component {
 
     static defaultProps = {
@@ -46,11 +45,13 @@ class GennyTable extends Component {
         baseEntities.map(baseEntity => {
 
             let cols = this.generateColumns(baseEntity);
+           
             cols.map(col => {
                 if( !headers.includes(col.attributeCode) ) {
                     headers.push(col.attributeCode);
                     tableColumns.push(col);
                 }
+                    
             });
         });
 
@@ -122,7 +123,7 @@ class GennyTable extends Component {
                 const createColumn = (attributeCode, width) => {
 
                     let attribute = attributes[attributeCode];
-                    const attrData = BaseEntityQuery.getAttribute(attribute.attributeCode);
+                    const attrData = BaseEntityQuery.getAttribute( ( attribute && attribute.attributeCode ) || attributeCode);
                     //let attrType = null;
                     let attrName = null;
                     if(attrData) {
@@ -134,36 +135,44 @@ class GennyTable extends Component {
                         return column.attributeCode;
                     });
 
-                    if(!headers.includes(attribute.attributeCode)) {
+                    if(!headers.includes( (attribute && attribute.attributeCode) || attributeCode ) ) {
 
                         if(!isMobile) {
 
                             return {
                                 'Header': props => {
                                     //console.log(props);
-                                    return <GennyTableHeader title={attrName || attribute.attributeCode}/>;
+                                    return <GennyTableHeader title={attrName || (attribute && attribute.attributeCode) || attributeCode }/>;
                                 },
                                 'Cell': cellInfo => {
 
-                                    const cell = cellInfo.row[attribute.attributeCode];
+                                    const cell = cellInfo.row[ ( attribute && attribute.attributeCode ) || attributeCode];
                                     const value = cell && cell.value;
                                     const dataType = cell && cell.type;
 
                                     return (
                                         <GennyTableEditableCell
                                             cell={cell}
-                                            code={attribute.attributeCode}
+                                            code={( attribute && attribute.attributeCode ) || attributeCode}
                                             value={value}
                                             dataType={dataType}
                                             targetCode={this.state.data[cellInfo.index].baseEntityCode}
                                         />
                                     );
                                 },
-                                'accessor': attribute.attributeCode,
+                                'accessor': (attribute && attribute.attributeCode) || attributeCode,
                                 //'minWidth': typeof width == 'number' ? width : 300,
-                                'attributeCode': attribute.attributeCode,
+                                'attributeCode': (attribute && attribute.attributeCode) || attributeCode,
                                 'sortMethod': (a, b) => {
-                                    return a.value.localeCompare(b.value);
+                                    let valueA = a.value && a.value;
+                                    let valueB = b.value && b.value;
+                                    
+                                    if ( parseFloat(valueA) != null && parseFloat(valueB) != null ) {
+                                        return valueA < valueB ? 1 : -1;
+                                    }
+                                    else {
+                                        return valueA.toLowerCase().compareLocale(valueB.toLowerCase()) ? 1 : -1;
+                                    }
                                 },
                                 'Filter': ({filter, onChange}) => (
                                     <input
@@ -173,7 +182,17 @@ class GennyTable extends Component {
                                         value={filter ? filter.value : ''}
                                         onChange={event => onChange(event.target.value)}
                                     />
-                                )
+                                ),
+                                'filterMethod': (filter, row, column) => {
+                                    const cell = row[( attribute && attribute.attributeCode ) || attributeCode];
+                                    const cellValue = cell && cell.value;
+                                    const filterValue = filter && filter.value;
+
+                                    if (cellValue && filterValue) {
+                                        return cellValue.toLowerCase().includes(filterValue.toLowerCase());
+                                    }
+                                    return false;
+                                },
                             };
                         }
                         else {
@@ -189,18 +208,19 @@ class GennyTable extends Component {
 
                 const columnsProps = this.props.columns;
                 if (columnsProps != null && columnsProps.length > 0) {
+                    
                     for(let i = 0; i < columnsProps.length; i++) {
 
                         const attributeCode = columnsProps[i];
                         const width = columnsProps[i].width;
 
-                        if(attributes[attributeCode] != null) {
+                        //if(attributes[attributeCode] != null) {
 
                             const newColumn = createColumn(attributeCode, width);
                             if(newColumn != null) {
                                 cols.push(newColumn);
                             }
-                        }
+                        //}
                     }
                 }
                 else {
@@ -230,7 +250,7 @@ class GennyTable extends Component {
 
     generateDataFor(baseEntities) {
 
-        const { showBaseEntity } = this.props;
+        const { showBaseEntity, columns } = this.props;
 
         let data = [];
 
@@ -238,17 +258,19 @@ class GennyTable extends Component {
 
             if(baseEntity.attributes) {
 
-                // HIDES row if it doesnt have all the attributes
+                
+                // hides ROW if row is missing an attribute from the columns
 
-                //if (process.env.NODE_ENV === 'production') {
-                    let hasAttributes = this.props.columns.every(col => {
-                        const hasAttribute = Object.keys(baseEntity.attributes).includes(col);
-                        return hasAttribute;
-                    });
-
-                    if (hasAttributes != true) return null;
-                //}
-
+                // let hasAttributes = true;
+                // if (columns) {
+                //     hasAttributes = columns.every(col => {
+                //         const hasAttribute = Object.keys(baseEntity.attributes).includes(col);
+                //         return hasAttribute;
+                //     });    
+                // }
+                
+                // if (hasAttributes != true) return null;
+                
                 let newData = {};
 
                 Object.keys(baseEntity.attributes).forEach(attribute_key => {

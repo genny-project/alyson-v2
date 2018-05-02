@@ -465,7 +465,6 @@ class BucketView extends Component {
         const { buckets } = this.state;
         let isMobile = window.getScreenSize() == 'sm';
         let columns = buckets.map((bucket, index) => {
-            //console.log(bucket.children);
             return (
                 <BucketColumn
                     screenSize={this.props.screenSize}
@@ -483,8 +482,7 @@ class BucketView extends Component {
                         flexBasis: `calc(100vw / ${buckets.length})`,
                         minWidth: isMobile ? '100vw' : '240px',
                         maxWidth: isMobile ? '100vw' : `calc(100${this.state.isSafari ? '%' : 'vw'} / ${buckets.length})`,
-                        //transform: this.state.isSafari ? `translateX(-${(this.state.currentBucket - 1) *100}vw)` : null
-                        transform: `translateX(-${(this.state.currentBucket - 1) *100}vw)`
+                        transform: `translateX(-${(isMobile ? this.state.currentBucket - 1 : 0) * 100}vw)`
                     }}
                     className={`${(index % 2 == 0) ? '' : 'alt-style'} bucket-number-${index+1}`}
                 />
