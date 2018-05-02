@@ -139,28 +139,30 @@ class LayoutLoader extends Component {
                             } else if (attribute_code == "links") {
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
+                                const isCount = splitValue[splitValue.length - 1] == 'count';
                                 attribute = [];
-
+                                        
                                 if (linkValue != null && be_attribute != null) {
 
-                                    const linkedBaseEntities = BaseEntityQuery.getLinkedBaseEntities(localAliasCode, linkValue);
-
+                                    const linkedBaseEntities = BaseEntityQuery.getLinkedBaseEntitiesByValue(localAliasCode, linkValue);
+                                    
                                     let tempAttribute = [];
                                     linkedBaseEntities.forEach(linkedBaseEntity => {
+                                                
                                         if (linkedBaseEntity != null) {
-
-                                            if (be_attribute == 'created') {
-                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created'));
-                                            } else if (be_attribute == "code") {
-                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code'));
+                                            
+                                            if (be_attribute == 'created' || be_attribute == "code") {
+                                                tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, be_attribute));
+                                            } else if (be_attribute == "count") {
+                                                tempAttribute.push(linkedBaseEntity.code);
                                             } else {
                                                 tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute).value);
                                             }
                                         }
                                     });
-                                    attribute.value = tempAttribute.toString();
+                                    attribute.value = (isCount == true ? tempAttribute.length : tempAttribute).toString();
+                                    //attribute.value = tempAttribute.toString();
                                 }
-
                             } else {
                                 attribute = splitValue.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                             }
