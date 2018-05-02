@@ -227,6 +227,8 @@ class LayoutLoader extends Component {
 
     hideAliasesIn(layout) {
 
+        // if(layout == null) return layout;
+
         const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
         layout = JSON.parse(layoutString);
         return layout;
@@ -239,9 +241,7 @@ class LayoutLoader extends Component {
 
         let finalLayout = this.replaceAliasesIn(layout, aliases);
         finalLayout = this.hideAliasesIn(finalLayout);
-        return <JSONLoader layout = { finalLayout }
-        componentCollection = { components }
-        />;
+        return <JSONLoader layout = { finalLayout } componentCollection = { components } />;
     }
 }
 
