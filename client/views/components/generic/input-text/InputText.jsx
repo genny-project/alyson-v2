@@ -1,6 +1,6 @@
 import './inputText.scss';
 import React, { Component } from 'react';
-import { string, bool, array, object, any, func } from 'prop-types';
+import { string, bool, array, object, any, func, number } from 'prop-types';
 import { Label, SubmitStatusIcon } from 'views/components';
 import MaskedTextInput from 'react-text-mask';
 
@@ -38,7 +38,7 @@ class InputText extends Component {
         inputMask: any,
         hideHeader: bool,
         onBlur: func,
-        onFocus: func
+        onFocus: func,
     }
 
     state = {
