@@ -2,12 +2,12 @@
   "layout": [
     {
       "AppHolder": {
-        "cols": [0,5],
+        "cols": [0, 5],
         "rows": 1,
         "children": [
           {
             "Sidebar": {
-              "position": [0,0],
+              "position": [0, 0],
               "style": {
                 "backgroundColor": "PROJECT.PRI_COLOR",
                 "color": "white",
@@ -19,10 +19,10 @@
               "children": [
                 {
                   "GennyTreeView": {
-                    "position": [1,0],
+                    "position": [1, 0],
                     "style": {
-                    "marginTop": "50px"
-                  },
+                      "marginTop": "50px"
+                    },
                     "root": "GRP_ROOT"
                   }
                 }
@@ -33,37 +33,35 @@
             "Grid": {
               "cols": 1,
               "rows": ["90px", "auto", "30px"],
-              "position": [0,1],
+              "position": [0, 1],
               "children": [
                 {
                   "GennyHeader": {
-                    "position": [0,0],
+                    "position": [0, 0],
 
                     "style": {
                       "backgroundColor": "PROJECT.PRI_COLOR",
                       "color": "white"
                     },
-                    "projectTitle" : "PROJECT.PRI_NAME",
-                    "projectGreeting" : "PROJECT.PRI_GREETING",
-                    "userName" : "USER.PRI_FIRSTNAME",
-                    "userImage" : "USER.PRI_IMAGE_URL"
+                    "projectTitle": "PROJECT.PRI_NAME",
+                    "projectGreeting": "PROJECT.PRI_GREETING",
+                    "userName": "USER.PRI_FIRSTNAME",
+                    "userImage": "USER.PRI_IMAGE_URL"
                   }
                 },
                 {
                   "AppContent": {
-                    "position": [1,0],
-                    "children" : [
+                    "position": [1, 0],
+                    "children": [
                       {
                         "div": {
                           "children": [
                             {
                               "GennyList": {
                                 "root": "GRP_USERS",
-                                "style" : "default",
-                                "columns" : [
-                                ],
-                                "data" : [
-                                ]
+                                "style": "default",
+                                "columns": [],
+                                "data": []
                               }
                             }
                           ]
@@ -74,14 +72,14 @@
                 },
                 {
                   "Footer": {
-                    "position": [2,0],
+                    "position": [2, 0],
                     "style": {
                       "backgroundColor": "PROJECT.PRI_COLOR",
                       "color": "white"
                     },
-                    "version" : "PROJECT.PRI_VERSION",
-                    "poweredBy" : {
-                      "caption" : "PROJECT.PRI_POWERED_BY"
+                    "version": "PROJECT.PRI_VERSION",
+                    "poweredBy": {
+                      "caption": "PROJECT.PRI_POWERED_BY"
                     }
                   }
                 }
