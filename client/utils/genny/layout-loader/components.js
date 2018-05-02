@@ -1,13 +1,6 @@
-import {
-  Grid,
-  Repeater,
-  ComponentCollection
-} from '@genny-project/layson';
+import { Grid, Repeater, ComponentCollection } from '@genny-project/layson';
 
-
-import {
-  Utils,
-} from 'views/utils/methods';
+import { Utils } from 'views/utils/methods';
 
 import {
   AddressLabel,
@@ -55,6 +48,8 @@ import {
   GennyCarousel,
   GennyPasscode,
   GennyStatus,
+  GennyCounter,
+  GennyPieChart,
   GennyTagDisplay
 } from 'views/components';
 
@@ -108,4 +103,6 @@ export default new ComponentCollection({
   GennyStatus,
   GennyTagDisplay,
   Utils,
+  GennyCounter,
+  GennyPieChart,
 });

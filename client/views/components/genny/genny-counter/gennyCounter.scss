@@ -1,0 +1,25 @@
+.genny-counter {
+  padding: 10px;
+  width: 300px;
+  height: 300px;
+  box-shadow: 0px 0px 5px -1px #ded9d9;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 200px;
+  width: 250px;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px -1px #ded9d9;
+
+  .genny-counter-number {
+    color: teal;
+    font-size: 3em;
+  }
+}
+
+.genny-counter:hover {
+  transition: 1s background-color;
+  background-color: #f3f3f3;
+}
