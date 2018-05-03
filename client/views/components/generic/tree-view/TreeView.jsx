@@ -57,10 +57,6 @@ class TreeView extends Component {
                 childNumber = item.children && item.children.length || false;
             }
             
-<<<<<<< Updated upstream
-=======
-            console.log(item.id, item.name);
->>>>>>> Stashed changes
             return (
 
                 <li key={item.id} className='tree-view-item'>
