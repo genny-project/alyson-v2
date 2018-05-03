@@ -28,8 +28,16 @@ export default function reducer(state = initialState, action) {
                 };
             }
 
-            if (action.payload.data) {
-                loaded[action.payload.code] = JSON.parse(action.payload.data);
+            try {
+
+                if (action.payload.data) {
+                    loaded[action.payload.code] = JSON.parse(action.payload.data);
+                }
+            }
+            catch (e) {
+                return {
+                    ...state
+                }
             }
 
             return {
@@ -66,15 +74,24 @@ export default function reducer(state = initialState, action) {
             const newModalCode = action.payload.code;
             if (newModalCode) {
 
-                return {
-                    ...state,
-                    currentModal: {
-                        code: newModalCode,
-                        root: action.payload.root,
-                        layout: action.payload.items ? [JSON.parse(action.payload.items)] : null
-                    },
-                    currentNotification: null,
-                };
+                try {
+
+                    return {
+                        ...state,
+                        currentModal: {
+                            code: newModalCode,
+                            root: action.payload.root,
+                            layout: action.payload.items ? [JSON.parse(action.payload.items)] : null
+                        },
+                        currentNotification: null,
+                    };
+                }
+                catch(e) {
+                    return {
+                        ...state
+                    }
+                }
+
             }
 
             break;
@@ -128,12 +145,16 @@ export default function reducer(state = initialState, action) {
                 action.payload.items.forEach(sublayout => {
 
                     let sublayout_code = sublayout.code;
-                    let layout = JSON.parse(sublayout.data);
-
-                    if (sublayout_code && layout) {
-                        newLayouts[sublayout_code] = {
-                            layout: [layout]
-                        };
+                    try {
+                        let layout = JSON.parse(sublayout.data);
+                        if (sublayout_code && layout) {
+                            newLayouts[sublayout_code] = {
+                                layout: [layout]
+                            };
+                        }
+                    }
+                    catch(e) {
+                        console.log( sublayout.code );
                     }
                 });
 
