@@ -141,22 +141,22 @@ class LayoutLoader extends Component {
                                 const be_attribute = splitValue[3];
                                 const isCount = splitValue[splitValue.length - 1] == 'count';
                                 attribute = [];
-                                        
+
                                 if (linkValue != null && be_attribute != null) {
 
                                     const linkedBaseEntities = BaseEntityQuery.getLinkedBaseEntitiesByValue(localAliasCode, linkValue);
-                                    
+
                                     let tempAttribute = [];
                                     linkedBaseEntities.forEach(linkedBaseEntity => {
-                                                
+
                                         if (linkedBaseEntity != null) {
-                                            
+
                                             if (be_attribute == 'created' || be_attribute == "code") {
                                                 tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, be_attribute));
                                             } else if (be_attribute == "count") {
                                                 tempAttribute.push(linkedBaseEntity.code);
                                             } else {
-                                                tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute).value);
+                                                tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute));
                                             }
                                         }
                                     });
