@@ -1,6 +1,8 @@
 import store from 'views/store';
 import { GennyBridge } from 'utils/genny';
 
+let d = false;
+
 class BaseEntityQuery {
 
     static sortItems(items) {
@@ -83,6 +85,8 @@ class BaseEntityQuery {
 
         if (be && be.links && be.links[linkCode]) {
 
+            type == "show" ? console.log( be.links, linkValues ) : null;
+
             const add = (link) => {
 
                 if (link != null && link.targetCode != null && link.weight > 0) {
@@ -98,18 +102,21 @@ class BaseEntityQuery {
 
             be.links[linkCode].forEach(link => {
 
-                if (type == 'hide') {
+                if(link != null && link.link != null) {
 
-                    if (!linkValues || !linkValues.includes(link.linkValue)) {
+                    if (type == 'hide') {
+
+                        if (!linkValues || !linkValues.includes(link.link.linkValue)) {
+                            add(link);
+                        }
+                    } else if (type == 'show') {
+
+                        if (linkValues && linkValues.includes(link.link.linkValue)) {
+                            add(link);
+                        }
+                    } else {
                         add(link);
                     }
-                } else if (type == 'show') {
-
-                    if (linkValues && linkValues.includes(link.linkValue)) {
-                        add(link);
-                    }
-                } else {
-                    add(link);
                 }
             });
         }
@@ -207,7 +214,7 @@ class BaseEntityQuery {
                 for (let i = 0; i < links.length; i++) {
 
                     let currentLink = links[i];
-                    if (currentLink.linkValue == linkValue) {
+                    if (currentLink && currentLink.link && currentLink.link.linkValue == linkValue) {
 
                         const be = BaseEntityQuery.getBaseEntity(currentLink.targetCode);
                         if (be != null) {

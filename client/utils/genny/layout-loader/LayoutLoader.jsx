@@ -141,22 +141,22 @@ class LayoutLoader extends Component {
                                 const be_attribute = splitValue[3];
                                 const isCount = splitValue[splitValue.length - 1] == 'count';
                                 attribute = [];
-                                        
+
                                 if (linkValue != null && be_attribute != null) {
 
                                     const linkedBaseEntities = BaseEntityQuery.getLinkedBaseEntitiesByValue(localAliasCode, linkValue);
-                                    
+
                                     let tempAttribute = [];
                                     linkedBaseEntities.forEach(linkedBaseEntity => {
-                                                
+
                                         if (linkedBaseEntity != null) {
-                                            
+
                                             if (be_attribute == 'created' || be_attribute == "code") {
                                                 tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, be_attribute));
                                             } else if (be_attribute == "count") {
                                                 tempAttribute.push(linkedBaseEntity.code);
                                             } else {
-                                                tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute).value);
+                                                tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute));
                                             }
                                         }
                                     });
@@ -229,6 +229,8 @@ class LayoutLoader extends Component {
 
     hideAliasesIn(layout) {
 
+        // if(layout == null) return layout;
+
         const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
         layout = JSON.parse(layoutString);
         return layout;
@@ -241,9 +243,7 @@ class LayoutLoader extends Component {
 
         let finalLayout = this.replaceAliasesIn(layout, aliases);
         finalLayout = this.hideAliasesIn(finalLayout);
-        return <JSONLoader layout = { finalLayout }
-        componentCollection = { components }
-        />;
+        return <JSONLoader layout = { finalLayout } componentCollection = { components } />;
     }
 }
 
