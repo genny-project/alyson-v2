@@ -45,7 +45,7 @@ class InputCheckbox extends Component {
 
   render() {
     const { className, name, checked, html, mandatory, isHorizontal, hideHeader, validationStatus } = this.props;
-
+    //if (this.props.identifier == 'QUE_FIRSTNAME') console.log(checked);
     return (
       <div className={`input input-checkbox ${className}`}>
         {

@@ -314,6 +314,19 @@ class Input extends Component {
                     // onBlur={this.onBlur}
                 />
             );
+            case 'checkboxmultiple':
+            return (
+                <InputDropdown
+                    {...rest}
+                    items={items}
+                    checkboxes
+                    validation={this.validateInput}
+                    className={identifier}
+                    validationStatus={validationStatus}
+                    // onFocus={this.onFocus}
+                    // onBlur={this.onBlur}
+                />
+            );
             case 'slider':
             return (
                 <InputSlider
