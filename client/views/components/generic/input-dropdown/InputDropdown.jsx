@@ -110,7 +110,7 @@ class InputDropdown extends Component {
             isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
         }), () => {
 
-            if (this.props.isSingleSelect) {
+            if (this.props.isSingleSelect || this.props.checkboxes) {
                 this.handleValidation();
                 this.inputRef ? this.inputRef.blur() : null;
             }
@@ -125,7 +125,7 @@ class InputDropdown extends Component {
                 isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
             };
         }, () => {
-            if (this.props.isSingleSelect) {
+            if (this.props.isSingleSelect || this.props.checkboxes) {
                 this.handleValidation();
                 this.inputRef ? this.inputRef.blur() : null;
             }
