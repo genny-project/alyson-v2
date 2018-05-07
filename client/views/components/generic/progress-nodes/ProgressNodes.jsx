@@ -7,24 +7,8 @@ class ProgressNodes extends Component {
 
     static defaultProps = {
         className: '',
-        nodes: [
-            {
-                index: 1,
-                code: 'NODE_ONE',
-                text: 'Payment Initiated'
-            },
-            {
-                index: 2,
-                code: 'NODE_TWO',
-                text: 'ESCROW'
-            },
-            {
-                index: 3,
-                code: 'NODE_THREE',
-                text: 'Payment Released'
-            }
-        ],
-        current: 2,
+        nodes: [],
+        current: 1,
     }
 
     static propTypes = {
@@ -76,7 +60,7 @@ class ProgressNodes extends Component {
                 </div>
 
                 <div className="progress-nodes-container" style={{ width: `${100 - width}%` }}>
-                    <div className="progress-nodes-fill" style={{ width: `${( selectedNode.index -1 ) / (nodes.length - 1) * 100 + '%'}` }} />
+                    <div className="progress-nodes-fill" style={{ width: `${( selectedNode && selectedNode.index - 1 || 1 ) / (nodes.length - 1) * 100 + '%'}` }} />
                     <div className="progress-nodes-empty" />
                 </div>
             </div>
