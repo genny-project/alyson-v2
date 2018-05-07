@@ -51,6 +51,7 @@ export { default as Pagination } from './pagination';
 export { default as Passcode } from './passcode';
 export { default as ProfileImageView } from './profile-image-view';
 export { default as ProgressBar } from './progress-bar';
+export { default as ProgressNodes } from './progress-nodes';
 export { default as RatingDisplay } from './rating-display/';
 export { default as Selector } from './selector/';
 export { default as Sidebar } from './sidebar/';

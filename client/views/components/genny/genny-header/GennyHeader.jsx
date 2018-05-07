@@ -1,7 +1,7 @@
 import './gennyHeader.scss';
 import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
-import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications, } from 'views/components';
+import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
