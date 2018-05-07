@@ -23,13 +23,14 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script src="https://use.fontawesome.com/8f1fe4d2b6.js"></script>
 	<script>
+
 	function addScript( src ) {
 		var s = document.createElement( 'script' );
 		s.setAttribute( 'src', src );
 		document.body.appendChild( s );
 	}
 
-	if ( window.location.hostname.indexOf( 'localhost' ) > -1 ) {
+	if ( window.location.hostname.indexOf( 'localhost' ) > -1 || process.env.NODE_ENV == 'dev') {
 		addScript( "https://js.prelive.promisepay.com/PromisePay.js" );
 	} else {
 		addScript( "https://js.promisepay.com/PromisePay.js" );
