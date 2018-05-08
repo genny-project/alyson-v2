@@ -18,23 +18,26 @@ class ProgressNodes extends Component {
         current: string || number,
         icon: string,
     }
-    
+
     render() {
 
         const { className, current, nodes, style, icon} = this.props;
         const componentStyle = { ...style, };
+
+        if(nodes == null) return null;
 
         const width = nodes && nodes.length > 0 ? 100 / nodes.length : 100 ;
         
         const selectedNode = nodes.filter(x => {
             return Number.isInteger(current) ? x.index == current : x.code = current;
         })[0];
+
         return (
             <div className={`progress-nodes ${className} ${window.getScreenSize()}`} style={componentStyle}>
                 <div className="node-container">
                     {
                         nodes.sort((x,y) => x.index < y.index ? -1 : 1).map((node, index) => {
-                            
+
                             return (
                                 <div
                                     className={`node ${ node.index == selectedNode.index ? 'current' : node.index < selectedNode.index ? 'complete' : 'incomplete' } `}
@@ -48,7 +51,7 @@ class ProgressNodes extends Component {
                                     </div>
                                     <div className='node-spacer'>
                                         {/* {
-                                            index + 1 < 2 ? 
+                                            index + 1 < 2 ?
                                                 // <IconSmall className='node-icon' size={24} name={node.icon || icon}/>
                                             : null
                                         } */}

@@ -45,6 +45,49 @@ body {
  width: 100%;
 }
 
+.dialer-overlay-window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: dialerfadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: dialerfadein 2s; /* Firefox < 16 */
+  -ms-animation: dialerfadein 2s; /* Internet Explorer */
+  -o-animation: dialerfadein 2s; /* Opera < 12.1 */
+  animation: dialerfadein 2s;
+
+  h1 {
+    font-size: 3em;
+    margin-bottom: 50px;
+  }
+
+  .material-icons {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border-radius: 50%;
+    text-align: center;
+    color: #eb4d4b;
+    line-height: 100px;
+    font-size: 3.5em;
+    transition: 300ms ease color, 300ms ease background;
+    cursor: pointer;
+
+    &:hover {
+      background: #eb4d4b;
+      color: white;
+    }
+  }
+}
+
 body.modal-active {
     overflow: hidden;
     .app {

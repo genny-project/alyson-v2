@@ -73,7 +73,7 @@
     "lodash": "^4.17.4",
     "measurement": "^0.2.1",
     "moment": "^2.20.1",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.5.0",
     "path": "^0.12.7",
     "postcss-uncss": "^0.15.0",
     "prettier-bytes": "^1.0.4",
