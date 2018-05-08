@@ -200,7 +200,7 @@ class GennyTable extends Component {
                                 'sortMethod': (a, b) => {
                                     let valueA = a.value && a.value;
                                     let valueB = b.value && b.value;
-                                    
+
                                     if ( parseFloat(valueA) != null && parseFloat(valueB) != null ) {
                                         return valueA < valueB ? 1 : -1;
                                     }
@@ -242,7 +242,7 @@ class GennyTable extends Component {
 
                 const columnsProps = this.props.columns;
                 if (columnsProps != null && columnsProps.length > 0) {
-                    
+
                     for(let i = 0; i < columnsProps.length; i++) {
 
                         const attributeCode = columnsProps[i];
@@ -347,7 +347,7 @@ class GennyTable extends Component {
 
             if(baseEntity.attributes) {
 
-                
+
                 // hides ROW if row is missing an attribute from the columns
 
                 // let hasAttributes = true;
@@ -355,11 +355,11 @@ class GennyTable extends Component {
                 //     hasAttributes = columns.every(col => {
                 //         const hasAttribute = Object.keys(baseEntity.attributes).includes(col);
                 //         return hasAttribute;
-                //     });    
+                //     });
                 // }
-                
+
                 // if (hasAttributes != true) return null;
-                
+
                 let newData = {};
 
                 Object.keys(baseEntity.attributes).forEach(attribute_key => {

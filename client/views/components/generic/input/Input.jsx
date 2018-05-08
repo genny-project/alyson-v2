@@ -308,6 +308,7 @@ class Input extends Component {
                     {...rest}
                     items={items}
                     validation={this.validateInput}
+                    value={this.state.value}
                     className={identifier}
                     validationStatus={validationStatus}
                     // onFocus={this.onFocus}
@@ -321,6 +322,7 @@ class Input extends Component {
                     items={items}
                     checkboxes
                     validation={this.validateInput}
+                    value={this.state.value}
                     className={identifier}
                     validationStatus={validationStatus}
                     // onFocus={this.onFocus}

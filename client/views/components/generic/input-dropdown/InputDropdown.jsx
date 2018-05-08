@@ -65,11 +65,10 @@ class InputDropdown extends Component {
             });
         }
         else {
-
             // the value coming in could be a stringified array.
             try {
 
-                if (value != null) {
+                if (props && props.value != null) {
 
                     const newValue = JSON.parse(props.value);
                     const selectedItems = this.props.items.map(item => {
@@ -77,14 +76,13 @@ class InputDropdown extends Component {
                         for (var i = 0; i < newValue.length; i++) {
                             const newItem = newValue[i];
                             if (newItem == item.code) {
-                                return item.code;
+                                return item.name;
                             }
                         }
 
                         return false;
                     });
 
-                    //console.log(filter);
                     this.setState({
                         selectedItems: selectedItems ? selectedItems : []
                     });
@@ -300,15 +298,16 @@ class InputDropdown extends Component {
     }
 
     renderCheckboxes = () => {
-        
+
         let { items } = this.props;
-        
+
         return items.map((item, index) => {
+            const selected = this.state.selectedItems.indexOf(item.name) > -1;
             return (
                 <div style={{display: 'flex'}}>
                     <input
                         type="checkbox"
-                        checked={this.state.selectedItems.indexOf(item.name) > -1}
+                        checked={selected}
                         onChange={() => this.handleChange(item.name)}
                     />
                     <span>{item.name}</span>
@@ -323,7 +322,7 @@ class InputDropdown extends Component {
         let { items } = this.props;
         const { selectedItems } = this.state;
         const componentStyle = { ...style, };
-        
+
         let displayText = this.getDisplayText();
 
         return (
@@ -337,8 +336,8 @@ class InputDropdown extends Component {
                         </div> :
                         null
                 }
-                { 
-                    checkboxes ? 
+                {
+                    checkboxes ?
                         this.renderCheckboxes()
                     :
                         <Downshift
