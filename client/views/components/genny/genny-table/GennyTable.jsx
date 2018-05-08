@@ -2,7 +2,7 @@ import './gennyTable.scss';
 import React, { Component } from 'react';
 import { object, array, bool, string } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
-import { IconSmall, Table } from 'views/components';
+import { IconSmall, Table, GennyButton } from 'views/components';
 import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile, GennyActionTableCell } from './genny-table-components';
 
 class GennyTable extends Component {
@@ -27,11 +27,47 @@ class GennyTable extends Component {
         width: null,
         height: null,
         isOpen: {},
-        isMobile: window.getScreenSize() == 'sm'
+        isMobile: window.getScreenSize() == 'sm',
+        selectedItems: []
     }
 
     shouldComponentUpdate() {
       return true;
+    }
+
+    handleClickColumn = (rowCodes) => {
+        if (rowCodes.every(code => this.state.selectedItems.includes(code) )) {
+            this.setState({
+                selectedItems: [] 
+            });
+        } else {
+            this.setState({
+                selectedItems: [...rowCodes] 
+            });
+        }
+    }
+
+    handleClickRow = (itemCode) => {
+        if (this.state.selectedItems.includes(itemCode)) {
+            this.removeItem(itemCode);
+        } else {
+            this.addSelectedItem(itemCode);
+        }
+    }
+
+    addSelectedItem = (itemCode) => {
+        this.setState({
+            selectedItems: [...this.state.selectedItems, itemCode] 
+        });
+    }
+
+    removeItem = (itemCode) => {
+        this.setState(({ selectedItems }) => {
+            return {
+                selectedItems: selectedItems.filter(i => i !== itemCode),
+            };
+        }, () => {
+        });
     }
 
     generateHeadersFor(baseEntities) {
@@ -45,13 +81,11 @@ class GennyTable extends Component {
         baseEntities.map(baseEntity => {
 
             let cols = this.generateColumns(baseEntity);
-           
             cols.map(col => {
                 if( !headers.includes(col.attributeCode) ) {
                     headers.push(col.attributeCode);
                     tableColumns.push(col);
                 }
-                    
             });
         });
 
@@ -242,6 +276,61 @@ class GennyTable extends Component {
                         'minWidth': 140
                     });
                 }
+               
+                // cols.splice(0, 0, {
+                //     'Header': <span className="header-single">Actions</span>,
+                //     'accessor': 'actions',
+                //     'attributeCode': 'DETAILS',
+                //     'Cell': ({original}) => {
+                //         return (
+                //             <GennyButton
+                //                 className='table-detail-button'
+                //                 buttonCode='BTN_VIEW_DETAILS'
+                //                 value={{
+                //                     itemCode: original.baseEntityCode,
+                //                     hint: this.props.root
+                //                 }}
+                //                 buttonStyle={{
+                //                     backgroundColor:'#000'
+                //                 }}
+                //             >
+                //                 <span style={{fontSize:'0.8em'}}>View Details</span>
+                //             </GennyButton>
+                //         );
+                //     },
+                //     'minWidth': 100
+                // });
+            
+                // cols.splice(0, 0, {
+                //     'Header': ({data}) => {
+                //         const rowCodes = data.map(row => { return row._original.baseEntityCode;});
+                //         const isChecked = rowCodes.every(code => this.state.selectedItems.includes(code) );
+                //         return (
+                //             <input
+                //                 checked={isChecked}
+                //                 type="checkbox"
+                //                 onClick={() => this.handleClickColumn(rowCodes)}
+                //             />
+                //         );
+                //     },
+                //     'accessor': 'select',
+                //     'attributeCode': 'SELECT',
+                //     'Cell': ({original}) => {
+                //         return (
+                //             <div className='table-checkbox'>
+                //                 <input
+                //                     checked={this.state.selectedItems.includes(original.baseEntityCode)}
+                //                     type="checkbox"
+                //                     onClick={() => this.handleClickRow(original.baseEntityCode)}
+                //                 />
+                //             </div>
+                //         );
+                //     },
+                //     'resizable': false,
+                //     'sortable': false,
+                //     'minWidth': 30,
+                // });
+                //console.log(cols);
             }
         }
 
