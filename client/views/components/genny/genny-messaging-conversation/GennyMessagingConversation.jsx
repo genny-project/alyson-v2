@@ -61,7 +61,7 @@ class GennyMessagingConversation extends Component {
     }
 
     handleClickBack = () => {
-        
+
         const { onClick } = this.props;
         if (onClick) onClick();
     }
@@ -96,7 +96,7 @@ class GennyMessagingConversation extends Component {
         finalMessages = messages.sort((x, y) => {
             return x.created < y.created ? 1 : -1;
         });
-        
+
         finalMessages.map((message, index) => {
             if (tempArray.length > 0) {
 
@@ -110,7 +110,7 @@ class GennyMessagingConversation extends Component {
 
                 const lastCreator = creatorAttr.value;
                 const thisCreator = thisCreatorAttr.value;
-                
+
                 if (lastCreator != thisCreator) {
                     messageArray.push(tempArray);
                     tempArray = [];
@@ -139,7 +139,7 @@ class GennyMessagingConversation extends Component {
     }
 
     renderMessages = (messages, currentUser, otherUser) => {
-        
+
         return messages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
@@ -210,7 +210,7 @@ class GennyMessagingConversation extends Component {
                 { style: { flexGrow: 12 }},
                 { style: { flexGrow: 0.5, flexShrink: 0 }}]}
             cols={1}
-        >            
+        >
             {
                 messages && messages.length > 0 ?
                     <div className={`conversation-messages-container ${window.getScreenSize()}`} position={[ 0,0]}>
@@ -274,7 +274,7 @@ class GennyMessagingConversation extends Component {
         const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
 
         let messages = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_MESSAGES');
-
+        console.log(messages);
         const orderedMessages = this.orderMessages(messages);
 
         if(!root || root == 'null' || !be) {

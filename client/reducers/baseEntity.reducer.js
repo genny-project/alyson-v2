@@ -211,6 +211,9 @@ export default function reducer(state = initialState, action) {
 
                                         if (newItem.code != null) {
 
+                                            /* get the link code to the children */
+                                            const linkCode = action.payload.linkCode;
+
                                             /* we check if the parent data exists or we create it */
                                             if(state.data[action.payload.parentCode] == null) {
                                                 state.data[action.payload.parentCode] = {};
@@ -220,50 +223,37 @@ export default function reducer(state = initialState, action) {
                                                 state.data[action.payload.parentCode].links = {};
                                             }
 
-                                            let linkCodeFound = null;
-                                            Object.keys(state.data[action.payload.parentCode].links).forEach(lnkCode => {
+                                            if(state.data[action.payload.parentCode].links[linkCode] == null) {
+                                              state.data[action.payload.parentCode].links[linkCode] = [];
+                                            }
 
-                                                if(linkCodeFound == null) {
+                                            let linkedItemFound = state.data[action.payload.parentCode].links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
+                                            if(linkedItemFound == null) {
 
-                                                    const links = state.data[action.payload.parentCode].links[lnkCode];
-                                                    links.forEach(lnk => {
-
-                                                        if(lnk.targetCode != null && lnk.targetCode == newItem.code) {
-                                                            linkCodeFound = lnkCode;
-                                                        }
-                                                    });
-                                                }
-                                            });
-
-                                            if(linkCodeFound == null) {
-
-                                                if (existing["LNK_CORE"] == null) {
-                                                    existing["LNK_CORE"] = [
-                                                        ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null && state.data[action.payload.parentCode].links["LNK_CORE"] ? state.data[action.payload.parentCode].links["LNK_CORE"] : []),
+                                                if (existing[linkCode] == null) {
+                                                    existing[linkCode] = [
+                                                        ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null && state.data[action.payload.parentCode].links[linkCode] ? state.data[action.payload.parentCode].links[linkCode] : []),
                                                     ];
                                                 }
 
-                                                if (existing["LNK_CORE"] != null && existing["LNK_CORE"].filter(lnk => lnk.targetCode == newItem.code) == 0) {
-
-                                                    existing["LNK_CORE"] = [
-                                                        ...existing["LNK_CORE"],
-                                                        ...[{
-                                                            attributeCode: "LINK",
+                                                existing[linkCode] = [
+                                                    ...existing[linkCode],
+                                                    ...[{
+                                                        attributeCode: linkCode,
+                                                        weight: 1,
+                                                        targetCode: newItem.code,
+                                                        sourceCode: action.payload.parentCode,
+                                                        linkValue: "LINK",
+                                                        valueString: "LINK",
+                                                        link: {
+                                                            attributeCode: linkCode,
                                                             weight: 1,
                                                             targetCode: newItem.code,
                                                             sourceCode: action.payload.parentCode,
                                                             linkValue: "LINK",
-                                                            valueString: "LINK",
-                                                            link: {
-                                                                attributeCode: "LINK",
-                                                                weight: 1,
-                                                                targetCode: newItem.code,
-                                                                sourceCode: action.payload.parentCode,
-                                                                linkValue: "LINK",
-                                                            }
-                                                        }]
-                                                    ]
-                                                }
+                                                        }
+                                                    }]
+                                                ]
                                             }
                                         }
 

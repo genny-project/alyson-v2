@@ -192,7 +192,6 @@ class GennyTreeView extends Component {
         }
 
         let items = root ?
-
             BaseEntityQuery.getEntityChildren(root).map(item => {
 
                 let childCount = 0;

@@ -87,6 +87,7 @@ class GennyList extends Component {
 
                     //let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != 'LINK' ? linkToParent.linkValue : 'list_item';
                     let layout_code = linkToParent.link != null && linkToParent.link.linkValue != null ? linkToParent.link.linkValue : 'list_item';
+                    console.log(layout_code);
                     let sublayout = this.props.sublayout[layout_code];
                     //console.log( layout_code, sublayout == null);
                     item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
