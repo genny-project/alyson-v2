@@ -228,7 +228,7 @@ export default function reducer(state = initialState, action) {
                                             }
 
                                             let linkedItemFound = state.data[action.payload.parentCode].links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
-                                            if(linkedItemFound == null) {
+                                            if(linkedItemFound == false) {
 
                                                 if (existing[linkCode] == null) {
                                                     existing[linkCode] = [

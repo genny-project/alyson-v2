@@ -113,17 +113,17 @@ class GennyForm extends Component {
                 'email'
             ];
 
-            if (askGroup.attributeCode.includes('EMPTY')) return null;
+          if (askGroup.attributeCode.includes('EMPTY')) return null;
 
-            if (askGroup.attributeCode.includes('BUTTON')) {
+          if (askGroup.attributeCode.includes('BUTTON')) {
 
-                availableButtons.forEach(availableButton => {
+              availableButtons.forEach(availableButton => {
 
-                    if (askGroup.attributeCode.indexOf(availableButton.toUpperCase()) > -1) {
-                        submitButtonsData.push({
-                            index: askGroup.attributeCode.indexOf(availableButton.toUpperCase()),
-                            button: 'form-' + availableButton
-                        });
+                  if (askGroup.attributeCode.indexOf(availableButton.toUpperCase()) > -1) {
+                      submitButtonsData.push({
+                          index: askGroup.attributeCode.indexOf(availableButton.toUpperCase()),
+                          button: 'form-' + availableButton
+                      });
                     }
                 });
             }
