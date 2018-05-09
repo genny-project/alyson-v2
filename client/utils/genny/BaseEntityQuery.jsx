@@ -85,33 +85,33 @@ class BaseEntityQuery {
 
         if (be && be.links && be.links[linkCode]) {
 
-            type == "show" ? console.log( be.links, linkValues ) : null;
-
             const add = (link) => {
 
                 if (link != null && link.targetCode != null && link.weight > 0) {
 
                     let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
 
-                    if (targetBe) targets.push({
-                        ...targetBe,
-                        weight: link.weight
-                    });
+                    if (targetBe != null) {
+                      targets.push({
+                          ...targetBe,
+                          weight: link.weight
+                      });
+                    }
                 }
             };
 
             be.links[linkCode].forEach(link => {
 
-                if(link != null && link.link != null) {
+                if(link != null && link) {
 
                     if (type == 'hide') {
 
-                        if (!linkValues || !linkValues.includes(link.link.linkValue)) {
+                        if (!linkValues || !linkValues.includes(link.linkValue)) {
                             add(link);
                         }
                     } else if (type == 'show') {
 
-                        if (linkValues && linkValues.includes(link.link.linkValue)) {
+                        if (linkValues && linkValues.includes(link.linkValue)) {
                             add(link);
                         }
                     } else {
