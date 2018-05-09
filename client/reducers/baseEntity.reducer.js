@@ -83,6 +83,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                 weight: newItem.weight ? newItem.weight : 1
             };
 
+
             return existing;
         }
 
