@@ -23,7 +23,8 @@ class InputUpload extends Component {
         mandatory: false,
         identifier: null,
         validationStatus: null,
-        allowedFileTypes: ['image/jpeg', 'image/png'],
+        // allowedFileTypes: ['image/jpeg', 'image/png'],
+        allowedFileTypes: [],
     }
 
     static propTypes = {
@@ -92,7 +93,7 @@ class InputUpload extends Component {
                     debug: false,
                     restrictions: {
                         maxNumberOfFiles: this.props.maxNumberOfFiles,
-                        allowedFileTypes: this.props.allowedFileTypes
+                        // allowedFileTypes: this.props.allowedFileTypes
                     },
                     onBeforeFileAdded: (currentFile) => this.checkFileType(currentFile)
                 })
@@ -121,7 +122,7 @@ class InputUpload extends Component {
     }
 
     checkFileType = (currentFile) => {
-        
+
         if (this.props.allowedFileTypes.includes(currentFile.type)) {
             this.uppy.info('Upload successful', 'success', 3000);
             return true;
@@ -278,7 +279,7 @@ class InputUpload extends Component {
         const componentStyle = {...style, };
         const { files, error } = this.state;
         const validFiles = files && files.length ? files.filter(file => this.isValidFile(file)) : [];
-        
+
         return (
             <div className = { classNames('input', 'input-file', className, {}) } > {!isHorizontal && !hideHeader ?
                 <div className = "input-header" > {
@@ -294,7 +295,7 @@ class InputUpload extends Component {
                 } {
                     validFiles && validFiles.length > 0 && (
                         validFiles.map(file => {
-                            return ( 
+                            return (
                                 <article key = { file.id } >
                                     <button type = "button"
                                         onClick = { this.handleRemoveFile(file.id) } >
