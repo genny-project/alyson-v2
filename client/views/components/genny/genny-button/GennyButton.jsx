@@ -115,12 +115,14 @@ class GennyButton extends Component {
 
             componentStyle = {
                 ...componentStyle,
-                width: buttonWidth
+                width: buttonWidth,
+                marginLeft: 'calc(50% - 25px)',
             };
 
             buttonStyle = {
                 ...buttonStyle,
-                width: buttonWidth
+                width: buttonWidth,
+                marginLeft: 'calc(50% - 25px)',
             };
         }
 
