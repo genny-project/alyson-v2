@@ -24,7 +24,7 @@ class InputUpload extends Component {
         identifier: null,
         validationStatus: null,
         // allowedFileTypes: ['image/jpeg', 'image/png'],
-        allowedFileTypes: [],
+        allowedFileTypes: null,
     }
 
     static propTypes = {
@@ -93,13 +93,13 @@ class InputUpload extends Component {
                     debug: false,
                     restrictions: {
                         maxNumberOfFiles: this.props.maxNumberOfFiles,
-                        // allowedFileTypes: this.props.allowedFileTypes
+                        allowedFileTypes: this.props.allowedFileTypes
                     },
                     onBeforeFileAdded: (currentFile) => this.checkFileType(currentFile)
                 })
                 .use(Dashboard, {
                     closeModalOnClickOutside: true,
-                    note: '.jpeg, .jpg, and .png file types allowed only',
+                    // note: '.jpeg, .jpg, and .png file types allowed only',
                     hideProgressAfterFinish: true,
                 })
                 .use(AwsS3, { host: hosturlattr.value })
