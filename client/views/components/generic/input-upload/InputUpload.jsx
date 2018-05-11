@@ -93,7 +93,6 @@ class InputUpload extends Component {
                     debug: false,
                     restrictions: {
                         maxNumberOfFiles: this.props.maxNumberOfFiles,
-                        allowedFileTypes: this.props.allowedFileTypes
                     },
                     onBeforeFileAdded: (currentFile) => this.checkFileType(currentFile)
                 })
