@@ -122,7 +122,7 @@ class InputUpload extends Component {
 
     checkFileType = (currentFile) => {
 
-        if (this.props.allowedFileTypes.includes(currentFile.type)) {
+        if (this.props.allowedFileTypes && this.props.allowedFileTypes.includes(currentFile.type)) {
             this.uppy.info('Upload successful', 'success', 3000);
             return true;
         }
