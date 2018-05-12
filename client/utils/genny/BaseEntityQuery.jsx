@@ -40,11 +40,11 @@ class BaseEntityQuery {
             return null;
         }
 
-        if (baseEntityCode == "GRP_ROOT" && store.getState().baseEntity.data["GRP_ROOT"] == null) { // booouuuhhhhh channel40
+        if (baseEntityCode == "GRP_ROOT") { // booouuuhhhhh channel40
 
-            const relationships = store.getState().baseEntity.relationships;
-            const beRoot = relationships["GRP_ROOT"];
-            const items = beRoot ? Object.keys(beRoot).filter(x => x != 'DUMMY').map(code => Object.assign({}, store.getState().baseEntity.data[code])) : [];
+            const baseEntity = store.getState().baseEntity;
+            const beRoot = baseEntity.data["GRP_ROOT"];
+            const items = beRoot && beRoot.children ? beRoot.children : [];
 
             let counter = 1;
             items.forEach(item => {
@@ -53,9 +53,9 @@ class BaseEntityQuery {
                 if (newItem) {
                     results.push(newItem);
                 }
-
                 counter += 1;
             });
+
         } else {
 
             if (be != null && be.links != null) {
@@ -85,33 +85,33 @@ class BaseEntityQuery {
 
         if (be && be.links && be.links[linkCode]) {
 
-            type == "show" ? console.log( be.links, linkValues ) : null;
-
             const add = (link) => {
 
                 if (link != null && link.targetCode != null && link.weight > 0) {
 
                     let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
 
-                    if (targetBe) targets.push({
-                        ...targetBe,
-                        weight: link.weight
-                    });
+                    if (targetBe != null) {
+                      targets.push({
+                          ...targetBe,
+                          weight: link.weight
+                      });
+                    }
                 }
             };
 
             be.links[linkCode].forEach(link => {
 
-                if(link != null && link.link != null) {
+                if(link != null && link) {
 
                     if (type == 'hide') {
 
-                        if (!linkValues || !linkValues.includes(link.link.linkValue)) {
+                        if (!linkValues || !linkValues.includes(link.linkValue)) {
                             add(link);
                         }
                     } else if (type == 'show') {
 
-                        if (linkValues && linkValues.includes(link.link.linkValue)) {
+                        if (linkValues && linkValues.includes(link.linkValue)) {
                             add(link);
                         }
                     } else {
