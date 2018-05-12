@@ -20,7 +20,8 @@ import {
     InputUpload,
     InputUploadPhoto,
     InputPayment,
-    InputTags
+    InputTags,
+    GennyPasscode,
 } from 'views/components';
 
 class Input extends Component {
@@ -80,13 +81,10 @@ class Input extends Component {
 
     isValid = (showStyle) => {
 
-
         const { validationList, mandatory } = this.props;
         const { value } = this.state;
 
         let isValid = false;
-
-        //console.log(value, validationList, mandatory);
 
         // if there is validation required
         if ( mandatory || !mandatory && value != null && value.length > 0) {
@@ -157,7 +155,8 @@ class Input extends Component {
 
     validateInput = (value, identifier, validationList) => {
 
-        if(value == this.props.value && value.constructor != Boolean) return;
+        //TODO: to remove
+        if(value == this.props.value && value.constructor != Boolean && identifier != "QUE_MOBILE_VERIFICATION") return;
 
         this.state.value = value;
 
@@ -167,6 +166,7 @@ class Input extends Component {
     }
 
     validateValue = ( valResult, value ) => {
+
         if ( valResult ){
             this.validationStyle('success');
             if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory, valResult, this.props.identifier);
@@ -206,7 +206,6 @@ class Input extends Component {
 
         switch(this.props.type) {
 
-            // socials
             case 'Facebook':
             return (
                 <InputButton
@@ -448,7 +447,7 @@ class Input extends Component {
                     handleOnChange={this.handleOnChange}
                 />
             );
-            case 'Search' :
+            case 'Search':
             return (
                 <InputSearch
                     {...rest}
@@ -458,6 +457,18 @@ class Input extends Component {
                     validation={this.validateInput}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
+                />
+            );
+            case 'MobileVerification':
+            return (
+                <GennyPasscode
+                    {...rest}
+                    value={this.state.value}
+                    className={identifier}
+                    validation={this.validateInput}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                    handleOnChange={this.handleOnChange}
                 />
             );
             default:

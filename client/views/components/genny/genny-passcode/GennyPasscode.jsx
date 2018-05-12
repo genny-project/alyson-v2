@@ -21,23 +21,28 @@ class GennyPasscode extends Component {
 
 
   handleComplete = (value) => {
-    
-    GennyBridge.sendBtnClick('BTN_CLICK', {
-      code: 'EVT_PASSCODE_VALIDATION',
-      value: value
-    });
 
-    this.state.timer = setTimeout(() => {
-      this.setState({
-        answerSent: true
-      });
+    // GennyBridge.sendBtnClick('BTN_CLICK', {
+    //   code: 'EVT_PASSCODE_VALIDATION',
+    //   value: value
+    // });
 
-      this.state.timer = setTimeout(() => {
-        this.setState({
-          answerSent: false
-        });
-      }, 3000);
-    }, 500);
+    const { validationList, validation, className, onBlur } = this.props;
+
+    if(onBlur) onBlur();
+    if(validation) validation(value, className, validationList);
+
+    // this.state.timer = setTimeout(() => {
+    //   this.setState({
+    //     answerSent: true
+    //   });
+    //
+    //   this.state.timer = setTimeout(() => {
+    //     this.setState({
+    //       answerSent: false
+    //     });
+    //   }, 3000);
+    // }, 500);
   }
 
   handleClick = () => {
@@ -59,8 +64,8 @@ class GennyPasscode extends Component {
 
     return (
       <div className={`genny-passcode ${className}`} style={componentStyle}>
-        
-        { answerSent ? 
+
+        { answerSent ?
           <Spinner />
           :
           <Passcode
@@ -69,13 +74,13 @@ class GennyPasscode extends Component {
             disabled={answerSent}
           />
         }
-        
+
         {/* <Fade inProp={answerSent} >
           <Slide inProp={answerSent} >
             <Spinner />
           </Slide>
         </Fade> */}
-        
+
         <GennyButton
           buttonCode="BTN_RESEND_VERIFICATION_SMS"
           onClick={this.handleClick}
@@ -86,7 +91,7 @@ class GennyPasscode extends Component {
             fontSize:'13px'
           }}
           type="confirm"
-          buttonStyle= {{ height: '50px'}}
+          buttonStyle= {{ height: '50px', width: "50%", "margin-left": "25%"}}
           children="RESEND VERIFICATION CODE"
         />
       </div>
