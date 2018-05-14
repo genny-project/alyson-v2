@@ -1,7 +1,9 @@
 .in-app-dial {
   display: inline-block;
+  font-size: 17px;
 
   > div.button {
+
     background: #000;
     color: #fff;
     display: flex;
@@ -11,6 +13,9 @@
     transition: 300ms ease background;
     cursor: pointer;
     border-radius: 5px;
+    margin-right: 10px;
+    width: 70px;
+    height: 40px;
 
     &:hover {
       background: #444;
@@ -19,6 +24,7 @@
 
   .material-icons {
     margin-right: 10px;
+    font-size: 17px;
   }
 
   .dialer-overlay-window {

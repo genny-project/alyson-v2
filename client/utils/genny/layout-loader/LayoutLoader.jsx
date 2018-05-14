@@ -222,6 +222,9 @@ class LayoutLoader extends Component {
     }
 
     replace(str, stringToReplace, replacement) {
+
+        if(str == null) return str;
+
         stringToReplace = stringToReplace.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
         var re = new RegExp(stringToReplace, 'g');
         return str.replace(re, replacement);
@@ -229,7 +232,7 @@ class LayoutLoader extends Component {
 
     hideAliasesIn(layout) {
 
-        // if(layout == null) return layout;
+        if(layout == null) return layout;
 
         const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
         layout = JSON.parse(layoutString);
