@@ -144,7 +144,7 @@ export default function reducer(state = initialState, action) {
 
                 action.payload.items.forEach(sublayout => {
 
-                    let sublayout_code = sublayout.code;
+                    let sublayout_code = sublayout.name;
                     try {
                         let layout = JSON.parse(sublayout.data);
                         if (sublayout_code && layout) {
@@ -154,7 +154,7 @@ export default function reducer(state = initialState, action) {
                         }
                     }
                     catch(e) {
-                        console.log( sublayout.code );
+                        console.log( sublayout.name );
                     }
                 });
 
