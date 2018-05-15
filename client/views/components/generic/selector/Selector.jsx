@@ -40,7 +40,7 @@ class Selector extends Component {
 
                 for (var i = 0; i < showValues.length; i++) {
 
-                    const showValue = showValues[i];
+                    let showValue = showValues[i];
                     if(typeof(showValue) === "boolean"){
                       showValue = showValue.toString();
                     }
@@ -62,7 +62,7 @@ class Selector extends Component {
 
                 for (var i = 0; i < hideValues.length; i++) {
 
-                    const hideValue = hideValues[i];
+                    let hideValue = hideValues[i];
                     if(typeof(hideValue) === "boolean"){
                       hideValue = hideValue.toString();
                     }
