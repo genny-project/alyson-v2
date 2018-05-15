@@ -85,8 +85,16 @@ class GennyList extends Component {
                     //TODO: alias prop should have a value that matches the item code to match them correctly
                     const aliasProp = localAliases != null && (localAliases.constructor == Array ? localAliases[index] : localAliases);
 
-                    //let layout_code = linkToParent.linkValue != null && linkToParent.linkValue != 'LINK' ? linkToParent.linkValue : 'list_item';
-                    let layout_code = linkToParent.link != null && linkToParent.link.linkValue != null ? linkToParent.link.linkValue : 'list_item';
+                    let layout_code = null;
+                    if(linkToParent.link != null && linkToParent.link.linkValue != null) {
+                        layout_code = linkToParent.link.linkValue;
+                    }
+                    else if(linkToParent != null && linkToParent.linkValue != null) {
+                        layout_code = linkToParent.linkValue;
+                    }
+                    else {
+                        layout_code = 'list_item';
+                    }
                     console.log(layout_code);
                     let sublayout = this.props.sublayout[layout_code];
                     //console.log( layout_code, sublayout == null);
