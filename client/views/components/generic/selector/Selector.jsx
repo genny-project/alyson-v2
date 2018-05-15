@@ -29,6 +29,10 @@ class Selector extends Component {
 
         let canShowValue = false;
 
+        if(typeof(checkValue) === "boolean"){
+          checkValue = checkValue.toString();
+        }
+
         if(showValues != null) {
 
             // if showValues is an array
@@ -37,6 +41,10 @@ class Selector extends Component {
                 for (var i = 0; i < showValues.length; i++) {
 
                     const showValue = showValues[i];
+                    if(typeof(showValue) === "boolean"){
+                      showValue = showValue.toString();
+                    }
+
                     if(`${checkValue}` == `${showValue}`) canShowValue = true;
                 }
             }
@@ -55,6 +63,10 @@ class Selector extends Component {
                 for (var i = 0; i < hideValues.length; i++) {
 
                     const hideValue = hideValues[i];
+                    if(typeof(hideValue) === "boolean"){
+                      hideValue = hideValue.toString();
+                    }
+
                     if(`${checkValue}` == `${hideValue}`) canShowValue = false;
                 }
             }

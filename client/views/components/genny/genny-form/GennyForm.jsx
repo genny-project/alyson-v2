@@ -163,7 +163,7 @@ class GennyForm extends Component {
 
                         const att_details = BaseEntityQuery.getAttribute(attributeCode);
                         console.log(att_details);
-                        
+
                         if (att_details) {
                             placeholder = att_details.placeholder;
 
@@ -235,6 +235,7 @@ class GennyForm extends Component {
                         options: options,
                         inputMask: inputMask ? inputMask : false,
                         isAccountsManagement: this.props.isAccountsManagement ? true : false, //TODO: to move to ask...
+                        showOnlyAccountType: this.props.showOnlyAccountType, //TODO: to move to ask...
                     };
                 })
             };

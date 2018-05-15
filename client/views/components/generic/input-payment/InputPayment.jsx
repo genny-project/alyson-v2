@@ -46,11 +46,13 @@ class InputPayment extends Component {
         data: object,
         amount: string,
         isAccountsManagement: bool,
+        showOnlyAccountType: string,
     };
 
     static defaultProps = {
         accounts: [],
         isAccountsManagement: false,
+        showOnlyAccountType: null,
     };
 
     componentWillReceiveProps() {
@@ -404,8 +406,10 @@ class InputPayment extends Component {
             </h2>
             <p>Please select a payment type from below</p>
             <div className='payment-type-select'>
-            <PaymentType type='BANK ACCOUNT' selected={selectedPaymentType === 'BANK_ACCOUNT'} icon='account_balance' onClick={this.onSelectPaymentType( 'BANK_ACCOUNT' )} />
-            <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} />
+                {showOnlyAccountType != null && showOnlyAccountType == "CARD" ? <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} /> : null}
+                {showOnlyAccountType != null && showOnlyAccountType == "BANK_ACCOUNT" ? <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} /> : null}
+                {showOnlyAccountType == null ? <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} /> : null}
+                {showOnlyAccountType == null ? <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} /> : null}
             </div>
 
         </div>

@@ -86,7 +86,7 @@ class GennyList extends Component {
                     const aliasProp = localAliases != null && (localAliases.constructor == Array ? localAliases[index] : localAliases);
 
                     let layout_code = null;
-                    if(linkToParent.link != null && linkToParent.link.linkValue != null) {
+                    if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
                         layout_code = linkToParent.link.linkValue;
                     }
                     else if(linkToParent != null && linkToParent.linkValue != null) {
@@ -95,7 +95,7 @@ class GennyList extends Component {
                     else {
                         layout_code = 'list_item';
                     }
-                    console.log(layout_code);
+
                     let sublayout = this.props.sublayout[layout_code];
                     //console.log( layout_code, sublayout == null);
                     item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
