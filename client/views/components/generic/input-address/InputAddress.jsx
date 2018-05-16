@@ -92,9 +92,9 @@ class InputAddress extends Component {
                 resultObj['longitude'] = results[0].geometry.location.lng();
 
                 const requiredKeys = ['suburb', 'state'];
-                
+
                 let hasFields = requiredKeys.every(required_key => {
-                    
+
                     let isAnyTrue = false;
                     Object.keys(resultObj).map(key => {
                         if (key.includes(required_key)) {
@@ -189,7 +189,7 @@ class InputAddress extends Component {
     //     return null;
     // }
 
-    
+
 
     renderInput() {
         const { showMap } = this.state;
@@ -212,10 +212,20 @@ class InputAddress extends Component {
         //     }
         // };
 
+        const searchOptions = {
+            types: ['address']
+        }
+
         if (window.getScreenSize() == 'sm') {
             return (
                 <Grid cols={1} rows={1}>
-                    <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
+                    <PlacesAutocomplete
+                        onSelect={this.onSelect}
+                        position={[0, 0]}
+                        inputProps={inputProps}
+                        classNames={classes}
+                        searchOptions={searchOptions}
+                        style={{zIndex: 100}}/>
                 </Grid>
             );
         } else {
