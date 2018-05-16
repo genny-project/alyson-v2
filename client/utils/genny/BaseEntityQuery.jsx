@@ -104,14 +104,16 @@ class BaseEntityQuery {
 
                 if(link != null) {
 
+                    let linkValue = link.link != null && link.link.linkValue != null ? link.link.linkValue : link.linkValue;
+
                     if (type == 'hide') {
 
-                        if (!linkValues || !linkValues.indexOf(link.linkValue) > -1) {
+                        if (!linkValues || !linkValues.indexOf(linkValue) > -1) {
                             add(link);
                         }
                     } else if (type == 'show') {
 
-                        if (linkValues && linkValues.indexOf(link.linkValue) > -1) {
+                        if (linkValues && linkValues.indexOf(linkValue) > -1) {
                             add(link);
                         }
                     } else {
