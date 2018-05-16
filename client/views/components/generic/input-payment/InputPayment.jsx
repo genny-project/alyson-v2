@@ -407,9 +407,9 @@ class InputPayment extends Component {
             <p>Please select a payment type from below</p>
             <div className='payment-type-select'>
                 {showOnlyAccountType != null && showOnlyAccountType == "CARD" ? <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} /> : null}
-                {showOnlyAccountType != null && showOnlyAccountType == "BANK_ACCOUNT" ? <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} /> : null}
+                {showOnlyAccountType != null && showOnlyAccountType == "BANK_ACCOUNT" ? <PaymentType type='BANK ACCOUNT' selected={selectedPaymentType === 'BANK_ACCOUNT'} icon='account_balance' onClick={this.onSelectPaymentType( 'BANK_ACCOUNT' )} /> : null}
                 {showOnlyAccountType == null ? <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} /> : null}
-                {showOnlyAccountType == null ? <PaymentType type='CARD' selected={selectedPaymentType === 'CARD'} icon='credit_card' onClick={this.onSelectPaymentType( 'CARD' )} /> : null}
+                {showOnlyAccountType == null ? <PaymentType type='BANK ACCOUNT' selected={selectedPaymentType === 'BANK_ACCOUNT'} icon='account_balance' onClick={this.onSelectPaymentType( 'BANK_ACCOUNT' )} /> : null}
             </div>
 
         </div>
