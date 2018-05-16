@@ -102,16 +102,16 @@ class BaseEntityQuery {
 
             be.links[linkCode].forEach(link => {
 
-                if(link != null && link) {
+                if(link != null) {
 
                     if (type == 'hide') {
 
-                        if (!linkValues || !linkValues.includes(link.linkValue)) {
+                        if (!linkValues || !linkValues.indexOf(link.linkValue) > -1) {
                             add(link);
                         }
                     } else if (type == 'show') {
 
-                        if (linkValues && linkValues.includes(link.linkValue)) {
+                        if (linkValues && linkValues.indexOf(link.linkValue) > -1) {
                             add(link);
                         }
                     } else {

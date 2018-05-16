@@ -391,7 +391,7 @@ class InputPayment extends Component {
     renderSelectType() {
 
         const { selectedPaymentType } = this.state;
-        const { isAccountsManagement } = this.props;
+        const { isAccountsManagement, showOnlyAccountType } = this.props;
 
         return (
         <div>
