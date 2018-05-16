@@ -216,11 +216,15 @@ class BaseEntityQuery {
                 for (let i = 0; i < links.length; i++) {
 
                     let currentLink = links[i];
-                    if (currentLink && currentLink.link && currentLink.link.linkValue == linkValue) {
+                    if(currentLink != null) {
 
-                        const be = BaseEntityQuery.getBaseEntity(currentLink.targetCode);
-                        if (be != null) {
-                            bes.push(be);
+                        let currentLinkValue = currentLink.link != null && currentLink.link.linkValue != null ? currentLink.link.linkValue : currentLink.linkValue;
+                        if (currentLinkValue == linkValue) {
+
+                            const be = BaseEntityQuery.getBaseEntity(currentLink.targetCode);
+                            if (be != null) {
+                                bes.push(be);
+                            }
                         }
                     }
                 }
