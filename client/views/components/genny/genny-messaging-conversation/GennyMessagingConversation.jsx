@@ -66,9 +66,26 @@ class GennyMessagingConversation extends Component {
         if (onClick) onClick();
     }
 
+    handleKeyPress = (e) => {
+
+        /* return key */
+        if(e.key == "Enter") {
+
+           GennyBridge.sendBtnClick('BTN_CLICK', {
+               code: 'BTN_SEND_MESSAGE',
+               value: JSON.stringify({
+                   itemCode: this.props.root,
+                   value: this.state.messageText
+               })
+           });
+
+           this.onButtonClick(e);
+        }
+    }
+
     renderTextInput() {
         return <div>
-            <textarea value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
+            <textarea onKeyPress={this.handleKeyPress} value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
                 <GennyButton
                     className='conversation-button'
                     onClick={this.onButtonClick}
@@ -127,7 +144,9 @@ class GennyMessagingConversation extends Component {
                 }
             }
 
-            tempArray.push(message);
+            if(tempArray.filter(x => x.code == message.code).length == 0) {
+                tempArray.push(message);
+            }
 
             if (index == messages.length - 1) {
                 messageArray.push(tempArray);

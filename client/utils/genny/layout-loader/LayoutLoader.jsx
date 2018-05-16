@@ -137,6 +137,7 @@ class LayoutLoader extends Component {
                                     }
                                 }
                             } else if (attribute_code == "links") {
+
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
                                 const isCount = splitValue[splitValue.length - 1] == 'count';
