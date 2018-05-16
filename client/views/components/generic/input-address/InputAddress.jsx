@@ -247,7 +247,7 @@ class InputAddress extends Component {
                     }
                     rows="1"
                 >
-                    <PlacesAutocomplete onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
+                    <PlacesAutocomplete searchOptions={searchOptions} onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
                     <Button position={[0, 1]} onClick={this.showMap}>{showMap ? 'Hide Map' : 'Show on Map'}</Button>
                 </Grid>
             );
