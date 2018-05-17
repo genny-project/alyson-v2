@@ -224,6 +224,8 @@ class GennyTreeView extends Component {
         //     }
         // });
 
+        items = items.filter(x => x.name != null);
+
         if(isHorizontal) {
 
             let bePath = this.generatePath(this.props.currentPath);
