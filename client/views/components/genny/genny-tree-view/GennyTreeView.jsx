@@ -213,7 +213,7 @@ class GennyTreeView extends Component {
             }) :
             [];
 
-        items = items.sort((x, y) => y.name.toLowerCase().includes('loads') && !y.name.toLowerCase().includes("pending"));
+        // items = items.sort((x, y) => y.name.toLowerCase().includes('loads') && !y.name.toLowerCase().includes("pending"));
         items = items.filter(x => {
 
             if(GennyBridge.getKeycloakRoles().includes('admin')) {
