@@ -20,6 +20,7 @@ export const BRIDGE_SENT_AUTH_INIT = 'BRIDGE_SENT_AUTH_INIT';
 export const CMD_MSG = 'CMD_MSG';
 export const EVT_MSG = 'EVT_MSG';
 export const DATA_MSG = 'DATA_MSG';
+export const BULK_MSG = 'BULK_MSG';
 
 /* Layouts */
 export const LAYOUT_CHANGE = 'LAYOUT_CHANGE';

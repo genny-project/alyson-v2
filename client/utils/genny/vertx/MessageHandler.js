@@ -1,4 +1,4 @@
-import { DATA_MSG, CMD_MSG, EVT_MSG } from 'constants';
+import { DATA_MSG, CMD_MSG, EVT_MSG, BULK_MSG } from 'constants';
 import events from 'utils/genny/vertx-events';
 import store from 'views/store';
 
@@ -16,8 +16,8 @@ class MessageHandler {
         const { msg_type } = message;
 
         /* Check to ensure that the message type is a currently supported one */
-        if (msg_type !== DATA_MSG && msg_type !== CMD_MSG && msg_type !== EVT_MSG) {
-            console.warn(`[MessageHandler] ${msg_type} is currently unsupported.`);
+        if (msg_type !== DATA_MSG && msg_type !== CMD_MSG && msg_type !== EVT_MSG && message.data_type != 'QBulkMessage') {
+            console.warn(`[MessageHandler] ${msg_type} is currently unsupported.`, message);
             return;
         }
 
@@ -51,16 +51,19 @@ class MessageHandler {
         };
 
         /* handle bulk messages */
-        if (message.data_type == 'QDataBulkMessage' && message.messages != null && message.messages.length) {
+        if (message.data_type == 'QBulkMessage' && message.messages != null && message.messages.length) {
+
+            console.log(message.messages);
 
             message.messages.forEach(msg => {
-                onMessage(msg);
+                console.log('onMessage: ');
+                console.log(msg.data_type);
+                handleMessage(msg, msg.data_type);
             });
 
         } else {
             handleMessage(message, eventType);
         }
-
     }
 }
 
