@@ -214,15 +214,15 @@ class GennyTreeView extends Component {
             [];
 
         // items = items.sort((x, y) => y.name.toLowerCase().includes('loads') && !y.name.toLowerCase().includes("pending"));
-        items = items.filter(x => {
-
-            if(GennyBridge.getKeycloakRoles().includes('admin')) {
-                return true;
-            }
-            else {
-                return !x.name.toLowerCase().includes('admin');
-            }
-        });
+        // items = items.filter(x => {
+        //
+        //     if(GennyBridge.getKeycloakRoles().includes('admin')) {
+        //         return true;
+        //     }
+        //     else {
+        //         return !x.name.toLowerCase().includes('admin');
+        //     }
+        // });
 
         if(isHorizontal) {
 
