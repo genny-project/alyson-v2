@@ -86,14 +86,29 @@ class GennyList extends Component {
                     const aliasProp = localAliases != null && (localAliases.constructor == Array ? localAliases[index] : localAliases);
 
                     let layout_code = null;
+                    let linkLinkValue = null;
+                    let linkValue = null;
+
                     if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
-                        layout_code = linkToParent.link.linkValue;
+                        linkLinkValue = linkToParent.link.linkValue;
                     }
                     else if(linkToParent != null && linkToParent.linkValue != null) {
-                        layout_code = linkToParent.linkValue;
+                        linkValue = linkToParent.linkValue;
                     }
                     else {
                         layout_code = 'list_item';
+                    }
+
+                    if(linkLinkValue != null && linkValue != null) {
+                        if(linkLinkValue == "LINK") {
+                            layout_code = linkValue;
+                        }
+                        else {
+                            layout_code = linkLinkValue;
+                        }
+                    }
+                    else {
+                        layout_code = linkLinkValue || linkValue;
                     }
 
                     let sublayout = this.props.sublayout[layout_code];
