@@ -40,39 +40,20 @@ class BaseEntityQuery {
             return null;
         }
 
-        if (baseEntityCode == "GRP_ROOT") { // booouuuhhhhh channel40
+        if (be != null && be.links != null) {
 
-            const baseEntity = store.getState().baseEntity;
-            const beRoot = baseEntity.data["GRP_ROOT"];
-            const items = beRoot && beRoot.children ? beRoot.children : [];
+            Object.keys(be.links).forEach(linkCode => {
 
-            let counter = 1;
-            items.forEach(item => {
+                be.links[linkCode].forEach(linkedItem => {
 
-                const newItem = recurse(item.code, counter);
-                if (newItem) {
-                    results.push(newItem);
-                }
-                counter += 1;
-            });
-
-        } else {
-
-            if (be != null && be.links != null) {
-
-                Object.keys(be.links).forEach(linkCode => {
-
-                    be.links[linkCode].forEach(linkedItem => {
-
-                        if (linkedItem.targetCode != null) {
-                            const newItem = recurse(linkedItem.targetCode, linkedItem.weight);
-                            if (newItem) {
-                                results.push(newItem);
-                            }
+                    if (linkedItem.targetCode != null) {
+                        const newItem = recurse(linkedItem.targetCode, linkedItem.weight);
+                        if (newItem) {
+                            results.push(newItem);
                         }
-                    });
+                    }
                 });
-            }
+            });
         }
 
         return BaseEntityQuery.sortItems(results);

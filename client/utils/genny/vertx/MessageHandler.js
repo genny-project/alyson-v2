@@ -54,8 +54,6 @@ class MessageHandler {
         if (message.data_type == 'QBulkMessage' && message.messages != null && message.messages.length) {
 
             message.messages.forEach(msg => {
-                console.log('onMessage: ');
-                console.log(msg.data_type);
                 handleMessage(msg, msg.data_type);
             });
 
