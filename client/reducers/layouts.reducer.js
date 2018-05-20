@@ -1,3 +1,4 @@
+/* global UserTiming */
 import layoutsIncluded from '../layouts-included';
 import { LAYOUT_CHANGE, CMD_VIEW, CMD_POPUP, CMD_NOTIFICATION, SUB_LAYOUT, SUBLAYOUT_CHANGE, CMD_VIEW_PAGE_CHANGE } from 'constants';
 import config from 'config/config';
@@ -119,6 +120,12 @@ export default function reducer(state = initialState, action) {
         case SUBLAYOUT_CHANGE:
 
             const newSublayoutCode = action.payload.code;
+
+            /* HACK Measure load timing more accurately */
+            if ( newSublayoutCode === 'BUCKET_DASHBOARD' ) {
+              UserTiming.event({ type: 'APP_LOADED' });
+            }
+
             const newSublayout = JSON.parse(action.payload.items);
 
             if (newSublayoutCode) {

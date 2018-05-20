@@ -49,12 +49,11 @@ class AppHolder extends Component {
         });
 
         try {
-        
+
             const id = keycloak && keycloak.idTokenParsed;
             const name = id && id.name;
             const email = id && id.email;
             UserTiming.setUser({ name: `${name || 'Unknown'} - ${email || 'Unknown'}` });
-            UserTiming.event({ type: 'APP_LOADED' });
         } catch ( e ) {
             /* Do nothing */
         }
