@@ -22,7 +22,7 @@ class BaseEntityQuery {
         const recurse = (itemCode, itemWeight) => {
 
             let item = BaseEntityQuery.getBaseEntity(itemCode);
-            if (item != null && item != undefined) {
+            if (item != null && item != undefined && item.attributes != null && item.attributes.length > 0) {
 
                 if (!Object.keys(safeRecursion).includes(item.code)) {
 
