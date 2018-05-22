@@ -162,7 +162,6 @@ class GennyForm extends Component {
                     if (attributeCode) {
 
                         const att_details = BaseEntityQuery.getAttribute(attributeCode);
-                        console.log(att_details);
 
                         if (att_details) {
                             placeholder = att_details.placeholder;
@@ -190,7 +189,7 @@ class GennyForm extends Component {
 
                                         options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
 
-                                            //console.log(newEntity);
+                                            console.log(newEntity);
                                             existing.push({
                                                 name: newEntity.name,
                                                 code: newEntity.code,
