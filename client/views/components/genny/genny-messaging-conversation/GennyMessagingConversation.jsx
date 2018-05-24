@@ -68,8 +68,8 @@ class GennyMessagingConversation extends Component {
 
     handleKeyPress = (e) => {
 
-        /* return key */
-        if(e.key == "Enter") {
+        /* return key on web only */
+        if(e.key == "Enter" && window.getScreenSize() != 'sm') {
 
            GennyBridge.sendBtnClick('BTN_CLICK', {
                code: 'BTN_SEND_MESSAGE',
@@ -85,7 +85,7 @@ class GennyMessagingConversation extends Component {
 
     renderTextInput() {
         return <div>
-            <textarea onKeyPress={this.handleKeyPress} value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
+            <textarea pattern="[A-Za-z]" onKeyPress={this.handleKeyPress} value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
                 <GennyButton
                     className='conversation-button'
                     onClick={this.onButtonClick}

@@ -53,9 +53,68 @@ class MessageHandler {
         /* handle bulk messages */
         if (message.data_type == 'QBulkMessage' && message.messages != null && message.messages.length) {
 
-            message.messages.forEach(msg => {
-                handleMessage(msg, msg.data_type);
-            });
+            let finalMessages = {};
+
+            /* we loop through all the messages and try to merge them as much as we can */
+            for (var i = 0; i < message.messages.length; i++) {
+
+                const currentMessage = message.messages[i];
+
+                /* if it is a baseentity message, we try to merge it */
+                if(currentMessage.data_type == "BaseEntity") {
+
+                    /* logic is:
+                     - we merge all the parentCode null && aliasCode null together
+                     - we merge all the parentCode(s) together
+                     - we merge all the aliasCode together
+                     */
+
+                    if(currentMessage.parentCode == null && currentMessage.aliasCode == null) {
+
+                        if(finalMessages["messages"] == null) {
+                            finalMessages["messages"] = currentMessage;
+                        }
+                        else {
+
+                            /* we merge */
+                            finalMessages["messages"].items = finalMessages["messages"].items.concat(currentMessage.items);
+                        }
+                    }
+                    else if(currentMessage.parentCode != null && currentMessage.aliasCode == null) {
+
+                        if(finalMessages[currentMessage.parentCode] == null) {
+                            finalMessages[currentMessage.parentCode] = currentMessage;
+                        }
+                        else {
+
+                            /* to ensure items is an array */
+                            if(!finalMessages[currentMessage.parentCode].items.length) {
+                                finalMessages[currentMessage.parentCode].items = [];
+                            }
+
+                            finalMessages[currentMessage.parentCode].items = finalMessages[currentMessage.parentCode].items.concat(currentMessage.items);
+                        }
+                    }
+                    else {
+
+                        if(finalMessages[currentMessage.aliasCode] == null) {
+                            finalMessages[currentMessage.aliasCode] = currentMessage;
+                        }
+                        else {
+
+                            /* we merge */
+                            finalMessages[currentMessage.aliasCode].items = finalMessages[currentMessage.aliasCode].items.concat(currentMessage.items);
+                        }
+                    }
+                }
+            }
+
+            /* we send the messages */
+            Object.keys(finalMessages).forEach(key => {
+
+                const message = finalMessages[key];
+                handleMessage(message, message.data_type);
+            })
 
         } else {
             handleMessage(message, eventType);
