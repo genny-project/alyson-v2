@@ -68,6 +68,13 @@ class GennyMessagingConversation extends Component {
 
     handleKeyPress = (e) => {
 
+        /* numbers not allowed */
+        const re = /^([^0-9]*)$/;
+        if (e.target.value == '' || re.test(e.target.value)) {
+          e.preventDefault();
+          return;
+        }
+
         /* return key on web only */
         if(e.key == "Enter" && window.getScreenSize() != 'sm') {
 
