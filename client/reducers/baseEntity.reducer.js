@@ -193,7 +193,15 @@ export default function reducer(state = initialState, action) {
 
                                             /* get the link code to the children */
                                             let linkCode = action.payload.linkCode;
-                                            if(linkCode == null) linkCode = "LNK_CORE";
+                                            if(linkCode == null) {
+
+                                                if(action.payload.parentCode.startsWith("BEG_")) {
+                                                    linkCode = "LNK_BEG";
+                                                }
+                                                else {
+                                                    linkCode = "LNK_CORE";
+                                                }
+                                            }
 
                                             /* we check if the parent data exists or we create it */
                                             if(state.data[action.payload.parentCode] == null) {

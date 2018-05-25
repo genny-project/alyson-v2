@@ -17,10 +17,8 @@ class BaseEntityQuery {
 
         const safeRecursion = recursionSafeCodes != null ? recursionSafeCodes : new Object();
         const be = BaseEntityQuery.getBaseEntity(baseEntityCode);
-
         let results = [];
         const recurse = (itemCode, itemWeight) => {
-
 
             let item = BaseEntityQuery.getBaseEntity(itemCode);
             if (item != null && item != undefined) {
@@ -49,7 +47,7 @@ class BaseEntityQuery {
 
                     if (linkedItem.targetCode != null) {
                         const newItem = recurse(linkedItem.targetCode, linkedItem.weight);
-                        if (newItem) {
+                        if (newItem != null) {
                             results.push(newItem);
                         }
                     }
