@@ -63,7 +63,7 @@ class GennyTreeView extends Component {
 
         /* Send the Genny event */
         this.sendData('TV_EXPAND', {
-            code: 'TV1',
+            code: item.parentCode,
             value: item.code
         }, item.code);
 
@@ -123,7 +123,7 @@ class GennyTreeView extends Component {
         store.getState().app.currentPath = path;
 
         this.sendData('TV_SELECT', {
-            code: 'TV1',
+            code: item.parentCode,
             value: item.code
         }, item.code);
 
