@@ -39,7 +39,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                 links: newItem.links.reduce((existingLinks, newLink) => {
 
                     let linkCode = newLink.link ? newLink.link.attributeCode : null;
-                    if (!linkCode) return [];
+                    if (!linkCode) return existingLinks;
 
                     if (!existingLinks[linkCode]) {
                         existingLinks[linkCode] = [];
@@ -185,27 +185,6 @@ export default function reducer(state = initialState, action) {
                         action.payload.parentCode != null ? ({
                             [action.payload.parentCode]: {
                                 ...state.data[action.payload.parentCode],
-                                children: [
-                                    ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].children != null ? state.data[action.payload.parentCode].children : []),
-                                    ...action.payload.items.map((item) => {
-
-                                        if (item.code != null) {
-
-                                            if (state.data[action.payload.parentCode] == null) state.data[action.payload.parentCode] = { code: action.payload.parentCode };
-
-                                            if (state.data[action.payload.parentCode].children == null) state.data[action.payload.parentCode].children = [];
-
-                                            if (state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].children != null && state.data[action.payload.parentCode].children.filter(child => child.code == item.code) == 0) {
-
-                                                return state.data[item.code] ? state.data[item.code] : {
-                                                    code: item.code
-                                                };
-                                            }
-                                        }
-
-                                        return false;
-                                    })
-                                ],
                                 links: {
                                     ...(state.data[action.payload.parentCode] != null ? state.data[action.payload.parentCode].links : {}),
                                     ...action.payload.items.reduce((existing, newItem) => {
@@ -213,7 +192,8 @@ export default function reducer(state = initialState, action) {
                                         if (newItem.code != null) {
 
                                             /* get the link code to the children */
-                                            const linkCode = action.payload.linkCode;
+                                            let linkCode = action.payload.linkCode;
+                                            if(linkCode == null) linkCode = "LNK_CORE";
 
                                             /* we check if the parent data exists or we create it */
                                             if(state.data[action.payload.parentCode] == null) {

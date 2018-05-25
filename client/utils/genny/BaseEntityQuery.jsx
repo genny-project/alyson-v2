@@ -21,6 +21,7 @@ class BaseEntityQuery {
         let results = [];
         const recurse = (itemCode, itemWeight) => {
 
+
             let item = BaseEntityQuery.getBaseEntity(itemCode);
             if (item != null && item != undefined) {
 
