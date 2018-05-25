@@ -221,7 +221,7 @@ class GennyTreeView extends Component {
                     ...item,
                     icon: icon,
                     open: !!this.state.tree[item.code],
-                    childCount: childCount,
+                    // childCount: childCount,
                 };
             }) :
             [];
