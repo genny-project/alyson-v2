@@ -43,15 +43,19 @@ class BaseEntityQuery {
 
             Object.keys(be.links).forEach(linkCode => {
 
-                be.links[linkCode].forEach(linkedItem => {
+                /* sorry */
+                if(linkCode != 'undefined') {
 
-                    if (linkedItem.targetCode != null) {
-                        const newItem = recurse(linkedItem.targetCode, linkedItem.weight);
-                        if (newItem != null) {
-                            results.push(newItem);
+                    be.links[linkCode].forEach(linkedItem => {
+
+                        if (linkedItem.targetCode != null) {
+                            const newItem = recurse(linkedItem.targetCode, linkedItem.weight);
+                            if (newItem != null) {
+                                results.push(newItem);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
         }
 
