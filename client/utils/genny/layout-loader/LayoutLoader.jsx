@@ -189,7 +189,7 @@ class LayoutLoader extends Component {
                         let baseEntity = BaseEntityQuery.getAlias(alias_code);
                         if (baseEntity) {
                             attribute = {
-                                value: alias_code
+                                value: baseEntity.code || alias_code
                             };
                         }
                     }
