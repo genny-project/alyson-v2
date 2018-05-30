@@ -53,6 +53,7 @@ class GennyForm extends Component {
                 value: JSON.stringify(data),
             };
 
+            console.log(btnEventData);
             GennyBridge.sendBtnClick('BTN_CLICK', btnEventData);
         }
     }
@@ -110,7 +111,7 @@ class GennyForm extends Component {
                 'cancel',
                 'reset',
                 'accept',
-                'email'
+                'email',
             ];
 
           if (askGroup.attributeCode.includes('EMPTY')) return null;

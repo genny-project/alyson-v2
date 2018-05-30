@@ -179,17 +179,16 @@ class LayoutLoader extends Component {
             }
 
             if (!localAliases || alias_code == 'USER' || alias_code == 'PROJECT') {
-
                 if (splitValue.length == 2) {
 
                     attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
-
                     if (attribute == null) {
 
                         let baseEntity = BaseEntityQuery.getAlias(alias_code);
                         if (baseEntity) {
                             attribute = {
-                                value: alias_code
+
+                                value: baseEntity.code || alias_code
                             };
                         }
                     }

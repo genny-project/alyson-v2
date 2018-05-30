@@ -212,7 +212,6 @@ class Input extends Component {
                     {...rest}
                     onClick={this.props.onClickEvent}
                     className="facebook"
-                    className={identifier}
                     name=""
                     type="facebook"
                 />

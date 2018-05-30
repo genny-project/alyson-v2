@@ -31,7 +31,7 @@ class GennyTableCellMobile extends Component {
     }
 
     renderField = (data) => {
-        console.log(data);
+
         // switch (dataType) {
 
         //     case 'Image': {
@@ -51,7 +51,7 @@ class GennyTableCellMobile extends Component {
         //         );
         //     }
 
-        //     case 'Mobile': 
+        //     case 'Mobile':
         //     case 'Email' : {
         //         <span className='table-mobile-cell-cell'>{attributeObj && attributeObj.value}</span>;
         //     }
@@ -62,7 +62,7 @@ class GennyTableCellMobile extends Component {
 
         const { data, row, original } = this.props;
         const { isOpen } = this.state;
-
+        console.log(data);
         return (
             <div className='table-mobile-cell'>
                     <IconSmall
@@ -75,7 +75,7 @@ class GennyTableCellMobile extends Component {
 
                         if ( i ===  0 || i > 0 && isOpen[original.baseEntityCode] === true ) {
                             const attributeObj = original[attribute.attributeCode];
-                            
+
                             return (
 
                                 <div key={i} className={`${ i === 0 ? 'table-mobile-cell-header' : 'table-mobile-cell-row'} ${ isOpen[original.baseEntityCode] ? 'header-divider' : null }`}>

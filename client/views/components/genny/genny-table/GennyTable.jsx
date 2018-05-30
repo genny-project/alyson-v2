@@ -38,11 +38,11 @@ class GennyTable extends Component {
     handleClickColumn = (rowCodes) => {
         if (rowCodes.every(code => this.state.selectedItems.includes(code) )) {
             this.setState({
-                selectedItems: [] 
+                selectedItems: []
             });
         } else {
             this.setState({
-                selectedItems: [...rowCodes] 
+                selectedItems: [...rowCodes]
             });
         }
     }
@@ -57,7 +57,7 @@ class GennyTable extends Component {
 
     addSelectedItem = (itemCode) => {
         this.setState({
-            selectedItems: [...this.state.selectedItems, itemCode] 
+            selectedItems: [...this.state.selectedItems, itemCode]
         });
     }
 
@@ -276,7 +276,7 @@ class GennyTable extends Component {
                         'minWidth': 140
                     });
                 }
-               
+
                 // cols.splice(0, 0, {
                 //     'Header': <span className="header-single">Actions</span>,
                 //     'accessor': 'actions',
@@ -300,7 +300,7 @@ class GennyTable extends Component {
                 //     },
                 //     'minWidth': 100
                 // });
-            
+
                 // cols.splice(0, 0, {
                 //     'Header': ({data}) => {
                 //         const rowCodes = data.map(row => { return row._original.baseEntityCode;});
