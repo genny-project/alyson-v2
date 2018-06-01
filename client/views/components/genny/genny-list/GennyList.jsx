@@ -92,7 +92,8 @@ class GennyList extends Component {
                     if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
                         linkLinkValue = linkToParent.link.linkValue;
                     }
-                    else if(linkToParent != null && linkToParent.linkValue != null) {
+                    
+                    if(linkToParent != null && linkToParent.linkValue != null) {
                         linkValue = linkToParent.linkValue;
                     }
                     else {
