@@ -78,6 +78,7 @@ class GennyMessagingConversation extends Component {
         /* return key on web only */
         if(e.key == "Enter" && window.getScreenSize() != 'sm') {
 
+           e.preventDefault();
            GennyBridge.sendBtnClick('BTN_CLICK', {
                code: 'BTN_SEND_MESSAGE',
                value: JSON.stringify({
