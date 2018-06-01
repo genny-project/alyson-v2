@@ -70,6 +70,7 @@ class GennyList extends Component {
         const { selectedItemState } = this.state;
 
         let newData = [];
+        console.log( data );
 
         if(data.length == 0) return [];
 
@@ -77,7 +78,10 @@ class GennyList extends Component {
 
             if(item) {
 
+                console.log( item );
                 let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
+                console.log('link between: ', root, ' and: ', item.code);
+
                 if(linkToParent) {
 
                     const isSelected = selectedItemState == item.code || selectedItem == item.code ? true : false;
@@ -113,12 +117,10 @@ class GennyList extends Component {
                     }
 
                     let sublayout = this.props.sublayout[layout_code];
-                    //console.log( layout_code, sublayout == null);
                     item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
                     item['rootCode'] = root;
                     item['isSelected'] = isSelected;
 
-                    //console.log( {BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp} );
                     return item;
                 }
             }

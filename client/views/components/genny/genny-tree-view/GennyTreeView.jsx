@@ -195,9 +195,22 @@ class GennyTreeView extends Component {
             BaseEntityQuery.getEntityChildren(root).map(item => {
 
                 let childCount = 0;
+                let countedChildren = {};
                 if (item && item.children != null && item.children.length > 0) {
+
                     item.children.forEach(child => {
-                        childCount = childCount + (child != null && child.children != null ? child.children.length : 0);
+
+                        let counter = 0;
+                        let childArray = (child != null && child.children != null ? child.children : []);
+                        childArray.forEach((c => {
+
+                            if(countedChildren[c.code] == null) {
+                                countedChildren[c.code] = true;
+                                counter++;
+                            }
+                        }));
+
+                        childCount = childCount + counter;
                         child.icon = getIcon(child);
                     });
                 }
@@ -208,21 +221,10 @@ class GennyTreeView extends Component {
                     ...item,
                     icon: icon,
                     open: !!this.state.tree[item.code],
-                    childCount: childCount,
+                    // childCount: childCount,
                 };
             }) :
             [];
-
-        // items = items.sort((x, y) => y.name.toLowerCase().includes('loads') && !y.name.toLowerCase().includes("pending"));
-        // items = items.filter(x => {
-        //
-        //     if(GennyBridge.getKeycloakRoles().includes('admin')) {
-        //         return true;
-        //     }
-        //     else {
-        //         return !x.name.toLowerCase().includes('admin');
-        //     }
-        // });
 
         items = items.filter(x => x.name != null);
 
