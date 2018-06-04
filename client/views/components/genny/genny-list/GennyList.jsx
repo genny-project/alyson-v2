@@ -66,7 +66,7 @@ class GennyList extends Component {
 
     generateListItems(data) {
 
-        const { localAliases, selectedItem, root, numberOfItems } = this.props;
+        const { localAliases, selectedItem, root, numberOfItems, hideSelectedStyle } = this.props;
         const { selectedItemState } = this.state;
 
         let newData = [];
@@ -119,7 +119,7 @@ class GennyList extends Component {
                     let sublayout = this.props.sublayout[layout_code];
                     item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
                     item['rootCode'] = root;
-                    item['isSelected'] = isSelected;
+                    item['isSelected'] = isSelected && !hideSelectedStyle;
 
                     return item;
                 }
