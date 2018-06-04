@@ -17,7 +17,7 @@ function SampleNextArrow(props) {
         />
     );
 }
-  
+
 function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -53,7 +53,7 @@ class Carousel extends Component {
         if (items && items.length > 0) {
             items.map( item  => {
                 content.push(
-                    <div style={{ height: imageHeight }}>
+                    <div style={{ height: "100%" }}>
                         <ImageView caption={item.text} src={item.img} style={{ height: '100%' }}/>
                         {/* { item.text ?
                             <span className='legend'>{item.text}</span>

@@ -6,6 +6,10 @@
         //display: flex;
         //position: relative;
 
+        .slick-slide {
+          height: 100%;
+        }
+
         .slick-arrow {
             height: 100%;
             //background-color: red;
@@ -13,7 +17,7 @@
             width: 40px;
 
             transition: background-color 300ms ease;
-            
+
             &:before {
                 font-size: 30px;
             }
@@ -22,7 +26,7 @@
                 background-color: rgba(0,0,0,0.5);
             }
         }
-        
+
         .slick-prev {
             left: 0;
         }
