@@ -54,7 +54,7 @@ class Carousel extends Component {
             items.map( item  => {
                 content.push(
                     <div style={{ height: "100%" }}>
-                        <div className="image-slider-container" style={{ height: "100%"}}>
+                        <div className="image-slider-container" style={{ height: "300px"}}>
                             <div
                                 style={{
                                     "backgroundImage": `url(${item.img})`,
