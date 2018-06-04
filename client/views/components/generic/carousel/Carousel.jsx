@@ -54,10 +54,19 @@ class Carousel extends Component {
             items.map( item  => {
                 content.push(
                     <div style={{ height: "100%" }}>
-                        <ImageView caption={item.text} src={item.img} style={{ height: '100%' }}/>
-                        {/* { item.text ?
-                            <span className='legend'>{item.text}</span>
-                            : null } */}
+                        <div className="image-slider-container" style={{ height: "100%"}}>
+                            <div
+                                style={{
+                                    "backgroundImage": `url(${item.img})`,
+                                    "backgroundPosition": "center",
+                                    "backgroundSize": "contain",
+                                    "backgroundRepeat": "no-repeat",
+                                    "backgroundColor": "lightgray",
+                                    "height": "100%",
+                                    "width": "100%",
+                                }}
+                            />
+                        </div>
                     </div>
                     );
                 });
