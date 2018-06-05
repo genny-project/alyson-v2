@@ -26,7 +26,7 @@ class GennyTableEditableCell extends Component {
 
         const { value, dataType } = this.props;
 
-        if (dataType != 'Image' && dataType != 'link' && dataType != 'java.lang.Boolean') {
+        if (dataType != 'Image' && dataType != 'link') {
             this.setState({
                 canEdit: true
             });
@@ -60,9 +60,16 @@ class GennyTableEditableCell extends Component {
 
     handleBlur = (event) => {
 
-        const { targetCode, code, value } = this.props;
+        const { targetCode, code, value, dataType } = this.props;
 
-        let newValue = event.target.value;
+        let newValue = null;
+
+        if(dataType != "java.lang.Boolean") {
+            newValue = event.target.value;
+        }
+        else {
+            newValue = event.target.checked
+        }
 
         if(newValue != null && newValue != value) {
 
@@ -73,6 +80,7 @@ class GennyTableEditableCell extends Component {
                 });
             }
             else {
+
                 if(code) {
 
                     let answer = [
@@ -103,7 +111,17 @@ class GennyTableEditableCell extends Component {
     }
 
     handleChange = (event) => {
-        let newValue = event.target.value;
+
+        const { dataType } = this.props;
+
+        let newValue = null;
+
+        if(dataType != "java.lang.Boolean") {
+            newValue = event.target.value;
+        }
+        else {
+            newValue = event.target.checked
+        }
 
         this.setState({
             valueState: newValue
@@ -128,13 +146,14 @@ class GennyTableEditableCell extends Component {
             case 'java.lang.Boolean': {
                 return (
                     <input
-                        checked={valueState || value}
+                        checked={valueState === false ? false : true}
+                        onChange={(event) => { this.handleChange(event); this.handleBlur(event); }}
                         type="checkbox"
                     />
                 );
             }
 
-            case 'Mobile': 
+            case 'Mobile':
             case 'Email' : {
                 return (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>

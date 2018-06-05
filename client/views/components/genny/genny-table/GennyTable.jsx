@@ -160,9 +160,22 @@ class GennyTable extends Component {
                     const attrData = BaseEntityQuery.getAttribute( ( attribute && attribute.attributeCode ) || attributeCode);
                     //let attrType = null;
                     let attrName = null;
+
                     if(attrData) {
-                        //attrType = attrData.dataType ? attrData.dataType.className : null;
-                        attrName = attrData.name;
+
+                        /* TODO: to remove. channel40 only. hardwired here because backend is not sending column names */
+                        let name = "";
+                        if(attrData.name == "Buyer Role") {
+                            name = "Is Freight Owner";
+                        }
+                        else if(attrData.name == "Seller Role") {
+                            name = "Is Transport Operator";
+                        }
+                        else {
+                            name = attrData.name;
+                        }
+
+                        attrName = name;
                     }
 
                     let headers = cols.map(column => {
