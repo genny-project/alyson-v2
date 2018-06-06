@@ -79,7 +79,7 @@ class AppContent extends Component {
                     });
                 }
                 else if ( commandData.data != null ) {
-                    children = commandData.data.data.map(item => {
+                    children = commandData.data.map(item => {
                         return this.renderContent('view', item);
                     });
                 }
@@ -92,7 +92,7 @@ class AppContent extends Component {
             }
             else if (commandData.code == 'TAB_VIEW') {
 
-                const views = commandData.data.map(item => {
+                const views = commandData.root.map(item => {
                     return { 
                         title: item.code,
                         layout: this.renderContent('view', item)
