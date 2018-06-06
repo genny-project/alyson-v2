@@ -70,7 +70,7 @@ class GennyList extends Component {
         const { selectedItemState } = this.state;
 
         let newData = [];
-        console.log( data );
+        // console.log( data );
 
         if(data.length == 0) return [];
 
@@ -78,9 +78,9 @@ class GennyList extends Component {
 
             if(item) {
 
-                console.log( item );
+                // console.log( item );
                 let linkToParent = BaseEntityQuery.getLinkToParent(root, item.code);
-                console.log('link between: ', root, ' and: ', item.code);
+                // console.log('link between: ', root, ' and: ', item.code);
 
                 if(linkToParent) {
 
