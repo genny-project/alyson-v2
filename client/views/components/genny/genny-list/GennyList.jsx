@@ -161,7 +161,7 @@ class GennyList extends Component {
                 <div className='genny-list' style={componentStyle}>
                     { showTitle ?
                         <div style={{ backgroundColor: projectColor}} className='genny-list-title'>
-                            <h2>{rootEntity && rootEntity.name} ( {data && data.length} )</h2>
+                            <span>{rootEntity && rootEntity.name} ( {data && data.length} )</span>
                         </div>
                     : null }
                     <List
