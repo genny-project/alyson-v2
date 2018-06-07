@@ -134,14 +134,15 @@ class InputDropdown extends Component {
 
         const { isSingleSelect } = this.props;
         const { selectedItems } = this.state;
-        if (selectedItems) {
-            if (selectedItems.length == 1 && this.props.isSingleSelect) {
-                return selectedItems[0];
+        const numberOfSelectedItems = selectedItems.filter(x => x !== null && x !== false && x.length > 0);
+        if (numberOfSelectedItems) {
+            if (numberOfSelectedItems.length == 1 && this.props.isSingleSelect) {
+                return numberOfSelectedItems[0];
             }
-            else if (selectedItems.length == 1 && !this.props.isSingleSelect) {
+            else if (numberOfSelectedItems.length == 1 && !this.props.isSingleSelect) {
                 return '1 item selected';
-            } else if (selectedItems.length > 1) {
-                return `${selectedItems.length} items selected`;
+            } else if (numberOfSelectedItems.length > 1) {
+                return `${numberOfSelectedItems.length} items selected`;
             }
 
             if (isSingleSelect)

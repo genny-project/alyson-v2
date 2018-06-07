@@ -14,6 +14,7 @@ import {
     GennyToasts,
     GennyMessagingList,
     TabContainer,
+    SublayoutLoader,
 } from 'views/components';
 import { any, object } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -79,7 +80,7 @@ class AppContent extends Component {
                     });
                 }
                 else if ( commandData.data != null ) {
-                    children = commandData.data.data.map(item => {
+                    children = commandData.data.map(item => {
                         return this.renderContent('view', item);
                     });
                 }
@@ -92,16 +93,20 @@ class AppContent extends Component {
             }
             else if (commandData.code == 'TAB_VIEW') {
 
-                const views = commandData.data.map(item => {
-                    return { 
-                        title: item.code,
-                        layout: this.renderContent('view', item)
+                const views = commandData.tabs.map(item => {
+                    return {
+                        title: item.name,
+                        icon: item.icon,
+                        layout: this.renderContent('view', item.layout)
                     };
                 });
 
                 return <TabContainer views={views} />;
             }
-            else if (commandData.layout != null || ( commandData.code == 'DETAIL_VIEW' && commandData.layoutCode != null) ) {
+            else if (commandData.code == 'DETAIL_VIEW') {
+                return <SublayoutLoader layoutCode={commandData.layoutCode} aliases={{ BE: commandData.root, GROUP: commandData.root }}/>;
+            }
+            else if (commandData.layout != null ) {
 
                 const parent = BaseEntityQuery.getBaseEntityParent(commandData.data);
                 const parentCode = parent ? parent.code : null;
@@ -151,8 +156,19 @@ class AppContent extends Component {
             <div className = "app-content" style={ componentStyle } >
                 <GennyToasts />
                 {
-                    modalContent ?
-                    < Modal show={ true } onClick={ this.toggleModal } > { modalContent } </Modal> : null} { layoutContent || children
+                    modalContent
+                    ? (
+                        < Modal
+                            show={ true }
+                            onClick={ this.toggleModal }
+                        > 
+                            { modalContent }
+                        </Modal>
+                    )
+                    : null
+                } 
+                { 
+                    layoutContent || children
                 }
             </div>
         );
