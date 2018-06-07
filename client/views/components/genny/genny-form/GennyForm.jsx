@@ -53,7 +53,7 @@ class GennyForm extends Component {
                 value: JSON.stringify(data),
             };
 
-            console.log(btnEventData);
+            // console.log(btnEventData);
             GennyBridge.sendBtnClick('BTN_CLICK', btnEventData);
         }
     }
@@ -190,7 +190,7 @@ class GennyForm extends Component {
 
                                         options = BaseEntityQuery.getEntityChildren(valList[0].selectionBaseEntityGroupList[0]).reduce((existing, newEntity) => {
 
-                                            console.log(newEntity);
+                                            //console.log(newEntity);
                                             existing.push({
                                                 name: newEntity.name,
                                                 code: newEntity.code,

@@ -1,10 +1,13 @@
 import './sidebar.scss';
 import React, { Component } from 'react';
 import { ImageView, IconSmall } from 'views/components';
-import { object, string, any } from 'prop-types';
+import { object, string, any, bool } from 'prop-types';
 import { Grid } from '@genny-project/layson';
 
 class Sidebar extends Component {
+    static defaultProps = {
+        closeOnItemClick: true,
+    }
 
     static propTypes = {
       style: object,
@@ -12,6 +15,7 @@ class Sidebar extends Component {
       caption: any,
       children: any,
       height: string,
+      closeOnItemClick: bool,
     };
 
     state = {
@@ -38,12 +42,14 @@ class Sidebar extends Component {
     }
 
     onClick = () => {
-        this.setState(prevState => ({
-            //isOpen: window.getScreenSize() == 'sm' ? 
-            isOpen: true
-        }), () => {
-            localStorage.setItem('sidebar_open', this.state.isOpen);
-        });
+        if (this.props.closeOnItemClick) {
+            this.setState(prevState => ({
+                //isOpen: window.getScreenSize() == 'sm' ? 
+                isOpen: true
+            }), () => {
+                localStorage.setItem('sidebar_open', this.state.isOpen);
+            });
+        }
     }
 
     renderChildren = (children) => {
@@ -76,7 +82,7 @@ class Sidebar extends Component {
             image = (
                 <div className='sidebar-image' position={[0,0]}>
                     <ImageView
-                    className='clickable'
+                        className='clickable'
                         src={src}
                         caption={caption}
                         style={{ maxHeight: '100px', width: '200px' }}
