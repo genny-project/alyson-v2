@@ -65,9 +65,6 @@ class AppContent extends Component {
             else if (commandData.code == 'PASSCODE') {
                 return <GennyPasscode />;
             }
-            else if (commandData.code == 'TAB_VIEW') {
-                return <TabContainer views={commandData.data} />;
-            }
             else if (commandData.code == 'MESSAGE_VIEW') {
                 return <GennyMessagingList root={commandData.root || commandData.data} selectedItem={commandData.selectedItem}/>;
             }
@@ -75,15 +72,36 @@ class AppContent extends Component {
                 return <GennyMessagingConversation root={commandData.root || commandData.data}/>;
             }
             else if (commandData.code == 'SPLIT_VIEW') {
-                let children = commandData.root.map(item => {
-                    return this.renderContent('view', item);
-                });
+                let children = [];
+                if ( commandData.root != null ) {
+                    children = commandData.root.map(item => {
+                        return this.renderContent('view', item);
+                    });
+                }
+                else if ( commandData.data != null ) {
+                    children = commandData.data.map(item => {
+                        return this.renderContent('view', item);
+                    });
+                }
+               
                 return (
-                    < SplitView >
+                    <SplitView>
                         {children}
                     </SplitView>
                 );
-            } else if (commandData.layout != null) {
+            }
+            else if (commandData.code == 'TAB_VIEW') {
+
+                const views = commandData.root.map(item => {
+                    return { 
+                        title: item.code,
+                        layout: this.renderContent('view', item)
+                    };
+                });
+
+                return <TabContainer views={views} />;
+            }
+            else if (commandData.layout != null || ( commandData.code == 'DETAIL_VIEW' && commandData.layoutCode != null) ) {
 
                 const parent = BaseEntityQuery.getBaseEntityParent(commandData.data);
                 const parentCode = parent ? parent.code : null;

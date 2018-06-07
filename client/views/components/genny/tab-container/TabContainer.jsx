@@ -64,6 +64,9 @@ class TabContainer extends Component {
     if (data[currentViewIndex] && data[currentViewIndex].layout) {
       let currentLayout = data[currentViewIndex].layout;
 
+      if (currentLayout.$$typeof) {
+        return currentLayout;
+      }
       return <LayoutLoader layout={currentLayout} />;
     }
     return null;
