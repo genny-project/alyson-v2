@@ -62,7 +62,7 @@ class LayoutLoader extends Component {
             let splitValue = '';
             let toBeReplacedAlias = alias;
 
-            if (alias.includes("${")) {
+            if (alias.includes('${')) {
 
                 const regex = /[$][{](.*?)[}]/;
                 const v = regex.exec(alias);
@@ -80,7 +80,6 @@ class LayoutLoader extends Component {
             splitValue = splitValue.split('.');
             let alias_code = splitValue[0];
             let attribute_code = splitValue[1];
-
             let attribute = {};
 
             if (localAliases) {
@@ -92,7 +91,6 @@ class LayoutLoader extends Component {
                     if (alias_key == alias_code) {
 
                         let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
-
                         if (baseEntity) {
 
                             // i am so sorry
@@ -104,30 +102,49 @@ class LayoutLoader extends Component {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'name')
                                 };
-                            } else if (attribute_code == "code") {
+                            } else if (attribute_code == 'code') {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
                                 };
-                            } else if (attribute_code == "link") {
+                            } else if (attribute_code == 'link') {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
+                                console.log('-------------------');
+                                console.log('alias_code', alias_code);
+                                console.log('attribute_code', attribute_code);
+                                console.log('linkValue', linkValue);
+                                console.log('be_attribute', be_attribute);
+                                console.log('localAliasCode', localAliasCode);
+
+                                if (be_attribute.startsWith('LNK_')){
+                                    const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
+                                    const linkedBECode = linkedBaseEntity.code;
+                                    const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute);
+                                    
+                                    if (lnk_value.value.startsWith('SEL_')) {
+                                        console.log(lnk_value.value);
+                                    }
+                                    else if (lnk_value.value.startsWith('[')) {
+                                        const lnk_valueLength = lnk_value.value.length;
+                                        const lnk_valueArray = lnk_value.value.slice(1, lnk_valueLength - 1);
+                                        console.log(lnk_valueArray);
+                                    }
+                                }
 
                                 if (linkValue != null && be_attribute != null) {
-
                                     const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
-
                                     if (linkedBaseEntity != null) {
 
                                         if (be_attribute == 'created') {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created')
                                             };
-                                        } else if (be_attribute == "code") {
+                                        } else if (be_attribute == 'code') {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
                                             };
-                                        } else if (be_attribute == "name") {
+                                        } else if (be_attribute == 'name') {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'name')
                                             };
@@ -136,7 +153,7 @@ class LayoutLoader extends Component {
                                         }
                                     }
                                 }
-                            } else if (attribute_code == "links") {
+                            } else if (attribute_code == 'links') {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
@@ -152,9 +169,9 @@ class LayoutLoader extends Component {
 
                                         if (linkedBaseEntity != null) {
 
-                                            if (be_attribute == 'created' || be_attribute == "code") {
+                                            if (be_attribute == 'created' || be_attribute == 'code') {
                                                 tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, be_attribute));
-                                            } else if (be_attribute == "count") {
+                                            } else if (be_attribute == 'count') {
                                                 tempAttribute.push(linkedBaseEntity.code);
                                             } else {
                                                 tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute));
@@ -170,7 +187,7 @@ class LayoutLoader extends Component {
 
                             if (attribute == null && attribute_code != null && (splitValue.length == 2 || splitValue.length == 4)) {
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, ''));
-                            } else if (alias_code == "ROOT") {
+                            } else if (alias_code == 'ROOT') {
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, baseEntity.code));
                             }
                         }
