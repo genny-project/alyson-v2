@@ -41,14 +41,15 @@ class InputDropdown extends Component {
     }
 
     componentDidMount() {
-
         //TODO works only with singleselected
         this.updateValueFromProps(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-
-        if (nextProps.value != this.props.value) {
+        if (
+            nextProps.value != this.props.value ||
+            nextProps.items != this.props.items
+        ) {
             this.updateValueFromProps(nextProps);
         }
     }
@@ -57,9 +58,8 @@ class InputDropdown extends Component {
 
         if (this.props.isSingleSelect) {
 
-            const filter = this.props.items.filter(item => item.code == props.value)[0];
+            const filter = props.items.filter(item => item.code == props.value)[0];
 
-            //console.log(filter);
             this.setState({
                 selectedItems: filter && filter.name ? [filter.name] : []
             });
@@ -71,7 +71,8 @@ class InputDropdown extends Component {
                 if (props && props.value != null) {
 
                     const newValue = JSON.parse(props.value);
-                    const selectedItems = this.props.items.map(item => {
+                    // console.log(newValue);
+                    const selectedItems = props.items.map(item => {
 
                         for (var i = 0; i < newValue.length; i++) {
                             const newItem = newValue[i];
@@ -82,7 +83,7 @@ class InputDropdown extends Component {
 
                         return false;
                     });
-
+                    // console.log(selectedItems);
                     this.setState({
                         selectedItems: selectedItems ? selectedItems : []
                     });
