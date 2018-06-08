@@ -6,7 +6,7 @@
 
 	> .grid > .row:first-child {
 
-	 	> .col:first-child {
+	 	> .col:first-child, .col:nth-child(3) {
 			overflow: initial !important;
 			z-index: 100;
 			position: relative;

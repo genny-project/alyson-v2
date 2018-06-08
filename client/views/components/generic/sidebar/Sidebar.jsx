@@ -7,6 +7,7 @@ import { Grid } from '@genny-project/layson';
 class Sidebar extends Component {
     static defaultProps = {
         closeOnItemClick: true,
+        slideFromRight: false
     }
 
     static propTypes = {
@@ -16,6 +17,7 @@ class Sidebar extends Component {
       children: any,
       height: string,
       closeOnItemClick: bool,
+      slideFromRight: bool,
     };
 
     state = {
@@ -70,7 +72,7 @@ class Sidebar extends Component {
 
     render() {
 
-        const { style, src, caption, children, } = this.props;
+        const { style, src, caption, children, slideFromRight } = this.props;
         const { isOpen } = this.state;
 
         const componentStyle = {
@@ -91,7 +93,8 @@ class Sidebar extends Component {
                 </div>
             );
         }
-        let icon = <IconSmall className='sidebar-toggle-icon clickable'
+        console.log(slideFromRight);
+        let icon = <IconSmall className={`sidebar-toggle-icon sidebar-toggle-icon-${slideFromRight ? 'right' : 'left'} clickable`}
             name="menu"
             size={32}
             onClick={this.handleSidebarToggle}
