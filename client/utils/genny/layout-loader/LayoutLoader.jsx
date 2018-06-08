@@ -62,7 +62,7 @@ class LayoutLoader extends Component {
             let splitValue = '';
             let toBeReplacedAlias = alias;
 
-            if (alias.includes("${")) {
+            if (alias.includes('${')) {
 
                 const regex = /[$][{](.*?)[}]/;
                 const v = regex.exec(alias);
@@ -80,7 +80,6 @@ class LayoutLoader extends Component {
             splitValue = splitValue.split('.');
             let alias_code = splitValue[0];
             let attribute_code = splitValue[1];
-
             let attribute = {};
 
             if (localAliases) {
@@ -92,7 +91,6 @@ class LayoutLoader extends Component {
                     if (alias_key == alias_code) {
 
                         let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
-
                         if (baseEntity) {
 
                             // i am so sorry
@@ -104,30 +102,28 @@ class LayoutLoader extends Component {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'name')
                                 };
-                            } else if (attribute_code == "code") {
+                            } else if (attribute_code == 'code') {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
                                 };
-                            } else if (attribute_code == "link") {
+                            } else if (attribute_code == 'link') {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
 
                                 if (linkValue != null && be_attribute != null) {
-
                                     const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
-
                                     if (linkedBaseEntity != null) {
 
                                         if (be_attribute == 'created') {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created')
                                             };
-                                        } else if (be_attribute == "code") {
+                                        } else if (be_attribute == 'code') {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
                                             };
-                                        } else if (be_attribute == "name") {
+                                        } else if (be_attribute == 'name') {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'name')
                                             };
@@ -136,7 +132,77 @@ class LayoutLoader extends Component {
                                         }
                                     }
                                 }
-                            } else if (attribute_code == "links") {
+
+                                // console.log('===========================');
+
+                                if (be_attribute.startsWith('LNK_')){
+                                    const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
+                                    const linkedBECode = linkedBaseEntity.code;
+                                    const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute);
+
+                                    if (lnk_value && lnk_value.value && lnk_value.value.startsWith('SEL_')) {
+                                       
+
+                                        const lnk_field = splitValue[4];
+                                        // console.log(lnk_value.value, lnk_field);
+
+                                        if (lnk_field == 'created') {
+                                            attribute = {
+                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'created')
+                                            };
+                                        } else if (lnk_field == 'code') {
+                                            attribute = {
+                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'code')
+                                            };
+                                        } else if (lnk_field == 'name') {
+                                            attribute = {
+                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'name')
+                                            };
+                                        } else {
+                                            attribute = BaseEntityQuery.getBaseEntityAttribute(lnk_value.value, lnk_field);
+                                        }
+                                        // console.log(attribute);
+                                    }
+                                    else if (lnk_value && lnk_value.value && lnk_value.value.startsWith('[')) {
+                                        // console.log(lnk_value.value);
+                                        const lnk_valueParse = JSON.parse(lnk_value.value);
+                                        
+                                        if (
+                                            lnk_valueParse != null &&
+                                            lnk_valueParse instanceof Array &&
+                                            lnk_valueParse.length > 0
+                                        ) {
+                                            const attributeArray = [];
+                                            lnk_valueParse.forEach(x => {
+                                                const lnk_field = splitValue[4];
+                                                let tempAttribute = null;
+                                                if (lnk_field == 'created') {
+                                                    tempAttribute = {
+                                                        value: BaseEntityQuery.getBaseEntityField(x, 'created')
+                                                    };
+                                                } else if (lnk_field == 'code') {
+                                                    tempAttribute = {
+                                                        value: BaseEntityQuery.getBaseEntityField(x, 'code')
+                                                    };
+                                                } else if (lnk_field == 'name') {
+                                                    tempAttribute =  {
+                                                        value: BaseEntityQuery.getBaseEntityField(x, 'name')
+                                                    };
+                                                } else {
+                                                    tempAttribute = BaseEntityQuery.getBaseEntityAttribute(x, lnk_field);
+                                                }
+
+                                                if (tempAttribute != null) attributeArray.push(tempAttribute);
+                                                
+                                            });
+                                            attribute = {
+                                                value: attributeArray.length > 0 ? attributeArray.join(', ') : null,
+                                            };
+                                        }
+                                    }
+                                }
+
+                            } else if (attribute_code == 'links') {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
@@ -152,9 +218,9 @@ class LayoutLoader extends Component {
 
                                         if (linkedBaseEntity != null) {
 
-                                            if (be_attribute == 'created' || be_attribute == "code") {
+                                            if (be_attribute == 'created' || be_attribute == 'code') {
                                                 tempAttribute.push(BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, be_attribute));
-                                            } else if (be_attribute == "count") {
+                                            } else if (be_attribute == 'count') {
                                                 tempAttribute.push(linkedBaseEntity.code);
                                             } else {
                                                 tempAttribute.push(BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute));
@@ -167,10 +233,11 @@ class LayoutLoader extends Component {
                             } else {
                                 attribute = splitValue.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                             }
-
+                            // console.log('ATTRIBUTE', attribute);
+                            // console.log('-------------------');
                             if (attribute == null && attribute_code != null && (splitValue.length == 2 || splitValue.length == 4)) {
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, ''));
-                            } else if (alias_code == "ROOT") {
+                            } else if (alias_code == 'ROOT') {
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, baseEntity.code));
                             }
                         }
