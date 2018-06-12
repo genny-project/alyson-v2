@@ -4,6 +4,54 @@ import store from 'views/store';
 
 class MessageHandler {
 
+    constructor() {
+
+        this.lastBe = new Date().getTime();
+        this.beBatch = [];
+
+        setInterval( this.checkMessageBatch, 200 );
+      }
+
+    checkMessageBatch = () => {
+        if (
+          this.beBatch.length > 0 &&
+          new Date().getTime() - this.lastBe > 200
+        ) {
+          this.drainMessageBatch();
+        }
+      }
+
+      drainMessageBatch = () => {
+        const message = this.beBatch.reduce( this.handleReduceMessageBatch, this.beBatch[0] );
+
+        store.dispatch( message );
+
+        // this.beBatch.forEach( message => {
+        //   store.dispatch( message );
+        // });
+
+        this.beBatch = [];
+      }
+
+      handleReduceMessageBatch = ( output, current ) => {
+        if ( current.payload.aliasCode ) {
+          store.dispatch( current );
+
+          return output;
+        }
+
+        return {
+          ...output,
+          payload: {
+            ...output.payload,
+            items: [
+              ...output.payload.items,
+              ...current.payload.items,
+            ],
+          },
+        };
+      }
+
     onMessage(message) {
 
         /* Check that the message isn't null */
@@ -116,7 +164,17 @@ class MessageHandler {
                 handleMessage(message, message.data_type);
             })
 
-        } else {
+        }
+        // else if ( message.data_type === 'BaseEntity' && !message.delete ) {
+        //
+        //       /* Add to a batch */
+        //       this.beBatch.push(
+        //         action( message )
+        //       );
+        //
+        //       this.lastBe = new Date().getTime();
+        // }
+        else {
             handleMessage(message, eventType);
         }
     }

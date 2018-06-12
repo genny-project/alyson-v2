@@ -12,7 +12,7 @@ class GennyList extends Component {
         showLinks: false,
         hideHeader: false,
         showEmpty: true,
-        showTitle: false,
+        showTitle: true,
         showSearchBar: true,
         hideNav: false,
         numberOfItems: 4,
@@ -96,7 +96,7 @@ class GennyList extends Component {
                     if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
                         linkLinkValue = linkToParent.link.linkValue;
                     }
-                    
+
                     if(linkToParent != null && linkToParent.linkValue != null) {
                         linkValue = linkToParent.linkValue;
                     }
