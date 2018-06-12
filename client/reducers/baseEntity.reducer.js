@@ -8,27 +8,29 @@ const initialState = {
     attributes: [],
 };
 
-const deleteBaseEntity = (state, action, existing, newItem) => {
+const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBaseEntities) => {
 
     let baseEntityCode = newItem.code;
 
     delete existing[baseEntityCode];
-    if(state.data[baseEntityCode] != null) {
-
-        Object.keys(state.data[baseEntityCode].links).forEach(linkCode => {
-
-            const links = state.data[baseEntityCode].links[linkCode];
-            links.forEach(link => {
-
-                if(link.targetCode != null) {
-                    delete state.data[link.targetCode];
-                }
-            });
-        });
-    }
-
     delete state.data[baseEntityCode];
-    
+
+    if(shouldDeleteLinkedBaseEntities) {
+
+        if(state.data[baseEntityCode] != null) {
+
+            Object.keys(state.data[baseEntityCode].links).forEach(linkCode => {
+
+                const links = state.data[baseEntityCode].links[linkCode];
+                links.forEach(link => {
+
+                    if(link.targetCode != null) {
+                        delete state.data[link.targetCode];
+                    }
+                });
+            });
+        }
+    }
 };
 
     const handleBaseEntity = (state, action, existing, newItem) => {
@@ -37,12 +39,12 @@ const deleteBaseEntity = (state, action, existing, newItem) => {
     let parentCode = action.payload.parentCode;
 
     if (action.payload.delete === true) {
-        deleteBaseEntity(state, action, existing, newItem);
+        deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
 
     } else {
 
         if(action.payload.replace == true) {
-            deleteBaseEntity(state, action, existing, newItem);
+            deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
         }
 
         if (!newItem.baseEntityAttributes) {
