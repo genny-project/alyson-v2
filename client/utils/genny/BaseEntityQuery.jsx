@@ -48,7 +48,7 @@ class BaseEntityQuery {
 
                     be.links[linkCode].forEach(linkedItem => {
 
-                        if (linkedItem.targetCode != null) {
+                        if (linkedItem != null && linkedItem != 'undefined' && linkedItem.targetCode != null) {
                             const newItem = recurse(linkedItem.targetCode, linkedItem.weight);
                             if (newItem != null) {
                                 results.push(newItem);

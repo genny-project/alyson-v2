@@ -21,16 +21,21 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
         /* we remove the link to the parent */
         if(state.data[parentCode] && state.data[parentCode].links) {
 
+            let newLinks = {};
             Object.keys(state.data[parentCode].links).forEach(linkCode => {
 
                 let links = state.data[parentCode].links[linkCode];
+                let newLinkedLinks = [];
+
                 for(let i = 0; i < links.length; i++) {
 
                     const link = links[i];
-                    if(link.targetCode != null && link.targetCode == baseEntityCode) {
-                        delete state.data[parentCode].links[linkCode][i];
+                    if(link.targetCode != null && link.targetCode != baseEntityCode) {
+                        newLinkedLinks.push(link);
                     }
                 }
+
+                newLinks[linkCode] = newLinkedLinks;
             });
         }
     }
