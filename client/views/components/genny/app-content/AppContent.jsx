@@ -126,6 +126,10 @@ class AppContent extends Component {
             projectColor = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_COLOR');
         }
 
+        const rootBE = BaseEntityQuery.getBaseEntity('GRP_NOTES');
+        
+        if (rootBE === null || rootBE === undefined ) return null;
+
         return (
             <Sidebar
                 closeOnItemClick={false}
@@ -154,12 +158,13 @@ class AppContent extends Component {
                     : null
                 } */}
                 {
-                    root 
+                    root
                     ? <GennyMessagingConversation
                         position={[1,0]}
                         root='GRP_NOTES'
                         itemCode={root}
                         buttonCode='BTN_ADD_NOTE'
+                        maxLength={250}
                     />
                     : null
                 }

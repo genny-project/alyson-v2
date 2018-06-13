@@ -1,6 +1,6 @@
 import './GennyMessagingConversation.scss';
 import React, { Component } from 'react';
-import { string, func, array } from 'prop-types';
+import { string, func, array, bool} from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { Grid } from '@genny-project/layson';
 import { GennyButton, ImageView, DateLabel, IconSmall} from 'views/components';
@@ -10,7 +10,7 @@ class GennyMessagingConversation extends Component {
 
     static defaultProps = {
         title: '',
-        messages: []
+        messages: [],
     }
 
     static propTypes = {
@@ -20,6 +20,7 @@ class GennyMessagingConversation extends Component {
         root: string,
         itemCode: string,
         buttonCode: string,
+        maxLength: bool,
     };
 
     state = {
@@ -82,7 +83,7 @@ class GennyMessagingConversation extends Component {
 
            e.preventDefault();
            GennyBridge.sendBtnClick('BTN_CLICK', {
-               code: 'BTN_SEND_MESSAGE',
+               code: this.props.buttonCode ? this.props.buttonCode : 'BTN_SEND_MESSAGE',
                value: JSON.stringify({
                    itemCode: this.props.itemCode || this.props.root,
                    message: this.state.messageText
@@ -96,17 +97,25 @@ class GennyMessagingConversation extends Component {
     renderTextInput() {
         return <div>
             <textarea pattern="[A-Za-z]" onKeyPress={this.handleKeyPress} value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
-                <GennyButton
-                    className='conversation-button'
-                    onClick={this.onButtonClick}
-                    disabled={this.state.messageText == ''}
-                    buttonCode={this.props.buttonCode ? this.props.buttonCode : 'BTN_SEND_MESSAGE'}
-                    value={{ itemCode: this.props.root, value: this.state.messageText }}
-                    style={{width: '100px', height: '50px'}}
-                    type='confirm'
-                >
-                    <p>Send</p>
-                </GennyButton>
+            <GennyButton
+                className='conversation-button'
+                onClick={this.onButtonClick}
+                disabled={this.state.messageText == ''}
+                buttonCode={this.props.buttonCode ? this.props.buttonCode : 'BTN_SEND_MESSAGE'}
+                value={{
+                    itemCode: this.props.itemCode || this.props.root,
+                    message: this.state.messageText
+                }}
+                style={{width: '100px', height: '50px'}}
+                type='confirm'
+            >
+                <p>Send</p>
+            </GennyButton>
+            {
+                this.props.maxLength
+                    ? <span>{this.props.maxLength - this.state.messageText.length} characters remaining</span>
+                    : null
+            }
         </div>;
     }
 
