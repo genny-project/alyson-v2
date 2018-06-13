@@ -85,7 +85,7 @@ class GennyMessagingConversation extends Component {
                code: 'BTN_SEND_MESSAGE',
                value: JSON.stringify({
                    itemCode: this.props.itemCode || this.props.root,
-                   value: this.state.messageText
+                   message: this.state.messageText
                })
            });
 
