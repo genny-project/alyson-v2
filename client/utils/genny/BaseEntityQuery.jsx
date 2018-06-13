@@ -236,6 +236,7 @@ class BaseEntityQuery {
 
         let be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         if (be && be.links) {
+
             const bes = Object.keys(be.links).map(link => BaseEntityQuery.getLinkedBaseEntities(baseEntityCode, link, type, linkValues));
             if (bes != null && bes.length > 0) return bes[0];
         }

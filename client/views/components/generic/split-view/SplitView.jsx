@@ -22,25 +22,23 @@ class SplitView extends Component {
     }
 
     close = () => {
-        //console.log('close');
+
         this.setState({
             isOpen: true
         });
-        //send message to backend
     }
 
     open = () => {
-        //console.log('open');
+
         this.setState({
             isOpen: false
         });
-        //send message to backend
     }
 
     renderContent = (children) => {
-        
+
         return children.map((child, index) => {
-            if (child.$$typeof) {    
+            if (child.$$typeof) {
                 return React.cloneElement(child, {
                     position: [0, index],
                     onClick: index > 0 ? this.close : this.open
@@ -69,7 +67,7 @@ class SplitView extends Component {
                 rows={1}
             >
                 {
-                    isMobile == true ? 
+                    isMobile == true ?
                         <div position={[0,1]} className='split-view-close-button' onClick={this.close}>
                             <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
                             <span>Back</span>

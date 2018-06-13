@@ -70,7 +70,6 @@ class GennyList extends Component {
         const { selectedItemState } = this.state;
 
         let newData = [];
-        // console.log( data );
 
         if(data.length == 0) return [];
 

@@ -161,10 +161,11 @@ class LayoutLoader extends Component {
                                             }
                                         }
                                     });
+
                                     attribute.value = (isCount == true ? tempAttribute.length : tempAttribute).toString();
-                                    //attribute.value = tempAttribute.toString();
                                 }
-                            } else {
+                            }
+                            else {
                                 attribute = splitValue.length == 2 ? BaseEntityQuery.getBaseEntityAttribute(localAliasCode, attribute_code) : null;
                             }
 
@@ -178,7 +179,7 @@ class LayoutLoader extends Component {
                 });
             }
 
-            if (!localAliases || alias_code == 'USER' || alias_code == 'PROJECT') {
+            if (!localAliases || alias_code == 'USER' || alias_code == 'PROJECT' || alias_code == "USER_COMPANY") {
                 if (splitValue.length == 2) {
 
                     attribute = BaseEntityQuery.getAliasAttribute(alias_code, attribute_code) || BaseEntityQuery.getBaseEntityAttribute(alias_code, attribute_code);
@@ -234,7 +235,7 @@ class LayoutLoader extends Component {
 
         if(layout == null) return layout;
 
-        const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
+        const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"COMPANY\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
         layout = JSON.parse(layoutString);
         return layout;
         //return JSON.parse(JSON.stringify( layout ).replace(/\"BE\..*\"/g, ''));

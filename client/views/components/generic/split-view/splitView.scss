@@ -3,15 +3,25 @@
 .split-view {
 
     > .row {
-        flex-wrap: nowrap;
+
+        // flex-wrap: nowrap;
+
+        height: 100%;
+        height: -moz-available;
+        height: -webkit-fill-available;
+        height: fill-available;
 
         > .col {
             overflow-y: auto;
         }
     }
+
     &.sm {
+
         width: 200vw;
+
         > .row {
+
             > .col {
                 overflow: scroll;
 
@@ -21,8 +31,9 @@
                 overflow-y: auto;
 
                 &.split-view-left {
+
                     flex-grow: 1;
-                    
+
                     &.open {
                         transform: translateX(0%);
                     }
@@ -32,6 +43,7 @@
                 }
 
                 &.split-view-right {
+
                     flex-grow: 1;
 
                     &.open {
