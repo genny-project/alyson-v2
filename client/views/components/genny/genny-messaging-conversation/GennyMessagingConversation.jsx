@@ -95,7 +95,7 @@ class GennyMessagingConversation extends Component {
     }
 
     renderTextInput() {
-        return <div>
+        return <div style={{display: 'flex', flexDirection: 'column' }}>
             <textarea pattern="[A-Za-z]" onKeyPress={this.handleKeyPress} value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
             <GennyButton
                 className='conversation-button'
