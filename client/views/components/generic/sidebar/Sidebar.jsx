@@ -57,6 +57,7 @@ class Sidebar extends Component {
     renderChildren = (children) => {
 
         const childrenWithProps =  React.Children.map(children, child => {
+            if (child === null) return child;
             if (child.$$typeof) {
                 return React.cloneElement(child, {
                     onClick: this.onClick
@@ -93,7 +94,7 @@ class Sidebar extends Component {
                 </div>
             );
         }
-        console.log(slideFromRight);
+        
         let icon = <IconSmall className={`sidebar-toggle-icon sidebar-toggle-icon-${slideFromRight ? 'right' : 'left'} clickable`}
             name="menu"
             size={32}
@@ -106,9 +107,8 @@ class Sidebar extends Component {
                 <Grid
                     className='sidebar-main'
                     style={componentStyle}
-                    rows={['200px', {style: {  flex: '1, 1, auto', overflowY: 'auto', overflowX: 'hidden', justifyContent: `${!isOpen && window.getScreenSize() == 'sm' ? 'flex-start' : 'initial' }` } }]}
+                    rows={[`${image ? '200px' : '0'}`, {style: {  flex: '1, 1, auto', overflowY: 'auto', overflowX: 'hidden', justifyContent: `${!isOpen && window.getScreenSize() == 'sm' ? 'flex-start' : 'initial' }` } }]}
                     cols={1}>
-
                     {icon}
                     {image}
                     {this.renderChildren(children)}

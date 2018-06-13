@@ -17,7 +17,9 @@ class GennyMessagingConversation extends Component {
         title: string,
         messages: array,
         onClick: func,
-        root: string
+        root: string,
+        itemCode: string,
+        buttonCode: string,
     };
 
     state = {
@@ -82,7 +84,7 @@ class GennyMessagingConversation extends Component {
            GennyBridge.sendBtnClick('BTN_CLICK', {
                code: 'BTN_SEND_MESSAGE',
                value: JSON.stringify({
-                   itemCode: this.props.root,
+                   itemCode: this.props.itemCode || this.props.root,
                    value: this.state.messageText
                })
            });
@@ -98,7 +100,7 @@ class GennyMessagingConversation extends Component {
                     className='conversation-button'
                     onClick={this.onButtonClick}
                     disabled={this.state.messageText == ''}
-                    buttonCode='BTN_SEND_MESSAGE'
+                    buttonCode={this.props.buttonCode ? this.props.buttonCode : 'BTN_SEND_MESSAGE'}
                     value={{ itemCode: this.props.root, value: this.state.messageText }}
                     style={{width: '100px', height: '50px'}}
                     type='confirm'
@@ -311,7 +313,6 @@ class GennyMessagingConversation extends Component {
                     cols={1}
                 >
                     <div className="conversation-messages-empty" position={[0,0]}>
-                        Welcome to Channel40.<br />
                         There are currently no messages for you to read.
                     </div>
                 </Grid>

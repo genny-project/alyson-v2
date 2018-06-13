@@ -16,20 +16,25 @@ import {
     TabContainer,
     SublayoutLoader,
 } from 'views/components';
-import { any, object } from 'prop-types';
+import { any, object, bool } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
-import { BaseEntityQuery } from 'utils/genny';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import store from 'views/store';
+import { Label } from 'views/components';
+import Sidebar from '../../generic/sidebar/Sidebar';
 
 class AppContent extends Component {
 
-    static defaultProps = {}
+    static defaultProps = {
+        showSidebar: true,
+    }
 
     static propTypes = {
         style: object,
         children: any,
         layout: object,
         history: object,
+        showSidebar: bool,
     }
 
     state = {
@@ -39,7 +44,7 @@ class AppContent extends Component {
     renderContent = (commandType, commandData) => {
 
         if(commandType && ( commandData.root != null || commandData.data != null) ) {
-
+            
             // we need to show the table view
             if (commandData.code == 'TABLE_VIEW') {
                 return <GennyTable root = { commandData.root } columns={commandData.data.columns}/>;
@@ -74,12 +79,7 @@ class AppContent extends Component {
             }
             else if (commandData.code == 'SPLIT_VIEW') {
                 let children = [];
-                if ( commandData.root != null ) {
-                    children = commandData.root.map(item => {
-                        return this.renderContent('view', item);
-                    });
-                }
-                else if ( commandData.data != null ) {
+                if ( commandData.data != null ) {
                     children = commandData.data.map(item => {
                         return this.renderContent('view', item);
                     });
@@ -119,6 +119,54 @@ class AppContent extends Component {
         }
     }
 
+    renderSidebar = (root) => {
+        const project_code = GennyBridge.getProject();
+        let projectColor = null;
+        if(project_code != null) {
+            projectColor = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_COLOR');
+        }
+
+        return (
+            <Sidebar
+                closeOnItemClick={false}
+                slideFromRight={true}
+                style={{
+                    backgroundColor: projectColor ? projectColor.value : 'none',
+                    color: 'white',
+                    textAlign: 'center'
+                }}
+            >               
+                {/* {
+                    root 
+                    ? <div
+                        position={[0,0]}
+                        style={{
+                            height: '45px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            paddingLeft: '60px',
+                            flexDirection: 'column'
+                        }}
+                    >
+                        <h3>Notes</h3>
+                        <span>{root}</span>
+                    </div>
+                    : null
+                } */}
+                {
+                    root 
+                    ? <GennyMessagingConversation
+                        position={[1,0]}
+                        root='GRP_NOTES'
+                        itemCode={root}
+                        buttonCode='BTN_ADD_NOTE'
+                    />
+                    : null
+                }
+            </Sidebar>
+        );
+    }
+
     toggleModal = () => {
 
         // re render
@@ -132,17 +180,20 @@ class AppContent extends Component {
 
     render() {
 
-        const { layout, style, children } = this.props;
+        const { layout, style, children, showSidebar } = this.props;
         const componentStyle = {...style };
 
         let layoutContent = null;
         let modalContent = null;
+        let itemCode = null;
 
         if (layout != null && layout.currentView) {
+            if (layout.currentView.root) itemCode = layout.currentView.root;
+
             layoutContent = this.renderContent('view', layout.currentView);
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-
+            itemCode = layout.currentSublayout.root;
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;
             layoutContent = <LayoutLoader layout={ layout.currentSublayout } aliases={{ ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root }}/>;
@@ -166,10 +217,32 @@ class AppContent extends Component {
                         </Modal>
                     )
                     : null
-                } 
-                { 
-                    layoutContent || children
                 }
+                <div
+                    style={
+                        {
+                            height: '100%',
+                            flexGrow: 1,
+                            overflow: 'scroll',
+                        }
+                    }
+                >
+                    { layoutContent || children }
+                </div>
+                <div
+                    style={
+                        {
+                            height: '100%',
+                            flexShrink: 0,
+                        }
+                    }
+                >
+                    {
+                        showSidebar 
+                            ? this.renderSidebar(itemCode)
+                            : null
+                    }
+                </div>
             </div>
         );
     }
