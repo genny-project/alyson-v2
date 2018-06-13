@@ -95,27 +95,30 @@ class GennyMessagingConversation extends Component {
     }
 
     renderTextInput() {
-        return <div style={{display: 'flex', flexDirection: 'column' }}>
+        return <div>
             <textarea pattern="[A-Za-z]" onKeyPress={this.handleKeyPress} value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
-            <GennyButton
-                className='conversation-button'
-                onClick={this.onButtonClick}
-                disabled={this.state.messageText == ''}
-                buttonCode={this.props.buttonCode ? this.props.buttonCode : 'BTN_SEND_MESSAGE'}
-                value={{
-                    itemCode: this.props.itemCode || this.props.root,
-                    message: this.state.messageText
-                }}
-                style={{width: '100px', height: '50px'}}
-                type='confirm'
-            >
-                <p>Send</p>
-            </GennyButton>
-            {
-                this.props.maxLength
-                    ? <span>{this.props.maxLength - this.state.messageText.length} characters remaining</span>
-                    : null
-            }
+                
+            <div  style={{display: 'flex' }}>
+                {
+                    this.props.maxLength
+                        ? <span style={{ padding: '5px' }}>{this.props.maxLength - this.state.messageText.length} characters remaining</span>
+                        : null
+                }
+                <GennyButton
+                    className='conversation-button'
+                    onClick={this.onButtonClick}
+                    disabled={this.state.messageText == ''}
+                    buttonCode={this.props.buttonCode ? this.props.buttonCode : 'BTN_SEND_MESSAGE'}
+                    value={{
+                        itemCode: this.props.itemCode || this.props.root,
+                        message: this.state.messageText
+                    }}
+                    style={{width: '100px', height: '50px'}}
+                    type='confirm'
+                >
+                    <p>Send</p>
+                </GennyButton>
+            </div>
         </div>;
     }
 
