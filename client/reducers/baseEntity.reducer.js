@@ -13,9 +13,6 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
     let baseEntityCode = newItem.code;
     const parentCode = action.payload.parentCode;
 
-    delete existing[baseEntityCode];
-    delete state.data[baseEntityCode];
-
     if(parentCode) {
 
         /* we remove the link to the parent */
@@ -56,6 +53,9 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
             });
         }
     }
+
+    delete existing[baseEntityCode];
+    delete state.data[baseEntityCode];
 };
 
     const handleBaseEntity = (state, action, existing, newItem) => {
