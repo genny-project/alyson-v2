@@ -33,7 +33,9 @@ class List extends Component {
         countStyle: object,
         header: any,
         data: array,
-        onItemClick: func
+        onItemClick: func,
+
+        selectedItem: string,
     }
 
     state = {
@@ -54,12 +56,12 @@ class List extends Component {
 
     renderMain = (data, itemsPerPage, hideNav) => {
 
-        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage } = this.props;
+        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage, selectedItem } = this.props;
 
         let children = [];
         if (data && data.length > 0) {
             children = data.map((item, index) => {
-                return <ListItem {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick}/>;
+                return <ListItem isSelected={selectedItem == item.code} {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick}/>;
             });
         }
         else {

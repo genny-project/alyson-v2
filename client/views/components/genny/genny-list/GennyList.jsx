@@ -37,6 +37,7 @@ class GennyList extends Component {
         gennyListStyle: object,
         numberOfItems: number,
         onClick: func,
+        selectedItem: string,
     };
 
     state = {

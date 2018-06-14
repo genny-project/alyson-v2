@@ -53,7 +53,8 @@ import {
   GennyStatus,
   GennyCounter,
   GennyPieChart,
-  GennyTagDisplay
+  GennyTagDisplay,
+  Capability,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -111,4 +112,5 @@ export default new ComponentCollection({
   Utils,
   GennyCounter,
   GennyPieChart,
+  Capability,
 });
