@@ -80,7 +80,7 @@ class AppContent extends Component {
             else if (commandData.code == 'SPLIT_VIEW') {
                 let children = [];
                 if ( commandData.data != null ) {
-                    children = commandData.data.map(item => {
+                    children = commandData.root.map(item => {
                         return this.renderContent('view', item);
                     });
                 }
@@ -128,44 +128,53 @@ class AppContent extends Component {
 
         const rootBE = BaseEntityQuery.getBaseEntity('GRP_NOTES');
 
-        //if (rootBE === null || rootBE === undefined ) return null;
+        if (rootBE === null || rootBE === undefined ) return null;
 
         return (
             <Sidebar
                 closeOnItemClick={false}
                 slideFromRight={true}
+                icon='edit'
                 style={{
                     backgroundColor: projectColor ? projectColor.value : 'none',
                     color: 'white',
                     textAlign: 'center'
                 }}
-            >               
-                {/* {
-                    root 
-                    ? <div
-                        position={[0,0]}
+            >
+                <div
+                    className='sidebarTitle'
+                    position={[0,0]}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '50px',
+                        position: 'absolute',
+                        top: 0,
+                        left: 'calc(50% + 10px)',
+                        transform: 'translate(-50%)',
+                    }}
+                >
+                    <h2
                         style={{
-                            height: '45px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            paddingLeft: '60px',
-                            flexDirection: 'column'
+                            color: 'white',
+                            margin: 0,
                         }}
                     >
-                        <h3>Notes</h3>
-                        <span>{root}</span>
-                    </div>
-                    : null
-                } */}
+                        Notes
+                    </h2>
+                </div>
                 {
                     root
                     ? <GennyMessagingConversation
+                        className='notes'
                         position={[1,0]}
                         root='GRP_NOTES'
                         itemCode={root}
                         buttonCode='BTN_ADD_NOTE'
                         maxLength={250}
                         reverseDirection
+                        showFilters
                     />
                     : null
                 }

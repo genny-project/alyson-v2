@@ -7,7 +7,8 @@ import { Grid } from '@genny-project/layson';
 class Sidebar extends Component {
     static defaultProps = {
         closeOnItemClick: true,
-        slideFromRight: false
+        slideFromRight: false,
+        icon: 'menu',
     }
 
     static propTypes = {
@@ -18,6 +19,7 @@ class Sidebar extends Component {
       height: string,
       closeOnItemClick: bool,
       slideFromRight: bool,
+      icon: string,
     };
 
     state = {
@@ -55,7 +57,7 @@ class Sidebar extends Component {
     }
 
     renderChildren = (children) => {
-
+        
         const childrenWithProps =  React.Children.map(children, child => {
             if (child === null) return child;
             if (child.$$typeof) {
@@ -73,7 +75,7 @@ class Sidebar extends Component {
 
     render() {
 
-        const { style, src, caption, children, slideFromRight } = this.props;
+        const { style, src, caption, children, slideFromRight, icon } = this.props;
         const { isOpen } = this.state;
 
         const componentStyle = {
@@ -95,8 +97,8 @@ class Sidebar extends Component {
             );
         }
         
-        let icon = <IconSmall className={`sidebar-toggle-icon sidebar-toggle-icon-${slideFromRight ? 'right' : 'left'} clickable`}
-            name="menu"
+        let sidebarIcon = <IconSmall className={`sidebar-toggle-icon sidebar-toggle-icon-${slideFromRight ? 'right' : 'left'} clickable`}
+            name={icon}
             size={32}
             onClick={this.handleSidebarToggle}
             position={[0,0]}
@@ -109,7 +111,7 @@ class Sidebar extends Component {
                     style={componentStyle}
                     rows={[`${image ? '200px' : '0'}`, {style: {  flex: '1, 1, auto', overflowY: 'auto', overflowX: 'hidden', justifyContent: `${!isOpen && window.getScreenSize() == 'sm' ? 'flex-start' : 'initial' }` } }]}
                     cols={1}>
-                    {icon}
+                    {sidebarIcon}
                     {image}
                     {this.renderChildren(children)}
                 </Grid>

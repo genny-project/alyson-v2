@@ -26,7 +26,9 @@ class GennyMessagingConversation extends Component {
     state = {
         canSendMessage: false,
         messageText: '',
-        createdMessages: []
+        createdMessages: [],
+        filterText: null,
+        filterType: null,
     }
 
     onTextChange = (e) => {
@@ -49,6 +51,8 @@ class GennyMessagingConversation extends Component {
     }
 
     onButtonClick = (e) => {
+        let div = this.divRef;
+        div.rows = 3;
 
         const newText = this.state.messageText;
         this.setState({
@@ -106,6 +110,20 @@ class GennyMessagingConversation extends Component {
         }
     }
 
+    handleFilterText = (event) => {
+        const text = event.target.value;
+        
+        this.setState({
+            filterText:  text,
+        });
+    }
+
+    handleFilterClick = (type) => (event) => {
+        this.setState({
+            filterType:  type,
+        });
+    }
+
     renderTextInput() {
         return (
             <div>
@@ -140,6 +158,31 @@ class GennyMessagingConversation extends Component {
                 </GennyButton>
             </div>
         );
+    }
+
+    filterMessages = (messages) => {
+
+        const { filterText, filterType } = this.state;
+
+        let filteredMessages = messages;
+        
+        if (
+            filterText !== null &&
+            typeof filterText === 'string' &&
+            filterText.length > 0 
+        ) {
+            filteredMessages = filteredMessages.filter(x => x.attributes.PRI_MESSAGE.value.toLowerCase().includes(filterText.toLowerCase()) );
+        }
+
+        if (
+            filterType !== null &&
+            typeof filterType === 'string' &&
+            filterType.length > 0 
+        ) {
+            filteredMessages = filteredMessages.filter(x => x.attributes.PRI_CREATOR.value.toLowerCase().includes(filterType.toLowerCase()) );
+        }
+
+        return filteredMessages;
     }
 
     orderMessages = (messages) => {
@@ -292,21 +335,32 @@ class GennyMessagingConversation extends Component {
     }
 
     renderWebLayout(title, messages, currentUser, otherUser) {
+
         const rows = this.props.reverseDirection
             ? [
-                { style: { flexBasis: '200px', flexShrink: 0 }},
-                { style: { flexGrow: 12 }}
+                { style: { flexGrow: 0, flexShrink: 0 }},
+                { style: { flexGrow: 1 }}
             ]
             : [
                 { style: { flexGrow: 12 }},
                 { style: { flexBasis: '200px', flexShrink: 0 }}
-            ]
+            ];
+
+        const emptyText = this.props.showFilters
+            ? 'No messages to diplay'
+            : `Start your conversation with ${otherUser && otherUser.attributes.PRI_FIRSTNAME.value}`
+
         return (
             <Grid
-                className='messaging-conversation-main'
+                className={`messaging-conversation-main ${this.props.className || ''} ${this.props.reverseDirection ? 'reverse-direction' : ''}`}
                 rows={rows}
                 cols={1}
             >
+                {
+                    this.props.showFilters
+                        ? this.renderFilters()
+                        : null
+                }
                 {
                     messages && messages.length > 0 ?
                         <div className="conversation-messages-container" position={[this.props.reverseDirection ? 1 : 0 ,0]}>
@@ -318,7 +372,7 @@ class GennyMessagingConversation extends Component {
                 {
                     !messages || messages.length <= 0 ?
                         <div className="conversation-messages-empty" position={[this.props.reverseDirection ? 1 : 0 ,0]}>
-                            Start your conversation with {otherUser && otherUser.attributes.PRI_FIRSTNAME.value}
+                            {emptyText}
                         </div>
                     : null
                 }
@@ -326,9 +380,56 @@ class GennyMessagingConversation extends Component {
             </Grid>
         );
     }
+
+    renderFilters = () => {
+        return (
+            <div
+                className='conversation-filters'
+                position={[0,0]}
+            >
+                <div
+                    className='conversation-filters-search'    
+                >
+                    <IconSmall
+                        className='conversation-filters-icon'
+                        name='search'
+                    />
+                    <input
+                        type='text'
+                        className='conversation-filters-input'
+                        onChange={this.handleFilterText}
+                    />
+                </div>
+                <div
+                    className='conversation-filters-buttons'
+                >
+                    <div
+                        className={`conversation-filters-button ${this.state.filterType == null ? 'selected' : '' }`}
+                        onClick={this.handleFilterClick(null)}
+                    >
+                        ALL
+                    </div>
+                    <div
+                        className={`conversation-filters-button ${this.state.filterType == 'user' ? 'selected' : '' }`}
+                        onClick={this.handleFilterClick('user')}
+                    >
+                        USERS
+                    </div>
+                    <div
+                        className={`conversation-filters-button ${this.state.filterType == 'system' ? 'selected' : '' }`}
+                        onClick={this.handleFilterClick('system')}
+                    >
+                        SYSTEM
+                    </div>
+                    
+                </div>
+            </div>
+        );
+    }
+
     render() {
 
-        const { root } = this.props;
+        const { root, classNames, reverseDirection } = this.props;
 
         const be = BaseEntityQuery.getBaseEntity(root);
 
@@ -340,13 +441,17 @@ class GennyMessagingConversation extends Component {
         const currentUser = users && users.filter(x => x.code == currentUserCode)[0];
         const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
 
-        let messages = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_MESSAGES');
+        let messages = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_CORE');
+        if (this.props.showFilters) messages = this.filterMessages(messages);
         const orderedMessages = this.orderMessages(messages);
+
+        //const links = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_CORE');
+        //console.log(be, links);
 
         if(!root || root == 'null') {
             return (
                 <Grid
-                    className="messaging-conversation-main"
+                    className={`messaging-conversation-main ${classNames || ''} ${reverseDirection ? 'reverse-direction' : ''}`}
                     rows={1}
                     cols={1}
                 >
