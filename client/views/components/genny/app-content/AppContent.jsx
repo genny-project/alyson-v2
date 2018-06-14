@@ -127,8 +127,8 @@ class AppContent extends Component {
         }
 
         const rootBE = BaseEntityQuery.getBaseEntity('GRP_NOTES');
-        
-        if (rootBE === null || rootBE === undefined ) return null;
+
+        //if (rootBE === null || rootBE === undefined ) return null;
 
         return (
             <Sidebar
@@ -165,6 +165,7 @@ class AppContent extends Component {
                         itemCode={root}
                         buttonCode='BTN_ADD_NOTE'
                         maxLength={250}
+                        reverseDirection
                     />
                     : null
                 }

@@ -30,10 +30,22 @@ class GennyMessagingConversation extends Component {
     }
 
     onTextChange = (e) => {
-
         this.setState({
             messageText: e.target.value
+        }, () => {
+            let div = this.divRef;
+            this.checkHeight(div);
         });
+    }
+
+    checkHeight = (div) => {
+        if (div.scrollHeight > div.offsetHeight) {
+            div.rows = div.rows + 1;
+        }
+        else if ( div.rows > 3 ) {
+            div.rows = div.rows - 1;
+            this.checkHeight(div);
+        }
     }
 
     onButtonClick = (e) => {
@@ -72,11 +84,11 @@ class GennyMessagingConversation extends Component {
     handleKeyPress = (e) => {
 
         /* numbers not allowed */
-        const re = /^\d+$/;
-        if (e.key == '' || re.test(e.key)) {
-          e.preventDefault();
-          return;
-        }
+        // const re = /^\d+$/;
+        // if (e.key == '' || re.test(e.key)) {
+        //   e.preventDefault();
+        //   return;
+        // }
 
         /* return key on web only */
         if(e.key == "Enter" && window.getScreenSize() != 'sm') {
@@ -97,29 +109,35 @@ class GennyMessagingConversation extends Component {
     renderTextInput() {
         return (
             <div>
-                <textarea pattern="[A-Za-z]" onKeyPress={this.handleKeyPress} value={this.state.messageText} onChange={this.onTextChange} placeholder="Type your message..." />
-                    
-                <div style={{display: 'flex' }}>
-                    {
-                        this.props.maxLength
-                            ? <span style={{ padding: '5px' }}>{this.props.maxLength - this.state.messageText.length} characters remaining</span>
-                            : null
-                    }
-                    <GennyButton
-                        className='conversation-button'
-                        onClick={this.onButtonClick}
-                        disabled={this.state.messageText == ''}
-                        buttonCode={this.props.buttonCode ? this.props.buttonCode : 'BTN_SEND_MESSAGE'}
-                        value={{
-                            itemCode: this.props.itemCode || this.props.root,
-                            message: this.state.messageText
-                        }}
-                        style={{width: '100px', height: '50px'}}
-                        type='confirm'
-                    >
-                        <p>Send</p>
-                    </GennyButton>
-                </div>
+                <textarea
+                    pattern="[A-Za-z]"
+                    rows={3}
+                    onKeyPress={this.handleKeyPress}
+                    value={this.state.messageText}
+                    onChange={this.onTextChange}
+                    placeholder="Type your message..."
+                    maxLength={this.props.maxLength}
+                    ref={(ref) => { this.divRef = ref;}}
+                />
+                {
+                    this.props.maxLength
+                        ? <span style={{ padding: '5px', fontSize: '0.8em' }}>{this.props.maxLength - this.state.messageText.length} characters remaining</span>
+                        : null
+                }
+                <GennyButton
+                    className='conversation-button'
+                    onClick={this.onButtonClick}
+                    disabled={this.state.messageText == ''}
+                    buttonCode={this.props.buttonCode ? this.props.buttonCode : 'BTN_SEND_MESSAGE'}
+                    value={{
+                        itemCode: this.props.itemCode || this.props.root,
+                        message: this.state.messageText
+                    }}
+                    style={{width: '100px', height: '40px'}}
+                    type='confirm'
+                >
+                    <span>Send</span>
+                </GennyButton>
             </div>
         );
     }
@@ -250,8 +268,8 @@ class GennyMessagingConversation extends Component {
         <Grid
             className="messaging-conversation-main"
             rows={[
-                { style: { flexGrow: 12 }},
-                { style: { flexGrow: 0.5, flexShrink: 0 }}]}
+                { style: { flexGrow: 1 }},
+                { style: { flexBasis: '200px', flexShrink: 0 }}]}
             cols={1}
         >
             {
@@ -269,23 +287,29 @@ class GennyMessagingConversation extends Component {
                     </div>
                 : null
             }
-            <div className="conversation-message-input" position={[ 1 ,0]}>{this.renderTextInput()}</div>
+            <div className="conversation-message-input" position={[1,0]}>{this.renderTextInput()}</div>
         </Grid>);
     }
 
     renderWebLayout(title, messages, currentUser, otherUser) {
-
+        const rows = this.props.reverseDirection
+            ? [
+                { style: { flexBasis: '200px', flexShrink: 0 }},
+                { style: { flexGrow: 12 }}
+            ]
+            : [
+                { style: { flexGrow: 12 }},
+                { style: { flexBasis: '200px', flexShrink: 0 }}
+            ]
         return (
             <Grid
-                className="messaging-conversation-main"
-                rows={[
-                    { style: { flexGrow: 12 }},
-                    { style: { flexGrow: 0.5, flexShrink: 0 }}]}
+                className='messaging-conversation-main'
+                rows={rows}
                 cols={1}
             >
                 {
                     messages && messages.length > 0 ?
-                        <div className="conversation-messages-container" position={[0 ,0]}>
+                        <div className="conversation-messages-container" position={[this.props.reverseDirection ? 1 : 0 ,0]}>
                             {this.renderMessages(messages, currentUser, otherUser)}
 
                         </div>
@@ -293,12 +317,12 @@ class GennyMessagingConversation extends Component {
                 }
                 {
                     !messages || messages.length <= 0 ?
-                        <div className="conversation-messages-empty" position={[ 0 ,0]}>
+                        <div className="conversation-messages-empty" position={[this.props.reverseDirection ? 1 : 0 ,0]}>
                             Start your conversation with {otherUser && otherUser.attributes.PRI_FIRSTNAME.value}
                         </div>
                     : null
                 }
-                <div className="conversation-message-input" position={[ 1 ,0]}>{this.renderTextInput()}</div>
+                <div className="conversation-message-input" position={[this.props.reverseDirection ? 0 : 1 ,0]}>{this.renderTextInput()}</div>
             </Grid>
         );
     }
@@ -319,7 +343,7 @@ class GennyMessagingConversation extends Component {
         let messages = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_MESSAGES');
         const orderedMessages = this.orderMessages(messages);
 
-        if(!root || root == 'null' || !be) {
+        if(!root || root == 'null') {
             return (
                 <Grid
                     className="messaging-conversation-main"
