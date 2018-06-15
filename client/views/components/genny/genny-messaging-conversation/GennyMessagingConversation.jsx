@@ -379,7 +379,7 @@ class GennyMessagingConversation extends Component {
             ];
 
         const emptyText = this.props.showFilters
-            ? 'No messages to diplay'
+            ? 'No messages to display'
             : `Start your conversation with ${otherUser && otherUser.attributes.PRI_FIRSTNAME.value}`;
 
         return (
