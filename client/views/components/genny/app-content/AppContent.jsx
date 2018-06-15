@@ -80,7 +80,7 @@ class AppContent extends Component {
             else if (commandData.code == 'SPLIT_VIEW') {
                 let children = [];
                 if ( commandData.data != null ) {
-                    children = commandData.root.map(item => {
+                    children = commandData.data.map(item => {
                         return this.renderContent('view', item);
                     });
                 }
