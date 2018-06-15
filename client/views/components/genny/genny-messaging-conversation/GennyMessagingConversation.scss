@@ -67,7 +67,12 @@
                         padding: 10px;
                         background: #333;
                         color: white;
+                        word-break:break-all;
 
+                        &.alt-color {
+                            background: white;
+                            color: black;
+                        }
                     }
                 }
     
@@ -170,7 +175,6 @@
             align-self: center;
             overflow: auto;
             resize: none;
-
             
             &:focus {
                 outline: none;

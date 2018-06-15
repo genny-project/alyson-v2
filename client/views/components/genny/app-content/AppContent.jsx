@@ -80,7 +80,7 @@ class AppContent extends Component {
             else if (commandData.code == 'SPLIT_VIEW') {
                 let children = [];
                 if ( commandData.data != null ) {
-                    children = commandData.data.map(item => {
+                    children = commandData.data.data.map(item => {
                         return this.renderContent('view', item);
                     });
                 }
@@ -175,6 +175,8 @@ class AppContent extends Component {
                         maxLength={250}
                         reverseDirection
                         showFilters
+                        useNewMessageAttributes
+                        alwaysShowImage
                     />
                     : null
                 }
