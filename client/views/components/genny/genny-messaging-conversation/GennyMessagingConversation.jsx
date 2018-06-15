@@ -285,9 +285,9 @@ class GennyMessagingConversation extends Component {
                             if(messageTextAttribute && creatorAttribute) {
 
                                 let creator = creatorAttribute.value;
-
+                                
                                 let messageText = messageTextAttribute.value;
-
+                                
                                 return (
                                     <div className='conversation-message'>
                                         { messageIndex == 0 ?
