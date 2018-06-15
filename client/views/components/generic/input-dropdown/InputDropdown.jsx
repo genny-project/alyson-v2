@@ -2,7 +2,7 @@ import './inputDropdown.scss';
 import React, { Component } from 'react';
 import { string, object, func, any, bool, array } from 'prop-types';
 import Downshift from 'downshift';
-import { Label, IconSmall, SubmitStatusIcon, InputCheckbox } from 'views/components';
+import { Label, IconSmall, SubmitStatusIcon, InputCheckbox, Spinner } from 'views/components';
 
 class InputDropdown extends Component {
 
@@ -37,7 +37,8 @@ class InputDropdown extends Component {
         selectedItems: [],
         isOpen: false,
         currentValue: '',
-        lastSentValue: null
+        lastSentValue: null,
+        isLoadingData: true,
     }
 
     componentDidMount() {
@@ -61,7 +62,8 @@ class InputDropdown extends Component {
 
             //console.log(filter);
             this.setState({
-                selectedItems: filter && filter.name ? [filter.name] : []
+                selectedItems: filter && filter.name ? [filter.name] : [],
+                isLoadingData: true,
             });
         }
         else {
@@ -84,7 +86,8 @@ class InputDropdown extends Component {
                     });
 
                     this.setState({
-                        selectedItems: selectedItems ? selectedItems : []
+                        selectedItems: selectedItems ? selectedItems : [],
+                        isLoadingData: true,
                     });
                 }
             }
@@ -92,6 +95,14 @@ class InputDropdown extends Component {
 
             }
         }
+
+        setTimeout(() => {
+
+            this.setState({
+                isLoadingData: false,
+            });
+
+        }, 30000);
     }
 
     handleChange = selectedItem => {
@@ -271,6 +282,11 @@ class InputDropdown extends Component {
             return -1;
         });
 
+        return list;
+    }
+
+    renderData(list, inputValue, highlightedIndex, selectedItem, getItemProps,) {
+
         if (list.length > 0) {
 
             list = list.map((item, index) => {
@@ -287,7 +303,9 @@ class InputDropdown extends Component {
                     </li>
                 );
             });
+
         } else {
+
             list = (
                 <li className="dropdown-item no-items-found" style={{ cursor: 'default' }}>
                     <i>No Matches Found</i>
@@ -317,6 +335,72 @@ class InputDropdown extends Component {
         });
     }
 
+    renderDownshift(displayText) {
+
+        const { className, style, name, validationStatus, hideHeader, isHorizontal, mandatory, isSingleSelect, checkboxes } = this.props;
+        let { items } = this.props;
+        const { selectedItems, isLoadingData } = this.state;
+        const componentStyle = { ...style, };
+
+        return (
+            <div>
+                <Downshift
+                    isOpen={this.state.isOpen}
+                    selectedItem={selectedItems}
+                    onChange={this.handleChange}
+                    onStateChange={this.handleStateChange}
+                    inputValue={this.state.currentValue}
+                    onBlur={this.handleBlur}
+                >
+                    {({
+                        getItemProps,
+                        getButtonProps,
+                        getInputProps,
+                        isOpen,
+                        selectedItem,
+                        inputValue,
+                        highlightedIndex,
+                    }) => (
+                            <div style={{ "display": "flex"}}>
+                                <div className="dropdown-container" style={{ "flex-grow": "20"}}>
+                                    <div
+                                        {
+                                        ...(getButtonProps ? getButtonProps({ onClick: this.onToggleMenu }) : null)
+                                        }
+
+                                        type="button"
+                                        className={`input-dropdown-field ${isOpen ? 'selected' : ''}`}
+                                    >
+                                        <input
+                                            className='input-field'
+                                            ref={(ref) => this.inputRef = ref}
+                                            value={this.state.currentValue}
+                                            placeholder={displayText}
+                                            {...(getInputProps ? getInputProps({}) : null)}
+                                        />
+                                        {this.state.currentValue && this.state.currentValue.length > 0 ?
+                                            <IconSmall className='input-dropdown-icon' name='clear' onClick={this.handleClearInput} />
+                                            : <IconSmall className='input-dropdown-icon' name={isOpen ? 'expand_more' : 'chevron_right'} />
+                                        }
+                                    </div>
+                                    {isOpen ? (
+                                        <ul style={{ display: 'block' }} className="dropdown-menu">
+                                            {this.renderData(this.getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps), inputValue, highlightedIndex, selectedItem, getItemProps)}
+                                        </ul>
+                                    ) : null}
+                                </div>
+                                <div style={{ "flex-grow": "1", "maxWidth": "40px" }} className="dropdown-loader">
+                                    {
+                                        (this.getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps).length > 0 || isLoadingData == false) ? null : <Spinner loaderType={"bar"} width={"20"} style={{ "margin": "5px" }} />
+                                    }
+                                </div>
+                            </div>
+                        )}
+                </Downshift>
+            </div>
+        )
+    }
+
     render() {
 
         const { className, style, name, validationStatus, hideHeader, isHorizontal, mandatory, isSingleSelect, checkboxes } = this.props;
@@ -338,57 +422,7 @@ class InputDropdown extends Component {
                         null
                 }
                 {
-                    checkboxes ?
-                        this.renderCheckboxes()
-                    :
-                        <Downshift
-                            isOpen={this.state.isOpen}
-                            selectedItem={selectedItems}
-                            onChange={this.handleChange}
-                            onStateChange={this.handleStateChange}
-                            inputValue={this.state.currentValue}
-                            onBlur={this.handleBlur}
-                        >
-                            {({
-                                getItemProps,
-                                getButtonProps,
-                                getInputProps,
-                                isOpen,
-                                selectedItem,
-                                inputValue,
-                                highlightedIndex,
-                            }) => (
-                                    <div className="dropdown-container">
-                                        <div
-                                            {
-                                            ...(getButtonProps ? getButtonProps({ onClick: this.onToggleMenu }) : null)
-                                            }
-
-                                            type="button"
-                                            className={`input-dropdown-field ${isOpen ? 'selected' : ''}`}
-                                        >
-                                            <input
-                                                className='input-field'
-                                                ref={(ref) => this.inputRef = ref}
-                                                value={this.state.currentValue}
-                                                placeholder={displayText}
-                                                {...(getInputProps ? getInputProps({}) : null)}
-                                            />
-                                            {this.state.currentValue && this.state.currentValue.length > 0 ?
-                                                <IconSmall className='input-dropdown-icon' name='clear' onClick={this.handleClearInput} />
-                                                : <IconSmall className='input-dropdown-icon' name={isOpen ? 'expand_more' : 'chevron_right'} />
-                                            }
-                                        </div>
-                                        {isOpen ? (
-                                            <ul style={{ display: 'block' }} className="dropdown-menu">
-                                                {
-                                                    this.getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps)
-                                                }
-                                            </ul>
-                                        ) : null}
-                                    </div>
-                                )}
-                        </Downshift>
+                    checkboxes ? this.renderCheckboxes() : this.renderDownshift(displayText)
                 }
             </div>
         );
