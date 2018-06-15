@@ -78,9 +78,11 @@ class AppContent extends Component {
                 return <GennyMessagingConversation root={commandData.root || commandData.data}/>;
             }
             else if (commandData.code == 'SPLIT_VIEW') {
+               
                 let children = [];
-                if ( commandData.data != null ) {
-                    children = commandData.data.map(item => {
+
+                if ( commandData.data.data != null ) {
+                    children = commandData.data.data.map(item => {
                         return this.renderContent('view', item);
                     });
                 }

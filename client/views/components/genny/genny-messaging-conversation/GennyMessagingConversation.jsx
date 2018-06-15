@@ -62,12 +62,12 @@ class GennyMessagingConversation extends Component {
                 {
                     code: 'MSG_X',
                     attributes: {
-                        PRI_CREATOR: {
-                            attributeCode: 'PRI_CREATOR',
+                        PRI_CREATOR_CODE: {
+                            attributeCode: 'PRI_CREATOR_CODE',
                             value: GennyBridge.getUser()
                         },
-                        PRI_MESSAGE: {
-                            attributeCode: 'PRI_MESSAGE',
+                        PRI_CONTENT: {
+                            attributeCode: 'PRI_CONTENT',
                             value: newText
                         }
                     },
@@ -171,7 +171,7 @@ class GennyMessagingConversation extends Component {
             typeof filterText === 'string' &&
             filterText.length > 0 
         ) {
-            filteredMessages = filteredMessages.filter(x => x.attributes.PRI_MESSAGE.value.toLowerCase().includes(filterText.toLowerCase()) );
+            filteredMessages = filteredMessages.filter(x => x.attributes.PRI_CONTENT.value.toLowerCase().includes(filterText.toLowerCase()) );
         }
 
         if (
@@ -179,7 +179,7 @@ class GennyMessagingConversation extends Component {
             typeof filterType === 'string' &&
             filterType.length > 0 
         ) {
-            filteredMessages = filteredMessages.filter(x => x.attributes.PRI_CREATOR.value.toLowerCase().includes(filterType.toLowerCase()) );
+            filteredMessages = filteredMessages.filter(x => x.attributes.PRI_CREATOR_CODE.value.toLowerCase().includes(filterType.toLowerCase()) );
         }
 
         return filteredMessages;
@@ -203,8 +203,8 @@ class GennyMessagingConversation extends Component {
             if (tempArray.length > 0) {
 
                 const last = tempArray.length - 1;
-                const creatorAttr = tempArray[last].attributes.PRI_CREATOR;
-                const thisCreatorAttr =  message.attributes.PRI_CREATOR;
+                const creatorAttr = tempArray[last].attributes.PRI_CREATOR_CODE;
+                const thisCreatorAttr =  message.attributes.PRI_CREATOR_CODE;
 
                 if(!creatorAttr || !thisCreatorAttr) {
                     return false;
@@ -247,8 +247,8 @@ class GennyMessagingConversation extends Component {
         return messages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
-            let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, 'PRI_CREATOR');
-            createdBy = createdBy ? createdBy.value : group[0].attributes.PRI_CREATOR.value;
+            let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, 'PRI_CREATOR_CODE');
+            createdBy = createdBy ? createdBy.value : group[0].attributes.PRI_CREATOR_CODE.value;
             group.sort((x, y) => x.created > y.created);
 
             return (
@@ -259,15 +259,16 @@ class GennyMessagingConversation extends Component {
                             let messageCode = message.code;
 
                             let style = { textAlign: 'left' };
-                            let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR') || message.attributes ? message.attributes.PRI_CREATOR : null;
-                            let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_MESSAGE') || message.attributes ? message.attributes.PRI_MESSAGE : null
+                            let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CREATOR_CODE') || message.attributes ? message.attributes.PRI_CREATOR_CODE : null;
+                            
+                            let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, 'PRI_CONTENT') || message.attributes ? message.attributes.PRI_CONTENT : null
 
                             if(messageTextAttribute && creatorAttribute) {
 
                                 let creator = creatorAttribute.value;
-
+                                
                                 let messageText = messageTextAttribute.value;
-
+                                
                                 return (
                                     <div className='conversation-message'>
                                         { messageIndex == 0 ?
