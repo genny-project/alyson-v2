@@ -42,60 +42,60 @@ class TreeView extends Component {
 
     renderList = (items, levelIndex) => {
 
-        if(items != null && items.children != null && items.children.length > 0) {
+        return items.map( item => {
 
-            return items.map( item => {
+            const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
+            const canOpen = ( hasChildren && item.open );
+            const icon = item.icon;
 
-                const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
-                const canOpen = ( hasChildren && item.open );
-                const icon = item.icon;
+            let childNumber = null;
 
-                let childNumber = null;
+            if ( levelIndex == 0 ) {
+                childNumber = item.childCount || false;
+            }
+            else if ( levelIndex > 0 ) {
+                childNumber = item.children && item.children.length || false;
+            }
 
-                if ( levelIndex == 0 ) {
-                    childNumber = item.childCount || false;
-                }
-                else if ( levelIndex > 0 ) {
-                    childNumber = item.children && item.children.length || false;
-                }
+            return (
 
-                return (
-
-                    <li key={item.id} className='tree-view-item'>
-                        <div className={`tree-view-item-content ${this.state.selectedItem == item.id ? 'tree-view-item-selected' : ''} `}>
-                            <span className={canOpen ? 'clickable' : ''} onClick={this.state.selectedItem == item.id ? null : this.onClick(item)}>
-                                { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
-                                <span className='tree-view-text'>{item.name}</span>
-                                { childNumber && (
-                                    <span className='tree-view-item-count'>({childNumber})</span>
-                                )}
-                            </span>
-
-                            {( item.children && item.children.length > 0 ) && (
-                                <IconSmall
-                                    className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
-                                    size={32}
-                                    style={canOpen ? { transition: 'transform 0.1s', transform: 'rotate(0deg)' } : { transition: 'transform 0.1s', transform: 'rotate(-90deg)' }}
-                                    onClick={this.onExpand(item)}
-                                    name='arrow_drop_down'
-                                />
+                <li key={item.id} className='tree-view-item'>
+                    <div className={`tree-view-item-content ${this.state.selectedItem == item.id ? 'tree-view-item-selected' : ''} `}>
+                        <span className={canOpen ? 'clickable' : ''} onClick={this.state.selectedItem == item.id ? null : this.onClick(item)}>
+                            { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
+                            <span className='tree-view-text'>{item.name}</span>
+                            { childNumber && (
+                                <span className='tree-view-item-count'>({childNumber})</span>
                             )}
+                        </span>
 
-                        </div>
+                        {( item.children && item.children.length > 0 ) && (
+                            <IconSmall
+                                className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
+                                size={32}
+                                style={canOpen ? { transition: 'transform 0.1s', transform: 'rotate(0deg)' } : { transition: 'transform 0.1s', transform: 'rotate(-90deg)' }}
+                                onClick={this.onExpand(item)}
+                                name='arrow_drop_down'
+                            />
+                        )}
 
-                        <ul className="tree-view-child">
-                            <Slide inProp={canOpen} heightEntered={`${item.children.length * 60}px`}>
-                                {this.renderList(item.children, levelIndex + 1)}
-                            </Slide>
-                        </ul>
-                    </li>
-                );
-            });
-        }
+                    </div>
+
+                    <div>
+                        {
+                            item.children != null && item.children.length > 0 && levelIndex <= 1 ? <ul className="tree-view-child">
+                                <Slide inProp={canOpen} heightEntered={`${item.children.length * 60}px`}>
+                                    {this.renderList(item.children, levelIndex + 1)}
+                                </Slide>
+                            </ul> : null
+                        }
+                    </div>
+                </li>
+            );
+        });
 
         return null;
     }
-
     render() {
 
         const { items } = this.props;
