@@ -207,9 +207,9 @@ class GennyMessagingConversation extends Component {
 
         finalMessages = messages.sort((x, y) => {
             if ( this.props.reverseDirection ) {
-                return x.created > y.created ? 1 : -1;
-            } else {
                 return x.created < y.created ? 1 : -1;
+            } else {
+                return x.created > y.created ? 1 : -1;
             }
         });
 
@@ -272,7 +272,7 @@ class GennyMessagingConversation extends Component {
       
             let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, creatorField);
             createdBy = createdBy ? createdBy.value : group[0].attributes[creatorField].value;
-            group.sort((x, y) => x.created > y.created);
+            //group.sort((x, y) => x.created > y.created);
 
             const userObject = this.props.useNewMessageAttributes
                 ? BaseEntityQuery.getBaseEntity(createdBy)
