@@ -106,16 +106,25 @@ class AppContent extends Component {
                 return <TabContainer views={views} />;
             }
             else if (commandData.code == 'DETAIL_VIEW') {
-                return <SublayoutLoader layoutCode={commandData.layoutCode} aliases={{ BE: commandData.root, GROUP: commandData.root }}/>;
+                const parent = BaseEntityQuery.getBaseEntityParent(commandData.root);
+                const parentCode = parent ? parent.code : null;
+
+                return <SublayoutLoader
+                    layoutCode={commandData.layoutCode}
+                    aliases={
+                        { BE: commandData.root, GROUP: parentCode }
+                    }
+                />;
             }
             else if (commandData.layout != null ) {
 
                 const parent = BaseEntityQuery.getBaseEntityParent(commandData.data);
                 const parentCode = parent ? parent.code : null;
-                return <LayoutLoader layout = { commandData }
-                aliases = {
-                    { ROOT: parentCode, BE: commandData.root, ITEMCODE: commandData.root }
-                }
+                return <LayoutLoader
+                    layout = { commandData }
+                    aliases = {
+                        { ROOT: parentCode, BE: commandData.root, ITEMCODE: commandData.root }
+                    }
                 />;
             }
         }
