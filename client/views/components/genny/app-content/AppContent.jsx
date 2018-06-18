@@ -26,7 +26,7 @@ import Sidebar from '../../generic/sidebar/Sidebar';
 class AppContent extends Component {
 
     static defaultProps = {
-        showSidebar: true,
+        showSidebar: false,
     }
 
     static propTypes = {
@@ -137,6 +137,7 @@ class AppContent extends Component {
                 closeOnItemClick={false}
                 slideFromRight={true}
                 icon='edit'
+                iconAltStyle
                 style={{
                     backgroundColor: projectColor ? projectColor.value : 'none',
                     color: 'white',
@@ -179,6 +180,7 @@ class AppContent extends Component {
                         showFilters
                         useNewMessageAttributes
                         alwaysShowImage
+                        buttonText='Add Note'
                     />
                     : null
                 }

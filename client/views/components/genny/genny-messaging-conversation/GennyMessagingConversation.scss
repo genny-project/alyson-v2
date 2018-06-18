@@ -67,7 +67,7 @@
                         padding: 10px;
                         background: #333;
                         color: white;
-                        word-break:break-all;
+                        hyphens: auto;
 
                         &.alt-color {
                             background: white;
@@ -82,8 +82,9 @@
                 }
             }
             &.received {
+                text-align: left;
                 margin-left: 10px;
-                margin-right: auto;
+                margin-right: 20px;
 
                 .conversation-message {
                     
@@ -103,7 +104,6 @@
                     }
                     &:last-of-type {
                         .conversation-message-text  {
-                            word-break: break-all;
                             border-radius: 0 15px 15px 15px;
                         }
                     }
@@ -115,7 +115,7 @@
 
             &.sent {
                 text-align: right;
-                margin-left: auto;
+                margin-left: 20px;
                 margin-right: 10px;
 
                 .conversation-message {

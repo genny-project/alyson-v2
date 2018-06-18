@@ -97,9 +97,9 @@ class Sidebar extends Component {
             );
         }
         
-        let sidebarIcon = <IconSmall className={`sidebar-toggle-icon sidebar-toggle-icon-${slideFromRight ? 'right' : 'left'} clickable`}
+        let sidebarIcon = <IconSmall className={`sidebar-toggle-icon sidebar-toggle-icon-${slideFromRight ? 'right' : 'left'} clickable ${this.props.iconAltStyle ? 'alt-style' : ''}`}
             name={icon}
-            size={32}
+            size={this.props.iconAltStyle ? 24 :32}
             onClick={this.handleSidebarToggle}
             position={[0,0]}
         />;

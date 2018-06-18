@@ -11,7 +11,8 @@ class GennyMessagingConversation extends Component {
     static defaultProps = {
         title: '',
         messages: [],
-        useNewMessageAttributes: false
+        useNewMessageAttributes: false,
+        buttonText: 'Send',
     }
 
     static propTypes = {
@@ -23,6 +24,7 @@ class GennyMessagingConversation extends Component {
         buttonCode: string,
         maxLength: bool,
         useNewMessageAttributes: bool,
+        buttonText: string,
     };
 
     state = {
@@ -158,7 +160,7 @@ class GennyMessagingConversation extends Component {
                     style={{width: '100px', height: '40px'}}
                     type='confirm'
                 >
-                    <span>Send</span>
+                    <span>{this.props.buttonText}</span>
                 </GennyButton>
             </div>
         );
@@ -197,7 +199,7 @@ class GennyMessagingConversation extends Component {
         let tempArray = [];
 
         const creatorField = this.props.useNewMessageAttributes ? 'PRI_CREATOR_CODE' : 'PRI_CREATOR';
-
+        
         let finalMessages = messages;
         // this.state.createdMessages.forEach(mess => {
         //     finalMessages.push(mess);
@@ -215,9 +217,11 @@ class GennyMessagingConversation extends Component {
             if (tempArray.length > 0) {
 
                 const last = tempArray.length - 1;
+                const isPrevSystemMessage = tempArray[last].attributes.PRI_CREATOR_TYPE && tempArray[last].attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
+                const isThisSystemMessage = message.attributes.PRI_CREATOR_TYPE && message.attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
                 
-                const creatorAttr = tempArray[last].attributes[creatorField];
-                const thisCreatorAttr =  message.attributes[creatorField];
+                const creatorAttr = isPrevSystemMessage ? tempArray[last].attributes.PRI_CREATOR_TYPE : tempArray[last].attributes[creatorField];
+                const thisCreatorAttr =  isThisSystemMessage ? message.attributes.PRI_CREATOR_TYPE : message.attributes[creatorField];
 
                 if(!creatorAttr || !thisCreatorAttr) {
                     return false;
@@ -263,6 +267,9 @@ class GennyMessagingConversation extends Component {
         return messages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
+            
+            const isSystemMessage = group[0].attributes.PRI_CREATOR_TYPE && group[0].attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
+      
             let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, creatorField);
             createdBy = createdBy ? createdBy.value : group[0].attributes[creatorField].value;
             group.sort((x, y) => x.created > y.created);
@@ -272,7 +279,7 @@ class GennyMessagingConversation extends Component {
                 : otherUser;
 
             return (
-                <div className={`conversation-message-group ${createdBy == GennyBridge.getUser() ? 'sent' : 'received' }`} key={groupIndex} >
+                <div className={`conversation-message-group ${createdBy == GennyBridge.getUser() && !isSystemMessage ? 'sent' : 'received' }`} key={groupIndex} >
                     {
                         group.map((message, messageIndex) => {
 
@@ -281,6 +288,10 @@ class GennyMessagingConversation extends Component {
                             let style = { textAlign: 'left' };
                             let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, creatorField) || message.attributes ? message.attributes[creatorField] : null;
                             let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, contentField) || message.attributes ? message.attributes[contentField] : null;
+                            const isSystemMessage = message.attributes.PRI_CREATOR_TYPE && message.attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
+      
+                            const projectCode = GennyBridge.getProject();
+                            const projectImage = BaseEntityQuery.getBaseEntityAttribute(projectCode, 'PRI_LOGO');
 
                             if(messageTextAttribute && creatorAttribute) {
 
@@ -294,29 +305,38 @@ class GennyMessagingConversation extends Component {
                                             <div className='message-detail'>
                                                 <DateLabel className='time-stamp' format="MMM Do, YYYY HH:mm a">{message.created}</DateLabel>
                                                 {
-                                                    creator != GennyBridge.getUser() &&
-                                                    userObject &&
-                                                    userObject.attributes ?
-                                                        <span>{userObject.attributes.PRI_FIRSTNAME && userObject.attributes.PRI_FIRSTNAME.value} {userObject.attributes.PRI_LASTNAME && userObject.attributes.PRI_LASTNAME.value}</span>
-                                                    : null
+                                                    isSystemMessage
+                                                        ? <span>Automated Message</span>
+                                                        : creator != GennyBridge.getUser() &&
+                                                        userObject &&
+                                                        userObject.attributes
+                                                            ? <span>{userObject.attributes.PRI_FIRSTNAME && userObject.attributes.PRI_FIRSTNAME.value} {userObject.attributes.PRI_LASTNAME && userObject.attributes.PRI_LASTNAME.value}</span>
+                                                            : null
                                                 }
                                             </div>
                                         : null }
                                         <div  className='conversation-message-content'>
                                             {
-                                                creator != GennyBridge.getUser() &&
-                                                userObject &&
-                                                messageIndex == 0 &&
-                                                userObject.attributes
-                                                ?
-                                                    <ImageView className='conversation-message-image' src={userObject.attributes.PRI_IMAGE_URL && userObject.attributes.PRI_IMAGE_URL.value} />
-                                                : null
+                                                isSystemMessage &&
+                                                messageIndex == 0
+                                                ? <ImageView className='conversation-message-image' src={projectImage && projectImage.value} />
+                                                    : creator != GennyBridge.getUser() &&
+                                                    userObject &&
+                                                    messageIndex == 0 &&
+                                                    userObject.attributes
+                                                        ? <ImageView className='conversation-message-image' src={userObject.attributes.PRI_IMAGE_URL && userObject.attributes.PRI_IMAGE_URL.value} />
+                                                        : null
                                             }
 
                                             {
-                                                creator != GennyBridge.getUser() && userObject && messageIndex != 0 ?
-                                                <div className='conversation-message-spacer' />
-                                                : null
+                                                ( 
+                                                    isSystemMessage || 
+                                                    ( creator != GennyBridge.getUser() &&
+                                                    userObject ) 
+                                                ) &&
+                                                messageIndex != 0
+                                                    ? <div className='conversation-message-spacer' />
+                                                    : null
                                             }
 
                                             <div
@@ -527,7 +547,7 @@ class GennyMessagingConversation extends Component {
             );
         }
         else if (window.getScreenSize() == 'sm') {
-            return this.renderMobileLayout(title, orderedMessages, currentUser, otherUser);
+            return this.renderWebLayout(title, orderedMessages, currentUser, otherUser);
         }
         else {
             return this.renderWebLayout(title, orderedMessages, currentUser, otherUser);
