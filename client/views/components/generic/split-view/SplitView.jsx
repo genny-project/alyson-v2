@@ -70,7 +70,7 @@ class SplitView extends Component {
             >
                 {
                     isMobile == true ? 
-                        <div position={[0,1]} className='split-view-close-button' onClick={this.close}>
+                        <div position={[0,1]} className='split-view-close-button' onClick={this.close} style={{height: '40px'}}>
                             <IconSmall name='arrow_drop_down' style={{ transform: 'rotate(90deg)' }}/>
                             <span>Back</span>
                         </div>

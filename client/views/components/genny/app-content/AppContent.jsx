@@ -233,6 +233,11 @@ class AppContent extends Component {
             modalContent = this.renderContent('popup', layout.currentModal);
         }
 
+        const mobileStyle = window.getScreenSize() ? {
+            width: '100vw',
+            overflowX: 'hidden',
+        } : null;
+
         return (
             <div className = "app-content" style={ componentStyle } >
                 <GennyToasts />
@@ -254,6 +259,7 @@ class AppContent extends Component {
                             height: '100%',
                             flexGrow: 1,
                             overflow: 'scroll',
+                            ...mobileStyle,
                         }
                     }
                 >
