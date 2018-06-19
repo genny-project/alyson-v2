@@ -56,7 +56,7 @@ class TreeView extends Component {
             else if ( levelIndex > 0 ) {
                 childNumber = item.children && item.children.length || false;
             }
-            
+
             return (
 
                 <li key={item.id} className='tree-view-item'>
@@ -81,16 +81,21 @@ class TreeView extends Component {
 
                     </div>
 
-                    <ul className="tree-view-child">
-                        <Slide inProp={canOpen} heightEntered={`${item.children.length * 60}px`}>
-                            {this.renderList(item.children, levelIndex + 1)}
-                        </Slide>
-                    </ul>
+                    <div>
+                        {
+                            item.children != null && item.children.length > 0 && levelIndex <= 1 ? <ul className="tree-view-child">
+                                <Slide inProp={canOpen} heightEntered={`${item.children.length * 60}px`}>
+                                    {this.renderList(item.children, levelIndex + 1)}
+                                </Slide>
+                            </ul> : null
+                        }
+                    </div>
                 </li>
             );
         });
-    }
 
+        return null;
+    }
     render() {
 
         const { items } = this.props;
