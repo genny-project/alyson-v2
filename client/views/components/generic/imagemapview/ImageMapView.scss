@@ -1,0 +1,43 @@
+@import 'client/styles/colors';
+
+.imageView {
+
+  display: flex;
+  flex-direction: column;
+
+  img {
+
+    background-color: #fff;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  p {
+    margin: 0px;
+  }
+
+  canvas {
+      background-color: #fff;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+  }
+}
+
+.imageView.rounded {
+
+    img {
+        border-radius: 50%;
+    }
+
+    canvas {
+        border-radius: 50%;
+    }
+}

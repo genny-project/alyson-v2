@@ -18,6 +18,7 @@ export { default as IconSmall } from './icon-small';
 export { default as iFrame } from './iframe';
 export { default as InAppDial } from './InAppDial';
 export { default as ImageView } from './imageview';
+export { default as ImageMapView } from './imagemapview';
 export { default as Input } from './input';
 export { default as InputAddress } from './input-address';
 export { default as InputButton } from './input-button';
