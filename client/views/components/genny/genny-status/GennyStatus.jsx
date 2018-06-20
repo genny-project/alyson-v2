@@ -21,7 +21,7 @@ class GennyStatus extends Component {
 
     getEntityStatus = (root) => {
 
-        let status_color = '#FFCC00';
+        let status_color = '#5cb85c';
         let user_status_color = null;
 
         let be = BaseEntityQuery.getBaseEntity(root);
