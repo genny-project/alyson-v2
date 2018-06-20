@@ -37,7 +37,6 @@ class Status extends Component {
         const { className, style } = this.props;
         let renderState = this.getRenderState();
         const componentStyle = { ...style, ...renderState.statusColor };
-        console.log(renderState)
         return (
             <div className={`status ${className} ${renderState.statusClass}`} style={componentStyle}/>
         );

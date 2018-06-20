@@ -317,10 +317,7 @@ class GennyMessagingConversation extends Component {
                                         : null }
                                         <div  className='conversation-message-content'>
                                             {
-                                                isSystemMessage &&
-                                                messageIndex == 0
-                                                ? <ImageView className='conversation-message-image' src={projectImage && projectImage.value} />
-                                                    : creator != GennyBridge.getUser() &&
+                                                creator != GennyBridge.getUser() &&
                                                     userObject &&
                                                     messageIndex == 0 &&
                                                     userObject.attributes
@@ -329,11 +326,8 @@ class GennyMessagingConversation extends Component {
                                             }
 
                                             {
-                                                ( 
-                                                    isSystemMessage || 
-                                                    ( creator != GennyBridge.getUser() &&
-                                                    userObject ) 
-                                                ) &&
+                                                creator != GennyBridge.getUser() &&
+                                                userObject &&
                                                 messageIndex != 0
                                                     ? <div className='conversation-message-spacer' />
                                                     : null

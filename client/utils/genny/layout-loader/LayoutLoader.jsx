@@ -91,59 +91,80 @@ class LayoutLoader extends Component {
                     if (alias_key == alias_code) {
 
                         let baseEntity = BaseEntityQuery.getBaseEntity(localAliasCode);
+                        
                         if (baseEntity) {
 
-                            // i am so sorry
-                            if (attribute_code == 'created') {
+                            if (attribute_code && attribute_code.startsWith('LNK_')){
+                                const lnk_value = baseEntity.attributes[attribute_code];
+
+                                if (lnk_value && lnk_value.value && lnk_value.value.startsWith('SEL_')) {
+                                    const lnk_field = splitValue[2];
+                                    
+                                    if (lnk_field == 'created') {
+                                        attribute = {
+                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'created')
+                                        };
+                                    } else if (lnk_field == 'code') {
+                                        attribute = {
+                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'code')
+                                        };
+                                    } else if (lnk_field == 'name') {
+                                        attribute = {
+                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'name')
+                                        };
+                                    } else {
+                                        attribute = BaseEntityQuery.getBaseEntityAttribute(lnk_value.value, lnk_field);
+                                    }
+                                    // console.log(attribute);
+                                }
+                                else if (lnk_value && lnk_value.value && lnk_value.value.startsWith('[')) {
+                                    const lnk_valueParse = JSON.parse(lnk_value.value);
+                                    if (
+                                        lnk_valueParse != null &&
+                                        lnk_valueParse instanceof Array &&
+                                        lnk_valueParse.length > 0
+                                    ) {
+                                        const attributeArray = [];
+                                        lnk_valueParse.forEach(x => {
+                                            const lnk_field = splitValue[2];
+                                            let tempAttribute = null;
+                                            if (lnk_field == 'created') {
+                                                tempAttribute = {
+                                                    value: BaseEntityQuery.getBaseEntityField(x, 'created')
+                                                };
+                                            } else if (lnk_field == 'code') {
+                                                tempAttribute = {
+                                                    value: BaseEntityQuery.getBaseEntityField(x, 'code')
+                                                };
+                                            } else if (lnk_field == 'name') {
+                                                tempAttribute =  {
+                                                    value: BaseEntityQuery.getBaseEntityField(x, 'name')
+                                                };
+                                            } else {
+                                                tempAttribute = BaseEntityQuery.getBaseEntityAttribute(x, lnk_field);
+                                            }
+
+                                            if (tempAttribute != null && tempAttribute.value != null ) attributeArray.push(tempAttribute);
+                                            
+                                        });
+                                        attribute = {
+                                            value: attributeArray.length > 0 ? attributeArray.join(', ') : null,
+                                        };
+                                    }
+                                }
+                            } else if (attribute_code == 'created') {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'created')
                                 };
-                            } 
-                            else if (attribute_code == 'name') {
+                            } else if (attribute_code == 'name') {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'name')
                                 };
-                            } 
-                            else if (attribute_code == 'code') {
+                            } else if (attribute_code == 'code') {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
                                 };
-                            } 
-                            else if(attribute_code == 'parent') {
-
-                                /* format:
-                                * BE.parent.attributeCode
-                                */
-
-                                if(splitValue.length == 3) {
-
-                                    /* we grab the parent */
-                                    const parent = BaseEntityQuery.getBaseEntityParent(localAliasCode);
-                                    if(parent != null) {
-
-                                        const be_attribute = splitValue[2];
-
-                                        /* we grab the attribute of the parent */
-                                        // TODO: put that into a function instead of copy pasting grrrrr
-                                        if (be_attribute == 'created') {
-                                            attribute = {
-                                                value: BaseEntityQuery.getBaseEntityField(parent.code, 'created')
-                                            };
-                                        } else if (be_attribute == 'code') {
-                                            attribute = {
-                                                value: BaseEntityQuery.getBaseEntityField(parent.code, 'code')
-                                            };
-                                        } else if (be_attribute == 'name') {
-                                            attribute = {
-                                                value: BaseEntityQuery.getBaseEntityField(parent.code, 'name')
-                                            };
-                                        } else {
-                                            attribute = BaseEntityQuery.getBaseEntityAttribute(parent.code, be_attribute);
-                                        }
-                                    }
-                                }
-                            }
-                            else if (attribute_code == 'link') {
+                            } else if (attribute_code == 'link') {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
@@ -229,7 +250,7 @@ class LayoutLoader extends Component {
                                                     tempAttribute = BaseEntityQuery.getBaseEntityAttribute(x, lnk_field);
                                                 }
 
-                                                if (tempAttribute != null) attributeArray.push(tempAttribute);
+                                                if (tempAttribute != null && tempAttribute.value != null ) attributeArray.push(tempAttribute);
                                                 
                                             });
                                             attribute = {
