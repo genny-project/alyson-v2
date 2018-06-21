@@ -256,7 +256,10 @@ class InputDropdown extends Component {
 
         let list = items;
 
-        list = list.filter(item => !inputValue || item.name.toUpperCase().includes(inputValue.toUpperCase()));
+        list = list.filter(item => {
+          if(item.name == null || item.name.length == 0 || item.code == null || item.code.length == 0) return false;
+          return !inputValue || item.name.toUpperCase().includes(inputValue.toUpperCase());
+        });
 
         list = list.sort((x, y) =>
             selectedItem.indexOf(x.name) == -1 && selectedItem.indexOf(y.name) > -1
