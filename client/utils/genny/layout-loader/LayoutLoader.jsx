@@ -164,7 +164,42 @@ class LayoutLoader extends Component {
                                 attribute = {
                                     value: BaseEntityQuery.getBaseEntityField(localAliasCode, 'code')
                                 };
-                            } else if (attribute_code == 'link') {
+                            } 
+                            else if (attribute_code == 'parent') {
+
+                                /* format:
+                                 * BE.parent.attributeCode
+                                 */
+
+                                if (splitValue.length == 3) {
+
+                                    /* we grab the parent */
+                                    const parent = BaseEntityQuery.getBaseEntityParent(localAliasCode);
+                                    if (parent != null) {
+
+                                        const be_attribute = splitValue[2];
+
+                                        /* we grab the attribute of the parent */
+                                        // TODO: put that into a function instead of copy pasting grrrrr
+                                        if (be_attribute == 'created') {
+                                            attribute = {
+                                                value: BaseEntityQuery.getBaseEntityField(parent.code, 'created')
+                                            };
+                                        } else if (be_attribute == 'code') {
+                                            attribute = {
+                                                value: BaseEntityQuery.getBaseEntityField(parent.code, 'code')
+                                            };
+                                        } else if (be_attribute == 'name') {
+                                            attribute = {
+                                                value: BaseEntityQuery.getBaseEntityField(parent.code, 'name')
+                                            };
+                                        } else {
+                                            attribute = BaseEntityQuery.getBaseEntityAttribute(parent.code, be_attribute);
+                                        }
+                                    }
+                                }
+                            }
+                            else if (attribute_code == 'link') {
 
                                 const linkValue = splitValue[2];
                                 const be_attribute = splitValue[3];
