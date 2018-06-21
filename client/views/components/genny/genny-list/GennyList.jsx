@@ -16,7 +16,8 @@ class GennyList extends Component {
         showSearchBar: true,
         hideNav: false,
         numberOfItems: 4,
-        emptyMessage: 'No data to display.'
+        emptyMessage: 'No data to display.',
+        selectedColor: '#333',
     }
 
     static propTypes = {
@@ -37,6 +38,8 @@ class GennyList extends Component {
         gennyListStyle: object,
         numberOfItems: number,
         onClick: func,
+        hideSelectedStyle: bool,
+        selectedColor: string,
         selectedItem: string,
     };
 

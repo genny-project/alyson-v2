@@ -7,6 +7,8 @@ import { Grid } from '@genny-project/layson';
 class Sidebar extends Component {
     static defaultProps = {
         closeOnItemClick: true,
+        slideFromRight: false,
+        icon: 'menu',
     }
 
     static propTypes = {
@@ -16,6 +18,8 @@ class Sidebar extends Component {
       children: any,
       height: string,
       closeOnItemClick: bool,
+      slideFromRight: bool,
+      icon: string,
     };
 
     state = {
@@ -53,8 +57,9 @@ class Sidebar extends Component {
     }
 
     renderChildren = (children) => {
-
+        
         const childrenWithProps =  React.Children.map(children, child => {
+            if (child === null) return child;
             if (child.$$typeof) {
                 return React.cloneElement(child, {
                     onClick: this.onClick
@@ -70,7 +75,7 @@ class Sidebar extends Component {
 
     render() {
 
-        const { style, src, caption, children, } = this.props;
+        const { style, src, caption, children, slideFromRight, icon } = this.props;
         const { isOpen } = this.state;
 
         const componentStyle = {
@@ -91,9 +96,10 @@ class Sidebar extends Component {
                 </div>
             );
         }
-        let icon = <IconSmall className='sidebar-toggle-icon clickable'
-            name="menu"
-            size={32}
+        
+        let sidebarIcon = <IconSmall className={`sidebar-toggle-icon sidebar-toggle-icon-${slideFromRight ? 'right' : 'left'} clickable ${this.props.iconAltStyle ? 'alt-style' : ''}`}
+            name={icon}
+            size={this.props.iconAltStyle ? 24 :32}
             onClick={this.handleSidebarToggle}
             position={[0,0]}
         />;
@@ -103,10 +109,9 @@ class Sidebar extends Component {
                 <Grid
                     className='sidebar-main'
                     style={componentStyle}
-                    rows={['200px', {style: {  flex: '1, 1, auto', overflowY: 'auto', overflowX: 'hidden', justifyContent: `${!isOpen && window.getScreenSize() == 'sm' ? 'flex-start' : 'initial' }` } }]}
+                    rows={[`${image ? '200px' : '0'}`, {style: {  flex: '1, 1, auto', overflowY: 'auto', overflowX: 'hidden', justifyContent: `${!isOpen && window.getScreenSize() == 'sm' ? 'flex-start' : 'initial' }` } }]}
                     cols={1}>
-
-                    {icon}
+                    {sidebarIcon}
                     {image}
                     {this.renderChildren(children)}
                 </Grid>

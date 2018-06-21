@@ -56,12 +56,12 @@ class List extends Component {
 
     renderMain = (data, itemsPerPage, hideNav) => {
 
-        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage, selectedItem } = this.props;
+        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage, selectedItem, selectedColor } = this.props;
 
         let children = [];
         if (data && data.length > 0) {
             children = data.map((item, index) => {
-                return <ListItem isSelected={selectedItem == item.code} {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick}/>;
+                return <ListItem isSelected={selectedItem == item.code} {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick} selectedColor={selectedColor}/>;
             });
         }
         else {

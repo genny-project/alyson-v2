@@ -2,9 +2,8 @@
 
 .app-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 100%;
-    overflow: scroll;
 }
 
 .toast-notification {

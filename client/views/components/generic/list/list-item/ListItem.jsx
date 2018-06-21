@@ -18,7 +18,8 @@ class ListItem extends Component {
         itemGap: number,
         layout: any,
         onClick: func,
-        isSelected: bool
+        isSelected: bool,
+        selectedColor: string,
     }
 
     state = {
@@ -29,18 +30,21 @@ class ListItem extends Component {
     }
 
     render() {
-        const { className, style, itemHeight, itemWidth, itemGap, onClick, isSelected } = this.props;
+        const { className, style, itemHeight, itemWidth, itemGap, onClick, isSelected, selectedColor } = this.props;
 
         const componentStyle = {
             ...style,
             height: `${itemHeight}px`,
             width: `${itemWidth}px`,
             margin: `${itemGap}px`,
+            backgroundColor: isSelected ? selectedColor : '',
         };
 
         return (
-            <div className={`list-item clickable ${className} ${isSelected ? 'selected' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null}>
-                { this.props.layout || null }
+            <div className={`list-item clickable ${className} `} style={componentStyle} onClick={onClick ? this.handleClick : null}>
+                <div style={{ backgroundColor: '#ddd', borderRadius: '5px' }} >
+                    { this.props.layout || null }
+                </div>
             </div>
         );
     }
