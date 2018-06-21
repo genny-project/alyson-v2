@@ -11,6 +11,7 @@ export { default as DateLabel } from './date-label';
 export { default as Device } from './device';
 export { default as DisplayHTML } from './display-html';
 export { default as Dropdown } from './dropdown';
+export { default as FileViewer } from './file-viewer';
 export { default as Footer } from './footer';
 export { default as Form } from './form';
 export { default as Header } from './header';

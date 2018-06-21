@@ -64,9 +64,10 @@ class LayoutLoader extends Component {
 
             if (alias.includes('${')) {
 
-                const regex = /[$][{](.*?)[}]/;
+                const regex = /[$][{](.*?)[}]/g;
                 const v = regex.exec(alias);
 
+                //console.log(v);
                 if (v != null) {
                     if (v[1] != null) {
                         splitValue = v[1];
@@ -147,8 +148,9 @@ class LayoutLoader extends Component {
                                             if (tempAttribute != null && tempAttribute.value != null ) attributeArray.push(tempAttribute);
                                             
                                         });
+                                        
                                         attribute = {
-                                            value: attributeArray.length > 0 ? attributeArray.join(', ') : null,
+                                            value: attributeArray.length > 0 ? attributeArray.map(x => x.value).join(', ') : null,
                                         };
                                     }
                                 }
@@ -171,14 +173,14 @@ class LayoutLoader extends Component {
                                  * BE.parent.attributeCode
                                  */
 
-                                if (splitValue.length == 3) {
+                                if (splitValue.length >=  3) {
 
                                     /* we grab the parent */
                                     const parent = BaseEntityQuery.getBaseEntityParent(localAliasCode);
+
                                     if (parent != null) {
 
                                         const be_attribute = splitValue[2];
-
                                         /* we grab the attribute of the parent */
                                         // TODO: put that into a function instead of copy pasting grrrrr
                                         if (be_attribute == 'created') {
@@ -193,6 +195,102 @@ class LayoutLoader extends Component {
                                             attribute = {
                                                 value: BaseEntityQuery.getBaseEntityField(parent.code, 'name')
                                             };
+                                        } else if (be_attribute == 'link') {
+
+                                            const linkValue = splitValue[3];
+                                            const be_attribute_parent = splitValue[4];
+                                            if (linkValue != null && be_attribute_parent != null) {
+                                                const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(parent.code, linkValue);
+                                                if (linkedBaseEntity != null) {
+            
+                                                    if (be_attribute_parent == 'created') {
+                                                        attribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'created')
+                                                        };
+                                                    } else if (be_attribute_parent == 'code') {
+                                                        attribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'code')
+                                                        };
+                                                    } else if (be_attribute_parent == 'name') {
+                                                        attribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(linkedBaseEntity.code, 'name')
+                                                        };
+                                                    } else {
+                                                        attribute = BaseEntityQuery.getBaseEntityAttribute(linkedBaseEntity.code, be_attribute_parent);
+                                                    }
+                                                }
+                                            }
+                                            
+                                            // console.log('===========================');
+            
+                                            if (be_attribute_parent.startsWith('LNK_')){
+                                                const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
+                                                const linkedBECode = linkedBaseEntity.code;
+                                                const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute_parent);
+            
+                                                if (lnk_value && lnk_value.value && lnk_value.value.startsWith('SEL_')) {
+                                                   
+            
+                                                    const lnk_field = splitValue[5];
+                                                    // console.log(lnk_value.value, lnk_field);
+            
+                                                    if (lnk_field == 'created') {
+                                                        attribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'created')
+                                                        };
+                                                    } else if (lnk_field == 'code') {
+                                                        attribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'code')
+                                                        };
+                                                    } else if (lnk_field == 'name') {
+                                                        attribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'name')
+                                                        };
+                                                    } else {
+                                                        attribute = BaseEntityQuery.getBaseEntityAttribute(lnk_value.value, lnk_field);
+                                                    }
+                                                    // console.log(attribute);
+                                                }
+                                                else if (lnk_value && lnk_value.value && lnk_value.value.startsWith('[')) {
+                                                    // console.log(lnk_value.value);
+                                                    const lnk_valueParse = JSON.parse(lnk_value.value);
+                                                    
+                                                    if (
+                                                        lnk_valueParse != null &&
+                                                        lnk_valueParse instanceof Array &&
+                                                        lnk_valueParse.length > 0
+                                                    ) {
+                                                        const attributeArray = [];
+                                                        lnk_valueParse.forEach(x => {
+                                                            const lnk_field = splitValue[4];
+                                                            let tempAttribute = null;
+                                                            if (lnk_field == 'created') {
+                                                                tempAttribute = {
+                                                                    value: BaseEntityQuery.getBaseEntityField(x, 'created')
+                                                                };
+                                                            } else if (lnk_field == 'code') {
+                                                                tempAttribute = {
+                                                                    value: BaseEntityQuery.getBaseEntityField(x, 'code')
+                                                                };
+                                                            } else if (lnk_field == 'name') {
+                                                                tempAttribute =  {
+                                                                    value: BaseEntityQuery.getBaseEntityField(x, 'name')
+                                                                };
+                                                            } else {
+                                                                tempAttribute = BaseEntityQuery.getBaseEntityAttribute(x, lnk_field);
+                                                            }
+            
+                                                            if (tempAttribute != null && tempAttribute.value != null ) attributeArray.push(tempAttribute);
+                                                            
+                                                        });
+            
+                                                        attribute = {
+                                                            value: attributeArray.length > 0 ? attributeArray.map(x => x.value).join(', ') : null,
+                                                        };
+                                                    }
+                                                }
+                                            }
+            
                                         } else {
                                             attribute = BaseEntityQuery.getBaseEntityAttribute(parent.code, be_attribute);
                                         }
@@ -288,8 +386,9 @@ class LayoutLoader extends Component {
                                                 if (tempAttribute != null && tempAttribute.value != null ) attributeArray.push(tempAttribute);
                                                 
                                             });
+
                                             attribute = {
-                                                value: attributeArray.length > 0 ? attributeArray.join(', ') : null,
+                                                value: attributeArray.length > 0 ? attributeArray.map(x => x.value).join(', ') : null,
                                             };
                                         }
                                     }
