@@ -69,7 +69,7 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
     } else {
 
         if(action.payload.replace == true) {
-            deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
+            deleteBaseEntity(state, action, existing, newItem, true);
         }
 
         if (!newItem.baseEntityAttributes) {
