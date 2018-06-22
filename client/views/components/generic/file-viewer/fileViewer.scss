@@ -1,5 +1,86 @@
 @import 'client/styles/colors';
 
-.template {
+.file-viewer {
+  display: flex;
+  flex-wrap: wrap;
 
+  .file-tile {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin: 5px;
+
+    padding: 10px;
+    border-radius: 10px;
+    background: #ffffff;
+    border: 1px solid #DDD;
+    transition: 300ms ease all;
+
+      > .file-image, > .file-preview {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        border: 1px solid #DDD;
+        transition: 300ms ease all;
+      }
+
+      > .file-image {
+        object-fit: cover;
+        
+      }
+
+      > .file-preview {
+        background: #EEE;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > .file-icon > i {
+          color: #555;
+          transition: 300ms ease color;
+          font-size: 1.5rem;
+        }
+      }
+
+    > .file-details {
+      flex-grow: 1;
+      margin-left: 10px;
+
+      > .file-name {
+        color: black;
+        transition: 300ms ease color;
+      }
+
+      > .file-size {
+        color: #888;
+        transition: 300ms ease color;
+        display: block;
+      }
+    }
+
+    &:hover {
+      background: #555;
+      border: 1px solid #555;
+
+      .file-preview {
+        // background: #BBB;
+        border: 1px solid #EEE;
+        > .file-icon > i {
+          color: #000;
+        }
+      }
+
+      .file-image {
+        border: 1px solid #EEE;
+      }
+      .file-name {
+        color: white;
+      }
+
+      .file-size {
+        color: #BBB;
+      }
+    }
+  }
 }
