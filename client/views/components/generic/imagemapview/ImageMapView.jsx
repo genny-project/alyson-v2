@@ -47,15 +47,14 @@ class ImageMapView extends Component {
             height &&
             width
         ) {
-            imageString = `https://maps.googleapis.com/maps/api/streetview?location=${addressString}&size=${height}x${width}&key=AIzaSyDKDQp98g2ip6m1GtdEb7MZxxJLE_840VE`;
+            imageString = `https://maps.googleapis.com/maps/api/streetview?location=${addressString}&size=${width}x${height}&key=AIzaSyDKDQp98g2ip6m1GtdEb7MZxxJLE_840VE`;
         }
-
-        console.log(imageString);
 
         return (
             <ImageView
                 {...rest}
                 style={{
+                    ...this.props.style,
                     height: height,
                     width: width,
                 }}
