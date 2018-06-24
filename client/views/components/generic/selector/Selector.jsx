@@ -33,8 +33,9 @@ class Selector extends Component {
           checkValue = checkValue.toString();
         }
 
-        if(showValues != null) {
+        if(showValues != null && showValues != undefined) {
 
+            let showValuesArray = [];
             // if showValues is an array
             if(showValues.constructor == Array) {
 
@@ -45,35 +46,46 @@ class Selector extends Component {
                       showValue = showValue.toString();
                     }
 
-                    if(`${checkValue}` == `${showValue}`) canShowValue = true;
+                    if(`${checkValue}` == `${showValue}`) {
+                        showValuesArray.push(true);
+                    } else {
+                        showValuesArray.push(false);
+                    }
                 }
             }
             else {
-                if(`${checkValue}` == `${showValues}`) canShowValue = true;
+                if(`${checkValue}` == `${showValues}`) showValuesArray.push(true);
             }
+
+            if (showValuesArray.includes(true) ) canShowValue = true;
         }
 
-        if(hideValues != null) {
+        if(hideValues != null && hideValues != undefined) {
 
             canShowValue = true;
-
+            let hideValuesArray = [];
             // if hide values is an array
             if(hideValues.constructor == Array) {
 
                 for (var i = 0; i < hideValues.length; i++) {
 
                     let hideValue = hideValues[i];
-                    if(typeof(hideValue) === "boolean"){
+                    if( typeof hideValue === 'boolean'){
                       hideValue = hideValue.toString();
                     }
 
-                    if(`${checkValue}` == `${hideValue}`) canShowValue = false;
+                    if(`${checkValue}` == `${hideValue}`) {
+                        hideValuesArray.push(true);
+                    } else {
+                        hideValuesArray.push(false);
+                    }
                 }
             }
             else {
 
-                if(`${checkValue}` == `${hideValues}`) canShowValue = false;
+                if(`${checkValue}` == `${hideValues}`) hideValuesArray.push(true);
             }
+            if (hideValuesArray.includes(true) ) canShowValue = false;
         }
 
         return canShowValue;
@@ -82,7 +94,6 @@ class Selector extends Component {
     render() {
 
         const { checkValues, showValues, hideValues, showOverride, showIfNull, showIfNotNull } = this.props;
-
 
         let shouldShow = false;
 
@@ -125,10 +136,22 @@ class Selector extends Component {
             // if check values is an array
             if(checkValues.constructor == Array) {
 
+                const resultArray = [];
+
                 for (var i = 0; i < checkValues.length; i++) {
 
                     const checkValue = checkValues[i];
-                    if(this.canBeShown(checkValue, showValues, hideValues) === true) shouldShow = true;
+                    if(this.canBeShown(checkValue, showValues, hideValues) === true) {
+                        resultArray.push(true);
+                    } else {
+                        resultArray.push(false);
+                    }
+                }
+
+                if (showValues) {
+                    shouldShow = resultArray.includes(true);
+                } else if (hideValues) {
+                    shouldShow = !resultArray.includes(false);
                 }
             }
             else {

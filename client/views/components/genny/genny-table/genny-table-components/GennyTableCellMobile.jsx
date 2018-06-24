@@ -65,11 +65,11 @@ class GennyTableCellMobile extends Component {
         console.log(data);
         return (
             <div className='table-mobile-cell'>
-                    <IconSmall
-                        className='table-mobile-icon clickable'
-                        onClick={() => this.onClick(original.baseEntityCode)}
-                        name={isOpen[original.baseEntityCode] ? 'expand_more' : 'chevron_right'}
-                    />
+                <IconSmall
+                    className='table-mobile-icon clickable'
+                    onClick={() => this.onClick(original.baseEntityCode)}
+                    name={isOpen[original.baseEntityCode] ? 'expand_more' : 'chevron_right'}
+                />
                 {
                     data.map((attribute, i ) => {
 
