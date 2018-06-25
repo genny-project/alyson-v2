@@ -40,6 +40,8 @@ class ListItem extends Component {
             backgroundColor: isSelected ? selectedColor : '',
         };
 
+        if(this.props.layout == null) return null;
+        
         return (
             <div className={`list-item clickable ${className} `} style={componentStyle} onClick={onClick ? this.handleClick : null}>
                 <div style={{ backgroundColor: '#ddd', borderRadius: '5px' }} >

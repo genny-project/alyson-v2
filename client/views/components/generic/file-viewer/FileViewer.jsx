@@ -67,16 +67,17 @@ class FileViewer extends Component {
     }
 
     render() {
+
         const { className, root, attribute, style, displayColumn } = this.props;
-        const componentStyle = { 
-            ...style, 
+        const componentStyle = {
+            ...style,
             flexDirection: displayColumn ? 'column' : 'row'
         };
 
         let filesArray = null;
         let validFiles = [];
 
-        if ( 
+        if (
             root != null &&
             typeof root === 'string' &&
             root.length > 0 &&
@@ -87,14 +88,14 @@ class FileViewer extends Component {
             const attributeObject = BaseEntityQuery.getBaseEntityAttribute(root, attribute);
             const attributeValue = attributeObject ? attributeObject.value : null;
 
-            
+
             if(attributeValue != null && attributeValue.startsWith('[')) {
                 filesArray = JSON.parse(attributeValue);
             }
 
             validFiles = filesArray && filesArray.length ? filesArray.filter(file => this.isValidFile(file)) : [];
         }
-        
+
         return (
             <div className={`file-viewer ${className}`} style={componentStyle}>
                 {
@@ -102,7 +103,7 @@ class FileViewer extends Component {
                     validFiles.length > 0 && (
                         validFiles.map(file => {
                             return (
-                                <a 
+                                <a
                                     className="file-tile"
                                     key={ file.id }
                                     href={ file.uploadURL }
@@ -119,13 +120,13 @@ class FileViewer extends Component {
                                                 !!file.preview ||
                                                 !!file.uploadURL
                                             )
-                                        ) ? ( 
+                                        ) ? (
                                             <img
                                             className="file-image"
                                                 src={ file.uploadURL || file.preview }
                                                 role="presentation"
                                             />
-                                        ) : ( 
+                                        ) : (
                                             <div className="file-preview">
                                                 <IconSmall
                                                     className="file-icon"
