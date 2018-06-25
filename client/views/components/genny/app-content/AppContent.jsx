@@ -71,9 +71,6 @@ class AppContent extends Component {
             else if (commandData.code == 'PASSCODE') {
                 return <GennyPasscode />;
             }
-            else if (commandData.code == 'TAB_VIEW') {
-                return <TabContainer views={commandData.data} />;
-            }
             else if (commandData.code == 'MESSAGE_VIEW') {
                 return <GennyMessagingList root={commandData.root || commandData.data} selectedItem={commandData.selectedItem}/>;
             }
