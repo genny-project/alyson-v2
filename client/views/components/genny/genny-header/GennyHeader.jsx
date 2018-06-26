@@ -1,7 +1,7 @@
 import './gennyHeader.scss';
 import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
-import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications } from 'views/components';
+import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications, Timeline } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string,object, bool  } from 'prop-types';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
@@ -163,6 +163,34 @@ class GennyHeader extends Component {
                 rows={[ { style: { flexGrow: '1', paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: '100%' } } ]}
                 >
                 <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3>
+                <div position={[0,0]} style={{position: 'relative'}}>
+                    <div style={{position: 'absolute', top: 0, left: 0, width: '300px', background: 'red', zIndex: 10 }}>
+                        <Timeline
+                            items={[
+                                {
+                                    name: 'Start',
+                                    value: '2018-06-18'
+                                },
+                                {
+                                    name: 'Applied',
+                                    value: '2018-06-22'
+                                },
+                                {
+                                    name: 'Shortlist',
+                                    value: ''
+                                },
+                                {
+                                    name: 'Interview',
+                                    value: null
+                                },
+                                {
+                                    name: 'Offered',
+                                    value: null
+                                }
+                            ]}
+                        />
+                    </div>
+                </div>
                 <div className='header-messages clickable'
                     position={[0,1]}
                     onClick={this.handleMessages}
