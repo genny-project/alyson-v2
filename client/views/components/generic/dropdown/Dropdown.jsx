@@ -14,6 +14,7 @@ class Dropdown extends Component {
     isSlide: true,
     animateHeader: true,
     animateFooter: true,
+    closeOnChildClick: true,
   }
 
   static propTypes = {
@@ -31,7 +32,8 @@ class Dropdown extends Component {
     isSlide: bool,
     animateHeader: bool,
     animateFooter: bool,
-    onBlur: func
+    onBlur: func,
+    closeOnChildClick: bool,
   }
 
   state = {
@@ -44,10 +46,12 @@ class Dropdown extends Component {
       this.props.onBlur(event);
     }
     else {
-      this.setState({
-        isOpen: false,
-        parentIsOpen: false,
-      });
+      this.props.closeOnChildClick
+        ? this.setState({
+          isOpen: false,
+          parentIsOpen: false,
+        })
+        : null;
     }
   }
 

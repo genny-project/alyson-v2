@@ -218,7 +218,7 @@ class AppContent extends Component {
         let itemCode = null;
 
         if (layout != null && layout.currentView) {
-            if (layout.currentView.root) itemCode = layout.currentView.rootNotes ? layout.currentView.rootNotes :  layout.currentView.root;
+            if (layout.currentView.root) itemCode = layout.currentView.data.rootNotes ? layout.currentView.data.rootNotes :  layout.currentView.root;
 
             layoutContent = this.renderContent('view', layout.currentView);
         }
