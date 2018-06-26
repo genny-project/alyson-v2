@@ -109,7 +109,7 @@ class Dropdown extends Component {
     if(open != undefined || open != null) isOpen = open; // open props overrides
 
     return (
-      <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur} tabIndex='-1' style={style} >
+      <div className={`dropdown ${className} ${ inline ? 'inline' : '' }`} onBlur={ inline ? null : this.handleBlur} tabIndex='-1' style={{...style}} >
         {!isSlide ? this.renderHeader(isOpen) : null }
         { isOpen ?
           <div className={`dropdown-content ${noDropdownStyle ? 'no-style' : ''}`} style={contentStyle} >
