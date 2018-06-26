@@ -59,6 +59,18 @@ class GennyTable extends Component {
         }
     }
 
+    handleFocusCell = (itemCode) => {
+        if (!this.state.selectedItems.includes(itemCode)) {
+            this.addSelectedItem(itemCode);
+        }
+    }
+
+    handleBlurCell = (itemCode) => {
+        if (this.state.selectedItems.includes(itemCode)) {
+            this.removeItem(itemCode);
+        }
+    }
+
     addSelectedItem = (itemCode) => {
         this.setState({
             //TODO - ALLOW MULTISELECT
@@ -228,8 +240,8 @@ class GennyTable extends Component {
                                             value={value}
                                             dataType={dataType}
                                             targetCode={this.state.data[cellInfo.index].baseEntityCode}
-                                            onFocus={this.handleClickRow}
-                                            onBlur={this.handleClickRow}
+                                            onFocus={this.handleFocusCell}
+                                            onBlur={this.handleBlurCell}
                                         />
                                     );
                                 },

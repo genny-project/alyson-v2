@@ -44,16 +44,16 @@ class TreeView extends Component {
 
         return items.map( item => {
 
+            // console.log(item);
             const hasChildren = ( item.children && Array.isArray( item.children ) && item.children.length > 0 );
+            // console.log(hasChildren);
             const canOpen = ( hasChildren && item.open );
+            // console.log(canOpen);
             const icon = item.icon;
 
             let childNumber = null;
 
-            if ( levelIndex == 0 ) {
-                childNumber = item.childCount || false;
-            }
-            else if ( levelIndex > 0 ) {
+            if ( levelIndex > 0 ) {
                 childNumber = item.children && item.children.length || false;
             }
 
@@ -69,22 +69,24 @@ class TreeView extends Component {
                             )}
                         </span>
 
-                        {( item.children && item.children.length > 0 ) && (
-                            <IconSmall
-                                className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
-                                size={32}
-                                style={canOpen ? { transition: 'transform 0.1s', transform: 'rotate(0deg)' } : { transition: 'transform 0.1s', transform: 'rotate(-90deg)' }}
-                                onClick={this.onExpand(item)}
-                                name='arrow_drop_down'
-                            />
-                        )}
+                        {
+                            ( item.children && item.children.length > 0 ) 
+                                ? <IconSmall
+                                        className={`tree-view-icon arrow clickable ${canOpen ? 'open' : 'close'} `}
+                                        size={32}
+                                        style={canOpen ? { transition: 'transform 0.1s', transform: 'rotate(0deg)' } : { transition: 'transform 0.1s', transform: 'rotate(-90deg)' }}
+                                        onClick={this.onExpand(item)}
+                                        name='arrow_drop_down'
+                                />
+                                : <div style={{width: '35px'}} />
+                        }
 
                     </div>
 
                     <div>
                         {
-                            item.children != null && item.children.length > 0 && levelIndex <= 1 ? <ul className="tree-view-child">
-                                <Slide inProp={canOpen} heightEntered={`${item.children.length * 60}px`}>
+                            item.children != null && item.children.length > 0? <ul className="tree-view-child">
+                                <Slide inProp={canOpen} heightEntered={`${item.visibleChildren * 60}px`}>
                                     {this.renderList(item.children, levelIndex + 1)}
                                 </Slide>
                             </ul> : null
@@ -93,9 +95,8 @@ class TreeView extends Component {
                 </li>
             );
         });
-
-        return null;
     }
+
     render() {
 
         const { items } = this.props;

@@ -154,77 +154,50 @@ class GennyTreeView extends Component {
 
         return finalPath;
     }
+    
+    countVisibleChildren = ( item ) => {
+        let numberOfVisibleChildren = 0;
+        if ( item.children && !!this.state.tree[item.code] ) {
+            numberOfVisibleChildren = numberOfVisibleChildren + item.children.length;
+            item.children.forEach(child => {
+                numberOfVisibleChildren = numberOfVisibleChildren + this.countVisibleChildren(child);
+            });
+        }
+
+        return numberOfVisibleChildren;
+    }
 
     render() {
 
         const { root, isHorizontal } = this.props;
 
-        const getIcon = (item) => {
+        const getChildren = (parentCode) => {
 
-            if(item.code != null) {
-                const imageAttribute = BaseEntityQuery.getBaseEntityAttribute(item.code, 'PRI_IMAGE_URL');
-                if(imageAttribute != null) {
-                    return imageAttribute.value;
-                }
+            /* we get the kids of the parent */
+            const children = BaseEntityQuery.getLinkedBaseEntities(parentCode, "LNK_CORE");
+            if(children && children.length > 0) {
+
+                /* we get the kids of the kids */
+                children.forEach(child => {
+                    child.children = getChildren(child.code);
+                    const imageAttribute = BaseEntityQuery.getBaseEntityAttribute(child.code, 'PRI_IMAGE_URL');
+                    if(imageAttribute != null && child.code.startsWith('GRP_')) {
+                        child.icon = imageAttribute.value;
+                    }
+                    child.visibleChildren = this.countVisibleChildren(child);
+                    child.open = !!this.state.tree[child.code];
+                    return child;
+                }); 
             }
 
-            return null;
-        }
+            /* we set up the kids */
 
-        const getItems = (item) => {
+            return children;
+        };
 
-            let childCount = 0;
-            if (item && item.children != null && item.children.length > 0) {
-                item.children.forEach(child => {
-                    childCount = childCount + (child != null && child.children != null ? child.children.length : 0);
-                    child.icon = getIcon(child);
-                });
-            }
-
-            let icon = getIcon(item);
-
-            return {
-                ...item,
-                icon: icon,
-                open: !!this.state.tree[item.code],
-                childCount: childCount,
-            };
-        }
-
-        let items = root ?
-            BaseEntityQuery.getEntityChildren(root).map(item => {
-
-                let childCount = 0;
-                let countedChildren = {};
-                if (item && item.children != null && item.children.length > 0) {
-
-                    item.children.forEach(child => {
-
-                        let counter = 0;
-                        let childArray = (child != null && child.children != null ? child.children : []);
-                        childArray.forEach((c => {
-
-                            if(countedChildren[c.code] == null) {
-                                countedChildren[c.code] = true;
-                                counter++;
-                            }
-                        }));
-
-                        childCount = childCount + counter;
-                        child.icon = getIcon(child);
-                    });
-                }
-
-                let icon = getIcon(item);
-
-                return {
-                    ...item,
-                    icon: icon,
-                    open: !!this.state.tree[item.code],
-                    // childCount: childCount,
-                };
-            }) :
-            [];
+        let items = root
+            ? getChildren(root)
+            : [];
 
         items = items.filter(x => x.name != null);
 

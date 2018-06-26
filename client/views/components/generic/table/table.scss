@@ -14,6 +14,13 @@
     }
 }
 
+.-previous, .-center, .-next {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .list-item-total {
     text-align: left;
     color: #222;
@@ -49,7 +56,6 @@
         display: flex ;
         align-items: center;
         flex: 0 !important;
-
     }
 
     .-center {
