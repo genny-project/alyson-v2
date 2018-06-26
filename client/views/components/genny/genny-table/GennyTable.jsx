@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { object, array, bool, string } from 'prop-types';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { IconSmall, Table, GennyButton } from 'views/components';
-import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile, GennyActionTableCell } from './genny-table-components';
+import { GennyTableHeader, GennyTableEditableCell, GennyTableCell, GennyTableCellMobile, GennyActionTableCell, GennyTableSelectCell } from './genny-table-components';
 
 class GennyTable extends Component {
 
@@ -36,15 +36,19 @@ class GennyTable extends Component {
     }
 
     handleClickColumn = (rowCodes) => {
-        if (rowCodes.every(code => this.state.selectedItems.includes(code) )) {
-            this.setState({
-                selectedItems: []
-            });
-        } else {
-            this.setState({
-                selectedItems: [...rowCodes]
-            });
-        }
+         //TODO - ALLOW MULTISELECT
+        // if (rowCodes.every(code => this.state.selectedItems.includes(code) )) {
+        //     this.setState({
+        //         selectedItems: []
+        //     });
+        // } else {
+        //     this.setState({
+        //         selectedItems: [...rowCodes]
+        //     });
+        // }
+        this.setState({
+            selectedItems: []
+        });
     }
 
     handleClickRow = (itemCode) => {
@@ -57,7 +61,11 @@ class GennyTable extends Component {
 
     addSelectedItem = (itemCode) => {
         this.setState({
-            selectedItems: [...this.state.selectedItems, itemCode]
+            //TODO - ALLOW MULTISELECT
+            // selectedItems: [...this.state.selectedItems, itemCode]
+            selectedItems: [itemCode]
+        }, () => {
+            this.sendSelectMessage(itemCode);
         });
     }
 
@@ -67,6 +75,19 @@ class GennyTable extends Component {
                 selectedItems: selectedItems.filter(i => i !== itemCode),
             };
         }, () => {
+        });
+    }
+
+    sendSelectMessage = (itemCode) => {
+        let btnValue = JSON.stringify({
+            itemCode: itemCode,
+            hint: this.props.root,
+            userCode: GennyBridge.getUser()
+        });
+
+        GennyBridge.sendBtnClick('BTN_CLICK', {
+            code: 'BTN_TABLE_SELECT',
+            value: btnValue || null,
         });
     }
 
@@ -314,36 +335,34 @@ class GennyTable extends Component {
                 //     'minWidth': 100
                 // });
 
-                // cols.splice(0, 0, {
-                //     'Header': ({data}) => {
-                //         const rowCodes = data.map(row => { return row._original.baseEntityCode;});
-                //         const isChecked = rowCodes.every(code => this.state.selectedItems.includes(code) );
-                //         return (
-                //             <input
-                //                 checked={isChecked}
-                //                 type="checkbox"
-                //                 onClick={() => this.handleClickColumn(rowCodes)}
-                //             />
-                //         );
-                //     },
-                //     'accessor': 'select',
-                //     'attributeCode': 'SELECT',
-                //     'Cell': ({original}) => {
-                //         return (
-                //             <div className='table-checkbox'>
-                //                 <input
-                //                     checked={this.state.selectedItems.includes(original.baseEntityCode)}
-                //                     type="checkbox"
-                //                     onClick={() => this.handleClickRow(original.baseEntityCode)}
-                //                 />
-                //             </div>
-                //         );
-                //     },
-                //     'resizable': false,
-                //     'sortable': false,
-                //     'minWidth': 30,
-                // });
-                //console.log(cols);
+                cols.splice(0, 0, {
+                    'Header': ({data}) => {
+                        const rowCodes = data.map(row => { return row._original.baseEntityCode;});
+                        const isChecked = rowCodes.every(code => this.state.selectedItems.includes(code) );
+                        return (
+                            <input
+                                checked={isChecked}
+                                type="checkbox"
+                                onClick={() => this.handleClickColumn(rowCodes)}
+                            />
+                        );
+                    },
+                    'accessor': 'select',
+                    'attributeCode': 'SELECT',
+                    'Cell': ({original}) => {
+                        const code = original.baseEntityCode;
+                        return (
+                            <GennyTableSelectCell
+                                isSelected={this.state.selectedItems.includes(code)}
+                                beCode={code}
+                                onClick={this.handleClickRow}
+                            />
+                        );
+                    },
+                    'resizable': false,
+                    'sortable': false,
+                    'minWidth': 20,
+                });
             }
         }
 

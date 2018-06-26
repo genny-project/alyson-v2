@@ -3,3 +3,4 @@ export { default as GennyTableHeader } from './GennyTableHeader.jsx';
 export { default as GennyTableCell } from './GennyTableCell.jsx';
 export { default as GennyTableCellMobile } from './GennyTableCellMobile.jsx';
 export { default as GennyActionTableCell } from './GennyActionTableCell.jsx';
+export { default as GennyTableSelectCell } from './GennyTableSelectCell.jsx';
