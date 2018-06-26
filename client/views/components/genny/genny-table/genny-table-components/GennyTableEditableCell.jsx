@@ -108,6 +108,11 @@ class GennyTableEditableCell extends Component {
                 }
             }
         }
+        if (this.props.onBlur) this.props.onBlur(this.props.rowCode);
+    }
+
+    handleFocus = () => {
+        if (this.props.onFocus) this.props.onFocus(this.props.rowCode);
     }
 
     handleChange = (event) => {
@@ -168,6 +173,7 @@ class GennyTableEditableCell extends Component {
                             className="table-input"
                             value={valueState != null ? valueState : value}
                             type="text"
+                            onFocus={this.handleFocus}
                             onBlur={this.handleBlur}
                             onKeyDown={this.handleKeyDown}
                             onChange={this.handleChange}
@@ -183,6 +189,7 @@ class GennyTableEditableCell extends Component {
                         className="table-input"
                         value={valueState != null ? valueState : value}
                         type="text"
+                        onFocus={this.handleFocus}
                         onBlur={this.handleBlur}
                         onKeyDown={this.handleKeyDown}
                         onChange={this.handleChange}

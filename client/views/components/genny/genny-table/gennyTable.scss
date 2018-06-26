@@ -162,3 +162,15 @@
         }
     }
 }
+
+.rt-tr {
+    &.-selected {
+        &.-odd .rt-td {
+            background: #fff79d;
+        }
+
+        &.-even .rt-td {
+            background: #fff693;
+        }
+    }
+}

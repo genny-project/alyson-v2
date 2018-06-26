@@ -26,12 +26,24 @@ class Table extends Component {
     }
 
     //createProps = key => (state, rowInfo, column) => {
-    createProps = key => () => {
-        const {bodyHeight} = this.props;
+    createProps = key => ( s, r ) => {
+        const { bodyHeight, selectedRows } = this.props;
+
+        const row = r && r.original && r.original.baseEntityCode;
+        const selected = selectedRows.includes(row);
+
         const props = {
-            tBodyStyle: { style: {height: bodyHeight, overflow: 'scroll'}},
+            tBodyStyle: { 
+                style: {
+                    height: bodyHeight || 'initial',
+                    overflow: 'scroll'
+                }
+            },
+            trStyle: { 
+                className:  selected ? '-selected' : ''
+            },
         };
-        if (props[key] && bodyHeight) {
+        if (props[key]) {
             return props[key];
         } else {
             return {};

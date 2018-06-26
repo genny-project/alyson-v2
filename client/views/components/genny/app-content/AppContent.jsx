@@ -223,7 +223,7 @@ class AppContent extends Component {
             layoutContent = this.renderContent('view', layout.currentView);
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
-            itemCode = layout.currentSublayout.root;
+            itemCode = layout.currentSublayout.rootNotes ? layout.currentSublayout.rootNotes : layout.currentSublayout.root;
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;
             layoutContent = <LayoutLoader layout={ layout.currentSublayout } aliases={{ ROOT: parentCode, BE: layout.currentSublayout.root, ITEMCODE: layout.currentSublayout.root }}/>;

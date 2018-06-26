@@ -75,6 +75,7 @@ class GennyTable extends Component {
                 selectedItems: selectedItems.filter(i => i !== itemCode),
             };
         }, () => {
+            this.sendSelectMessage('');
         });
     }
 
@@ -217,14 +218,18 @@ class GennyTable extends Component {
                                     const cell = cellInfo.row[ ( attribute && attribute.attributeCode ) || attributeCode];
                                     const value = cell && cell.value;
                                     const dataType = cell && cell.type;
+                                    const rowCode = cellInfo.original.baseEntityCode;
 
                                     return (
                                         <GennyTableEditableCell
                                             cell={cell}
+                                            rowCode={rowCode}
                                             code={( attribute && attribute.attributeCode ) || attributeCode}
                                             value={value}
                                             dataType={dataType}
                                             targetCode={this.state.data[cellInfo.index].baseEntityCode}
+                                            onFocus={this.handleClickRow}
+                                            onBlur={this.handleClickRow}
                                         />
                                     );
                                 },
@@ -479,7 +484,7 @@ class GennyTable extends Component {
 
         return (
             <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'} ${window.getScreenSize()}`} style={style}>
-                <Table {...this.props} data={tableData} columns={tableColumns} itemsPerPage={tableData != null && tableData.length < 20 ? tableData.length : 20} />
+                <Table {...this.props} data={tableData} columns={tableColumns} itemsPerPage={tableData != null && tableData.length < 20 ? tableData.length : 20} selectedRows={this.state.selectedItems}/>
             </div>
         );
     }
