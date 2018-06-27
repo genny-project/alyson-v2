@@ -39,7 +39,8 @@
                 .form-submit,
                 .form-confirm,
                 .form-accept,
-                .form-email {
+                .form-email,
+                .form-yes {
                     box-shadow: inset 0 0 100px 100px green;
                 }
                 .form-next {
@@ -48,6 +49,7 @@
                 .form-previous {
                     box-shadow: inset 0 0 100px 100px blue;
                 }
+                .form-no,
                 .form-reset {
                     box-shadow: inset 0 0 100px 100px gray;
                 }
@@ -112,6 +114,22 @@
         }
         >button:after {
             content: "Next";
+        }
+    }
+    &.form-yes {
+        >button {
+            background: $success;
+        }
+        >button:after {
+            content: "YES";
+        }
+    }
+    &.form-no {
+        >button {
+            background: $grey-text-color;
+        }
+        >button:after {
+            content: "NO";
         }
     }
     &.form-email {
