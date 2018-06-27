@@ -61,6 +61,20 @@ class FormGroup extends Component {
 
     renderData = (data) => {
 
+        /* conditional render here: if there is only 1 question in the form group and
+        * this question is of data_Type boolean, we do not show the input as the form group
+        * will be showing [YES] or [NO] buttons
+        */
+
+        let shouldRenderInputs = true;
+
+        if(data.length == 1) {
+          const dataFirst = data[0];
+          if(dataFirst.type == "java.lang.Boolean") {
+            shouldRenderInputs = false;
+          }
+        }
+
         const { isHorizontal } = this.props;
 
         //this.inputRefs = {};
@@ -76,33 +90,38 @@ class FormGroup extends Component {
                     handleValidation: this.updateChildState
                 });
             }
-            //if child is NOT a React Element, ie: it is a data object, render that data as a Input Element 
+            //if child is NOT a React Element, ie: it is a data object, render that data as a Input Element
             else {
 
-                return (
-                    <Input
-                        {...child}
-                        onMount={this.setChildInitial}
-                        onValidation={
-                            (argument1, argument2, argument3, argument4, argument5) => { 
-                                this.updateChildState(argument5, argument1, argument4);
-                                child.onValidation(argument1, argument2, argument3);
-                            }
-                        }
-                        onValidationFail={
-                            (argument1, argument2, argument3, argument4, argument5) => { 
-                                this.updateChildState(argument5, argument1, argument4);
-                            }
-                        }
-                        key={index}
-                        style={
-                            isHorizontal && !this.state.isMobile && data.length > 1 ?
-                            { marginLeft: '5px', marginRight: '5px', marginBottom: '10px', width: 'calc(50% - 10px)' }
-                            : 
-                            { marginBottom: '10px', width: '100%' }
-                        }
-                    />
-                );
+                if(shouldRenderInputs == true) {
+
+                  return (
+                      <Input
+                          {...child}
+                          onMount={this.setChildInitial}
+                          onValidation={
+                              (argument1, argument2, argument3, argument4, argument5) => {
+                                  this.updateChildState(argument5, argument1, argument4);
+                                  child.onValidation(argument1, argument2, argument3);
+                              }
+                          }
+                          onValidationFail={
+                              (argument1, argument2, argument3, argument4, argument5) => {
+                                  this.updateChildState(argument5, argument1, argument4);
+                              }
+                          }
+                          key={index}
+                          style={
+                              isHorizontal && !this.state.isMobile && data.length > 1 ?
+                              { marginLeft: '5px', marginRight: '5px', marginBottom: '10px', width: 'calc(50% - 10px)' }
+                              :
+                              { marginBottom: '10px', width: '100%' }
+                          }
+                      />
+                  );
+                }
+
+                return null;
             }
         });
     }
@@ -142,7 +161,7 @@ class FormGroup extends Component {
             // console.log('');
             // console.log('-------------------');
             // console.log('CHECK IF "', this.props.title, '" IS VALID');
-            
+
             const { children }= this.state;
             // console.log(children);
             const isFormValid = Object.keys(children).every(child_key => {
@@ -150,7 +169,7 @@ class FormGroup extends Component {
                 const isChildValid = child.isValid != null ? child.isValid : true;
                 return isChildValid;
             });
-            
+
             // console.log('RESULT: ', isFormValid);
             this.setState({
                 isFormValidated: isFormValid
@@ -160,7 +179,7 @@ class FormGroup extends Component {
                     this.props.handleValidation(this.props.title, null, isFormValid);
                 }
             });
-            
+
         }
     }
 
