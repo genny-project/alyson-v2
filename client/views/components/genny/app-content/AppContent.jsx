@@ -13,12 +13,8 @@ import {
     SplitView,
     GennyToasts,
     GennyMessagingList,
-<<<<<<< Updated upstream
     TabContainer,
     SublayoutLoader,
-=======
-    TabContainer
->>>>>>> Stashed changes
 } from 'views/components';
 import { any, object, bool } from 'prop-types';
 import { LayoutLoader } from 'utils/genny/layout-loader';
