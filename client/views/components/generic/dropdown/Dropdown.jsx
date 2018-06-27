@@ -47,10 +47,13 @@ class Dropdown extends Component {
     }
     else {
       this.props.closeOnChildClick
-        ? this.setState({
-          isOpen: false,
-          parentIsOpen: false,
-        })
+        ?
+        setTimeout(() => {
+          this.setState({
+            isOpen: false,
+            parentIsOpen: false,
+          });
+        }, 300)
         : null;
     }
   }
