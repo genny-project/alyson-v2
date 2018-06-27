@@ -11,14 +11,19 @@ class GennyTable extends Component {
         showBaseEntity: false,
         columns: null,
         root: null,
-        buttonActions: [],
+        actions: [
+            // {
+            //     name: 'View Details',
+            //     code: 'BTN_VIEW_DETAILS',
+            // }
+        ],
       }
 
       static propTypes = {
         showBaseEntity: bool,
         columns: array,
         root: string,
-        buttonActions: array,
+        actions: array,
       }
 
     state = {
@@ -291,6 +296,10 @@ class GennyTable extends Component {
                     return null;
                 };
 
+                const createActionColumn = () => {
+
+                };
+
                 const columnsProps = this.props.columns;
                 if (columnsProps != null && columnsProps.length > 0) {
 
@@ -319,38 +328,54 @@ class GennyTable extends Component {
                     });
                 }
 
-                if(this.props.buttonActions.length > 0) {
+                // if(this.props.actions.length > 0) {
+                //     cols.splice(0, 0, {
+                //         'Header': <span className="header-single">Actions</span>,
+                //         'accessor': 'actions',
+                //         'Cell': ({row, original}) => <GennyActionTableCell original={original} value={row.code} />,
+                //         'minWidth': 140
+                //     });
+                // }
+
+                if ( this.props.actions && this.props.actions.length > 0 ) {
                     cols.splice(0, 0, {
                         'Header': <span className="header-single">Actions</span>,
                         'accessor': 'actions',
-                        'Cell': ({row, original}) => <GennyActionTableCell original={original} value={row.code} />,
-                        'minWidth': 140
+                        'attributeCode': 'DETAILS',
+                        'Cell': ({original}) => {
+                            return (
+                                <div
+                                    className='table-actions'
+                                >
+                                    {
+                                        this.props.actions &&
+                                        this.props.actions.length > 0 &&
+                                        this.props.actions.map(action => {
+                                            return (
+                                                <GennyButton
+                                                    buttonCode={action.code}
+                                                    value={{
+                                                        itemCode: original.baseEntityCode,
+                                                        hint: this.props.root
+                                                    }}
+                                                    buttonStyle={{
+                                                        backgroundColor:'#5fa5ec',
+                                                    }}
+                                                    style={{
+                                                        height: '100%',
+                                                    }}
+                                                >
+                                                    <span style={{fontSize:'0.7em'}}>{action.name}</span>
+                                                </GennyButton>
+                                            );
+                                        })
+                                    }
+                                </div>
+                            );
+                        },
+                        'minWidth': 60 * this.props.actions.length
                     });
                 }
-
-                // cols.splice(0, 0, {
-                //     'Header': <span className="header-single">Actions</span>,
-                //     'accessor': 'actions',
-                //     'attributeCode': 'DETAILS',
-                //     'Cell': ({original}) => {
-                //         return (
-                //             <GennyButton
-                //                 className='table-detail-button'
-                //                 buttonCode='BTN_VIEW_DETAILS'
-                //                 value={{
-                //                     itemCode: original.baseEntityCode,
-                //                     hint: this.props.root
-                //                 }}
-                //                 buttonStyle={{
-                //                     backgroundColor:'#000'
-                //                 }}
-                //             >
-                //                 <span style={{fontSize:'0.8em'}}>View Details</span>
-                //             </GennyButton>
-                //         );
-                //     },
-                //     'minWidth': 100
-                // });
 
                 cols.splice(0, 0, {
                     'Header': ({data}) => {

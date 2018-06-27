@@ -42,6 +42,11 @@ class Table extends Component {
             trStyle: { 
                 className:  selected ? '-selected' : ''
             },
+            tdStyle: { 
+                style: {
+                    overflow: 'initial'
+                }
+            },
         };
         if (props[key]) {
             return props[key];

@@ -10,6 +10,7 @@ class InputAddress extends Component {
 
     static defaultProps = {
         className: '',
+        hideMap: false,
     }
 
     static propTypes = {
@@ -23,6 +24,7 @@ class InputAddress extends Component {
         placeholder: string,
         mandatory: bool,
         validationStatus: string,
+        hideMap: bool,
     }
 
     state = {
@@ -151,7 +153,7 @@ class InputAddress extends Component {
     onBlur = (address) => {
 
         if(this.props.onBlur) {
-            this.props.onBlur();
+            this.props.onBlur(address);
         }
 
         const { validationList, validation, identifier } = this.props;
@@ -192,6 +194,7 @@ class InputAddress extends Component {
 
 
     renderInput() {
+        const { hideMap } = this.props;
         const { showMap } = this.state;
 
         const inputProps = {
@@ -230,33 +233,41 @@ class InputAddress extends Component {
             );
         } else {
             return (
-                <Grid cols={
-                        [
-                            {
-                                style: {
-                                    flexGrow: 5,
-                                    paddingRight: '10px'
-                                }
-                            },
-                            {
-                                style: {
-                                    flex: '0 0 100px'
-                                }
-                            },
-                        ]
-                    }
-                    rows="1"
-                >
-                    <PlacesAutocomplete searchOptions={searchOptions} onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
-                    <Button position={[0, 1]} onClick={this.showMap}>{showMap ? 'Hide Map' : 'Show on Map'}</Button>
-                </Grid>
+                    hideMap
+                        ? <PlacesAutocomplete
+                            searchOptions={searchOptions}
+                            onSelect={this.onSelect}
+                            inputProps={inputProps}
+                            classNames={classes}
+                            style={{zIndex: 100}}
+                        />
+                        :   <Grid cols={
+                            [
+                                {
+                                    style: {
+                                        flexGrow: 5,
+                                        paddingRight: '10px'
+                                    }
+                                },
+                                {
+                                    style: {
+                                        flex: '0 0 100px'
+                                    }
+                                },
+                            ]
+                        }
+                        rows="1"
+                    >
+                        <PlacesAutocomplete searchOptions={searchOptions} onSelect={this.onSelect} position={[0, 0]} inputProps={inputProps} classNames={classes} style={{zIndex: 100}}/>
+                        <Button position={[0, 1]} onClick={this.showMap}>{showMap ? 'Hide Map' : 'Show on Map'}</Button>
+                    </Grid>
             );
         }
     }
 
     render() {
 
-        const { name, mandatory, validationStatus, className } = this.props;
+        const { name, mandatory, validationStatus, className, hideMap } = this.props;
         const { showMap, address, coords, error } = this.state;
 
         return (
@@ -270,20 +281,23 @@ class InputAddress extends Component {
                 { this.state.error ?
                     <div className='input-address-error'>{this.state.error}</div>
                 : null }
-                {window.getScreenSize() == 'sm' && <Button onClick={this.showMap} style={{marginTop: '10px'}}>{showMap ? 'Hide Map' : 'Show on Map'}</Button> }
-                <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
-                    <MapInput
-                        handleUpdate={this.onSelect}
-                        style={{
-                            'height': '300px',
-                            'width': '100%'
-                        }}
-                        address={address}
-                        lat={coords && coords.lat}
-                        lng={coords && coords.lng}
-                        hideInput
-                    />
-                </Dropdown>
+                { !hideMap && window.getScreenSize() == 'sm' && <Button onClick={this.showMap} style={{marginTop: '10px'}}>{showMap ? 'Hide Map' : 'Show on Map'}</Button> }
+                {
+                    !hideMap && 
+                    <Dropdown inline={true} open={showMap} style={{ marginTop: '10px'}}>
+                        <MapInput
+                            handleUpdate={this.onSelect}
+                            style={{
+                                'height': '300px',
+                                'width': '100%'
+                            }}
+                            address={address}
+                            lat={coords && coords.lat}
+                            lng={coords && coords.lng}
+                            hideInput
+                        />
+                    </Dropdown>
+                }
             </div>
         );
     }

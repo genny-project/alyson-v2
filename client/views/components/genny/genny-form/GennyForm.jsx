@@ -17,7 +17,8 @@ class GennyForm extends Component {
 
         let finalValue = newValue;
 
-        if (data.attributeCode.indexOf('PRICE') != -1 || data.attributeCode.indexOf('FEE') != -1) {
+        //TODO replace searching for the attribute with checking the DATATYPE
+        if (data.attributeCode.indexOf('PRICE') != -1 || data.attributeCode.indexOf('FEE') != -1  || data.attributeCode.indexOf('AMOUNT') != -1) {
             finalValue = JSON.stringify({
                 amount: newValue,
                 currency: 'AUD'

@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { array, object, bool, string } from 'prop-types';
+import { array, object, string } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
-import { ImageView, ContactButton } from 'views/components';
+import { ImageView, ContactButton, InputAddress } from 'views/components';
 
 class GennyTableEditableCell extends Component {
 
     static defaultProps = {
         cellInfo: {},
         code: null,
+        mandatoryDataTypes: [
+            'Landline',
+            'Mobile',
+            'Email',
+        ]
     }
 
     static propTypes = {
@@ -15,6 +20,7 @@ class GennyTableEditableCell extends Component {
         code: string,
         value: string,
         dataType: string,
+        mandatoryDataTypes: array,
     }
 
     state = {
@@ -60,11 +66,14 @@ class GennyTableEditableCell extends Component {
 
     handleBlur = (event) => {
 
-        const { targetCode, code, value, dataType } = this.props;
+        const { targetCode, code, value, dataType, mandatoryDataTypes } = this.props;
 
         let newValue = null;
 
-        if(dataType != "java.lang.Boolean") {
+        if(event.full_address) {
+            newValue = event.full_address;
+        }
+        else if(dataType != "java.lang.Boolean") {
             newValue = event.target.value;
         }
         else {
@@ -73,7 +82,10 @@ class GennyTableEditableCell extends Component {
 
         if(newValue != null && newValue != value) {
 
-            if (newValue.length == 0 ){
+            if (
+                newValue.length == 0 &&
+                mandatoryDataTypes.includes(dataType)
+            ){
                 alert('Field must not be empty.');
                 this.setState({
                     valueState: value
@@ -158,10 +170,24 @@ class GennyTableEditableCell extends Component {
                 );
             }
 
+            case 'Address': {
+                return (
+                    <InputAddress
+                        value={valueState != null ? valueState : value}
+                        hideMap={true}
+                        onFocus={this.handleFocus}
+                        onBlur={this.handleBlur}
+                        onKeyDown={this.handleKeyDown}
+                        onChange={this.handleChange}
+                    />
+                );
+            }
+
             case 'Mobile':
+            case 'Landline':
             case 'Email' : {
                 return (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', height: '100%'}}>
                         <ContactButton
                             link={value}
                             icon={dataType == 'Email' ? 'email' : 'phone'}
