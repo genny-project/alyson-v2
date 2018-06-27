@@ -6,34 +6,30 @@ class MessageHandler {
 
     constructor() {
 
-        this.lastBe = new Date().getTime();
-        this.beBatch = [];
+        this.lastQueueProcessDate = new Date().getTime();
+        this.queue = [];
 
-        setInterval( this.checkMessageBatch, 200 );
+        setInterval( this.proceedQueue, 200 );
       }
 
-    checkMessageBatch = () => {
-        if (
-          this.beBatch.length > 0 &&
-          new Date().getTime() - this.lastBe > 200
-        ) {
-          this.drainMessageBatch();
+    proceedQueue = () => {
+
+        /* value from alyson v3 that seems to be working */
+        if (this.queue.length > 0 && new Date().getTime() - this.lastQueueProcessDate > 200) {
+          this.handleQueue();
         }
       }
 
-      drainMessageBatch = () => {
-        const message = this.beBatch.reduce( this.handleReduceMessageBatch, this.beBatch[0] );
+      handleQueue = () => {
 
+        const message = this.queue.reduce( this.handleReduceMessageBatch, this.queue[0] );
         store.dispatch( message );
-
-        // this.beBatch.forEach( message => {
-        //   store.dispatch( message );
-        // });
-
-        this.beBatch = [];
+        this.queue = [];
       }
 
+      /* from alyson v3 */
       handleReduceMessageBatch = ( output, current ) => {
+
         if ( current.payload.aliasCode ) {
           store.dispatch( current );
 
@@ -52,7 +48,7 @@ class MessageHandler {
         };
       }
 
-    onMessage(message) {
+    onMessage = (message) => {
 
         /* Check that the message isn't null */
         if (!message) {
@@ -160,20 +156,34 @@ class MessageHandler {
             /* we send the messages */
             Object.keys(finalMessages).forEach(key => {
 
+
                 const message = finalMessages[key];
-                handleMessage(message, message.data_type);
+                if(message.data_type == "BaseEntity") {
+
+                    const action = events.incoming[message.data_type];
+
+                    this.queue.push(
+                      action( message )
+                    );
+
+                    this.lastQueueProcessDate = new Date().getTime();
+                }
+                else {
+                    handleMessage(message, message.data_type);
+                }
             })
 
         }
-        // else if ( message.data_type === 'BaseEntity' && !message.delete ) {
-        //
-        //       /* Add to a batch */
-        //       this.beBatch.push(
-        //         action( message )
-        //       );
-        //
-        //       this.lastBe = new Date().getTime();
-        // }
+        else if ( message.data_type === 'BaseEntity' && !message.delete ) {
+
+            const action = events.incoming[message.data_type];
+
+              this.queue.push(
+                action( message )
+              );
+
+              this.lastQueueProcessDate = new Date().getTime();
+        }
         else {
             handleMessage(message, eventType);
         }
