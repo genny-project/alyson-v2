@@ -47,7 +47,7 @@ class AppContent extends Component {
             
             // we need to show the table view
             if (commandData.code == 'TABLE_VIEW') {
-                return <GennyTable root = { commandData.root } columns={commandData.data.columns}/>;
+                return <GennyTable root = { commandData.root } columns={commandData.data.columns} actions={commandData.data.actions}/>;
             }
             // we need to show the bucket view
             else if (commandData.code == 'BUCKET_VIEW') {
