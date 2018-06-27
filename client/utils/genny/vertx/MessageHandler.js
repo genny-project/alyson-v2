@@ -158,19 +158,20 @@ class MessageHandler {
 
 
                 const message = finalMessages[key];
-                if(message.data_type == "BaseEntity") {
-
-                    const action = events.incoming[message.data_type];
-
-                    this.queue.push(
-                      action( message )
-                    );
-
-                    this.lastQueueProcessDate = new Date().getTime();
-                }
-                else {
-                    handleMessage(message, message.data_type);
-                }
+                handleMessage(message, message.data_type);
+                // if(message.data_type == "BaseEntity") {
+                //
+                //     const action = events.incoming[message.data_type];
+                //
+                //     this.queue.push(
+                //       action( message )
+                //     );
+                //
+                //     this.lastQueueProcessDate = new Date().getTime();
+                // }
+                // else {
+                //     handleMessage(message, message.data_type);
+                // }
             })
 
         }
