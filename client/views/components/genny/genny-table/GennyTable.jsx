@@ -353,7 +353,7 @@ class GennyTable extends Component {
                                         this.props.actions.map(action => {
                                             return (
                                                 <GennyButton
-                                                    buttonCode={action.code}
+                                                    buttonCode={action.actionCode}
                                                     value={{
                                                         itemCode: original.baseEntityCode,
                                                         hint: this.props.root
@@ -365,7 +365,8 @@ class GennyTable extends Component {
                                                         height: '100%',
                                                     }}
                                                 >
-                                                    <span style={{fontSize:'0.7em'}}>{action.name}</span>
+                                                    <IconSmall style={{color: 'black', marginRight: '5px'}} name={action.icon}/>
+                                                    <span style={{fontSize:'0.7em'}}>{action.title}</span>
                                                 </GennyButton>
                                             );
                                         })

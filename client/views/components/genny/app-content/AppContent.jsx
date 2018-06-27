@@ -88,6 +88,10 @@ class AppContent extends Component {
                     children = commandData.data.data.map(item => {
                         return this.renderContent('view', item);
                     });
+                } else {
+                    children = commandData.root.map(item => {
+                        return this.renderContent('view', item);
+                    });
                 }
                
                 return (
