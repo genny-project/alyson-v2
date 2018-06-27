@@ -54,21 +54,20 @@ class TreeView extends Component {
             let childNumber = null;
 
             if ( levelIndex > 0 ) {
-                childNumber = item.children && item.children.length || false;
+                childNumber = item.childCount ? item.childCount : item.children && item.children.length || false;
             }
 
             return (
 
                 <li key={item.id} className='tree-view-item'>
                     <div className={`tree-view-item-content ${this.state.selectedItem == item.id ? 'tree-view-item-selected' : ''} `}>
-                        <span className={canOpen ? 'clickable' : ''} onClick={this.state.selectedItem == item.id ? null : this.onClick(item)}>
+                        <span className={`tree-view-item-main clickable`} onClick={this.state.selectedItem == item.id ? null : this.onClick(item)}>
                             { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
-                            <span className='tree-view-text'>{item.name}</span>
-                            { childNumber && (
-                                <span className='tree-view-item-count'>({childNumber})</span>
-                            )}
+                            <span className='tree-view-text' style={!icon ? { marginLeft: '20px' } : {}}>{item.name}</span>
                         </span>
-
+                        { childNumber && (
+                            <span className='tree-view-item-count'>({childNumber})</span>
+                        )}
                         {
                             ( item.children && item.children.length > 0 ) 
                                 ? <IconSmall
@@ -78,20 +77,21 @@ class TreeView extends Component {
                                         onClick={this.onExpand(item)}
                                         name='arrow_drop_down'
                                 />
-                                : <div style={{width: '35px'}} />
+                                : <div className="tree-view-item-spacer" />
                         }
 
                     </div>
-
-                    <div>
                         {
-                            item.children != null && item.children.length > 0? <ul className="tree-view-child">
-                                <Slide inProp={canOpen} heightEntered={`${item.visibleChildren * 60}px`}>
-                                    {this.renderList(item.children, levelIndex + 1)}
-                                </Slide>
-                            </ul> : null
+                            item.children != null && item.children.length > 0
+                                ? <div>
+                                    <ul className="tree-view-child">
+                                        <Slide inProp={canOpen} heightEntered={`${item.visibleChildren * 60}px`}>
+                                            {this.renderList(item.children, levelIndex + 1)}
+                                        </Slide>
+                                    </ul>
+                                </div>
+                                : null
                         }
-                    </div>
                 </li>
             );
         });

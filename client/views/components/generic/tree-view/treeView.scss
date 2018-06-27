@@ -5,10 +5,6 @@
     flex-direction: column;
     text-align: left;
 
-    li {
-        list-style: none;
-    }
-
     >div {
         padding-bottom: 20px;
         display: flex;
@@ -23,20 +19,22 @@
         padding-left: 0px;
         margin-left: 0;
     }
-    li {
+    .tree-view-item {
+        list-style: none;
         list-style-type: none;
         border-bottom: 1px solid #222;
+        //padding: 5px;
 
         &:first-child {
             border-top: 1px solid #222;
         }
 
-        li {
+        .tree-view-item {
             padding-left: 15px;
         }
 
         >div>span {
-            padding: 15px 20px;
+            //padding: 15px 20px;
             height: 60px;
         }
 
@@ -48,42 +46,69 @@
         }
 
         > div > span > i {
-            margin-right: 10px;
+            // margin-right: 10px;
+        }
+
+        .tree-view-item-content {
+
+            .tree-view-item-main {
+                // transition: 300ms ease;
+                opacity: 100;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-grow: 1;
+             }
+
+            .tree-view-text {
+               // transition: 300ms ease;
+                opacity: 100;
+            }
+            
+            .tree-view-item-spacer, .tree-view-icon {
+                width: 50px;
+            }
+
+            .tree-view-icon {
+                // display: flex;
+                // align-items: center;
+                // justify-content: center;
+                padding: 10px;
+    
+                &.main {
+                    width: 50px;
+                    margin-left: 10px;
+                }
+
+                &.arrow {
+                    width: 45px;
+                    padding-left: 5px;
+                }
+    
+                .icon {
+                    color: white;
+                }
+            }
+
+            .tree-view-item-spacer {
+                width: 45px;
+            }
+    
+            .tree-view-item-count {
+                //margin-left: 10px;
+            }
+    
+            &.tree-view-item-selected {
+                background-color: white !important;
+    
+                i, span, p {
+                    color: black !important;
+                }
+            }
         }
     }
 
-    .tree-view-item-content {
-
-        .tree-view-text {
-           // transition: 300ms ease;
-            opacity: 100;
-        }
-        
-        .tree-view-icon {
-        
-            &.main {
-                margin-right: 10px;
-            }
-
-            .icon {
-                color: white;
-            }
-        }
-
-        .tree-view-item-count {
-            margin-left: 10px;
-        }
-
-        &.tree-view-item-selected {
-            background-color: white !important;
-
-            i, span, p {
-                color: black !important;
-            }
-        }
+    .tree-view-child {
+        flex-grow: 1;
     }
-}
-
-.tree-view-child {
-    flex-grow: 1;
 }
