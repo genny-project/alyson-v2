@@ -10,13 +10,22 @@ import epics from '../epics';
 
 const epicMiddleware = createEpicMiddleware( epics );
 
-const middleware = applyMiddleware(
+let middleware = applyMiddleware(
   routerMiddleware( history ),
   thunk,
   epicMiddleware,
-  // gennyRouterMiddleware,
-  logger()
 );
+
+if (process.env.NODE_ENV != 'production') {
+
+    middleware = applyMiddleware(
+      routerMiddleware( history ),
+      thunk,
+      epicMiddleware,
+      logger()
+    );
+}
+
 const store = createStore( reducers, middleware );
 
 // grabbing component state from local storage
