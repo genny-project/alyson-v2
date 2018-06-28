@@ -57,7 +57,16 @@ class SplitView extends Component {
                 { className: `col split-view-left ${isOpen ? 'open' : 'closed'}` },
                 { className: `col split-view-right ${isOpen ? 'open' : 'closed'}` }
             ] :
-            [1,4];
+            [
+                { 
+                    style: {
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 300,
+                    }
+                },
+                4
+            ];
 
         return (
             <Grid

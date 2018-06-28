@@ -60,13 +60,10 @@ class AppContent extends Component {
                 return <GennyForm root={commandData.root}/>;
             }
             else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root={commandData.root}/>;
+                return <GennyMap root={commandData.root} style={ commandType == 'popup' ? { minHeight: '400px' } : {}}/>;
             }
             else if (commandData.code == 'LOADING') {
                 return <Spinner text={commandData.root} />;
-            }
-            else if (commandData.code == 'MAP_VIEW') {
-                return <GennyMap root={commandData.root}/>;
             }
             else if (commandData.code == 'PASSCODE') {
                 return <GennyPasscode />;
