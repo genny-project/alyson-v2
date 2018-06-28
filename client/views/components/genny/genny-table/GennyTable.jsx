@@ -299,8 +299,8 @@ class GennyTable extends Component {
 
                 };
 
-                //const columnsProps = this.props.columns;
-                const columnsProps = null;
+                const columnsProps = this.props.columns;
+                //const columnsProps = null;
                 
                 if (columnsProps != null && columnsProps.length > 0) {
 
