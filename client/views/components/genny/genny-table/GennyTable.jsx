@@ -250,7 +250,7 @@ class GennyTable extends Component {
                                     );
                                 },
                                 'accessor': (attribute && attribute.attributeCode) || attributeCode,
-                                'minWidth': typeof width == 'number' ? width : null,
+                                //'minWidth': typeof width == 'number' ? width : null,
                                 'attributeCode': (attribute && attribute.attributeCode) || attributeCode,
                                 'sortMethod': (a, b) => {
                                     let valueA = a.value && a.value;
@@ -300,6 +300,8 @@ class GennyTable extends Component {
                 };
 
                 const columnsProps = this.props.columns;
+                //const columnsProps = null;
+                
                 if (columnsProps != null && columnsProps.length > 0) {
 
                     for(let i = 0; i < columnsProps.length; i++) {
