@@ -306,7 +306,7 @@ class GennyTable extends Component {
 
                         const attributeCode = columnsProps[i].code;
                         const width = columnsProps[i].width;
-                        const name = columnsProps[i].name;
+                        const name = columnsProps[i].title;
 
                         //if(attributes[attributeCode] != null) {
 
@@ -359,14 +359,14 @@ class GennyTable extends Component {
                                                         hint: this.props.root
                                                     }}
                                                     buttonStyle={{
-                                                        backgroundColor:'#5fa5ec',
+                                                        backgroundColor: action.color || '#5fa5ec',
                                                     }}
                                                     style={{
                                                         height: '100%',
                                                     }}
                                                 >
-                                                    <IconSmall style={{color: 'black', marginRight: '5px'}} name={action.icon}/>
-                                                    <span style={{fontSize:'0.7em'}}>{action.title}</span>
+                                                    <IconSmall style={{color: 'white', marginRight: '5px'}} name={action.icon}/>
+                                                    <span style={{color: 'white', fontSize:'0.7em'}}>{action.title}</span>
                                                 </GennyButton>
                                             );
                                         })
