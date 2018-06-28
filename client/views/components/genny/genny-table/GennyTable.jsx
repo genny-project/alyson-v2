@@ -299,8 +299,8 @@ class GennyTable extends Component {
 
                 };
 
-                const columnsProps = this.props.columns;
-                //const columnsProps = null;
+                //const columnsProps = this.props.columns;
+                const columnsProps = null;
                 
                 if (columnsProps != null && columnsProps.length > 0) {
 
@@ -376,7 +376,7 @@ class GennyTable extends Component {
                                 </div>
                             );
                         },
-                        'minWidth': 60 * this.props.actions.length
+                        'minWidth': 120 * this.props.actions.length
                     });
                 }
 

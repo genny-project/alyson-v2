@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { array, object, string } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
-import { ImageView, ContactButton, InputAddress } from 'views/components';
+import { ImageView, ContactButton, InputAddress, Dropdown } from 'views/components';
+import ReactDropdown from 'react-dropdown';
+import FileViewer from '../../../generic/file-viewer/FileViewer';
 
 class GennyTableEditableCell extends Component {
 
@@ -79,8 +81,9 @@ class GennyTableEditableCell extends Component {
         else {
             newValue = event.target.checked
         }
-
-        if(newValue != null && newValue != value) {
+        
+        if(value == null && newValue == '') return;
+        if(newValue != null && newValue != value ) {
 
             if (
                 newValue.length == 0 &&
@@ -149,7 +152,7 @@ class GennyTableEditableCell extends Component {
 
         const { value, dataType } = this.props;
         const { valueState } = this.state;
-
+        
         switch (dataType) {
 
             case 'Image': {
@@ -162,11 +165,20 @@ class GennyTableEditableCell extends Component {
 
             case 'java.lang.Boolean': {
                 return (
-                    <input
-                        checked={valueState === false ? false : true}
-                        onChange={(event) => { this.handleChange(event); this.handleBlur(event); }}
-                        type="checkbox"
-                    />
+                    <div
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <input
+                            checked={valueState === false ? false : true}
+                            onChange={(event) => { this.handleChange(event); this.handleBlur(event); }}
+                            type="checkbox"
+                        />
+                    </div>
                 );
             }
 
@@ -208,6 +220,36 @@ class GennyTableEditableCell extends Component {
                 );
             }
 
+            case 'Upload': {
+                return (
+                    <Dropdown
+                        animateHeader={false}
+                        inline={true}
+                        isSlide={false}
+                        header={
+                            <div
+                                className='table-upload-view'
+                            >
+                                VIEW FILES
+                            </div>
+                        }
+                        contentStyle={{
+                            padding: 0,
+                            paddingTop: '5px',
+                            background: 'none'
+                        }}
+                    >
+                        <div
+                            className="file-viewer-dropdown"
+                        >
+                            <FileViewer
+                                items={valueState != null ? valueState : value}
+                            />
+                        </div>
+                    </Dropdown>
+                );
+            }
+
             default: {
                 return (
                     <input
@@ -231,7 +273,8 @@ class GennyTableEditableCell extends Component {
             <div
                 // contentEditable={this.state.canEdit}
                 // suppressContentEditableWarning
-                className={`editable-table-cell ${ this.state.canEdit ? 'active' : 'disabled' }`}
+                className={`editable-table-cell ${ this.state.canEdit ? 'active' : 'disabled' } ${ this.props.dataType == 'Upload' || this.props.dataType == 'Address' ? 'expandable' : '' }`}
+                
             >
                 {this.renderDiv()}
             </div>
