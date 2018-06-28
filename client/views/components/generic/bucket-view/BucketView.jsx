@@ -23,7 +23,9 @@ class BucketView extends Component {
         currentlySelectedItem: false,
         touch: {},
         currentBucket: 1,
-        isSafari: navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1
+        isSafari: navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1,
+        buffer: [],
+        bufferTimer: null,
     }
 
     getBucketColumnContentNode(bucket) {
@@ -108,14 +110,93 @@ class BucketView extends Component {
         if(this.state.bufferTimer != null) clearTimeout(this.state.bufferTimer);
 
         /* we start a timer after which the state will be updated */
-        this.state.timerBuffer = setTimeout(() => {
+        this.state.bufferTimer = setTimeout(() => {
 
             this.setState({
                 buckets: newProps.buckets
             })
 
-        }, 500);
+        }, 300);
     }
+
+    // componentWillUpdate(newProps) {
+        // we should allow auto re rendering as often as possible. However, if an item was moved from one bucket to another, we want to apply
+        // a transformation instead of re rendering the whole bucket.
+
+        // TODO: uncomment to remove animation.
+        // this.state.buckets = newProps.buckets;
+
+
+        // return;
+
+        /*
+        if(newProps.buckets && this.state.buckets && newProps.buckets.length == this.state.buckets.length && newProps.buckets.length > 0 && !this.hasDraggedItem) {
+
+            let differences = [];
+            for (let i = 0; i < newProps.buckets.length; i++) {
+
+                let newBucket = newProps.buckets[i];
+                let oldBucket = this.state.buckets[i];
+
+                if(newBucket.children && oldBucket.children) {
+                    differences.push({
+                        difference: oldBucket.children.differences(newBucket.children),
+                        source: oldBucket
+                    });
+                }
+            }
+
+            // we loop through the differences to see if an item when from a "delete" array to a "added" array.
+            let movedItems = [];
+            for (let i = 0; i < differences.length; i++) {
+
+                let currentDifference = differences[i];
+                currentDifference.difference.deleted.forEach(deletedItem => {
+
+                    // we found an item that has been deleted.
+                    // we loop through the items again to see if the same item has been "added" in another difference
+                    // which would mean the item has been moved.
+                    for (var j = 0; j < differences.length; j++) {
+
+                        let searchDifference = differences[j];
+                        let items = searchDifference.difference.added.filter(y => _.isEqual(y, deletedItem));
+                        if(items.length > 0) {
+
+                            items.forEach(item => {
+                                movedItems.push({
+                                    source: currentDifference.source,
+                                    destination: searchDifference.source,
+                                    item: item
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+
+            if(movedItems.length > 0) {
+
+                // for now this code only handle 1 item animation and then re-render the bucket.
+                for (var i = 0; i < movedItems.length; i++) {
+                    this.animateItem(movedItems[i].item, movedItems[i].source, movedItems[i].destination);
+                }
+
+                setTimeout(() => {
+
+                    this.setState({
+                        buckets: newProps.buckets,
+                        hasDraggedItem: false,
+                    });
+                }, 600);
+
+                return;
+            }
+        }
+
+        this.state.buckets = newProps.buckets;
+        this.hasDraggedItem = false;
+        return; */
+    // }
 
     onDragEnd = (result) => {
 

@@ -58,10 +58,9 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
     delete state.data[baseEntityCode];
 };
 
-    const handleBaseEntity = (state, action, existing, newItem) => {
+const handleBaseEntity = (state, action, existing, newItem) => {
 
     let baseEntityCode = newItem.code;
-    let parentCode = action.payload.parentCode;
 
     if (action.payload.delete === true) {
         deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
@@ -78,7 +77,6 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
                 ...state.data[baseEntityCode],
                 ...existing[baseEntityCode],
                 ...newItem,
-                parentCode: parentCode,
                 originalLinks: newItem.links,
                 links: newItem.links.reduce((existingLinks, newLink) => {
 
@@ -155,7 +153,6 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
             ...state.data[baseEntityCode],
             ...existing[baseEntityCode],
             ...newItem,
-            parentCode: parentCode,
             originalLinks: newItem.links,
             links: newItem.links.reduce((existingLinks, newLink) => {
 
@@ -210,6 +207,79 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
     }
 };
 
+const handleBaseEntityParent = (state, action, existing, newItem) => {
+
+    /* if the newItem has a parentCode */
+    if(newItem.parentCode != null) {
+
+        /* we update the data for the parent */
+
+        let links = (state.data[newItem.parentCode] && state.data[newItem.parentCode].links != null ? state.data[newItem.parentCode].links : {});
+
+        if (newItem.code != null) {
+
+            /* get the link code to the children */
+            let linkCode = newItem.linkCode;
+            if(linkCode == null) {
+
+                if(newItem.parentCode.startsWith("BEG_")) {
+                    linkCode = "LNK_BEG";
+                }
+                else {
+                    linkCode = "LNK_CORE";
+                }
+            }
+
+            /* we check if the parent data exists or we create it */
+            if(state.data[newItem.parentCode] == null) {
+                state.data[newItem.parentCode] = {};
+            }
+
+            if(state.data[newItem.parentCode].links == null) {
+                state.data[newItem.parentCode].links = {};
+            }
+
+            if(state.data[newItem.parentCode].links[linkCode] == null) {
+              state.data[newItem.parentCode].links[linkCode] = [];
+            }
+
+            let linkedItemFound = state.data[newItem.parentCode].links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
+            if(linkedItemFound == false) {
+
+                if (state.data[newItem.parentCode].links[linkCode] == null) {
+                    state.data[newItem.parentCode].links[linkCode] = [
+                        ...(state.data[newItem.parentCode] != null && state.data[newItem.parentCode].links != null && state.data[newItem.parentCode].links[linkCode] ? state.data[newItem.parentCode].links[linkCode] : []),
+                    ];
+                }
+
+                state.data[newItem.parentCode].links[linkCode] = [
+                    ...state.data[newItem.parentCode].links[linkCode],
+                    ...[{
+                        attributeCode: linkCode,
+                        weight: 1,
+                        targetCode: newItem.code,
+                        sourceCode: newItem.parentCode,
+                        linkValue: "LINK",
+                        valueString: "LINK",
+                        link: {
+                            attributeCode: linkCode,
+                            weight: 1,
+                            targetCode: newItem.code,
+                            sourceCode: newItem.parentCode,
+                            linkValue: "LINK",
+                        }
+                    }]
+                ]
+            }
+        }
+
+        state.data[newItem.parentCode] = {
+            ...state.data[newItem.parentCode],
+            links: links
+        }
+    }
+}
+
 export default function reducer(state = initialState, action) {
 
     switch (action.type) {
@@ -223,99 +293,16 @@ export default function reducer(state = initialState, action) {
                     ...state.data,
                     ...action.payload.items.reduce((existing, newItem) => {
                         handleBaseEntity(state, action, existing, newItem);
+                        handleBaseEntityParent(state, action, existing, newItem);
                         return existing;
                     }, {}),
-                    ...(
-                        action.payload.parentCode != null ? ({
-                            [action.payload.parentCode]: {
-                                ...state.data[action.payload.parentCode],
-                                links: {
-                                    ...(state.data[action.payload.parentCode] != null ? state.data[action.payload.parentCode].links : {}),
-                                    ...action.payload.items.reduce((existing, newItem) => {
-
-                                        if (newItem.code != null) {
-
-                                            /* get the link code to the children */
-                                            let linkCode = action.payload.linkCode;
-                                            if(linkCode == null) {
-
-                                                if(action.payload.parentCode.startsWith("BEG_")) {
-                                                    linkCode = "LNK_BEG";
-                                                }
-                                                else {
-                                                    linkCode = "LNK_CORE";
-                                                }
-                                            }
-
-                                            /* we check if the parent data exists or we create it */
-                                            if(state.data[action.payload.parentCode] == null) {
-                                                state.data[action.payload.parentCode] = {};
-                                            }
-
-                                            if(state.data[action.payload.parentCode].links == null) {
-                                                state.data[action.payload.parentCode].links = {};
-                                            }
-
-                                            if(state.data[action.payload.parentCode].links[linkCode] == null) {
-                                              state.data[action.payload.parentCode].links[linkCode] = [];
-                                            }
-
-                                            let linkedItemFound = state.data[action.payload.parentCode].links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
-                                            if(linkedItemFound == false) {
-
-                                                if (existing[linkCode] == null) {
-                                                    existing[linkCode] = [
-                                                        ...(state.data[action.payload.parentCode] != null && state.data[action.payload.parentCode].links != null && state.data[action.payload.parentCode].links[linkCode] ? state.data[action.payload.parentCode].links[linkCode] : []),
-                                                    ];
-                                                }
-
-                                                existing[linkCode] = [
-                                                    ...existing[linkCode],
-                                                    ...[{
-                                                        attributeCode: linkCode,
-                                                        weight: 1,
-                                                        targetCode: newItem.code,
-                                                        sourceCode: action.payload.parentCode,
-                                                        linkValue: "LINK",
-                                                        valueString: "LINK",
-                                                        link: {
-                                                            attributeCode: linkCode,
-                                                            weight: 1,
-                                                            targetCode: newItem.code,
-                                                            sourceCode: action.payload.parentCode,
-                                                            linkValue: "LINK",
-                                                        }
-                                                    }]
-                                                ]
-                                            }
-                                        }
-
-                                        return existing;
-
-                                    }, {})
-                                }
-                            }
-                        }) : ({})
-                    ),
-                },
-                relationships: {
-                    ...state.relationships,
-                    [action.payload.parentCode]: {
-                        ...state.relationships[action.payload.parentCode],
-                        ...action.payload.items.reduce((existingItem, newItem) => {
-
-                            existingItem[newItem.code] = !action.payload.delete ? { type: BASE_ENTITY, weight: newItem.weight == 0 ? 0 : 1 } : false;
-
-                            return existingItem;
-                        }, {})
-                    }
                 },
                 aliases: {
                     ...state.aliases,
                     ...action.payload.items.reduce((existing, newItem) => {
 
-                        if (action.payload.aliasCode) {
-                            existing[action.payload.aliasCode] = newItem.code;
+                        if (newItem.aliasCode) {
+                            existing[newItem.aliasCode] = newItem.code;
                         }
 
                         return existing;

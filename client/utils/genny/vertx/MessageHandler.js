@@ -30,9 +30,8 @@ class MessageHandler {
       /* from alyson v3 */
       handleReduceMessageBatch = ( output, current ) => {
 
-        if ( current.payload.aliasCode ) {
+        if ( current.payload.aliasCode) {
           store.dispatch( current );
-
           return output;
         }
 
@@ -137,6 +136,11 @@ class MessageHandler {
                             }
 
                             finalMessages[currentMessage.parentCode].items = finalMessages[currentMessage.parentCode].items.concat(currentMessage.items);
+                            finalMessages[currentMessage.parentCode].items.forEach(item => {
+
+                                item.parentCode = currentMessage.parentCode;
+                                item.linkCode = currentMessage.linkCode;
+                            });
                         }
                     }
                     else {
@@ -148,6 +152,11 @@ class MessageHandler {
 
                             /* we merge */
                             finalMessages[currentMessage.aliasCode].items = finalMessages[currentMessage.aliasCode].items.concat(currentMessage.items);
+                            finalMessages[currentMessage.parentCode].items.forEach(item => {
+
+                                item.aliasCode = currentMessage.aliasCode
+                                item.linkCode = currentMessage.linkCode
+                            });
                         }
                     }
                 }
@@ -156,36 +165,39 @@ class MessageHandler {
             /* we send the messages */
             Object.keys(finalMessages).forEach(key => {
 
-
                 const message = finalMessages[key];
-                handleMessage(message, message.data_type);
-                // if(message.data_type == "BaseEntity") {
-                //
-                //     const action = events.incoming[message.data_type];
-                //
-                //     this.queue.push(
-                //       action( message )
-                //     );
-                //
-                //     this.lastQueueProcessDate = new Date().getTime();
-                // }
-                // else {
-                //     handleMessage(message, message.data_type);
-                // }
+                if(message.data_type == "BaseEntity") {
+
+                    const action = events.incoming[message.data_type];
+
+                    this.queue.push(
+                      action( message )
+                    );
+
+                    this.lastQueueProcessDate = new Date().getTime();
+                }
+                else {
+
+                    message.items != null && message.items instanceof Array && message.items.forEach(item => {
+
+                        item.parentCode = message.parentCode
+                        item.aliasCode = message.aliasCode
+                        item.linkCode = message.linkCode
+                    });
+
+                    handleMessage(message, message.data_type);
+                }
             })
-
-        }
-        else if ( message.data_type === 'BaseEntity' && !message.delete ) {
-
-            const action = events.incoming[message.data_type];
-
-              this.queue.push(
-                action( message )
-              );
-
-              this.lastQueueProcessDate = new Date().getTime();
         }
         else {
+
+            message.items != null && message.items instanceof Array  && message.items.forEach(item => {
+
+                item.parentCode = message.parentCode
+                item.aliasCode = message.aliasCode
+                item.linkCode = message.linkCode
+            });
+
             handleMessage(message, eventType);
         }
     }

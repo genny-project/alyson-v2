@@ -71,7 +71,7 @@ class BaseEntityQuery {
 
             const add = (link) => {
 
-                if (link != null && link.targetCode != null && link.weight > 0) {
+                if (link != null && link.targetCode != null && link.weight > 0 && link.targetCode != baseEntityCode) {
 
                     let targetBe = BaseEntityQuery.getBaseEntity(link.targetCode);
 
