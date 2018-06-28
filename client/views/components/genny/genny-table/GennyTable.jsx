@@ -193,7 +193,7 @@ class GennyTable extends Component {
 
             if(attributes) {
 
-                const createColumn = (attributeCode, width) => {
+                const createColumn = (attributeCode, width, columnName) => {
 
                     let attribute = attributes[attributeCode];
                     const attrData = BaseEntityQuery.getAttribute( ( attribute && attribute.attributeCode ) || attributeCode);
@@ -228,10 +228,9 @@ class GennyTable extends Component {
                             return {
                                 'Header': props => {
                                     //console.log(props);
-                                    return <GennyTableHeader title={attrName || (attribute && attribute.attributeCode) || attributeCode }/>;
+                                    return <GennyTableHeader title={columnName || attrName || (attribute && attribute.attributeCode) || attributeCode }/>;
                                 },
                                 'Cell': cellInfo => {
-
                                     const cell = cellInfo.row[ ( attribute && attribute.attributeCode ) || attributeCode];
                                     const value = cell && cell.value;
                                     const dataType = cell && cell.type;
@@ -251,7 +250,7 @@ class GennyTable extends Component {
                                     );
                                 },
                                 'accessor': (attribute && attribute.attributeCode) || attributeCode,
-                                //'minWidth': typeof width == 'number' ? width : 300,
+                                'minWidth': typeof width == 'number' ? width : null,
                                 'attributeCode': (attribute && attribute.attributeCode) || attributeCode,
                                 'sortMethod': (a, b) => {
                                     let valueA = a.value && a.value;
@@ -305,12 +304,13 @@ class GennyTable extends Component {
 
                     for(let i = 0; i < columnsProps.length; i++) {
 
-                        const attributeCode = columnsProps[i];
+                        const attributeCode = columnsProps[i].code;
                         const width = columnsProps[i].width;
+                        const name = columnsProps[i].name;
 
                         //if(attributes[attributeCode] != null) {
 
-                            const newColumn = createColumn(attributeCode, width);
+                            const newColumn = createColumn(attributeCode, width, name);
                             if(newColumn != null) {
                                 cols.push(newColumn);
                             }
@@ -353,7 +353,7 @@ class GennyTable extends Component {
                                         this.props.actions.map(action => {
                                             return (
                                                 <GennyButton
-                                                    buttonCode={action.actionCode}
+                                                    buttonCode={action.code}
                                                     value={{
                                                         itemCode: original.baseEntityCode,
                                                         hint: this.props.root
