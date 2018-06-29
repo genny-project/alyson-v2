@@ -60,6 +60,7 @@ class GennyTableEditableCell extends Component {
         }
     }
     handleKeyDown = (event) => {
+        console.log('key', event.keyCode);
         if (event.keyCode == '13') {
             event.preventDefault();
             this.handleBlur(event);
@@ -75,13 +76,13 @@ class GennyTableEditableCell extends Component {
         if(event.full_address) {
             newValue = event.full_address;
         }
-        else if(dataType != "java.lang.Boolean") {
+        else if( dataType != 'java.lang.Boolean' ) {
             newValue = event.target.value;
         }
         else {
-            newValue = event.target.checked
+            newValue = event.target.checked;
         }
-        
+
         if(value == null && newValue == '') return;
         if(newValue != null && newValue != value ) {
 
@@ -185,6 +186,7 @@ class GennyTableEditableCell extends Component {
             case 'Address': {
                 return (
                     <InputAddress
+                        ref={r => this.input = r}
                         value={valueState != null ? valueState : value}
                         hideMap={true}
                         onFocus={this.handleFocus}
