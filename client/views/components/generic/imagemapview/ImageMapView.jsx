@@ -24,7 +24,7 @@ class ImageMapView extends Component {
         error: false,
     }
 
-   
+
 
     render() {
 
@@ -33,9 +33,9 @@ class ImageMapView extends Component {
         //const apiKey = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_GOOGLE_API_KEY');
 
         const apiKey = 'AIzaSyDKDQp98g2ip6m1GtdEb7MZxxJLE_840VE';
-        
+
         const addressString = encodeURI(address);
-        
+
         let imageString = null;
 
         if (
@@ -51,7 +51,7 @@ class ImageMapView extends Component {
         }
 
         return (
-            <ImageView
+            <GennyImageView
                 {...rest}
                 style={{
                     ...this.props.style,
@@ -59,6 +59,7 @@ class ImageMapView extends Component {
                     width: width,
                 }}
                 src={imageString}
+                proxyUrl="https://images.channel40.com.au/ch400,cy200/"
             />
         );
     }

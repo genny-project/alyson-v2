@@ -40,22 +40,6 @@ class ImageView extends Component {
 
         if(error == false && (src === "" || src == null)) error = true;
 
-        // proxy URL if any
-        const project_code = GennyBridge.getProject();
-        if(project_code != null) {
-
-            const image_proxy_url = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_IMAGE_PROXY_URL');
-            if(image_proxy_url != null && image_proxy_url.value != null) {
-
-                let proxy = image_proxy_url.value;
-                if(proxy.endsWith("/")) {
-                  proxy = proxy.slice(0, -1);
-                }
-
-                src = `${proxy}/${src}`;
-            }
-        }
-
         return (
             <div className={`imageView ${rounded ? 'rounded' : ''} ${className}`} style={componentStyle}>
                 <div name="imgCanvas" style={imageStyle} onClick={onClick} />
