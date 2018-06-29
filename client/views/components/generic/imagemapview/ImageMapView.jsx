@@ -5,6 +5,7 @@ import { ImageView } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
 
 class ImageMapView extends Component {
+
     static defaultProps = {
         height: 50,
         width: 50,
@@ -28,7 +29,7 @@ class ImageMapView extends Component {
 
     render() {
 
-        const { src, address, height, width, ...rest } = this.props;
+        const { src, address, height, width, children, ...rest } = this.props;
 
         //const apiKey = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_GOOGLE_API_KEY');
 
@@ -51,16 +52,28 @@ class ImageMapView extends Component {
         }
 
         return (
-            <GennyImageView
-                {...rest}
-                style={{
-                    ...this.props.style,
-                    height: height,
-                    width: width,
-                }}
-                src={imageString}
-                proxyUrl="https://images.channel40.com.au/ch400,cy200/"
-            />
+            <div>
+                <div
+                    position={[0, 0]}
+                    {...rest}
+                    style={{
+                        ...this.props.style,
+                        height: height,
+                        width: width,
+                        'backgroundRepeat': 'noRepeat',
+                        'backgroundImage': 'url("' + imageString + '")',
+                        'backgroundSize': 'cover',
+                        'backgroundPositionY': 'center'
+                    }}
+                    src={imageString}
+                    proxyUrl="https://images.channel40.com.au/"
+                />
+                <div
+                    position={[1, 0]}
+                    >
+                    {children}
+                </div>
+            </div>
         );
     }
 }
