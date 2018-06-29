@@ -367,7 +367,7 @@ class GennyTable extends Component {
                                                         height: '100%',
                                                     }}
                                                 >
-                                                    <IconSmall style={{color: 'white', marginRight: '5px'}} name={action.icon}/>
+                                                    { action.icon && <IconSmall style={{color: 'white', marginRight: '5px'}} name={action.icon}/> }
                                                     <span style={{color: 'white', fontSize:'0.7em'}}>{action.title}</span>
                                                 </GennyButton>
                                             );
@@ -376,7 +376,7 @@ class GennyTable extends Component {
                                 </div>
                             );
                         },
-                        'minWidth': 60 * this.props.actions.length
+                        'minWidth': 120 * this.props.actions.length
                     });
                 }
 

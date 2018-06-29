@@ -17,6 +17,7 @@ class FileViewer extends Component {
         root: string,
         attribute: string,
         displayColumn: bool,
+        items: string,
     }
 
     state = {
@@ -68,7 +69,7 @@ class FileViewer extends Component {
 
     render() {
 
-        const { className, root, attribute, style, displayColumn } = this.props;
+        const { className, root, attribute, style, displayColumn, items } = this.props;
         const componentStyle = {
             ...style,
             flexDirection: displayColumn ? 'column' : 'row'
@@ -91,6 +92,17 @@ class FileViewer extends Component {
 
             if(attributeValue != null && attributeValue.startsWith('[')) {
                 filesArray = JSON.parse(attributeValue);
+            }
+
+            validFiles = filesArray && filesArray.length ? filesArray.filter(file => this.isValidFile(file)) : [];
+        }
+
+        if (
+            items != null &&
+            typeof items === 'string'
+        ) {
+            if(items != null && items.startsWith('[')) {
+                filesArray = JSON.parse(items);
             }
 
             validFiles = filesArray && filesArray.length ? filesArray.filter(file => this.isValidFile(file)) : [];

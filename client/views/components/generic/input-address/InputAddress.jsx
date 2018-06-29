@@ -150,6 +150,12 @@ class InputAddress extends Component {
         });
     }
 
+    onFocus = () => {
+        if(this.props.onFocus) {
+            this.props.onFocus();
+        }
+    }
+
     onBlur = (address) => {
 
         if(this.props.onBlur) {
@@ -200,7 +206,9 @@ class InputAddress extends Component {
         const inputProps = {
             value: this.state.value,
             onChange: this.onChange,
-            placeholder: this.props.placeholder
+            placeholder: this.props.placeholder,
+            onFocus: this.onFocus,
+            onBlur: this.props.onBlur
         };
 
         const classes = {
