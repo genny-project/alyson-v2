@@ -49,6 +49,10 @@ class MessageHandler {
 
     onMessage = (message) => {
 
+        // if(message.parentCode == "GRP_NEW_ITE") {
+        //   console.log( message )
+        // }
+
         /* Check that the message isn't null */
         if (!message) {
             console.warn('[MessageHandler] NULL message sent to message handler. Ignoring.');
@@ -128,36 +132,33 @@ class MessageHandler {
                         if(finalMessages[currentMessage.parentCode] == null) {
                             finalMessages[currentMessage.parentCode] = currentMessage;
                         }
-                        else {
 
-                            /* to ensure items is an array */
-                            if(!finalMessages[currentMessage.parentCode].items.length) {
-                                finalMessages[currentMessage.parentCode].items = [];
-                            }
-
-                            finalMessages[currentMessage.parentCode].items = finalMessages[currentMessage.parentCode].items.concat(currentMessage.items);
-                            finalMessages[currentMessage.parentCode].items.forEach(item => {
-
-                                item.parentCode = currentMessage.parentCode;
-                                item.linkCode = currentMessage.linkCode;
-                            });
+                        /* to ensure items is an array */
+                        if(!finalMessages[currentMessage.parentCode].items.length) {
+                          finalMessages[currentMessage.parentCode].items = [];
                         }
+
+                        finalMessages[currentMessage.parentCode].items = finalMessages[currentMessage.parentCode].items.concat(currentMessage.items);
+                        finalMessages[currentMessage.parentCode].items.forEach(item => {
+
+                            item.parentCode = currentMessage.parentCode;
+                            item.linkCode = currentMessage.linkCode;
+                        });
                     }
                     else {
 
                         if(finalMessages[currentMessage.aliasCode] == null) {
                             finalMessages[currentMessage.aliasCode] = currentMessage;
                         }
-                        else {
 
-                            /* we merge */
-                            finalMessages[currentMessage.aliasCode].items = finalMessages[currentMessage.aliasCode].items.concat(currentMessage.items);
-                            finalMessages[currentMessage.parentCode].items.forEach(item => {
+                        /* we merge */
+                        finalMessages[currentMessage.aliasCode].items = finalMessages[currentMessage.aliasCode].items.concat(currentMessage.items);
+                        finalMessages[currentMessage.parentCode].items.forEach(item => {
 
-                                item.aliasCode = currentMessage.aliasCode
-                                item.linkCode = currentMessage.linkCode
-                            });
-                        }
+                            item.aliasCode = currentMessage.aliasCode
+                            item.linkCode = currentMessage.linkCode
+                            item.parentCode = currentMessage.parentCode
+                        });
                     }
                 }
             }

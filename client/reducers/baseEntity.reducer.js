@@ -213,9 +213,6 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
     if(newItem.parentCode != null) {
 
         /* we update the data for the parent */
-
-        let links = (state.data[newItem.parentCode] && state.data[newItem.parentCode].links != null ? state.data[newItem.parentCode].links : {});
-
         if (newItem.code != null) {
 
             /* get the link code to the children */
@@ -231,29 +228,28 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             }
 
             /* we check if the parent data exists or we create it */
-            if(state.data[newItem.parentCode] == null) {
-                state.data[newItem.parentCode] = {};
+            if(existing[newItem.parentCode] == null) {
+                existing[newItem.parentCode] = {};
             }
 
-            if(state.data[newItem.parentCode].links == null) {
-                state.data[newItem.parentCode].links = {};
+            if(existing[newItem.parentCode].links == null) {
+                existing[newItem.parentCode].links = {};
             }
 
-            if(state.data[newItem.parentCode].links[linkCode] == null) {
-              state.data[newItem.parentCode].links[linkCode] = [];
+            if(existing[newItem.parentCode].links[linkCode] == null) {
+              existing[newItem.parentCode].links[linkCode] = [];
             }
 
-            let linkedItemFound = state.data[newItem.parentCode].links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
+            let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
+            let linkedItemFound = links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
             if(linkedItemFound == false) {
 
-                if (state.data[newItem.parentCode].links[linkCode] == null) {
-                    state.data[newItem.parentCode].links[linkCode] = [
-                        ...(state.data[newItem.parentCode] != null && state.data[newItem.parentCode].links != null && state.data[newItem.parentCode].links[linkCode] ? state.data[newItem.parentCode].links[linkCode] : []),
-                    ];
+                if (links[linkCode] == null) {
+                    links[linkCode] = [];
                 }
 
-                state.data[newItem.parentCode].links[linkCode] = [
-                    ...state.data[newItem.parentCode].links[linkCode],
+                links[linkCode] = [
+                    ...links[linkCode],
                     ...[{
                         attributeCode: linkCode,
                         weight: 1,
@@ -271,11 +267,11 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                     }]
                 ]
             }
-        }
 
-        state.data[newItem.parentCode] = {
-            ...state.data[newItem.parentCode],
-            links: links
+            existing[newItem.parentCode] = {
+                ...existing[newItem.parentCode],
+                links: links
+            }
         }
     }
 }

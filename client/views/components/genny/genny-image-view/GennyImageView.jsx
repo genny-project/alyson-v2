@@ -13,17 +13,20 @@ class GennyImageView extends Component {
   static propTypes = {
     baseEntity: object,
     caption: any,
-    src: string
+    src: string,
+    proxyUrl: string
   };
 
   render() {
 
     const { root, baseEntity, caption } = this.props;
+    let { proxyUrl } = this.props;
+
     let { src } = this.props;
 
     return (
       <div className="genny-image-view">
-        <ImageView root={root} src={src} caption={caption} />
+        <ImageView root={root} src={src} caption={caption}/>
       </div>
     );
   }
