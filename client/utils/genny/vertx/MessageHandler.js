@@ -49,6 +49,10 @@ class MessageHandler {
 
     onMessage = (message) => {
 
+        // if(message.parentCode == "GRP_NEW_ITE") {
+        //   console.log( message )
+        // }
+
         /* Check that the message isn't null */
         if (!message) {
             console.warn('[MessageHandler] NULL message sent to message handler. Ignoring.');
@@ -131,7 +135,7 @@ class MessageHandler {
 
                         /* to ensure items is an array */
                         if(!finalMessages[currentMessage.parentCode].items.length) {
-                            finalMessages[currentMessage.parentCode].items = [];
+                          finalMessages[currentMessage.parentCode].items = [];
                         }
 
                         finalMessages[currentMessage.parentCode].items = finalMessages[currentMessage.parentCode].items.concat(currentMessage.items);
