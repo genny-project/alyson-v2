@@ -233,14 +233,15 @@ class GennyTable extends Component {
                                 'Cell': cellInfo => {
                                     const cell = cellInfo.row[ ( attribute && attribute.attributeCode ) || attributeCode];
                                     const value = cell && cell.value;
-                                    const dataType = cell && cell.type;
+                                    const dataType = ( cell && cell.type ) || BaseEntityQuery.getAttribute(( attribute && attribute.attributeCode ) || attributeCode).dataType.typeName ;
                                     const rowCode = cellInfo.original.baseEntityCode;
-
+                                    
                                     return (
                                         <GennyTableEditableCell
                                             cell={cell}
                                             rowCode={rowCode}
                                             code={( attribute && attribute.attributeCode ) || attributeCode}
+                                            name={attribute && attribute.attributeName}
                                             value={value}
                                             dataType={dataType}
                                             targetCode={this.state.data[cellInfo.index].baseEntityCode}

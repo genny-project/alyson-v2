@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { array, object, string } from 'prop-types';
 import { GennyBridge } from 'utils/genny';
-import { ImageView, ContactButton, InputAddress, Dropdown } from 'views/components';
-import ReactDropdown from 'react-dropdown';
-import FileViewer from '../../../generic/file-viewer/FileViewer';
+import { ImageView, ContactButton, InputAddress, InputUpload, IconSmall } from 'views/components';
 
 class GennyTableEditableCell extends Component {
 
@@ -60,7 +58,6 @@ class GennyTableEditableCell extends Component {
         }
     }
     handleKeyDown = (event) => {
-        console.log('key', event.keyCode);
         if (event.keyCode == '13') {
             event.preventDefault();
             this.handleBlur(event);
@@ -73,8 +70,11 @@ class GennyTableEditableCell extends Component {
 
         let newValue = null;
 
-        if(event.full_address) {
+        if(event && event.full_address) {
             newValue = event.full_address;
+        }
+        else if( dataType == 'Upload' ) {
+            newValue = event;
         }
         else if( dataType != 'java.lang.Boolean' ) {
             newValue = event.target.value;
@@ -103,7 +103,8 @@ class GennyTableEditableCell extends Component {
                         {
                             targetCode: targetCode,
                             attributeCode: code,
-                            value: newValue
+                            value: newValue,
+                            weight: 1.0,
                         }
                     ];
 
@@ -119,7 +120,10 @@ class GennyTableEditableCell extends Component {
                                 valueState: this.state.lastSentAnswer
                             });
                         }
-                        this.input.value = this.state.lastSentAnswer;
+
+                        if (this.input && this.input.value) {
+                            this.input.value = this.state.lastSentAnswer;
+                        }
                     //}
                 }
             }
@@ -149,15 +153,36 @@ class GennyTableEditableCell extends Component {
         });
     }
 
+    handleFileUpload = (value) => {
+        this.handleBlur(value);
+    }
+
+    handleViewFileClick = (value) => () => {
+        let valueArray = null;
+
+        if(value != null && value.startsWith('[')) {
+            valueArray = JSON.parse(value);
+        }
+
+        valueArray.forEach(file => {
+            if (file.uploadURL != null && typeof file.uploadURL == 'string' ) window.open(file.uploadURL);
+        });
+    }
+
+    handleDeleteFileClick = () => {
+        this.handleBlur('[]');
+    }
+
     renderDiv() {
 
-        const { value, dataType } = this.props;
+        const { value, dataType, name } = this.props;
         const { valueState } = this.state;
-        
         switch (dataType) {
 
             case 'Image': {
-                return <ImageView src={valueState || value} style={{ width: '30px', height: '30px' }} />;
+                return <div className='table-image' >
+                    <ImageView src={valueState || value} style={{ width: '30px', height: '30px' }} />
+                </div>;
             }
 
             case 'link': {
@@ -223,32 +248,46 @@ class GennyTableEditableCell extends Component {
             }
 
             case 'Upload': {
+                const hasValue = valueState != null ? valueState : value;
                 return (
-                    <Dropdown
-                        animateHeader={false}
-                        inline={true}
-                        isSlide={false}
-                        header={
+                    <div className='table-upload-main' >
+                        {
+                            hasValue &&
                             <div
-                                className='table-upload-view'
+                                className='table-upload view-file clickable'
+                                onClick={this.handleViewFileClick(hasValue)}
                             >
-                                VIEW FILES
-                            </div>
+                                {`View ${name || 'File'}`}
+                            </div> 
                         }
-                        contentStyle={{
-                            padding: 0,
-                            paddingTop: '5px',
-                            background: 'none'
-                        }}
-                    >
-                        <div
-                            className="file-viewer-dropdown"
-                        >
-                            <FileViewer
-                                items={valueState != null ? valueState : value}
+                        
+                        {/* { TODO: UNCOMMENT when backend accepts empty array as value for answer
+                            hasValue &&
+                            <div
+                                className='table-upload delete-file clickable'
+                                onClick={this.handleDeleteFileClick}
+                            >
+                                <IconSmall style={{color: 'white', fontSize: '20px' }} name='cancel'/>
+                            </div>
+                        } */}
+                        {
+                            !hasValue &&
+                            <InputUpload
+                                className="upload-file"
+                                onChange={this.handleFileUpload}
+                                ref={r => this.input = r}
+                                value={valueState != null ? valueState : value}
+                                hideUpload={true}
+                                inputComponent={
+                                    <div
+                                        className='table-upload view-file clickable'
+                                    >
+                                        {`Upload ${name || 'File' }`}
+                                    </div> 
+                                }
                             />
-                        </div>
-                    </Dropdown>
+                        }
+                    </div>
                 );
             }
 
@@ -270,12 +309,20 @@ class GennyTableEditableCell extends Component {
     }
 
     render() {
-
         return (
             <div
                 // contentEditable={this.state.canEdit}
                 // suppressContentEditableWarning
-                className={`editable-table-cell ${ this.state.canEdit ? 'active' : 'disabled' } ${ this.props.dataType == 'Upload' || this.props.dataType == 'Address' ? 'expandable' : '' }`}
+                className={`editable-table-cell ${
+                    this.state.canEdit
+                        ? 'active'
+                        : 'disabled'
+                } ${ 
+                    this.props.dataType == 'Upload' ||
+                    this.props.dataType == 'Address'
+                        ? 'expandable'
+                        : '' }`
+                }
                 
             >
                 {this.renderDiv()}

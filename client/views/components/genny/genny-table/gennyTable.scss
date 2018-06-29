@@ -181,15 +181,56 @@
         }
     }
 
-    .table-upload-view {
-        border-radius: 5px;
-        background: #5fa5ec;
-        padding: 5px;
-        color: white;
-        text-align: center;
+    .table-image {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
 
-        &:hover {
-            box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+    .table-upload-main {
+        display: flex;
+        height: 100%;
+
+        .table-upload {
+            border-radius: 5px;
+            padding: 5px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+    
+            &.view-file {
+                background: #5fa5ec;
+        
+                &:not(:last-child) {
+                    border-radius: 5px 0 0 5px;
+                }
+            }
+            &.delete-file {
+                background: $error;
+                flex-grow: 0;
+
+                &:not(:first-child) {
+                    border-radius: 0 5px 5px 0;
+                }
+            }
+            &:hover {
+                box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .upload-file {
+            flex-grow: 1;
+
+            .input-header {
+                margin-bottom: 0;
+            }
+
+            .table-upload {
+                height: 100%;
+            }
         }
     }
 }

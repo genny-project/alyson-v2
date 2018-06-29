@@ -1,5 +1,5 @@
 import './InputUpload.scss';
-import { string, bool, number, func, object, array, any } from 'prop-types';
+import { string, bool, number, func, object, array, any, node } from 'prop-types';
 import React, { Component } from 'react';
 import Uppy from 'uppy/lib/core';
 import AwsS3 from 'uppy/lib/plugins/AwsS3';
@@ -46,6 +46,7 @@ class InputUpload extends Component {
         validationStatus: string,
         name: string,
         allowedFileTypes: array,
+        inputComponent: node
     }
 
     state = {
@@ -121,19 +122,14 @@ class InputUpload extends Component {
     }
 
     checkFileType = (currentFile) => {
-
         if (this.props.allowedFileTypes && !this.props.allowedFileTypes.includes(currentFile.type)) {
-
             this.uppy.info('Invalid file type', 'error', 3000);
             return false;
         }
         else {
-
             this.uppy.info('Upload successful', 'success', 3000);
             return true;
         }
-
-        return true;
     }
 
 
@@ -179,10 +175,13 @@ class InputUpload extends Component {
             //console.log('closing');
             this.close();
         }, 2000);
-
+        console.log('change');
         const restructuredFiles = files;
         const { validationList, validation, identifier } = this.props;
         if (validation) validation(JSON.stringify(restructuredFiles), identifier, validationList);
+        if (this.props.onChange) {
+            this.props.onChange( JSON.stringify(restructuredFiles) );
+        }
     }
 
     handleSuccess = success => {
@@ -280,7 +279,7 @@ class InputUpload extends Component {
     }
 
     render() {
-        const { className, style, icon, name, mandatory, validationStatus, isHorizontal, hideHeader, } = this.props;
+        const { className, style, icon, name, mandatory, validationStatus, isHorizontal, hideHeader, inputComponent} = this.props;
         const componentStyle = {...style, };
         const { files, error } = this.state;
         const validFiles = files && files.length ? files.filter(file => this.isValidFile(file)) : [];
@@ -328,15 +327,23 @@ class InputUpload extends Component {
                     )
                 }
 
-                <div className = 'input-field'
-                    type = "button"
-                    onClick = { this.handleOpenModal }
-                >
-                    <IconSmall className = 'input-file-icon'
-                        name = { icon }
-                    />
-                    <span> Upload a{ validFiles.length > 0 && 'nother' } file or image </span>
-                </div >
+                {
+                    inputComponent &&
+                    inputComponent.$$typeof
+                        ? React.cloneElement(inputComponent, {
+                            onClick: this.handleOpenModal    
+                        })
+                        : <div 
+                            className = 'input-field'
+                            type = "button"
+                            onClick = { this.handleOpenModal }
+                        >
+                            <IconSmall className = 'input-file-icon'
+                                name = { icon }
+                            />
+                            <span> Upload a{ validFiles.length > 0 && 'nother' } file or image </span>
+                        </div >
+                 }
             </div>
         );
     }
