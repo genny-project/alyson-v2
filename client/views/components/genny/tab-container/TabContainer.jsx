@@ -14,6 +14,7 @@ class TabContainer extends Component {
     className: string,
     style: object,
     isVertical: bool,
+    tabColor: string,
     contentStyle: object
   };
 
@@ -39,6 +40,14 @@ class TabContainer extends Component {
   };
 
   renderTabs = data => {
+
+    const { tabColor } = this.props;
+
+    let style = {};
+    if(tabColor != null) {
+        style.backgroundColor = tabColor;
+    }
+
     let tabs = [];
     if (data && data.length) {
       data.map((view, index) => {
@@ -49,6 +58,7 @@ class TabContainer extends Component {
             }`}
             key={index}
             onClick={() => this.handleClick(index)}
+            style={style}
           >
             <IconSmall name={view.icon} />
             <span className="tab-title">{view.title}</span>
