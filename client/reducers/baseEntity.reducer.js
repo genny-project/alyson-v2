@@ -229,26 +229,19 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
 
             /* we check if the parent data exists or we create it */
             if(existing[newItem.parentCode] == null) {
-                
                 existing[newItem.parentCode] = {};
             }
 
             if(existing[newItem.parentCode].links == null) {
-
                 existing[newItem.parentCode].links = {};
             }
 
             if(existing[newItem.parentCode].links[linkCode] == null) {
-
               existing[newItem.parentCode].links[linkCode] = [];
             }
 
             let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
             let linkedItemFound = links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
-            if(linkedItemFound && newItem.parentCode == "GRP_NEW_ITEMS") {
-                console.log('----')
-                console.log(links);
-            }
 
             if(linkedItemFound == false) {
 
@@ -277,12 +270,9 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             }
 
             existing[newItem.parentCode] = {
+                ...state.data[newItem.parentCode],
                 ...existing[newItem.parentCode],
                 links: links
-            }
-
-            if(linkedItemFound && newItem.parentCode == "GRP_NEW_ITEMS") {
-                console.log(existing[newItem.parentCode]);
             }
         }
     }
