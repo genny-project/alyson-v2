@@ -35,7 +35,6 @@ class GennyMap extends Component {
             if(!children || children.length == 0) { return []; }
 
             const childAttributes = this.checkChildrenForAttributes(children);
-
             if (childAttributes) {
                 let mapData = this.getChildrenMapData(children);
                 return mapData;
@@ -82,7 +81,9 @@ class GennyMap extends Component {
             const childAttributes = this.checkChildrenForAttributes(children);
 
             if (childAttributes) {
+                console.log( 'childAttributes');
                 let mapData = this.getChildrenMapData(root, children);
+                console.log( mapData )
                 return mapData;
             }
             else {
@@ -124,6 +125,9 @@ class GennyMap extends Component {
                 switch(attribute_key) {
                     case 'PRI_PICKUP_ADDRESS_SUBURB':
                     case 'PRI_PICKUP_ADDRESS_STATE':
+                    case 'PRI_ADDRESS_SUBURB':
+                    case 'PRI_ADDRESS_FULL':
+                    case 'PRI_ADDRESS_STATE':
                     case 'PRI_DROPOFF_ADDRESS_SUBURB':
                     case 'PRI_DROPOFF_ADDRESS_STATE':
                     case 'PRI_CURRENT_POSITION':
@@ -211,11 +215,14 @@ class GennyMap extends Component {
                     switch(attribute_key) {
                         case 'PRI_PICKUP_ADDRESS_SUBURB':
                         case 'PRI_PICKUP_ADDRESS_STATE':
+                        case 'PRI_ADDRESS_SUBURB':
+                        case 'PRI_ADDRESS_FULL':
+                        case 'PRI_ADDRESS_STATE':
                         case 'PRI_DROPOFF_ADDRESS_SUBURB':
                         case 'PRI_DROPOFF_ADDRESS_STATE':
                         case 'PRI_CURRENT_POSITION':
-                        case 'PRI_POSITION_LATITUDE':
-                        case 'PRI_POSITION_LONGITUDE':
+                        case 'PRI_POSITION_LAT':
+                        case 'PRI_POSITION_LON':
                             hasAttributes = true;
                             break;
                         default:
@@ -284,6 +291,15 @@ class GennyMap extends Component {
                         root: root
                     });
                 }
+                else if(attributes.PRI_ADDRESS_LATITUDE != null && attributes.PRI_ADDRESS_LONGITUDE != null && this.props.hideMarkers != true) {
+                    markers.push({
+                        lat: parseFloat(attributes.PRI_ADDRESS_LATITUDE.value),
+                        lng: parseFloat(attributes.PRI_ADDRESS_LONGITUDE.value),
+                        text: text,
+                        code: baseEntity.code,
+                        root: root
+                    });
+                }
 
                 let originAddress = originSuburb + ', ' + originState;
                 let destAddress = destSuburb + ', ' + destState;
@@ -304,82 +320,110 @@ class GennyMap extends Component {
 
         const title = attributes.PRI_TITLE && attributes.PRI_TITLE.value;
 
-        let driver = BaseEntityQuery.getLinkedBaseEntity(root,'DRIVER');
-        if (driver && driver.value) driver = driver.value;
+        if(GennyBridge.getProject() == "PRJ_CHANNEL40") {
 
-        const contentDriver = driver && driver.length > 0 ?
-            (
-                '<div style="margin-bottom: 5px">' +
-                    '<span>' +
-                        `Driver: ${driver}` +
-                    '</span>' +
+            let driver = BaseEntityQuery.getLinkedBaseEntity(root,'DRIVER');
+            if (driver && driver.value) driver = driver.value;
+
+            const contentDriver = driver && driver.length > 0 ?
+                (
+                    '<div style="margin-bottom: 5px">' +
+                        '<span>' +
+                            `Driver: ${driver}` +
+                        '</span>' +
+                    '</div>'
+                ) :
+                null;
+
+            const pickupSuburb = ( attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value ) ? attributes.PRI_PICKUP_ADDRESS_SUBURB.value : null;
+            const pickupState = ( attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value ) ? attributes.PRI_PICKUP_ADDRESS_STATE.value : null;
+            const dropoffSuburb = ( attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value ) ? attributes.PRI_DROPOFF_ADDRESS_SUBURB.value : null;
+            const dropoffState = ( attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value ) ? attributes.PRI_DROPOFF_ADDRESS_STATE.value : null;
+            const distance =  ( attributes.PRI_TOTAL_DISTANCE_M && attributes.PRI_TOTAL_DISTANCE_M.value ) ? attributes.PRI_TOTAL_DISTANCE_M.value : null;
+
+            let status_color = '#5cb85c';
+            let user_status_color = null;
+
+            const userCode = GennyBridge.getUser();
+
+            const attributeKeys = Object.keys(attributes);
+            for (var i = 0; i < attributeKeys.length; i++) {
+
+                let attribute_key = attributeKeys[i];
+
+                if(attribute_key == 'STA_STATUS') {
+                    status_color = attributes[attribute_key].value || status_color;
+                }
+
+                if(attribute_key.startsWith('STA') && attribute_key.indexOf(userCode) > -1) {
+                    user_status_color = attributes[attribute_key].value;
+                    break;
+                }
+            }
+
+            let distanceKM = null;
+            if (distance ) {
+                const newValue = parseFloat(distance.replace(',', ''));
+                let measurement = mf.measure(newValue, 'm');
+                let convertMeasurement = measurement.as('km');
+                convertMeasurement.value = convertMeasurement.value.toFixed(0);
+                distanceKM = `${convertMeasurement.as('km')}`;
+            }
+
+            let content = (
+                '<div>' +
+                    '<div style="display: flex; align-items: center; margin-bottom: 5px" >' +
+                        `<div style="height: 15px; width: 15px; border-radius: 50%; margin-right: 5px; background: ${user_status_color || status_color}" ></div>` +
+                        '<span style="font-weight: 1000;">' +
+                            `${title || ''}` +
+                        '</span>' +
+                    '</div>' +
+                    `${contentDriver || ''}` +
+                    '<div style="margin-bottom: 5px">' +
+                        '<span>' +
+                            `Pickup: ${pickupSuburb || ''}, ${pickupState || ''}` +
+                        '</span>' +
+                    '</div>' +
+                    '<div style="margin-bottom: 5px">' +
+                        '<span>' +
+                            `Delivery: ${dropoffSuburb || ''}, ${dropoffState || ''}` +
+                        '</span>' +
+                    '</div>' +
+                    `${ distance ? `<div style="margin-bottom: 5px"><span>${distanceKM}</span></div>` : '' }` +
+                    '<div class="line-break"></div>' +
+                    '<div id="map-infowindow" class="map-infowindow-button">' +
+                        'See More Details' +
+                    '</div>' +
                 '</div>'
-            ) :
-            null;
+            );
 
-        const pickupSuburb = ( attributes.PRI_PICKUP_ADDRESS_SUBURB && attributes.PRI_PICKUP_ADDRESS_SUBURB.value ) ? attributes.PRI_PICKUP_ADDRESS_SUBURB.value : null;
-        const pickupState = ( attributes.PRI_PICKUP_ADDRESS_STATE && attributes.PRI_PICKUP_ADDRESS_STATE.value ) ? attributes.PRI_PICKUP_ADDRESS_STATE.value : null;
-        const dropoffSuburb = ( attributes.PRI_DROPOFF_ADDRESS_SUBURB && attributes.PRI_DROPOFF_ADDRESS_SUBURB.value ) ? attributes.PRI_DROPOFF_ADDRESS_SUBURB.value : null;
-        const dropoffState = ( attributes.PRI_DROPOFF_ADDRESS_STATE && attributes.PRI_DROPOFF_ADDRESS_STATE.value ) ? attributes.PRI_DROPOFF_ADDRESS_STATE.value : null;
-        const distance =  ( attributes.PRI_TOTAL_DISTANCE_M && attributes.PRI_TOTAL_DISTANCE_M.value ) ? attributes.PRI_TOTAL_DISTANCE_M.value : null;
-
-        let status_color = '#5cb85c';
-        let user_status_color = null;
-
-        const userCode = GennyBridge.getUser();
-
-        const attributeKeys = Object.keys(attributes);
-        for (var i = 0; i < attributeKeys.length; i++) {
-
-            let attribute_key = attributeKeys[i];
-
-            if(attribute_key == 'STA_STATUS') {
-                status_color = attributes[attribute_key].value || status_color;
-            }
-
-            if(attribute_key.startsWith('STA') && attribute_key.indexOf(userCode) > -1) {
-                user_status_color = attributes[attribute_key].value;
-                break;
-            }
+            return content;
         }
+        else if(GennyBridge.getProject() == "PRJ_PCSS") {
 
-        let distanceKM = null;
-        if (distance ) {
-            const newValue = parseFloat(distance.replace(',', ''));
-            let measurement = mf.measure(newValue, 'm');
-            let convertMeasurement = measurement.as('km');
-            convertMeasurement.value = convertMeasurement.value.toFixed(0);
-            distanceKM = `${convertMeasurement.as('km')}`;
+            const addressFull = attributes.PRI_ADDRESS_FULL;
+
+            let content = (
+                '<div>' +
+                    '<div style="display: flex; align-items: center; margin-bottom: 5px" >' +
+                        '<span style="font-weight: 1000;">' +
+                            `${title || ''}` +
+                        '</span>' +
+                    '</div>' +
+                    '<div style="margin-bottom: 5px">' +
+                        '<span>' +
+                            `Property Address: ${addressFull.value || ''}` +
+                        '</span>' +
+                    '</div>' +
+                    '<div class="line-break"></div>' +
+                    '<div id="map-infowindow" class="map-infowindow-button">' +
+                        'See More Details' +
+                    '</div>' +
+                '</div>'
+            );
+
+            return content;
         }
-
-        let content = (
-            '<div>' +
-                '<div style="display: flex; align-items: center; margin-bottom: 5px" >' +
-                    `<div style="height: 15px; width: 15px; border-radius: 50%; margin-right: 5px; background: ${user_status_color || status_color}" ></div>` +
-                    '<span style="font-weight: 1000;">' +
-                        `${title || ''}` +
-                    '</span>' +
-                '</div>' +
-                `${contentDriver || ''}` +
-                '<div style="margin-bottom: 5px">' +
-                    '<span>' +
-                        `Pickup: ${pickupSuburb || ''}, ${pickupState || ''}` +
-                    '</span>' +
-                '</div>' +
-                '<div style="margin-bottom: 5px">' +
-                    '<span>' +
-                        `Delivery: ${dropoffSuburb || ''}, ${dropoffState || ''}` +
-                    '</span>' +
-                '</div>' +
-                `${ distance ? `<div style="margin-bottom: 5px"><span>${distanceKM}</span></div>` : '' }` +
-                '<div class="line-break"></div>' +
-                '<div id="map-infowindow" class="map-infowindow-button">' +
-                    'See More Details' +
-                '</div>' +
-            '</div>'
-        );
-
-        return content;
     }
 
     handleInfowindowButtonClick = (code, root) => {
@@ -407,6 +451,7 @@ class GennyMap extends Component {
         const { root, style, mapStyle, ...rest } = this.props;
         const componentStyle = { ...style};
         let mapData = this.getDataFromCode(root);
+        console.log(mapData)
 
         return (
             <div className="genny-map" style={componentStyle}>

@@ -229,14 +229,17 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
 
             /* we check if the parent data exists or we create it */
             if(existing[newItem.parentCode] == null) {
+                
                 existing[newItem.parentCode] = {};
             }
 
             if(existing[newItem.parentCode].links == null) {
+
                 existing[newItem.parentCode].links = {};
             }
 
             if(existing[newItem.parentCode].links[linkCode] == null) {
+
               existing[newItem.parentCode].links[linkCode] = [];
             }
 
