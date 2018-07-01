@@ -228,20 +228,25 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             }
 
             /* we check if the parent data exists or we create it */
-            if(state.data[newItem.parentCode] == null) {
-                state.data[newItem.parentCode] = {};
+            if(existing[newItem.parentCode] == null) {
+                existing[newItem.parentCode] = {};
             }
 
-            if(state.data[newItem.parentCode].links == null) {
-                state.data[newItem.parentCode].links = {};
+            if(existing[newItem.parentCode].links == null) {
+                existing[newItem.parentCode].links = {};
             }
 
-            if(state.data[newItem.parentCode].links[linkCode] == null) {
-              state.data[newItem.parentCode].links[linkCode] = [];
+            if(existing[newItem.parentCode].links[linkCode] == null) {
+              existing[newItem.parentCode].links[linkCode] = [];
             }
 
-            let links = (state.data[newItem.parentCode] != null && state.data[newItem.parentCode].links != null ? state.data[newItem.parentCode].links : {});
+            let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
             let linkedItemFound = links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
+            if(linkedItemFound && newItem.parentCode == "GRP_NEW_ITEMS") {
+                console.log('----')
+                console.log(links);
+            }
+
             if(linkedItemFound == false) {
 
                 if (links[linkCode] == null) {
@@ -268,9 +273,13 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 ]
             }
 
-            state.data[newItem.parentCode] = {
-                ...state.data[newItem.parentCode],
+            existing[newItem.parentCode] = {
+                ...existing[newItem.parentCode],
                 links: links
+            }
+
+            if(linkedItemFound && newItem.parentCode == "GRP_NEW_ITEMS") {
+                console.log(existing[newItem.parentCode]);
             }
         }
     }
