@@ -44,7 +44,7 @@ class AppContent extends Component {
     renderContent = (commandType, commandData) => {
 
         if(commandType && ( commandData.root != null || commandData.data != null) ) {
-            
+
             // we need to show the table view
             if (commandData.code == 'TABLE_VIEW') {
                 return <GennyTable root = { commandData.root } columns={commandData.data.columns} actions={commandData.data.actions}/>;
@@ -78,7 +78,7 @@ class AppContent extends Component {
                 return <GennyMessagingConversation root={commandData.root || commandData.data}/>;
             }
             else if (commandData.code == 'SPLIT_VIEW') {
-               
+
                 let children = [];
 
                 if ( commandData.data.data != null ) {
@@ -90,7 +90,7 @@ class AppContent extends Component {
                         return this.renderContent('view', item);
                     });
                 }
-               
+
                 return (
                     <SplitView>
                         {children}
@@ -135,8 +135,10 @@ class AppContent extends Component {
     }
 
     renderSidebar = (root) => {
+
         const project_code = GennyBridge.getProject();
         let projectColor = null;
+
         if(project_code != null) {
             projectColor = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_COLOR');
         }
@@ -251,7 +253,7 @@ class AppContent extends Component {
                         < Modal
                             show={ true }
                             onClick={ this.toggleModal }
-                        > 
+                        >
                             { modalContent }
                         </Modal>
                     )
@@ -278,7 +280,7 @@ class AppContent extends Component {
                     }
                 >
                     {
-                        showSidebar 
+                        showSidebar
                             ? this.renderSidebar(itemCode)
                             : null
                     }

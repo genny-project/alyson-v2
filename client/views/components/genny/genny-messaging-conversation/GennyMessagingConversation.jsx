@@ -59,7 +59,7 @@ class GennyMessagingConversation extends Component {
         div.rows = 3;
         const creatorField = this.props.useNewMessageAttributes ? 'PRI_CREATOR_CODE' : 'PRI_CREATOR';
         const contentField = this.props.useNewMessageAttributes ? 'PRI_CONTENT' : 'PRI_MESSAGE';
-        
+
         const newText = this.state.messageText;
         this.setState({
             messageText: '',
@@ -118,7 +118,7 @@ class GennyMessagingConversation extends Component {
 
     handleFilterText = (event) => {
         const text = event.target.value;
-        
+
         this.setState({
             filterText:  text,
         });
@@ -173,11 +173,11 @@ class GennyMessagingConversation extends Component {
         const contentField = this.props.useNewMessageAttributes ? 'PRI_CONTENT' : 'PRI_MESSAGE';
 
         let filteredMessages = messages;
-        
+
         if (
             filterText !== null &&
             typeof filterText === 'string' &&
-            filterText.length > 0 
+            filterText.length > 0
         ) {
             filteredMessages = filteredMessages.filter(x => x.attributes[contentField].value.toLowerCase().includes(filterText.toLowerCase()) );
         }
@@ -185,7 +185,7 @@ class GennyMessagingConversation extends Component {
         if (
             filterType !== null &&
             typeof filterType === 'string' &&
-            filterType.length > 0 
+            filterType.length > 0
         ) {
             filteredMessages = filteredMessages.filter(x => x.attributes.PRI_CREATOR_TYPE.value.toLowerCase().includes(filterType.toLowerCase()) );
         }
@@ -199,7 +199,7 @@ class GennyMessagingConversation extends Component {
         let tempArray = [];
 
         const creatorField = this.props.useNewMessageAttributes ? 'PRI_CREATOR_CODE' : 'PRI_CREATOR';
-        
+
         let finalMessages = messages;
         // this.state.createdMessages.forEach(mess => {
         //     finalMessages.push(mess);
@@ -219,7 +219,7 @@ class GennyMessagingConversation extends Component {
                 const last = tempArray.length - 1;
                 const isPrevSystemMessage = tempArray[last].attributes.PRI_CREATOR_TYPE && tempArray[last].attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
                 const isThisSystemMessage = message.attributes.PRI_CREATOR_TYPE && message.attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
-                
+
                 const creatorAttr = isPrevSystemMessage ? tempArray[last].attributes.PRI_CREATOR_TYPE : tempArray[last].attributes[creatorField];
                 const thisCreatorAttr =  isThisSystemMessage ? message.attributes.PRI_CREATOR_TYPE : message.attributes[creatorField];
 
@@ -267,9 +267,11 @@ class GennyMessagingConversation extends Component {
         return messages.map((group, groupIndex) => {
 
             let groupCode = group[0].code;
+
+            if(group[0] == null || group[0].attributes == null) return null;
             
             const isSystemMessage = group[0].attributes.PRI_CREATOR_TYPE && group[0].attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
-      
+
             let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, creatorField);
             createdBy = createdBy ? createdBy.value : group[0].attributes[creatorField].value;
             //group.sort((x, y) => x.created > y.created);
@@ -289,16 +291,16 @@ class GennyMessagingConversation extends Component {
                             let creatorAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, creatorField) || message.attributes ? message.attributes[creatorField] : null;
                             let messageTextAttribute = BaseEntityQuery.getBaseEntityAttribute(messageCode, contentField) || message.attributes ? message.attributes[contentField] : null;
                             const isSystemMessage = message.attributes.PRI_CREATOR_TYPE && message.attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
-      
+
                             const projectCode = GennyBridge.getProject();
                             const projectImage = BaseEntityQuery.getBaseEntityAttribute(projectCode, 'PRI_LOGO');
 
                             if(messageTextAttribute && creatorAttribute) {
 
                                 let creator = creatorAttribute.value;
-                                
+
                                 let messageText = messageTextAttribute.value;
-                                
+
                                 return (
                                     <div className='conversation-message'>
                                         { messageIndex == 0 ?
@@ -466,9 +468,9 @@ class GennyMessagingConversation extends Component {
                         )
                         : null
                 }
-                
+
                 <div
-                    className='conversation-filters-search'    
+                    className='conversation-filters-search'
                 >
                     <IconSmall
                         className='conversation-filters-icon'
@@ -501,7 +503,7 @@ class GennyMessagingConversation extends Component {
                     >
                         SYSTEM
                     </div>
-                    
+
                 </div>
             </div>
         );
