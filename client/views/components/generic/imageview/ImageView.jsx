@@ -45,7 +45,8 @@ class ImageView extends Component {
             // proxy URL if any
             const project_code = GennyBridge.getProject();
             if(project_code != null) {
-                proxyUrl = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_IMAGE_PROXY_URL').value;
+                const proxyUrlBe = BaseEntityQuery.getBaseEntityAttribute(project_code, 'PRI_IMAGE_PROXY_URL');
+                proxyUrl = proxyUrlBe && proxyUrlBe.value;
             }
         }
 
