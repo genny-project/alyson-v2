@@ -14,6 +14,7 @@ let middleware = applyMiddleware(
   routerMiddleware( history ),
   thunk,
   epicMiddleware,
+  logger()
 );
 
 if (process.env.NODE_ENV != 'production') {
