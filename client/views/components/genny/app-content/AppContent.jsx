@@ -191,6 +191,7 @@ class AppContent extends Component {
                         useNewMessageAttributes
                         alwaysShowImage
                         buttonText='Add Note'
+                        noItemsText='No Notes Yet'
                     />
                     : null
                 }
