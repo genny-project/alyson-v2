@@ -67,5 +67,6 @@ export { default as SubmitStatusIcon } from './submit-status-icon';
 export { default as SublayoutLoader } from './sublayout-loader/';
 export { default as Table } from './table';
 export { default as TagDisplay } from './tag-display';
+export { default as Timeline } from './timeline';
 export { default as Toasts } from './toasts';
 export { default as TreeView } from './tree-view';
