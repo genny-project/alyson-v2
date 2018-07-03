@@ -25,6 +25,7 @@ class GennyMessagingConversation extends Component {
         maxLength: bool,
         useNewMessageAttributes: bool,
         buttonText: string,
+        noItemsText: string,
     };
 
     state = {
@@ -383,8 +384,9 @@ class GennyMessagingConversation extends Component {
     }
 
     renderWebLayout(title, messages, currentUser, otherUser) {
+        const { reverseDirection, noItemsText, showFilters, className } = this.props;
 
-        const rows = this.props.reverseDirection
+        const rows = reverseDirection
             ? [
                 { style: { flexGrow: 0, flexShrink: 0 }},
                 { style: { flexGrow: 1 }}
@@ -394,37 +396,38 @@ class GennyMessagingConversation extends Component {
                 { style: { flexBasis: '200px', flexShrink: 0 }}
             ];
 
-        const emptyText = this.props.showFilters
-            ? 'No messages to display'
-            : `Start your conversation with ${otherUser && otherUser.attributes.PRI_FIRSTNAME.value}`;
+        const emptyText = noItemsText
+            ? noItemsText
+            : showFilters
+                ? 'No messages to display'
+                : `Start your conversation with ${otherUser && otherUser.attributes.PRI_FIRSTNAME.value}`;
 
         return (
             <Grid
-                className={`messaging-conversation-main ${this.props.className || ''} ${this.props.reverseDirection ? 'reverse-direction' : ''}`}
+                className={`messaging-conversation-main ${className || ''} ${reverseDirection ? 'reverse-direction' : ''}`}
                 rows={rows}
                 cols={1}
             >
                 {
-                    this.props.showFilters
+                    showFilters
                         ? this.renderFilters(title)
                         : null
                 }
                 {
                     messages && messages.length > 0 ?
-                        <div className="conversation-messages-container" position={[this.props.reverseDirection ? 1 : 0 ,0]}>
+                        <div className="conversation-messages-container" position={[reverseDirection ? 1 : 0 ,0]}>
                             {this.renderMessages(messages, currentUser, otherUser)}
-
                         </div>
                     : null
                 }
                 {
                     !messages || messages.length <= 0 ?
-                        <div className="conversation-messages-empty" position={[this.props.reverseDirection ? 1 : 0 ,0]}>
+                        <div className="conversation-messages-empty" position={[reverseDirection ? 1 : 0 ,0]}>
                             {emptyText}
                         </div>
                     : null
                 }
-                <div className="conversation-message-input" position={[this.props.reverseDirection ? 0 : 1 ,0]}>{this.renderTextInput()}</div>
+                <div className="conversation-message-input" position={[reverseDirection ? 0 : 1 ,0]}>{this.renderTextInput()}</div>
             </Grid>
         );
     }
@@ -511,7 +514,7 @@ class GennyMessagingConversation extends Component {
 
     render() {
 
-        const { root, classNames, reverseDirection, useNewMessageAttributes } = this.props;
+        const { root, classNames, reverseDirection, useNewMessageAttributes, noItemsText } = this.props;
 
         const be = BaseEntityQuery.getBaseEntity(root);
 
@@ -537,7 +540,12 @@ class GennyMessagingConversation extends Component {
                     cols={1}
                 >
                     <div className="conversation-messages-empty" position={[0,0]}>
-                        There are currently no messages for you to read.
+                        <IconSmall
+                            name=""
+                        />
+                        <span>
+                            {noItemsText ? noItemsText : 'There are currently no messages for you to read.'}
+                        </span>
                     </div>
                 </Grid>
             );

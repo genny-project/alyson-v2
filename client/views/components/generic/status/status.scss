@@ -8,6 +8,10 @@
     border-radius: 5px;
     flex-shrink: 0;
 
+    &.success {
+        background: $success;
+    }
+
     &.warning {
         background: $warning;
     }
