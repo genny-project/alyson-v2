@@ -242,7 +242,6 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
 
             let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
             let linkedItemFound = links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
-
             if(linkedItemFound == false) {
 
                 if (links[linkCode] == null) {
@@ -270,7 +269,6 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             }
 
             existing[newItem.parentCode] = {
-                ...state.data[newItem.parentCode],
                 ...existing[newItem.parentCode],
                 links: links
             }
@@ -363,6 +361,7 @@ export default function reducer(state = initialState, action) {
                         state.data[be_code].attributes[attributeCode] = {
                             ...state.data[be_code].attributes[attributeCode],
                             value: newAtt.value,
+                            valueString: newAtt.value,
                             attribute: {
                                 ...(state.data[be_code].attributes[attributeCode] ? state.data[be_code].attributes[attributeCode].attribute : {}),
                                 ...newAtt,
