@@ -265,16 +265,17 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                             linkValue: "LINK",
                         }
                     }]
-                ]
+                ];
             }
 
             existing[newItem.parentCode] = {
+                ...state.data[newItem.parentCode],
                 ...existing[newItem.parentCode],
                 links: links
-            }
+            };
         }
     }
-}
+};
 
 export default function reducer(state = initialState, action) {
 
