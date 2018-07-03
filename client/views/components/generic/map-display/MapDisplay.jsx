@@ -1,6 +1,7 @@
 import './mapDisplay.scss';
 import React, { Component } from 'react';
 import { string, object, array, number, bool, any, func, } from 'prop-types';
+// import polyline from '@mapbox/polyline';
 
 class MapDisplay extends Component {
 
@@ -15,6 +16,8 @@ class MapDisplay extends Component {
         iconClick: 'https://i.imgur.com/XiZYxed.png',
         mapRouteIcon: 'https://i.imgur.com/Zyinht5.png',
         suppressMarkers: true,
+        polygons: [],
+        polylines: [],
     }
 
     static propTypes = {
@@ -27,6 +30,8 @@ class MapDisplay extends Component {
         center: any,
         markers: array,
         routes: array,
+        polygons: array,
+        polylines: array,
         icon: string,
         iconClick: string,
         lat: any,
@@ -249,8 +254,9 @@ class MapDisplay extends Component {
     }
 
     componentDidMount() {
-
         this.setup();
+        this.drawPolygons();
+        this.drawPolylines();
     }
 
     checkAddressFormat = (geocoder, value, callback) => {
@@ -365,7 +371,93 @@ class MapDisplay extends Component {
         markerData.setIcon(this.props.iconClick);
     }
 
+    drawPolygons = () => {
+
+        const map = this.map;
+        if(map) {
+
+            const infoWindow = new google.maps.InfoWindow;
+
+            function showsContent(event) {
+
+                const vertices = this.getPath();
+                infoWindow.setContent(this.text);
+                infoWindow.setPosition(event.latLng);
+                infoWindow.open(map);
+            }
+
+            const { polygons } = this.props;
+            if(polygons && polygons.length > 0) {
+                polygons.forEach(polygon => {
+
+                    /* polygon contains arrays of raw coordinates */
+                    let coordinates = [];
+                    polygon.coordinates.forEach(rawCoordinates => {
+                        let coord = new google.maps.LatLng(rawCoordinates[0], rawCoordinates[1]);
+                        coordinates.push(coord);
+                    })
+
+                    if(coordinates) {
+
+                        var shape = new google.maps.Polygon({
+                            text: polygon.text,
+                            paths: coordinates,
+                            strokeColor: polygon.strokeColor || '#FF0000',
+                            strokeOpacity: polygon.strokeOpacity || 0.8,
+                            strokeWeight: polygon.strokeWeight || 2.0,
+                            fillColor: polygon.fillColor || '#FF0000',
+                            fillOpacity: polygon.fillOpacity || 0.35
+                          });
+
+                        shape.setMap(map);
+                        shape.addListener('click', showsContent);
+                    }
+                })
+            }
+        }
+    }
+
+    drawPolylines = () => {
+
+        const map = this.map;
+        if(map) {
+
+            const { polylines } = this.props;
+            if(polylines && polylines.length > 0) {
+
+                polylines.forEach(polyline => {
+
+                    /* polyline contains arrays of raw coordinates */
+                    let coordinates = [];
+
+                    polyline.coordinates.forEach(rawCoordinates => {
+
+                        coordinates.push({
+                            lat: rawCoordinates[0],
+                            lng: rawCoordinates[1],
+                        });
+                    })
+
+                    if(coordinates) {
+
+                        var shape = new google.maps.Polyline({
+                            path: coordinates,
+                            strokeColor: polyline.strokeColor || '#FF0000',
+                            strokeOpacity: polyline.strokeOpacity || 0.8,
+                            strokeWeight: polyline.strokeWeight || 2.0,
+                            fillColor: polyline.fillColor || '#FF0000',
+                            fillOpacity: polyline.fillOpacity || 0.35
+                          });
+
+                        shape.setMap(map);
+                    }
+                })
+            }
+        }
+    }
+
     render() {
+
         const { className, style } = this.props;
         const componentStyle = { ...style,};
 

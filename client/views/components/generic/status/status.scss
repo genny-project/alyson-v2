@@ -16,6 +16,10 @@
         background: $warning;
     }
 
+    &.success {
+        background: $success;
+    }
+
     &.urgent {
         background: $error;
     }
