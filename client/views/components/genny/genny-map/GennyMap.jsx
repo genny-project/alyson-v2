@@ -1,6 +1,6 @@
 import './gennyMap.scss';
 import React, { Component } from 'react';
-import { string, object, bool } from 'prop-types';
+import { string, object, bool, array } from 'prop-types';
 import { MapDisplay } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 const measurement = require('measurement');
@@ -11,6 +11,7 @@ class GennyMap extends Component {
     static defaultProps = {
         root: '',
         hideRoutes: false,
+        polygons: [],
         hideMarkers: false,
     }
 
@@ -18,6 +19,8 @@ class GennyMap extends Component {
         root: string,
         style: object,
         mapStyle: object,
+        polygons: array,
+        polylines: array,
         hideRoutes: bool,
         hideMarkers: bool
     };
@@ -448,10 +451,9 @@ class GennyMap extends Component {
 
     render() {
 
-        const { root, style, mapStyle, ...rest } = this.props;
+        const { root, style, mapStyle, polygons, polylines, ...rest } = this.props;
         const componentStyle = { ...style};
         let mapData = this.getDataFromCode(root);
-        console.log(mapData)
 
         return (
             <div className="genny-map" style={componentStyle}>
@@ -461,6 +463,8 @@ class GennyMap extends Component {
                     markers={mapData && mapData.markers }
                     routes={mapData && mapData.routes }
                     onClick={this.handleInfowindowButtonClick}
+                    polygons={polygons}
+                    polylines={polylines}
                     suppressMarkers={true}
                 />
             </div>
