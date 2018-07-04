@@ -63,7 +63,7 @@ class Capability extends PureComponent {
 
     render() {
 
-        const { capabilities, children } = this.props;
+        const { capabilities, children, defaultChildren } = this.props;
 
         let shouldRender = false;
         if( capabilities ) {
@@ -78,7 +78,11 @@ class Capability extends PureComponent {
             )
         }
 
-        return null;
+        return (
+            <div>
+                {defaultChildren}
+            </div>
+        );
     }
 }
 
