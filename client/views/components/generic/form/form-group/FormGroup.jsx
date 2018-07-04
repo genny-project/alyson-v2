@@ -192,7 +192,12 @@ class FormGroup extends Component {
                 {
                     buttons.map((button, index) => {
 
-                        const isDisabled = ( button == 'form-submit' ||  button == 'form-confirm' || button == 'form-accept') && !isFormValidated;
+                        const isDisabled = (
+                            button == 'form-submit' ||
+                            button == 'form-confirm' ||
+                            button == 'form-accept' ||
+                            button == 'form-next'
+                        ) && !isFormValidated;
 
                         return (
                             <Button
