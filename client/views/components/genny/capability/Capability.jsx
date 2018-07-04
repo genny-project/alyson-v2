@@ -80,7 +80,7 @@ class Capability extends PureComponent {
 
         return (
             <div style={{ height: "100%" }}>
-                    {defaultChildren}
+                {defaultChildren}
             </div>
         );
     }
