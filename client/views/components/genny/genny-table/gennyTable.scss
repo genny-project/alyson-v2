@@ -3,8 +3,8 @@
 .genny-table {
 
     flex-grow: 1;
-    padding-left: 10px;
-    padding-right: 10px;
+    // padding-left: 10px;
+    // padding-right: 10px;
     min-height: 100px;
     
     //height:100%;
@@ -36,6 +36,18 @@
 
     i {
         color: #5fa5ec;
+    }
+
+    .genny-list-title {
+
+        text-align: center;
+        color: white;
+        background-color: #929292;
+        padding: 10px 0;
+
+        > span {
+            font-size: 16px !important;
+        }
     }
 }
 
@@ -233,6 +245,16 @@
             .table-upload {
                 height: 100%;
             }
+        }
+    }
+
+    .table-dropdown {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        > span {
+            font-family: "Roboto Condensed", "Helvetica", sans-serif;
         }
     }
 }
