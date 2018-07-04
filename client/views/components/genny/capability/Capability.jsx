@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class Capability extends PureComponent {
 
@@ -78,9 +79,11 @@ class Capability extends PureComponent {
             )
         }
 
+        console.log( defaultChildren )
+
         return (
             <div style={{ height: "100%" }}>
-                {defaultChildren}
+                <LayoutLoader layout={{ layout: defaultChildren }} />
             </div>
         );
     }
