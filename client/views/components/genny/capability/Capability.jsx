@@ -72,15 +72,15 @@ class Capability extends PureComponent {
 
         if(shouldRender) {
             return (
-                <div>
+                <div style={{ height: "100%" }}>
                     {children}
                 </div>
             )
         }
 
         return (
-            <div>
-                {defaultChildren}
+            <div style={{ height: "100%" }}>
+                    {defaultChildren}
             </div>
         );
     }
