@@ -115,8 +115,9 @@ class InputDropdown extends Component {
     }
 
     addSelectedItem(item) {
-        this.setState(({ selectedItems }) => ({
+        this.setState(({ selectedItems, currentValue }) => ({
             selectedItems: this.props.isSingleSelect ? [item] : [...selectedItems, item],
+            currentValue: this.props.isSingleSelect ? '' : currentValue,
             isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
         }), () => {
 
@@ -124,7 +125,6 @@ class InputDropdown extends Component {
                 this.handleValidation();
                 this.inputRef ? this.inputRef.blur() : null;
             }
-
         });
     }
 
