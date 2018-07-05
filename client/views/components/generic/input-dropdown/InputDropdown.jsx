@@ -107,6 +107,7 @@ class InputDropdown extends Component {
     }
 
     handleChange = selectedItem => {
+
         if (this.state.selectedItems.includes(selectedItem)) {
             this.removeItem(selectedItem);
         } else {
@@ -115,6 +116,7 @@ class InputDropdown extends Component {
     }
 
     addSelectedItem(item) {
+
         this.setState(({ selectedItems }) => ({
             selectedItems: this.props.isSingleSelect ? [item] : [...selectedItems, item],
             isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
@@ -124,7 +126,6 @@ class InputDropdown extends Component {
                 this.handleValidation();
                 this.inputRef ? this.inputRef.blur() : null;
             }
-
         });
     }
 
@@ -153,7 +154,7 @@ class InputDropdown extends Component {
             }
             // else if (numberOfSelectedItems.length == 1 && !this.props.isSingleSelect) {
             //     return numberOfSelectedItems[0];
-            // } 
+            // }
             else if (numberOfSelectedItems.length > 1) {
                 return `${numberOfSelectedItems.length} items selected`;
             }
@@ -240,9 +241,10 @@ class InputDropdown extends Component {
                 if (isSingleSelect && selectedItems.length == 1) {
 
                     let itemCode = this.props.items.filter(x => x.name == selectedItems[0])[0].code;
+                    console.log( itemCode )
                     if (validation) validation(itemCode, identifier, validationList);
-
-                } else {
+                }
+                else {
 
                     let results = [];
                     this.props.items.forEach(item => {
@@ -251,9 +253,12 @@ class InputDropdown extends Component {
                         });
                     });
 
+                    console.log( results )
+
                     if ((results.length == 0 && mandatory == false) || results.length > 0) {
 
                         let resultsString = JSON.stringify(results);
+                        console.log(resultsString);
                         if (validation) validation(resultsString, identifier, validationList);
                     }
                     else {
