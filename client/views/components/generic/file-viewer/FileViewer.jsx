@@ -104,8 +104,22 @@ class FileViewer extends Component {
             if(items != null && items.startsWith('[')) {
                 filesArray = JSON.parse(items);
             }
+            else {
+                ///single file as string, from backend PDF upload
+                filesArray = [
+                    {
+                        type: '.pdf',
+                        id: items,
+                        uploadURL: items,
+                        name: items,
+                        uploaded: items,
+                        size: '-',
+                    }
+                ];
+            }
 
             validFiles = filesArray && filesArray.length ? filesArray.filter(file => this.isValidFile(file)) : [];
+            
         }
 
         return (
