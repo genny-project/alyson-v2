@@ -9,6 +9,7 @@ class Sidebar extends Component {
         closeOnItemClick: true,
         slideFromRight: false,
         icon: 'menu',
+        id: '',
     }
 
     static propTypes = {
@@ -20,6 +21,7 @@ class Sidebar extends Component {
       closeOnItemClick: bool,
       slideFromRight: bool,
       icon: string,
+      id: string,
     };
 
     state = {
@@ -27,7 +29,7 @@ class Sidebar extends Component {
     }
 
     componentWillMount() {
-        this.state.isOpen = window.getScreenSize() != 'sm' && localStorage.getItem('sidebar_open') == 'true';
+        this.state.isOpen = window.getScreenSize() != 'sm' && localStorage.getItem(`${this.props.id}${this.props.id != '' && '-'}sidebar_open`) == 'true';
     }
 
     handleSidebarToggle = (event) => {
@@ -37,7 +39,7 @@ class Sidebar extends Component {
         this.setState(prevState => ({
             isOpen: !prevState.isOpen
         }), () => {
-            localStorage.setItem('sidebar_open', this.state.isOpen);
+            localStorage.setItem(`${this.props.id}${this.props.id != '' && '-'}sidebar_open`, this.state.isOpen);
         });
     }
 
@@ -51,7 +53,7 @@ class Sidebar extends Component {
                 //isOpen: window.getScreenSize() == 'sm' ? 
                 isOpen: true
             }), () => {
-                localStorage.setItem('sidebar_open', this.state.isOpen);
+                localStorage.setItem(`${this.props.id}${this.props.id != '' && '-'}sidebar_open`, this.state.isOpen);
             });
         }
     }
@@ -105,7 +107,7 @@ class Sidebar extends Component {
         />;
 
         return (
-            <div className={`sidebar ${window.getScreenSize()} ${!isOpen ? '' : 'closed'}`}>
+            <div className={`sidebar ${window.getScreenSize()} ${slideFromRight ? 'right' : 'left'} ${!isOpen ? '' : 'closed'}`}>
                 <Grid
                     className='sidebar-main'
                     style={componentStyle}

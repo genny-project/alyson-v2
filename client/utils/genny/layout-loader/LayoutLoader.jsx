@@ -232,70 +232,74 @@ class LayoutLoader extends Component {
 
                                             if (be_attribute_parent.startsWith('LNK_')){
                                                 const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
-                                                const linkedBECode = linkedBaseEntity.code;
-                                                const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute_parent);
+                                                
+                                                if ( linkedBaseEntity && linkedBaseEntity.code) {
+                                                    const linkedBECode = linkedBaseEntity.code;
+                                                    const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute_parent);
 
-                                                if (lnk_value && lnk_value.value && lnk_value.value.startsWith('SEL_')) {
+                                                    if (lnk_value && lnk_value.value && lnk_value.value.startsWith('SEL_')) {
 
 
-                                                    const lnk_field = splitValue[5];
-                                                    // console.log(lnk_value.value, lnk_field);
+                                                        const lnk_field = splitValue[5];
+                                                        // console.log(lnk_value.value, lnk_field);
 
-                                                    if (lnk_field == 'created') {
-                                                        attribute = {
-                                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'created')
-                                                        };
-                                                    } else if (lnk_field == 'code') {
-                                                        attribute = {
-                                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'code')
-                                                        };
-                                                    } else if (lnk_field == 'name') {
-                                                        attribute = {
-                                                            value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'name')
-                                                        };
-                                                    } else {
-                                                        attribute = BaseEntityQuery.getBaseEntityAttribute(lnk_value.value, lnk_field);
+                                                        if (lnk_field == 'created') {
+                                                            attribute = {
+                                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'created')
+                                                            };
+                                                        } else if (lnk_field == 'code') {
+                                                            attribute = {
+                                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'code')
+                                                            };
+                                                        } else if (lnk_field == 'name') {
+                                                            attribute = {
+                                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'name')
+                                                            };
+                                                        } else {
+                                                            attribute = BaseEntityQuery.getBaseEntityAttribute(lnk_value.value, lnk_field);
+                                                        }
+                                                        // console.log(attribute);
                                                     }
-                                                    // console.log(attribute);
-                                                }
-                                                else if (lnk_value && lnk_value.value && lnk_value.value.startsWith('[')) {
-                                                    // console.log(lnk_value.value);
-                                                    const lnk_valueParse = JSON.parse(lnk_value.value);
+                                                    else if (lnk_value && lnk_value.value && lnk_value.value.startsWith('[')) {
+                                                        // console.log(lnk_value.value);
+                                                        const lnk_valueParse = JSON.parse(lnk_value.value);
 
-                                                    if (
-                                                        lnk_valueParse != null &&
-                                                        lnk_valueParse instanceof Array &&
-                                                        lnk_valueParse.length > 0
-                                                    ) {
-                                                        const attributeArray = [];
-                                                        lnk_valueParse.forEach(x => {
-                                                            const lnk_field = splitValue[4];
-                                                            let tempAttribute = null;
-                                                            if (lnk_field == 'created') {
-                                                                tempAttribute = {
-                                                                    value: BaseEntityQuery.getBaseEntityField(x, 'created')
-                                                                };
-                                                            } else if (lnk_field == 'code') {
-                                                                tempAttribute = {
-                                                                    value: BaseEntityQuery.getBaseEntityField(x, 'code')
-                                                                };
-                                                            } else if (lnk_field == 'name') {
-                                                                tempAttribute =  {
-                                                                    value: BaseEntityQuery.getBaseEntityField(x, 'name')
-                                                                };
-                                                            } else {
-                                                                tempAttribute = BaseEntityQuery.getBaseEntityAttribute(x, lnk_field);
-                                                            }
+                                                        if (
+                                                            lnk_valueParse != null &&
+                                                            lnk_valueParse instanceof Array &&
+                                                            lnk_valueParse.length > 0
+                                                        ) {
+                                                            const attributeArray = [];
+                                                            lnk_valueParse.forEach(x => {
+                                                                const lnk_field = splitValue[4];
+                                                                let tempAttribute = null;
+                                                                if (lnk_field == 'created') {
+                                                                    tempAttribute = {
+                                                                        value: BaseEntityQuery.getBaseEntityField(x, 'created')
+                                                                    };
+                                                                } else if (lnk_field == 'code') {
+                                                                    tempAttribute = {
+                                                                        value: BaseEntityQuery.getBaseEntityField(x, 'code')
+                                                                    };
+                                                                } else if (lnk_field == 'name') {
+                                                                    tempAttribute =  {
+                                                                        value: BaseEntityQuery.getBaseEntityField(x, 'name')
+                                                                    };
+                                                                } else {
+                                                                    tempAttribute = BaseEntityQuery.getBaseEntityAttribute(x, lnk_field);
+                                                                }
 
-                                                            if (tempAttribute != null && tempAttribute.value != null ) attributeArray.push(tempAttribute);
+                                                                if (tempAttribute != null && tempAttribute.value != null ) attributeArray.push(tempAttribute);
 
-                                                        });
+                                                            });
 
-                                                        attribute = {
-                                                            value: attributeArray.length > 0 ? attributeArray.map(x => x.value).join(', ') : null,
-                                                        };
+                                                            attribute = {
+                                                                value: attributeArray.length > 0 ? attributeArray.map(x => x.value).join(', ') : null,
+                                                            };
+                                                        }
                                                     }
                                                 }
+                                                
                                             }
 
                                         } else {
@@ -335,67 +339,70 @@ class LayoutLoader extends Component {
 
                                 if (be_attribute.startsWith('LNK_')) {
                                     const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
-                                    const linkedBECode = linkedBaseEntity.code;
-                                    const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute);
 
-                                    if (lnk_value && lnk_value.value && lnk_value.value.startsWith('SEL_')) {
+                                    if ( linkedBaseEntity && linkedBaseEntity.code) {
+                                        const linkedBECode = linkedBaseEntity.code;
+                                        const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute);
+
+                                        if (lnk_value && lnk_value.value && lnk_value.value.startsWith('SEL_')) {
 
 
-                                        const lnk_field = splitValue[4];
-                                        // console.log(lnk_value.value, lnk_field);
+                                            const lnk_field = splitValue[4];
+                                            // console.log(lnk_value.value, lnk_field);
 
-                                        if (lnk_field == 'created') {
-                                            attribute = {
-                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'created')
-                                            };
-                                        } else if (lnk_field == 'code') {
-                                            attribute = {
-                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'code')
-                                            };
-                                        } else if (lnk_field == 'name') {
-                                            attribute = {
-                                                value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'name')
-                                            };
-                                        } else {
-                                            attribute = BaseEntityQuery.getBaseEntityAttribute(lnk_value.value, lnk_field);
-                                        }
-                                        // console.log(attribute);
-                                    } else if (lnk_value && lnk_value.value && lnk_value.value.startsWith('[')) {
-                                        // console.log(lnk_value.value);
-                                        const lnk_valueParse = JSON.parse(lnk_value.value);
+                                            if (lnk_field == 'created') {
+                                                attribute = {
+                                                    value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'created')
+                                                };
+                                            } else if (lnk_field == 'code') {
+                                                attribute = {
+                                                    value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'code')
+                                                };
+                                            } else if (lnk_field == 'name') {
+                                                attribute = {
+                                                    value: BaseEntityQuery.getBaseEntityField(lnk_value.value, 'name')
+                                                };
+                                            } else {
+                                                attribute = BaseEntityQuery.getBaseEntityAttribute(lnk_value.value, lnk_field);
+                                            }
+                                            // console.log(attribute);
+                                        } else if (lnk_value && lnk_value.value && lnk_value.value.startsWith('[')) {
+                                            // console.log(lnk_value.value);
+                                            const lnk_valueParse = JSON.parse(lnk_value.value);
 
-                                        if (
-                                            lnk_valueParse != null &&
-                                            lnk_valueParse instanceof Array &&
-                                            lnk_valueParse.length > 0
-                                        ) {
-                                            const attributeArray = [];
-                                            lnk_valueParse.forEach(x => {
-                                                const lnk_field = splitValue[4];
-                                                let tempAttribute = null;
-                                                if (lnk_field == 'created') {
-                                                    tempAttribute = {
-                                                        value: BaseEntityQuery.getBaseEntityField(x, 'created')
-                                                    };
-                                                } else if (lnk_field == 'code') {
-                                                    tempAttribute = {
-                                                        value: BaseEntityQuery.getBaseEntityField(x, 'code')
-                                                    };
-                                                } else if (lnk_field == 'name') {
-                                                    tempAttribute = {
-                                                        value: BaseEntityQuery.getBaseEntityField(x, 'name')
-                                                    };
-                                                } else {
-                                                    tempAttribute = BaseEntityQuery.getBaseEntityAttribute(x, lnk_field);
-                                                }
+                                            if (
+                                                lnk_valueParse != null &&
+                                                lnk_valueParse instanceof Array &&
+                                                lnk_valueParse.length > 0
+                                            ) {
+                                                const attributeArray = [];
+                                                lnk_valueParse.forEach(x => {
+                                                    const lnk_field = splitValue[4];
+                                                    let tempAttribute = null;
+                                                    if (lnk_field == 'created') {
+                                                        tempAttribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(x, 'created')
+                                                        };
+                                                    } else if (lnk_field == 'code') {
+                                                        tempAttribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(x, 'code')
+                                                        };
+                                                    } else if (lnk_field == 'name') {
+                                                        tempAttribute = {
+                                                            value: BaseEntityQuery.getBaseEntityField(x, 'name')
+                                                        };
+                                                    } else {
+                                                        tempAttribute = BaseEntityQuery.getBaseEntityAttribute(x, lnk_field);
+                                                    }
 
-                                                if (tempAttribute != null) attributeArray.push(tempAttribute);
+                                                    if (tempAttribute != null) attributeArray.push(tempAttribute);
 
-                                            });
+                                                });
 
-                                            attribute = {
-                                                value: attributeArray.length > 0 ? attributeArray.map(x => x.value).join(', ') : null,
-                                            };
+                                                attribute = {
+                                                    value: attributeArray.length > 0 ? attributeArray.map(x => x.value).join(', ') : null,
+                                                };
+                                            }
                                         }
                                     }
                                 }

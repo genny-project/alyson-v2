@@ -201,6 +201,9 @@ class GennyHeader extends Component {
                     onBlur={this.handleBlur}
                     tabIndex='-1'
                     animateHeader={window.getScreenSize() != 'sm'}
+                    contentStyle={{
+                        boxShadow: "0 3px 20px rgba(0, 0, 0, 0.5)"
+                    }}
                     header={
                         window.getScreenSize() == 'sm' ?
                         <ProfileImageView

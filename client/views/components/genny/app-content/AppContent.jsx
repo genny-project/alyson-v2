@@ -148,6 +148,7 @@ class AppContent extends Component {
                 slideFromRight={true}
                 icon='edit'
                 iconAltStyle
+                id='notes'
                 style={{
                     backgroundColor: projectColor ? projectColor.value : 'none',
                     color: 'white',
