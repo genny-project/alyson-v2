@@ -56,6 +56,7 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
 
     delete existing[baseEntityCode];
     delete state.data[baseEntityCode];
+
 };
 
 const handleBaseEntity = (state, action, existing, newItem) => {
@@ -121,7 +122,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                     return existingLinks;
 
                 }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
-                linkCode: action.payload.linkCode,
+                linkCode: newItem.linkCode || "LNK_CORE",
                 weight: newItem.weight ? newItem.weight : 1
             };
 
@@ -198,7 +199,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                 return existingLinks;
 
             }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
-            linkCode: action.payload.linkCode,
+            linkCode: newItem.linkCode || "LNK_CORE",
             attributes: existingAttributes,
             weight: newItem.weight ? newItem.weight : 1,
         };

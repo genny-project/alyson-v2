@@ -265,7 +265,6 @@ class AppContent extends Component {
                             height: '100%',
                             flexGrow: 1,
                             overflow: 'scroll',
-                            'zIndex': '1000',
                             ...mobileStyle,
                         }
                     }
@@ -276,7 +275,6 @@ class AppContent extends Component {
                     style={
                         {
                             height: '100%',
-                            'zIndex': '1000',
                             flexShrink: 0,
                         }
                     }
