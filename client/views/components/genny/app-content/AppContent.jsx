@@ -41,29 +41,6 @@ class AppContent extends Component {
         showModal: false,
     }
 
-    componentDidMount() {
-
-        /* TODO: to remove */
-        navigator.geolocation.watchPosition(function(position) {
-          if(position && position.coords && position.coords.latitude && position.coords.longitude) {
-
-              GennyBridge.sendAnswer([{
-                  sourceCode: GennyBridge.getUser(),
-                  targetCode: GennyBridge.getUser(),
-                  attributeCode: 'PRI_POSITION_LATITUDE',
-                  value: position.coords.latitude
-              }]);
-
-              GennyBridge.sendAnswer([{
-                  sourceCode: GennyBridge.getUser(),
-                  targetCode: GennyBridge.getUser(),
-                  attributeCode: 'PRI_POSITION_LONGITUDE',
-                  value: position.coords.longitude
-              }]);
-          }
-        });
-    }
-
     renderContent = (commandType, commandData) => {
 
         if(commandType && ( commandData.root != null || commandData.data != null) ) {
