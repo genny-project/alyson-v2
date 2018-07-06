@@ -534,7 +534,7 @@ class GennyTable extends Component {
             <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'} ${window.getScreenSize()}`} style={style}>
                 
                 { showTitle ?
-                    <div style={{ backgroundColor: projectColor}} className='genny-list-title'>
+                    <div style={{ backgroundColor: projectColor}} className='genny-list-title sticky'>
                         <span>{rootEntity && rootEntity.name} ( {tableData && tableData.length} )</span>
                     </div>
                 : null }
