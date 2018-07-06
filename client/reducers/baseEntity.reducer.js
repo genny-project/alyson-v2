@@ -91,7 +91,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                             targetCode: newLink.link.targetCode,
                             linkValue: newLink.valueString || newLink.link.linkValue,
                         });
-                    } else {
+                    }
+                    else {
 
                         let found = -1;
                         for (let index = 0; index < existingLinks[linkCode].length; index++) {
@@ -109,7 +110,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                                 targetCode: newLink.link.targetCode,
                                 linkValue: newLink.valueString || newLink.link.linkValue,
                             };
-                        } else {
+                        }
+                        else {
 
                             existingLinks[linkCode].push({
                                 ...newLink,
@@ -167,7 +169,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                         targetCode: newLink.link.targetCode,
                         linkValue: newLink.valueString || newLink.link.linkValue,
                     });
-                } else {
+                }
+                else {
 
                     let found = -1;
                     for (let index = 0; index < existingLinks[linkCode].length; index++) {
@@ -223,6 +226,9 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 if(newItem.parentCode.startsWith("BEG_")) {
                     linkCode = "LNK_BEG";
                 }
+                else if(newItem.parentCode.startsWith("OFR_")) {
+                    linkCode = "LNK_OFR";
+                }
                 else {
                     linkCode = "LNK_CORE";
                 }
@@ -234,7 +240,9 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             }
 
             if(existing[newItem.parentCode].links == null) {
-                existing[newItem.parentCode].links = {};
+                existing[newItem.parentCode].links = {
+                    ...(state.data[newItem.parentCode] && state.data[newItem.parentCode].links ? state.data[newItem.parentCode].links : {})
+                };
             }
 
             if(existing[newItem.parentCode].links[linkCode] == null) {
