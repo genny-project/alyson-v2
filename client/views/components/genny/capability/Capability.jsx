@@ -79,8 +79,6 @@ class Capability extends PureComponent {
             )
         }
 
-        console.log( defaultChildren )
-
         return (
             <div style={{ height: "100%" }}>
                 <LayoutLoader layout={{ layout: defaultChildren }} />

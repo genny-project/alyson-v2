@@ -14,11 +14,9 @@ class InputDatePicker extends Component {
         identifier: null,
         validationStatus: null,
         showTimeSelect: true,
-
         dateTimeDisplayFormat: 'YYYY-MM-DD HH:mm',
         dateDisplayFormat: 'yyyy-MM-dd',
         timeDisplayFormat: 'HH:mm',
-
     }
 
     static propTypes = {
@@ -38,9 +36,7 @@ class InputDatePicker extends Component {
         dateTimeDisplayFormat: string,
         dateDisplayFormat: string,
         timeDisplayFormat: string,
-
         handleOnChange: func,
-
     }
 
     state = {
@@ -57,13 +53,15 @@ class InputDatePicker extends Component {
 
         if ( value != null && value != '' ) {
 
-        const date = new Date( value );
+            const date = moment(new Date( value ));
+
             this.setState({
                 currentValue: date,
                 lastSentValue: date
             });
         }
         else {
+
             this.setState({
                 currentValue: null,
                 lastSentValue: null
@@ -75,29 +73,14 @@ class InputDatePicker extends Component {
 
         if (nextProps.value != this.props.value && nextProps.value != null && nextProps.value != '' ) {
 
-            let currentVal = moment(new Date(nextProps.value));
+            if(!nextProps.value.endsWith("Z")) {
+                nextProps.value = `${nextProps.value}Z`;
+            }
+
             this.setState({
-                currentValue: currentVal,
+                currentValue: moment(new Date(nextProps.value)),
             });
         }
-    }
-
-    convertToDisplayFormat = (date, format) => {
-        const { dateTimeDisplayFormat, timeDisplayFormat, dateDisplayFormat } = this.props;
-        let displayFormat;
-
-        switch (format) {
-        case 'time' :
-            displayFormat = moment(date).format(timeDisplayFormat);
-        break;
-        case 'date':
-            displayFormat = moment(date).format(dateDisplayFormat);
-        break;
-        case 'dateTime':
-        default :
-            displayFormat = moment(date).format(dateTimeDisplayFormat);
-        }
-        return displayFormat;
     }
 
     convertToDataFormat = (date) => {
@@ -108,11 +91,11 @@ class InputDatePicker extends Component {
 
         switch (type) {
         case 'java.time.LocalDate' :
-            dataFormat = moment(date).utc().format('YYYY-MM-DD');
+            dataFormat = moment.utc(date).format('YYYY-MM-DD');
         break;
         case 'java.time.LocalDateTime' :
         default :
-            dataFormat = moment(date).utc().format();
+            dataFormat = moment.utc(date).format();
         }
 
         return dataFormat;
@@ -130,7 +113,8 @@ class InputDatePicker extends Component {
 
             date = currentValue ? new Date( currentValue ) : new Date();
             date.setHours( hours, minutes );
-        } else {
+        }
+        else {
             date = new Date( value );
         }
 
@@ -142,11 +126,7 @@ class InputDatePicker extends Component {
     }
 
     handleBlur = (value) => {
-        this.setState({
-            lastSentTime: null
-        }, () => {
-            this.changeValueProp(value);
-        });
+
     }
 
     changeValueProp = (value) => {
