@@ -72,13 +72,14 @@ class InputDatePicker extends Component {
     componentWillReceiveProps( nextProps) {
 
         if (nextProps.value != this.props.value && nextProps.value != null && nextProps.value != '' ) {
+            let newValue = nextProps.value;
 
-            if(!nextProps.value.endsWith("Z")) {
-                nextProps.value = `${nextProps.value}Z`;
+            if(!newValue.endsWith("Z")) {
+              newValue = `${newValue}Z`;
             }
 
             this.setState({
-                currentValue: moment(new Date(nextProps.value)),
+                currentValue: moment(new Date(newValue)),
             });
         }
     }
