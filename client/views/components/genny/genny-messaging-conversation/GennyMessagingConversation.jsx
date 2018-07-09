@@ -13,6 +13,7 @@ class GennyMessagingConversation extends Component {
         messages: [],
         useNewMessageAttributes: false,
         buttonText: 'Send',
+        reverseDirection: false,
     }
 
     static propTypes = {
@@ -26,6 +27,7 @@ class GennyMessagingConversation extends Component {
         useNewMessageAttributes: bool,
         buttonText: string,
         noItemsText: string,
+        reverseDirection: bool,
     };
 
     state = {
@@ -207,12 +209,13 @@ class GennyMessagingConversation extends Component {
         // });
 
         finalMessages = messages.sort((x, y) => {
-            if ( this.props.reverseDirection ) {
-                return x.created < y.created ? 1 : -1;
+            if ( !this.props.reverseDirection ) {
+                return moment(x.created).format('HH:mm:sss') < moment(y.created).format('HH:mm:sss') ? 1 : -1;
             } else {
-                return x.created > y.created ? 1 : -1;
+                return moment(x.created).format('HH:mm:sss') > moment(y.created).format('HH:mm:sss') ? 1 : -1;
             }
         });
+
 
         finalMessages.map((message, index) => {
             if (tempArray.length > 0) {
@@ -248,11 +251,21 @@ class GennyMessagingConversation extends Component {
             }
 
             if(tempArray.filter(x => x.code == message.code).length == 0) {
-                tempArray.push(message);
+                //tempArray.push(message);
+                tempArray.splice(0,0,message);
+                tempArray = tempArray.sort((x, y) => {
+                  if (!this.props.reverseDirection) {
+                    return moment(x.created).format('HH:mm:sss') > moment(y.created).format('HH:mm:sss') ? 1 : -1;
+                  }
+                  else {
+                    return moment(x.created).format('HH:mm:sss') < moment(y.created).format('HH:mm:sss') ? 1 : -1;
+                  }
+                });
+
             }
 
             if (index == messages.length - 1) {
-                messageArray.push(tempArray);
+              messageArray.push(tempArray);
             }
 
         });
@@ -270,7 +283,7 @@ class GennyMessagingConversation extends Component {
             let groupCode = group[0].code;
 
             if(group[0] == null || group[0].attributes == null) return null;
-            
+
             const isSystemMessage = group[0].attributes.PRI_CREATOR_TYPE && group[0].attributes.PRI_CREATOR_TYPE.value === 'SYSTEM';
 
             let createdBy = BaseEntityQuery.getBaseEntityAttribute(groupCode, creatorField);
@@ -393,7 +406,7 @@ class GennyMessagingConversation extends Component {
             ]
             : [
                 { style: { flexGrow: 12 }},
-                { style: { flexBasis: '200px', flexShrink: 0 }}
+                { style: { flexBasis: '100px', flexShrink: 0 }}
             ];
 
         const emptyText = noItemsText

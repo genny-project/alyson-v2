@@ -480,6 +480,7 @@ class BucketView extends Component {
     }
 
     render() {
+        const { onItemClick } = this.props;
         const { buckets } = this.state;
         let isMobile = window.getScreenSize() == 'sm';
         let columns = buckets.map((bucket, index) => {
@@ -496,6 +497,7 @@ class BucketView extends Component {
                     showMovingOptions={this.toggleMovingOptions}
                     addNewItem={this.addNewItem}
                     canAddItem={bucket.canAddItem}
+                    onClick={onItemClick}
                     style={{
                         flexBasis: `calc(100vw / ${buckets.length})`,
                         minWidth: isMobile ? '100vw' : '240px',

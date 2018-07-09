@@ -98,8 +98,7 @@ class BucketElement extends Component {
     }
 
     renderContent = (provided, snapshot) => {
-        const { item, style, showMovingOptions } = this.props;
-
+        const { item, style, showMovingOptions, onClick } = this.props;
         return (
             <div>
                 <div
@@ -114,7 +113,10 @@ class BucketElement extends Component {
                     {...( provided && provided.dragHandleProps)}
                     className="bucket-contents"
                 >
-                    <BucketCard {...item.content} />
+                    <BucketCard
+                        {...item.content}
+                        onClick={onClick}
+                        />
                 </div>
                 { provided && provided.placeholder}
             </div>

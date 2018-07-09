@@ -194,7 +194,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                             linkValue: newLink.valueString || newLink.link.linkValue,
                             weight: newLink.weight,
                         };
-                    } 
+                    }
                     else {
 
                         existingLinks[linkCode].push({
@@ -230,21 +230,12 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             let indexLink = -1;
 
             /* we check if the parent data exists or we create it */
-            if(state.data[newItem.parentCode] == null) {
+            if(existing[newItem.parentCode] == null) {
+                existing[newItem.parentCode] = {};
+            }
 
-                existing[newItem.parentCode] = {
-                    ...existing[newItem.parentCode]
-                };
-
-                if(existing[newItem.parentCode].links == null) {
-                    existing[newItem.parentCode].links = {
-                        ...(state.data[newItem.parentCode] && state.data[newItem.parentCode].links ? state.data[newItem.parentCode].links : {})
-                    };
-                }
-
-                if(existing[newItem.parentCode].links[linkCode] == null) {
-                  existing[newItem.parentCode].links[linkCode] = [];
-                }
+            if(existing[newItem.parentCode].links[linkCode] == null) {
+              existing[newItem.parentCode].links[linkCode] = [];
             }
 
             if (state.data[newItem.parentCode] == null || state.data[newItem.parentCode].links == null) {
@@ -306,7 +297,6 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                     }]
                 ]
             }
-            else {
 
                 links[linkCode] = [
                     ...state.data[newItem.parentCode].links[linkCode],
