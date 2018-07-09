@@ -231,7 +231,9 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
 
             /* we check if the parent data exists or we create it */
             if(existing[newItem.parentCode] == null) {
-                existing[newItem.parentCode] = {};
+                existing[newItem.parentCode] = {
+                    links: {}
+                };
             }
 
             if(existing[newItem.parentCode].links[linkCode] == null) {
@@ -252,6 +254,7 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 }
             }
             else {
+               
                 const keys = Object.keys(state.data[newItem.parentCode].links);
                 for (let i = 0; i < keys.length; i++) {
 
@@ -297,6 +300,7 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                     }]
                 ]
             }
+            else {
 
                 links[linkCode] = [
                     ...state.data[newItem.parentCode].links[linkCode],
