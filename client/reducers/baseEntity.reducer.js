@@ -82,7 +82,6 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                 links: newItem.links.reduce((existingLinks, newLink) => {
 
                     let linkCode = newLink.link ? newLink.link.attributeCode : null;
-                    console.log( 'current link code: ', linkCode )
                     if (!linkCode) return existingLinks;
 
                     if (!existingLinks[linkCode]) {
@@ -90,8 +89,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                         existingLinks[linkCode].push({
                             ...newLink,
                             targetCode: newLink.link.targetCode,
+                            weight: newLink.link.weight,
                             linkValue: newLink.valueString || newLink.link.linkValue,
-                            weight: newLink.weight,
                         });
                     }
                     else {
@@ -110,8 +109,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                                 ...existingLinks[linkCode][found],
                                 ...newLink,
                                 targetCode: newLink.link.targetCode,
+                                weight: newLink.link.weight,
                                 linkValue: newLink.valueString || newLink.link.linkValue,
-                                weight: newLink.weight,
                             };
                         }
                         else {
@@ -119,8 +118,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                             existingLinks[linkCode].push({
                                 ...newLink,
                                 targetCode: newLink.link.targetCode,
+                                weight: newLink.link.weight,
                                 linkValue: newLink.valueString || newLink.link.linkValue,
-                                weight: newLink.weight,
                             });
                         }
                     }
@@ -170,8 +169,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                     existingLinks[linkCode].push({
                         ...newLink,
                         targetCode: newLink.link.targetCode,
+                        weight: newLink.link.weight,
                         linkValue: newLink.valueString || newLink.link.linkValue,
-                        weight: newLink.weight,
                     });
                 }
                 else {
@@ -191,8 +190,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                             ...existingLinks[linkCode][found],
                             ...newLink,
                             targetCode: newLink.link.targetCode,
+                            weight: newLink.link.weight,
                             linkValue: newLink.valueString || newLink.link.linkValue,
-                            weight: newLink.weight,
                         };
                     }
                     else {
@@ -200,8 +199,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                         existingLinks[linkCode].push({
                             ...newLink,
                             targetCode: newLink.link.targetCode,
+                            weight: newLink.link.weight,
                             linkValue: newLink.valueString || newLink.link.linkValue,
-                            weight: newLink.weight,
                         });
                     }
                 }
@@ -308,16 +307,19 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
 
                 links[linkCode][indexLink] = {
                     ...links[linkCode][indexLink],
-                    weight: newItem.weight,
-                    linkValue: newItem.linkValue,
-                    valueString: newItem.valueString,
+                    weight: (links[linkCode][indexLink] ? links[linkCode][indexLink].link.weight : newItem.weight),
+                    linkValue: (links[linkCode][indexLink] ? links[linkCode][indexLink].link.linkValue : newItem.linkValue),
+                    valueString: (links[linkCode][indexLink] ? links[linkCode][indexLink].link.valueString : newItem.valueString),
                 }
             }
 
             existing[newItem.parentCode] = {
                 ...state.data[newItem.parentCode],
                 ...existing[newItem.parentCode],
-                links: links
+                links: links,
+                weight: newItem.weight,
+                linkValue: newItem.linkValue,
+                valueString: newItem.valueString,
             }
         }
     }
