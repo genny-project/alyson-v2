@@ -32,19 +32,10 @@ class BucketCard extends Component {
 
     state = {
         isShowingOptions: false,
-        isOpen: this.props.isVisible ? this.props.isVisible : false
     }
 
     handleClick = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-
-        nextState.isOpen = this.state.isOpen;
-        return true;
+        if (this.props.onClick) this.props.onClick(this.props);
     }
 
     toggleOptions = () => {
@@ -73,7 +64,7 @@ class BucketCard extends Component {
         const componentStyle = { ...style, backgroundColor: backgroundColor || '' };
 
         return (
-            <div className={`bucket-card ${className} ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={() => onClick(this)} >
+            <div className={`bucket-card ${onClick ? 'clickable' : ''} ${className} ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null} >
                 {layout}
             </div>
         );

@@ -1,6 +1,7 @@
 import './gennyBucketView.scss';
 import React, { PureComponent } from 'react';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+import { bool } from 'prop-types';
 import { IconSmall, BucketView, Card } from 'views/components';
 import { Draggable } from 'react-beautiful-dnd';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -8,11 +9,11 @@ import { LayoutLoader } from 'utils/genny/layout-loader';
 class GennyBucketView extends PureComponent {
 
     static defaultProps = {
-
+        allowItemClick: true,
     }
 
     static propTypes = {
-
+        allowItemClick: bool
     };
 
     state = {
@@ -71,18 +72,25 @@ class GennyBucketView extends PureComponent {
         }
     }
 
-    onClick = (item) => {
+    handleClick = (bucketItemProps) => {
+        let btnValue = {
+            hint: bucketItemProps.rootCode,
+            itemCode: bucketItemProps.description,
+            userCode: GennyBridge.getUser()
+        };
 
-        //TODO: to be changed.
-        // let itemValue = item.props.description;
-        // if(itemValue) {
-        //     let data = {
-        //         code: "LOAD_CLICK",
-        //         value: itemValue,
-        //     }
-        //
-        //     GennyBridge.sendBtnClick(data);
-        // }
+        btnValue = JSON.stringify(btnValue);
+
+        GennyBridge.sendBtnClick('BTN_CLICK', {
+            code: 'SELECT_EVENT',
+            value: btnValue
+        });
+
+        this.setState({
+            selectedItemState: bucketItemProps.code,
+        });
+
+        if (this.props.onClick) this.props.onClick();
     }
 
     generateBucket(group) {
@@ -105,7 +113,8 @@ class GennyBucketView extends PureComponent {
                     screenSize: this.props.screenSize,
                     onClick: this.onClick,
                     layout: <LayoutLoader layout={sublayout} aliases={{BE: be.code, ROOT: group.code}}/>,
-                    created: be.created
+                    created: be.created,
+                    rootCode: group.code
                 },
                 id: be.code
                 }
@@ -169,14 +178,15 @@ class GennyBucketView extends PureComponent {
         const { root } = this.props;
 
         let buckets = this.generateBuckets(root);
-
         return (
             <div className="genny-bucket-view">
                 <BucketView
                     screenSize={window.getScreenSize()}
                     buckets={buckets}
                     didMoveItem={this.didMoveItem}
-                    addNewItem={this.addNewItem} />
+                    addNewItem={this.addNewItem}
+                    onItemClick={this.handleClick}
+                />
             </div>
         );
     }
