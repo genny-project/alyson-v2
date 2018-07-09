@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+import { LayoutLoader } from 'utils/genny/layout-loader';
 
 class Capability extends PureComponent {
 
@@ -63,7 +64,7 @@ class Capability extends PureComponent {
 
     render() {
 
-        const { capabilities, children } = this.props;
+        const { capabilities, children, defaultChildren } = this.props;
 
         let shouldRender = false;
         if( capabilities ) {
@@ -72,13 +73,17 @@ class Capability extends PureComponent {
 
         if(shouldRender) {
             return (
-                <div>
+                <div style={{ height: "100%" }}>
                     {children}
                 </div>
             )
         }
 
-        return null;
+        return (
+            <div style={{ height: "100%" }}>
+                <LayoutLoader layout={{ layout: defaultChildren }} />
+            </div>
+        );
     }
 }
 

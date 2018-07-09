@@ -204,7 +204,6 @@ class GennyTable extends Component {
 
                     if(attrData) {
 
-                        /* TODO: to remove. channel40 only. hardwired here because backend is not sending column names */
                         let name = "";
                         if(attrData.name == "Buyer Role") {
                             name = "Is Freight Owner";
@@ -237,7 +236,7 @@ class GennyTable extends Component {
                                     const value = cell && cell.value;
                                     const dataType = ( cell && cell.type ) || BaseEntityQuery.getAttribute(( attribute && attribute.attributeCode ) || attributeCode).dataType.typeName ;
                                     const rowCode = cellInfo.original.baseEntityCode;
-                                    
+
                                     return (
                                         <GennyTableEditableCell
                                             cell={cell}
@@ -304,22 +303,34 @@ class GennyTable extends Component {
 
                 const columnsProps = this.props.columns;
                 //const columnsProps = null;
-                
+
                 if (columnsProps != null && columnsProps.length > 0) {
 
                     for(let i = 0; i < columnsProps.length; i++) {
 
-                        const attributeCode = columnsProps[i].code;
-                        const width = columnsProps[i].width;
-                        const name = columnsProps[i].title;
+                        let attributeCode = null;
+                        let width = null;
+                        let name = null;
 
-                        //if(attributes[attributeCode] != null) {
+                        const colProps = columnsProps[i];
 
-                            const newColumn = createColumn(attributeCode, width, name);
-                            if(newColumn != null) {
-                                cols.push(newColumn);
-                            }
-                        //}
+                        /* if it is a string */
+                        if(colProps.length) {
+                            attributeCode = colProps;
+                        }
+
+                        /* if it is an object  */
+                        else {
+
+                            attributeCode = columnsProps[i].code;
+                            width = columnsProps[i].width;
+                            name = columnsProps[i].title;
+                        }
+
+                        const newColumn = createColumn(attributeCode, width, name);
+                        if(newColumn != null) {
+                            cols.push(newColumn);
+                        }
                     }
                 }
                 else {
@@ -332,15 +343,6 @@ class GennyTable extends Component {
                         }
                     });
                 }
-
-                // if(this.props.actions.length > 0) {
-                //     cols.splice(0, 0, {
-                //         'Header': <span className="header-single">Actions</span>,
-                //         'accessor': 'actions',
-                //         'Cell': ({row, original}) => <GennyActionTableCell original={original} value={row.code} />,
-                //         'minWidth': 140
-                //     });
-                // }
 
                 if ( this.props.actions && this.props.actions.length > 0 ) {
                     cols.splice(0, 0, {
