@@ -234,34 +234,36 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             }
 
             /* we check if the parent data exists or we create it */
-            if(state.data[newItem.parentCode] == null) {
+            if(existing[newItem.parentCode] == null) {
+                existing[newItem.parentCode] = {};
+            }
 
-                existing[newItem.parentCode] = {
-                    ...existing[newItem.parentCode]
-                };
+            if(existing[newItem.parentCode].links == null) {
+                existing[newItem.parentCode].links = {};
+            }
 
-                if(existing[newItem.parentCode].links == null) {
-                    existing[newItem.parentCode].links = {
-                        ...(state.data[newItem.parentCode] && state.data[newItem.parentCode].links ? state.data[newItem.parentCode].links : {})
-                    };
+            if(existing[newItem.parentCode].links[linkCode] == null) {
+              existing[newItem.parentCode].links[linkCode] = [];
+            }
+
+            let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
+            let linkedItemFound = links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
+            if(linkedItemFound == false) {
+
+                if (links[linkCode] == null) {
+                    links[linkCode] = [];
                 }
 
-                if(existing[newItem.parentCode].links[linkCode] == null) {
-                  existing[newItem.parentCode].links[linkCode] = [];
-                }
-
-                let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
-                let linkedItemFound = links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
-
-                if(linkedItemFound == false) {
-
-                    if (links[linkCode] == null) {
-                        links[linkCode] = [];
-                    }
-
-                    links[linkCode] = [
-                        ...links[linkCode],
-                        ...[{
+                links[linkCode] = [
+                    ...links[linkCode],
+                    ...[{
+                        attributeCode: linkCode,
+                        weight: 1,
+                        targetCode: newItem.code,
+                        sourceCode: newItem.parentCode,
+                        linkValue: "LINK",
+                        valueString: "LINK",
+                        link: {
                             attributeCode: linkCode,
                             weight: 1,
                             targetCode: newItem.code,
@@ -285,12 +287,10 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                     links: links
                 }
             }
-            else {
 
-                existing[newItem.parentCode] = {
-                    ...state.data[newItem.parentCode],
-                    ...existing[newItem.parentCode]
-                }
+            existing[newItem.parentCode] = {
+                ...existing[newItem.parentCode],
+                links: links
             }
         }
     }
