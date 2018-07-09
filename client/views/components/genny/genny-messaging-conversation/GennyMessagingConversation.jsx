@@ -541,7 +541,7 @@ class GennyMessagingConversation extends Component {
         const currentUser = users && users.filter(x => x.code == currentUserCode)[0];
         const otherUser = users && users.filter(x => x.code != currentUserCode)[0];
 
-        let messages = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_CORE');
+        let messages = BaseEntityQuery.getLinkedBaseEntities(root, 'LNK_MESSAGES');
         if (this.props.showFilters) messages = this.filterMessages(messages);
         const orderedMessages = this.orderMessages(messages);
 
