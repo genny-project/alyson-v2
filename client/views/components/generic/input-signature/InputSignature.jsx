@@ -128,10 +128,15 @@ class InputSignature extends Component {
         }
     }
 
-    handleRemove = () => {
+    handleFileClick = (url) => event => {
+        window.open(url);
+    }
+
+    handleRemove = (e) => {
+        e.stopPropagation();
         if (this.props.validation) this.props.validation( '', this.props.identifier, this.props.validationList);
-        if (this.props.onChange) {
-            this.props.onChange( '' );
+        if (this.props.handleOnChange) {
+            this.props.handleOnChange( '' );
         }
     }
 
@@ -227,9 +232,10 @@ class InputSignature extends Component {
                         
                         <a
                             className="file-tile"
-                            href={ value }
-                            target="_blank"
-                            rel="noopener"
+                            // href={ value }
+                            // target="_blank"
+                            // rel="noopener"
+                            onClick={this.handleFileClick(value)}
                         >
                             <img
                                 className="file-image"

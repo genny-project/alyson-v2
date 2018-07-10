@@ -27,7 +27,7 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
                 for(let i = 0; i < links.length; i++) {
 
                     const link = links[i];
-                    if(link.targetCode != null && link.targetCode != baseEntityCode) {
+                    if(link.targetCode != null && link.targetCode != newItem.code) {
                         newLinkedLinks.push(link);
                     }
                 }

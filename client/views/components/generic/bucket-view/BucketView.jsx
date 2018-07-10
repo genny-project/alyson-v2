@@ -484,6 +484,7 @@ class BucketView extends Component {
         const { buckets } = this.state;
         let isMobile = window.getScreenSize() == 'sm';
         let columns = buckets.map((bucket, index) => {
+            // console.log(bucket.title, ':', bucket.weight);
             return (
                 <BucketColumn
                     screenSize={this.props.screenSize}

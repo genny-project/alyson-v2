@@ -1,17 +1,22 @@
 import './treeView.scss';
 import React, { Component } from 'react';
-import { object, array, func } from 'prop-types';
+import { object, array, func, bool, oneOfType } from 'prop-types';
 import { IconSmall } from 'views/components';
 import { Fade, Slide, Scale } from 'views/utils/animations';
 
 class TreeView extends Component {
+
+    static defaultProps = {
+        hideRootChildCount: true,
+    }
 
     static propTypes = {
         style: object,
         items: array,
         data: object,
         onClick: func,
-        onExpand: func
+        onExpand: func,
+        hideRootChildCount: bool,
     };
 
     state = {
@@ -53,7 +58,8 @@ class TreeView extends Component {
 
             let childNumber = null;
 
-            if ( levelIndex > 0 ) {
+            if ( !this.props.hideRootChildCount || ( this.props.hideRootChildCount && levelIndex > 0 ) ) {
+                // console.log('childCount', item.childCount, 'children.length', item.children.length);
                 childNumber = item.childCount ? item.childCount : item.children && item.children.length || false;
             }
 

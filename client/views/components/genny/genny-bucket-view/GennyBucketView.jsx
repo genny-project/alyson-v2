@@ -100,11 +100,11 @@ class GennyBucketView extends PureComponent {
 
         let bes = BaseEntityQuery.getEntityChildren(groupCode);
 
+        // console.log(bes);
         bes.forEach(be => {
 
             let layout_code = 'card';
             let sublayout = this.props.sublayout[layout_code];
-            //console.log(be.created);
             children.push(
                 {
                 content: {
@@ -128,6 +128,7 @@ class GennyBucketView extends PureComponent {
 
         let buckets = [];
         let rootGroups = BaseEntityQuery.getEntityChildren(root);
+        // console.log(rootGroups);
         rootGroups.forEach(group => {
 
             let canAddItem = false;
@@ -158,6 +159,7 @@ class GennyBucketView extends PureComponent {
                 legend: legendValues,
             });
         });
+        // console.log(buckets);
 
         return buckets;
     }

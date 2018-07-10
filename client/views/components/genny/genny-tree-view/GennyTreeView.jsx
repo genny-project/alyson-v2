@@ -185,7 +185,7 @@ class GennyTreeView extends Component {
                         child.icon = imageAttribute.value;
                     }
                     child.visibleChildren = this.countVisibleChildren(child);
-                    child.childCount = child.originalLinks ? child.originalLinks.length : null;
+                    child.childCount = child.links ? child.links.length : null;
                     child.open = !!this.state.tree[child.code];
                     return child;
                 }); 
