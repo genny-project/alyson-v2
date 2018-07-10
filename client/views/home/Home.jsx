@@ -2,6 +2,7 @@ import './home.scss';
 import React, { Component } from 'react';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import { BaseEntityQuery } from 'utils/genny/'
+import TagManager from 'react-gtm-module';
 
 class Home extends Component {
 
@@ -23,6 +24,28 @@ class Home extends Component {
         }
     }
 
+    setupGoogleTagManager() {
+
+        /* we check if we have already set it up */
+        let gtmID = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_GOOGLE_GTM_ID');
+
+        if(gtmID && gtmID.value) {
+
+            // let gtmString = 'https://www.googletagmanager.com/gtm.js?id=' + gtmID.value + '&l=dataLayer';
+            // const script = document.createElement('script');
+            // script.src = gtmString;
+            // script.async = true;
+            // script.id = 'google-tag-manager';
+            // document.getElementsByTagName('script')[0].parentNode.insertBefore(script, document.getElementsByTagName('script')[0]);
+
+            const tagManagerArgs = {
+                gtmId: gtmID.value
+            }
+
+            TagManager.initialize(tagManagerArgs)
+        }
+    }
+
     render() {
 
         const { layouts, } = this.props;
@@ -31,6 +54,7 @@ class Home extends Component {
         const { current, loaded } = layouts;
 
         this.setupGoogleAPI();
+        this.setupGoogleTagManager();
 
         /* If the current layout is null or this layout hasn't been loaded display a LayoutNotFound page */
         if ( !current ) {
