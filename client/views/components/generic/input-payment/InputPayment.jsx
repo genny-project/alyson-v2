@@ -82,6 +82,16 @@ class InputPayment extends Component {
         });
     }
 
+    ensureDeviceID( callback ) {
+      promisepay.captureDeviceId( data => {
+          this.setState({
+              deviceID: data,
+          }, () => {
+            callback();
+          });
+      });
+    }
+
     componentDidMount() {
 
         this.updateData();
@@ -172,15 +182,16 @@ class InputPayment extends Component {
     }
 
     onHandleDone = () => {
-
-        GennyBridge.sendAnswer([{
-            ...this.props.data,
-            value: JSON.stringify({
-                ipAddress: this.state.ipAddress,
-                accountID: this.state.selectedPaymentMethod,
-                deviceID: this.state.deviceID
-            })
-        }]);
+        this.ensureDeviceID(() => {
+          GennyBridge.sendAnswer([{
+              ...this.props.data,
+              value: JSON.stringify({
+                  ipAddress: this.state.ipAddress,
+                  accountID: this.state.selectedPaymentMethod,
+                  deviceID: this.state.deviceID
+              })
+          }]);
+        });
     }
 
     handleInputChange = field => event => {
