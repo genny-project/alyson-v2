@@ -227,6 +227,7 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             /* get the link code to the children */
             let linkCode = newItem.linkCode;
             let indexLink = -1;
+            let linkValue = "LINK";
 
             /* we check if the parent data exists or we create it */
             if(existing[newItem.parentCode] == null) {
@@ -253,7 +254,17 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 }
             }
             else {
-               
+                
+                if(existing[newItem.parentCode] == null) {
+                    existing[newItem.parentCode] = {
+                        ...state.data[newItem.parentCode]
+                    }
+                }
+
+                if(existing[newItem.parentCode].links == null) {
+                    existing[newItem.parentCode].links = {}
+                }
+                
                 const keys = Object.keys(existing[newItem.parentCode].links);
                 for (let i = 0; i < keys.length; i++) {
 
@@ -266,12 +277,19 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                         if (element && element.targetCode && element.targetCode == newItem.code) {
                             indexLink = t;
                             linkCode = linkCde;
+                            linkValue = element.linkValue;
                             break;
                         }
                     }
                 }
             }
-            
+
+            if (existing[newItem.parentCode].links[linkCode].length == 0) {
+                existing[newItem.parentCode].links[linkCode] = [
+                    ...(state.data[newItem.parentCode] && state.data[newItem.parentCode].links ? state.data[newItem.parentCode].links[linkCode] : [])
+                ]
+            }
+
             let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
             if (indexLink == -1) {
 
@@ -286,19 +304,19 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                         weight: newItem.weight || 1,
                         targetCode: newItem.code,
                         sourceCode: newItem.parentCode,
-                        linkValue: "LINK",
-                        valueString: "LINK",
+                        linkValue: linkValue,
+                        valueString: linkValue,
                         link: {
                             attributeCode: linkCode,
                             weight: newItem.weight || 1,
                             targetCode: newItem.code,
                             sourceCode: newItem.parentCode,
-                            linkValue: "LINK",
+                            linkValue: linkValue,
                         }
                     }]
                 ]
             }
-            else {
+            else {  
 
                 links[linkCode] = [
                     ...state.data[newItem.parentCode].links[linkCode],
@@ -307,8 +325,8 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 links[linkCode][indexLink] = {
                     ...links[linkCode][indexLink],
                     weight: (links[linkCode][indexLink] ? links[linkCode][indexLink].link.weight : newItem.weight),
-                    linkValue: (links[linkCode][indexLink] ? links[linkCode][indexLink].link.linkValue : newItem.linkValue),
-                    valueString: (links[linkCode][indexLink] ? links[linkCode][indexLink].link.valueString : newItem.valueString),
+                    linkValue: linkValue,
+                    valueString: linkValue,
                 }
             }
 
@@ -317,8 +335,8 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 ...existing[newItem.parentCode],
                 links: links,
                 weight: newItem.weight,
-                linkValue: newItem.linkValue,
-                valueString: newItem.valueString,
+                linkValue: linkValue,
+                valueString: linkValue,
             }
         }
     }
