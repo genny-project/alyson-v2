@@ -28,15 +28,13 @@ class Home extends Component {
 
         /* we check if we have already set it up */
         let gtmID = BaseEntityQuery.getAliasAttribute('PROJECT', 'PRI_GOOGLE_GTM_ID');
+        let googleGTM = document.getElementById('google-tag-manager');
 
-        if(gtmID && gtmID.value) {
+        if(!googleGTM && gtmID && gtmID.value) {
 
-            // let gtmString = 'https://www.googletagmanager.com/gtm.js?id=' + gtmID.value + '&l=dataLayer';
-            // const script = document.createElement('script');
-            // script.src = gtmString;
-            // script.async = true;
-            // script.id = 'google-tag-manager';
-            // document.getElementsByTagName('script')[0].parentNode.insertBefore(script, document.getElementsByTagName('script')[0]);
+            const divGTM = document.createElement('div');
+            divGTM.id = 'google-tag-manager';
+            document.body.appendChild(divGTM);
 
             const tagManagerArgs = {
                 gtmId: gtmID.value
