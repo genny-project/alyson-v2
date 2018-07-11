@@ -254,15 +254,15 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             }
             else {
                
-                const keys = Object.keys(state.data[newItem.parentCode].links);
+                const keys = Object.keys(existing[newItem.parentCode].links);
                 for (let i = 0; i < keys.length; i++) {
 
                     if (indexLink > -1) break;
 
                     const linkCde = keys[i];
-                    for (let t = 0; t < state.data[newItem.parentCode].links[linkCde].length; t++) {
+                    for (let t = 0; t < existing[newItem.parentCode].links[linkCde].length; t++) {
 
-                        const element = state.data[newItem.parentCode].links[linkCde][t];
+                        const element = existing[newItem.parentCode].links[linkCde][t];
                         if (element && element.targetCode && element.targetCode == newItem.code) {
                             indexLink = t;
                             linkCode = linkCde;
@@ -271,9 +271,8 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                     }
                 }
             }
-
+            
             let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
-
             if (indexLink == -1) {
 
                 if (links[linkCode] == null) {

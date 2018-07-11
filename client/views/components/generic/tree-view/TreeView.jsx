@@ -59,8 +59,8 @@ class TreeView extends Component {
             let childNumber = null;
 
             if ( !this.props.hideRootChildCount || ( this.props.hideRootChildCount && levelIndex > 0 ) ) {
-                // console.log('childCount', item.childCount, 'children.length', item.children.length);
-                childNumber = item.childCount ? item.childCount : item.children && item.children.length || false;
+                // console.log('childCounts', item.childCounts, 'childCount', item.childCount, 'children.length', item.children.length);
+                childNumber = item.childCount ? item.childCount : false;
             }
 
             return (
