@@ -64,7 +64,11 @@ class Capability extends PureComponent {
 
     render() {
 
-        const { capabilities, children, defaultChildren } = this.props;
+        const { capabilities, children, defaultChildren, style } = this.props;
+        const componentStyle = {
+            height: '100%',
+            ...style
+        };
 
         let shouldRender = false;
         if( capabilities ) {
@@ -73,14 +77,14 @@ class Capability extends PureComponent {
 
         if(shouldRender) {
             return (
-                <div style={{ height: "100%" }}>
+                <div style={componentStyle}>
                     {children}
                 </div>
             )
         }
 
         return (
-            <div style={{ height: "100%" }}>
+            <div style={componentStyle}>
                 <LayoutLoader layout={{ layout: defaultChildren }} />
             </div>
         );
