@@ -506,8 +506,19 @@ class LayoutLoader extends Component {
 
         if (layout == null) return layout;
 
-        const layoutString = JSON.stringify(layout).replace(/\"PROJECT\.[^\"]*\"/g, '\"\"').replace(/\"USER\.[^\"]*\"/g, '\"\"').replace(/\"BE\.[^\"]*\"/g, '\"\"');
-        layout = JSON.parse(layoutString);
+        const layoutString = JSON.stringify(layout)
+        .replace(/\"PROJECT\.[^\"]*\"/g, '\"\"')
+        .replace(/\"USER\.[^\"]*\"/g, '\"\"')
+        .replace(/\"BE\.[^\"]*\"/g, '\"\"')
+            .replace(/\${.*?\}/g, '-');
+        
+        try {
+            layout = JSON.parse(layoutString);
+        }
+        catch( e ) {
+            console.log( e )
+        }
+        
         return layout;
         //return JSON.parse(JSON.stringify( layout ).replace(/\"BE\..*\"/g, ''));
     }

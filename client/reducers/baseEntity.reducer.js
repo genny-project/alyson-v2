@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBaseEntities) => {
-
+    console.log('delete BE', state, action, existing, newItem, shouldDeleteLinkedBaseEntities);
     let baseEntityCode = newItem.code;
     const parentCode = action.payload.parentCode;
 
@@ -53,7 +53,7 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
             });
         }
     }
-
+    console.log('baseEntityCode',baseEntityCode);
     delete existing[baseEntityCode];
     delete state.data[baseEntityCode];
 
@@ -64,8 +64,11 @@ const handleBaseEntity = (state, action, existing, newItem) => {
     let baseEntityCode = newItem.code;
 
     if (action.payload.delete === true) {
-        deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
-
+        
+let shouldDeletedLinkedBes = !action.payload.shouldDeleteLinkedBaseEntities
+    ? action.payload.replace
+    : action.payload.shouldDeleteLinkedBaseEntities;
+        deleteBaseEntity(state, action, existing, newItem, shouldDeletedLinkedBes );
     } 
     else {
 
