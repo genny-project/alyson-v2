@@ -48,15 +48,15 @@ class AppHolder extends Component {
             event.preventDefault();
         });
 
-        try {
+        // try {
 
-            const id = keycloak && keycloak.idTokenParsed;
-            const name = id && id.name;
-            const email = id && id.email;
-            UserTiming.setUser({ name: `${name || 'Unknown'} - ${email || 'Unknown'}` });
-        } catch ( e ) {
-            /* Do nothing */
-        }
+        //     const id = keycloak && keycloak.idTokenParsed;
+        //     const name = id && id.name;
+        //     const email = id && id.email;
+        //     UserTiming.setUser({ name: `${name || 'Unknown'} - ${email || 'Unknown'}` });
+        // } catch ( e ) {
+        //     /* Do nothing */
+        // }
     }
 
     render() {

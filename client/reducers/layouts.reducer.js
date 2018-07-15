@@ -121,10 +121,10 @@ export default function reducer(state = initialState, action) {
 
             const newSublayoutCode = action.payload.code;
 
-            /* HACK Measure load timing more accurately */
-            if ( newSublayoutCode === 'BUCKET_DASHBOARD' ) {
-              UserTiming.event({ type: 'APP_LOADED' });
-            }
+            // /* HACK Measure load timing more accurately */
+            // if ( newSublayoutCode === 'BUCKET_DASHBOARD' ) {
+            //   UserTiming.event({ type: 'APP_LOADED' });
+            // }
 
             const newSublayout = JSON.parse(action.payload.items);
 
