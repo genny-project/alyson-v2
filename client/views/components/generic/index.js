@@ -53,6 +53,7 @@ export { default as NotificationItem } from './notification-item';
 export { default as Notifications } from './notifications';
 export { default as Pagination } from './pagination';
 export { default as Passcode } from './passcode';
+export { default as PDFViewer } from './pdf-viewer';
 export { default as ProfileImageView } from './profile-image-view';
 export { default as ProgressBar } from './progress-bar';
 export { default as ProgressNodes } from './progress-nodes';

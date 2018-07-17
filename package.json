@@ -76,6 +76,7 @@
     "moment": "^2.20.1",
     "node-sass": "^4.5.0",
     "path": "^0.12.7",
+    "pdfjs-dist": "2.0.489",
     "postcss-uncss": "^0.15.0",
     "prettier-bytes": "^1.0.4",
     "query-string": "^4.3.4",

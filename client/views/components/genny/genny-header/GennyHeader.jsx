@@ -1,7 +1,7 @@
 import './gennyHeader.scss';
 import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
-import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications } from 'views/components';
+import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications, PDFViewer } from 'views/components';
 import { Grid } from '@genny-project/layson';
 import { string, object, bool, array  } from 'prop-types';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
@@ -153,14 +153,13 @@ class GennyHeader extends Component {
         // }
 
         let roles = null;
-
+    
         if ( userRoles && userRoles.length > 0 ) {
             roles = userRoles
-                .filter(role => role.value == true)
+                .filter(role => role.value == true || role.value == 'true' )
                 .map(role => role.name)
                 .join(', ');
         }
-        console.log(roles);
 
         return (
         <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
@@ -188,6 +187,9 @@ class GennyHeader extends Component {
                 rows={[ { style: { flexGrow: '1', paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: '100%' } } ]}
                 >
                 <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3>
+                <div position={[0,0]} style={{position: 'relative'}}>
+                    <PDFViewer />
+                </div>
                 <div className='header-messages clickable'
                     position={[0,1]}
                     onClick={this.handleMessages}
@@ -202,17 +204,6 @@ class GennyHeader extends Component {
                     iconName='notifications'
                     root='GRP_NOTIFICATIONS'
                 />
-                {/* <Label
-                    position={[0,1]}
-                    text={`${isAdmin ? 'ADMIN' : ''} ${isOwner ? 'OWNER' : ''} ${isDriver ? 'DRIVER' : ''}`}
-                    style={{
-                    marginRight: '5px',
-                    fontSize: '0.75em',
-                    border: 'solid 1px #BBB',
-                    borderRadius: '5px',
-                    padding: '2.5px 5px',
-                    }}
-                /> */}
                 { window.getScreenSize() == 'sm' ? null :
                     <ProfileImageView position={[0,1]} isOnline={true} src={userImage} style={{ margin: '5px', width: '30px', minWidth: '30px'}}/>
                 }
@@ -227,7 +218,7 @@ class GennyHeader extends Component {
                     tabIndex='-1'
                     animateHeader={window.getScreenSize() != 'sm'}
                     contentStyle={{
-                        boxShadow: "0 3px 20px rgba(0, 0, 0, 0.5)"
+                        boxShadow: '0 3px 20px rgba(0, 0, 0, 0.5)'
                     }}
                     header={
                         window.getScreenSize() == 'sm' ?
