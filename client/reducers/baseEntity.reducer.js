@@ -78,6 +78,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                 ...state.data[baseEntityCode],
                 ...existing[baseEntityCode],
                 ...newItem,
+                parentCode: newItem.parentCode || (existing[baseEntityCode] ? existing[baseEntityCode].parentCode : null),
                 originalLinks: newItem.links,
                 links: newItem.links.reduce((existingLinks, newLink) => {
 
@@ -156,6 +157,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
             ...state.data[baseEntityCode],
             ...existing[baseEntityCode],
             ...newItem,
+            parentCode: newItem.parentCode || (existing[baseEntityCode] ? existing[baseEntityCode].parentCode : null),
             originalLinks: newItem.links,
             links: newItem.links.reduce((existingLinks, newLink) => {
 
@@ -277,21 +279,21 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                                 linkValue: "LINK",
                             }
                         }]
-                    ]
+                    ];
                 }
 
                 existing[newItem.parentCode] = {
                     ...state.data[newItem.parentCode],
                     ...existing[newItem.parentCode],
                     links: links
-                }
+                };
             }
             else {
 
                 existing[newItem.parentCode] = {
                     ...state.data[newItem.parentCode],
                     ...existing[newItem.parentCode]
-                }
+                };
             }
         }
     }

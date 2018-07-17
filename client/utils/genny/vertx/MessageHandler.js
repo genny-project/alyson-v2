@@ -141,7 +141,7 @@ class MessageHandler {
                         finalMessages[currentMessage.parentCode].items = finalMessages[currentMessage.parentCode].items.concat(currentMessage.items);
                         finalMessages[currentMessage.parentCode].items.forEach(item => {
 
-                            item.parentCode = currentMessage.parentCode;
+                            currentMessage.parentCode ? item.parentCode = currentMessage.parentCode : null;
                             item.linkCode = currentMessage.linkCode;
                         });
                     }
@@ -155,9 +155,9 @@ class MessageHandler {
                         finalMessages[currentMessage.aliasCode].items = finalMessages[currentMessage.aliasCode].items.concat(currentMessage.items);
                         finalMessages[currentMessage.parentCode].items.forEach(item => {
 
-                            item.aliasCode = currentMessage.aliasCode
-                            item.linkCode = currentMessage.linkCode
-                            item.parentCode = currentMessage.parentCode
+                            currentMessage.aliasCode ? item.aliasCode = currentMessage.aliasCode : null;
+                            currentMessage.linkCode ? item.linkCode = currentMessage.linkCode : null;
+                            currentMessage.parentCode ? item.parentCode = currentMessage.parentCode : null;
                         });
                     }
                 }
@@ -181,9 +181,9 @@ class MessageHandler {
 
                     message.items != null && message.items instanceof Array && message.items.forEach(item => {
 
-                        item.parentCode = message.parentCode
-                        item.aliasCode = message.aliasCode
-                        item.linkCode = message.linkCode
+                        message.aliasCode ? item.aliasCode = message.aliasCode : null;
+                        message.linkCode ? item.linkCode = message.linkCode : null;
+                        message.parentCode ? item.parentCode = message.parentCode : null;
                     });
 
                     handleMessage(message, message.data_type);
@@ -194,9 +194,9 @@ class MessageHandler {
 
             message.items != null && message.items instanceof Array  && message.items.forEach(item => {
 
-                item.parentCode = message.parentCode
-                item.aliasCode = message.aliasCode
-                item.linkCode = message.linkCode
+                message.aliasCode ? item.aliasCode = message.aliasCode : null;
+                message.linkCode ? item.linkCode = message.linkCode : null;
+                message.parentCode ? item.parentCode = message.parentCode : null;
             });
 
             handleMessage(message, eventType);
