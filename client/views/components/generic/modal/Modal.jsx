@@ -41,7 +41,7 @@ class Modal extends Component {
             <div className='modal-background' onClick={this.close} />
             <div className="modal">
                 <IconSmall className='modal-close clickable' onClick={this.close} name='clear' />
-                <div className='modal-content'>
+                <div className='modal-content scrollbar-dark'>
                     {children}
                 </div>
             </div>

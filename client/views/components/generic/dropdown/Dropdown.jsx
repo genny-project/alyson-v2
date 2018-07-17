@@ -15,6 +15,7 @@ class Dropdown extends Component {
     animateHeader: true,
     animateFooter: true,
     closeOnChildClick: true,
+    stopPropagationOnClick: false,
   }
 
   static propTypes = {
@@ -34,6 +35,7 @@ class Dropdown extends Component {
     animateFooter: bool,
     onBlur: func,
     closeOnChildClick: bool,
+    stopPropagationOnClick: bool,
   }
 
   state = {
@@ -58,7 +60,8 @@ class Dropdown extends Component {
     }
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
+    if (this.props.stopPropagationOnClick) e.stopPropagation();
     this.setState({ isOpen: !this.state.isOpen});
   }
 

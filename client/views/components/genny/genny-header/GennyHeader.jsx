@@ -3,7 +3,7 @@ import { customStyle } from './gennyHeaderStyle';
 import React, { Component } from 'react';
 import { Label, Dropdown, ProfileImageView, IconSmall, GennyTreeView, Header, GennyNotifications } from 'views/components';
 import { Grid } from '@genny-project/layson';
-import { string,object, bool  } from 'prop-types';
+import { string, object, bool, array  } from 'prop-types';
 import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 // import decode_token from 'jwt-decode';
 
@@ -12,14 +12,27 @@ class GennyHeader extends Component {
     static defaultProps = {
         className: '',
         style: {},
-        hideSubheader: false
+        hideSubheader: false,
+        userRoles: [
+            // {
+            //     name: 'Student',
+            //     value: true
+            // },
+            // {
+            //     name: 'Amazing',
+            //     value: false
+            // }
+        ],
+        showRoles: false
     }
 
     static propTypes = {
         className: string,
         height: string,
         style: object,
-        hideSubheader: bool
+        hideSubheader: bool,
+        userRoles: array,
+        showRoles: bool,
     };
 
     state = {
@@ -114,7 +127,7 @@ class GennyHeader extends Component {
 
     render() {
 
-        const { style, className, projectTitle, projectGreeting, userName, userImage, hideSubheader, token, currentUser } = this.props;
+        const { style, className, projectTitle, projectGreeting, userName, userImage, hideSubheader, token, userRoles, showRoles } = this.props;
         const { isOpen } = this.state;
         const componentStyle = {
             ...style,
@@ -132,10 +145,22 @@ class GennyHeader extends Component {
         // let isAdmin = roles.includes('admin');
 
         let attributes = BaseEntityQuery.getBaseEntityAttributes(GennyBridge.getUser());
-        if(attributes) {
-            const roles = Object.keys(attributes).map(attributeKey => { return (attributes[attributeKey].attributeCode != null && attributes[attributeKey].attributeCode.startsWith("PRI_IS") != null) ? attributes[attributeKey].attributeCode : false } );
-            //console.log( roles );
+        // if(attributes) {
+        //     const roles = Object.keys(attributes).filter(attributeKey => {
+        //         return (attributes[attributeKey].attributeCode != null && attributes[attributeKey].attributeCode.startsWith("PRI_IS_") != null) ? attributes[attributeKey].attributeCode : false }
+        //     );
+        //     //console.log( roles );
+        // }
+
+        let roles = null;
+
+        if ( userRoles && userRoles.length > 0 ) {
+            roles = userRoles
+                .filter(role => role.value == true)
+                .map(role => role.name)
+                .join(', ');
         }
+        console.log(roles);
 
         return (
         <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>
@@ -192,7 +217,7 @@ class GennyHeader extends Component {
                     <ProfileImageView position={[0,1]} isOnline={true} src={userImage} style={{ margin: '5px', width: '30px', minWidth: '30px'}}/>
                 }
                 { window.getScreenSize() == 'sm' ? null :
-                    <Label position={[0,1]} text={`${userName}`}/>
+                    <Label position={[0,1]} text={`${userName} ${showRoles && roles ? `( ${roles} )` : ''}`}/>
                 }
                 <Dropdown
                     style={ customStyle.dropdown }
@@ -201,6 +226,9 @@ class GennyHeader extends Component {
                     onBlur={this.handleBlur}
                     tabIndex='-1'
                     animateHeader={window.getScreenSize() != 'sm'}
+                    contentStyle={{
+                        boxShadow: "0 3px 20px rgba(0, 0, 0, 0.5)"
+                    }}
                     header={
                         window.getScreenSize() == 'sm' ?
                         <ProfileImageView

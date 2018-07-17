@@ -18,6 +18,7 @@ class BaseEntityQuery {
         const safeRecursion = recursionSafeCodes != null ? recursionSafeCodes : new Object();
         const be = BaseEntityQuery.getBaseEntity(baseEntityCode);
         let results = [];
+        
         const recurse = (itemCode, itemWeight) => {
 
             let item = BaseEntityQuery.getBaseEntity(itemCode);

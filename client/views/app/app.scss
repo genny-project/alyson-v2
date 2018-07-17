@@ -108,3 +108,39 @@ body, html {
 main {
     width: 100%;
 }
+
+.scrollbar-dark {
+    &::-webkit-scrollbar {
+        height: 10px !important;
+        width: 10px !important;
+        background: rgba(0,0,0,0) !important;
+    }
+    
+    &::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background: rgba(0,0,0,0) !important;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background:  rgba(0,0,0, .5) !important; 
+    }
+}
+
+.scrollbar-light {
+    &::-webkit-scrollbar {
+        height: 10px !important;
+        width: 10px !important;
+        background: rgba(0,0,0,0) !important;
+    }
+    
+    &::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background: rgba(0,0,0,0) !important;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background:  rgba(255,255,255, .75) !important; 
+    }
+}

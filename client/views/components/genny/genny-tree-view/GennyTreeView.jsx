@@ -167,6 +167,21 @@ class GennyTreeView extends Component {
         return numberOfVisibleChildren;
     }
 
+    countChildren = ( item ) => {
+        let numberOfChildren = 0;
+        if ( item.children ) {
+            numberOfChildren = numberOfChildren + item.children.filter(x => {
+                const isGRP = x.code && x.code.startsWith('GRP');
+                return !isGRP;
+            }).length;
+            item.children.forEach(child => {
+                numberOfChildren = numberOfChildren + this.countChildren(child);
+            });
+        }
+
+        return numberOfChildren;
+    }
+
     render() {
 
         const { root, isHorizontal } = this.props;
@@ -181,14 +196,16 @@ class GennyTreeView extends Component {
                 children.forEach(child => {
                     child.children = getChildren(child.code);
                     const imageAttribute = BaseEntityQuery.getBaseEntityAttribute(child.code, 'PRI_IMAGE_URL');
-                    if(imageAttribute != null && child.code.startsWith('GRP_')) {
+                    if(imageAttribute != null && child.code && child.code.startsWith('GRP_')) {
                         child.icon = imageAttribute.value;
                     }
                     child.visibleChildren = this.countVisibleChildren(child);
-                    child.childCount = child.originalLinks ? child.originalLinks.length : null;
+                    child.childCount = this.countChildren(child);
+                    //child.childCount = child.links ? child.links.length : null;
                     child.open = !!this.state.tree[child.code];
+                    //console.log(child.childCounts, child.childCount);
                     return child;
-                }); 
+                });
             }
 
             /* we set up the kids */
