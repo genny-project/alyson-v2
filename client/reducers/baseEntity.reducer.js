@@ -269,14 +269,14 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                             weight: 1,
                             targetCode: newItem.code,
                             sourceCode: newItem.parentCode,
-                            linkValue: "LINK",
-                            valueString: "LINK",
+                            linkValue: newItem.linkValue || "LINK",
+                            valueString: newItem.linkValue || "LINK",
                             link: {
                                 attributeCode: linkCode,
                                 weight: 1,
                                 targetCode: newItem.code,
                                 sourceCode: newItem.parentCode,
-                                linkValue: "LINK",
+                                linkValue: newItem.linkValue || "LINK",
                             }
                         }]
                     ];
@@ -383,6 +383,7 @@ export default function reducer(state = initialState, action) {
                         state.data[be_code].attributes[attributeCode] = {
                             ...state.data[be_code].attributes[attributeCode],
                             value: newAtt.value,
+                            valueString: newAtt.value,
                             attribute: {
                                 ...(state.data[be_code].attributes[attributeCode] ? state.data[be_code].attributes[attributeCode].attribute : {}),
                                 ...newAtt,

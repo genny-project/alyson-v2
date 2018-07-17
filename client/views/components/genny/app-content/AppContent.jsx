@@ -68,9 +68,6 @@ class AppContent extends Component {
             else if (commandData.code == 'PASSCODE') {
                 return <GennyPasscode />;
             }
-            else if (commandData.code == 'TAB_VIEW') {
-                return <TabContainer views={commandData.data} />;
-            }
             else if (commandData.code == 'MESSAGE_VIEW') {
                 return <GennyMessagingList root={commandData.root || commandData.data} selectedItem={commandData.selectedItem}/>;
             }
@@ -98,7 +95,6 @@ class AppContent extends Component {
                 );
             }
             else if (commandData.code == 'TAB_VIEW') {
-
                 const views = commandData.tabs.map(item => {
                     return {
                         title: item.name,
@@ -106,7 +102,6 @@ class AppContent extends Component {
                         layout: this.renderContent('view', item.layout)
                     };
                 });
-
                 return <TabContainer views={views} />;
             }
             else if (commandData.code == 'DETAIL_VIEW') {
@@ -196,6 +191,7 @@ class AppContent extends Component {
                         useNewMessageAttributes
                         alwaysShowImage
                         buttonText='Add Note'
+                        noItemsText='No Notes Yet'
                     />
                     : null
                 }

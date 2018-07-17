@@ -12,6 +12,7 @@ import {
     InputRadio,
     InputRating,
     InputSearch,
+    InputSignature,
     InputSlider,
     InputTerms,
     InputText,
@@ -472,6 +473,16 @@ class Input extends Component {
                     handleOnChange={this.handleOnChange}
                 />
             );
+            case 'Signature':
+            return (
+                <InputSignature
+                    {...rest}
+                    value={this.state.value}
+                    className={identifier}
+                    validation={this.validateInput}
+                    handleOnChange={this.handleOnChange}
+                />
+            );
             default:
             return (
                 <InputText
@@ -484,6 +495,13 @@ class Input extends Component {
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                 />
+                // <InputSignature
+                //     {...rest}
+                //     value={this.state.value}
+                //     className={identifier}
+                //     validation={this.validateInput}
+                //     handleOnChange={this.handleOnChange}
+                // />
             );
         }
     }

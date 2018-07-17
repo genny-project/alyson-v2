@@ -143,6 +143,7 @@ class MessageHandler {
 
                             currentMessage.parentCode ? item.parentCode = currentMessage.parentCode : null;
                             item.linkCode = currentMessage.linkCode;
+                            item.linkValue = currentMessage.linkValue;
                         });
                     }
                     else {
@@ -158,6 +159,7 @@ class MessageHandler {
                             currentMessage.aliasCode ? item.aliasCode = currentMessage.aliasCode : null;
                             currentMessage.linkCode ? item.linkCode = currentMessage.linkCode : null;
                             currentMessage.parentCode ? item.parentCode = currentMessage.parentCode : null;
+                            currentMessage.linkValue ? item.linkValue = currentMessage.linkValue : null;
                         });
                     }
                 }
@@ -184,6 +186,7 @@ class MessageHandler {
                         message.aliasCode ? item.aliasCode = message.aliasCode : null;
                         message.linkCode ? item.linkCode = message.linkCode : null;
                         message.parentCode ? item.parentCode = message.parentCode : null;
+                        message.linkValue ? item.linkValue = message.linkValue : null;
                     });
 
                     handleMessage(message, message.data_type);
@@ -197,6 +200,7 @@ class MessageHandler {
                 message.aliasCode ? item.aliasCode = message.aliasCode : null;
                 message.linkCode ? item.linkCode = message.linkCode : null;
                 message.parentCode ? item.parentCode = message.parentCode : null;
+                message.linkValue ? item.linkValue = message.linkValue : null;
             });
 
             handleMessage(message, eventType);
