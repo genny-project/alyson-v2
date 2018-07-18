@@ -9,7 +9,7 @@ import { LayoutLoader } from 'utils/genny/layout-loader';
 class GennyBucketView extends PureComponent {
 
     static defaultProps = {
-        allowItemClick: true,
+        allowItemClick: false,
     }
 
     static propTypes = {
@@ -73,24 +73,26 @@ class GennyBucketView extends PureComponent {
     }
 
     handleClick = (bucketItemProps) => {
-        let btnValue = {
-            hint: bucketItemProps.rootCode,
-            itemCode: bucketItemProps.description,
-            userCode: GennyBridge.getUser()
-        };
-
-        btnValue = JSON.stringify(btnValue);
-
-        GennyBridge.sendBtnClick('BTN_CLICK', {
-            code: 'SELECT_EVENT',
-            value: btnValue
-        });
-
-        this.setState({
-            selectedItemState: bucketItemProps.code,
-        });
-
-        if (this.props.onClick) this.props.onClick();
+        if (this.props.allowItemClick) {
+            let btnValue = {
+                hint: bucketItemProps.rootCode,
+                itemCode: bucketItemProps.description,
+                userCode: GennyBridge.getUser()
+            };
+    
+            btnValue = JSON.stringify(btnValue);
+    
+            GennyBridge.sendBtnClick('BTN_CLICK', {
+                code: 'SELECT_EVENT',
+                value: btnValue
+            });
+    
+            this.setState({
+                selectedItemState: bucketItemProps.code,
+            });
+    
+            if (this.props.onClick) this.props.onClick();
+        }
     }
 
     generateBucket(group) {
