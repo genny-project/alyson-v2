@@ -16,7 +16,6 @@ class PDFViewer extends Component {
     static defaultProps = {
         page: 1,
         onDocumentComplete: null,
-        file: 'https://s3.ap-southeast-2.amazonaws.com/internmatch-uploads/ESH1HwKh6SF8toJcDldsYfkwdZBqIwhJ'
     }
 
     state = {
@@ -24,8 +23,8 @@ class PDFViewer extends Component {
     };
 
     componentDidMount() {
-        // Asynchronous download of PDF
-        var loadingTask = pdfjsLib.getDocument(this.props.file);
+
+//        if (!this.props.file) return;
 
         var container = this.viewerContainer;
         var pdfViewer = new pdfjsViewer.PDFViewer({
@@ -83,6 +82,8 @@ class PDFViewer extends Component {
         // });
     }
 
+    
+
     render() {
 
         const { className, style } = this.props;
@@ -91,10 +92,9 @@ class PDFViewer extends Component {
             ...style,
         };
         return (
-            <div className={`pdf-viewer ${className}`} style={componentStyle} ref={r => this.viewerContainer = r} id="viewerContainer">
+            <div className={`pdf-viewer scrollbar-dark ${className}`} style={componentStyle} ref={r => this.viewerContainer = r} id="viewerContainer">
                 <div id="viewer" className="pdfViewer" ref={r => this.viewer = r} />
                 {/* <canvas ref={(canvas) => { this.canvas = canvas; }} /> */}
-                <span>PDF</span>
             </div>
         );
     }
