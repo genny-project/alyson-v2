@@ -1,8 +1,9 @@
 import './pdfViewer.scss';
 import React, { Component } from 'react';
-import { string, object, bool, number, func } from 'prop-types';
-import PdfJsLib from 'pdfjs-dist';
-import { IconSmall } from 'views/components';
+import { string, number, func } from 'prop-types';
+const pdfjsLib = window['pdfjs-dist/build/pdf'];
+const pdfjsViewer = window['pdfjs-dist/web/pdf_viewer'];
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.489/build/pdf.worker.min.js';
 
 class PDFViewer extends Component {
 
@@ -23,63 +24,76 @@ class PDFViewer extends Component {
     };
 
     componentDidMount() {
-        //PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.worker.js';
-        PdfJsLib.getDocument(this.props.file).then((pdf) => {
-            console.log({pdf});
-            this.setState({ pdf });
-            if (this.props.onDocumentComplete) {
-                this.props.onDocumentComplete(pdf.pdfInfo.numPages);
-            }
-            pdf.getPage(this.props.page).then((page) => {
-                const scale = 1.5;
-                const viewport = page.getViewport(scale);
+        // Asynchronous download of PDF
+        var loadingTask = pdfjsLib.getDocument(this.props.file);
 
-                const { canvas } = this;
-                const canvasContext = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                const renderContext = {
-                    canvasContext,
-                    viewport,
-                };
-
-            });
+        var container = this.viewerContainer;
+        var pdfViewer = new pdfjsViewer.PDFViewer({
+            container: container,
         });
-    }
 
-    componentWillReceiveProps(newProps) {
-        if (newProps.page !== this.props.page) {
-            this.state.pdf.getPage(newProps.page).then((page) => {
-                const scale = 1.5;
-                const viewport = page.getViewport(scale);
+        const CMAP_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.489/cmaps/';
+        const CMAP_PACKED = true;
 
-                const { canvas } = this;
-                const canvasContext = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+        container.addEventListener('pagesinit', function () {
+            // We can use pdfViewer now, e.g. let's change default scale.
+            pdfViewer.currentScaleValue = 'page-width';        
+        });
 
-                const renderContext = {
-                    canvasContext,
-                    viewport,
-                };
-                page.render(renderContext);
-            });
-        }
+        pdfjsLib.getDocument({
+            url: this.props.file,
+            cMapUrl: CMAP_URL,
+            cMapPacked: CMAP_PACKED,
+        }).then(function (pdfDocument) {
+            // Document loaded, specifying document for the viewer and
+            // the (optional) linkService.
+            pdfViewer.setDocument(pdfDocument);
+        });
+
+        // loadingTask.promise.then(pdf => {
+        //     console.log('PDF loaded');
+
+        //     // Fetch the first page
+        //     var pageNumber = 1;
+        //     pdf.getPage(pageNumber).then(page => {
+        //         console.log('Page loaded');
+
+        //         var scale = 1.5;
+        //         var viewport = page.getViewport(scale);
+
+        //         // Prepare canvas using PDF page dimensions
+        //         var canvas = this.canvas;
+        //         var context = canvas.getContext('2d');
+        //         canvas.height = viewport.height;
+        //         canvas.width = viewport.width;
+
+        //         // Render PDF page into canvas context
+        //         var renderContext = {
+        //             canvasContext: context,
+        //             viewport: viewport
+        //         };
+        //         var renderTask = page.render(renderContext);
+        //         renderTask.then(function () {
+        //             console.log('Page rendered');
+        //         });
+        //     });
+        // }, function (reason) {
+        //     // PDF loading error
+        //     console.error(reason);
+        // });
     }
 
     render() {
 
-        const { className, style, file } = this.props;
-        const { pageNumber, numPages } = this.state;
+        const { className, style } = this.props;
 
         const componentStyle = {
             ...style,
         };
-        console.log('VIEWER', pageNumber, numPages);
         return (
-            <div className={`pdf-viewer ${className}`} style={componentStyle}>
-                <canvas ref={(canvas) => { this.canvas = canvas; }} />
+            <div className={`pdf-viewer ${className}`} style={componentStyle} ref={r => this.viewerContainer = r} id="viewerContainer">
+                <div id="viewer" className="pdfViewer" ref={r => this.viewer = r} />
+                {/* <canvas ref={(canvas) => { this.canvas = canvas; }} /> */}
                 <span>PDF</span>
             </div>
         );

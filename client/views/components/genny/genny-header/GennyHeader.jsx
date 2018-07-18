@@ -188,7 +188,9 @@ class GennyHeader extends Component {
                 >
                 <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3>
                 <div position={[0,0]} style={{position: 'relative'}}>
-                    <PDFViewer />
+                    <div style={{position: 'absolute', top: 0, left: 0, height: '900px', width: '600px'}}>
+                        <PDFViewer />
+                    </div>
                 </div>
                 <div className='header-messages clickable'
                     position={[0,1]}
