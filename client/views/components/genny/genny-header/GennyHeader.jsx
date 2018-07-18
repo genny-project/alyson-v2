@@ -156,11 +156,10 @@ class GennyHeader extends Component {
 
         if ( userRoles && userRoles.length > 0 ) {
             roles = userRoles
-                .filter(role => role.value == true)
+                .filter(role => role.value == true || role.value == 'true')
                 .map(role => role.name)
                 .join(', ');
         }
-        console.log(roles);
 
         return (
         <div className={`genny-header ${window.getScreenSize()}`} style={componentStyle}>

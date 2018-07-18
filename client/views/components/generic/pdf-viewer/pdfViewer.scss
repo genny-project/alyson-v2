@@ -1,0 +1,17 @@
+@import 'client/styles/colors';
+
+.pdf-viewer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+
+  span {
+    color: black;
+  }
+
+  .pdfViewer{
+    width: 100%;
+  }
+}
