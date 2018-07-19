@@ -66,7 +66,8 @@ const handleBaseEntity = (state, action, existing, newItem) => {
     if (action.payload.delete === true) {
         deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
 
-    } else {
+    } 
+    else {
 
         if(action.payload.replace == true) {
             deleteBaseEntity(state, action, existing, newItem, true);
@@ -125,10 +126,9 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                     return existingLinks;
 
                 }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
-                linkCode: newItem.linkCode || "LNK_CORE",
+                linkCode: newItem.linkCode || 'LNK_CORE',
                 weight: newItem.weight ? newItem.weight : 1
             };
-
 
             return existing;
         }
@@ -204,7 +204,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                 return existingLinks;
 
             }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
-            linkCode: newItem.linkCode || "LNK_CORE",
+            linkCode: newItem.linkCode || 'LNK_CORE',
             attributes: existingAttributes,
             weight: newItem.weight ? newItem.weight : 1,
         };
@@ -225,79 +225,69 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
             let linkCode = newItem.linkCode;
             if(linkCode == null) {
 
-                if(newItem.parentCode.startsWith("BEG_")) {
-                    linkCode = "LNK_BEG";
+                if(newItem.parentCode.startsWith('BEG_')) {
+                    linkCode = 'LNK_BEG';
                 }
-                else if(newItem.parentCode.startsWith("OFR_")) {
-                    linkCode = "LNK_OFR";
+                else if(newItem.parentCode.startsWith('OFR_')) {
+                    linkCode = 'LNK_OFR';
                 }
                 else {
-                    linkCode = "LNK_CORE";
+                    linkCode = 'LNK_CORE';
                 }
             }
 
             /* we check if the parent data exists or we create it */
-            if(state.data[newItem.parentCode] == null) {
+            existing[newItem.parentCode] = {
+                ...existing[newItem.parentCode]
+            };
 
-                existing[newItem.parentCode] = {
-                    ...existing[newItem.parentCode]
+            if(existing[newItem.parentCode].links == null) {
+                existing[newItem.parentCode].links = {
+                    ...(state.data[newItem.parentCode] && state.data[newItem.parentCode].links ? state.data[newItem.parentCode].links : {})
                 };
+            }
 
-                if(existing[newItem.parentCode].links == null) {
-                    existing[newItem.parentCode].links = {
-                        ...(state.data[newItem.parentCode] && state.data[newItem.parentCode].links ? state.data[newItem.parentCode].links : {})
-                    };
+            if(existing[newItem.parentCode].links[linkCode] == null) {
+              existing[newItem.parentCode].links[linkCode] = [];
+            }
+
+            let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
+            let linkedItemFound = links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
+
+            if(linkedItemFound == false) {
+
+                if (links[linkCode] == null) {
+                    links[linkCode] = [];
                 }
 
-                if(existing[newItem.parentCode].links[linkCode] == null) {
-                  existing[newItem.parentCode].links[linkCode] = [];
-                }
-
-                let links = (existing[newItem.parentCode] != null && existing[newItem.parentCode].links != null ? existing[newItem.parentCode].links : {});
-                let linkedItemFound = links[linkCode].filter(x => x && x.targetCode && x.targetCode == newItem.code).length > 0;
-
-                if(linkedItemFound == false) {
-
-                    if (links[linkCode] == null) {
-                        links[linkCode] = [];
-                    }
-
-                    links[linkCode] = [
-                        ...links[linkCode],
-                        ...[{
+                links[linkCode] = [
+                    ...links[linkCode],
+                    ...[{
+                        attributeCode: linkCode,
+                        weight: 1,
+                        targetCode: newItem.code,
+                        sourceCode: newItem.parentCode,
+                        linkValue: newItem.linkValue || 'LINK',
+                        valueString: newItem.linkValue || 'LINK',
+                        link: {
                             attributeCode: linkCode,
                             weight: 1,
                             targetCode: newItem.code,
                             sourceCode: newItem.parentCode,
-                            linkValue: newItem.linkValue || "LINK",
-                            valueString: newItem.linkValue || "LINK",
-                            link: {
-                                attributeCode: linkCode,
-                                weight: 1,
-                                targetCode: newItem.code,
-                                sourceCode: newItem.parentCode,
-                                linkValue: newItem.linkValue || "LINK",
-                            }
-                        }]
-                    ];
-                }
-
-                existing[newItem.parentCode] = {
-                    ...state.data[newItem.parentCode],
-                    ...existing[newItem.parentCode],
-                    links: links
-                };
+                            linkValue: newItem.linkValue || 'LINK',
+                        }
+                    }]
+                ];
             }
-            else {
 
-                existing[newItem.parentCode] = {
-                    ...state.data[newItem.parentCode],
-                    ...existing[newItem.parentCode]
-                };
-            }
+            existing[newItem.parentCode] = {
+                ...state.data[newItem.parentCode],
+                ...existing[newItem.parentCode],
+                links: links
+            };
         }
     }
-}
+};
 
 export default function reducer(state = initialState, action) {
 
@@ -333,7 +323,7 @@ export default function reducer(state = initialState, action) {
 
             return {
                 ...state,
-                attributes: action.payload.items.map(item => { return item.defaultPrivacyFlag === false || item.defaultPrivacyFlag == null ? item : false }),
+                attributes: action.payload.items.map(item => { return item.defaultPrivacyFlag === false || item.defaultPrivacyFlag == null ? item : false; }),
             };
 
         case ANSWER:
