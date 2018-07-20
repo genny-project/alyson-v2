@@ -52,8 +52,13 @@ class InputDatePicker extends Component {
         const { value } = this.props;
 
         if ( value != null && value != '' ) {
+            let newValue = value;
 
-            const date = moment(new Date( value ));
+            if(!newValue.endsWith("Z")) {
+                newValue = `${newValue}Z`;
+            }
+
+            const date = moment(new Date( newValue ));
 
             this.setState({
                 currentValue: date,
@@ -77,7 +82,6 @@ class InputDatePicker extends Component {
             if(!newValue.endsWith("Z")) {
               newValue = `${newValue}Z`;
             }
-
             this.setState({
                 currentValue: moment(new Date(newValue)),
             });
@@ -87,16 +91,26 @@ class InputDatePicker extends Component {
     convertToDataFormat = (date) => {
 
         const { type } = this.props;
+        let preFormattedDate = date;
+
+        if (this.props.value === '' || this.props.value === null) {
+            if (type == 'java.time.LocalDate') {
+                preFormattedDate = moment(date).format('YYYY-MM-DD');
+            } else {
+                preFormattedDate = moment(date).format();
+            }
+            preFormattedDate = `${preFormattedDate}Z`;
+            preFormattedDate = moment(new Date(preFormattedDate));
+        }
 
         let dataFormat;
-
         switch (type) {
-        case 'java.time.LocalDate' :
-            dataFormat = moment.utc(date).format('YYYY-MM-DD');
-        break;
-        case 'java.time.LocalDateTime' :
-        default :
-            dataFormat = moment.utc(date).format();
+            case 'java.time.LocalDate' :
+                dataFormat = moment.utc(preFormattedDate).format('YYYY-MM-DD');
+            break;
+            case 'java.time.LocalDateTime' :
+            default :
+                dataFormat = moment.utc(preFormattedDate).format();
         }
 
         return dataFormat;
@@ -134,7 +148,10 @@ class InputDatePicker extends Component {
 
         const { handleOnChange, validation } = this.props;
         const { shouldValidate, lastSentValue, isMobile } = this.state;
+        // console.log(value);
+        
         let sentValue = this.convertToDataFormat(value);
+        // console.log('value', value, sentValue);
 
         handleOnChange(sentValue);
 
@@ -185,7 +202,7 @@ class InputDatePicker extends Component {
         const { currentValue, isMobile } = this.state;
         const componentStyle = { ...style, };
         const dateRange = this.getDateRange(inputMask);
-
+        // console.log(currentValue);
         return (
             <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
                 { name ? <div className='input-header'>
