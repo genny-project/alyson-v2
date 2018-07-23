@@ -4,7 +4,7 @@ import { string, object, func, array, bool, any } from 'prop-types';
 import { BucketElement } from './bucket-element';
 import { Droppable } from 'react-beautiful-dnd';
 import { GennyBridge } from 'utils/genny';
-import { IconSmall, Status, Dropdown } from 'views/components';
+import { IconSmall, Status, Dropdown, List } from 'views/components';
 import { Grid } from '@genny-project/layson';
 
 // const getListStyle = isDraggingOver => ({
@@ -117,22 +117,30 @@ class BucketColumn extends Component {
                 key={title} >
 
                 <div className={`bucket-content size-${window.getScreenSize()} no-select`}>
-                    {
-                        this.sortItems(items).map((child, index) => {
-                            return (
-                                <BucketElement
-                                key={child.id}
-                                item={child}
-                                style={child.style}
-                                moveBucket={this.moveBucket}
-                                screenSize={window.getScreenSize()}
-                                showMovingOptions={showMovingOptions}
-                                index={index}
-                                onClick={onClick}
-                            />
-                            );
-                        })
-                    }
+                    
+                    <List 
+                        data={this.sortItems(items).map((child, index) => {
+                            return {
+                                layout: (
+                                    <BucketElement
+                                    key={child.id}
+                                    item={child}
+                                    style={child.style}
+                                    moveBucket={this.moveBucket}
+                                    screenSize={window.getScreenSize()}
+                                    showMovingOptions={showMovingOptions}
+                                    index={index}
+                                    onClick={onClick}
+                                />
+                                )
+                            };
+                        })} 
+                        hideNav={true}
+                        hideCount={true}
+                        showEmpty={false}
+                        root={this.props.groupId}
+                        loadMoreOnScroll
+                    />
                 </div>
 
                 { provided && provided.placeholder}

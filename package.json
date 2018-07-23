@@ -105,6 +105,7 @@
     "react-text-mask": "^5.0.2",
     "react-toastify": "^3.3.1",
     "react-transition-group": "^2.2.1",
+    "react-visibility-sensor": "^3.11.0",
     "recharts": "^1.0.0-beta.10",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",

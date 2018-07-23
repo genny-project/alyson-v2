@@ -13,7 +13,8 @@ class List extends Component {
         hideCount: false,
         countText: 'Items Found',
         showEmpty: true,
-        emptyMessage: 'No data to display.'
+        emptyMessage: 'No data to display.',
+        loadMoreOnScroll: false,
     }
 
     static propTypes = {
@@ -39,12 +40,13 @@ class List extends Component {
     }
 
     state = {
-        data: null
+        data: null,
+        loading: false,
     }
 
     componentDidMount() {
         this.setState({
-            data: this.props.data
+            data: this.props.data,
         });
     }
 
@@ -56,12 +58,22 @@ class List extends Component {
 
     renderMain = (data, itemsPerPage, hideNav) => {
 
-        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage, selectedItem, selectedColor } = this.props;
+        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage, selectedItem, selectedColor, loadMoreOnScroll} = this.props;
 
         let children = [];
         if (data && data.length > 0) {
             children = data.map((item, index) => {
-                return <ListItem isSelected={selectedItem == item.code} {...item} key={index} itemGap={itemGap} itemWidth={itemWidth} itemHeight={itemHeight} onClick={onItemClick} selectedColor={selectedColor}/>;
+                return (
+                <ListItem 
+                    isSelected={selectedItem == item.code} 
+                    {...item} 
+                    key={index} 
+                    itemGap={itemGap} 
+                    itemWidth={itemWidth} 
+                    itemHeight={itemHeight} 
+                    onClick={onItemClick} 
+                    selectedColor={selectedColor}
+                />);
             });
         }
         else {
@@ -73,13 +85,14 @@ class List extends Component {
         }
 
         return (
-            <Pagination perPage={itemsPerPage} hideNav={hideNav} >
+            <Pagination perPage={itemsPerPage} hideNav={hideNav} loadMoreOnScroll={data && data.length > 0 && loadMoreOnScroll}>
                 {children}
             </Pagination>
         );
     }
 
     renderCount = (data, countText, countStyle) => {
+        
         if (data && data.length > 0) {
             return (
                 <div className='list-count' style={{ ...countStyle }}>
@@ -110,7 +123,7 @@ class List extends Component {
                     : null
                 }
                 { hideCount ? null : renderCount }
-                <div className="list-main">
+                <div className="list-main" onScroll={this.handleScroll} >
                     { renderMain }
                 </div>
             </div>
