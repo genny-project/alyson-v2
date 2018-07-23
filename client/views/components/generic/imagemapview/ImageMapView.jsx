@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { string, number, oneOf} from 'prop-types';
 import { ImageView } from 'views/components';
 import { BaseEntityQuery } from 'utils/genny';
+import { GennyBridge } from 'utils/genny';
 
 class ImageMapView extends Component {
 
@@ -38,6 +39,11 @@ class ImageMapView extends Component {
         const addressString = encodeURI(address);
 
         let imageString = null;
+        const proxyAttribute = BaseEntityQuery.getBaseEntityAttribute(GennyBridge.getProject(), 'PRI_IMAGE_PROXY_URL');
+        let proxy = null;
+        if(proxyAttribute) {
+            proxy = proxyAttribute.value;
+        }
 
         if (
             apiKey &&
@@ -66,7 +72,7 @@ class ImageMapView extends Component {
                         'backgroundPositionY': 'center'
                     }}
                     src={imageString}
-                    proxyUrl="https://images.channel40.com.au/"
+                    proxyUrl={proxy}
                 />
                 <div
                     position={[1, 0]}
@@ -79,3 +85,4 @@ class ImageMapView extends Component {
 }
 
 export default ImageMapView;
+ 
