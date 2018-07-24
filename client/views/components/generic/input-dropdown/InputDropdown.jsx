@@ -44,7 +44,7 @@ class InputDropdown extends Component {
     componentDidMount() {
         //set state is being called while component is unmounted.
         this.dropdown = true;
-        this.updateValueFromProps(this.props);
+        this.updateValueFromProps(this.props, true);
     }
 
     componentWillUnmount() {
@@ -57,11 +57,11 @@ class InputDropdown extends Component {
             nextProps.value != this.props.value ||
             nextProps.items != this.props.items
         ) {
-            this.updateValueFromProps(nextProps);
+            this.updateValueFromProps(nextProps, true);
         }
     }
 
-    updateValueFromProps(props) {
+    updateValueFromProps(props, validatePropValue) {
 
         if (this.props.isSingleSelect) {
 
@@ -70,6 +70,9 @@ class InputDropdown extends Component {
             this.setState({
                 selectedItems: filter && filter.name ? [filter.name] : [],
                 isLoadingData: true,
+            }, () => {
+                // console.log('value from props:', this.state.selectedItems);
+                this.handleValidation(validatePropValue);
             });
         }
         else {
@@ -95,6 +98,9 @@ class InputDropdown extends Component {
                     this.setState({
                         selectedItems: selectedItems ? selectedItems : [],
                         isLoadingData: true,
+                    }, () => {
+                        // console.log('value from props:', this.state.selectedItems);
+                        this.handleValidation(validatePropValue);
                     });
                 }
             }
@@ -112,6 +118,7 @@ class InputDropdown extends Component {
             }
 
         }, 30000);
+
     }
 
     handleChange = selectedItem => {
@@ -229,14 +236,13 @@ class InputDropdown extends Component {
         this.inputRef ? this.inputRef.blur() : null;
     }
 
-    handleValidation = () => {
+    handleValidation = (validatePropValue) => {
 
         const { validationList, validation, identifier, isSingleSelect, mandatory } = this.props;
         const { selectedItems, lastSentValue } = this.state;
-
         let match = true;
         match = selectedItems.compare(lastSentValue);
-
+        
         if (match == false || selectedItems && lastSentValue == null) {
 
             if ((selectedItems.length > 0 || (selectedItems.length == 0 && (selectedItems != lastSentValue && lastSentValue != null)))) {
@@ -249,8 +255,8 @@ class InputDropdown extends Component {
                 if (isSingleSelect && selectedItems.length == 1) {
 
                     let itemCode = this.props.items.filter(x => x.name == selectedItems[0])[0].code;
-                    console.log( itemCode )
-                    if (validation) validation(itemCode, identifier, validationList);
+                    // console.log( itemCode );
+                    if (validation) validation(itemCode, identifier, validationList, validatePropValue);
                 }
                 else {
 
@@ -261,16 +267,17 @@ class InputDropdown extends Component {
                         });
                     });
 
-                    console.log( results )
+                    // console.log( results );
 
                     if ((results.length == 0 && mandatory == false) || results.length > 0) {
 
                         let resultsString = JSON.stringify(results);
-                        console.log(resultsString);
-                        if (validation) validation(resultsString, identifier, validationList);
+                        
+                        // console.log(resultsString);
+                        if (validation) validation(resultsString, identifier, validationList, validatePropValue);
                     }
                     else {
-                        if (validation) validation('', identifier, validationList);
+                        if (validation) validation('', identifier, validationList, validatePropValue);
                     }
                 }
             }
@@ -379,8 +386,8 @@ class InputDropdown extends Component {
                         inputValue,
                         highlightedIndex,
                     }) => (
-                            <div style={{ "display": "flex"}}>
-                                <div className="dropdown-container" style={{ "flex-grow": "20"}}>
+                            <div style={{ 'display': 'flex'}}>
+                                <div className="dropdown-container" style={{ 'flex-grow': '20'}}>
                                     <div
                                         {
                                         ...(getButtonProps ? getButtonProps({ onClick: this.onToggleMenu }) : null)
@@ -407,16 +414,16 @@ class InputDropdown extends Component {
                                         </ul>
                                     ) : null}
                                 </div>
-                                <div style={{ "flex-grow": "1", "maxWidth": "40px" }} className="dropdown-loader">
+                                <div style={{ 'flex-grow': '1', 'maxWidth': '40px' }} className="dropdown-loader">
                                     {
-                                        (this.getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps).length > 0 || isLoadingData == false) ? null : <Spinner loaderType={"bar"} width={"20"} style={{ "margin": "5px" }} />
+                                        (this.getFilteredData(items, inputValue, highlightedIndex, selectedItem, getItemProps).length > 0 || isLoadingData == false) ? null : <Spinner loaderType={'bar'} width={'20'} style={{ 'margin': '5px' }} />
                                     }
                                 </div>
                             </div>
                         )}
                 </Downshift>
             </div>
-        )
+        );
     }
 
     render() {
