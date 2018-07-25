@@ -44,6 +44,7 @@ class InputDatePicker extends Component {
         isMobile: window.getScreenSize() == 'sm',
         currentValue: null,
         lateSentValue: null,
+        browser: navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1 ? 'SAFARI' : navigator.userAgent.indexOf('Firefox') != -1 ? 'FIREFOX' : 'CHROME',
     }
 
     //setInitial Value
@@ -56,11 +57,16 @@ class InputDatePicker extends Component {
             let newValue = value;
 
             if(!newValue.endsWith('Z')) {
-                newValue = `${newValue}Z`;
+                if ( this.props.type == 'java.time.LocalDate') {
+                    newValue = `${newValue}T00:00:00Z`;                
+                }
+                else {
+                    newValue = `${newValue}Z`;
+                }
             }
-
+            
             const date = moment(new Date( newValue ));
-
+            
             this.setState({
                 currentValue: date,
                 lastSentValue: date
@@ -79,17 +85,21 @@ class InputDatePicker extends Component {
         }
     }
 
-    
-
     componentWillReceiveProps( nextProps) {
         //console.log('props?:', this.props.value, nextProps.value, );
         if (nextProps.value != this.props.value && nextProps.value != null && nextProps.value != '' ) {
+            
             let newValue = nextProps.value;
 
             if(!newValue.endsWith('Z')) {
-              newValue = `${newValue}Z`;
+                if ( this.props.type == 'java.time.LocalDate') {
+                    newValue = `${newValue}T00:00:00Z`;                
+                }
+                else {
+                    newValue = `${newValue}Z`;
+                }
             }
-
+            
             const date = moment(new Date( newValue ));
 
             this.setState({
@@ -106,27 +116,31 @@ class InputDatePicker extends Component {
 
         const { type } = this.props;
         let preFormattedDate = date;
-        
+  
         if (this.props.value === '' || this.props.value === null) {
             if (type == 'java.time.LocalDate') {
                 preFormattedDate = moment(date).format('YYYY-MM-DD');
             } else {
                 preFormattedDate = moment(date).format();
             }
-            preFormattedDate = `${preFormattedDate}Z`;
+  
+            if ( type == 'java.time.LocalDate') {
+                preFormattedDate = `${preFormattedDate}T00:00:00Z`;                
+            }
+            else {
+                preFormattedDate = `${preFormattedDate}Z`;
+            }
+  
             preFormattedDate = moment(new Date(preFormattedDate));
         }
 
         let dataFormat;
-        switch (type) {
-            case 'java.time.LocalDate' :
+        if (type == 'java.time.LocalDate') {
                 dataFormat = moment.utc(preFormattedDate).format('YYYY-MM-DD');
-            break;
-            case 'java.time.LocalDateTime' :
-            default :
-                dataFormat = moment.utc(preFormattedDate).format();
         }
-
+        else {
+            dataFormat = moment.utc(preFormattedDate).format();
+        }
         return dataFormat;
     }
 
@@ -159,7 +173,6 @@ class InputDatePicker extends Component {
     }
 
     changeValueProp = (value) => {
-
         const { handleOnChange, validation } = this.props;
         const { shouldValidate, lastSentValue, isMobile } = this.state;
         // console.log(value);
@@ -168,7 +181,7 @@ class InputDatePicker extends Component {
         // console.log('value', value, sentValue);
 
         handleOnChange(sentValue);
-
+        
         if (validation && shouldValidate) {
             if (sentValue != lastSentValue || isMobile ) {
                 this.validateDate(sentValue);
