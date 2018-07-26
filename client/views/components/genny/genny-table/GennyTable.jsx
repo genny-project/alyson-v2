@@ -202,20 +202,8 @@ class GennyTable extends Component {
                     //let attrType = null;
                     let attrName = null;
 
-                    if(attrData) {
-
-                        let name = "";
-                        if(attrData.name == "Buyer Role") {
-                            name = "Is Freight Owner";
-                        }
-                        else if(attrData.name == "Seller Role") {
-                            name = "Is Transport Operator";
-                        }
-                        else {
-                            name = attrData.name;
-                        }
-
-                        attrName = name;
+                    if(attrData && attrData.name) {
+                        attrName = attrData.name;
                     }
 
                     let headers = cols.map(column => {
@@ -393,6 +381,7 @@ class GennyTable extends Component {
                             <input
                                 checked={isChecked}
                                 type="checkbox"
+                                style={{display: "none"}}
                                 onClick={() => this.handleClickColumn(rowCodes)}
                             />
                         );
