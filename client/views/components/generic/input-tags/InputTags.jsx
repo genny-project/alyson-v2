@@ -19,18 +19,8 @@ class InputTags extends Component {
     state = {
         tags: [],
         suggestions: [
-            {id: 'PHP', text: 'PHP'},
-            {id: 'ReactJS', text: 'ReactJS'},
-            {id: 'React Native', text: 'React Native'},
-            {id: 'Swift', text: 'Swift'},
-            {id: 'Advertising', text: 'Advertising'},
-            {id: 'Marketing', text: 'Marketing'},
-            {id: 'Accounting', text: 'Accounting'},
-            {id: 'Computer Science', text: 'Computer Science'},
-            {id: 'Artificial Intelligence', text: 'Artificial Intelligence'},
-            {id: 'Business', text: 'Business'},
-            {id: 'Microsoft Office 365', text: 'Microsoft Office 365'},
-            {id: 'Business Development', text: 'Business Development'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
         ]
     }
 
@@ -39,6 +29,39 @@ class InputTags extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateValueFromProps(this.props.value);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (
+            nextProps.value != this.props.value
+        ) {
+            this.updateValueFromProps(nextProps.value);
+        }
+    }
+
+    updateValueFromProps = (newValue) => {
+        let tagArray = [];
+        if(newValue != null && newValue.startsWith('[')) {
+            tagArray = JSON.parse(newValue);
+
+            if (Array.isArray(tagArray)) {
+                tagArray = tagArray.map(value => (
+                    {
+                        id: value,
+                        text: value
+                    }
+                ));
+            }
+        }
+        this.setState({
+            tags: [
+                ...tagArray,
+            ]
+        });
     }
 
     handleDelete(i) {
@@ -106,7 +129,7 @@ class InputTags extends Component {
                    handleAddition={this.handleAddition}
                    handleDrag={this.handleDrag} />
            </div>
-       )
+       );
     }
 }
 
