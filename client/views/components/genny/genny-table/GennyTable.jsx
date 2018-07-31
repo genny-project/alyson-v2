@@ -17,13 +17,15 @@ class GennyTable extends Component {
             //     code: 'BTN_VIEW_DETAILS',
             // }
         ],
-      }
+        showTitle: true,
+      } 
 
       static propTypes = {
         showBaseEntity: bool,
         columns: array,
         root: string,
         actions: array,
+        showTitle: bool, 
       }
 
     state = {
@@ -200,20 +202,8 @@ class GennyTable extends Component {
                     //let attrType = null;
                     let attrName = null;
 
-                    if(attrData) {
-
-                        let name = "";
-                        if(attrData.name == "Buyer Role") {
-                            name = "Is Freight Owner";
-                        }
-                        else if(attrData.name == "Seller Role") {
-                            name = "Is Transport Operator";
-                        }
-                        else {
-                            name = attrData.name;
-                        }
-
-                        attrName = name;
+                    if(attrData && attrData.name) {
+                        attrName = attrData.name;
                     }
 
                     let headers = cols.map(column => {
@@ -391,6 +381,7 @@ class GennyTable extends Component {
                             <input
                                 checked={isChecked}
                                 type="checkbox"
+                                style={{display: "none"}}
                                 onClick={() => this.handleClickColumn(rowCodes)}
                             />
                         );
@@ -505,7 +496,7 @@ class GennyTable extends Component {
 
     render() {
 
-        const { root, showBaseEntity, linkCode, style, columns } = this.props;
+        const { root, showBaseEntity, linkCode, style, columns, showTitle } = this.props;
 
         let tableColumns = [];
         let tableData = [];
@@ -525,8 +516,19 @@ class GennyTable extends Component {
         tableColumns = this.generateHeadersFor(children);
         tableData = this.generateDataFor(children);
 
+        const rootEntity = BaseEntityQuery.getBaseEntity(root);
+        const projectCode = GennyBridge.getProject();
+        let projectColor = BaseEntityQuery.getBaseEntityAttribute(projectCode, 'PRI_COLOR');
+        projectColor = projectColor ? projectColor.value : null;
+ 
         return (
             <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'} ${window.getScreenSize()}`} style={style}>
+                
+                { showTitle ?
+                    <div style={{ backgroundColor: projectColor}} className='genny-list-title sticky'>
+                        <span>{rootEntity && rootEntity.name} ( {tableData && tableData.length} )</span>
+                    </div>
+                : null }
                 <Table {...this.props} data={tableData} columns={tableColumns} itemsPerPage={tableData != null && tableData.length < 20 ? tableData.length : 20} selectedRows={this.state.selectedItems}/>
             </div>
         );

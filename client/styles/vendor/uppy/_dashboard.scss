@@ -25,6 +25,8 @@
   bottom: 0;
   background-color: rgba(255,255,255,0.5);
   z-index: $zIndex-2;
+  z-index: 1000000000000000000000000;
+  /* sorry */
 }
 
 .uppy-Dashboard-inner {
@@ -37,9 +39,9 @@
   overflow: hidden;
   outline: none;
   border: 1px solid $border-color;
+  z-index: 1000000000000000000000000; /* sorry */
 
   .uppy-Dashboard--modal & {
-    z-index: $zIndex-3;
   }
 
   @media #{$screen-medium} {

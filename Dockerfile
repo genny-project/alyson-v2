@@ -9,5 +9,6 @@ ADD ./package.json ./package.json
 ADD ./ ./
 RUN npm install && npm run build-prod
 RUN cp -R ./build/*  /usr/share/nginx/html
+RUN echo "{\"hash\":$(git rev-parse --short HEAD),\"time\":$(date +%Y-%m-%dT%H:%M:%S)}" >>  /usr/share/nginx/html/version
 COPY ./docker-entrypoint.sh  /var/cache/nginx/
 ENTRYPOINT [ "/var/cache/nginx/docker-entrypoint.sh" ]

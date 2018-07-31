@@ -1,17 +1,22 @@
 import './treeView.scss';
 import React, { Component } from 'react';
-import { object, array, func } from 'prop-types';
+import { object, array, func, bool, oneOfType } from 'prop-types';
 import { IconSmall } from 'views/components';
 import { Fade, Slide, Scale } from 'views/utils/animations';
 
 class TreeView extends Component {
+
+    static defaultProps = {
+        hideRootChildCount: true,
+    }
 
     static propTypes = {
         style: object,
         items: array,
         data: object,
         onClick: func,
-        onExpand: func
+        onExpand: func,
+        hideRootChildCount: bool,
     };
 
     state = {
@@ -53,15 +58,24 @@ class TreeView extends Component {
 
             let childNumber = null;
 
-            if ( levelIndex > 0 ) {
-                childNumber = item.childCount ? item.childCount : item.children && item.children.length || false;
+            if ( !this.props.hideRootChildCount || ( this.props.hideRootChildCount && levelIndex > 0 ) ) {
+                // console.log('childCounts', item.childCounts, 'childCount', item.childCount, 'children.length', item.children.length);
+                childNumber = item.childCount ? item.childCount : false;
             }
 
             return (
 
                 <li key={item.id} className='tree-view-item'>
                     <div className={`tree-view-item-content ${this.state.selectedItem == item.id ? 'tree-view-item-selected' : ''} `}>
-                        <span className={`tree-view-item-main clickable`} onClick={this.state.selectedItem == item.id ? null : this.onClick(item)}>
+                        <span
+                            className={`tree-view-item-main clickable`} 
+                            onClick={
+                                // this.state.selectedItem == item.id
+                                //     ? null
+                                //     : this.onClick(item)
+                                this.onClick(item)
+                            }
+                        >
                             { icon ? <IconSmall className='tree-view-icon main' name={icon} /> : null }
                             <span className='tree-view-text' style={!icon ? { marginLeft: '20px' } : {}}>{item.name}</span>
                         </span>

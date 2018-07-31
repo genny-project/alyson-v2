@@ -82,12 +82,22 @@ class Input extends Component {
 
     isValid = (showStyle) => {
 
-        const { validationList, mandatory } = this.props;
+        const { validationList, mandatory, type } = this.props;
         const { value } = this.state;
 
         let isValid = false;
 
         // if there is validation required
+        if (
+            (
+                type == 'dropdown' ||
+                type == 'dropdownmultiple'
+            ) &&
+            mandatory 
+        ) {
+            if ( value.length === 0 ) return false;
+        }
+
         if ( mandatory || !mandatory && value != null && value.length > 0) {
             if (validationList.length > 0) {
 
@@ -100,6 +110,7 @@ class Input extends Component {
 
                     return new RegExp(validation.regex).test( value );
                 });
+                // console.log(isValid);
                 return isValid;
             }
             //if there is no validation
@@ -124,7 +135,7 @@ class Input extends Component {
                 this.validationStyle('error');
             }
         }
-        //console.log(isValid);
+        // console.log(isValid);
         return isValid;
     }
 
@@ -154,26 +165,25 @@ class Input extends Component {
         });
     }
 
-    validateInput = (value, identifier, validationList) => {
-
+    validateInput = (value, identifier, validationList, validatePropValue ) => {
+        
         //TODO: to remove
-        if(value == this.props.value && value.constructor != Boolean && identifier != "QUE_MOBILE_VERIFICATION") return;
+        //ValidatePropValue added to allow inputs prefilled with different values from backend to ignore condition and validate
+        if( !validatePropValue && value == this.props.value && value.constructor != Boolean && identifier != 'QUE_MOBILE_VERIFICATION') return;
 
         this.state.value = value;
 
         const valResult = this.isValid();
-
         this.validateValue(valResult, value);
     }
 
     validateValue = ( valResult, value ) => {
-
         if ( valResult ){
             this.validationStyle('success');
             if(this.props.onValidation) this.props.onValidation(value, this.props.data, this.props.mandatory, valResult, this.props.identifier);
         }
         else if (this.props.mandatory && ( value == null || value.length == 0 ) ) {
-            this.validationStyle('success');
+            this.validationStyle('error');
             if(this.props.onValidationFail) this.props.onValidationFail(this.props.value, this.props.data, this.props.mandatory, true, this.props.identifier);
         }
         else {

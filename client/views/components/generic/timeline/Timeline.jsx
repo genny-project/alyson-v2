@@ -12,26 +12,26 @@ class Timeline extends Component {
             //     name: 'item name',
             //     value: 'item value'
             // }
-            {
-                name: 'Posted',
-                value: '17 Apr 2018 09:46'
-            },
-            {
-                name: 'Applied',
-                value: '17 Apr 2018 09:46'
-            },
-            {
-                name: 'In Transit',
-                value: ''
-            },
-            {
-                name: 'Completed',
-                value: '17 Apr 2018 09:46'
-            },
-            {
-                name: 'Paid',
-                value: ''
-            }
+            // {
+            //     name: 'Posted',
+            //     value: '17 Apr 2018 09:46'
+            // },
+            // {
+            //     name: 'Applied',
+            //     value: '17 Apr 2018 09:46'
+            // },
+            // {
+            //     name: 'In Transit',
+            //     value: ''
+            // },
+            // {
+            //     name: 'Completed',
+            //     value: '17 Apr 2018 09:46'
+            // },
+            // {
+            //     name: 'Paid',
+            //     value: ''
+            // }
         ],
         hideEmptyItems: false,
         color: '#000',

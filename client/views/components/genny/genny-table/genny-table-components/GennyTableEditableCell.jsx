@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { array, object, string } from 'prop-types';
-import { GennyBridge } from 'utils/genny';
+import { GennyBridge, BaseEntityQuery } from 'utils/genny';
 import { ImageView, ContactButton, InputAddress, InputUpload, IconSmall } from 'views/components';
 
 class GennyTableEditableCell extends Component {
@@ -291,6 +291,24 @@ class GennyTableEditableCell extends Component {
                 );
             }
 
+            case 'dropdown': {
+                const cellValue = valueState != null ? valueState : value;
+                const be = BaseEntityQuery.getBaseEntity(cellValue);
+                return (
+                    <div className='table-dropdown'>
+                        <span>
+                            {
+                                be != null &&
+                                be.name != null &&
+                                typeof be.name === 'string' &&
+                                be.name ||
+                                ''
+                            }
+                        </span>
+                    </div>
+                );
+            }
+
             default: {
                 return (
                     <input
@@ -314,7 +332,8 @@ class GennyTableEditableCell extends Component {
                 // contentEditable={this.state.canEdit}
                 // suppressContentEditableWarning
                 className={`editable-table-cell ${
-                    this.state.canEdit
+                    this.state.canEdit &&
+                    this.props.dataType != 'dropdown'
                         ? 'active'
                         : 'disabled'
                 } ${ 

@@ -148,6 +148,7 @@ class AppContent extends Component {
                 slideFromRight={true}
                 icon='edit'
                 iconAltStyle
+                id='notes'
                 style={{
                     backgroundColor: projectColor ? projectColor.value : 'none',
                     color: 'white',
@@ -260,7 +261,7 @@ class AppContent extends Component {
                         {
                             height: '100%',
                             flexGrow: 1,
-                            overflow: 'scroll',
+                            overflow: 'auto',
                             ...mobileStyle,
                         }
                     }

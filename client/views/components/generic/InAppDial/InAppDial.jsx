@@ -21,7 +21,7 @@ class InAppDial extends Component {
   };
 
   componentDidMount = () => {
-    axios.post( this.props.url ).then( response => {
+    axios.post( this.props.url + '/token' ).then( response => {
       this.setState({ token: response.data.token });
     }).catch( e => {
       console.error( e );
