@@ -49,10 +49,12 @@ class InputDatePicker extends Component {
 
     //setInitial Value
     componentWillMount() {
-
         const { value } = this.props;
         
-        //console.log('mount?:', value);
+        this.setupComponent(value);
+    }
+
+    setupComponent = (value) => {
         if ( value != null && value != '' ) {
             let newValue = value;
 
@@ -86,29 +88,36 @@ class InputDatePicker extends Component {
     }
 
     componentWillReceiveProps( nextProps) {
-        //console.log('props?:', this.props.value, nextProps.value, );
-        if (nextProps.value != this.props.value && nextProps.value != null && nextProps.value != '' ) {
-            
-            let newValue = nextProps.value;
+        if ( nextProps.value != this.props.value) {
+            if (nextProps.value != null && nextProps.value != '' ) {
+                
+                let newValue = nextProps.value;
 
-            if(!newValue.endsWith('Z')) {
-                if ( this.props.type == 'java.time.LocalDate') {
-                    newValue = `${newValue}T00:00:00Z`;                
+                if(!newValue.endsWith('Z')) {
+                    if ( this.props.type == 'java.time.LocalDate') {
+                        newValue = `${newValue}T00:00:00Z`;                
+                    }
+                    else {
+                        newValue = `${newValue}Z`;
+                    }
                 }
-                else {
-                    newValue = `${newValue}Z`;
-                }
+                
+                const date = moment(new Date( newValue ));
+
+                this.setState({
+                    currentValue: date,
+                }, () => {
+                    //console.log('process:', date);
+                    const convertedDate = this.convertToDataFormat(date);
+                    this.validateDate(convertedDate, true);
+                });
             }
-            
-            const date = moment(new Date( newValue ));
-
-            this.setState({
-                currentValue: date,
-            }, () => {
-                //console.log('process:', date);
-                const convertedDate = this.convertToDataFormat(date);
-                this.validateDate(convertedDate, true);
-            });
+            else {
+                this.setState({
+                    currentValue: null,
+                    lastSentValue: null
+                });
+            }
         }
     }
 
