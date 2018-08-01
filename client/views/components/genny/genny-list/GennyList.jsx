@@ -41,6 +41,7 @@ class GennyList extends Component {
         hideSelectedStyle: bool,
         selectedColor: string,
         selectedItem: string,
+        title: string,
     };
 
     state = {
@@ -137,7 +138,7 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, showTitle, showEmpty, gennyListStyle, emptyMessage, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, showTitle, showEmpty, gennyListStyle, emptyMessage, title, ...rest } = this.props;
         const componentStyle = { ...gennyListStyle};
 
         let data = [];
@@ -164,7 +165,7 @@ class GennyList extends Component {
                 <div className='genny-list' style={componentStyle}>
                     { showTitle ?
                         <div style={{ backgroundColor: projectColor}} className='genny-list-title'>
-                            <span>{rootEntity && rootEntity.name} ( {data && data.length} )</span>
+                            <span>{ title ? title : rootEntity && rootEntity.name} ( {data && data.length} )</span>
                         </div>
                     : null }
                     <List
