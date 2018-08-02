@@ -77,7 +77,7 @@ class Input extends Component {
     }
 
     componentWillUpdate() {
-        this.state.validationStatus = 'normal';
+        //this.state.validationStatus = 'normal';
     }
 
     isValid = (showStyle) => {
@@ -111,6 +111,16 @@ class Input extends Component {
                     return new RegExp(validation.regex).test( value );
                 });
                 // console.log(isValid);
+                if(showStyle == true || showStyle == null) {
+
+                    if(isValid) {
+                        this.validationStyle('success');
+                    }
+                    else {
+                        this.validationStyle('error');
+                    }
+                }
+                
                 return isValid;
             }
             //if there is no validation
