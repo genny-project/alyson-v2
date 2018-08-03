@@ -94,7 +94,6 @@ class LayoutLoader extends Component {
             if (localAliases) {
 
                 Object.keys(localAliases).forEach((alias_key) => {
-
                     let localAliasCode = localAliases[alias_key];
 
                     if (alias_key == alias_code) {
@@ -232,7 +231,7 @@ class LayoutLoader extends Component {
 
                                             if (be_attribute_parent.startsWith('LNK_')){
                                                 const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
-                                                
+
                                                 if ( linkedBaseEntity && linkedBaseEntity.code) {
                                                     const linkedBECode = linkedBaseEntity.code;
                                                     const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute_parent);
@@ -299,7 +298,7 @@ class LayoutLoader extends Component {
                                                         // console.log(attribute);
                                                     }
                                                 }
-                                                
+
                                             }
 
                                         } else {
@@ -440,9 +439,12 @@ class LayoutLoader extends Component {
                             }
                             // console.log('ATTRIBUTE', attribute);
                             // console.log('-------------------');
+
                             if (attribute == null && attribute_code != null && (splitValue.length == 2 || splitValue.length == 4)) {
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, ''));
                             } else if (alias_code == 'ROOT') {
+                                layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, baseEntity.code));
+                            } else if (alias_code != 'BE'){
                                 layout = JSON.parse(JSON.stringify(layout).replace(toBeReplacedAlias, baseEntity.code));
                             }
                         }
@@ -511,14 +513,14 @@ class LayoutLoader extends Component {
         .replace(/\"USER\.[^\"]*\"/g, '\"\"')
         .replace(/\"BE\.[^\"]*\"/g, '\"\"')
             .replace(/\${.*?\}/g, '-');
-        
+
         try {
             layout = JSON.parse(layoutString);
         }
         catch( e ) {
             console.log( e )
         }
-        
+
         return layout;
         //return JSON.parse(JSON.stringify( layout ).replace(/\"BE\..*\"/g, ''));
     }
