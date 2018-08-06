@@ -195,7 +195,7 @@ class GennyTable extends Component {
 
             if(attributes) {
 
-                const createColumn = (attributeCode, width, columnName) => {
+                const createColumn = (attributeCode, width, columnName, subCode) => {
 
                     let attribute = attributes[attributeCode];
                     const attrData = BaseEntityQuery.getAttribute( ( attribute && attribute.attributeCode ) || attributeCode);
@@ -230,6 +230,7 @@ class GennyTable extends Component {
                                             cell={cell}
                                             rowCode={rowCode}
                                             code={( attribute && attribute.attributeCode ) || attributeCode}
+                                            subCode={subCode}
                                             name={attribute && attribute.attributeName}
                                             value={value}
                                             dataType={dataType}
@@ -299,6 +300,7 @@ class GennyTable extends Component {
                         let attributeCode = null;
                         let width = null;
                         let name = null;
+                        let subCode = null;
 
                         const colProps = columnsProps[i];
 
@@ -313,9 +315,10 @@ class GennyTable extends Component {
                             attributeCode = columnsProps[i].code;
                             width = columnsProps[i].width;
                             name = columnsProps[i].title;
+                            subCode = columnsProps[i].subCode;
                         }
 
-                        const newColumn = createColumn(attributeCode, width, name);
+                        const newColumn = createColumn(attributeCode, width, name, subCode);
                         if(newColumn != null) {
                             cols.push(newColumn);
                         }
