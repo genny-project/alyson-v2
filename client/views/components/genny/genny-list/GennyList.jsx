@@ -42,6 +42,7 @@ class GennyList extends Component {
         selectedColor: string,
         selectedItem: string,
         title: string,
+        itemLayout: string,
     };
 
     state = {
@@ -118,6 +119,10 @@ class GennyList extends Component {
                     }
                     else {
                         layout_code = linkLinkValue || linkValue;
+                    }
+                    
+                    if ( itemLayout != null && typeof itemLayout === 'string' && itemLayout.length > 0 ) {
+                        layout_code = itemLayout;
                     }
 
                     let sublayout = this.props.sublayout[layout_code];
