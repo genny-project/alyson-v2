@@ -72,7 +72,7 @@ class GennyList extends Component {
 
     generateListItems(data) {
 
-        const { localAliases, selectedItem, root, numberOfItems, hideSelectedStyle } = this.props;
+        const { localAliases, selectedItem, root, numberOfItems, hideSelectedStyle, itemLayout } = this.props;
         const { selectedItemState } = this.state;
 
         let newData = [];
