@@ -22,6 +22,7 @@ import {
     InputUploadPhoto,
     InputPayment,
     InputTags,
+    InputHTML,
     GennyPasscode,
 } from 'views/components';
 
@@ -496,6 +497,16 @@ class Input extends Component {
             case 'Signature':
             return (
                 <InputSignature
+                    {...rest}
+                    value={this.state.value}
+                    className={identifier}
+                    validation={this.validateInput}
+                    handleOnChange={this.handleOnChange}
+                />
+            );
+            case 'htmlarea':
+            return (
+                <InputHTML
                     {...rest}
                     value={this.state.value}
                     className={identifier}
