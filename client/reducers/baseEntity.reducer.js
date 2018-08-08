@@ -223,6 +223,7 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
 
             /* get the link code to the children */
             let linkCode = newItem.linkCode;
+            let defaultLinkValue = "LINK";
             if(linkCode == null) {
 
                 if(newItem.parentCode.startsWith('BEG_')) {
@@ -234,6 +235,10 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 else {
                     linkCode = 'LNK_CORE';
                 }
+            }
+
+            if(newItem.code.startsWith("BEG")) {
+                defaultLinkValue = "BEG";
             }
 
             /* we check if the parent data exists or we create it */
@@ -267,14 +272,14 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                         weight: 1,
                         targetCode: newItem.code,
                         sourceCode: newItem.parentCode,
-                        linkValue: newItem.linkValue || 'LINK',
-                        valueString: newItem.linkValue || 'LINK',
+                        linkValue: newItem.linkValue || defaultLinkValue,
+                        valueString: newItem.linkValue || defaultLinkValue,
                         link: {
                             attributeCode: linkCode,
                             weight: 1,
                             targetCode: newItem.code,
                             sourceCode: newItem.parentCode,
-                            linkValue: newItem.linkValue || 'LINK',
+                            linkValue: newItem.linkValue || defaultLinkValue,
                         }
                     }]
                 ];
