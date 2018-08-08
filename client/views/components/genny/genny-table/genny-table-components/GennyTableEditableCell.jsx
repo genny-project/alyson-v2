@@ -175,7 +175,7 @@ class GennyTableEditableCell extends Component {
 
     renderDiv() {
 
-        const { value, dataType, name } = this.props;
+        const { value, dataType, name, subCode } = this.props;
         const { valueState } = this.state;
         switch (dataType) {
 
@@ -294,16 +294,19 @@ class GennyTableEditableCell extends Component {
             case 'dropdown': {
                 const cellValue = valueState != null ? valueState : value;
                 const be = BaseEntityQuery.getBaseEntity(cellValue);
+                let beAttributeValue = null;
+                if(subCode) {
+                    const attribute = BaseEntityQuery.getBaseEntityAttribute(cellValue, subCode);
+                    beAttributeValue = attribute ? attribute.value : null;
+                }
+                else {
+                    beAttributeValue = be && be.name && typeof be.name == 'string' ? be.name : '';
+                }
+
                 return (
                     <div className='table-dropdown'>
                         <span>
-                            {
-                                be != null &&
-                                be.name != null &&
-                                typeof be.name === 'string' &&
-                                be.name ||
-                                ''
-                            }
+                            {beAttributeValue || ''}
                         </span>
                     </div>
                 );
