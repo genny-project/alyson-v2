@@ -1,6 +1,6 @@
 import './inputTags.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, any, number } from 'prop-types';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { Label } from 'views/components';
 
@@ -8,18 +8,53 @@ class InputTags extends Component {
 
     static defaultProps = {
         className: '',
+        suggestionLimit: 10,
+        minQueryLength: 3,
     }
 
     static propTypes = {
         className: string,
         style: object,
         children: any,
+        suggestionLimit: number,
+        minQueryLength: number,
     }
 
     state = {
         tags: [],
         suggestions: [
+            // {id: 'PHP', text: 'PHP JAVA'},
+            // {id: 'ReactJS', text: 'React Javascript'},
             // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS PHP'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'PHP', text: 'PHP'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'ReactJS', text: 'ReactJS'},
             // {id: 'ReactJS', text: 'ReactJS'},
         ]
     }
@@ -90,6 +125,16 @@ class InputTags extends Component {
         this.setState({ tags: newTags }, (newState) => { this.onChange() });
     }
 
+    handleFilterSuggestions = (textInputValue, possibleSuggestionsArray) => {
+        var lowerCaseQuery = textInputValue.toLowerCase();
+    
+        return possibleSuggestionsArray.filter(suggestion => {
+            console.log(suggestion);
+            const value = suggestion && suggestion.text;
+            return value.toLowerCase().includes(lowerCaseQuery);
+        }).filter((x, index) => index < this.props.suggestionLimit);
+    }
+
     onChange() {
 
         const { tags } = this.state;
@@ -106,11 +151,12 @@ class InputTags extends Component {
     render() {
 
         const { className, children, style, placeholder } = this.props;
-        const { validationStatus, name, type, mandatory, showTimeSelect, dateTimeDisplayFormat, dateDisplayFormat, timeDisplayFormat, inputMask } = this.props;
+        const { validationStatus, name, type, mandatory, showTimeSelect, dateTimeDisplayFormat, dateDisplayFormat, timeDisplayFormat, inputMask, minQueryLength } = this.props;
 
         const componentStyle = { ...style, };
         const { tags, suggestions } = this.state;
 
+        // console.log(this.props.items);
         return (
            <div style={componentStyle} className="input input-tags">
                { name ? <div className='input-header'>
@@ -122,9 +168,11 @@ class InputTags extends Component {
                         tagInputField: 'input-field',
                     }}
                    placeholder={placeholder}
-                   delimiters={[32, 188, 13]}
+                   delimiters={[9, 188, 13]}
                    suggestions={suggestions}
+                   minQueryLength={minQueryLength}
                    autofocus={false}
+                   handleFilterSuggestions={this.handleFilterSuggestions}
                    handleDelete={this.handleDelete}
                    handleAddition={this.handleAddition}
                    handleDrag={this.handleDrag} />

@@ -286,6 +286,7 @@ class Input extends Component {
             return (
                 <InputTags
                     {...rest}
+                    items={items}
                     validation={this.validateInput}
                     validationStatus={validationStatus}
                     onFocus={this.onFocus}
