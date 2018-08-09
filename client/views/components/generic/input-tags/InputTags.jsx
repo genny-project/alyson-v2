@@ -1,6 +1,6 @@
 import './inputTags.scss';
 import React, { Component } from 'react';
-import { string, object, any, number } from 'prop-types';
+import { string, object, array, number } from 'prop-types';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { Label } from 'views/components';
 
@@ -9,13 +9,15 @@ class InputTags extends Component {
     static defaultProps = {
         className: '',
         suggestionLimit: 10,
-        minQueryLength: 3,
+        minQueryLength: 2,
+        items: [],
     }
 
     static propTypes = {
         className: string,
         style: object,
-        children: any,
+        value : string,
+        items: array,
         suggestionLimit: number,
         minQueryLength: number,
     }
@@ -23,39 +25,7 @@ class InputTags extends Component {
     state = {
         tags: [],
         suggestions: [
-            // {id: 'PHP', text: 'PHP JAVA'},
-            // {id: 'ReactJS', text: 'React Javascript'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS PHP'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'PHP', text: 'PHP'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
-            // {id: 'ReactJS', text: 'ReactJS'},
+            // {id: 'code', text: 'name'},
         ]
     }
 
@@ -68,6 +38,7 @@ class InputTags extends Component {
 
     componentDidMount() {
         this.updateValueFromProps(this.props.value);
+        this.updateSuggestionsFromProps(this.props.items);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -75,6 +46,11 @@ class InputTags extends Component {
             nextProps.value != this.props.value
         ) {
             this.updateValueFromProps(nextProps.value);
+        }
+        if (
+            nextProps.items != this.props.items
+        ){
+            this.updateSuggestionsFromProps(nextProps.items);
         }
     }
 
@@ -95,6 +71,23 @@ class InputTags extends Component {
         this.setState({
             tags: [
                 ...tagArray,
+            ]
+        });
+    }
+
+    updateSuggestionsFromProps = (newItems) => {
+        let suggestions = [];
+        if (Array.isArray(newItems)) {
+            suggestions = newItems.map(item => (
+                {
+                    id: item.code,
+                    text: item.name,
+                }
+            ));
+        }
+        this.setState({
+            suggestions : [
+                ...suggestions,
             ]
         });
     }
@@ -129,7 +122,7 @@ class InputTags extends Component {
         var lowerCaseQuery = textInputValue.toLowerCase();
     
         return possibleSuggestionsArray.filter(suggestion => {
-            console.log(suggestion);
+            // console.log(suggestion);
             const value = suggestion && suggestion.text;
             return value.toLowerCase().includes(lowerCaseQuery);
         }).filter((x, index) => index < this.props.suggestionLimit);
@@ -156,7 +149,6 @@ class InputTags extends Component {
         const componentStyle = { ...style, };
         const { tags, suggestions } = this.state;
 
-        // console.log(this.props.items);
         return (
            <div style={componentStyle} className="input input-tags">
                { name ? <div className='input-header'>
