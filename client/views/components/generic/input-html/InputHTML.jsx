@@ -2,7 +2,9 @@ import './inputHTML.scss';
 import React, { Component } from 'react';
 import { string, object, any } from 'prop-types';
 import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
-import { Label, IconSmall } from 'views/components';
+import { stateToHTML } from 'draft-js-export-html';
+import { stateFromHTML } from 'draft-js-import-html';
+import { Label, IconSmall, DisplayHTML } from 'views/components';
 
 class InputHTML extends Component {
 
@@ -17,12 +19,31 @@ class InputHTML extends Component {
     }
 
     state = {
+        editorState: EditorState.createEmpty()
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setState({
             editorState: EditorState.createEmpty()
+        }, () => {
+            this.updateValueFromProps(this.props);
         });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.updateValueFromProps(nextProps);
+    }
+
+    updateValueFromProps = ( props ) => {
+        if ( props.value && ( props.value != null || props.value != undefined || props.value != '' ) ) {
+            let contentState = stateFromHTML(props.value);
+
+            this.setState({
+                editorState: EditorState.createWithContent(
+                    contentState
+                )
+            });
+        }
     }
 
     focus = () => {
@@ -79,9 +100,23 @@ class InputHTML extends Component {
     }
 
     onChange = (editorState) => {
+        const contentState = editorState.getCurrentContent();
+        
+        let html = stateToHTML(contentState);
+        
         this.setState({
-            editorState
+            editorState,
+            html: html,
         });
+    }
+
+    onBlur = () => {
+
+        const { validationList, validation, identifier, onBlur } = this.props;
+        const { html } = this.state; 
+
+        if(onBlur) onBlur();    
+        if(validation) validation(html, identifier, validationList);
     }
 
     renderButton = ( active, style, label, icon, onToggle ) => {
@@ -89,9 +124,8 @@ class InputHTML extends Component {
         if (active) {
             className += ' RichEditor-activeButton';
         }
-
         return (
-            <span className={className} onMouseDown={onToggle(style)}>
+            <span className={`${className } clickable`} onMouseDown={() => onToggle(style)}>
                 {icon ? <IconSmall name={icon} /> : label}
             </span>
         );
@@ -100,7 +134,7 @@ class InputHTML extends Component {
     render() {
         const { className, children, style, placeholder, validationStatus, name, type, mandatory } = this.props;
         const componentStyle = { ...style, };
-        const { editorState } = this.state;
+        const { editorState, html } = this.state;
 
         const styleMap = {
             CODE: {
@@ -112,7 +146,7 @@ class InputHTML extends Component {
         };
 
         const blockTypes = [
-            // { label: 'H1', style: 'header-one' },
+            { label: 'Title', style: 'header-one', icon: 'title' },
             // { label: 'H2', style: 'header-two' },
             // { label: 'H3', style: 'header-three' },
             // { label: 'H4', style: 'header-four' },
@@ -147,7 +181,7 @@ class InputHTML extends Component {
                     {name && <Label className="input-tags-picker-label" text={name} />}
                     {mandatory ? <Label className='input-label-required' textStyle={!validationStatus ? { color: '#cc0000' } : null} text="*  required" /> : null}
                 </div> : null}
-
+            
                 <div className="RichEditor-controls">
                     {blockTypes.map((item) => {
                         const selection = editorState.getSelection();
@@ -155,10 +189,10 @@ class InputHTML extends Component {
                             .getCurrentContent()
                             .getBlockForKey(selection.getStartKey())
                             .getType();
-
+                        const isActive = item.style === blockType;
                         return (
                             this.renderButton(
-                                item.style === blockType,
+                                isActive,
                                 item.style,
                                 item.label,
                                 item.icon,
@@ -166,14 +200,12 @@ class InputHTML extends Component {
                             )
                         );
                     })}
-                </div>
-
-                <div className="RichEditor-controls">
                     {inlineStyles.map((item) => {
                         const currentStyle = editorState.getCurrentInlineStyle();
+                        const isActive = currentStyle.has(item.style);
                         return (
                             this.renderButton(
-                                currentStyle.has(item.style),
+                                isActive,
                                 item.style,
                                 item.label,
                                 item.icon,
@@ -182,7 +214,11 @@ class InputHTML extends Component {
                         );
                     })}
                 </div>
-                <div className={classNamea} onClick={this.focus}>
+
+                <div className="RichEditor-controls">
+                    
+                </div>
+                <div className={`${classNamea} input-field`} onClick={this.focus} >
                     <Editor
                         blockStyleFn={this.getBlockStyle}
                         customStyleMap={styleMap}
@@ -190,6 +226,7 @@ class InputHTML extends Component {
                         handleKeyCommand={this.handleKeyCommand}
                         keyBindingFn={this.mapKeyToEditorCommand}
                         onChange={this.onChange}
+                        onBlur={this.onBlur}
                         placeholder={placeholder || ''}
                         ref="editor"
                         spellCheck={true}
