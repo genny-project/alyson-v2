@@ -37,21 +37,33 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
         }
     }
 
-    if(shouldDeleteLinkedBaseEntities) {
+    const deleteLinkedBaseEntities = function(beCode, level) {
 
-        if(state.data[baseEntityCode] != null) {
+        if (state.data[beCode] != null) {
 
-            Object.keys(state.data[baseEntityCode].links).forEach(linkCode => {
+            Object.keys(state.data[beCode].links).forEach(linkCode => {
 
-                const links = state.data[baseEntityCode].links[linkCode];
+                const links = state.data[beCode].links[linkCode];
                 links.forEach(link => {
 
-                    if(link.targetCode != null) {
+                    if (link.targetCode != null) {
+                        if(level > 1) {
+                            deleteLinkedBaseEntities(link.targetCode);
+                        }
+
+                        level--;
                         delete state.data[link.targetCode];
                     }
                 });
             });
         }
+    };
+
+    if (shouldDeleteLinkedBaseEntities != null && typeof shouldDeleteLinkedBaseEntities == 'number') {
+        deleteLinkedBaseEntities(baseEntityCode, shouldDeleteLinkedBaseEntities);
+    }
+    else if (shouldDeleteLinkedBaseEntities != null && shouldDeleteLinkedBaseEntities === true) {
+        deleteLinkedBaseEntities(baseEntityCode, 1);
     }
 
     delete existing[baseEntityCode];
@@ -65,7 +77,6 @@ const handleBaseEntity = (state, action, existing, newItem) => {
 
     if (action.payload.delete === true) {
         deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
-
     } 
     else {
 
