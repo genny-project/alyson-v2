@@ -61,12 +61,12 @@ class GennyBucketView extends PureComponent {
             let group = rootGroups[i];
             if(group.code == selectedColumn) {
 
-                let itemValue = group.attributes["ADD_ITEM"].value;
+                let itemValue = group.attributes['ADD_ITEM'].value;
                 let data = {
                     code: group.code,
                     value: itemValue,
-                }
-                GennyBridge.sendBtnClick("BTN_CLICK", data);
+                };
+                GennyBridge.sendBtnClick('BTN_CLICK', data);
                 break;
             }
         }
@@ -79,18 +79,18 @@ class GennyBucketView extends PureComponent {
                 itemCode: bucketItemProps.description,
                 userCode: GennyBridge.getUser()
             };
-    
+
             btnValue = JSON.stringify(btnValue);
-    
+
             GennyBridge.sendBtnClick('BTN_CLICK', {
                 code: 'SELECT_EVENT',
                 value: btnValue
             });
-    
+
             this.setState({
                 selectedItemState: bucketItemProps.code,
             });
-    
+
             if (this.props.onClick) this.props.onClick();
         }
     }
@@ -105,7 +105,38 @@ class GennyBucketView extends PureComponent {
         // console.log(bes);
         bes.forEach(be => {
 
-            let layout_code = 'card';
+            const { itemLayout } = this.props;
+
+            let linkToParent = BaseEntityQuery.getLinkToParent(root, be.code);
+
+            let layout_code = null;
+            let linkLinkValue = null;
+            let linkValue = null;
+
+            if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
+                linkLinkValue = linkToParent.link.linkValue;
+            }
+
+            if(linkToParent != null && linkToParent.linkValue != null) {
+                linkValue = linkToParent.linkValue;
+            }
+            else {
+                layout_code = 'card';
+            }
+
+            if(linkLinkValue != null && linkValue != null) {
+                if(linkLinkValue == 'LINK') {
+                    layout_code = linkValue;
+                }
+                else {
+                    layout_code = linkLinkValue;
+                }
+            }
+
+            if ( itemLayout != null && typeof itemLayout === 'string' && itemLayout.length > 0 ) {
+                layout_code = itemLayout;
+            }
+
             let sublayout = this.props.sublayout[layout_code];
             children.push(
                 {
