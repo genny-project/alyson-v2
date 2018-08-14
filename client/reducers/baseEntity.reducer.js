@@ -280,14 +280,12 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                     ...links[linkCode],
                     ...[{
                         attributeCode: linkCode,
-                        weight: 1,
                         targetCode: newItem.code,
                         sourceCode: newItem.parentCode,
                         linkValue: newItem.linkValue || defaultLinkValue,
                         valueString: newItem.linkValue || defaultLinkValue,
                         link: {
                             attributeCode: linkCode,
-                            weight: 1,
                             targetCode: newItem.code,
                             sourceCode: newItem.parentCode,
                             linkValue: newItem.linkValue || defaultLinkValue,
