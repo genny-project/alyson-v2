@@ -65,6 +65,7 @@ class InputDatePicker extends Component {
                 else if (!newValue.includes('+')) {
                     newValue = `${newValue}Z`;
                 }
+                if (newValue == this.props.value ) return;
             }
 
             const date = moment(new Date( newValue ));
@@ -88,7 +89,9 @@ class InputDatePicker extends Component {
 
     componentWillReceiveProps( nextProps) {
         if ( nextProps.value != this.props.value) {
-            if (nextProps.value != null && nextProps.value != '' ) {
+            if (
+              nextProps.value != null &&
+              nextProps.value != '' ) {
 
                 let newValue = nextProps.value;
 
@@ -99,7 +102,9 @@ class InputDatePicker extends Component {
                     else if (!newValue.includes('+')) {
                         newValue = `${newValue}Z`;
                     }
+                    if (newValue == this.props.value ) return;
                 }
+
                 const date = moment(new Date( newValue ));
                 this.setState({
                     currentValue: date,
@@ -237,7 +242,7 @@ class InputDatePicker extends Component {
         const { currentValue, isMobile } = this.state;
         const componentStyle = { ...style, };
         const dateRange = this.getDateRange(inputMask);
-        
+
         return (
             <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
                 { name ? <div className='input-header'>

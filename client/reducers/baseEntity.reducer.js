@@ -37,21 +37,33 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
         }
     }
 
-    if(shouldDeleteLinkedBaseEntities) {
+    const deleteLinkedBaseEntities = function(beCode, level) {
 
-        if(state.data[baseEntityCode] != null) {
+        if (state.data[beCode] != null) {
 
-            Object.keys(state.data[baseEntityCode].links).forEach(linkCode => {
+            Object.keys(state.data[beCode].links).forEach(linkCode => {
 
-                const links = state.data[baseEntityCode].links[linkCode];
+                const links = state.data[beCode].links[linkCode];
                 links.forEach(link => {
 
-                    if(link.targetCode != null) {
+                    if (link.targetCode != null) {
+                        if(level > 1) {
+                            deleteLinkedBaseEntities(link.targetCode);
+                        }
+
+                        level--;
                         delete state.data[link.targetCode];
                     }
                 });
             });
         }
+    };
+
+    if (shouldDeleteLinkedBaseEntities != null && typeof shouldDeleteLinkedBaseEntities == 'number') {
+        deleteLinkedBaseEntities(baseEntityCode, shouldDeleteLinkedBaseEntities);
+    }
+    else if (shouldDeleteLinkedBaseEntities != null && shouldDeleteLinkedBaseEntities === true) {
+        deleteLinkedBaseEntities(baseEntityCode, 1);
     }
 
     delete existing[baseEntityCode];
@@ -65,7 +77,6 @@ const handleBaseEntity = (state, action, existing, newItem) => {
 
     if (action.payload.delete === true) {
         deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
-
     } 
     else {
 
@@ -223,6 +234,7 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
 
             /* get the link code to the children */
             let linkCode = newItem.linkCode;
+            let defaultLinkValue = "LINK";
             if(linkCode == null) {
 
                 if(newItem.parentCode.startsWith('BEG_')) {
@@ -234,6 +246,10 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 else {
                     linkCode = 'LNK_CORE';
                 }
+            }
+
+            if(newItem.code.startsWith("BEG")) {
+                defaultLinkValue = "BEG";
             }
 
             /* we check if the parent data exists or we create it */
@@ -267,14 +283,14 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                         weight: 1,
                         targetCode: newItem.code,
                         sourceCode: newItem.parentCode,
-                        linkValue: newItem.linkValue || 'LINK',
-                        valueString: newItem.linkValue || 'LINK',
+                        linkValue: newItem.linkValue || defaultLinkValue,
+                        valueString: newItem.linkValue || defaultLinkValue,
                         link: {
                             attributeCode: linkCode,
                             weight: 1,
                             targetCode: newItem.code,
                             sourceCode: newItem.parentCode,
-                            linkValue: newItem.linkValue || 'LINK',
+                            linkValue: newItem.linkValue || defaultLinkValue,
                         }
                     }]
                 ];

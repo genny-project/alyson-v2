@@ -29,6 +29,7 @@ export { default as InputDate } from './input-date';
 export { default as InputDatePicker } from './input-date-picker';
 export { default as InputDropdown } from './input-dropdown';
 export { default as InputEmail } from './input-email';
+export { default as InputHTML } from './input-html';
 export { default as InputRadio } from './input-radio';
 export { default as InputRating } from './input-rating';
 export { default as InputSlider } from './input-slider';
