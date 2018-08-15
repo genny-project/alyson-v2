@@ -3,24 +3,21 @@ import { string, object  } from 'prop-types';
 import { BaseEntityQuery } from 'utils/genny';
 import distanceInWords from 'date-fns/distance_in_words';
 
-
 class TimeAgoInWords extends PureComponent {
-  
     static propTypes = {
         code: string,
         style: object
     }
-
     renderFromNow = (code) => {
-        if (code) {
-            let createdAt = BaseEntityQuery.getBaseEntity(code);
-            if(createdAt && createdAt.created) { 
-              const date = createdAt.created;
-                return distanceInWords(date, Date.now());
-            }
-            else { 
-              return null;
-            }
+      if (code) {
+        let createdAt = BaseEntityQuery.getBaseEntity(code);
+        if(createdAt && createdAt.created) { 
+          const date = createdAt.created;
+          return distanceInWords(date, Date.now());
+        }
+        else { 
+          return null;
+        }
     }
     else { 
       return null;
@@ -30,15 +27,14 @@ class TimeAgoInWords extends PureComponent {
     render() {
       const {style, code} = this.props;
         const componentStyle = { ...style, };
-        
         return (
-            <span className="time-ago-in-words" style={componentStyle}>
-                {
-                    code ?
-                    this.renderFromNow( code) :
-                    null
-                }
-            </span>
+          <span className="time-ago-in-words" style={componentStyle}>
+            {
+              code ?
+              this.renderFromNow( code) :
+              null
+            }
+          </span>
         );
     }
 }
