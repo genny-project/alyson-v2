@@ -72,3 +72,4 @@ export { default as TagDisplay } from './tag-display';
 export { default as Timeline } from './timeline';
 export { default as Toasts } from './toasts';
 export { default as TreeView } from './tree-view';
+export {default as TimeAgoInWords} from './time-ago-in-words';

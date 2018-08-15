@@ -38,7 +38,7 @@ class BaseEntityQuery {
             }
 
             return null;
-        }
+        };
 
         if (be != null && be.links != null) {
 
@@ -173,7 +173,7 @@ class BaseEntityQuery {
 
                         if (child) {
 
-                            if (child.type == "BaseEntity") {
+                            if (child.type == 'BaseEntity') {
                                 if (childKey == childCode) {
                                     return BaseEntityQuery.getBaseEntity(groupKey);
                                 }
@@ -302,7 +302,7 @@ class BaseEntityQuery {
     }
 
     static getBaseEntityCreationDate = (baseEntityCode) => {
-        return BaseEntityQuery.getBaseEntityField(baseEntityCode, "created");
+        return BaseEntityQuery.getBaseEntityField(baseEntityCode, 'created');
     }
 }
 
