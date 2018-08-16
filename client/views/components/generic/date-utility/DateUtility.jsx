@@ -16,6 +16,7 @@ class DateUtility extends PureComponent {
       /* if BECODE and ATTRIBUTE is supplied as props */
       if(code && attribute){ 
         const attributevalues = BaseEntityQuery.getBaseEntityAttribute(code, attribute);
+        if (!attributevalues) return null;
         const dateValue = attributevalues.valueDate;
         if(dateValue) { 
           const timeAgo =  distanceInWords(dateValue, Date.now());
@@ -26,6 +27,7 @@ class DateUtility extends PureComponent {
       /* if BECODE and field is supplied as props */
       if(code && field) { 
         const fieldValue = BaseEntityQuery.getBaseEntityField(code , field);  
+        if (!fieldValue) return null;
         if(fieldValue) { 
           const timeAgo =  distanceInWords(fieldValue, Date.now());
           return timeAgo;
