@@ -15,13 +15,9 @@ class TimeAgoInWords extends PureComponent {
           const date = createdAt.created;
           return distanceInWords(date, Date.now());
         }
-        else { 
-          return null;
-        }
+        return null;
     }
-    else { 
       return null;
-    }
   }
 
     render() {

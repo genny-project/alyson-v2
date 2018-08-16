@@ -392,7 +392,7 @@ class GennyTable extends Component {
                             <input
                                 checked={isChecked}
                                 type="checkbox"
-                                style={{display: "none"}}
+                                style={{display: 'none'}}
                                 onClick={() => this.handleClickColumn(rowCodes)}
                             />
                         );
