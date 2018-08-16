@@ -21,6 +21,7 @@ class DateUtility extends PureComponent {
           const timeAgo =  distanceInWords(dateValue, Date.now());
           return timeAgo;
         }
+        return null;
       }
       /* if BECODE and field is supplied as props */
       if(code && field) { 
