@@ -10,10 +10,13 @@ class GennyBucketView extends PureComponent {
 
     static defaultProps = {
         allowItemClick: false,
+        useLinkValueForLayout: false,
     }
 
     static propTypes = {
-        allowItemClick: bool
+        allowItemClick: bool,
+        useLinkValueForLayout: bool,
+        itemLayout: string,
     };
 
     state = {
@@ -105,36 +108,35 @@ class GennyBucketView extends PureComponent {
         // console.log(bes);
         bes.forEach(be => {
 
-            const { itemLayout } = this.props;
+            const { itemLayout, useLinkValueForLayout } = this.props;
 
-            let linkToParent = BaseEntityQuery.getLinkToParent(root, be.code);
-
-            let layout_code = null;
+            let linkToParent = BaseEntityQuery.getLinkToParent(groupCode, be.code);
+             
+            let layout_code = itemLayout || 'card';
             let linkLinkValue = null;
             let linkValue = null;
 
-            if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
-                linkLinkValue = linkToParent.link.linkValue;
-            }
-
-            if(linkToParent != null && linkToParent.linkValue != null) {
-                linkValue = linkToParent.linkValue;
-            }
-            else {
-                layout_code = 'card';
-            }
-
-            if(linkLinkValue != null && linkValue != null) {
-                if(linkLinkValue == 'LINK') {
-                    layout_code = linkValue;
+            if ( useLinkValueForLayout ) {
+                if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
+                    linkLinkValue = linkToParent.link.linkValue;
                 }
-                else {
-                    layout_code = linkLinkValue;
+    
+                if(linkToParent != null && linkToParent.linkValue != null) {
+                    linkValue = linkToParent.linkValue;
                 }
-            }
-
-            if ( itemLayout != null && typeof itemLayout === 'string' && itemLayout.length > 0 ) {
-                layout_code = itemLayout;
+    
+                if(linkLinkValue != null && linkValue != null) {
+                    if(linkLinkValue == 'LINK') {
+                        layout_code = linkValue;
+                    }
+                    else {
+                        layout_code = linkLinkValue;
+                    }
+                }
+    
+                if ( itemLayout != null && typeof itemLayout === 'string' && itemLayout.length > 0 ) {
+                    layout_code = itemLayout;
+                }
             }
 
             let sublayout = this.props.sublayout[layout_code];
