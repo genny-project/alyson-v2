@@ -61,6 +61,7 @@ import {
   TagDisplay,
   Capability,
   PDFViewer,
+  RenderHtml
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -124,5 +125,6 @@ export default new ComponentCollection({
   GennyPieChart,
   Capability,
   PDFViewer,
-  TagDisplay
+  TagDisplay,
+  RenderHtml
 });
