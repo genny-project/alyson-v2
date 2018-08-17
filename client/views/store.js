@@ -16,7 +16,7 @@ let middleware = applyMiddleware(
   epicMiddleware,
 );
 
-if (process.env.NODE_ENV != 'production') {
+if (window.localStorage && window.localStorage.getItem( 'APPLY_MIDDLEWARE' ) != null) {
 
     middleware = applyMiddleware(
       routerMiddleware( history ),
