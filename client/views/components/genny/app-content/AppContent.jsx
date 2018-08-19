@@ -193,6 +193,8 @@ class AppContent extends Component {
                         alwaysShowImage
                         buttonText='Add Note'
                         noItemsText='No Notes Yet'
+                        buttonIdentifier='ID_NOTES_BUTTON'
+                        inputIdentifier='ID_NOTES_INPUT'
                     />
                     : null
                 }

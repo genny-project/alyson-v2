@@ -22,6 +22,7 @@ class Button extends Component {
     style: object,
     buttonStyle: object,
     disabled: bool,
+    identifier: string,
   }
 
   onClick = (e) => {
@@ -33,12 +34,12 @@ class Button extends Component {
 
   render() {
 
-    const { children, type, className, href, style, buttonStyle, disabled } = this.props;
+    const { children, type, className, href, style, buttonStyle, disabled, identifier } = this.props;
     const componentStyle = { ...style, };
 
     const btn = (
       <div className={`button ${className} ${type} ${disabled ? 'disabled' : ''}`} style={componentStyle}>
-        <button disabled={disabled} onClick={this.onClick} style={{ ...buttonStyle }}>{children ? children : null}</button>
+        <button className={identifier} disabled={disabled} onClick={this.onClick} style={{ ...buttonStyle }}>{children ? children : null}</button>
       </div>
     );
 
