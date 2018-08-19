@@ -1,6 +1,7 @@
 import { DATA_MSG, CMD_MSG, EVT_MSG, BULK_MSG } from 'constants';
 import events from 'utils/genny/vertx-events';
 import store from 'views/store';
+import axios from 'axios';
 
 class MessageHandler {
 
@@ -48,7 +49,6 @@ class MessageHandler {
       }
 
     onMessage = (message) => {
-
         // if(message.parentCode == "GRP_NEW_ITE") {
         //   console.log( message )
         // }
@@ -96,6 +96,25 @@ class MessageHandler {
 
             store.dispatch(action(message));
         };
+
+        /* Handle QBulkPull messages */
+        if (message.data_type === 'QBulkPullMessage') {
+          /* Get the pull url */
+          const { pullUrl } = message;
+
+          /* Fetch the URL */
+          axios.get( pullUrl ).then( response => {
+            this.onMessage({
+              ...response.data,
+              msg_type: 'DATA_MSG',
+            });
+          }).catch( e => {
+            console.error( 'An error occured loading a QBulkPullMessage', pullUrl );
+            console.error( e );
+          });
+
+          return;
+        }
 
         /* handle bulk messages */
         if (message.data_type == 'QBulkMessage' && message.messages != null && message.messages.length) {
