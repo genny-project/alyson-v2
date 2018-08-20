@@ -46,6 +46,7 @@ class List extends Component {
         this.setState({
             data: this.props.data
         });
+        if (this.props.onMount && this.props.data && this.props.data.length > 0) this.props.onMount(this.props.data[0]);
     }
 
     componentWillReceiveProps(newProps) {
@@ -67,7 +68,7 @@ class List extends Component {
         else {
             if(showEmpty === true) {
                 children = [
-                    <div className='list-empty' style={{ "marginTop": "20px" }}>{emptyMessage}</div>
+                    <div className='list-empty' style={{ 'marginTop': '20px' }}>{emptyMessage}</div>
                 ];
             }
         }

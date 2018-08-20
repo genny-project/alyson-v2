@@ -18,14 +18,14 @@ class GennyTable extends Component {
             // }
         ],
         showTitle: true,
-      } 
+      }
 
       static propTypes = {
         showBaseEntity: bool,
         columns: array,
         root: string,
         actions: array,
-        showTitle: bool, 
+        showTitle: bool,
       }
 
     state = {
@@ -215,7 +215,7 @@ class GennyTable extends Component {
 
                     if(
                         !headers.includes( (attribute && attribute.attributeCode) || attributeCode || `${attributeCode}.${subCode}`) ||
-                        ( 
+                        (
                             headers.includes( (attribute && attribute.attributeCode) || attributeCode ) &&
                             !usedSubCodes.includes(subCode)
                         )
@@ -297,6 +297,7 @@ class GennyTable extends Component {
                 };
 
                 const columnsProps = this.props.columns;
+                let actionsColumnProps = null;
 
                 if (columnsProps != null && columnsProps.length > 0) {
 
@@ -317,10 +318,17 @@ class GennyTable extends Component {
                         /* if it is an object  */
                         else {
                             //attributeCode = columnsProps[i].subCode ? `${columnsProps[i].code}.${columnsProps[i].subCode}` : columnsProps[i].code;
-                            attributeCode = columnsProps[i].code;
-                            width = columnsProps[i].width;
-                            name = columnsProps[i].title;
-                            subCode = columnsProps[i].subCode;
+                            attributeCode = colProps.code;
+                            width = colProps.width;
+                            name = colProps.title;
+                            subCode = colProps.subCode;
+                        }
+
+                        if (attributeCode && attributeCode === 'TABLE_ACTIONS') {
+                            actionsColumnProps = {
+                                ...colProps,
+                                index: i,
+                            };
                         }
 
                         const newColumn = createColumn(attributeCode, width, name, subCode);
@@ -342,10 +350,14 @@ class GennyTable extends Component {
                 }
 
                 if ( this.props.actions && this.props.actions.length > 0 ) {
-                    cols.splice(0, 0, {
-                        'Header': <span className="header-single">Actions</span>,
+                    const index = actionsColumnProps ? actionsColumnProps.index : 0;
+                    const title = actionsColumnProps ? actionsColumnProps.title : 'Actions';
+                    const width = actionsColumnProps ? actionsColumnProps.width : 120 * this.props.actions.length;
+                    const code = actionsColumnProps ? actionsColumnProps.code : 'DETAILS';
+                    cols.splice(index, 0, {
+                        'Header': <span className="header-single">{title}</span>,
                         'accessor': 'actions',
-                        'attributeCode': 'DETAILS',
+                        'attributeCode': code,
                         'Cell': ({original}) => {
                             return (
                                 <div
@@ -380,7 +392,7 @@ class GennyTable extends Component {
                                 </div>
                             );
                         },
-                        'minWidth': 120 * this.props.actions.length
+                        'minWidth': width
                     });
                 }
 
@@ -531,10 +543,10 @@ class GennyTable extends Component {
         const projectCode = GennyBridge.getProject();
         let projectColor = BaseEntityQuery.getBaseEntityAttribute(projectCode, 'PRI_COLOR');
         projectColor = projectColor ? projectColor.value : null;
-        
+
         return (
             <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'} ${window.getScreenSize()}`} style={style}>
-                
+
                 { showTitle ?
                     <div style={{ backgroundColor: projectColor}} className='genny-list-title sticky'>
                         <span>{rootEntity && rootEntity.name} ( {tableData && tableData.length} )</span>
