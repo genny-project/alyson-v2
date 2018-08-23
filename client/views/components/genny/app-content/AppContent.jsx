@@ -42,12 +42,16 @@ class AppContent extends Component {
     }
 
     renderContent = (commandType, commandData) => {
-
+        // console.log('render', commandType, commandData);
         if(commandType && ( commandData.root != null || commandData.data != null) ) {
 
             // we need to show the table view
             if (commandData.code == 'TABLE_VIEW') {
-                return <GennyTable root = { commandData.root } columns={commandData.data.columns} actions={commandData.data.actions}/>;
+                return <GennyTable
+                  root = { commandData.root }
+                  columns={commandData.data ? commandData.data.columns : commandData.columns }
+                  actions={commandData.data ? commandData.data.actions : commandData.actions }
+                />;
             }
             // we need to show the bucket view
             else if (commandData.code == 'BUCKET_VIEW') {
@@ -88,6 +92,8 @@ class AppContent extends Component {
                     });
                 }
 
+                // console.log('splitview', children);
+
                 return (
                     <SplitView>
                         {children}
@@ -95,6 +101,7 @@ class AppContent extends Component {
                 );
             }
             else if (commandData.code == 'TAB_VIEW') {
+                // console.log('tabs', views);
                 const views = commandData.tabs.map(item => {
                     return {
                         title: item.name,
@@ -102,6 +109,7 @@ class AppContent extends Component {
                         layout: this.renderContent('view', item.layout)
                     };
                 });
+                // console.log('tabs', views);
                 return <TabContainer views={views} />;
             }
             else if (commandData.code == 'DETAIL_VIEW') {
