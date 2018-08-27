@@ -181,7 +181,6 @@ class GennyList extends Component {
                         data={ this.generateListItems(data) }
                         showEmpty={showEmpty}
                         onItemClick={this.handleClick}
-                        onMount={this.handleClick}
                         {...rest}
                     />
                 </div>

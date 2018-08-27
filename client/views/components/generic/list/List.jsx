@@ -46,12 +46,6 @@ class List extends Component {
         this.setState({
             data: this.props.data
         });
-        if (this._ismounted != true && this.props.onMount && this.props.data && this.props.data.length > 0) this.props.onMount(this.props.data[0]);
-        this._ismounted = true;
-    }
-
-    componentWillUnmount() {
-        this._ismounted = false;
     }
 
     componentWillReceiveProps(newProps) {
