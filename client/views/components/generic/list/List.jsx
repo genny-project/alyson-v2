@@ -67,7 +67,7 @@ class List extends Component {
         else {
             if(showEmpty === true) {
                 children = [
-                    <div className='list-empty' style={{ "marginTop": "20px" }}>{emptyMessage}</div>
+                    <div className='list-empty' style={{ 'marginTop': '20px' }}>{emptyMessage}</div>
                 ];
             }
         }

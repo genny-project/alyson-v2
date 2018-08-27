@@ -110,7 +110,7 @@ class GennyList extends Component {
                     }
 
                     if(linkLinkValue != null && linkValue != null) {
-                        if(linkLinkValue == "LINK") {
+                        if(linkLinkValue == 'LINK') {
                             layout_code = linkValue;
                         }
                         else {
@@ -120,7 +120,7 @@ class GennyList extends Component {
                     else {
                         layout_code = linkLinkValue || linkValue;
                     }
-                    
+
                     if ( itemLayout != null && typeof itemLayout === 'string' && itemLayout.length > 0 ) {
                         layout_code = itemLayout;
                     }
