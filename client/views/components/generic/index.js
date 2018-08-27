@@ -73,3 +73,4 @@ export { default as Timeline } from './timeline';
 export { default as Toasts } from './toasts';
 export { default as TreeView } from './tree-view';
 export {default as DateUtility} from './date-utility';
+export {default as LimitCharacters} from './limit-characters';
