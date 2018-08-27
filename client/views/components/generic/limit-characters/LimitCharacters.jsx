@@ -9,18 +9,18 @@ const LimitCharshelper = (input, maxCharacters = 250) => {
   return output;
 };
 
-const LimitCharacters = ({data, to}) => { 
+const LimitCharacters = ({text, limitTo}) => { 
   return (
     <div>
-    { LimitCharshelper(data, to) }
+    { LimitCharshelper(text, limitTo) }
     </div>
   );
 };
 
 
 LimitCharacters.propTypes = { 
-  data: string,
-  to: number
+  text: string,
+  limitTo: number
 };
 
 
