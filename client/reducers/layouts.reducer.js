@@ -76,7 +76,7 @@ export default function reducer(state = initialState, action) {
             if (newModalCode) {
 
                 try {
-
+                    
                     return {
                         ...state,
                         currentModal: {

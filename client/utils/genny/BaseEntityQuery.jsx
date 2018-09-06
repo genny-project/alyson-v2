@@ -6,7 +6,10 @@ let d = false;
 class BaseEntityQuery {
 
     static sortItems(items) {
-        return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
+       items.sort((x, y) => {
+           return x.weight - y.weight;
+       });
+       return items.filter(x => x.hidden !== true && x.weight > 0);
     }
 
     static getEntityChildren(code, recursionSafeCodes) {
@@ -22,7 +25,7 @@ class BaseEntityQuery {
         const recurse = (itemCode, itemWeight) => {
 
             let item = BaseEntityQuery.getBaseEntity(itemCode);
-            if (item != null && item != undefined) {
+            if (item != null && item != undefined && item.attributes != null) {
 
                 if (!Object.keys(safeRecursion).includes(item.code)) {
 

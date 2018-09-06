@@ -42,6 +42,7 @@ class AppContent extends Component {
     }
 
     renderContent = (commandType, commandData) => {
+        
         // console.log('render', commandType, commandData);
         if(commandType && ( commandData.root != null || commandData.data != null) ) {
 
@@ -236,6 +237,7 @@ class AppContent extends Component {
             layoutContent = this.renderContent('view', layout.currentView);
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
+
             itemCode = layout.currentSublayout.root;
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;
