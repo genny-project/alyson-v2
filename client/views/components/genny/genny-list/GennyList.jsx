@@ -41,6 +41,8 @@ class GennyList extends Component {
         hideSelectedStyle: bool,
         selectedColor: string,
         selectedItem: string,
+        title: string,
+        itemLayout: string,
     };
 
     state = {
@@ -70,7 +72,7 @@ class GennyList extends Component {
 
     generateListItems(data) {
 
-        const { localAliases, selectedItem, root, numberOfItems, hideSelectedStyle } = this.props;
+        const { localAliases, selectedItem, root, numberOfItems, hideSelectedStyle, itemLayout } = this.props;
         const { selectedItemState } = this.state;
 
         let newData = [];
@@ -108,7 +110,7 @@ class GennyList extends Component {
                     }
 
                     if(linkLinkValue != null && linkValue != null) {
-                        if(linkLinkValue == "LINK") {
+                        if(linkLinkValue == 'LINK') {
                             layout_code = linkValue;
                         }
                         else {
@@ -117,6 +119,10 @@ class GennyList extends Component {
                     }
                     else {
                         layout_code = linkLinkValue || linkValue;
+                    }
+
+                    if ( itemLayout != null && typeof itemLayout === 'string' && itemLayout.length > 0 ) {
+                        layout_code = itemLayout;
                     }
 
                     let sublayout = this.props.sublayout[layout_code];
@@ -137,7 +143,7 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, showTitle, showEmpty, gennyListStyle, emptyMessage, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, showTitle, showEmpty, gennyListStyle, emptyMessage, title, ...rest } = this.props;
         const componentStyle = { ...gennyListStyle};
 
         let data = [];
@@ -164,7 +170,7 @@ class GennyList extends Component {
                 <div className='genny-list' style={componentStyle}>
                     { showTitle ?
                         <div style={{ backgroundColor: projectColor}} className='genny-list-title'>
-                            <span>{rootEntity && rootEntity.name} ( {data && data.length} )</span>
+                            <span>{ title ? title : rootEntity && rootEntity.name} ( {data && data.length} )</span>
                         </div>
                     : null }
                     <List

@@ -13,10 +13,13 @@ div.ReactTags__selected span.ReactTags__tag {
     font-size: 12px;
     display: inline-block;
     padding: 5px;
-    margin-top: 5px;
     margin-bottom: 5px;
     cursor: move;
     border-radius: 2px;
+
+    &:not(:last-child) {
+        margin-right: 5px
+    }
 }
 div.ReactTags__selected a.ReactTags__remove {
     color: #aaa;
@@ -31,7 +34,7 @@ div.ReactTags__suggestions {
 div.ReactTags__suggestions ul {
     box-shadow: .05em .01em .5em rgba(0,0,0,.2);
     background: white;
-    width: 200px;
+    width: 250px;
     color: rgba(34, 34, 34, 0.8);
 }
 div.ReactTags__suggestions li {

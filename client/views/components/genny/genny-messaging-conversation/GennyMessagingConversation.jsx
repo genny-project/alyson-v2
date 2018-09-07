@@ -14,6 +14,8 @@ class GennyMessagingConversation extends Component {
         useNewMessageAttributes: false,
         buttonText: 'Send',
         reverseDirection: false,
+        buttonIdentifier: 'ID_BUTTON',
+        inputIdentifier: 'ID_INPUT',
     }
 
     static propTypes = {
@@ -28,6 +30,8 @@ class GennyMessagingConversation extends Component {
         buttonText: string,
         reverseDirection: bool,
         noItemsText: string,
+        buttonIdentifier: string,
+        inputIdentifier: string,
     };
 
     state = {
@@ -104,7 +108,7 @@ class GennyMessagingConversation extends Component {
         // }
 
         /* return key on web only */
-        if(e.key == "Enter" && window.getScreenSize() != 'sm') {
+        if(e.key == 'Enter' && window.getScreenSize() != 'sm') {
 
            e.preventDefault();
            GennyBridge.sendBtnClick('BTN_CLICK', {
@@ -137,6 +141,7 @@ class GennyMessagingConversation extends Component {
         return (
             <div>
                 <textarea
+                    className={this.props.inputIdentifier}
                     pattern="[A-Za-z]"
                     rows={3}
                     onKeyPress={this.handleKeyPress}
@@ -152,6 +157,7 @@ class GennyMessagingConversation extends Component {
                         : null
                 }
                 <GennyButton
+                    identifier={this.props.buttonIdentifier}
                     className='conversation-button'
                     onClick={this.onButtonClick}
                     disabled={this.state.messageText == ''}

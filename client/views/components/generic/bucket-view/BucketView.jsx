@@ -106,17 +106,9 @@ class BucketView extends Component {
 
     componentWillReceiveProps(newProps) {
 
-        /* we cancel the timer if it exists */
-        if(this.state.bufferTimer != null) clearTimeout(this.state.bufferTimer);
-
-        /* we start a timer after which the state will be updated */
-        this.state.bufferTimer = setTimeout(() => {
-
-            this.setState({
+        this.setState({
                 buckets: newProps.buckets
             })
-
-        }, 300);
     }
 
     // componentWillUpdate(newProps) {

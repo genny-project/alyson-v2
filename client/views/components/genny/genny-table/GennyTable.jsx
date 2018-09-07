@@ -18,14 +18,14 @@ class GennyTable extends Component {
             // }
         ],
         showTitle: true,
-      } 
+      }
 
       static propTypes = {
         showBaseEntity: bool,
         columns: array,
         root: string,
         actions: array,
-        showTitle: bool, 
+        showTitle: bool,
       }
 
     state = {
@@ -195,34 +195,31 @@ class GennyTable extends Component {
 
             if(attributes) {
 
-                const createColumn = (attributeCode, width, columnName) => {
+                let usedSubCodes = [];
+
+                const createColumn = (attributeCode, width, columnName, subCode) => {
 
                     let attribute = attributes[attributeCode];
                     const attrData = BaseEntityQuery.getAttribute( ( attribute && attribute.attributeCode ) || attributeCode);
                     //let attrType = null;
                     let attrName = null;
 
-                    if(attrData) {
-
-                        let name = "";
-                        if(attrData.name == "Buyer Role") {
-                            name = "Is Freight Owner";
-                        }
-                        else if(attrData.name == "Seller Role") {
-                            name = "Is Transport Operator";
-                        }
-                        else {
-                            name = attrData.name;
-                        }
-
-                        attrName = name;
+                    if(attrData && attrData.name) {
+                        attrName = attrData.name;
                     }
 
                     let headers = cols.map(column => {
-                        return column.attributeCode;
+                        const header = column.attributeCode;
+                        return header;
                     });
 
-                    if(!headers.includes( (attribute && attribute.attributeCode) || attributeCode ) ) {
+                    if(
+                        !headers.includes( (attribute && attribute.attributeCode) || attributeCode || `${attributeCode}.${subCode}`) ||
+                        (
+                            headers.includes( (attribute && attribute.attributeCode) || attributeCode ) &&
+                            !usedSubCodes.includes(subCode)
+                        )
+                    ) {
 
                         if(!isMobile) {
 
@@ -243,6 +240,7 @@ class GennyTable extends Component {
                                             cell={cell}
                                             rowCode={rowCode}
                                             code={( attribute && attribute.attributeCode ) || attributeCode}
+                                            subCode={subCode}
                                             name={attribute && attribute.attributeName}
                                             value={value}
                                             dataType={dataType}
@@ -254,7 +252,7 @@ class GennyTable extends Component {
                                 },
                                 'accessor': (attribute && attribute.attributeCode) || attributeCode,
                                 //'minWidth': typeof width == 'number' ? width : null,
-                                'attributeCode': (attribute && attribute.attributeCode) || attributeCode,
+                                'attributeCode': subCode ? `${attributeCode}.${subCode}` : (attribute && attribute.attributeCode) || attributeCode,
                                 'sortMethod': (a, b) => {
                                     let valueA = a.value && a.value;
                                     let valueB = b.value && b.value;
@@ -270,7 +268,7 @@ class GennyTable extends Component {
                                     <input
                                         className='table-filter'
                                         type='text'
-                                        placeholder={`Filter ${attrName}`}
+                                        placeholder={`Filter ${columnName || attrName}`}
                                         value={filter ? filter.value : ''}
                                         onChange={event => onChange(event.target.value)}
                                     />
@@ -298,12 +296,8 @@ class GennyTable extends Component {
                     return null;
                 };
 
-                const createActionColumn = () => {
-
-                };
-
                 const columnsProps = this.props.columns;
-                //const columnsProps = null;
+                let actionsColumnProps = null;
 
                 if (columnsProps != null && columnsProps.length > 0) {
 
@@ -312,6 +306,7 @@ class GennyTable extends Component {
                         let attributeCode = null;
                         let width = null;
                         let name = null;
+                        let subCode = null;
 
                         const colProps = columnsProps[i];
 
@@ -322,14 +317,23 @@ class GennyTable extends Component {
 
                         /* if it is an object  */
                         else {
-
-                            attributeCode = columnsProps[i].code;
-                            width = columnsProps[i].width;
-                            name = columnsProps[i].title;
+                            //attributeCode = columnsProps[i].subCode ? `${columnsProps[i].code}.${columnsProps[i].subCode}` : columnsProps[i].code;
+                            attributeCode = colProps.code;
+                            width = colProps.width;
+                            name = colProps.title;
+                            subCode = colProps.subCode;
                         }
 
-                        const newColumn = createColumn(attributeCode, width, name);
+                        if (attributeCode && attributeCode === 'TABLE_ACTIONS') {
+                            actionsColumnProps = {
+                                ...colProps,
+                                index: i,
+                            };
+                        }
+
+                        const newColumn = createColumn(attributeCode, width, name, subCode);
                         if(newColumn != null) {
+                            usedSubCodes.push(subCode);
                             cols.push(newColumn);
                         }
                     }
@@ -346,10 +350,14 @@ class GennyTable extends Component {
                 }
 
                 if ( this.props.actions && this.props.actions.length > 0 ) {
-                    cols.splice(0, 0, {
-                        'Header': <span className="header-single">Actions</span>,
+                    const index = actionsColumnProps ? actionsColumnProps.index : 0;
+                    const title = actionsColumnProps ? actionsColumnProps.title : 'Actions';
+                    const width = actionsColumnProps ? actionsColumnProps.width : 120 * this.props.actions.length;
+                    const code = actionsColumnProps ? actionsColumnProps.code : 'DETAILS';
+                    cols.splice(index, 0, {
+                        'Header': <span className="header-single">{title}</span>,
                         'accessor': 'actions',
-                        'attributeCode': 'DETAILS',
+                        'attributeCode': code,
                         'Cell': ({original}) => {
                             return (
                                 <div
@@ -358,7 +366,8 @@ class GennyTable extends Component {
                                     {
                                         this.props.actions &&
                                         this.props.actions.length > 0 &&
-                                        this.props.actions.map(action => {
+                                        this.props.actions.map(( action, index ) => {
+                                            const margin = index === this.props.actions.length - 1 ? { } : { marginRight: '5px' };
                                             return (
                                                 <GennyButton
                                                     buttonCode={action.code}
@@ -371,6 +380,7 @@ class GennyTable extends Component {
                                                     }}
                                                     style={{
                                                         height: '100%',
+                                                        ...margin,
                                                     }}
                                                 >
                                                     { action.icon && <IconSmall style={{color: 'white', marginRight: '5px'}} name={action.icon}/> }
@@ -382,7 +392,7 @@ class GennyTable extends Component {
                                 </div>
                             );
                         },
-                        'minWidth': 120 * this.props.actions.length
+                        'minWidth': width
                     });
                 }
 
@@ -394,6 +404,7 @@ class GennyTable extends Component {
                             <input
                                 checked={isChecked}
                                 type="checkbox"
+                                style={{display: 'none'}}
                                 onClick={() => this.handleClickColumn(rowCodes)}
                             />
                         );
@@ -532,10 +543,9 @@ class GennyTable extends Component {
         const projectCode = GennyBridge.getProject();
         let projectColor = BaseEntityQuery.getBaseEntityAttribute(projectCode, 'PRI_COLOR');
         projectColor = projectColor ? projectColor.value : null;
- 
+
         return (
             <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'} ${window.getScreenSize()}`} style={style}>
-                
                 { showTitle ?
                     <div style={{ backgroundColor: projectColor}} className='genny-list-title sticky'>
                         <span>{rootEntity && rootEntity.name} ( {tableData && tableData.length} )</span>

@@ -1,5 +1,8 @@
 import { BASE_ENTITY, BASE_ENTITY_DATA, ATTRIBUTE, ANSWER, EVT_LINK_CHANGE } from 'constants';
 import { grabValue } from './utils.reducer';
+import {
+    GennyBridge
+} from 'utils/genny';
 
 const initialState = {
     data: {},
@@ -8,7 +11,7 @@ const initialState = {
     attributes: [],
 };
 
-const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBaseEntities) => {
+const deleteBaseEntity = (state, action, existing, newItem, deleteBaseEntity, deleteDepth) => {
 
     let baseEntityCode = newItem.code;
     const parentCode = action.payload.parentCode;
@@ -37,43 +40,151 @@ const deleteBaseEntity = (state, action, existing, newItem, shouldDeleteLinkedBa
         }
     }
 
-    if(shouldDeleteLinkedBaseEntities) {
+    const deleteLinkedBaseEntities = function(beCode, level) {
 
-        if(state.data[baseEntityCode] != null) {
+        if (state.data[beCode] != null) {
 
-            Object.keys(state.data[baseEntityCode].links).forEach(linkCode => {
+            Object.keys(state.data[beCode].links).forEach(linkCode => {
 
-                const links = state.data[baseEntityCode].links[linkCode];
+                const links = state.data[beCode].links[linkCode];
                 links.forEach(link => {
 
-                    if(link.targetCode != null) {
-                        delete state.data[link.targetCode];
+                    if (link.targetCode != null) {
+                        if (level > 1) {
+                            deleteLinkedBaseEntities(link.targetCode, level - 1);
+                        }
+                        
+                        if(link.targetCode != GennyBridge.getUser()) {
+                            delete state.data[link.targetCode];
+                        }
                     }
                 });
             });
         }
+    };
+
+    if (deleteDepth > 0) {
+        deleteLinkedBaseEntities(baseEntityCode, deleteDepth);
     }
 
-    delete existing[baseEntityCode];
-    delete state.data[baseEntityCode];
-
+    if (deleteBaseEntity) {
+        delete existing[baseEntityCode];
+        delete state.data[baseEntityCode];
+    }
 };
 
 const handleBaseEntity = (state, action, existing, newItem) => {
 
-    let baseEntityCode = newItem.code;
+    if(newItem != null) {
+        
+        let baseEntityCode = newItem.code;
 
-    if (action.payload.delete === true) {
-        deleteBaseEntity(state, action, existing, newItem, action.payload.shouldDeleteLinkedBaseEntities);
+        if (action.payload.delete === true) {
+            
+            let deleteDepth = 0;
+            if (action.payload.shouldDeleteLinkedBaseEntities != null && typeof action.payload.shouldDeleteLinkedBaseEntities == 'number') {
+                deleteDepth = action.payload.shouldDeleteLinkedBaseEntities;
+            } 
+            else if (action.payload.shouldDeleteLinkedBaseEntities != null && action.payload.shouldDeleteLinkedBaseEntities === true) {
+                deleteDepth = 1;
+            }
 
-    } 
-    else {
+            deleteBaseEntity(state, action, existing, newItem, action.payload.delete, deleteDepth);
+        } 
+        else {
 
-        if(action.payload.replace == true) {
-            deleteBaseEntity(state, action, existing, newItem, true);
-        }
+             let deleteDepth = 0;
+             if (action.payload.shouldDeleteLinkedBaseEntities != null && typeof action.payload.shouldDeleteLinkedBaseEntities == 'number') {
+                 deleteDepth = action.payload.shouldDeleteLinkedBaseEntities;
+             } 
+             else if (action.payload.shouldDeleteLinkedBaseEntities != null && action.payload.shouldDeleteLinkedBaseEntities === true) {
+                 deleteDepth = 1;
+             }
 
-        if (!newItem.baseEntityAttributes) {
+            if (action.payload.replace == true) {
+                deleteBaseEntity(state, action, existing, newItem, true, deleteDepth);
+            }
+            else if (deleteDepth > 0) {
+                deleteBaseEntity(state, action, existing, newItem, false, deleteDepth);
+            }
+
+            if (!newItem.baseEntityAttributes) {
+
+                existing[baseEntityCode] = {
+                    ...state.data[baseEntityCode],
+                    ...existing[baseEntityCode],
+                    ...newItem,
+                    parentCode: newItem.parentCode || (existing[baseEntityCode] ? existing[baseEntityCode].parentCode : null),
+                    originalLinks: newItem.links,
+                    links: newItem.links.reduce((existingLinks, newLink) => {
+
+                        let linkCode = newLink.link ? newLink.link.attributeCode : null;
+                        if (!linkCode) return existingLinks;
+
+                        if (!existingLinks[linkCode]) {
+                            existingLinks[linkCode] = [];
+                            existingLinks[linkCode].push({
+                                ...newLink,
+                                targetCode: newLink.link.targetCode,
+                                linkValue: newLink.valueString || newLink.link.linkValue,
+                            });
+                        } else {
+
+                            let found = -1;
+                            for (let index = 0; index < existingLinks[linkCode].length; index++) {
+                                const link = existingLinks[linkCode][index];
+                                if (link != null && link.link != null && link.link.targetCode != null && link.link.targetCode == newLink.link.targetCode) {
+                                    found = index;
+                                    break;
+                                }
+                            }
+
+                            if (found > -1) {
+                                existingLinks[linkCode][found] = {
+                                    ...existingLinks[linkCode][found],
+                                    ...newLink,
+                                    targetCode: newLink.link.targetCode,
+                                    linkValue: newLink.valueString || newLink.link.linkValue,
+                                };
+                            } else {
+
+                                existingLinks[linkCode].push({
+                                    ...newLink,
+                                    targetCode: newLink.link.targetCode,
+                                    linkValue: newLink.valueString || newLink.link.linkValue,
+                                });
+                            }
+                        }
+
+                        return existingLinks;
+
+                    }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
+                    linkCode: newItem.linkCode || 'LNK_CORE',
+                    weight: newItem.weight ? newItem.weight : 1
+                };
+
+                return existing;
+            }
+
+            let existingAttributes = (state.data[baseEntityCode] && state.data[baseEntityCode].attributes != null) ? state.data[baseEntityCode].attributes : {};
+            if (newItem.baseEntityAttributes.length > 0) {
+
+                let newAttributes = newItem.baseEntityAttributes;
+                newAttributes.forEach(newAttribute => {
+
+                    if (newAttribute.privacyFlag == false || newAttribute.privacyFlag == null) {
+
+                        existingAttributes[newAttribute.attributeCode] = {
+                            ...existingAttributes[newAttribute.attributeCode],
+                            ...newAttribute,
+                            ...{
+                                value: grabValue(newAttribute),
+                                baseEntityCode: baseEntityCode
+                            }
+                        };
+                    }
+                });
+            }
 
             existing[baseEntityCode] = {
                 ...state.data[baseEntityCode],
@@ -84,7 +195,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                 links: newItem.links.reduce((existingLinks, newLink) => {
 
                     let linkCode = newLink.link ? newLink.link.attributeCode : null;
-                    if (!linkCode) return existingLinks;
+                    if (!linkCode) return [];
 
                     if (!existingLinks[linkCode]) {
                         existingLinks[linkCode] = [];
@@ -93,8 +204,7 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                             targetCode: newLink.link.targetCode,
                             linkValue: newLink.valueString || newLink.link.linkValue,
                         });
-                    }
-                    else {
+                    } else {
 
                         let found = -1;
                         for (let index = 0; index < existingLinks[linkCode].length; index++) {
@@ -106,14 +216,14 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                         }
 
                         if (found > -1) {
+
                             existingLinks[linkCode][found] = {
                                 ...existingLinks[linkCode][found],
                                 ...newLink,
                                 targetCode: newLink.link.targetCode,
                                 linkValue: newLink.valueString || newLink.link.linkValue,
                             };
-                        }
-                        else {
+                        } else {
 
                             existingLinks[linkCode].push({
                                 ...newLink,
@@ -127,102 +237,26 @@ const handleBaseEntity = (state, action, existing, newItem) => {
 
                 }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
                 linkCode: newItem.linkCode || 'LNK_CORE',
-                weight: newItem.weight ? newItem.weight : 1
+                attributes: existingAttributes,
+                weight: newItem.weight ? newItem.weight : 1,
             };
 
-            return existing;
+            delete existing[baseEntityCode].baseEntityAttributes;
         }
-
-        let existingAttributes = (state.data[baseEntityCode] && state.data[baseEntityCode].attributes != null) ? state.data[baseEntityCode].attributes : {};
-        if (newItem.baseEntityAttributes.length > 0) {
-
-            let newAttributes = newItem.baseEntityAttributes;
-            newAttributes.forEach(newAttribute => {
-
-                if (newAttribute.privacyFlag == false || newAttribute.privacyFlag == null) {
-
-                    existingAttributes[newAttribute.attributeCode] = {
-                        ...existingAttributes[newAttribute.attributeCode],
-                        ...newAttribute,
-                        ... {
-                            value: grabValue(newAttribute),
-                            baseEntityCode: baseEntityCode
-                        }
-                    };
-                }
-            });
-        }
-
-        existing[baseEntityCode] = {
-            ...state.data[baseEntityCode],
-            ...existing[baseEntityCode],
-            ...newItem,
-            parentCode: newItem.parentCode || (existing[baseEntityCode] ? existing[baseEntityCode].parentCode : null),
-            originalLinks: newItem.links,
-            links: newItem.links.reduce((existingLinks, newLink) => {
-
-                let linkCode = newLink.link ? newLink.link.attributeCode : null;
-                if (!linkCode) return [];
-
-                if (!existingLinks[linkCode]) {
-                    existingLinks[linkCode] = [];
-                    existingLinks[linkCode].push({
-                        ...newLink,
-                        targetCode: newLink.link.targetCode,
-                        linkValue: newLink.valueString || newLink.link.linkValue,
-                    });
-                }
-                else {
-
-                    let found = -1;
-                    for (let index = 0; index < existingLinks[linkCode].length; index++) {
-                        const link = existingLinks[linkCode][index];
-                        if (link != null && link.link != null && link.link.targetCode != null && link.link.targetCode == newLink.link.targetCode) {
-                            found = index;
-                            break;
-                        }
-                    }
-
-                    if (found > -1) {
-
-                        existingLinks[linkCode][found] = {
-                            ...existingLinks[linkCode][found],
-                            ...newLink,
-                            targetCode: newLink.link.targetCode,
-                            linkValue: newLink.valueString || newLink.link.linkValue,
-                        };
-                    } else {
-
-                        existingLinks[linkCode].push({
-                            ...newLink,
-                            targetCode: newLink.link.targetCode,
-                            linkValue: newLink.valueString || newLink.link.linkValue,
-                        });
-                    }
-                }
-
-                return existingLinks;
-
-            }, (state.data[baseEntityCode] && state.data[baseEntityCode].links ? state.data[baseEntityCode].links : {})),
-            linkCode: newItem.linkCode || 'LNK_CORE',
-            attributes: existingAttributes,
-            weight: newItem.weight ? newItem.weight : 1,
-        };
-
-        delete existing[baseEntityCode].baseEntityAttributes;
     }
 };
 
 const handleBaseEntityParent = (state, action, existing, newItem) => {
 
     /* if the newItem has a parentCode */
-    if(newItem.parentCode != null) {
+    if(newItem != null && newItem.parentCode != null) {
 
         /* we update the data for the parent */
         if (newItem.code != null) {
 
             /* get the link code to the children */
             let linkCode = newItem.linkCode;
+            let defaultLinkValue = "LINK";
             if(linkCode == null) {
 
                 if(newItem.parentCode.startsWith('BEG_')) {
@@ -234,6 +268,10 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                 else {
                     linkCode = 'LNK_CORE';
                 }
+            }
+
+            if(newItem.code.startsWith("BEG")) {
+                defaultLinkValue = "BEG";
             }
 
             /* we check if the parent data exists or we create it */
@@ -267,14 +305,14 @@ const handleBaseEntityParent = (state, action, existing, newItem) => {
                         weight: 1,
                         targetCode: newItem.code,
                         sourceCode: newItem.parentCode,
-                        linkValue: newItem.linkValue || 'LINK',
-                        valueString: newItem.linkValue || 'LINK',
+                        linkValue: newItem.linkValue || defaultLinkValue,
+                        valueString: newItem.linkValue || defaultLinkValue,
                         link: {
                             attributeCode: linkCode,
                             weight: 1,
                             targetCode: newItem.code,
                             sourceCode: newItem.parentCode,
-                            linkValue: newItem.linkValue || 'LINK',
+                            linkValue: newItem.linkValue || defaultLinkValue,
                         }
                     }]
                 ];
@@ -310,7 +348,7 @@ export default function reducer(state = initialState, action) {
                     ...state.aliases,
                     ...action.payload.items.reduce((existing, newItem) => {
 
-                        if (newItem.aliasCode) {
+                        if (newItem != null && newItem.aliasCode) {
                             existing[newItem.aliasCode] = newItem.code;
                         }
                         return existing;

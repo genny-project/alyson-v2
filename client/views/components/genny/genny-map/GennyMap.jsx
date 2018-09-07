@@ -22,7 +22,8 @@ class GennyMap extends Component {
         polygons: array,
         polylines: array,
         hideRoutes: bool,
-        hideMarkers: bool
+        hideMarkers: bool,
+        btnCode : string
     };
 
     state = {
@@ -427,6 +428,52 @@ class GennyMap extends Component {
 
             return content;
         }
+        else if(GennyBridge.getProject() == 'PRJ_INTERNMATCH') {
+
+            const internshipName = attributes.PRI_NAME && attributes.PRI_NAME.value;
+            const addressFull = attributes.PRI_ADDRESS_FULL.value;
+            const hostCompany = BaseEntityQuery.getBaseEntity(attributes.LNK_HOST_COMPANY.value);
+            const hostCompanyName = hostCompany ? hostCompany.name : null;
+            const hostCompanyImage = hostCompany && hostCompany.attributes && hostCompany.attributes.PRI_IMAGE_URL
+                ? hostCompany.attributes.PRI_IMAGE_URL.value
+                : null;
+
+
+            let content = (
+                '<div>' +
+                    '<div style="display: flex; flex-direction: row" >' +            
+                        '<div style="margin-right: 5px" >' +            
+                            '<img style="width: 50px; height: 50px;" src="' +
+                                `${ hostCompanyImage || '' } ` +
+                            '" />' +
+                        '</div>' +
+                        '<div style="margin-right: 5px; display: flex; flex-direction: column" >' +            
+                            '<div style="display: flex; align-items: center; margin-bottom: 5px" >' +
+                                '<span style="font-weight: 1000;">' +
+                                    `${ internshipName || '' } ` +
+                                '</span>' +
+                            '</div>' +
+                            '<div style="margin-bottom: 5px">' +
+                                '<span>' +
+                                    `${ addressFull || '' } ` +
+                                '</span>' +
+                            '</div>' +
+                            '<div style="margin-bottom: 5px">' +
+                                '<span>' +
+                                    `${ hostCompanyName || '' } ` +
+                                '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="line-break"></div>' +
+                    '<div id="map-infowindow" class="map-infowindow-button">' +
+                        'See More Details' +
+                    '</div>' +
+                '</div>'
+            );
+            return content;
+        }
+
     }
 
     handleInfowindowButtonClick = (code, root) => {
@@ -444,7 +491,7 @@ class GennyMap extends Component {
         let btnValue = (value && value.constructor == String) ? value : JSON.stringify(value);
 
         GennyBridge.sendBtnClick('BTN_CLICK', {
-            code: 'BTN_LOAD_SEE_MORE',
+            code: this.props.btnCode || 'BTN_LOAD_SEE_MORE',
             value: btnValue || null
         });
     }

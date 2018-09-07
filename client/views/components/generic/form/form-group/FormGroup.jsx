@@ -70,7 +70,7 @@ class FormGroup extends Component {
 
         if(data.length == 1) {
           const dataFirst = data[0];
-          if(dataFirst.type == "java.lang.Boolean") {
+          if(dataFirst.type == 'java.lang.Boolean') {
             shouldRenderInputs = false;
           }
         }

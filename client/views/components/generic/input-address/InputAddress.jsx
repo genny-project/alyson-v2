@@ -36,6 +36,24 @@ class InputAddress extends Component {
         error: null
     }
 
+    componentWillReceiveProps( nextProps) {
+        // console.log(nextProps.value, this.props.value, this.state.value, this.state.address,)
+        if (
+            nextProps.value != this.props.value &&
+            nextProps.value != this.state.value &&
+            typeof nextProps.value == 'string'
+            
+        ) {
+            // console.log('newprop')
+            this.setState({
+                address: nextProps.value,
+                value: nextProps.value
+            }, () => {
+                this.onSelect(this.state.address);
+            });
+        }
+    }
+
     onSelect = (newAddress) => {
 
         if(newAddress) {
