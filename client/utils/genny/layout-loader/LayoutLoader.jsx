@@ -231,7 +231,6 @@ class LayoutLoader extends Component {
 
                                             if (be_attribute_parent.startsWith('LNK_')){
                                                 const linkedBaseEntity = BaseEntityQuery.getLinkedBaseEntity(localAliasCode, linkValue);
-
                                                 if ( linkedBaseEntity && linkedBaseEntity.code) {
                                                     const linkedBECode = linkedBaseEntity.code;
                                                     const lnk_value = BaseEntityQuery.getBaseEntityAttribute(linkedBECode, be_attribute_parent);
@@ -298,7 +297,6 @@ class LayoutLoader extends Component {
                                                         // console.log(attribute);
                                                     }
                                                 }
-
                                             }
 
                                         } else {

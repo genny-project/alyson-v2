@@ -136,7 +136,6 @@ class InputDatePicker extends Component {
             } else {
                 preFormattedDate = moment(date).format();
             }
-
             if ( type == 'java.time.LocalDate') {
                 preFormattedDate = `${preFormattedDate}T00:00:00Z`;
             }
@@ -191,6 +190,7 @@ class InputDatePicker extends Component {
         const { shouldValidate, lastSentValue, isMobile } = this.state;
 
         let sentValue = this.convertToDataFormat(value);
+        // console.log('value', value, sentValue);
 
         handleOnChange(sentValue);
 
@@ -242,7 +242,7 @@ class InputDatePicker extends Component {
         const { currentValue, isMobile } = this.state;
         const componentStyle = { ...style, };
         const dateRange = this.getDateRange(inputMask);
-
+        // console.log(currentValue);
         return (
             <div className={`input input-date-picker ${className} ${isMobile ? `${validationStatus} mobile` : ''} `} style={componentStyle}>
                 { name ? <div className='input-header'>

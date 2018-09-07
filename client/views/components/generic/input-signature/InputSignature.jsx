@@ -1,4 +1,4 @@
-import './inputSignature.scss';
+import './InputSignatureStyle.scss';
 import React, { Component } from 'react';
 import { func, object, string, bool } from 'prop-types';
 import axios from 'axios';
@@ -147,7 +147,7 @@ class InputSignature extends Component {
                 textValue: newValue,
             }, () => {
                 clearTimeout(this.state.timer);
-                this.state.timer = setTimeout(function(){  
+                this.state.timer = setTimeout(function(){
                     this.handleSignatureChange('text')(newValue);
                 }.bind(this), 500);
             });
@@ -168,7 +168,7 @@ class InputSignature extends Component {
         return (
             <div className={`input input-signature ${className}`} style={componentStyle}>
                 {
-                    !isHorizontal && 
+                    !isHorizontal &&
                     !hideHeader
                         ? <div className="input-header">
                             { name
@@ -181,7 +181,7 @@ class InputSignature extends Component {
                                     className = 'input-label-required'
                                     textStyle = {!validationStatus || validationStatus == 'error' ? { color: '#cc0000' } : null }
                                     text = "*  required"
-                                /> 
+                                />
                                 : null }
                             <SubmitStatusIcon
                                 status = { validationStatus }
@@ -203,7 +203,7 @@ class InputSignature extends Component {
                     </div>
 
                     <span className="signature-entry-instructions">{selectedOption.instructions}</span>
-                
+
                     {(selected === 'draw') ? (
                         <div className="signature-draw">
                             <IconSmall className="clickable" name="delete" onClick={this.handleClear}/>
@@ -226,10 +226,10 @@ class InputSignature extends Component {
                                 <div>Signature method not found</div>
                             )}
                 </div>
-                { 
+                {
                     this.state.uploadedUrl &&
                     <div className='signature-preview' >
-                        
+
                         <a
                             className="file-tile"
                             // href={ value }

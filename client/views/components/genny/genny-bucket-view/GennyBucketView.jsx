@@ -1,6 +1,7 @@
 import './gennyBucketView.scss';
 import React, { PureComponent } from 'react';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
+
 import { bool, string } from 'prop-types';
 import { IconSmall, BucketView, Card } from 'views/components';
 import { Draggable } from 'react-beautiful-dnd';
@@ -84,7 +85,6 @@ class GennyBucketView extends PureComponent {
             };
 
             btnValue = JSON.stringify(btnValue);
-
             GennyBridge.sendBtnClick('BTN_CLICK', {
                 code: 'SELECT_EVENT',
                 value: btnValue
