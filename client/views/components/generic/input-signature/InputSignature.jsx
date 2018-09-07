@@ -4,6 +4,7 @@ import { func, object, string, bool } from 'prop-types';
 import axios from 'axios';
 import SignaturePad from 'react-signature-pad';
 import { Label, SubmitStatusIcon, IconSmall } from 'views/components';
+import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 
 class InputSignature extends Component {
     static defaultProps = {
@@ -92,23 +93,28 @@ class InputSignature extends Component {
 
     postRequest = ( data ) => {
 
-        const url = 'https://signatures.pleased.property/signature';
+        //const url = 'https://signatures.pleased.property/signature';
+        const url = BaseEntityQuery.getBaseEntityAttribute(GennyBridge.getProject(), 'PRI_SIGNATURE_URL');
+        console.log(url);
 
-        axios({
-            method: 'post',
-            url: url,
-            data: data,
-        }).then( response => {
-            const uploadURL = response.data.signatureURL;
-            this.setState({
-                uploadedUrl: uploadURL,
-            }, () => {
-                if (this.props.validation) this.props.validation( uploadURL, this.props.identifier, this.props.validationList);
-                if (this.props.onChange) {
-                    this.props.onChange( uploadURL );
-                }
+        if (url != null && url.value != null) {
+            axios({
+                method: 'post',
+                url: url.value,
+                data: data,
+            }).then( response => {
+                console.log(response);
+                const uploadURL = response.data.signatureURL;
+                this.setState({
+                    uploadedUrl: uploadURL,
+                }, () => {
+                    if (this.props.validation) this.props.validation( uploadURL, this.props.identifier, this.props.validationList);
+                    if (this.props.onChange) {
+                        this.props.onChange( uploadURL );
+                    }
+                });
             });
-        });
+        }
     }
 
     handleClear = () => {
@@ -122,10 +128,15 @@ class InputSignature extends Component {
         }
     }
 
-    handleRemove = () => {
+    handleFileClick = (url) => event => {
+        window.open(url);
+    }
+
+    handleRemove = (e) => {
+        e.stopPropagation();
         if (this.props.validation) this.props.validation( '', this.props.identifier, this.props.validationList);
-        if (this.props.onChange) {
-            this.props.onChange( '' );
+        if (this.props.handleOnChange) {
+            this.props.handleOnChange( '' );
         }
     }
 
@@ -221,9 +232,10 @@ class InputSignature extends Component {
 
                         <a
                             className="file-tile"
-                            href={ value }
-                            target="_blank"
-                            rel="noopener"
+                            // href={ value }
+                            // target="_blank"
+                            // rel="noopener"
+                            onClick={this.handleFileClick(value)}
                         >
                             <img
                                 className="file-image"

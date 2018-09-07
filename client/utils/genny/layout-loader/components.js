@@ -58,6 +58,7 @@ import {
   GennyPieChart,
   GennyTagDisplay,
   Capability,
+  PDFViewer,
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -119,4 +120,5 @@ export default new ComponentCollection({
   GennyCounter,
   GennyPieChart,
   Capability,
+  PDFViewer,
 });

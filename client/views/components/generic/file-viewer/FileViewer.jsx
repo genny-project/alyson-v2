@@ -93,6 +93,19 @@ class FileViewer extends Component {
             if(attributeValue != null && attributeValue.startsWith('[')) {
                 filesArray = JSON.parse(attributeValue);
             }
+            else {
+                ///single file as string, from backend PDF upload
+                filesArray = [
+                    {
+                        type: '.pdf',
+                        id: attributeValue,
+                        uploadURL: attributeValue,
+                        name: attributeValue,
+                        uploaded: attributeValue,
+                        size: '-',
+                    }
+                ];
+            }
 
             validFiles = filesArray && filesArray.length ? filesArray.filter(file => this.isValidFile(file)) : [];
         }
@@ -104,8 +117,22 @@ class FileViewer extends Component {
             if(items != null && items.startsWith('[')) {
                 filesArray = JSON.parse(items);
             }
+            else {
+                ///single file as string, from backend PDF upload
+                filesArray = [
+                    {
+                        type: '.pdf',
+                        id: items,
+                        uploadURL: items,
+                        name: items,
+                        uploaded: items,
+                        size: '-',
+                    }
+                ];
+            }
 
             validFiles = filesArray && filesArray.length ? filesArray.filter(file => this.isValidFile(file)) : [];
+            
         }
 
         return (
@@ -150,7 +177,7 @@ class FileViewer extends Component {
 
                                     <div className="file-details">
                                         <span className="file-name" >{ file.name }</span>
-                                        <span className="file-size">{ prettierBytes(file.size) }</span>
+                                        <span className="file-size">{ typeof file.size === 'number' ? prettierBytes(file.size) : file.size }</span>
                                     </div>
                                 </a>
                             );

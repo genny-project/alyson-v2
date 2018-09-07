@@ -42,8 +42,14 @@ class InputDropdown extends Component {
     }
 
     componentDidMount() {
-        //TODO works only with singleselected
+        //set state is being called while component is unmounted.
+        this.dropdown = true;
         this.updateValueFromProps(this.props);
+    }
+
+    componentWillUnmount() {
+        //set state is being called while component is unmounted.
+        this.dropdown = false;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -98,10 +104,12 @@ class InputDropdown extends Component {
         }
 
         setTimeout(() => {
-
-            this.setState({
-                isLoadingData: false,
-            });
+            //set state is being called while component is unmounted.
+            if (this.dropdown) {
+                this.setState({
+                    isLoadingData: false,
+                });
+            }
 
         }, 30000);
     }
@@ -114,11 +122,11 @@ class InputDropdown extends Component {
             this.addSelectedItem(selectedItem);
         }
     }
-
+    
     addSelectedItem(item) {
-
-        this.setState(({ selectedItems }) => ({
+        this.setState(({ selectedItems, currentValue }) => ({
             selectedItems: this.props.isSingleSelect ? [item] : [...selectedItems, item],
+            currentValue: this.props.isSingleSelect ? '' : currentValue,
             isOpen: this.props.isSingleSelect ? false : this.state.isOpen,
         }), () => {
 
@@ -389,7 +397,7 @@ class InputDropdown extends Component {
                                             {...(getInputProps ? getInputProps({}) : null)}
                                         />
                                         {this.state.currentValue && this.state.currentValue.length > 0 ?
-                                            <IconSmall className='input-dropdown-icon' name='clear' onClick={this.handleClearInput} />
+                                            <IconSmall className='input-dropdown-icon close' name='clear' onClick={this.handleClearInput} />
                                             : <IconSmall className='input-dropdown-icon' name={isOpen ? 'expand_more' : 'chevron_right'} />
                                         }
                                     </div>

@@ -108,8 +108,8 @@ class BucketColumn extends Component {
     }
 
     renderContent = (provided) => {
-        const { title, items, showMovingOptions } = this.props;
-        
+        const { title, items, showMovingOptions, onClick } = this.props;
+       
         return (
             <div ref={provided && provided.innerRef}
                 //style={getListStyle(snapshot.isDraggingOver)}
@@ -127,7 +127,9 @@ class BucketColumn extends Component {
                                 moveBucket={this.moveBucket}
                                 screenSize={window.getScreenSize()}
                                 showMovingOptions={showMovingOptions}
-                                index={index}/>
+                                index={index}
+                                onClick={onClick}
+                            />
                             );
                         })
                     }

@@ -82,12 +82,22 @@ class Input extends Component {
 
     isValid = (showStyle) => {
 
-        const { validationList, mandatory } = this.props;
+        const { validationList, mandatory, type } = this.props;
         const { value } = this.state;
 
         let isValid = false;
 
         // if there is validation required
+        if (
+            (
+                type == 'dropdown' ||
+                type == 'dropdownmultiple'
+            ) &&
+            mandatory 
+        ) {
+            if ( value.length === 0 ) return false;
+        }
+
         if ( mandatory || !mandatory && value != null && value.length > 0) {
             if (validationList.length > 0) {
 
