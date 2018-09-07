@@ -8,7 +8,7 @@ class List extends Component {
 
     static defaultProps = {
         className: '',
-        itemsPerPage: 20,
+        itemsPerPage: 10,
         hideNav: false,
         hideCount: false,
         countText: 'Items Found',
@@ -58,7 +58,7 @@ class List extends Component {
 
     renderMain = (data, itemsPerPage, hideNav) => {
 
-        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage, selectedItem, selectedColor, loadMoreOnScroll} = this.props;
+        const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage, selectedItem, selectedColor, loadMoreOnScroll, root } = this.props;
 
         let children = [];
         if (data && data.length > 0) {
@@ -79,13 +79,13 @@ class List extends Component {
         else {
             if(showEmpty === true) {
                 children = [
-                    <div className='list-empty' style={{ "marginTop": "20px" }}>{emptyMessage}</div>
+                    <div className='list-empty' style={{ 'marginTop': '20px' }}>{emptyMessage}</div>
                 ];
             }
         }
 
         return (
-            <Pagination perPage={itemsPerPage} hideNav={hideNav} loadMoreOnScroll={data && data.length > 0 && loadMoreOnScroll}>
+            <Pagination perPage={itemsPerPage} hideNav={hideNav} loadMoreOnScroll={data && data.length > 0 && loadMoreOnScroll} root={root}>
                 {children}
             </Pagination>
         );

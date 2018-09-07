@@ -2,8 +2,9 @@ import './pagination.scss';
 import React, { Component } from 'react';
 import { string, object, number, bool, any } from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import { IconSmall } from 'views/components';
+import { IconSmall, Spinner } from 'views/components';
 import VisibilitySensor from 'react-visibility-sensor';
+import { GennyBridge } from 'utils/genny';
 
 const LoadingIndicator = ({ isVisible }) => {
     
@@ -42,7 +43,8 @@ class Pagination extends Component {
         pageCurrent: 1,
         offset: 0,
         childrenCurrent: 1,
-        children: null
+        children: null,
+        loading: false,
     }
 
     componentDidMount() {
@@ -61,10 +63,16 @@ class Pagination extends Component {
         this.setState({
             children: newProps.children,
             pageCount: Math.ceil( Object.keys(newProps.children).length / this.props.perPage ),
+            loading: false,
         });
     }
 
     getChildrenForCurrentPage = (perPage, offset, children) => {
+
+        const { loadMoreOnScroll } = this.props;
+        if(loadMoreOnScroll) {
+            return children;
+        }
 
         let displayedItems = children.slice(offset, offset + perPage);
         return displayedItems;
@@ -79,28 +87,39 @@ class Pagination extends Component {
         });
     }  
 
-    loadMore = () => {
+    loadMore = (isVisible) => {
         
-        const { loading } = this.state;
-
-        if(!loading) {
+        const { loading, pageCurrent } = this.state;
+        if(!loading && isVisible) {
 
             this.setState({
                 loading: true,
             });
     
             /* we send an event to back end */
-            const data = {
-                root: this.props.root,
-            };
-            console.log( data )
+            console.log('paginating...');
+            GennyBridge.sendBtnClick('PAGINATION', {
+                value: JSON.stringify({
+                    rootCode: this.props.root,
+                    pageStart: pageCurrent,
+                    pageSize: this.props.perPage,
+                    beCode: 'BEG'
+                })
+            });
+        }
+        else {
+
+            this.setState({
+                loading: false,
+                shouldHideSpinner: false
+            });
         }
     }
 
     render() {
 
         const { className, hideNav, children, style, perPage, loadMoreOnScroll } = this.props;
-        const { pageCount, offset } = this.state;
+        const { pageCount, offset, shouldHideSpinner } = this.state;
         const componentStyle = { ...style };
 
         let childrenCount = Object.keys(this.props.children).length;
@@ -115,9 +134,16 @@ class Pagination extends Component {
                 </div>
                 {
                     loadMoreOnScroll 
-                    ? <VisibilitySensor onChange={this.loadMore}>
-                    {({isVisible}) =>
-                        <div>{isVisible ? 'Loading data...' : ''}</div>
+                    ? <VisibilitySensor onChange={this.loadMore} scrollCheck={true}>
+                    {({isVisible}) => {
+
+                        setTimeout(() => {
+                            this.setState({
+                                shouldHideSpinner: true
+                            });
+                        }, 5000);
+                        return <div>{isVisible && !shouldHideSpinner ? <Spinner /> : ''}</div>;
+                    }
                     }
                     </VisibilitySensor>
                     : <ReactPaginate

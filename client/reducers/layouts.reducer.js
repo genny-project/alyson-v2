@@ -1,12 +1,10 @@
 /* global UserTiming */
-import layoutsIncluded from '../layouts-included';
 import { LAYOUT_CHANGE, CMD_VIEW, CMD_POPUP, CMD_NOTIFICATION, SUB_LAYOUT, SUBLAYOUT_CHANGE, CMD_VIEW_PAGE_CHANGE } from 'constants';
 import config from 'config/config';
 
 const initialState = {
     current: config.backendLayouts ? null : 'layout1',
     loaded: {
-        ...layoutsIncluded,
     },
     sublayout: {},
     currentView: null,
@@ -38,7 +36,7 @@ export default function reducer(state = initialState, action) {
             catch (e) {
                 return {
                     ...state
-                }
+                };
             }
 
             return {
@@ -90,7 +88,7 @@ export default function reducer(state = initialState, action) {
                 catch(e) {
                     return {
                         ...state
-                    }
+                    };
                 }
 
             }

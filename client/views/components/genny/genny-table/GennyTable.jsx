@@ -234,7 +234,8 @@ class GennyTable extends Component {
                                 'Cell': cellInfo => {
                                     const cell = cellInfo.row[ ( attribute && attribute.attributeCode ) || attributeCode];
                                     const value = cell && cell.value;
-                                    const dataType = ( cell && cell.type ) || BaseEntityQuery.getAttribute(( attribute && attribute.attributeCode ) || attributeCode).dataType.typeName ;
+                                    const attributeBE = BaseEntityQuery.getAttribute( attributeCode );
+                                    const dataType = ( cell && cell.type ) || attributeBE && attributeBE.dataType && attributeBE.dataType.typeName ;
                                     const rowCode = cellInfo.original.baseEntityCode;
 
                                     return (

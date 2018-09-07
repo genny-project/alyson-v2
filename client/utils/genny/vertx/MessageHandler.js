@@ -1,6 +1,7 @@
 import { DATA_MSG, CMD_MSG, EVT_MSG, BULK_MSG } from 'constants';
 import events from 'utils/genny/vertx-events';
 import store from 'views/store';
+import { GennyBridge } from 'utils/genny';
 
 class MessageHandler {
 
@@ -49,9 +50,18 @@ class MessageHandler {
 
     onMessage = (message) => {
 
-        // if(message.parentCode == "GRP_NEW_ITE") {
-        //   console.log( message )
-        // }
+        if(message.test == true) {
+          
+            GennyBridge.sendBtnClick('PAGINATION', {
+                value: JSON.stringify({
+                    rootCode: 'GRP_NEW_ITEMS',
+                    pageStart: 0,
+                    pageSize: 10,
+                    beCode: 'BEG'
+                })
+            });
+          return;
+        }
 
         /* Check that the message isn't null */
         if (!message) {
@@ -108,7 +118,7 @@ class MessageHandler {
                 const currentMessage = message.messages[i];
 
                 /* if it is a baseentity message, we try to merge it */
-                if(currentMessage.data_type == "BaseEntity") {
+                if(currentMessage.data_type == 'BaseEntity') {
 
                     /* logic is:
                      - we merge all the parentCode null && aliasCode null together
@@ -118,13 +128,13 @@ class MessageHandler {
 
                     if(currentMessage.parentCode == null && currentMessage.aliasCode == null) {
 
-                        if(finalMessages["messages"] == null) {
-                            finalMessages["messages"] = currentMessage;
+                        if(finalMessages['messages'] == null) {
+                            finalMessages['messages'] = currentMessage;
                         }
                         else {
 
                             /* we merge */
-                            finalMessages["messages"].items = finalMessages["messages"].items.concat(currentMessage.items);
+                            finalMessages['messages'].items = finalMessages['messages'].items.concat(currentMessage.items);
                         }
                     }
                     else if(currentMessage.parentCode != null && currentMessage.aliasCode == null) {
@@ -169,7 +179,7 @@ class MessageHandler {
             Object.keys(finalMessages).forEach(key => {
 
                 const message = finalMessages[key];
-                if(message.data_type == "BaseEntity") {
+                if(message.data_type == 'BaseEntity') {
 
                     const action = events.incoming[message.data_type];
 
@@ -191,7 +201,7 @@ class MessageHandler {
 
                     handleMessage(message, message.data_type);
                 }
-            })
+            });
         }
         else {
 
