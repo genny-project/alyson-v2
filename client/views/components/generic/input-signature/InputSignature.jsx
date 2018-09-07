@@ -93,7 +93,6 @@ class InputSignature extends Component {
 
     postRequest = ( data ) => {
 
-        //const url = 'https://signatures.pleased.property/signature';
         const url = BaseEntityQuery.getBaseEntityAttribute(GennyBridge.getProject(), 'PRI_SIGNATURE_URL');
         console.log(url);
 
