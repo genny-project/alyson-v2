@@ -97,7 +97,7 @@ class Sidebar extends Component {
                         className='clickable'
                         src={src}
                         caption={caption}
-                        style={{ maxHeight: '2100px', width: '200px' }}
+                        style={{ maxHeight: '100px', width: '200px' }}
                         onClick={this.handleClick}
                     />
                 </div>
