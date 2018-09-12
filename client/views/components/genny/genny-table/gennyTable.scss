@@ -216,7 +216,8 @@
             flex-grow: 1;
 
             &.view-file {
-                background: #5fa5ec;
+                background: #5C9956;
+                
 
                 &:not(:last-child) {
                     border-radius: 5px 0 0 5px;
@@ -244,6 +245,10 @@
 
             .table-upload {
                 height: 100%;
+            }
+
+            .view-file {
+                background: #5fa5ec;
             }
         }
     }

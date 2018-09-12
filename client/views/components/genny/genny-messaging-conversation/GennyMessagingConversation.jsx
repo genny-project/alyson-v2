@@ -222,7 +222,6 @@ class GennyMessagingConversation extends Component {
             }
         });
 
-
         finalMessages.map((message, index) => {
             if (tempArray.length > 0) {
 
@@ -247,9 +246,9 @@ class GennyMessagingConversation extends Component {
                 else {
 
                     const lastDateTime = moment(tempArray[last].created).format('YYYY-MM-DD HH');
-                    const thisDateTIme = moment(message.created).format('YYYY-MM-DD HH');
+                    const thisDateTime = moment(message.created).format('YYYY-MM-DD HH');
 
-                    if (lastDateTime != thisDateTIme) {
+                    if (lastDateTime != thisDateTime) {
                         messageArray.push(tempArray);
                         tempArray = [];
                     }
@@ -275,7 +274,10 @@ class GennyMessagingConversation extends Component {
             }
 
         });
-
+        
+        if ( this.props.reverseDirection ) {
+            messageArray = messageArray.reverse();
+        }
         return messageArray;
     }
 
