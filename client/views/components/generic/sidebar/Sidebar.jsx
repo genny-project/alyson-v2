@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { ImageView, IconSmall } from 'views/components';
 import { object, string, any, bool } from 'prop-types';
 import { Grid } from '@genny-project/layson';
+import { GennyBridge } from 'utils/genny';
 
 class Sidebar extends Component {
     static defaultProps = {
@@ -44,7 +45,11 @@ class Sidebar extends Component {
     }
 
     handleClick = () => {
-        window.location.reload();
+
+        GennyBridge.sendBtnClick('BTN_CLICK', {
+            code: 'BTN_HOME',
+            value: ''
+        });
     }
 
     onClick = () => {
