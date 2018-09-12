@@ -197,6 +197,7 @@ class AppContent extends Component {
                         buttonCode='BTN_ADD_NOTE'
                         maxLength={250}
                         reverseDirection
+                        inputAtTop
                         showFilters
                         useNewMessageAttributes
                         alwaysShowImage
