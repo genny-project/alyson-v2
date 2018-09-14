@@ -28,6 +28,8 @@ class Breadcrumbs extends Component {
         stringPath = stringPath.slice(0, -1);
       }
 
+      stringPath = stringPath.replace('/Root/', '');
+      
       let filepath = stringPath.split('/');
       return filepath.map((path, index) => {
         if(path && path.length > 0) {
