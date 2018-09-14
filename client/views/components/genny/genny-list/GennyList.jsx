@@ -49,25 +49,36 @@ class GennyList extends Component {
     }
 
     handleClick = (listItemProps) => {
+        if (!listItemProps || listItemProps.code === this.state.selectedItemState ) {
+          this.setState({
+              selectedItemState: null,
+          });
 
-        let btnValue = {
-            hint: listItemProps.rootCode,
-            itemCode: listItemProps.code,
-            userCode: GennyBridge.getUser()
-        };
+          GennyBridge.sendBtnClick('BTN_CLICK', {
+              code: 'DESELECT_EVENT',
+              value: ''
+          });
+        }
+        else if (listItemProps) {
+          let btnValue = {
+              hint: listItemProps.rootCode,
+              itemCode: listItemProps.code,
+              userCode: GennyBridge.getUser()
+          };
 
-        btnValue = JSON.stringify(btnValue);
+          btnValue = JSON.stringify(btnValue);
 
-        GennyBridge.sendBtnClick('BTN_CLICK', {
-            code: 'SELECT_EVENT',
-            value: btnValue
-        });
+          GennyBridge.sendBtnClick('BTN_CLICK', {
+              code: 'SELECT_EVENT',
+              value: btnValue
+          });
 
-        this.setState({
-            selectedItemState: listItemProps.code,
-        });
+          this.setState({
+              selectedItemState: listItemProps.code,
+          });
 
-        if (this.props.onClick) this.props.onClick();
+          if (this.props.onClick) this.props.onClick();
+        }
     }
 
     generateListItems(data) {
@@ -169,7 +180,7 @@ class GennyList extends Component {
             return (
                 <div className='genny-list' style={componentStyle}>
                     { showTitle ?
-                        <div style={{ backgroundColor: projectColor}} className='genny-list-title'>
+                        <div style={{ backgroundColor: projectColor}} className='genny-list-title clickable' onClick={this.handleClick}>
                             <span>{ title ? title : rootEntity && rootEntity.name} ( {data && data.length} )</span>
                         </div>
                     : null }
