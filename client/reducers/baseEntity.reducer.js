@@ -53,7 +53,7 @@ const deleteBaseEntity = (state, action, existing, newItem, deleteBaseEntity, de
                         if (level > 1) {
                             deleteLinkedBaseEntities(link.targetCode, level - 1);
                         }
-                        
+
                         if(link.targetCode != GennyBridge.getUser()) {
                             delete state.data[link.targetCode];
                         }
@@ -76,27 +76,27 @@ const deleteBaseEntity = (state, action, existing, newItem, deleteBaseEntity, de
 const handleBaseEntity = (state, action, existing, newItem) => {
 
     if(newItem != null) {
-        
+
         let baseEntityCode = newItem.code;
 
         if (action.payload.delete === true) {
-            
+
             let deleteDepth = 0;
             if (action.payload.shouldDeleteLinkedBaseEntities != null && typeof action.payload.shouldDeleteLinkedBaseEntities == 'number') {
                 deleteDepth = action.payload.shouldDeleteLinkedBaseEntities;
-            } 
+            }
             else if (action.payload.shouldDeleteLinkedBaseEntities != null && action.payload.shouldDeleteLinkedBaseEntities === true) {
                 deleteDepth = 1;
             }
 
             deleteBaseEntity(state, action, existing, newItem, action.payload.delete, deleteDepth);
-        } 
+        }
         else {
 
              let deleteDepth = 0;
              if (action.payload.shouldDeleteLinkedBaseEntities != null && typeof action.payload.shouldDeleteLinkedBaseEntities == 'number') {
                  deleteDepth = action.payload.shouldDeleteLinkedBaseEntities;
-             } 
+             }
              else if (action.payload.shouldDeleteLinkedBaseEntities != null && action.payload.shouldDeleteLinkedBaseEntities === true) {
                  deleteDepth = 1;
              }
@@ -184,6 +184,13 @@ const handleBaseEntity = (state, action, existing, newItem) => {
                         };
                     }
                 });
+            }
+
+            if(existing && existing[baseEntityCode] && existing[baseEntityCode].attributes) {
+              existingAttributes = {
+                ...existingAttributes,
+                ...existing[baseEntityCode].attributes
+              };
             }
 
             existing[baseEntityCode] = {
