@@ -1,7 +1,8 @@
 import './gennyBucketView.scss';
 import React, { PureComponent } from 'react';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
-import { bool } from 'prop-types';
+
+import { bool, string } from 'prop-types';
 import { IconSmall, BucketView, Card } from 'views/components';
 import { Draggable } from 'react-beautiful-dnd';
 import { LayoutLoader } from 'utils/genny/layout-loader';
@@ -10,10 +11,13 @@ class GennyBucketView extends PureComponent {
 
     static defaultProps = {
         allowItemClick: false,
+        useLinkValueForLayout: false,
     }
 
     static propTypes = {
-        allowItemClick: bool
+        allowItemClick: bool,
+        useLinkValueForLayout: bool,
+        itemLayout: string,
     };
 
     state = {
@@ -61,12 +65,12 @@ class GennyBucketView extends PureComponent {
             let group = rootGroups[i];
             if(group.code == selectedColumn) {
 
-                let itemValue = group.attributes["ADD_ITEM"].value;
+                let itemValue = group.attributes['ADD_ITEM'].value;
                 let data = {
                     code: group.code,
                     value: itemValue,
-                }
-                GennyBridge.sendBtnClick("BTN_CLICK", data);
+                };
+                GennyBridge.sendBtnClick('BTN_CLICK', data);
                 break;
             }
         }
@@ -79,18 +83,17 @@ class GennyBucketView extends PureComponent {
                 itemCode: bucketItemProps.description,
                 userCode: GennyBridge.getUser()
             };
-    
+
             btnValue = JSON.stringify(btnValue);
-    
             GennyBridge.sendBtnClick('BTN_CLICK', {
                 code: 'SELECT_EVENT',
                 value: btnValue
             });
-    
+
             this.setState({
                 selectedItemState: bucketItemProps.code,
             });
-    
+
             if (this.props.onClick) this.props.onClick();
         }
     }
@@ -105,7 +108,37 @@ class GennyBucketView extends PureComponent {
         // console.log(bes);
         bes.forEach(be => {
 
-            let layout_code = 'card';
+            const { itemLayout, useLinkValueForLayout } = this.props;
+
+            let linkToParent = BaseEntityQuery.getLinkToParent(groupCode, be.code);
+             
+            let layout_code = itemLayout || 'card';
+            let linkLinkValue = null;
+            let linkValue = null;
+
+            if ( useLinkValueForLayout ) {
+                if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
+                    linkLinkValue = linkToParent.link.linkValue;
+                }
+    
+                if(linkToParent != null && linkToParent.linkValue != null) {
+                    linkValue = linkToParent.linkValue;
+                }
+    
+                if(linkLinkValue != null && linkValue != null) {
+                    if(linkLinkValue == 'LINK') {
+                        layout_code = linkValue;
+                    }
+                    else {
+                        layout_code = linkLinkValue;
+                    }
+                }
+    
+                if ( itemLayout != null && typeof itemLayout === 'string' && itemLayout.length > 0 ) {
+                    layout_code = itemLayout;
+                }
+            }
+
             let sublayout = this.props.sublayout[layout_code];
             children.push(
                 {

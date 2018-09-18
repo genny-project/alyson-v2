@@ -38,7 +38,7 @@ class SplitView extends Component {
     renderContent = (children) => {
 
         return children.map((child, index) => {
-            if (child.$$typeof) {
+            if (child && child.$$typeof) {
                 return React.cloneElement(child, {
                     position: [0, index],
                     onClick: index > 0 ? this.close : this.open
@@ -58,7 +58,7 @@ class SplitView extends Component {
                 { className: `col split-view-right ${isOpen ? 'open' : 'closed'}` }
             ] :
             [
-                { 
+                {
                     style: {
                         flexGrow: 0,
                         flexShrink: 0,

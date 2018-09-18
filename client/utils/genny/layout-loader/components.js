@@ -11,6 +11,7 @@ import {
   Carousel,
   ContactButton,
   DateLabel,
+  DateUtility,
   Device,
   DisplayHTML,
   Dropdown,
@@ -57,8 +58,10 @@ import {
   GennyCounter,
   GennyPieChart,
   GennyTagDisplay,
+  TagDisplay,
   Capability,
   PDFViewer,
+  LimitCharacters
 } from 'views/components';
 
 export default new ComponentCollection({
@@ -70,6 +73,7 @@ export default new ComponentCollection({
   Carousel,
   ContactButton,
   DateLabel,
+  DateUtility,
   Device,
   DisplayHTML,
   Dropdown,
@@ -121,4 +125,6 @@ export default new ComponentCollection({
   GennyPieChart,
   Capability,
   PDFViewer,
+  TagDisplay,
+  LimitCharacters
 });

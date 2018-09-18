@@ -42,16 +42,21 @@ class AppContent extends Component {
     }
 
     renderContent = (commandType, commandData) => {
-
+        
+        // console.log('render', commandType, commandData);
         if(commandType && ( commandData.root != null || commandData.data != null) ) {
 
             // we need to show the table view
             if (commandData.code == 'TABLE_VIEW') {
-                return <GennyTable root = { commandData.root } columns={commandData.data.columns} actions={commandData.data.actions}/>;
+                return <GennyTable
+                  root = { commandData.root }
+                  columns={commandData.data ? commandData.data.columns : commandData.columns }
+                  actions={commandData.data ? commandData.data.actions : commandData.actions }
+                />;
             }
             // we need to show the bucket view
             else if (commandData.code == 'BUCKET_VIEW') {
-                return <GennyBucketView root={commandData.root} />;
+                return <GennyBucketView root={commandData.root} useLinkValueForLayout />;
             }
             else if (commandData.code == 'LIST_VIEW') {
                 return <GennyList root={commandData.root || commandData.data } showTitle/>;
@@ -88,6 +93,8 @@ class AppContent extends Component {
                     });
                 }
 
+                // console.log('splitview', children);
+
                 return (
                     <SplitView>
                         {children}
@@ -95,6 +102,7 @@ class AppContent extends Component {
                 );
             }
             else if (commandData.code == 'TAB_VIEW') {
+                // console.log('tabs', views);
                 const views = commandData.tabs.map(item => {
                     return {
                         title: item.name,
@@ -102,6 +110,7 @@ class AppContent extends Component {
                         layout: this.renderContent('view', item.layout)
                     };
                 });
+                // console.log('tabs', views);
                 return <TabContainer views={views} />;
             }
             else if (commandData.code == 'DETAIL_VIEW') {
@@ -188,11 +197,14 @@ class AppContent extends Component {
                         buttonCode='BTN_ADD_NOTE'
                         maxLength={250}
                         reverseDirection
+                        inputAtTop
                         showFilters
                         useNewMessageAttributes
                         alwaysShowImage
                         buttonText='Add Note'
                         noItemsText='No Notes Yet'
+                        buttonIdentifier='ID_NOTES_BUTTON'
+                        inputIdentifier='ID_NOTES_INPUT'
                     />
                     : null
                 }
@@ -226,6 +238,7 @@ class AppContent extends Component {
             layoutContent = this.renderContent('view', layout.currentView);
         }
         else if (layout.currentSublayout && layout.currentSublayout.layout) {
+
             itemCode = layout.currentSublayout.root;
             const parent = BaseEntityQuery.getBaseEntityParent(layout.currentSublayout.root);
             const parentCode = parent ? parent.code : null;

@@ -6,7 +6,10 @@ let d = false;
 class BaseEntityQuery {
 
     static sortItems(items) {
-        return items.sort((x, y) => x.weight > y.weight).filter(x => x.hidden !== true && x.weight > 0);
+       items.sort((x, y) => {
+           return x.weight - y.weight;
+       });
+       return items.filter(x => x.hidden !== true && x.weight > 0);
     }
 
     static getEntityChildren(code, recursionSafeCodes) {
@@ -22,7 +25,7 @@ class BaseEntityQuery {
         const recurse = (itemCode, itemWeight) => {
 
             let item = BaseEntityQuery.getBaseEntity(itemCode);
-            if (item != null && item != undefined) {
+            if (item != null && item != undefined && item.attributes != null) {
 
                 if (!Object.keys(safeRecursion).includes(item.code)) {
 
@@ -38,7 +41,7 @@ class BaseEntityQuery {
             }
 
             return null;
-        }
+        };
 
         if (be != null && be.links != null) {
 
@@ -173,7 +176,7 @@ class BaseEntityQuery {
 
                         if (child) {
 
-                            if (child.type == "BaseEntity") {
+                            if (child.type == 'BaseEntity') {
                                 if (childKey == childCode) {
                                     return BaseEntityQuery.getBaseEntity(groupKey);
                                 }
@@ -302,7 +305,7 @@ class BaseEntityQuery {
     }
 
     static getBaseEntityCreationDate = (baseEntityCode) => {
-        return BaseEntityQuery.getBaseEntityField(baseEntityCode, "created");
+        return BaseEntityQuery.getBaseEntityField(baseEntityCode, 'created');
     }
 }
 

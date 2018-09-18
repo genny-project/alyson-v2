@@ -24,7 +24,7 @@ class GennyButton extends Component {
         className: string,
         confirmation: string,
         onClick: func,
-        animationDelay: number
+        animationDelay: number,
     };
 
     state = {
@@ -141,7 +141,7 @@ class GennyButton extends Component {
                 disabled={disabled}
                 onClick={clickEvent}
                 buttonStyle={buttonStyle}
-                style={ {...buttonComponentStyle, height: componentStyle.height }}
+                style={{...buttonComponentStyle, height: componentStyle.height }}
             >
                 {
                     this.state.isAnimated ?

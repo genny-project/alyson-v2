@@ -1,6 +1,6 @@
 import './inputTags.scss';
 import React, { Component } from 'react';
-import { string, object, any } from 'prop-types';
+import { string, object, array, number } from 'prop-types';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { Label } from 'views/components';
 
@@ -8,29 +8,24 @@ class InputTags extends Component {
 
     static defaultProps = {
         className: '',
+        suggestionLimit: 10,
+        minQueryLength: 2,
+        items: [],
     }
 
     static propTypes = {
         className: string,
         style: object,
-        children: any,
+        value : string,
+        items: array,
+        suggestionLimit: number,
+        minQueryLength: number,
     }
 
     state = {
         tags: [],
         suggestions: [
-            {id: 'PHP', text: 'PHP'},
-            {id: 'ReactJS', text: 'ReactJS'},
-            {id: 'React Native', text: 'React Native'},
-            {id: 'Swift', text: 'Swift'},
-            {id: 'Advertising', text: 'Advertising'},
-            {id: 'Marketing', text: 'Marketing'},
-            {id: 'Accounting', text: 'Accounting'},
-            {id: 'Computer Science', text: 'Computer Science'},
-            {id: 'Artificial Intelligence', text: 'Artificial Intelligence'},
-            {id: 'Business', text: 'Business'},
-            {id: 'Microsoft Office 365', text: 'Microsoft Office 365'},
-            {id: 'Business Development', text: 'Business Development'},
+            // {id: 'code', text: 'name'},
         ]
     }
 
@@ -39,6 +34,62 @@ class InputTags extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateValueFromProps(this.props.value);
+        this.updateSuggestionsFromProps(this.props.items);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (
+            nextProps.value != this.props.value
+        ) {
+            this.updateValueFromProps(nextProps.value);
+        }
+        if (
+            nextProps.items != this.props.items
+        ){
+            this.updateSuggestionsFromProps(nextProps.items);
+        }
+    }
+
+    updateValueFromProps = (newValue) => {
+        let tagArray = [];
+        if(newValue != null && newValue.startsWith('[')) {
+            tagArray = JSON.parse(newValue);
+
+            if (Array.isArray(tagArray)) {
+                tagArray = tagArray.map(value => (
+                    {
+                        id: value,
+                        text: value
+                    }
+                ));
+            }
+        }
+        this.setState({
+            tags: [
+                ...tagArray,
+            ]
+        });
+    }
+
+    updateSuggestionsFromProps = (newItems) => {
+        let suggestions = [];
+        if (Array.isArray(newItems)) {
+            suggestions = newItems.map(item => (
+                {
+                    id: item.code,
+                    text: item.name,
+                }
+            ));
+        }
+        this.setState({
+            suggestions : [
+                ...suggestions,
+            ]
+        });
     }
 
     handleDelete(i) {
@@ -67,6 +118,16 @@ class InputTags extends Component {
         this.setState({ tags: newTags }, (newState) => { this.onChange() });
     }
 
+    handleFilterSuggestions = (textInputValue, possibleSuggestionsArray) => {
+        var lowerCaseQuery = textInputValue.toLowerCase();
+    
+        return possibleSuggestionsArray.filter(suggestion => {
+            // console.log(suggestion);
+            const value = suggestion && suggestion.text;
+            return value.toLowerCase().includes(lowerCaseQuery);
+        }).filter((x, index) => index < this.props.suggestionLimit);
+    }
+
     onChange() {
 
         const { tags } = this.state;
@@ -83,7 +144,7 @@ class InputTags extends Component {
     render() {
 
         const { className, children, style, placeholder } = this.props;
-        const { validationStatus, name, type, mandatory, showTimeSelect, dateTimeDisplayFormat, dateDisplayFormat, timeDisplayFormat, inputMask } = this.props;
+        const { validationStatus, name, type, mandatory, showTimeSelect, dateTimeDisplayFormat, dateDisplayFormat, timeDisplayFormat, inputMask, minQueryLength } = this.props;
 
         const componentStyle = { ...style, };
         const { tags, suggestions } = this.state;
@@ -99,14 +160,16 @@ class InputTags extends Component {
                         tagInputField: 'input-field',
                     }}
                    placeholder={placeholder}
-                   delimiters={[32, 188, 13]}
+                   delimiters={[9, 188, 13]}
                    suggestions={suggestions}
+                   minQueryLength={minQueryLength}
                    autofocus={false}
+                   handleFilterSuggestions={this.handleFilterSuggestions}
                    handleDelete={this.handleDelete}
                    handleAddition={this.handleAddition}
                    handleDrag={this.handleDrag} />
            </div>
-       )
+       );
     }
 }
 
