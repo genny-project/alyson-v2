@@ -1,4 +1,4 @@
-gitimport './gennyMap.scss';
+import './gennyMap.scss';
 import React, { Component } from 'react';
 import { string, object, bool, array } from 'prop-types';
 import { MapDisplay } from 'views/components';
