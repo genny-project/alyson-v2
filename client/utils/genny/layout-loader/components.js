@@ -41,6 +41,7 @@ import {
   MeasurementLabel,
   ProgressBar,
   ProgressNodes,
+  PrintButton,
   RatingDisplay,
   Selector,
   InputPayment,
@@ -126,5 +127,6 @@ export default new ComponentCollection({
   Capability,
   PDFViewer,
   TagDisplay,
-  LimitCharacters
+  LimitCharacters,
+  PrintButton
 });
