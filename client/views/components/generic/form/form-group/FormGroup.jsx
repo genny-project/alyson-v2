@@ -239,6 +239,9 @@ class FormGroup extends Component {
                     next('submit');
                 }
             }
+            else if (buttonCode.indexOf('print') != -1) {
+                window.print();
+            }
             else if (buttonCode.indexOf('accept') != -1) {
                 next('submit');
             }

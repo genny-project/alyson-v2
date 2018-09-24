@@ -114,7 +114,8 @@ class GennyForm extends Component {
                 'accept',
                 'email',
                 'yes',
-                'no'
+                'no',
+                'print'
             ];
 
           if (askGroup.attributeCode.includes('EMPTY')) return null;
@@ -143,7 +144,7 @@ class GennyForm extends Component {
                 onGroupValidation: this.onGroupValidation,
                 content: askGroup.childAsks.map((ask, index) => {
 
-                    if (ask.childAsks && !ask.attributeCode.includes("EMPTY")) return this.generateFormData(ask);
+                    if (ask.childAsks && !ask.attributeCode.includes('EMPTY')) return this.generateFormData(ask);
 
                     let inputType = 'Text';
                     let valList = [];
