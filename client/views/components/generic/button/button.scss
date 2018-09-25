@@ -107,6 +107,17 @@
             content: "Submit";
         }
     }
+    &.form-email,
+        >button {
+            background: $success;
+        }
+        >button[disabled] {
+            background: lightgray;
+        }
+        >button:after {
+            content: "Email";
+        }
+    }
     &.form-confirm,
         >button {
             background: $success;
