@@ -96,7 +96,7 @@
             content: "Close";
         }
     }
-    &.form-submit,
+    &.form-submit {
         >button {
             background: $success;
         }
@@ -107,7 +107,7 @@
             content: "Submit";
         }
     }
-    &.form-email,
+    &.form-email
         >button {
             background: $success;
         }
@@ -118,7 +118,8 @@
             content: "Email";
         }
     }
-    &.form-confirm,
+
+    &.form-confirm {
         >button {
             background: $success;
         }
