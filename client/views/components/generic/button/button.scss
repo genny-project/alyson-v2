@@ -107,7 +107,7 @@
             content: "Submit";
         }
     }
-    &.form-email
+    &.form-email {
         >button {
             background: $success;
         }
