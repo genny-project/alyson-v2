@@ -97,7 +97,6 @@
         }
     }
     &.form-submit,
-    &.form-confirm {
         >button {
             background: $success;
         }
@@ -106,6 +105,17 @@
         }
         >button:after {
             content: "Submit";
+        }
+    }
+    &.form-confirm,
+        >button {
+            background: $success;
+        }
+        >button[disabled] {
+            background: lightgray;
+        }
+        >button:after {
+            content: "Confirm";
         }
     }
     &.form-accept {
