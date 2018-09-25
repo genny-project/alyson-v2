@@ -117,7 +117,8 @@ class GennyForm extends Component {
                 'no',
                 'print',
                 'ok',
-                'close'
+                'close',
+                'email'
             ];
 
           if (askGroup.attributeCode.includes('EMPTY')) return null;
