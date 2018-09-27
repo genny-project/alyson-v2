@@ -58,14 +58,19 @@ class BucketCard extends Component {
 
     render() {
 
-        const { className, style, backgroundColor, layout, onClick  } = this.props;
+        const { className, style, backgroundColor, layout, onClick, isSelected, selectedColor  } = this.props;
         const { isShowingOptions } = this.state;
 
-        const componentStyle = { ...style, backgroundColor: backgroundColor || '' };
+        const componentStyle = {
+            ...style,
+            backgroundColor: isSelected ? selectedColor : backgroundColor || ''
+        };
 
         return (
             <div className={`bucket-card ${onClick ? 'clickable' : ''} ${className} ${isShowingOptions ? 'showOptions' : ''}`} style={componentStyle} onClick={onClick ? this.handleClick : null} >
-                {layout}
+                <div className='inner-card'>
+                    {layout}
+                </div>
             </div>
         );
     }
