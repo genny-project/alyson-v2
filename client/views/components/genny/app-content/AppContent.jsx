@@ -56,7 +56,7 @@ class AppContent extends Component {
             }
             // we need to show the bucket view
             else if (commandData.code == 'BUCKET_VIEW') {
-                return <GennyBucketView root={commandData.root} useLinkValueForLayout />;
+                return <GennyBucketView root={commandData.root} useLinkValueForLayout allowItemClick/>;
             }
             else if (commandData.code == 'LIST_VIEW') {
                 return <GennyList root={commandData.root || commandData.data } showTitle/>;
