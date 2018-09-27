@@ -147,7 +147,7 @@ class GennyMap extends Component {
                         return null;
                 }
             });
-            }
+        }
 
         return hasAttributes;
     }
