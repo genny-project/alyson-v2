@@ -4,6 +4,7 @@ import { string, number, bool, object, array, func } from 'prop-types';
 import { List, GennyForm } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import dlv from 'dlv';
 
 class GennyList extends Component {
 
@@ -18,6 +19,7 @@ class GennyList extends Component {
         numberOfItems: 4,
         emptyMessage: 'No data to display.',
         selectedColor: '#333',
+        sortField: 'created'
     }
 
     static propTypes = {
@@ -43,6 +45,8 @@ class GennyList extends Component {
         selectedItem: string,
         title: string,
         itemLayout: string,
+        sortField: string,
+        reverseSortDirection: bool,
     };
 
     state = {
@@ -83,7 +87,16 @@ class GennyList extends Component {
 
     generateListItems(data) {
 
-        const { localAliases, selectedItem, root, numberOfItems, hideSelectedStyle, itemLayout } = this.props;
+        const {
+            localAliases,
+            selectedItem,
+            root,
+            numberOfItems,
+            hideSelectedStyle,
+            itemLayout,
+            sortField,
+            reverseSortDirection
+        } = this.props;
         const { selectedItemState } = this.state;
 
         let newData = [];
@@ -148,7 +161,31 @@ class GennyList extends Component {
             return false;
 
         });
-        //console.log( newData );
+
+        newData.sort((a, b) => {
+            let valueA = dlv(a, sortField);
+            let valueB = dlv(b, sortField);
+
+            if (parseFloat(valueA) != null && parseFloat(valueB) != null) {
+                return valueA < valueB
+                    ? reverseSortDirection
+                        ? -1
+                        : 1
+                    : reverseSortDirection
+                        ? -1
+                        : 1;
+            } else if (typeof valueA === 'string' && typeof valueA === 'string') {
+                return valueA.toLowerCase().compareLocale(valueB.toLowerCase())
+                    ? reverseSortDirection
+                        ?
+                        -1 :
+                        1: reverseSortDirection ?
+                        -1 :
+                        1;
+            }
+            return 1;
+        });        
+
         return newData;
     }
 
