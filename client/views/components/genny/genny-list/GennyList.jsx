@@ -4,6 +4,7 @@ import { string, number, bool, object, array, func } from 'prop-types';
 import { List, GennyForm } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
+import dlv from 'dlv';
 
 class GennyList extends Component {
 
@@ -18,6 +19,7 @@ class GennyList extends Component {
         numberOfItems: 4,
         emptyMessage: 'No data to display.',
         selectedColor: '#333',
+        sortField: 'created'
     }
 
     static propTypes = {
@@ -43,47 +45,73 @@ class GennyList extends Component {
         selectedItem: string,
         title: string,
         itemLayout: string,
+        sortField: string,
+        reverseSortDirection: bool,
     };
 
     state = {
     }
 
     handleClick = (listItemProps) => {
-        if (!listItemProps || listItemProps.code === this.state.selectedItemState ) {
-          this.setState({
-              selectedItemState: null,
-          });
+        if (listItemProps) {
+            const isSelected = listItemProps.code === this.state.selectedItemState;
 
-          GennyBridge.sendBtnClick('BTN_CLICK', {
-              code: 'DESELECT_EVENT',
-              value: ''
-          });
+            let btnValue = {
+                hint: listItemProps.rootCode,
+                itemCode: listItemProps.code,
+                userCode: GennyBridge.getUser()
+            };
+
+            btnValue = JSON.stringify(btnValue);
+
+            GennyBridge.sendBtnClick('BTN_CLICK', {
+                code: `${isSelected ? 'DESELECT_EVENT' : 'SELECT_EVENT'}`,
+                value: btnValue
+            });
+
+            this.setState({
+                selectedItemState: isSelected ? null : listItemProps.code,
+            });
+
+            if (this.props.onClick) this.props.onClick();
         }
-        else if (listItemProps) {
-          let btnValue = {
-              hint: listItemProps.rootCode,
-              itemCode: listItemProps.code,
-              userCode: GennyBridge.getUser()
-          };
+    }
 
-          btnValue = JSON.stringify(btnValue);
+    handleDeselect = () => {
+        const rootEntity = BaseEntityQuery.getBaseEntity(this.props.root);
 
-          GennyBridge.sendBtnClick('BTN_CLICK', {
-              code: 'SELECT_EVENT',
-              value: btnValue
-          });
+        let btnValue = {
+            hint: rootEntity && rootEntity.parentCode || '',
+            itemCode: this.props.root,
+            userCode: GennyBridge.getUser()
+        };
 
-          this.setState({
-              selectedItemState: listItemProps.code,
-          });
+        btnValue = JSON.stringify(btnValue);
 
-          if (this.props.onClick) this.props.onClick();
-        }
+        GennyBridge.sendBtnClick('BTN_CLICK', {
+            code: 'DESELECT_EVENT',
+            value: btnValue
+        });
+
+        this.setState({
+            selectedItemState: null,
+        });
+
+        if (this.props.onClick) this.props.onClick();
     }
 
     generateListItems(data) {
 
-        const { localAliases, selectedItem, root, numberOfItems, hideSelectedStyle, itemLayout } = this.props;
+        const {
+            localAliases,
+            selectedItem,
+            root,
+            numberOfItems,
+            hideSelectedStyle,
+            itemLayout,
+            sortField,
+            reverseSortDirection
+        } = this.props;
         const { selectedItemState } = this.state;
 
         let newData = [];
@@ -148,7 +176,31 @@ class GennyList extends Component {
             return false;
 
         });
-        //console.log( newData );
+
+        newData.sort((a, b) => {
+            let valueA = dlv(a, sortField);
+            let valueB = dlv(b, sortField);
+
+            if (parseFloat(valueA) != null && parseFloat(valueB) != null) {
+                return valueA < valueB
+                    ? reverseSortDirection
+                        ? -1
+                        : 1
+                    : reverseSortDirection
+                        ? -1
+                        : 1;
+            } else if (typeof valueA === 'string' && typeof valueA === 'string') {
+                return valueA.toLowerCase().compareLocale(valueB.toLowerCase())
+                    ? reverseSortDirection
+                        ?
+                        -1 :
+                        1: reverseSortDirection ?
+                        -1 :
+                        1;
+            }
+            return 1;
+        });        
+
         return newData;
     }
 
@@ -180,7 +232,7 @@ class GennyList extends Component {
             return (
                 <div className='genny-list' style={componentStyle}>
                     { showTitle ?
-                        <div style={{ backgroundColor: projectColor}} className='genny-list-title clickable' onClick={this.handleClick}>
+                        <div style={{ backgroundColor: projectColor}} className='genny-list-title clickable' onClick={this.handleDeselect}>
                             <span>{ title ? title : rootEntity && rootEntity.name} ( {data && data.length} )</span>
                         </div>
                     : null }
