@@ -88,10 +88,10 @@ class GennyBucketView extends PureComponent {
             };
 
             btnValue = JSON.stringify(btnValue);
-            // GennyBridge.sendBtnClick('BTN_CLICK', {
-            //     code: 'SELECT_EVENT',
-            //     value: btnValue
-            // });
+            GennyBridge.sendBtnClick('BTN_CLICK', {
+                code: 'SELECT_EVENT',
+                value: btnValue
+            });
 
             this.setState({
                 selectedItemState: bucketItemProps.code,

@@ -53,36 +53,51 @@ class GennyList extends Component {
     }
 
     handleClick = (listItemProps) => {
-        if (!listItemProps || listItemProps.code === this.state.selectedItemState ) {
-          this.setState({
-              selectedItemState: null,
-          });
+        if (listItemProps) {
+            const isSelected = listItemProps.code === this.state.selectedItemState;
 
-          GennyBridge.sendBtnClick('BTN_CLICK', {
-              code: 'DESELECT_EVENT',
-              value: ''
-          });
+            let btnValue = {
+                hint: listItemProps.rootCode,
+                itemCode: listItemProps.code,
+                userCode: GennyBridge.getUser()
+            };
+
+            btnValue = JSON.stringify(btnValue);
+
+            GennyBridge.sendBtnClick('BTN_CLICK', {
+                code: `${isSelected ? 'DESELECT_EVENT' : 'SELECT_EVENT'}`,
+                value: btnValue
+            });
+
+            this.setState({
+                selectedItemState: isSelected ? null : listItemProps.code,
+            });
+
+            if (this.props.onClick) this.props.onClick();
         }
-        else if (listItemProps) {
-          let btnValue = {
-              hint: listItemProps.rootCode,
-              itemCode: listItemProps.code,
-              userCode: GennyBridge.getUser()
-          };
+    }
 
-          btnValue = JSON.stringify(btnValue);
+    handleDeselect = () => {
+        const rootEntity = BaseEntityQuery.getBaseEntity(this.props.root);
 
-          GennyBridge.sendBtnClick('BTN_CLICK', {
-              code: 'SELECT_EVENT',
-              value: btnValue
-          });
+        let btnValue = {
+            hint: rootEntity && rootEntity.parentCode || '',
+            itemCode: this.props.root,
+            userCode: GennyBridge.getUser()
+        };
 
-          this.setState({
-              selectedItemState: listItemProps.code,
-          });
+        btnValue = JSON.stringify(btnValue);
 
-          if (this.props.onClick) this.props.onClick();
-        }
+        GennyBridge.sendBtnClick('BTN_CLICK', {
+            code: 'DESELECT_EVENT',
+            value: btnValue
+        });
+
+        this.setState({
+            selectedItemState: null,
+        });
+
+        if (this.props.onClick) this.props.onClick();
     }
 
     generateListItems(data) {
@@ -217,7 +232,7 @@ class GennyList extends Component {
             return (
                 <div className='genny-list' style={componentStyle}>
                     { showTitle ?
-                        <div style={{ backgroundColor: projectColor}} className='genny-list-title clickable' onClick={this.handleClick}>
+                        <div style={{ backgroundColor: projectColor}} className='genny-list-title clickable' onClick={this.handleDeselect}>
                             <span>{ title ? title : rootEntity && rootEntity.name} ( {data && data.length} )</span>
                         </div>
                     : null }
