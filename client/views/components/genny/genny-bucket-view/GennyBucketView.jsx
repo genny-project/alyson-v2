@@ -81,6 +81,8 @@ class GennyBucketView extends PureComponent {
 
     handleClick = (bucketItemProps) => {
         if (this.props.allowItemClick) {
+            const isSelected = this.state.selectedItemState === bucketItemProps.code;
+
             let btnValue = {
                 hint: bucketItemProps.rootCode,
                 itemCode: bucketItemProps.description,
@@ -89,12 +91,12 @@ class GennyBucketView extends PureComponent {
 
             btnValue = JSON.stringify(btnValue);
             GennyBridge.sendBtnClick('BTN_CLICK', {
-                code: 'SELECT_EVENT',
+                code: `${isSelected ? 'DE' : ''}SELECT_EVENT`,
                 value: btnValue
             });
 
             this.setState({
-                selectedItemState: bucketItemProps.code,
+                selectedItemState: isSelected ? null : bucketItemProps.code,
             }, () => {
                 if (this.props.onClick) this.props.onClick();
             });
