@@ -24,6 +24,7 @@ class GennyBucketView extends PureComponent {
     };
 
     state = {
+        selectedItemState: null,
     }
 
     constructor(props) {
@@ -145,13 +146,16 @@ class GennyBucketView extends PureComponent {
             }
 
             let sublayout = this.props.sublayout[layout_code];
+
+            const isSelected = this.state.selectedItemState === be.code;
+
             children.push(
                 {
                 content: {
                     title: be.name,
                     description: be.code,
                     code: be.code,
-                    isSelected: this.state.selectedItemState == be.code,
+                    isSelected: isSelected,
                     selectedColor: hideSelectedStyle ? null : selectedColor,
                     screenSize: this.props.screenSize,
                     onClick: this.onClick,
