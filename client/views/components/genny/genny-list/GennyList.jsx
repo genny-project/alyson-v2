@@ -1,10 +1,11 @@
 import './gennyList.scss';
 import React, { Component } from 'react';
 import { string, number, bool, object, array, func } from 'prop-types';
-import { List, GennyForm } from 'views/components';
+import { List, GennyForm, IconSmall } from 'views/components';
 import { BaseEntityQuery, GennyBridge } from 'utils/genny';
 import { LayoutLoader } from 'utils/genny/layout-loader';
 import dlv from 'dlv';
+import moment from 'moment';
 
 class GennyList extends Component {
 
@@ -19,7 +20,9 @@ class GennyList extends Component {
         numberOfItems: 4,
         emptyMessage: 'No data to display.',
         selectedColor: '#333',
-        sortField: 'created'
+        sortField: 'created',
+        hideFilters: false,
+        filterField: 'name',
     }
 
     static propTypes = {
@@ -47,6 +50,7 @@ class GennyList extends Component {
         itemLayout: string,
         sortField: string,
         reverseSortDirection: bool,
+        filterField: string,
     };
 
     state = {
@@ -100,6 +104,14 @@ class GennyList extends Component {
         if (this.props.onClick) this.props.onClick();
     }
 
+    handleFilterText = (event) => {
+        const text = event.target.value;
+        
+        this.setState({
+            filterText:  text,
+        });
+    }
+
     generateListItems(data) {
 
         const {
@@ -110,9 +122,12 @@ class GennyList extends Component {
             hideSelectedStyle,
             itemLayout,
             sortField,
-            reverseSortDirection
+            reverseSortDirection,
+            hideFilters,
+            filterField
         } = this.props;
-        const { selectedItemState } = this.state;
+
+        const { selectedItemState, filterText } = this.state;
 
         let newData = [];
 
@@ -181,32 +196,50 @@ class GennyList extends Component {
             let valueA = dlv(a, sortField);
             let valueB = dlv(b, sortField);
 
-            if (parseFloat(valueA) != null && parseFloat(valueB) != null) {
-                return valueA < valueB
+            const validate = (value) => {
+                return moment(value).isValid();
+            }
+
+            const order = (result) => {
+                return result
                     ? reverseSortDirection
                         ? -1
                         : 1
                     : reverseSortDirection
-                        ? -1
-                        : 1;
-            } else if (typeof valueA === 'string' && typeof valueA === 'string') {
-                return valueA.toLowerCase().compareLocale(valueB.toLowerCase())
-                    ? reverseSortDirection
-                        ?
-                        -1 :
-                        1: reverseSortDirection ?
-                        -1 :
-                        1;
+                        ? 1
+                        :-1;
             }
-            return 1;
-        });        
+
+            if ( !validate(valueA) ) return order ( false );
+            if ( !validate(valueB) ) return order ( true );
+
+            return order( moment(valueA).format('YYYY-MM-DD HH:mm:sss') < moment(valueB).format('YYYY-MM-DD HH:mm:sss') );
+        });
+
+        if (
+            !hideFilters &&
+            filterText !== null &&
+            typeof filterText === 'string' &&
+            filterText.length > 0
+        ) {
+            newData = newData.filter(item => {
+                const itemField = dlv(item, filterField);
+                
+                if ( itemField === null || itemField == undefined ) return false;
+                
+                const match = itemField.toLowerCase().includes(filterText.toLowerCase());
+                
+                return match;
+            })
+        }
+
 
         return newData;
     }
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, showTitle, showEmpty, gennyListStyle, emptyMessage, title, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, hideFilters, showTitle, showEmpty, gennyListStyle, emptyMessage, title, ...rest } = this.props;
         const componentStyle = { ...gennyListStyle};
 
         let data = [];
@@ -232,8 +265,25 @@ class GennyList extends Component {
             return (
                 <div className='genny-list' style={componentStyle}>
                     { showTitle ?
-                        <div style={{ backgroundColor: projectColor}} className='genny-list-title clickable' onClick={this.handleDeselect}>
-                            <span>{ title ? title : rootEntity && rootEntity.name} ( {data && data.length} )</span>
+                        <div style={{ backgroundColor: projectColor}} className='genny-list-title'>
+                            <span className='clickable' onClick={this.handleDeselect} >{ title ? title : rootEntity && rootEntity.name} ( {data && data.length} )</span>
+                            { !hideFilters
+                                ? (
+                                    <div
+                                        className='list-filter-wrapper'
+                                    >
+                                        <IconSmall
+                                            className='list-filter-icon'
+                                            name='search'
+                                        />
+                                        <input
+                                            type='text'
+                                            className='list-filter-input'
+                                            onChange={this.handleFilterText}
+                                        />
+                                    </div>
+                                ) : null 
+                            }
                         </div>
                     : null }
                     <List
