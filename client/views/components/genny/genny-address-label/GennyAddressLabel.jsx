@@ -8,6 +8,7 @@ class GennyAddressLabel extends Component {
 
     static defaultProps = {
         root: '',
+        unitSeparator: '/',
     }
 
     static propTypes = {
@@ -15,6 +16,8 @@ class GennyAddressLabel extends Component {
         attributePrefix: string,
         style: object,
         labelStyle: object,
+        unit: string,
+        unitSeparator: string,
     };
 
     state = {
@@ -22,7 +25,7 @@ class GennyAddressLabel extends Component {
 
     getDataFromCode = (root) => {
 
-        const {attributePrefix} = this.props;
+        const {attributePrefix, unit, unitSeparator} = this.props;
 
         let data = BaseEntityQuery.getBaseEntity(root);
         if(data) {
@@ -35,7 +38,16 @@ class GennyAddressLabel extends Component {
 
                     switch(attribute_key) {
                         case `${attributePrefix}_ADDRESS1`:
-                            address['street_address'] = attributes[`${attributePrefix}_ADDRESS1`].value;
+                            let unitText = ''
+                            if (
+                                unit !== null &&
+                                typeof unit === 'string' && 
+                                unit.length > 0
+                            ) {
+                                unitText = `${unit}${unitSeparator}`;
+                            }
+
+                            address['street_address'] = `${unitText}${attributes[`${attributePrefix}_ADDRESS1`].value}`;
                             break;
                         case `${attributePrefix}_SUBURB`:
                             address['suburb'] = attributes[`${attributePrefix}_SUBURB`].value;
@@ -67,13 +79,13 @@ class GennyAddressLabel extends Component {
         let addressData = this.getDataFromCode(root);
 
         return (
-            <span className="genny-addressLabel" style={componentStyle}>
+            <div className="genny-addressLabel" style={componentStyle}>
                 <AddressLabel
                     {...rest}
                     style={labelStyle}
                     addressData={addressData}
                 />
-            </span>
+            </div>
         );
     }
 }
