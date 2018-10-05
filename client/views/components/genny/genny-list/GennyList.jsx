@@ -23,6 +23,7 @@ class GennyList extends Component {
         sortField: 'created',
         hideFilters: false,
         filterField: 'name',
+        placeholder: 'Search '
     }
 
     static propTypes = {
@@ -51,6 +52,7 @@ class GennyList extends Component {
         sortField: string,
         reverseSortDirection: bool,
         filterField: string,
+        placeholder: string, 
     };
 
     state = {
@@ -239,7 +241,7 @@ class GennyList extends Component {
 
     render() {
 
-        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, hideFilters, showTitle, showEmpty, gennyListStyle, emptyMessage, title, ...rest } = this.props;
+        const { root, showLinks, headerRoot, hideHeader, hideNav, hideLinks, hideFilters, showTitle, showEmpty, gennyListStyle, emptyMessage, placeholder, title, ...rest } = this.props;
         const componentStyle = { ...gennyListStyle};
 
         let data = [];
@@ -280,6 +282,7 @@ class GennyList extends Component {
                                             type='text'
                                             className='list-filter-input'
                                             onChange={this.handleFilterText}
+                                            placeholder={`${placeholder}${title ? title : rootEntity && rootEntity.name}`}
                                         />
                                     </div>
                                 ) : null 
