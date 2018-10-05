@@ -67,13 +67,13 @@ class GennyAddressLabel extends Component {
         let addressData = this.getDataFromCode(root);
 
         return (
-            <div className="genny-addressLabel" style={componentStyle}>
+            <span className="genny-addressLabel" style={componentStyle}>
                 <AddressLabel
                     {...rest}
                     style={labelStyle}
                     addressData={addressData}
                 />
-            </div>
+            </span>
         );
     }
 }
