@@ -24,6 +24,7 @@ class GennyBucketView extends PureComponent {
     };
 
     state = {
+        selectedItemState: null,
     }
 
     constructor(props) {
@@ -81,6 +82,8 @@ class GennyBucketView extends PureComponent {
 
     handleClick = (bucketItemProps) => {
         if (this.props.allowItemClick) {
+            const isSelected = this.state.selectedItemState === bucketItemProps.code;
+
             let btnValue = {
                 hint: bucketItemProps.rootCode,
                 itemCode: bucketItemProps.description,
@@ -88,13 +91,13 @@ class GennyBucketView extends PureComponent {
             };
 
             btnValue = JSON.stringify(btnValue);
-            // GennyBridge.sendBtnClick('BTN_CLICK', {
-            //     code: 'SELECT_EVENT',
-            //     value: btnValue
-            // });
+            GennyBridge.sendBtnClick('BTN_CLICK', {
+                code: `${isSelected ? 'DE' : ''}SELECT_EVENT`,
+                value: btnValue
+            });
 
             this.setState({
-                selectedItemState: bucketItemProps.code,
+                selectedItemState: isSelected ? null : bucketItemProps.code,
             }, () => {
                 if (this.props.onClick) this.props.onClick();
             });
@@ -143,13 +146,16 @@ class GennyBucketView extends PureComponent {
             }
 
             let sublayout = this.props.sublayout[layout_code];
+
+            const isSelected = this.state.selectedItemState === be.code;
+
             children.push(
                 {
                 content: {
                     title: be.name,
                     description: be.code,
                     code: be.code,
-                    isSelected: this.state.selectedItemState == be.code,
+                    isSelected: isSelected,
                     selectedColor: hideSelectedStyle ? null : selectedColor,
                     screenSize: this.props.screenSize,
                     onClick: this.onClick,
