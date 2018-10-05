@@ -58,7 +58,7 @@ class DateLabel extends Component {
         const componentStyle = { ...style, };
         
         return (
-        <span className={`date-label ${className || ''}`} style={componentStyle}>
+        <div className={`date-label ${className || ''}`} style={componentStyle}>
             <span className="date-label-text">
                 {
                     fromNow ?
@@ -66,7 +66,7 @@ class DateLabel extends Component {
                     this.renderDate(children || date)
                 }
             </span>
-        </span>
+        </div>
         );
     }
 }
