@@ -38,9 +38,15 @@ class AddressLabel extends Component {
 
     renderAddress = (data) => {
 
-        const { hideStreetAddress, hideSuburb, hideState, hidePostcode, hideCountry } = this.props;
+        const { hideStreetAddress, hideSuburb, hideState, hidePostcode, hideCountry, unit } = this.props;
 
         let address = [];
+
+        if(unit) {
+            address.push(
+                unit
+            );
+        }
 
         if ( hideStreetAddress != true && data && data.street_address) {
             let text = this.renderTextLayout(data.street_address);
