@@ -9,6 +9,7 @@ class FileViewer extends Component {
 
     static defaultProps = {
         displayColumn: false,
+        title: null,
     }
 
     static propTypes = {
@@ -18,6 +19,7 @@ class FileViewer extends Component {
         attribute: string,
         displayColumn: bool,
         items: string,
+        title: string,
     }
 
     state = {
@@ -69,7 +71,7 @@ class FileViewer extends Component {
 
     render() {
 
-        const { className, root, attribute, style, displayColumn, items } = this.props;
+        const { className, root, attribute, style, displayColumn, items, title } = this.props;
         const componentStyle = {
             ...style,
             flexDirection: displayColumn ? 'column' : 'row'
@@ -176,7 +178,7 @@ class FileViewer extends Component {
                                     }
 
                                     <div className="file-details">
-                                        <span className="file-name" >{ file.name }</span>
+                                        <span className="file-name" >{ title || file.name }</span>
                                         <span className="file-size">{ typeof file.size === 'number' ? prettierBytes(file.size) : file.size }</span>
                                     </div>
                                 </a>

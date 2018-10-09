@@ -39,17 +39,20 @@
                 .form-submit,
                 .form-confirm,
                 .form-accept,
+                .form-ok,
                 .form-email,
                 .form-yes {
                     box-shadow: inset 0 0 100px 100px green;
                 }
-                .form-next {
+                .form-next,
+                .form-print {
                     box-shadow: inset 0 0 100px 100px blue;
                 }
                 .form-previous {
                     box-shadow: inset 0 0 100px 100px blue;
                 }
                 .form-no,
+                .form-close,
                 .form-reset {
                     box-shadow: inset 0 0 100px 100px gray;
                 }
@@ -85,8 +88,15 @@
             content: "Cancel";
         }
     }
-    &.form-submit,
-    &.form-confirm {
+    &.form-close {
+        >button {
+            background: $grey-text-color;
+        }
+        >button:after {
+            content: "Close";
+        }
+    }
+    &.form-submit {
         >button {
             background: $success;
         }
@@ -95,6 +105,29 @@
         }
         >button:after {
             content: "Submit";
+        }
+    }
+    &.form-email {
+        >button {
+            background: $success;
+        }
+        >button[disabled] {
+            background: lightgray;
+        }
+        >button:after {
+            content: "Email";
+        }
+    }
+
+    &.form-confirm {
+        >button {
+            background: $success;
+        }
+        >button[disabled] {
+            background: lightgray;
+        }
+        >button:after {
+            content: "Confirm";
         }
     }
     &.form-accept {
@@ -108,12 +141,31 @@
             content: "Accept";
         }
     }
+    &.form-ok {
+        >button {
+            background: $success;
+        }
+        >button[disabled] {
+            background: lightgray;
+        }
+        >button:after {
+            content: "OK";
+        }
+    }
     &.form-next {
         >button {
             background: $primary-color;
         }
         >button:after {
             content: "Next";
+        }
+    }
+    &.form-print {
+        >button {
+            background: $primary-color;
+        }
+        >button:after {
+            content: "Print";
         }
     }
     &.form-yes {

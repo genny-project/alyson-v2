@@ -12,15 +12,19 @@ class GennyBucketView extends PureComponent {
     static defaultProps = {
         allowItemClick: false,
         useLinkValueForLayout: false,
+        selectedColor: '#333',
     }
 
     static propTypes = {
         allowItemClick: bool,
         useLinkValueForLayout: bool,
         itemLayout: string,
+        selectedColor: string,
+        hideSelectedStyle: bool,
     };
 
     state = {
+        selectedItemState: null,
     }
 
     constructor(props) {
@@ -78,6 +82,8 @@ class GennyBucketView extends PureComponent {
 
     handleClick = (bucketItemProps) => {
         if (this.props.allowItemClick) {
+            const isSelected = this.state.selectedItemState === bucketItemProps.code;
+
             let btnValue = {
                 hint: bucketItemProps.rootCode,
                 itemCode: bucketItemProps.description,
@@ -86,15 +92,15 @@ class GennyBucketView extends PureComponent {
 
             btnValue = JSON.stringify(btnValue);
             GennyBridge.sendBtnClick('BTN_CLICK', {
-                code: 'SELECT_EVENT',
+                code: `${isSelected ? 'DE' : ''}SELECT_EVENT`,
                 value: btnValue
             });
 
             this.setState({
-                selectedItemState: bucketItemProps.code,
+                selectedItemState: isSelected ? null : bucketItemProps.code,
+            }, () => {
+                if (this.props.onClick) this.props.onClick();
             });
-
-            if (this.props.onClick) this.props.onClick();
         }
     }
 
@@ -108,10 +114,10 @@ class GennyBucketView extends PureComponent {
         // console.log(bes);
         bes.forEach(be => {
 
-            const { itemLayout, useLinkValueForLayout } = this.props;
+            const { itemLayout, useLinkValueForLayout, selectedColor, hideSelectedStyle } = this.props;
 
             let linkToParent = BaseEntityQuery.getLinkToParent(groupCode, be.code);
-             
+
             let layout_code = itemLayout || 'card';
             let linkLinkValue = null;
             let linkValue = null;
@@ -120,11 +126,11 @@ class GennyBucketView extends PureComponent {
                 if(linkToParent != null && linkToParent.link != null && linkToParent.link.linkValue != null) {
                     linkLinkValue = linkToParent.link.linkValue;
                 }
-    
+
                 if(linkToParent != null && linkToParent.linkValue != null) {
                     linkValue = linkToParent.linkValue;
                 }
-    
+
                 if(linkLinkValue != null && linkValue != null) {
                     if(linkLinkValue == 'LINK') {
                         layout_code = linkValue;
@@ -133,18 +139,24 @@ class GennyBucketView extends PureComponent {
                         layout_code = linkLinkValue;
                     }
                 }
-    
+
                 if ( itemLayout != null && typeof itemLayout === 'string' && itemLayout.length > 0 ) {
                     layout_code = itemLayout;
                 }
             }
 
             let sublayout = this.props.sublayout[layout_code];
+
+            const isSelected = this.state.selectedItemState === be.code;
+
             children.push(
                 {
                 content: {
                     title: be.name,
                     description: be.code,
+                    code: be.code,
+                    isSelected: isSelected,
+                    selectedColor: hideSelectedStyle ? null : selectedColor,
                     screenSize: this.props.screenSize,
                     onClick: this.onClick,
                     layout: <LayoutLoader layout={sublayout} aliases={{BE: be.code, ROOT: group.code}}/>,

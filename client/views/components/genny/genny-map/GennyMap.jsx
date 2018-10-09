@@ -36,9 +36,11 @@ class GennyMap extends Component {
         if(!data || data.length == 0) {
 
             let children = BaseEntityQuery.getEntityChildren(root);
+            console.log(children);
             if(!children || children.length == 0) { return []; }
 
             const childAttributes = this.checkChildrenForAttributes(children);
+            console.log(childAttributes);
             if (childAttributes) {
                 let mapData = this.getChildrenMapData(children);
                 return mapData;
@@ -72,6 +74,7 @@ class GennyMap extends Component {
         }
 
         const entityAttribute = this.checkEntityForAttributes(data);
+        console.log('got entity attributes ', entityAttribute);
 
         if (entityAttribute) {
             let mapData = this.getEntityMapData(root, data);
@@ -79,6 +82,7 @@ class GennyMap extends Component {
         }
         else {
 
+            console.log('getting children of children');
             let children = BaseEntityQuery.getEntityChildren(root);
             if(!children || children.length == 0) { return []; }
 
@@ -87,7 +91,7 @@ class GennyMap extends Component {
             if (childAttributes) {
                 console.log( 'childAttributes');
                 let mapData = this.getChildrenMapData(root, children);
-                console.log( mapData )
+                console.log( mapData );
                 return mapData;
             }
             else {
@@ -143,7 +147,7 @@ class GennyMap extends Component {
                         return null;
                 }
             });
-            }
+        }
 
         return hasAttributes;
     }
@@ -324,7 +328,7 @@ class GennyMap extends Component {
 
         const title = attributes.PRI_TITLE && attributes.PRI_TITLE.value;
 
-        if(GennyBridge.getProject() == "PRJ_CHANNEL40") {
+        if(GennyBridge.getProject() == 'PRJ_CHANNEL40') {
 
             let driver = BaseEntityQuery.getLinkedBaseEntity(root,'DRIVER');
             if (driver && driver.value) driver = driver.value;
@@ -403,9 +407,12 @@ class GennyMap extends Component {
 
             return content;
         }
-        else if(GennyBridge.getProject() == "PRJ_PCSS") {
+        else if(GennyBridge.getProject() == 'PRJ_PCSS') {
 
             const addressFull = attributes.PRI_ADDRESS_FULL;
+
+            console.log( addressFull );
+            console.log( attributes );
 
             let content = (
                 '<div>' +
