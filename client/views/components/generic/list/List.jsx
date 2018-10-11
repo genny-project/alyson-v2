@@ -60,9 +60,15 @@ class List extends Component {
 
         const { itemHeight, itemWidth, itemGap, onItemClick, showEmpty, emptyMessage, selectedItem, selectedColor, loadMoreOnScroll, root } = this.props;
 
+        let itemCodePrefix;
         let children = [];
+
         if (data && data.length > 0) {
+            
             children = data.map((item, index) => {
+                
+                itemCodePrefix = item.layout && item.layout.key && root ? item.layout.key.substr(0, 3) : (item.code ? item.code.substr(0, 3) : null);
+                itemCodePrefix && console.log(root, item);
                 return (
                 <ListItem 
                     isSelected={selectedItem == item.code} 
@@ -84,8 +90,10 @@ class List extends Component {
             }
         }
 
+        console.log(root, itemCodePrefix);
+
         return (
-            <Pagination perPage={itemsPerPage} hideNav={hideNav} loadMoreOnScroll={data && data.length > 0 && loadMoreOnScroll} root={root}>
+            <Pagination perPage={itemsPerPage} hideNav={hideNav} loadMoreOnScroll={data && data.length > 0 && loadMoreOnScroll} root={root} itemCodePrefix={itemCodePrefix || 'BEG'}>
                 {children}
             </Pagination>
         );

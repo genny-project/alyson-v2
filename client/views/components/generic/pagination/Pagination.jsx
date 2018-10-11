@@ -22,7 +22,8 @@ class Pagination extends Component {
     static defaultProps = {
         className: '',
         hidePage: false,
-        loadMoreOnScroll: false,
+        loadMoreOnScroll: true,
+        itemCodePrefix:  null,
     }
 
     static propTypes = {
@@ -36,6 +37,7 @@ class Pagination extends Component {
         hidePageNumbers: bool,
         hideNav: bool,
         loadMoreOnScroll: bool,
+        itemCodePrefix: string,
     }
 
     state = {
@@ -45,6 +47,7 @@ class Pagination extends Component {
         childrenCurrent: 1,
         children: null,
         loading: false,
+        shouldHideSpinner: false,
     }
 
     componentDidMount() {
@@ -90,6 +93,8 @@ class Pagination extends Component {
     loadMore = (isVisible) => {
         
         const { loading, pageCurrent } = this.state;
+        const { itemCodePrefix } = this.props;
+
         if(!loading && isVisible) {
 
             this.setState({
@@ -97,13 +102,13 @@ class Pagination extends Component {
             });
     
             /* we send an event to back end */
-            console.log('paginating...');
+            console.log('paginating...', this.props);
             GennyBridge.sendBtnClick('PAGINATION', {
                 value: JSON.stringify({
                     rootCode: this.props.root,
                     pageStart: pageCurrent,
                     pageSize: this.props.perPage,
-                    beCode: 'BEG'
+                    beCode: itemCodePrefix
                 })
             });
         }
@@ -119,7 +124,7 @@ class Pagination extends Component {
     render() {
 
         const { className, hideNav, children, style, perPage, loadMoreOnScroll } = this.props;
-        const { pageCount, offset, shouldHideSpinner } = this.state;
+        const { pageCount, offset, shouldHideSpinner, loading } = this.state;
         const componentStyle = { ...style };
 
         let childrenCount = Object.keys(this.props.children).length;
@@ -127,25 +132,32 @@ class Pagination extends Component {
 
         let nav = hideNav || childrenCount <= perPage ? 'hide-nav' : '';
 
+        const loadMore = this.loadMore;
+
         return (
             <div className={`pagination ${className} ${nav}`} style={componentStyle}  >
                 <div className='pagination-content'>
                     {childrenPageArray}
                 </div>
                 {
-                    loadMoreOnScroll 
-                    ? <VisibilitySensor onChange={this.loadMore} scrollCheck={true}>
-                    {({isVisible}) => {
+                    loadMoreOnScroll && 
+                    ? (<VisibilitySensor scrollCheck={true}>
+                        {({isVisible}) => {
 
-                        setTimeout(() => {
-                            this.setState({
-                                shouldHideSpinner: true
-                            });
-                        }, 5000);
-                        return <div>{isVisible && !shouldHideSpinner ? <Spinner /> : ''}</div>;
-                    }
-                    }
-                    </VisibilitySensor>
+                            if(isVisible && !loading) {
+
+                                setTimeout(() => {
+                                    this.setState({
+                                        shouldHideSpinner: true
+                                    });
+                                }, 5000);
+                            }
+
+                            isVisible && !loading && loadMore(isVisible);
+                            return <div style={{height: 50}}>{isVisible && !shouldHideSpinner ? <Spinner /> : ''}</div>;
+                        }
+                        }
+                    </VisibilitySensor>)
                     : <ReactPaginate
                         pageCount={pageCount}
                         marginPagesDisplayed={0}
