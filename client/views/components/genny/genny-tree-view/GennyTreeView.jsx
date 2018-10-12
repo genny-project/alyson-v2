@@ -109,12 +109,10 @@ class GennyTreeView extends Component {
         while(parentCode != null) {
 
             if(bes[parentCode]) {
-
                 path = '/' + bes[parentCode].code + path;
-                parentCode = bes[parentCode].parentCode;
+                parentCode = bes[parentCode].code != parentCode ? bes[parentCode].parentCode : null;
             }
             else {
-
                 parentCode = null; // force exit as parent was not found.
             }
         }
