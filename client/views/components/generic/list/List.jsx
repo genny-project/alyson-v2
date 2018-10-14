@@ -65,22 +65,24 @@ class List extends Component {
 
         if (data && data.length > 0) {
             
-            children = data.map((item, index) => {
+            // children = data.map((item, index) => {
                 
-                itemCodePrefix = item.layout && item.layout.key && root ? item.layout.key.substr(0, 3) : (item.code ? item.code.substr(0, 3) : null);
-                itemCodePrefix && console.log(root, item);
-                return (
-                <ListItem 
-                    isSelected={selectedItem == item.code} 
-                    {...item} 
-                    key={index} 
-                    itemGap={itemGap} 
-                    itemWidth={itemWidth} 
-                    itemHeight={itemHeight} 
-                    onClick={onItemClick} 
-                    selectedColor={selectedColor}
-                />);
-            });
+            //     itemCodePrefix = item.layout && item.layout.key && root ? item.layout.key.substr(0, 3) : (item.code ? item.code.substr(0, 3) : null);
+            //     return {
+            //         layout: (
+            //             <ListItem 
+            //                 isSelected={selectedItem == item.code} 
+            //                 {...item} 
+            //                 key={index} 
+            //                 itemGap={itemGap} 
+            //                 itemWidth={itemWidth} 
+            //                 itemHeight={itemHeight} 
+            //                 onClick={onItemClick} 
+            //                 selectedColor={selectedColor}
+            //             />),
+            //         ...item  
+            //     };
+            // });
         }
         else {
             if(showEmpty === true) {
@@ -90,10 +92,15 @@ class List extends Component {
             }
         }
 
-        console.log(root, itemCodePrefix);
-
+        console.log('passing down: ', children);
         return (
-            <Pagination perPage={itemsPerPage} hideNav={hideNav} loadMoreOnScroll={data && data.length > 0 && loadMoreOnScroll} root={root} itemCodePrefix={itemCodePrefix || 'BEG'}>
+            <Pagination 
+                perPage={itemsPerPage} 
+                hideNav={hideNav} 
+                loadMoreOnScroll={data && data.length > 0 && loadMoreOnScroll} 
+                root={root} 
+                itemCodePrefix={itemCodePrefix || 'BEG'}
+            >
                 {children}
             </Pagination>
         );

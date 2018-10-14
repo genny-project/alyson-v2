@@ -24,6 +24,7 @@ class Pagination extends Component {
         hidePage: false,
         loadMoreOnScroll: true,
         itemCodePrefix:  null,
+        parentCode: null,
     }
 
     static propTypes = {
@@ -38,6 +39,7 @@ class Pagination extends Component {
         hideNav: bool,
         loadMoreOnScroll: bool,
         itemCodePrefix: string,
+        parentCode: string,
     }
 
     state = {
@@ -74,10 +76,10 @@ class Pagination extends Component {
 
         const { loadMoreOnScroll } = this.props;
         if(loadMoreOnScroll) {
-            return children;
+            return children.map(child => child.layout);
         }
 
-        let displayedItems = children.slice(offset, offset + perPage);
+        let displayedItems = children.slice(offset, offset + perPage).map(child => child.layout);
         return displayedItems;
     }
 
@@ -99,17 +101,20 @@ class Pagination extends Component {
 
             this.setState({
                 loading: true,
-            });
-    
-            /* we send an event to back end */
-            console.log('paginating...', this.props);
-            GennyBridge.sendBtnClick('PAGINATION', {
-                value: JSON.stringify({
-                    rootCode: this.props.root,
-                    pageStart: pageCurrent,
-                    pageSize: this.props.perPage,
-                    beCode: itemCodePrefix
-                })
+                pageCurrent: (pageCurrent + 1),
+                shouldHideSpinner: true,
+            }, () => {
+
+                 /* we send an event to back end */
+                console.log('paginating...');
+                // GennyBridge.sendBtnClick('PAGINATION', {
+                //     value: JSON.stringify({
+                //         rootCode: this.props.root,
+                //         pageStart: pageCurrent,
+                //         pageSize: this.props.perPage,
+                //         beCode: itemCodePrefix
+                //     })
+                // });
             });
         }
         else {
@@ -130,6 +135,8 @@ class Pagination extends Component {
         let childrenCount = Object.keys(this.props.children).length;
         const childrenPageArray = this.getChildrenForCurrentPage(perPage, offset, children);
 
+        console.log('children --: ', children, childrenPageArray);
+
         let nav = hideNav || childrenCount <= perPage ? 'hide-nav' : '';
 
         const loadMore = this.loadMore;
@@ -140,7 +147,7 @@ class Pagination extends Component {
                     {childrenPageArray}
                 </div>
                 {
-                    loadMoreOnScroll && 
+                    loadMoreOnScroll
                     ? (<VisibilitySensor scrollCheck={true}>
                         {({isVisible}) => {
 

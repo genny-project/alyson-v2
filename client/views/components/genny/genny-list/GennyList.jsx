@@ -182,9 +182,9 @@ class GennyList extends Component {
                     }
 
                     let sublayout = this.props.sublayout[layout_code];
-                    item['layout'] = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
-                    item['rootCode'] = root;
-                    item['isSelected'] = isSelected && !hideSelectedStyle;
+                    item.layout = <LayoutLoader layout={sublayout} aliases={{BE: item.code, ROOT: root, ITEMCODE: item.code, ...aliasProp}}/>;
+                    item.rootCode = root;
+                    item.isSelected = isSelected && !hideSelectedStyle;
 
                     return item;
                 }
@@ -200,7 +200,7 @@ class GennyList extends Component {
 
             const validate = (value) => {
                 return moment(value).isValid();
-            }
+            };
 
             const order = (result) => {
                 return result
@@ -210,7 +210,7 @@ class GennyList extends Component {
                     : reverseSortDirection
                         ? 1
                         :-1;
-            }
+            };
 
             if ( !validate(valueA) ) return order ( false );
             if ( !validate(valueB) ) return order ( true );
@@ -232,10 +232,10 @@ class GennyList extends Component {
                 const match = itemField.toLowerCase().includes(filterText.toLowerCase());
                 
                 return match;
-            })
+            });
         }
 
-
+        console.log('GennyList - ', newData);
         return newData;
     }
 
