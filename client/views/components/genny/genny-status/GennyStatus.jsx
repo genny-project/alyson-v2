@@ -21,7 +21,7 @@ class GennyStatus extends Component {
 
     getEntityStatus = (root) => {
 
-        let global_status = '#FFCC00';
+        let global_status = 'orange';
         let user_status = null;
 
         let be = BaseEntityQuery.getBaseEntity(root);
@@ -58,20 +58,20 @@ class GennyStatus extends Component {
         const { style, statusStyle, ...rest } = this.props;
 
         if(status == null) {
-            status = "green";
+            status = 'green';
         }
 
         switch(status) {
 
-            case "loading":
-                return <Spinner loaderType={"bar"} width={20} widthUnit="px" color={"green"} style={{ "marginTop": "-10px" }}/>
+            case 'loading':
+                return <Spinner loaderType={'bar'} width={20} widthUnit="px" color={'green'} style={{ 'marginTop': '-10px' }}/>;
 
             default:
                 return <Status
                     {...rest}
                     color={status}
                     style={statusStyle}
-                />
+                />;
         }
     }
 

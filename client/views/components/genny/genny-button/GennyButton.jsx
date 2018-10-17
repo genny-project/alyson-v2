@@ -1,6 +1,6 @@
 import './gennyButton.scss';
 import React, { Component } from 'react';
-import { string, any, object, func, number } from 'prop-types';
+import { string, any, object, func, number, bool } from 'prop-types';
 import { Button } from 'views/components';
 import { GennyBridge } from 'utils/genny';
 
@@ -12,6 +12,7 @@ class GennyButton extends Component {
         confirmation: null,
         animationDelay: 3000,
         buttonStyle: {},
+        enabled: true,
     }
 
     static propTypes = {
@@ -25,6 +26,7 @@ class GennyButton extends Component {
         confirmation: string,
         onClick: func,
         animationDelay: number,
+        enabled: bool,
     };
 
     state = {
@@ -43,6 +45,9 @@ class GennyButton extends Component {
 
     handleClick = () => {
 
+        const { enabled } = this.props;
+        if(!enabled) return;
+        
         this.setState({
             isAnimated: true
         }, () => {
