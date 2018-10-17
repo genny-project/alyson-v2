@@ -6,6 +6,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import { GennyBridge } from 'utils/genny';
 import { IconSmall, Status, Dropdown } from 'views/components';
 import { Grid } from '@genny-project/layson';
+import { finalize } from 'rxjs/operators';
 
 // const getListStyle = isDraggingOver => ({
 //     // background: isDraggingOver ? 'lightblue' : "#a3a3a3",
@@ -66,43 +67,18 @@ class BucketColumn extends Component {
         const { sort } = this.state;
 
         let sortedItems = [];
-        
-            sortedItems = items.sort((x, y) => {
 
-                if ( x.content != null || y.content != null ) {
-                    
-                    let valX = null;
-                    let valY = null;
-                    
-                    if (x.content != null ) {
-                        if (x.content.created != null ) {
-                            if (new Date(x.content.created) != 'Invalid Date') {
-                                valX = new Date(x.content.created);
-                            }
-                        }
-                    }
-                    if (y.content != null ) {
-                        if (y.content.created != null ) {
-                            if (new Date(y.content.created) != 'Invalid Date') {
-                                valY = new Date(y.content.created);
-                            }
-                        }
-                    }
-                    
-                    if ( sort == 'desc' ) {
-                        return valX > valY ? 1 : valX < valY ? -1 : 0;
-                    }
-                    else if (sort == 'asc' ) {
-                        return valX < valY ? 1 : valX > valY ? -1 : 0;
-                    }
-                }
-                return 0;
-            });
-        // let arr = [];
-        // sortedItems.forEach(item => {
-        //     arr.push(item.content.created);
-        // });
-        // console.log(arr);
+        const sortByStatus = ( items ) => {
+            
+            let statusItems = items.filter(item => item.content.status != null).sort((x, y) => x.content.status > y.content.status);
+            let weightItems = items.filter(item => item.content.status == null).sort((x, y) => x.content.weight > y.content.weight);
+            let finalItems = statusItems.concat(weightItems);
+
+            /* first we sort the status items */
+            return finalItems;
+        };
+
+        sortedItems = sortByStatus( items );
 
         return sortedItems;
     }

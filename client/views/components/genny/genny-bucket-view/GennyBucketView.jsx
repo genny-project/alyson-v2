@@ -112,7 +112,8 @@ class GennyBucketView extends PureComponent {
         let bes = BaseEntityQuery.getEntityChildren(groupCode);
 
         // console.log(bes);
-        bes.forEach(be => {
+        
+        bes.forEach((be, index)  => {
 
             const { itemLayout, useLinkValueForLayout, selectedColor, hideSelectedStyle } = this.props;
 
@@ -149,6 +150,14 @@ class GennyBucketView extends PureComponent {
 
             const isSelected = this.state.selectedItemState === be.code;
 
+            const statusColor = BaseEntityQuery.getBaseEntityAttribute(be.code, 'STA_STATUS') || 'orange';
+            
+            const statusNumber = statusColor === 'red'
+            ? 1
+            : statusColor === 'orange'
+                ? 2
+                : 3;
+            
             children.push(
                 {
                 content: {
@@ -161,7 +170,10 @@ class GennyBucketView extends PureComponent {
                     onClick: this.onClick,
                     layout: <LayoutLoader layout={sublayout} aliases={{BE: be.code, ROOT: group.code}}/>,
                     created: be.created,
-                    rootCode: group.code
+                    rootCode: group.code,
+                    status: statusNumber,
+                    // todo get weight
+                    weight: index,
                 },
                 id: be.code
                 }

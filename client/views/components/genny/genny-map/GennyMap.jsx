@@ -36,11 +36,11 @@ class GennyMap extends Component {
         if(!data || data.length == 0) {
 
             let children = BaseEntityQuery.getEntityChildren(root);
-            console(children);
+            console.log(children);
             if(!children || children.length == 0) { return []; }
 
             const childAttributes = this.checkChildrenForAttributes(children);
-            console(childAttributes);
+            console.log(childAttributes);
             if (childAttributes) {
                 let mapData = this.getChildrenMapData(children);
                 return mapData;
@@ -74,7 +74,7 @@ class GennyMap extends Component {
         }
 
         const entityAttribute = this.checkEntityForAttributes(data);
-        console('got entity attributes ', entityAttribute);
+        console.log('got entity attributes ', entityAttribute);
 
         if (entityAttribute) {
             let mapData = this.getEntityMapData(root, data);
@@ -410,6 +410,9 @@ class GennyMap extends Component {
         else if(GennyBridge.getProject() == 'PRJ_PCSS') {
 
             const addressFull = attributes.PRI_ADDRESS_FULL;
+
+            console.log( addressFull );
+            console.log( attributes );
 
             let content = (
                 '<div>' +

@@ -516,7 +516,7 @@ class LayoutLoader extends Component {
             layout = JSON.parse(layoutString);
         }
         catch( e ) {
-            console.log( e )
+            console.log( e );
         }
 
         return layout;
