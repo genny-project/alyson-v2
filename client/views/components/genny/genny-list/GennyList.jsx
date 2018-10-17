@@ -23,7 +23,8 @@ class GennyList extends Component {
         sortField: 'created',
         hideFilters: false,
         filterField: 'name',
-        placeholder: 'Search '
+        placeholder: 'Search ',
+        shouldSelectFirstItemOnMount: true,
     }
 
     static propTypes = {
@@ -53,9 +54,11 @@ class GennyList extends Component {
         reverseSortDirection: bool,
         filterField: string,
         placeholder: string, 
+        shouldSelectFirstItemOnMount: bool,
     };
 
     state = {
+        isFirstItemSelected: false,
     }
 
     handleClick = (listItemProps) => {
@@ -126,10 +129,11 @@ class GennyList extends Component {
             sortField,
             reverseSortDirection,
             hideFilters,
-            filterField
+            filterField,
+            shouldSelectFirstItemOnMount
         } = this.props;
 
-        const { selectedItemState, filterText } = this.state;
+        const { selectedItemState, filterText, isFirstItemSelected } = this.state;
 
         let newData = [];
 
@@ -200,7 +204,7 @@ class GennyList extends Component {
 
             const validate = (value) => {
                 return moment(value).isValid();
-            }
+            };
 
             const order = (result) => {
                 return result
@@ -210,7 +214,7 @@ class GennyList extends Component {
                     : reverseSortDirection
                         ? 1
                         :-1;
-            }
+            };
 
             if ( !validate(valueA) ) return order ( false );
             if ( !validate(valueB) ) return order ( true );
@@ -232,9 +236,18 @@ class GennyList extends Component {
                 const match = itemField.toLowerCase().includes(filterText.toLowerCase());
                 
                 return match;
-            })
+            });
         }
 
+        /* we select the first item by default on mount of the component */
+        if(shouldSelectFirstItemOnMount && !isFirstItemSelected && newData.length > 0) {
+            
+            const firstItem = newData[0];
+            this.setState({
+                isFirstItemSelected: true,
+                selectedItemState: firstItem.code,
+            });
+        }
 
         return newData;
     }
