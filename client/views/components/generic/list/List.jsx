@@ -93,9 +93,10 @@ class List extends Component {
 
     render() {
 
-        const { className, style, itemsPerPage, header, hideNav, hideCount, countText, countStyle } = this.props;
+        const { className, style, itemsPerPage, header, hideNav, hideCount, countText, countStyle, listMainStyle } = this.props;
         const { data } = this.state;
         const componentStyle = { ...style, };
+        const subStyle = { ...listMainStyle, };
 
         const renderMain = this.renderMain(data, itemsPerPage, hideNav);
         const renderCount = this.renderCount(data, countText, countStyle);
@@ -110,7 +111,7 @@ class List extends Component {
                     : null
                 }
                 { hideCount ? null : renderCount }
-                <div className="list-main">
+                <div className="list-main" style={subStyle}>
                     { renderMain }
                 </div>
             </div>
