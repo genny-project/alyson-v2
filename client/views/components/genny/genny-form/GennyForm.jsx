@@ -136,7 +136,7 @@ class GennyForm extends Component {
                 });
             }
 
-            submitButtons = submitButtonsData.sort((button, button2) => button.index > button2.index).map(button => button.button);
+            submitButtons = submitButtonsData.sort((button, button2) => { return (button.index < button2.index) ? -1 : 1 } ).map(button => button.button);
 
             return {
                 title: askGroup.name,
