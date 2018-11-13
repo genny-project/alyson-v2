@@ -70,8 +70,8 @@ class BucketColumn extends Component {
 
         const sortByStatus = ( items ) => {
             
-            let statusItems = items.filter(item => item.content.status != null).sort((x, y) => x.content.status > y.content.status);
-            let weightItems = items.filter(item => item.content.status == null).sort((x, y) => x.content.weight > y.content.weight);
+            let statusItems = items.filter(item => item.content.status != null).sort((x, y) => { return x.content.status > y.content.status ? 1 : -1;} );
+            let weightItems = items.filter(item => item.content.status == null).sort((x, y) => { return x.content.weight > y.content.weight ? 1 : -1; });
             let finalItems = statusItems.concat(weightItems);
 
             /* first we sort the status items */
