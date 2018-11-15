@@ -16,11 +16,11 @@ class GennyBridge {
     }
 
     getUser() {
-        return store.getState().baseEntity.aliases["USER"];
+        return store.getState().baseEntity.aliases['USER'];
     }
 
     getProject() {
-        return store.getState().baseEntity.aliases["PROJECT"];
+        return store.getState().baseEntity.aliases['PROJECT'];
     }
 
     getKeycloakRoles() {
@@ -136,10 +136,10 @@ class GennyBridge {
 
         let payload = {
 
-            data_type: "Answer",
+            data_type: 'Answer',
             delete: false,
             items: items,
-            msg_type: "DATA_MSG"
+            msg_type: 'DATA_MSG'
         };
 
         // locally updating the attribute so we dont have to wait for the backend to send us an answer. this is called optimistic results.
@@ -162,13 +162,13 @@ class GennyBridge {
     getKeycloakConfig() {
 
         return this.ajaxCall({
-            url: `${config.genny.bridge.endpoints.events}/init?url=${( process.env.NODE_ENV !== 'production' ) ? 'http://localhost:3000' : process.env.FORCE_REACT_ORIGIN || window.location.origin}`,
+            url: `${config.genny.bridge.endpoints.events}/init?url=${( process.env.NODE_ENV !== 'production' ) ? 'http://app-staging.pcss.io' : process.env.FORCE_REACT_ORIGIN || window.location.origin}`,
         });
     }
 
     static initVertx(token, url) {
 
-        console.log("[Vertx] Opening Vertx...");
+        console.log('[Vertx] Opening Vertx...');
 
         /* Create a new message handler */
         this.messageHandler = new MessageHandler();
@@ -195,7 +195,7 @@ class GennyBridge {
                     timeout: 30000,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': "Bearer " + this.getToken()
+                        'Authorization': 'Bearer ' + this.getToken()
                     },
                 })
                 .then(() => {
@@ -212,7 +212,7 @@ class GennyBridge {
                             if (decodedState != null) {
 
                                 const json = JSON.parse(decodedState);
-                                if (json != null && json.data != null && json.evt_type == "REDIRECT_EVENT" && json.evt_code != null) {
+                                if (json != null && json.data != null && json.evt_type == 'REDIRECT_EVENT' && json.evt_code != null) {
 
                                     found = true;
                                     this.sendRedirectEvent(json.evt_code, {
@@ -222,7 +222,7 @@ class GennyBridge {
                                 }
 
                                 /* TODO: json.loading (optional) contains a text to show instead of showing the interface if necessary */
-                                window.history.replaceState({}, document.title, "/");
+                                window.history.replaceState({}, document.title, '/');
                             }
                         } catch (e) {
                             console.log(' could not decode state ');

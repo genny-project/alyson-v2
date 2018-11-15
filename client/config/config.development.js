@@ -2,7 +2,7 @@ module.exports = {
   'backendEnabled': true,
   'backendLayouts': true,
   'genny': {
-    'host': `http://${window.location.hostname}:8088`,
+    'host': 'http://bridge-staging.pcss.io',
     'bridge': {
       'port': '8088',
       'endpoints': {

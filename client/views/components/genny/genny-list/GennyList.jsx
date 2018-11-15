@@ -277,6 +277,8 @@ class GennyList extends Component {
         data = [...new Set(data)];
 
         if (showEmpty || !showEmpty && data && data.length > 0 ) {
+
+            const listItems = this.generateListItems(data);
             return (
                 <div className='genny-list' style={componentStyle}>
                     { showTitle ?
@@ -307,7 +309,7 @@ class GennyList extends Component {
                         hideCount
                         hideNav={hideNav}
                         emptyMessage={emptyMessage}
-                        data={ this.generateListItems(data) }
+                        data={ listItems }
                         showEmpty={showEmpty}
                         onItemClick={this.handleClick}
                         {...rest}

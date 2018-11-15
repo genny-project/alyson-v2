@@ -73,7 +73,11 @@ class List extends Component {
         }
 
         return (
-            <Pagination perPage={itemsPerPage} hideNav={hideNav} >
+            <Pagination 
+                perPage={itemsPerPage} 
+                hideNav={hideNav}
+                selectedPage={1}
+            >
                 {children}
             </Pagination>
         );

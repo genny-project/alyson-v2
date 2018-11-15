@@ -21,6 +21,7 @@ class Pagination extends Component {
         pageRangeDisplayed: number,
         hidePageNumbers: bool,
         hideNav: bool,
+        selectedPage: number,
     }
 
     state = {
@@ -39,10 +40,12 @@ class Pagination extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        // console.log(newProps.children);
+
         this.setState({
             children: newProps.children,
             pageCount: Math.ceil( Object.keys(newProps.children).length / this.props.perPage ),
+            pageCurrent: newProps.selectedPage || this.state.pageCurrent,
+            offset: 0
         });
     }
 
