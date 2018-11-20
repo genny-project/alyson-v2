@@ -18,6 +18,7 @@ class GennyTableEditableCell extends Component {
     static propTypes = {
         cellInfo: object,
         code: string,
+        targetCode: string,
         value: string,
         dataType: string,
         mandatoryDataTypes: array,
@@ -25,7 +26,8 @@ class GennyTableEditableCell extends Component {
 
     state = {
         canEdit: false,
-        lastSentAnswer: null
+        lastSentAnswer: null,
+        shouldSendAnswerEvent: false,
     }
 
     componentDidMount() {
@@ -39,6 +41,7 @@ class GennyTableEditableCell extends Component {
         }
 
         this.setState({
+            shouldSendAnswerEvent: true,
             lastSentAnswer: value,
             valueState: value
         });
@@ -49,9 +52,10 @@ class GennyTableEditableCell extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        //console.log(this.props.value, newProps.value);
+
         if (newProps.value != this.props.value) {
             this.setState({
+                shouldSendAnswerEvent: false,
                 value: newProps.value,
                 valueState: newProps.value
             });
@@ -65,6 +69,9 @@ class GennyTableEditableCell extends Component {
     }
 
     handleBlur = (event) => {
+
+        const { shouldSendAnswerEvent } = this.state;
+        if(shouldSendAnswerEvent == false) return;
 
         const { targetCode, code, value, dataType, mandatoryDataTypes } = this.props;
 
@@ -141,11 +148,11 @@ class GennyTableEditableCell extends Component {
 
         let newValue = null;
 
-        if(dataType != "java.lang.Boolean") {
+        if(dataType != 'java.lang.Boolean') {
             newValue = event.target.value;
         }
         else {
-            newValue = event.target.checked
+            newValue = event.target.checked;
         }
 
         this.setState({

@@ -11,12 +11,7 @@ class GennyTable extends Component {
         showBaseEntity: false,
         columns: null,
         root: null,
-        actions: [
-            // {
-            //     name: 'View Details',
-            //     code: 'BTN_VIEW_DETAILS',
-            // }
-        ],
+        actions: [],
         showTitle: true,
       }
 
@@ -26,11 +21,13 @@ class GennyTable extends Component {
         root: string,
         actions: array,
         showTitle: bool,
+        linkCode: string
       }
 
     state = {
 
         data: [],
+        columns: [],
         width: null,
         height: null,
         isOpen: {},
@@ -42,17 +39,43 @@ class GennyTable extends Component {
       return true;
     }
 
-    handleClickColumn = (rowCodes) => {
-         //TODO - ALLOW MULTISELECT
-        // if (rowCodes.every(code => this.state.selectedItems.includes(code) )) {
-        //     this.setState({
-        //         selectedItems: []
-        //     });
-        // } else {
-        //     this.setState({
-        //         selectedItems: [...rowCodes]
-        //     });
-        // }
+    componentWillReceiveProps() {
+        this.reloadData();
+    }
+
+    componentDidMount() {
+        this.reloadData();
+    }
+
+    reloadData() {
+
+        const { root, showBaseEntity, linkCode } = this.props;
+
+        let tableColumns = [];
+        let tableData = [];
+        let children = BaseEntityQuery.getEntityChildren(root);
+
+        if(showBaseEntity != null && showBaseEntity === true) {
+
+            let be = BaseEntityQuery.getBaseEntity(root);
+            if(be) {
+                children = [be];
+            }
+        }
+        else if(linkCode != null) {
+            children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
+        }
+
+        tableColumns = this.generateHeadersFor(children);
+        tableData = this.generateDataFor(children);
+
+        this.setState({
+            columns: tableColumns,
+            data: tableData
+        });
+    }
+
+    handleClickColumn = () => {
         this.setState({
             selectedItems: []
         });
@@ -144,7 +167,6 @@ class GennyTable extends Component {
             }
         }
 
-        this.state.columns = isMobile ? mobileColumns : tableColumns;
         return isMobile ? mobileColumns : tableColumns;
     }
 
@@ -433,26 +455,13 @@ class GennyTable extends Component {
 
     generateDataFor(baseEntities) {
 
-        const { showBaseEntity, columns } = this.props;
+        const { showBaseEntity } = this.props;
 
         let data = [];
 
         baseEntities.forEach(baseEntity => {
 
             if(baseEntity.attributes) {
-
-
-                // hides ROW if row is missing an attribute from the columns
-
-                // let hasAttributes = true;
-                // if (columns) {
-                //     hasAttributes = columns.every(col => {
-                //         const hasAttribute = Object.keys(baseEntity.attributes).includes(col);
-                //         return hasAttribute;
-                //     });
-                // }
-
-                // if (hasAttributes != true) return null;
 
                 let newData = {};
 
@@ -513,31 +522,13 @@ class GennyTable extends Component {
             }
         });
 
-        this.state.data = data;
         return data;
     }
 
     render() {
 
-        const { root, showBaseEntity, linkCode, style, columns, showTitle } = this.props;
-
-        let tableColumns = [];
-        let tableData = [];
-        let children = BaseEntityQuery.getEntityChildren(root);
-
-        if(showBaseEntity != null && showBaseEntity === true) {
-
-            let be = BaseEntityQuery.getBaseEntity(root);
-            if(be) {
-                children = [be];
-            }
-        }
-        else if(linkCode != null) {
-            children = BaseEntityQuery.getLinkedBaseEntities(root, linkCode);
-        }
-
-        tableColumns = this.generateHeadersFor(children);
-        tableData = this.generateDataFor(children);
+        const { root, style, showTitle } = this.props;
+        const { data, columns, selectedItems } = this.state;
 
         const rootEntity = BaseEntityQuery.getBaseEntity(root);
         const projectCode = GennyBridge.getProject();
@@ -545,13 +536,13 @@ class GennyTable extends Component {
         projectColor = projectColor ? projectColor.value : null;
 
         return (
-            <div className={`genny-table ${tableData.length > 0 ? '' : 'empty'} ${window.getScreenSize()}`} style={style}>
+            <div className={`genny-table ${data.length > 0 ? '' : 'empty'} ${window.getScreenSize()}`} style={style}>
                 { showTitle ?
                     <div style={{ backgroundColor: projectColor}} className='genny-list-title sticky'>
-                        <span>{rootEntity && rootEntity.name} ( {tableData && tableData.length} )</span>
+                        <span>{rootEntity && rootEntity.name} ( {data && data.length} )</span>
                     </div>
                 : null }
-                <Table {...this.props} data={tableData} columns={tableColumns} itemsPerPage={tableData != null && tableData.length < 20 ? tableData.length : 20} selectedRows={this.state.selectedItems}/>
+                <Table {...this.props} data={data} columns={columns} itemsPerPage={data != null && data.length < 20 ? data.length : 20} selectedRows={selectedItems}/>
             </div>
         );
     }
