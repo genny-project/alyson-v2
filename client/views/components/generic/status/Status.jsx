@@ -24,9 +24,11 @@ class Status extends Component {
 
         switch(this.props.color) {
             case 'success':
+            return { statusColor: { background: 'green' } };
             case 'warning':
+            return { statusColor: { background: 'orange' } };
             case 'urgent':
-            return { statusClass: this.props.color };
+            return { statusColor: { background: 'red' } };
             default:
             return { statusColor: { background: this.props.color } };
         }

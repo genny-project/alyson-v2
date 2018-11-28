@@ -69,7 +69,7 @@ class BucketColumn extends Component {
         let sortedItems = [];
 
         const sortByStatus = ( items ) => {
-            
+
             let statusItems = items.filter(item => item.content.status != null).sort((x, y) => { return x.content.status > y.content.status ? 1 : -1;} );
             let weightItems = items.filter(item => item.content.status == null).sort((x, y) => { return x.content.weight > y.content.weight ? 1 : -1; });
             let finalItems = statusItems.concat(weightItems);
@@ -85,7 +85,7 @@ class BucketColumn extends Component {
 
     renderContent = (provided) => {
         const { title, items, showMovingOptions, onClick } = this.props;
-       
+
         return (
             <div ref={provided && provided.innerRef}
                 //style={getListStyle(snapshot.isDraggingOver)}
@@ -97,7 +97,7 @@ class BucketColumn extends Component {
                         this.sortItems(items).map((child, index) => {
                             return (
                                 <BucketElement
-                                key={child.id}
+                                key={child.index}
                                 item={child}
                                 style={child.style}
                                 moveBucket={this.moveBucket}
@@ -132,7 +132,7 @@ class BucketColumn extends Component {
 
     handleSort = () => {
         const { sort } = this.state;
-        
+
         if (sort == 'desc') {
             this.setState({
                 sort: 'asc'

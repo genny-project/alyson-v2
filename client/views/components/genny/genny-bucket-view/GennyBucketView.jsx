@@ -150,14 +150,50 @@ class GennyBucketView extends PureComponent {
 
             const isSelected = this.state.selectedItemState === be.code;
 
-            const statusColor = BaseEntityQuery.getBaseEntityAttribute(be.code, 'STA_STATUS') || 'orange';
-            
-            const statusNumber = statusColor === 'red'
-            ? 1
-            : statusColor === 'orange'
-                ? 2
-                : 3;
-            
+            let global_status = 'orange';
+            let user_status = null;
+
+            let attributes = be.attributes;
+            if( attributes != null ) {
+
+                const userCode = GennyBridge.getUser();
+
+                const attributeKeys = Object.keys(attributes);
+                for (var i = 0; i < attributeKeys.length; i++) {
+
+                  let attribute_key = attributeKeys[i];
+
+                  /* we check for a specific user status */
+                  if(attribute_key.startsWith('STA') && attribute_key.indexOf(userCode) > -1) {
+                      user_status = attributes[attribute_key].value;
+                  }
+
+                  /* we check for a global status */
+                  if(attribute_key == 'STA_STATUS') {
+                      global_status = attributes[attribute_key].value || global_status;
+                  }
+                }
+            }
+    
+            const statusColor =  user_status || global_status;
+            let statusNumber = 1;
+
+            switch (statusColor) {
+
+                case "red":
+                case "warning":
+                    statusNumber = 1
+                break;
+
+                case "orange":
+                case "warning":
+                    statusNumber = 2
+                break;
+
+                default: statusNumber = 3;
+            };
+
+
             children.push(
                 {
                 content: {
