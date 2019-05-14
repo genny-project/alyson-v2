@@ -187,20 +187,6 @@ class GennyHeader extends Component {
                 rows={[ { style: { flexGrow: '1', paddingLeft: `${ window.getScreenSize() == 'sm' ? '50px' : '10px' }`, height: '100%' } } ]}
                 >
                 <h3 position={[0,0]} style={{margin: '0'}}>{projectTitle}</h3>
-                <div className='header-messages clickable'
-                    position={[0,1]}
-                    onClick={this.handleMessages}
-                >
-                    <IconSmall name="message" />
-                </div>
-                <GennyNotifications
-                    position={[0,1]}
-                    isOpen={isOpen == 'notifications'}
-                    onBlur={this.handleBlur}
-                    onHeaderClick={this.handleNotificationsClick}
-                    iconName='notifications'
-                    root='GRP_NOTIFICATIONS'
-                />
                 {/* <Label
                     position={[0,1]}
                     text={`${isAdmin ? 'ADMIN' : ''} ${isOwner ? 'OWNER' : ''} ${isDriver ? 'DRIVER' : ''}`}
